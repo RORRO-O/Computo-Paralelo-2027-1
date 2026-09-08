@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# Práctica 1: ejecutables de C y entorno virtual
+practicas/*/src/matmul_O0
+practicas/*/src/matmul_O2
+practicas/*/src/matmul_O3
+practicas/*/src/hello_omp
+*.o
+*.out
+cp-env/
+.DS_Store
