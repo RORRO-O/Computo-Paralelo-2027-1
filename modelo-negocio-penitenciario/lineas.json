@@ -1,0 +1,16 @@
+{
+  "TP0": {"nombre": "Cosmética actual de equipos Totalplay (línea base, calibrar con la tarifa real)", "ingreso_persona_hora": {"conservador": 100, "base": 150, "optimista": 220}, "capex_por_salon": 0},
+  "A3": {"nombre": "Kit de alta / autoinstalación y re-kitting de equipos telecom (Totalplay primero)", "ingreso_persona_hora": {"conservador": 110, "base": 190, "optimista": 320}, "capex_por_salon": 150000},
+  "A1": {"nombre": "Cosmética y screen & clean de CPE de otros operadores (vía 3PL/OEM, FWA, Sky/Dish)", "ingreso_persona_hora": {"conservador": 100, "base": 175, "optimista": 300}, "capex_por_salon": 250000},
+  "A2": {"nombre": "Triage funcional y reparación modular nivel 1-2 de CPE (célula, requiere autorización de bancos aislados)", "ingreso_persona_hora": {"conservador": 120, "base": 180, "optimista": 260}, "capex_por_salon": 900000},
+  "A5": {"nombre": "Controles remotos, eliminadores, cables y accesorios multi-operador y retail", "ingreso_persona_hora": {"conservador": 90, "base": 130, "optimista": 190}, "capex_por_salon": 100000},
+  "C2": {"nombre": "Etiquetado NOM de información comercial para importadores (no alimentos)", "ingreso_persona_hora": {"conservador": 84, "base": 144, "optimista": 240}, "capex_por_salon": 150000},
+  "C3": {"nombre": "Kitting corporativo B2B (kits de bienvenida, cajas de regalo, muestras)", "ingreso_persona_hora": {"conservador": 90, "base": 180, "optimista": 310}, "capex_por_salon": 120000},
+  "F2": {"nombre": "Regalos corporativos con marca de impacto social (ESG), temporada Q4", "ingreso_persona_hora": {"conservador": 150, "base": 250, "optimista": 400}, "capex_por_salon": 800000},
+  "F1": {"nombre": "Cajas rígidas y estuches de lujo (rigid boxes) vía convertidor de empaque", "ingreso_persona_hora": {"conservador": 120, "base": 200, "optimista": 300}, "capex_por_salon": 600000},
+  "C4": {"nombre": "Ensamble de exhibidores POP de cartón y displays de temporada", "ingreso_persona_hora": {"conservador": 90, "base": 150, "optimista": 240}, "capex_por_salon": 100000},
+  "FLEX": {"nombre": "Salón flexible (mezcla anual C2 + C3 + F2 + F1 + C4)", "ingreso_persona_hora": {"conservador": 95, "base": 165, "optimista": 270}, "capex_por_salon": 350000},
+  "B1": {"nombre": "Devoluciones de e-commerce vía 3PL (inspección, grado, re-empaque)", "ingreso_persona_hora": {"conservador": 90, "base": 140, "optimista": 220}, "capex_por_salon": 300000},
+  "D1": {"nombre": "Uniformes corporativos/industriales (sólo con contrato plurianual)", "ingreso_persona_hora": {"conservador": 60, "base": 80, "optimista": 110}, "capex_por_salon": 850000},
+  "E1": {"nombre": "Arneses y ensambles de cable (Tier 2-3, mercado nacional)", "ingreso_persona_hora": {"conservador": 80, "base": 105, "optimista": 130}, "capex_por_salon": 500000}
+}

@@ -1,0 +1,1678 @@
+{
+ "jueces": [
+  {
+   "lente": "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.",
+   "metodo": "Pesos: disposición del cliente a contratar taller penitenciario 25% (es lo que mata o abre la venta: Walmart, Amazon, P&G, Unilever, Diageo, Tier-1 automotrices y fintech tienen cláusulas explícitas contra 'prison labor' y exigen auditoría de sitio tipo SMETA/R2/PCI que no se puede hacer adentro de CEVASEP II; en cambio Grupo Salinas, importadores de Vallejo, agencias y empresas mexicanas medianas son pragmáticos); demanda 2026-2030 20%; margen y valor por persona-hora 20% (contra $62/h productiva y salario mínimo subiendo 10-12% anual: todo lo que hoy paga <$100/h queda en cero margen en 2028); sinergia con la operación Totalplay 10% (mismo comprador = venta en 1-3 meses vs. 9-18 meses con cliente nuevo); factibilidad de seguridad 10%; capacitación 5%; capex/escalabilidad 5%; riesgo regulatorio-reputacional invertido 5%. Calificación 1-10 por criterio con base en las fichas consolidadas y mi experiencia de mercado, castigando líneas que compiten con maquila automatizada o con maquilas informales de Vallejo/Tlalnepantla que ya cobran lo mismo o menos. Total = suma ponderada.",
+   "calificaciones": [
+    {
+     "id": "A1",
+     "nombre": "Cosmética y screen & clean de CPE para otros operadores (Izzi, Megacable, Telmex, Sky/Dish, Telcel/AT&T FWA)",
+     "demanda_2026_2030": 8,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 8,
+     "factibilidad_seguridad_penitenciaria": 7,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 8,
+     "sinergia_con_operacion_totalplay": 7,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 7.25,
+     "justificacion": "Demanda enorme y probada: Izzi, Megacable y Telmex mueven millones de CPE devueltos al año y ya tercerizan screen & clean con 3PL; el precio por unidad ($20-40) deja margen amplio sobre $62/h. El freno es comercial, no técnico: Totalplay (Grupo Salinas) puede vetar que su proveedor trabaje para Izzi/Megacable, y Telmex tiene sindicato que objetará. La ruta realista es Telcel/AT&T FWA y Sky/Dish (no compiten en fibra) o vender vía el 3PL/OEM (Nokia, Ingram Lifecycle), no al operador directo.",
+     "dato_que_cambiaria_tu_opinion": "Una carta de no-objeción de Totalplay para atender operadores no competidores en salón separado; si Totalplay exige exclusividad total, la línea baja a 5."
+    },
+    {
+     "id": "A2",
+     "nombre": "Triage funcional y reparación modular nivel 1-2 de CPE y accesorios",
+     "demanda_2026_2030": 8,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 8,
+     "margen_y_valor_por_persona_hora": 8,
+     "factibilidad_seguridad_penitenciaria": 5,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 10,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 7.7,
+     "justificacion": "Es la venta más fácil del portafolio: mismo comprador, mismo flujo, y cada ONT/deco recuperado le ahorra a Totalplay USD 30-60 de equipo nuevo, así que paga $30-100 por unidad sin discutir. Sube el ingreso de ~$150 a $200-300/persona-hora con el mismo lote. El único candado es que la Subsecretaría autorice bancos de prueba con radio Wi-Fi aislado en un centro de alta seguridad; con jaula de Faraday y PC del supervisor sin red es defendible, pero hay que negociarlo antes de invertir $0.7-1.5 M por salón.",
+     "dato_que_cambiaria_tu_opinion": "Oficio de la Subsecretaría autorizando bancos de prueba de CPE con Wi-Fi apantallado; sin eso, se queda en cosmética + kitting y la línea cae a 5."
+    },
+    {
+     "id": "A3",
+     "nombre": "Kits de autoinstalación y re-kitting de equipos telecom (Totalplay, Izzi, Megacable, Telcel)",
+     "demanda_2026_2030": 8,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 9,
+     "margen_y_valor_por_persona_hora": 8,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 10,
+     "capex_y_escalabilidad_a_350": 9,
+     "sinergia_con_operacion_totalplay": 10,
+     "riesgo_regulatorio_reputacional_invertido": 8,
+     "total_ponderado": 8.6,
+     "justificacion": "La autoinstalación es la tendencia dominante en fibra 2026-2030 (baja el costo de visita técnica de $400-600 a cero) y todos los operadores están migrando; el kit de alta (ONT reacondicionado + fuente + cable + guía en caja sellada) es una venta incremental al comprador que ya firma tus facturas, con ciclo de 1-3 meses. Descuento el precio de la ficha a $6-12 por kit realista, que aun así da $180-400/persona-hora con capex mínimo. Seguridad ya resuelta con el proceso actual.",
+     "dato_que_cambiaria_tu_opinion": "Que Totalplay decida comprar CPE nuevo ya kitteado de fábrica (Huawei/ZTE entregan kit completo) y reduzca el reacondicionamiento a <30% del volumen; entonces la línea se vuelve marginal."
+    },
+    {
+     "id": "A4",
+     "nombre": "Jumpers de fibra, cables coaxiales/UTP preconectorizados y kits de instalación para instaladores",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 6,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 8,
+     "riesgo_regulatorio_reputacional_invertido": 8,
+     "total_ponderado": 6.35,
+     "justificacion": "Los jumpers SC/APC de fábrica china llegan a $15-25 terminados y pulidos a máquina; un jumper con conector mecánico armado a mano en el penal ni compite en precio ni en pérdida de inserción, y el operador lo sabe. Sólo tiene sentido el 'kit del instalador' (bolsa con jumper importado, grapas, cinchos, etiqueta) como accesorio del kit de alta de A3, no como línea propia. $100-200/h con curva de fibra de 10-15 días es margen justo.",
+     "dato_que_cambiaria_tu_opinion": "Una orden de compra de Totalplay/contratistas por >50 mil kits de instalación al mes a $8+ de mano de obra; sin volumen comprometido no vale el capex de cleavers y medidores."
+    },
+    {
+     "id": "A5",
+     "nombre": "Reacondicionamiento de controles remotos, eliminadores, cables, audífonos y accesorios (multi-operador y retail)",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 8,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 10,
+     "capex_y_escalabilidad_a_350": 9,
+     "sinergia_con_operacion_totalplay": 10,
+     "riesgo_regulatorio_reputacional_invertido": 8,
+     "total_ponderado": 7.55,
+     "justificacion": "Ya se hace, ya está vendido y el capex es casi cero: sirve para llenar horas valle y sumar clientes de bajo conflicto (Sky/Dish, Steren, Coppel). El problema es que un control nuevo cuesta $40-60 y un eliminador $30, así que el precio que aceptan pagar por reacondicionar es $5-8 y el ingreso queda en $100-200/persona-hora; en 2028 con salario mínimo +35% el margen se adelgaza. Es relleno rentable, no motor de crecimiento.",
+     "dato_que_cambiaria_tu_opinion": "Que Universal Electronics u otro fabricante de controles tercerice refurbishment de lotes RMA (volúmenes de 100 mil+/mes) a $10+ por pieza."
+    },
+    {
+     "id": "A6",
+     "nombre": "Desensamble manual de CPE/RAEE e ITAD de cómputo corporativo para reciclador autorizado",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 3,
+     "factibilidad_seguridad_penitenciaria": 5,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 7,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 4.85,
+     "justificacion": "El ITAD corporativo (bancos, aseguradoras, gobierno) exige sitio certificado R2v3/ISO 27001 con auditoría presencial y cadena de custodia de datos: ningún CISO firma que sus discos entren a un penal. Lo que queda es desensamblar CPE de Totalplay para un reciclador, que paga $80-140/persona-hora ligados al precio del cobre/PCB: por debajo o apenas arriba de $62. Sólo vale como servicio de cierre de ciclo cobrado a Totalplay (evidencia REP/ESG), no como negocio.",
+     "dato_que_cambiaria_tu_opinion": "Que Totalplay/Grupo Salinas acepte pagar tarifa de servicio ($150+/h equivalente) por destrucción certificada con evidencia REP, independiente del valor del material."
+    },
+    {
+     "id": "A7",
+     "nombre": "Cosmética exterior y kitting de terminales punto de venta (Mercado Pago, Clip, Getnet)",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 2,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 3,
+     "total_ponderado": 5.05,
+     "justificacion": "El volumen existe (más de 1 millón de terminales Mercado Pago, Clip, Getnet) y el precio por unidad es bueno, pero he vendido a adquirentes: su área de riesgo/PCI y sus aseguradoras no van a permitir que dispositivos de pago pasen por un penal junto al principal origen de extorsión de CDMX, aunque sea sólo cosmética exterior. Un solo titular de prensa ('terminales de pago manipuladas en el Reclusorio') cancela la relación. Descartar.",
+     "dato_que_cambiaria_tu_opinion": "Que un adquirente acepte por escrito el sitio tras revisión de su oficial PCI y de su aseguradora; lo considero improbable antes de 2030."
+    },
+    {
+     "id": "B1",
+     "nombre": "Procesamiento de devoluciones de e-commerce (moda, calzado, hogar, juguetes)",
+     "demanda_2026_2030": 8,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 3,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 5.45,
+     "justificacion": "Mercado gigante y creciente (devoluciones 15-25% en moda online), pero los que concentran el volumen son Mercado Libre, Amazon y Walmart, cuyos estándares de proveedores prohíben explícitamente 'prison labor' y auditan sitio; los retailers mexicanos medianos usan 3PL con SLA de 24-48 h incompatibles con revisión de entrada/salida por manifiesto. Precio $10-12 por prenda, robo hormiga de producto atractivo y estacionalidad extrema contra plantilla fija. Sólo viable como subcontratista de picos para un 3PL mexicano que asuma el compliance.",
+     "dato_que_cambiaria_tu_opinion": "Un 3PL de devoluciones (Reversso, Onest, GIEICOM) que firme como cliente directo y absorba la relación con el retailer, con SLA de 72 h+."
+    },
+    {
+     "id": "B2",
+     "nombre": "Grading, limpieza y re-empaque de electrónica de consumo y electrodomésticos pequeños devueltos",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 5,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 5.6,
+     "justificacion": "Amazon Renewed queda descartado por compliance; Elektra/Coppel outlet y liquidadores sí comprarían a $40/pieza, pero el grading de licuadoras, bocinas y tablets implica energizar equipo, cuchillas y Bluetooth dentro de alta seguridad, y la garantía al consumidor final cae sobre quien reacondiciona. Mezcla de SKU altísima mata la productividad. Sólo la vería como extensión del salón CPE para Elektra (Grupo Salinas) con producto sin conectividad.",
+     "dato_que_cambiaria_tu_opinion": "Contrato con Elektra/Coppel para procesar devoluciones de su marca propia (electrodomésticos sin radio) con garantía a cargo del retailer."
+    },
+    {
+     "id": "B3",
+     "nombre": "Cosmética y kitting de laptops/tablets reacondicionadas para programas escolares y reventa corporativa",
+     "demanda_2026_2030": 5,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 3,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 4,
+     "total_ponderado": 4.65,
+     "justificacion": "Los refurbishers de TI (CircularIT, Full Circle) viven de la certificación R2v3 y del borrado NIST auditado; su cliente corporativo no acepta que un equipo con disco haya entrado a un penal aunque traiga certificado. Volúmenes por lote son esporádicos y los programas escolares de gobierno pagan tarde. Una laptop es además objeto codiciado adentro. Mucho riesgo para $200-300/h.",
+     "dato_que_cambiaria_tu_opinion": "Que el Gobierno de CDMX (mismo dueño del penal) asigne el kitting de tabletas de su programa escolar como política pública, con equipos sin almacenamiento."
+    },
+    {
+     "id": "B4",
+     "nombre": "Grading cosmético y kitting de smartphones reacondicionados",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 1,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 1,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 8,
+     "sinergia_con_operacion_totalplay": 3,
+     "riesgo_regulatorio_reputacional_invertido": 2,
+     "total_ponderado": 4.1,
+     "justificacion": "El celular es el objeto más prohibido en un penal de CDMX en pleno bloqueo de señal 2026 y a 200 metros del Reclusorio Norte, foco de extorsión telefónica. Ni la Subsecretaría lo autorizará ni Telcel/AT&T/Samsung firmarán; la sola propuesta puede dañar la confianza de la autoridad con el convenio actual. Descartar sin discusión.",
+     "dato_que_cambiaria_tu_opinion": "Ninguno realista en el horizonte 2026-2030."
+    },
+    {
+     "id": "C1",
+     "nombre": "Armado de packs promocionales para consumo masivo y co-packing e-commerce",
+     "demanda_2026_2030": 8,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 7,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 5.85,
+     "justificacion": "Es el mercado de maquila manual más grande de la ZMVM y absorbe cientos de personas, pero P&G, Unilever, Colgate, Kimberly y Nestlé tienen códigos de proveedor que prohíben trabajo penitenciario y exigen auditoría SMETA en sitio; sus agencias de POP no van a arriesgar la cuenta. Los CPG mexicanos (Genomma, Herdez, Jumex) sí, pero pagan $0.80-2.50 por pack porque compiten con maquilas de Vallejo/Tlalnepantla a costo similar al tuyo; y la estacionalidad (Buen Fin, Navidad) obliga a plantilla flexible que no tienes. Como subcontratista de picos de una maquila establecida, aceptable; como línea ancla, no.",
+     "dato_que_cambiaria_tu_opinion": "Un CPG mexicano grande que firme contrato anual con volumen mínimo mensual (no sólo picos) a $2+ por pack y acepte el sitio por escrito."
+    },
+    {
+     "id": "C2",
+     "nombre": "Etiquetado NOM de información comercial para importadores y NOM-051",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 10,
+     "capex_y_escalabilidad_a_350": 9,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 6.55,
+     "justificacion": "Cliente ideal en cuanto a compliance: importadores de Vallejo/Tlalnepantla y maquilas de etiquetado que subcontratan picos no piden auditoría ni código de conducta, sólo precio y velocidad. Capex y capacitación mínimos, sin riesgo de seguridad. Lo malo: la tarifa de mercado real es $0.30-0.90 por etiqueta (ingreso $100-180/h), los aranceles 2026 a importación asiática recortan volumen, y las Reglas SE pueden empujar el etiquetado a origen o recinto fiscalizado. Buena línea 'de relleno' con muchos clientes chicos; riesgo de cliente atomizado, no concentrado.",
+     "dato_que_cambiaria_tu_opinion": "Modificación 2026-2027 a las Reglas de Comercio Exterior que obligue a etiquetar antes del despacho aduanero: eliminaría el 70% del mercado post-despacho."
+    },
+    {
+     "id": "C3",
+     "nombre": "Kitting corporativo B2B: kits de bienvenida, cajas de regalo, suscripción, muestras",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 7,
+     "capacitacion_15_dias_y_salones": 10,
+     "capex_y_escalabilidad_a_350": 9,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 6.7,
+     "justificacion": "Agencias de promocionales y áreas de RH compran por precio y presentación, y a RH de bancos/corporativos el relato de reinserción incluso les suma para su reporte ESG; ciclo de venta corto (1-3 meses) y $8-15 por kit dan $160-300/persona-hora con capex mínimo. Contras: demanda concentrada en nov-dic y en fechas puntuales, pedidos con muchos SKU generan errores, y los clientes no pueden visitar el sitio. Complementa muy bien a A3 (mismo tipo de mesa y control) y a F2.",
+     "dato_que_cambiaria_tu_opinion": "Que 2-3 agencias grandes de promocionales de la ZMVM acepten volumen recurrente fuera de temporada; si sólo entregan Q4, se queda como línea de temporada."
+    },
+    {
+     "id": "C4",
+     "nombre": "Ensamble de exhibidores POP de cartón y displays de temporada",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 10,
+     "capex_y_escalabilidad_a_350": 9,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 8,
+     "total_ponderado": 6.25,
+     "justificacion": "Los fabricantes de POP subcontratan pre-armado y son pragmáticos, la seguridad es trivial (cartón) y no hay regulación. Pero el negocio está en la logística: un exhibidor armado ocupa 0.3-0.5 m3, y mover 20 tráilers al mes desde Cuautepec con revisión de entrada y salida encarece más que la mano de obra que ahorras; los fabricantes prefieren armar en su propia nave o en la del retailer. Precio $10-40 por pieza da $120-250/h en temporada y nada en meses valle.",
+     "dato_que_cambiaria_tu_opinion": "Que la Subsecretaría permita área de estiba/andén dedicado con salida de camión diaria sin reinspección unitaria; sin eso el flete mata el margen."
+    },
+    {
+     "id": "C5",
+     "nombre": "Maquila de blíster manual y termoencogido para accesorios, ferretería ligera, papelería y juguetes",
+     "demanda_2026_2030": 5,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 5,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 5.7,
+     "justificacion": "El blíster de volumen ya es automático (Truper, Steren lo hacen en línea); lo manual queda para tirajes cortos de importadores, que pagan $2-3 por blíster y son intermitentes. Emblisterar herramienta y tornillería mete metal en un centro de alta seguridad y la autoridad puede vetarlo. Tiene sentido sólo como equipo (2-3 selladoras) compartido para presentar los kits de A3/A5/C3, no como línea con salón propio.",
+     "dato_que_cambiaria_tu_opinion": "Un importador de accesorios electrónicos con >200 mil blísters/mes estables para Elektra/Coppel que acepte producto sin metal suelto."
+    },
+    {
+     "id": "C6",
+     "nombre": "Acondicionamiento secundario de cosméticos (estuchado, etiquetado, sets de regalo)",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 2,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 5,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 2,
+     "riesgo_regulatorio_reputacional_invertido": 3,
+     "total_ponderado": 4.25,
+     "justificacion": "Natura, Avon, Jafra y las marcas coreanas viven de auditorías de abastecimiento ético y buenas prácticas; ninguna aceptará Aviso de Funcionamiento COFEPRIS con domicilio de un penal ni podrá verificar el sitio. Producto cosmético es de los más robados y consumidos internamente. Precio por pieza bajo. Descartar.",
+     "dato_que_cambiaria_tu_opinion": "Que COFEPRIS acepte el domicilio y una marca mexicana mediana firme; aun así, el margen no justifica el esfuerzo regulatorio."
+    },
+    {
+     "id": "D1",
+     "nombre": "Uniformes corporativos e industriales y ropa hospitalaria",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 3,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 4,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 8,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 5.9,
+     "justificacion": "Grupo Salinas (Totalplay, Elektra, Banco Azteca, Italika) compra cientos de miles de prendas al año y le gusta la historia de reinserción, así que la venta es factible. El problema es económico: a $60-100/persona-hora con eficiencia de 45-55% que tarda 3-6 meses en llegar, la línea opera en pérdida durante medio año y luego apenas cubre los $62/h; con salario mínimo +10-12% anual, en 2028 compites contra Puebla/Tlaxcala a costo igual sin ventaja. Ropa hospitalaria por licitación paga a 90-120 días. Sólo con el uniforme del técnico Totalplay como cliente ancla y capex de máquinas usadas.",
+     "dato_que_cambiaria_tu_opinion": "Compromiso escrito de Grupo Salinas por 100 mil+ prendas/año a tarifa CMT de $90+ por camisola durante 3 años; sin ancla, no arrancar."
+    },
+    {
+     "id": "D2",
+     "nombre": "Serigrafía, bordado computarizado y DTF de playeras/gorras promocionales",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 5,
+     "capacitacion_15_dias_y_salones": 6,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 7,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 5.95,
+     "justificacion": "Mercado fragmentado y estacional lleno de talleres en Centro/Roma que cobran $6-10 por impresión con capacidad ociosa; nada que un penal haga mejor. Emplea sólo 6-10 PPL por célula, así que no resuelve el problema de escalar a 350. Vale únicamente como célula de acabado (logo bordado/estampado) pegada a uniformes o kits de Grupo Salinas, no como línea independiente.",
+     "dato_que_cambiaria_tu_opinion": "Que TV Azteca/Grupo Salinas concentre en el taller sus promocionales (100 mil+ piezas/año); aun así absorbe poca gente."
+    },
+    {
+     "id": "D3",
+     "nombre": "Bolsas ecológicas/tote, mandiles, bolsas porta-kit y chalecos reflejantes / EPP textil",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 2,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 8,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 5.8,
+     "justificacion": "Comprador amigable (Totalplay, Elektra, alcaldías) pero la economía no cierra: la tote cotiza $8-13 de maquila y da $55-90/persona-hora, por debajo del costo de $62; el chaleco $70-110/h apenas empata y compite con importación a $60-80 la pieza terminada. Además ya hay maquila de bolsas en otros penales de CDMX (Hazme Valer) compitiendo por los mismos clientes institucionales. Sólo la bolsa porta-kit del técnico como accesorio de A3, a precio de valor y no de maquila.",
+     "dato_que_cambiaria_tu_opinion": "Que Totalplay pague la bolsa porta-kit a $25+ dentro del precio del kit de alta; como línea de tote para el mercado abierto, nunca."
+    },
+    {
+     "id": "D4",
+     "nombre": "Blancos institucionales (sábanas, batas) para hospitales, hoteles y el propio sistema penitenciario",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 3,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 5.1,
+     "justificacion": "El cliente cautivo (la propia Subsecretaría, 26 mil PPL) compra por adjudicación directa y eso es tentador, pero es vender a tu casero: te ata políticamente y paga a 60-120 días. Hospitales privados y hoteles ya compran a productores integrados de Puebla con tela propia y precios que un taller CMT a $80-130/h no alcanza. Y la sábana es el producto que más preocupa a seguridad (cuerdas). Sinergia nula con lo que ya haces.",
+     "dato_que_cambiaria_tu_opinion": "Contrato plurianual de la SSC/Secretaría de Administración por ropa de cama y uniforme de PPL con anticipo; sin él, no."
+    },
+    {
+     "id": "D5",
+     "nombre": "Reacondicionamiento de uniformes industriales, EPP textil y calzado industrial en renta",
+     "demanda_2026_2030": 4,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 4.4,
+     "justificacion": "Elis/Lavartex y Dust Control reparan en su propia lavandería porque el flete de ida y vuelta cuesta más que la costura; no hay mercado tercerizado real. Uniformes de seguridad privada y policía estarán vetados por riesgo de suplantación, y un EPP reparado que falla es responsabilidad civil para ti. Precio por pieza bajo. Descartar.",
+     "dato_que_cambiaria_tu_opinion": "Que una arrendadora de uniformes con planta en el norte de CDMX ofrezca >50 mil prendas/mes; no la veo."
+    },
+    {
+     "id": "E1",
+     "nombre": "Arneses y ensambles de cable de bajo/medio volumen (Tier 2-3 automotriz, electrodomésticos, tableros)",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 3,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 6,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 4.65,
+     "justificacion": "He vendido a automotriz 20 años: Yazaki, Aptiv, Lear y sus Tier 2 bajan en cascada códigos de conducta que prohíben trabajo penitenciario, exigen IATF/PPAP y auditan sitio; además la revisión del T-MEC 2026 y los aranceles tienen a todos congelando proveedores nuevos. Un arnés de bajo volumen paga $3-8 por pieza ($90-130/h), y el crimpado manual sin pull-test genera rechazos que te cuestan más que el contrato. Ciclo de venta 12-18 meses para un margen que no justifica. Electrodomésticos (Mabe) es un poco mejor pero misma lógica.",
+     "dato_que_cambiaria_tu_opinion": "Italika (Grupo Salinas, Toluca) asignando sub-ensambles eléctricos de moto no críticos con su propia validación de calidad."
+    },
+    {
+     "id": "E2",
+     "nombre": "Extensiones eléctricas y multicontactos (NOM-003) y ensamble de luminarias LED",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 4,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 5.05,
+     "justificacion": "Truper, IUSA y Voltech son mexicanos y pragmáticos, pero tienen sus propias plantas semiautomáticas en Edomex y la extensión es commodity dictada por importación china; no van a pagar $6-10 de mano de obra por pieza. NOM-003 exige verificación de seguimiento en planta que ANCE/NYCE difícilmente hará en un penal, y un incendio por producto defectuoso es tu responsabilidad. Capex alto (hipot, burn-in). Luminarias de alumbrado público dependen de licitación.",
+     "dato_que_cambiaria_tu_opinion": "Elektra lanzando marca propia de extensiones/luminarias con ensamble asignado al taller y certificación NOM a nombre de Elektra."
+    },
+    {
+     "id": "E3",
+     "nombre": "Inserción through-hole, box-build y pruebas funcionales para EMS; box-build IoT/GPS",
+     "demanda_2026_2030": 4,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 3,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 3,
+     "capacitacion_15_dias_y_salones": 5,
+     "capex_y_escalabilidad_a_350": 4,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 3.95,
+     "justificacion": "THT va en declive por miniaturización, los EMS no mandan fixtures ni firmware a un sitio que no pueden auditar, y los dispositivos GPS/GSM/BLE son exactamente lo que un centro de alta seguridad prohíbe. $90-140/h con capex de $0.7-2 M y curva de 30-60 días para tasas de defecto aceptables. Descartar; lo rescatable (reparación nivel 2 de fuentes/decos) ya está en A2.",
+     "dato_que_cambiaria_tu_opinion": "Ninguno relevante; el mercado y la seguridad van en contra."
+    },
+    {
+     "id": "E4",
+     "nombre": "Subensambles mecánicos y kits: juguetes, cerraduras/herrajes, manijas y plástico inyectado con empaque",
+     "demanda_2026_2030": 5,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 3,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 5.25,
+     "justificacion": "Mi Alegría, Phillips y los herrajeros de Edomex son compradores accesibles y sin dramas de compliance, pero pagan $2-5 por subensamble ($70-110/h) porque compiten con maquilas informales que trabajan a domicilio; con el salario mínimo subiendo, esta línea está en cero margen en 2027-2028. Cerraduras y cilindros serán objetados por la autoridad. Sólo picos de juguete pre-navideños como relleno.",
+     "dato_que_cambiaria_tu_opinion": "Un fabricante de juguete o herraje que pague $8+ por subensamble con volumen anual estable; no es el precio del mercado hoy."
+    },
+    {
+     "id": "F1",
+     "nombre": "Cajas rígidas y estuches de lujo ensamblados a mano para tequila/mezcal, joyería y regalo corporativo",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 6,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 6.3,
+     "justificacion": "El empaque premium de tequila/mezcal crece con la premiumización y el ensamble de rigid box sigue siendo manual, así que hay ingreso real ($200-350/h, valor por pieza alto) y la seguridad es trivial. El pero: Diageo, Bacardi, Brown-Forman y Pernod tienen códigos con cláusulas de trabajo forzado/penitenciario y auditorías; la entrada es vía convertidores de empaque mexicanos y marcas medianas de mezcal, no las multinacionales. Curva de calidad de 30 días con rechazos iniciales y pico en Q4.",
+     "dato_que_cambiaria_tu_opinion": "Que un convertidor de empaque de la ZMVM (que ya vende a las tequileras) subcontrate el ensamble manual y asuma la cara comercial; eso resuelve el compliance."
+    },
+    {
+     "id": "F2",
+     "nombre": "Regalos corporativos con marca de impacto social (ESG): kits curados hechos por personas en reinserción",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 9,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 7,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 7,
+     "justificacion": "Es la única línea donde el origen penitenciario es argumento de venta y no objeción: áreas de sustentabilidad/RH de bancos, despachos y Grupo Salinas compran regalos de fin de año y necesitan historias de impacto para su reporte ESG. Margen alto ($250-450/h en temporada) y seguridad mínima. Límite: es negocio de marca y venta B2B, no de maquila; requiere un vendedor y catálogo afuera, concentra el 70% en Q4 y un mal manejo de la narrativa del salario mínimo se vuelve nota negativa. No llena un salón todo el año, pero eleva el precio de todo lo demás.",
+     "dato_que_cambiaria_tu_opinion": "Que Grupo Salinas comprometa 20-30 mil kits/año como ancla y permita usar su nombre; si no hay ancla, es un hobby caro."
+    },
+    {
+     "id": "F3",
+     "nombre": "Accesorios para mascotas: juguetes de cuerda trenzada, mordederas y camas cosidas",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 5,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 2,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 4.95,
+     "justificacion": "El mercado de mascotas crece bien, pero listar en Petco/+Kota/Walmart implica fuerza de ventas, pago a 60-90 días y precios de mayoreo contra importación asiática a $10-20 el juguete; Walmart además prohíbe prison labor. Cuerda es material sensible en un centro de seguridad. Producto propio con inventario y ventas digitales que el empresario tendría que construir desde cero.",
+     "dato_que_cambiaria_tu_opinion": "Una marca mexicana de mascotas DTC que maquile con MOQ garantizado y pague a 30 días."
+    },
+    {
+     "id": "F4",
+     "nombre": "Juguetes de madera/rompecabezas y pintura a mano de figuras y artesanía",
+     "demanda_2026_2030": 4,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 5,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 2,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 4.6,
+     "justificacion": "Nicho artesanal que depende de canal turístico, marketing digital y certificación NOM-252/ASTM para juguete infantil; no escala a 350 personas ni tiene un comprador B2B que firme volumen. Ya existe el taller de tenis pintados en CEVASEP II: mantenerlo como célula de 10-15 personas para F2 (regalos ESG) está bien, pero no es una línea nueva.",
+     "dato_que_cambiaria_tu_opinion": "Una marca de sneakers o de coleccionables con pedidos recurrentes de ediciones pintadas a mano a $300+ por pieza."
+    },
+    {
+     "id": "F5",
+     "nombre": "Velas de cera de soya y aromatizantes",
+     "demanda_2026_2030": 4,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 3,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 2,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 4.5,
+     "justificacion": "Mercado saturado de marcas caseras y de importación, sin comprador B2B de volumen; cera caliente, vidrio y fragancias inflamables en un centro de alta seguridad es una pelea con la autoridad que no vale la pena. Sólo absorbe 6-8 personas en vertido. Descartar; si acaso comprar velas afuera para los kits de F2.",
+     "dato_que_cambiaria_tu_opinion": "Ninguno; el producto no tiene demanda B2B suficiente ni encaja en el perfil de seguridad."
+    },
+    {
+     "id": "F6",
+     "nombre": "Etiquetado y anotación de datos para IA en red aislada (offline)",
+     "demanda_2026_2030": 5,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 2,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 1,
+     "capacitacion_15_dias_y_salones": 5,
+     "capex_y_escalabilidad_a_350": 3,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 3,
+     "total_ponderado": 3.75,
+     "justificacion": "35 computadoras y un servidor dentro de CEVASEP II en el año del bloqueo de señal es una solicitud que la SSC no va a aprobar, y los clientes de anotación (Sama, Appen, TaskUs) exigen ISO 27001, conectividad y trazabilidad de anotador que un penal no puede dar; las tareas simples además se están automatizando. Capex de $1-1.8 M por salón para un veto casi seguro. Descartar.",
+     "dato_que_cambiaria_tu_opinion": "Ninguno en 2026-2030 para un centro de alta seguridad."
+    },
+    {
+     "id": "F7",
+     "nombre": "Pelado manual de cable de cobre y recuperación de conectores",
+     "demanda_2026_2030": 3,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 2,
+     "capacitacion_15_dias_y_salones": 10,
+     "capex_y_escalabilidad_a_350": 8,
+     "sinergia_con_operacion_totalplay": 3,
+     "riesgo_regulatorio_reputacional_invertido": 3,
+     "total_ponderado": 3.95,
+     "justificacion": "No hay cliente, hay chatarreras: ingreso atado al precio del cobre y a la procedencia del cable (riesgo penal por metal robado); la red de Totalplay es de fibra, así que no hay insumo cautivo. Alambre de cobre desnudo es contrabando interno y arma en un centro de alta seguridad. Descartar.",
+     "dato_que_cambiaria_tu_opinion": "Ninguno."
+    },
+    {
+     "id": "F8",
+     "nombre": "Reciclaje textil: clasificación de ropa usada y trapo industrial",
+     "demanda_2026_2030": 4,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 2,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 8,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 4.4,
+     "justificacion": "Mercado de trapo fragmentado, informal y en efectivo, sin comprador que firme contrato; el insumo (pacas de ropa usada) es el vector perfecto para meter celulares y droga al penal y ropa de civil para una fuga: seguridad lo va a rechazar. Absorbe pocas horas por kilo. Descartar; a lo sumo triturar uniformes dados de baja de Grupo Salinas como servicio de destrucción de marca.",
+     "dato_que_cambiaria_tu_opinion": "Que Grupo Salinas pague destrucción certificada de uniformes con logo como servicio, con insumo pre-inspeccionado afuera."
+    }
+   ],
+   "top_5_y_por_que": [
+    "A3 Kits de autoinstalación y re-kitting telecom (8.6): venta incremental al comprador que ya te paga, ciclo de 1-3 meses, tendencia de mercado a favor (autoinstalación FTTH), $180-400/persona-hora con capex mínimo y seguridad ya resuelta.",
+    "A2 Triage funcional y reparación nivel 1-2 de CPE (7.7): duplica el valor por unidad del mismo lote de Totalplay (cada ONT salvado evita USD 30-60 nuevo), cliente ya convencido; el único candado es el permiso de bancos de prueba aislados en alta seguridad.",
+    "A5 Controles, eliminadores y accesorios multi-operador (7.55): ya está operando y vendido, capex cero, sirve para sumar clientes sin conflicto (Sky/Dish, Steren, Coppel) y llenar horas valle; valor por hora modesto pero seguro.",
+    "A1 CPE de otros operadores (7.25): el mercado más grande y rentable del portafolio (Izzi, Megacable, Telmex, Telcel/AT&T FWA), mismo proceso; se vende vía 3PL/OEM y operadores no competidores para no chocar con Totalplay.",
+    "F2 Regalos corporativos con marca de impacto social (7.0): única línea donde el origen penitenciario vende en lugar de estorbar; margen alto, seguridad mínima y Grupo Salinas como ancla natural; complementa con C3 kitting corporativo (6.7) y C2 etiquetado NOM (6.55) para dar volumen fuera de temporada."
+   ],
+   "lineas_que_descartarias_y_por_que": [
+    "B4 Smartphones: objeto más prohibido del penal, veto seguro de la autoridad y de Telcel/AT&T/Samsung; proponerlo daña la relación con la Subsecretaría.",
+    "A7 Terminales de pago: PCI, aseguradoras y riesgo reputacional de fraude junto al Reclusorio Norte; ningún adquirente firma.",
+    "F6 Anotación de datos IA: 35 PCs y servidor en centro de alta seguridad en pleno bloqueo de señal; clientes exigen ISO 27001 y conectividad.",
+    "F7 Pelado de cobre y F8 reciclaje textil: sin cliente contractual, insumo de origen dudoso o vector de contrabando, cobre y ropa de civil son riesgos de seguridad críticos.",
+    "E3 THT/box-build IoT: EMS no mandan fixtures ni firmware a sitio no auditable, módulos GSM/GPS vetados, mercado THT en declive.",
+    "C6 Cosméticos: Natura/Avon/Jafra auditan abastecimiento ético y COFEPRIS no aceptará domicilio penitenciario.",
+    "B3 Laptops/ITAD (con A6): los refurbishers y CISOs corporativos no aceptan que discos entren a un penal; R2v3 imposible de auditar.",
+    "E1 Arneses automotriz: códigos de conducta Tier-1 prohíben prison labor, IATF/PPAP inalcanzable, T-MEC 2026 congela proveedores nuevos, $90-130/h con riesgo de rechazo por crimpado.",
+    "D5 Reacondicionamiento de uniformes en renta y F5 velas: sin mercado tercerizado real o saturado, con problemas de seguridad (suplantación, cera caliente).",
+    "D3 Totes/chalecos y E4 subensambles mecánicos como líneas independientes: pagan $55-110/persona-hora, por debajo o al nivel de los $62 de costo y en pérdida cuando el mínimo suba 10-12% anual; sólo como accesorio de los kits telecom.",
+    "B1 Devoluciones e-commerce y C1 packs CPG como líneas ancla: los que concentran el volumen (Amazon, ML, Walmart, P&G, Unilever) prohíben trabajo penitenciario y auditan sitio; quedan sólo picos de clientes mexicanos a precio de maquila de Vallejo. Aceptables únicamente como subcontratación de un 3PL/co-packer que ponga la cara."
+   ],
+   "portafolio_sugerido": "Meta: 8-10 salones (280-350 PPL) con 70% del volumen en telecom-logística inversa, donde el comprador ya existe y el margen es probado, y 30% en co-packing/kitting flexible para absorber estacionalidad y diversificar. Reparto: (1) Salones 1-4 (actuales): mantener cosmética Totalplay y migrar 2 de ellos a kit de alta completo (A3) en los primeros 3 meses; es una renegociación de precio por unidad con el mismo comprador, no una venta nueva. (2) Salón 5 (mes 3-6): triage funcional y reparación nivel 1-2 (A2) para Totalplay, condicionado a la autorización escrita de la Subsecretaría para bancos de prueba aislados; si se niega, ese salón se dedica a A1. (3) Salones 6-7 (mes 6-12): CPE de otros operadores (A1) empezando por Telcel/AT&T FWA y Sky/Dish o vía 3PL/OEM (Nokia, Ingram Lifecycle), en salón físicamente separado y con carta de no-objeción de Totalplay; A5 (controles/accesorios multi-operador) se corre en estos mismos salones como relleno. (4) Salón 8 (mes 6-9): salón flexible de kitting corporativo B2B (C3) y etiquetado NOM para importadores (C2), sin capex relevante, con 8-12 clientes chicos para que ningún cliente pese más del 20%; en Q4 este salón se vuelca a los kits de regalo ESG (F2) con Grupo Salinas como ancla y a rigid boxes (F1) vendidas a través de un convertidor de empaque. (5) Salones 9-10 (2028+, sólo si el 1-8 están llenos): segunda ola de A1/A2 con Megacable o Izzi si Totalplay lo permite, o uniforme del técnico Totalplay (D1) únicamente con contrato plurianual firmado por Grupo Salinas y máquinas usadas. Regla comercial transversal: nunca vender directo a una multinacional con código de conducta anti-prison-labor; entrar siempre a través de un 3PL, co-packer o convertidor mexicano que asuma el compliance, y documentar salario, cuenta individual y voluntariedad (LNEP 91-93) en un dossier de proveedor listo para cualquier auditoría documental."
+  },
+  {
+   "lente": "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.",
+   "metodo": "Pesos: factibilidad de seguridad penitenciaria 30%; capacitación en 15 días y operación en salones tipo aula (mesas, sin trifásica ni maquinaria pesada) 20%; riesgo regulatorio/reputacional invertido 10%; capex y escalabilidad a 350 PPL 10%; sinergia con la operación Totalplay 10%; disposición del cliente a contratar un taller penitenciario 8%; demanda 2026-2030 7%; margen/valor por persona-hora 5%. Regla de descalificación: si seguridad = 2 el total se topa en 3.0 y si seguridad = 1 se topa en 2.0, porque ninguna rentabilidad compensa un veto de la Dirección de Seguridad o un incidente con celulares/datos junto al Reclusorio Norte. Fui generoso con lo que ya se hace en penales de CDMX (cosmética de CPE, empaquetado, costura industrial, serigrafía, pintura a mano) y duro con radios celulares/Wi-Fi activos, baterías de litio, cobre/cuerda suelto, herramientas de corte y datos personales. Calificación 1-10 por criterio con base en las fichas consolidadas; sin búsquedas nuevas.",
+   "calificaciones": [
+    {
+     "id": "A1",
+     "nombre": "Cosmética y screen & clean de CPE para otros operadores (Izzi, Megacable, Telmex, Sky/Dish, Telcel/AT&T FWA)",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 8,
+     "sinergia_con_operacion_totalplay": 8,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 7.72,
+     "justificacion": "Es el mismo proceso ya autorizado en CEVASEP II: equipo sin energizar, cables cortos contados, alcohol en dispensadores del supervisor, manifiesto por serie. La seguridad sólo se sostiene para CPE fijo (ONT, routers, decos); módems FWA con ranura SIM y rastreadores GPS con batería de litio y radio GSM no los autorizaría la Dirección de Seguridad y hay que excluirlos. El riesgo real es de datos (SSID/credenciales) y de veto comercial de Totalplay, no de operación.",
+     "dato_que_cambiaria_tu_opinion": "Que Totalplay acepte por escrito atender competidores en salones separados; y que el operador entregue lotes con borrado de configuración certificado antes de entrar al centro."
+    },
+    {
+     "id": "A2",
+     "nombre": "Triage funcional y reparación modular nivel 1-2 de CPE y accesorios",
+     "demanda_2026_2030": 8,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 8,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 5,
+     "capacitacion_15_dias_y_salones": 5,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 10,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 6.15,
+     "justificacion": "Comercialmente es la evolución natural, pero operativamente cambia la categoría de riesgo: bancos energizados con radios Wi-Fi encendidos, PC de prueba, cautines (calor y arma improvisada) y firmware. En un centro de alto riesgo institucional sólo se autoriza como célula chica (8-12 PPL) en un salón separado, con jaula de Faraday o antenas desconectadas, PC bajo llave del supervisor y apagado central. 15 días no bastan para retrabajo de soldadura; 15-20 días sólo para prueba y cambio modular.",
+     "dato_que_cambiaria_tu_opinion": "Que la Dirección Ejecutiva de Seguridad apruebe un protocolo escrito de banco de prueba aislado (sin salida a red, radios en jaula) tras una prueba piloto de 30 días sin hallazgos."
+    },
+    {
+     "id": "A3",
+     "nombre": "Kits de autoinstalación y re-kitting de equipos telecom (Totalplay, Izzi, Megacable, Telcel)",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 8,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 9,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 9,
+     "sinergia_con_operacion_totalplay": 10,
+     "riesgo_regulatorio_reputacional_invertido": 8,
+     "total_ponderado": 8.88,
+     "justificacion": "Es la extensión más limpia de lo que ya corre: mismos equipos, misma cadena de custodia, cero energizado, cables en tramos cortos contados, sin químicos ni datos de suscriptor. Cabe en mesas de aula, se aprende en 3-5 días y escala a 350 PPL casi sin capex. Si el centro cierra por revisión general, el inventario queda en jaula sellada y se reanuda sin merma de calidad.",
+     "dato_que_cambiaria_tu_opinion": "Que Totalplay decida comprar kits ya armados al OEM o cambiar a equipos de nueva generación que no reacondiciona; o un incidente con cables largos que endurezca el conteo."
+    },
+    {
+     "id": "A4",
+     "nombre": "Jumpers de fibra, cables coaxiales/UTP preconectorizados y kits de instalación para instaladores",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 5,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 8,
+     "riesgo_regulatorio_reputacional_invertido": 8,
+     "total_ponderado": 6.4,
+     "justificacion": "El cliente es el mismo y no hay electrónica ni datos, pero el material es problemático en un penal de alta seguridad: carretes de cable largo (ligadura), cleavers y tijeras Kevlar, y fragmentos de fibra de vidrio invisibles que son un riesgo de autolesión y de contaminación difícil de barrer. Coaxial/UTP con crimpadoras de banco fijas es aceptable; la fibra requeriría una célula chica bajo supervisión directa. Parte de A3 puede absorber los kits sin tocar la fibra.",
+     "dato_que_cambiaria_tu_opinion": "Que Totalplay compre jumpers de fibra con conector prepulido en longitudes fijas y sólo pida corte/armado de coaxial y UTP (elimina cleaver y fibra suelta)."
+    },
+    {
+     "id": "A5",
+     "nombre": "Reacondicionamiento de controles remotos, eliminadores, cables, audífonos y accesorios (multi-operador y retail)",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 10,
+     "capex_y_escalabilidad_a_350": 9,
+     "sinergia_con_operacion_totalplay": 10,
+     "riesgo_regulatorio_reputacional_invertido": 8,
+     "total_ponderado": 8.33,
+     "justificacion": "Ya se hace para Totalplay: sólo se agregan modelos y clientes. Riesgos conocidos y controlables: pilas AA/AAA en caja metálica del supervisor entregadas por cantidad exacta, cables enrollados y contados, sin soldadura ni químicos. Capacitación de 3-7 días, mesas de aula y capex mínimo. El límite es de valor por hora, no de seguridad.",
+     "dato_que_cambiaria_tu_opinion": "Que el precio del control nuevo caiga por debajo del costo de reacondicionar, o que los clientes retail exijan auditoría presencial en sitio que el centro no permita."
+    },
+    {
+     "id": "A6",
+     "nombre": "Desensamble manual de CPE/RAEE e ITAD de cómputo corporativo para reciclador autorizado",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 7,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 5.39,
+     "justificacion": "El desensamble genera exactamente lo que un director no quiere en salón: 35 juegos de desarmadores y pinzas, lámina con bordes, alambre de cobre suelto, placas con filos, capacitores cargados y baterías de plomo/litio. El balance de masa por turno es viable pero costoso en supervisión. Para ITAD corporativo entran discos con datos aunque se prometa lo contrario, y los clientes con R2/ISO no auditan dentro de un penal. Sólo lo aceptaría como célula de 10-15 PPL para scrap de CPE de Totalplay, no como línea de 35.",
+     "dato_que_cambiaria_tu_opinion": "Que SEDEMA acepte el domicilio penitenciario como sitio de manejo de RME y que el reciclador final firme cadena de custodia; si no, se queda como complemento marginal."
+    },
+    {
+     "id": "A7",
+     "nombre": "Cosmética exterior y kitting de terminales punto de venta (Mercado Pago, Clip, Getnet)",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 2,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 2,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 8,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 2,
+     "total_ponderado": 3,
+     "justificacion": "Una terminal de pago tiene radio celular/Wi-Fi/Bluetooth, batería de litio y ranura SIM: es un dispositivo con conectividad prohibido en un centro de alta seguridad, y encima es el objeto perfecto para fraude con tarjetas junto al principal origen de extorsión de la ciudad. La Dirección de Seguridad no lo autoriza y el área de riesgo de la fintech tampoco (PCI PTS). Descalificada.",
+     "dato_que_cambiaria_tu_opinion": "Prácticamente ninguno; sólo si la fintech entregara carcasas vacías sin placa ni batería (entonces ya no es terminal, es plástico) y aún así el valor por pieza se desploma."
+    },
+    {
+     "id": "B1",
+     "nombre": "Procesamiento de devoluciones de e-commerce (moda, calzado, hogar, juguetes)",
+     "demanda_2026_2030": 8,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 5.76,
+     "justificacion": "Tres problemas operativos: ropa y calzado de civil dentro del área de PPL es material de fuga por suplantación; paquetes con nombre y domicilio del comprador son datos personales a la vista; y el producto atractivo (tenis, perfumes, juguetes) dispara el robo hormiga y las revisiones corporales. Los SLA de 24-48 h de un 3PL son incompatibles con un cierre por revisión general. Sólo aceptable para hogar/juguetes sin ropa, con etiquetas retiradas afuera.",
+     "dato_que_cambiaria_tu_opinion": "Que un 3PL acepte lotes semanales sin SLA diario, retire etiquetas de envío antes de entregar y limite las categorías a artículos de hogar y juguetes sin baterías."
+    },
+    {
+     "id": "B2",
+     "nombre": "Grading, limpieza y re-empaque de electrónica de consumo y electrodomésticos pequeños devueltos",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 3,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 5.34,
+     "justificacion": "Cuchillas de licuadora, resistencias calefactoras, planchas, tablets y bocinas con Bluetooth/Wi-Fi y baterías de litio: cada SKU trae un objeto prohibido distinto y el conteo pieza por pieza se vuelve inmanejable con mezcla alta de productos. Además exige energizar aparatos en salón. Un director autorizaría cuando mucho una célula de limpieza y re-empaque sin encendido y sin electrodomésticos con cuchilla.",
+     "dato_que_cambiaria_tu_opinion": "Que el cliente acote el catálogo a categorías sin cuchillas, sin baterías y sin radios (p. ej. cafeteras, tostadores, accesorios) y haga la prueba eléctrica en su planta."
+    },
+    {
+     "id": "B3",
+     "nombre": "Cosmética y kitting de laptops/tablets reacondicionadas para programas escolares y reventa corporativa",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 3,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 2,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 3,
+     "riesgo_regulatorio_reputacional_invertido": 3,
+     "total_ponderado": 3,
+     "justificacion": "Una laptop es una computadora con Wi-Fi, Bluetooth y batería de litio; aunque entre con certificado de borrado, dentro de un centro de alta seguridad es un electrónico con conectividad y el riesgo de que un disco llegue sin borrar recae en el taller. Los clientes con R2v3 no auditan en penal. Descalificada por regla de seguridad.",
+     "dato_que_cambiaria_tu_opinion": "Que entren únicamente carcasas y accesorios (sin placa madre, sin batería, sin disco) para limpieza y kitting; entonces se reduce a un caso de A5."
+    },
+    {
+     "id": "B4",
+     "nombre": "Grading cosmético y kitting de smartphones reacondicionados",
+     "demanda_2026_2030": 8,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 2,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 1,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 8,
+     "sinergia_con_operacion_totalplay": 3,
+     "riesgo_regulatorio_reputacional_invertido": 1,
+     "total_ponderado": 2,
+     "justificacion": "El celular es el objeto más prohibido del sistema penitenciario, hay bloqueo de señal en 2026 y el Reclusorio Norte contiguo es el principal origen de extorsión telefónica de la CDMX. Meter lotes de smartphones a CEVASEP II, aunque estén descargados y sin SIM, es indefendible ante la SSC y ante cualquier medio. Descalificada sin discusión.",
+     "dato_que_cambiaria_tu_opinion": "Ninguno realista en el horizonte 2026-2030."
+    },
+    {
+     "id": "C1",
+     "nombre": "Armado de packs promocionales para consumo masivo y co-packing e-commerce",
+     "demanda_2026_2030": 8,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 6.84,
+     "justificacion": "El empaquetado ya se hace en penales de CDMX y absorbe mucha mano de obra con capacitación de días; cabe en mesas de aula. Lo que condiciona la autorización es el calor (selladoras L y túneles: quemadura, incendio y uso para calentar objetos) y el producto (rastrillos, desodorantes, alcohol, aerosoles). Con termoencogido limitado a una estación bajo llave del supervisor y catálogo sin productos sensibles, es viable; el riesgo fuerte es incumplir plazos de retail si el centro cierra por revisión.",
+     "dato_que_cambiaria_tu_opinion": "Que un fabricante de consumo acepte contractualmente una cláusula de contingencia penitenciaria (plazos +72 h) y excluya de origen productos con alcohol, aerosol o navaja."
+    },
+    {
+     "id": "C2",
+     "nombre": "Etiquetado NOM de información comercial para importadores y re-etiquetado NOM-051",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 10,
+     "capex_y_escalabilidad_a_350": 9,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 7.8,
+     "justificacion": "Es la operación más benigna del catálogo: etiquetas autoadheribles, pistolas etiquetadoras con aguja de plástico contada, cutters de hoja oculta, sin químicos ni electrónica activa, y capacitación de 3-5 días. Escala a 350 PPL en mesas de aula y tolera cierres del centro porque los lotes no se degradan. Recomiendo limitar a no alimentos: meter dulces y abarrotes al área de PPL abre un canal de consumo/contrabando y un conflicto con las reglas de ingreso de comida.",
+     "dato_que_cambiaria_tu_opinion": "Que la SE obligue a etiquetar en origen o sólo en recinto fiscalizado (se cae el mercado post-despacho); o que la Dirección de Seguridad objete el volumen de cajas que entra y sale diariamente por la aduana del centro."
+    },
+    {
+     "id": "C3",
+     "nombre": "Kitting corporativo B2B: kits de bienvenida, cajas de regalo, cajas de suscripción, kits de muestras",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 10,
+     "capex_y_escalabilidad_a_350": 9,
+     "sinergia_con_operacion_totalplay": 7,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 7.35,
+     "justificacion": "Picking por lista y doblado de cajas: sin herramientas, sin calor, capacitación de 3-5 días. El problema son los componentes típicos del kit corporativo: memorias USB, audífonos, power banks, termos de acero y plumas metálicas, todos objetos prohibidos o armas potenciales. Con lista de componentes aprobada por el centro (sin electrónicos ni metal) es una línea excelente de temporada (sep-dic) que comparte mesas con C2 y F2.",
+     "dato_que_cambiaria_tu_opinion": "Que los clientes acepten kits sin electrónicos; si el 60% de los kits corporativos trae USB o audífonos, la línea se reduce a un tercio del mercado."
+    },
+    {
+     "id": "C4",
+     "nombre": "Ensamble de exhibidores POP de cartón y displays de temporada",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 10,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 8,
+     "total_ponderado": 7.4,
+     "justificacion": "Cartón, cinta doble cara y grapas plásticas: casi nada que controlar, capacitación de 2-4 días y capex mínimo. El límite es físico, no de seguridad: un exhibidor armado ocupa 0.2-0.5 m³, un salón tipo aula se llena en dos horas y la aduana del centro tiene que revisar camiones diarios de bulto voluminoso (fácil de inspeccionar, pero consume tiempo de custodios). Pre-carga con dulces/botanas no la autorizaría.",
+     "dato_que_cambiaria_tu_opinion": "Que el centro asigne un patio o bodega techada de estiba junto a la aduana y permita dos salidas de camión al día; sin eso la línea sólo funciona en lotes chicos."
+    },
+    {
+     "id": "C5",
+     "nombre": "Maquila de blíster manual y termoencogido para accesorios electrónicos, ferretería ligera, papelería y juguetes",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 5.8,
+     "justificacion": "Combina dos cosas que la Dirección de Seguridad rechaza: 6-10 selladoras de calor operando a la vez y el producto a emblisterar (brocas, puntas, desarmadores, tornillería), que es literalmente inventario de armas. Papelería y accesorios de plástico serían aceptables, pero entonces el margen no justifica el capex de las selladoras. Los vapores de PVC en aula sin extracción son otro rechazo.",
+     "dato_que_cambiaria_tu_opinion": "Que el cliente sea de papelería/juguete plástico exclusivamente y acepte blíster de cierre a presión (sin calor)."
+    },
+    {
+     "id": "C6",
+     "nombre": "Acondicionamiento secundario de cosméticos (estuchado, etiquetado, sets de regalo)",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 2,
+     "riesgo_regulatorio_reputacional_invertido": 3,
+     "total_ponderado": 5.04,
+     "justificacion": "Perfumes y lociones con alcohol son inflamables y consumibles; cremas y maquillaje son moneda de cambio interna. El Aviso de Funcionamiento COFEPRIS con domicilio penitenciario y la verificación sanitaria dentro del centro son un obstáculo administrativo que no controla el empresario. Operativamente es simple (mesas, celofán), pero el producto y la regulación lo hunden.",
+     "dato_que_cambiaria_tu_opinion": "Que COFEPRIS acepte el aviso con domicilio del centro y que el cliente limite el alcance a estuches vacíos y etiquetado de producto sellado sin alcohol."
+    },
+    {
+     "id": "D1",
+     "nombre": "Uniformes corporativos e industriales y ropa hospitalaria",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 8,
+     "margen_y_valor_por_persona_hora": 3,
+     "factibilidad_seguridad_penitenciaria": 7,
+     "capacitacion_15_dias_y_salones": 5,
+     "capex_y_escalabilidad_a_350": 4,
+     "sinergia_con_operacion_totalplay": 9,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 6.38,
+     "justificacion": "La costura industrial ya opera en penales de CDMX con protocolos probados (agujas por número, fragmentos devueltos, tijeras encadenadas), y las rectas/overlock son monofásicas. Los peros son operativos: 25-33 máquinas en un salón tipo aula es apretado, 15 días sólo dan operaciones simples y la eficiencia útil llega a los 60-90 días, y el capex por salón es el más alto de la categoría. Uniformes de seguridad privada y scrubs hospitalarios los vetaría por riesgo de suplantación en traslados; uniforme de técnico Totalplay sí.",
+     "dato_que_cambiaria_tu_opinion": "Que la Subsecretaría ceda un salón mayor o nave chica con instalación eléctrica para 30 máquinas, y que Totalplay comprometa volumen anual de uniformes de técnico para absorber la curva de aprendizaje."
+    },
+    {
+     "id": "D2",
+     "nombre": "Serigrafía, bordado computarizado y DTF de playeras/gorras promocionales",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 7,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 6,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 8,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 6.23,
+     "justificacion": "La serigrafía ya existe en el sistema penitenciario de CDMX, así que la autoridad la conoce; con tintas base agua y solventes bajo llave del supervisor el riesgo químico es manejable, pero el horno de banda a 160-180 °C y la computadora de la bordadora (aunque offline) piden salón aparte. El problema es de escala: una célula emplea 6-10 PPL, no sirve para llenar salones de 35. Buena como complemento de D1/D3, no como línea principal.",
+     "dato_que_cambiaria_tu_opinion": "Que Grupo Salinas o el Gobierno CDMX comprometan volumen anual de playeras/gorras que justifique 2-3 células; de lo contrario queda como taller de valor agregado de 10 personas."
+    },
+    {
+     "id": "D3",
+     "nombre": "Bolsas ecológicas/tote, mandiles, bolsas porta-kit y chalecos reflejantes / EPP textil básico",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 3,
+     "factibilidad_seguridad_penitenciaria": 7,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 8,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 6.83,
+     "justificacion": "Es la costura más simple del catálogo (sin cierres metálicos ni botones) y la maquila de bolsas ya está en el catálogo Hazme Valer: la autoridad la aprueba de rutina. Los chalecos de alta visibilidad son sensibles (parecen personal de mantenimiento en una fuga) y deben salir del salón el mismo día contados pieza por pieza. Rollos de tela voluminosos requieren horario de rayos X. Margen bajo, pero es la línea textil de arranque más rápida y engancha con el kit del técnico Totalplay.",
+     "dato_que_cambiaria_tu_opinion": "Que Totalplay adopte la bolsa porta-kit y el chaleco de marca con volumen fijo; sin cliente ancla, el mercado abierto de totes está saturado y no vale ocupar un salón."
+    },
+    {
+     "id": "D4",
+     "nombre": "Blancos institucionales (sábanas, batas) para hospitales, hoteles y el propio sistema penitenciario",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 8,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 3,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 6.13,
+     "justificacion": "Operación simple (dobladillos rectos, 15 días sobran) con cliente cautivo: la propia Subsecretaría compra ropa de cama y uniformes de PPL. La sábana es material de cuerda y ahorcamiento, pero es el mismo material que ya está en cada celda; el control es contar y sacar la producción diaria. Necesita mesa de tendido de 8-10 m, que no cabe en un aula; requiere salón largo o corte externo. Ingreso por hora bajo y pagos de gobierno a 60-120 días.",
+     "dato_que_cambiaria_tu_opinion": "Que la Subsecretaría formalice compra por adjudicación directa con precio y volumen anual; y que el corte se haga afuera para entrar sólo piezas cortadas."
+    },
+    {
+     "id": "D5",
+     "nombre": "Reacondicionamiento de uniformes industriales, EPP textil y calzado industrial en renta",
+     "demanda_2026_2030": 5,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 3,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 5.02,
+     "justificacion": "Ropa usada que entra al área de PPL es un vector clásico de contrabando (objetos ocultos en dobladillos y suelas) y los uniformes de corporaciones de seguridad, CFE o mensajería son disfraz de fuga. El calzado con casquillo de acero es un arma contundente. Cada lote exigiría revisión manual prenda por prenda, lo que consume más custodios de lo que vale la maquila. No lo autorizaría en un centro de alto riesgo institucional.",
+     "dato_que_cambiaria_tu_opinion": "Que el cliente entregue únicamente prendas nuevas con defecto de fábrica (no usadas) y sin logos de seguridad; entonces es costura normal (ver D1)."
+    },
+    {
+     "id": "E1",
+     "nombre": "Arneses y ensambles de cable de bajo/medio volumen (Tier 2-3 automotriz, electrodomésticos, tableros)",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 6,
+     "capex_y_escalabilidad_a_350": 4,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 4.84,
+     "justificacion": "Cable de cobre a granel, terminales metálicas, pinzas de corte y cuchillas de peladora en manos de 35 personas por salón: el tool-crib con tablero de sombras funciona, pero el balance de cobre y terminales por turno es laborioso y un incidente detiene la línea. Los clientes automotrices exigen auditoría IPC/WHMA e ISO en sitio, algo que un centro de alta seguridad rara vez concede, y castigan retrasos por cierre del centro. El capex de prensas y aplicadores no se justifica para el nicho de bajo volumen.",
+     "dato_que_cambiaria_tu_opinion": "Que un cliente de electrodomésticos o Italika acepte kits pre-cortados y pre-pelados (sólo inserción y encintado) sin auditoría presencial; eso baja herramientas y cobre suelto."
+    },
+    {
+     "id": "E2",
+     "nombre": "Extensiones eléctricas y multicontactos (NOM-003) y ensamble de luminarias LED",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 5,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 5.02,
+     "justificacion": "Cordones de 2-5 m de cable con cobre son ligadura y materia prima de armas; los probadores hipot de 1.5-3 kV y racks de burn-in a 127-220 V requieren cabina enclavada que no existe en un aula; las luminarias añaden cautines y difusores que se rompen en filos. La verificación de seguimiento NOM-003 por ANCE/NYCE dentro de un penal es dudosa. Producto commodity que no paga la carga de control.",
+     "dato_que_cambiaria_tu_opinion": "Que el cliente haga la prueba hipot y el burn-in en su planta y sólo pida ensamble de clavijas/contactos en cordones ya cortados; y que ANCE confirme que audita el sitio."
+    },
+    {
+     "id": "E3",
+     "nombre": "Inserción through-hole, box-build y pruebas funcionales para EMS; box-build IoT/GPS",
+     "demanda_2026_2030": 5,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 4,
+     "factibilidad_seguridad_penitenciaria": 3,
+     "capacitacion_15_dias_y_salones": 5,
+     "capex_y_escalabilidad_a_350": 4,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 4.27,
+     "justificacion": "20-30 cautines encendidos por salón, flux, flush cutters y programadores de firmware ya son difíciles; los módulos GSM/GPS/BLE de IoT, aunque 'inactivos', son dispositivos con conectividad y no entran a un centro de alta seguridad junto al Reclusorio Norte. La curva de calidad ESD/soldadura excede 15 días. Los EMS no mandan fixtures ni firmware a un penal. Sólo la parte de box-build mecánico sin soldadura sería defendible, y con eso el valor cae.",
+     "dato_que_cambiaria_tu_opinion": "Que un EMS local acepte subcontratar sólo ensamble mecánico final y empaque (sin soldadura ni módulos RF) con volumen estable."
+    },
+    {
+     "id": "E4",
+     "nombre": "Subensambles mecánicos y kits: juguetes, cerraduras/herrajes, manijas y plástico inyectado con empaque",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 3,
+     "factibilidad_seguridad_penitenciaria": 6,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 6.45,
+     "justificacion": "Ensamble de juguetes, manijas y artículos de plástico inyectado con prensas manuales de banco es trabajo de mesa, de 5-10 días de capacitación, y la inyección/ensamble ya existe en penales de CDMX. Cerraduras y cilindros quedan fuera: pernos, resortes y conocimiento de mecanismos son inaceptables en un centro de seguridad. Piezas metálicas pequeñas por conteo y adhesivos base agua. Margen bajo, pero absorbe mucha gente y aguanta cierres.",
+     "dato_que_cambiaria_tu_opinion": "Que un fabricante de juguete o herrajes de Edomex comprometa volumen mensual estable en kits cerrados; si sólo ofrecen picos de temporada, no vale un salón fijo."
+    },
+    {
+     "id": "F1",
+     "nombre": "Cajas rígidas y estuches de lujo ensamblados a mano (rigid boxes) para tequila/mezcal, joyería y regalo corporativo",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 8,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 6.9,
+     "justificacion": "Cartón pre-suajado (sin cuchillas), adhesivo PVA (no inflamable, no inhalable), plegaderas de plástico y prensas manuales: de lo más limpio que puede entrar a un salón, y con buen valor por hora. Los imanes se cuentan por unidad (sirven para esconder objetos o manipular chapas). Lo que pide más de 15 días es la calidad de lujo (esquinas), y el producto es voluminoso a la salida. Estacional en Q4; se complementa con C3/F2.",
+     "dato_que_cambiaria_tu_opinion": "Que una casa tequilera o joyería acepte un primer lote piloto y la merma de calidad de las primeras 4-6 semanas; y confirmar que el suajador externo entrega a tiempo a Cuautepec."
+    },
+    {
+     "id": "F2",
+     "nombre": "Regalos corporativos con marca de impacto social (ESG): kits curados hechos por personas en reinserción",
+     "demanda_2026_2030": 6,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 7,
+     "margen_y_valor_por_persona_hora": 8,
+     "factibilidad_seguridad_penitenciaria": 8,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 8,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 7.48,
+     "justificacion": "Operativamente es kitting en mesa con contenidos que vienen de otros talleres penitenciarios: sin herramientas, sin calor, sin electrónica. Datos de destinatarios y personalización nominal se hacen afuera; comestibles sellados y contados. La Subsecretaría suele apoyar este tipo de producto porque le da narrativa de reinserción. El riesgo es reputacional (comunicar mal el salario mínimo) y político (cambio de titular), y la estacionalidad Q4 obliga a compartir salón con C2/C3.",
+     "dato_que_cambiaria_tu_opinion": "Que Grupo Salinas firme un pedido ancla de decenas de miles de kits para 2026-2027; y que la Subsecretaría autorice por escrito el uso de la marca 'hecho en reinserción' sin exponer identidad de PPL."
+    },
+    {
+     "id": "F3",
+     "nombre": "Accesorios para mascotas: juguetes de cuerda trenzada, mordederas y camas cosidas",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 4,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 2,
+     "riesgo_regulatorio_reputacional_invertido": 7,
+     "total_ponderado": 5.52,
+     "justificacion": "La cuerda es de los materiales más restringidos en un centro de seguridad (estrangulación, escalada, cuerdas para 'aviones' entre celdas); un balance de peso por turno ayuda pero un metro faltante es un incidente de seguridad. Las camas y mordederas de tela son costura normal y sí pasan. Tal como está definida, la mitad del producto no la autorizaría.",
+     "dato_que_cambiaria_tu_opinion": "Que el cliente compre camas y mordederas de tela sin cuerda; o que la cuerda entre ya cortada a longitudes de 20-30 cm y trenzada en el mismo turno con salida diaria."
+    },
+    {
+     "id": "F4",
+     "nombre": "Juguetes de madera/rompecabezas y pintura a mano de figuras y artesanía (extensión del taller de tenis pintados)",
+     "demanda_2026_2030": 5,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 6,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 7,
+     "capacitacion_15_dias_y_salones": 7,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 4,
+     "riesgo_regulatorio_reputacional_invertido": 6,
+     "total_ponderado": 6.23,
+     "justificacion": "La pintura a mano ya está autorizada en CEVASEP II (tenis pintados): pinceles y acrílicos al agua son lo más inofensivo que hay y hay núcleo capacitado. La madera es otra historia: piezas que se afilan como punta, lijas y lijadoras; conviene que el lijado y corte se hagan afuera y sólo entre pieza lista para pintar y ensamblar. Escala limitada por aptitud (no todos pintan) y por mercado; buena como célula de 10-20 PPL de alto valor.",
+     "dato_que_cambiaria_tu_opinion": "Que aparezca un cliente de exportación o marca de sneakers con volumen mensual estable de pintura; y que las pruebas NOM-252/ASTM de juguete no recaigan en el taller."
+    },
+    {
+     "id": "F5",
+     "nombre": "Velas de cera de soya y aromatizantes",
+     "demanda_2026_2030": 5,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 3,
+     "capacitacion_15_dias_y_salones": 8,
+     "capex_y_escalabilidad_a_350": 6,
+     "sinergia_con_operacion_totalplay": 3,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 4.95,
+     "justificacion": "Cera caliente a 70-80 °C (agresión con líquido caliente es un patrón conocido en penales), vasos de vidrio que se convierten en filos y fragancias inflamables con alcohol: tres objetos de riesgo en un solo proceso. Sólo el etiquetado y empaque de velas ya vertidas afuera sería autorizable, y con eso el valor por hora baja a la mitad. Mercado saturado en gama baja.",
+     "dato_que_cambiaria_tu_opinion": "Que el cliente vierta afuera y sólo pida etiquetado/empaque en el penal; entonces se convierte en un caso de C2/C3 con envases de lata."
+    },
+    {
+     "id": "F6",
+     "nombre": "Etiquetado y anotación de datos para IA en red aislada (offline)",
+     "demanda_2026_2030": 7,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 3,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 2,
+     "capacitacion_15_dias_y_salones": 6,
+     "capex_y_escalabilidad_a_350": 3,
+     "sinergia_con_operacion_totalplay": 6,
+     "riesgo_regulatorio_reputacional_invertido": 3,
+     "total_ponderado": 3,
+     "justificacion": "35 computadoras, switch y servidor dentro de un centro de alta seguridad contiguo al Reclusorio Norte, con la SSC bloqueando señal celular en 2026: aunque la LAN esté físicamente aislada, un solo puerto USB o un módem introducido convierte el salón en un call center de extorsión, y la Dirección Ejecutiva de Seguridad lo sabe. No lo autorizaría, y el cliente de datos tampoco pasaría su comité de privacidad. Descalificada por regla.",
+     "dato_que_cambiaria_tu_opinion": "Un cambio de política de la SSC que habilite aulas de cómputo laborales con terminales tontas y auditoría física, algo que no veo en 2026-2030 para un centro de este perfil."
+    },
+    {
+     "id": "F7",
+     "nombre": "Pelado manual de cable de cobre y recuperación de conectores (con cable residual del cliente)",
+     "demanda_2026_2030": 5,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 4,
+     "margen_y_valor_por_persona_hora": 6,
+     "factibilidad_seguridad_penitenciaria": 2,
+     "capacitacion_15_dias_y_salones": 10,
+     "capex_y_escalabilidad_a_350": 8,
+     "sinergia_con_operacion_totalplay": 3,
+     "riesgo_regulatorio_reputacional_invertido": 3,
+     "total_ponderado": 3,
+     "justificacion": "El producto terminado es alambre de cobre desnudo: punta, garrote, ganzúa y moneda interna, en kilos por turno, más cable aislado que sirve de cuerda. El balance de masa nunca cuadra al gramo y cada diferencia es un incidente. Además, el cobre chatarra de origen dudoso trae exposición penal para el Socio Industrial. Descalificada por regla.",
+     "dato_que_cambiaria_tu_opinion": "Ninguno operativo; si acaso, como complemento marginal de eliminadores de Totalplay dentro de A6, nunca como línea propia."
+    },
+    {
+     "id": "F8",
+     "nombre": "Reciclaje textil: clasificación de ropa usada y trapo industrial",
+     "demanda_2026_2030": 5,
+     "disposicion_cliente_a_contratar_taller_penitenciario": 5,
+     "margen_y_valor_por_persona_hora": 5,
+     "factibilidad_seguridad_penitenciaria": 2,
+     "capacitacion_15_dias_y_salones": 9,
+     "capex_y_escalabilidad_a_350": 7,
+     "sinergia_con_operacion_totalplay": 5,
+     "riesgo_regulatorio_reputacional_invertido": 5,
+     "total_ponderado": 3,
+     "justificacion": "Pacas de ropa post-consumo son el vector de contrabando más eficiente que se puede imaginar (droga, celulares y navajas cosidos en dobladillos) y la ropa de civil es material de fuga. Revisar pacas de 300 kg a mano antes de entrar no es 'revisión razonable'. Las guillotinas y prensa empacadora tampoco caben en un aula. Descalificada por regla.",
+     "dato_que_cambiaria_tu_opinion": "Que el insumo sea exclusivamente retazo nuevo de fábrica o uniformes de baja de Totalplay/Grupo Salinas triturados antes de entrar; con eso el riesgo baja pero el valor también."
+    }
+   ],
+   "top_5_y_por_que": [
+    "A3 Kits de autoinstalación y re-kitting telecom (8.9): mismo cliente, misma cadena de custodia y mismo protocolo ya aprobado por la Dirección de Seguridad; cero energizado, cero datos, cables cortos contados; escala a 350 PPL casi sin capex y aguanta un cierre del centro sin degradar inventario.",
+    "A5 Reacondicionamiento de controles, eliminadores, cables y accesorios multi-operador (8.3): ya se hace hoy, riesgos conocidos (pilas en caja del supervisor, cables enrollados), 3-7 días de capacitación y capex mínimo; sólo agrega modelos y clientes.",
+    "C2 Etiquetado NOM para importadores (7.8): la operación más benigna del catálogo (etiquetas, agujas de plástico, cutters de hoja oculta), 3-5 días de capacitación, ideal para llenar salones nuevos rápido; limitarla a no alimentos para no abrir un canal de consumo en el área de PPL.",
+    "A1 Cosmética de CPE de otros operadores (7.7): idéntico al proceso autorizado, restringido a CPE fijo (excluir FWA con SIM y GPS con litio/GSM); el obstáculo es comercial (veto de Totalplay) y de borrado de datos, no de seguridad.",
+    "F2 Regalos corporativos ESG hechos en reinserción (7.5): kitting de mesa sin herramientas ni electrónica, la Subsecretaría lo apoya por narrativa, buen valor por hora y Grupo Salinas como ancla; estacional, por lo que comparte salón con C2/C3 y F1 (cajas rígidas, 6.9, la línea manual más limpia con mejor valor)."
+   ],
+   "lineas_que_descartarias_y_por_que": [
+    "B4 Smartphones: el objeto más prohibido del sistema penitenciario, con bloqueo de señal en 2026 y el Reclusorio Norte contiguo como origen de extorsión; indefendible ante la SSC y la prensa.",
+    "A7 Terminales punto de venta: radio celular/Wi-Fi/BT, batería de litio, SIM y potencial de fraude con tarjetas; ni la Dirección de Seguridad ni el área PCI de la fintech lo aprobarían.",
+    "B3 Laptops/tablets: computadoras con conectividad y litio, más responsabilidad por discos no borrados; los clientes R2v3 no auditan en penal.",
+    "F6 Anotación de datos con 35 PC en LAN aislada: un puerto USB o un módem introducido convierte el salón en un call center de extorsión; la SSC no lo va a autorizar en un centro de alto riesgo institucional.",
+    "F7 Pelado de cobre: el producto es alambre desnudo por kilos (arma, ganzúa, moneda interna) y cable aislado como cuerda; el balance de masa nunca cierra y hay exposición penal por origen del cobre.",
+    "F8 Reciclaje de ropa usada: pacas post-consumo son el vector de contrabando más eficiente y la ropa de civil es material de fuga; la revisión previa no es razonable en volumen.",
+    "D5 Reacondicionamiento de uniformes/EPP/calzado usado: ropa usada con objetos ocultos, uniformes de corporaciones de seguridad como disfraz de fuga y casquillos de acero como arma contundente.",
+    "E3 THT/box-build IoT-GPS: 20-30 cautines por salón, flux y módulos GSM/GPS/BLE 'inactivos' que siguen siendo dispositivos con conectividad; curva de calidad mayor a 15 días.",
+    "F5 Velas: cera caliente (patrón conocido de agresión), vidrio y fragancias inflamables con alcohol en un mismo proceso.",
+    "B2 Electrónica de consumo devuelta: cada SKU trae un objeto prohibido distinto (cuchillas, resistencias, radios, litio) y exige energizar aparatos en salón; el conteo se vuelve inmanejable.",
+    "E1/E2 Arneses y extensiones/luminarias: cobre a granel, cuchillas de pelado, hipot de 3 kV y burn-in a 220 V sin cabina enclavada, más auditorías IPC/NOM en sitio que el centro no concede; commodity que no paga la carga de control."
+   ],
+   "portafolio_sugerido": "Con 8-10 salones de ~35 PPL repartiría así, en orden de arranque. Fase 1 (0-6 meses, salones 1-5): mantener los 4 salones actuales de cosmética Totalplay y convertir uno de ellos en célula mixta A3+A5 (kits de alta listos para instalar, controles y accesorios) que sube el precio por unidad sin pedir un solo permiso nuevo; abrir el salón 5 con A1 restringido a CPE fijo de Izzi/Megacable/Telmex, en salón separado y con confidencialidad, si Totalplay lo acepta por escrito. Fase 2 (6-12 meses, salones 6-7): un salón de C2 etiquetado NOM no alimentario para importadores de Vallejo/Tlalnepantla (llena rápido, tolera cierres) y un salón 'de temporada' que rota C3 kitting corporativo sin electrónicos (ago-dic), F2 kits ESG con Grupo Salinas como ancla y F1 cajas rígidas (Q4), y en enero-julio absorbe picos de C1 co-packing sin calor ni productos sensibles y C4 exhibidores en lotes chicos si el centro concede área de estiba. Fase 3 (12-24 meses, salones 8-9): un salón textil D3+D1 (bolsas porta-kit, chalecos y uniforme del técnico Totalplay; excluir uniformes de seguridad y scrubs) con célula anexa D2 de bordado/serigrafía de 8-10 PPL para logos, y un salón E4 de subensamble mecánico de juguete/plástico (sin cerraduras) o D4 blancos para la propia Subsecretaría si formaliza compra directa. Salón 10 (opcional, 18-30 meses): célula A2 de triage funcional de CPE de máximo 12 PPL, sólo tras protocolo escrito de banco aislado aprobado por la Dirección Ejecutiva de Seguridad y piloto de 30 días; mientras no exista ese permiso, ese salón se dedica a F4 pintura a mano (ya autorizada en CEVASEP II) como célula de alto valor. Regla general: nunca más del 40% de la capacidad en líneas con plazo de entrega menor a 72 h, para sobrevivir un cierre por revisión general o motín sin perder clientes."
+  }
+ ],
+ "ranking": [
+  {
+   "id": "A3",
+   "nombre": "Kits de autoinstalación y re-kitting de equipos telecom (Totalplay, Izzi, Megacable, Telcel)",
+   "totales": [
+    8.6,
+    8.88
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 8.6,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 8.88
+   },
+   "promedio": 8.74,
+   "min": 8.6
+  },
+  {
+   "id": "A5",
+   "nombre": "Reacondicionamiento de controles remotos, eliminadores, cables, audífonos y accesorios (multi-operador y retail)",
+   "totales": [
+    7.55,
+    8.33
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 7.55,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 8.33
+   },
+   "promedio": 7.9399999999999995,
+   "min": 7.55
+  },
+  {
+   "id": "A1",
+   "nombre": "Cosmética y screen & clean de CPE para otros operadores (Izzi, Megacable, Telmex, Sky/Dish, Telcel/AT&T FWA)",
+   "totales": [
+    7.25,
+    7.72
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 7.25,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 7.72
+   },
+   "promedio": 7.484999999999999,
+   "min": 7.25
+  },
+  {
+   "id": "F2",
+   "nombre": "Regalos corporativos con marca de impacto social (ESG): kits curados hechos por personas en reinserción",
+   "totales": [
+    7,
+    7.48
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 7,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 7.48
+   },
+   "promedio": 7.24,
+   "min": 7
+  },
+  {
+   "id": "C2",
+   "nombre": "Etiquetado NOM de información comercial para importadores y NOM-051",
+   "totales": [
+    6.55,
+    7.8
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 6.55,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 7.8
+   },
+   "promedio": 7.175,
+   "min": 6.55
+  },
+  {
+   "id": "C3",
+   "nombre": "Kitting corporativo B2B: kits de bienvenida, cajas de regalo, suscripción, muestras",
+   "totales": [
+    6.7,
+    7.35
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 6.7,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 7.35
+   },
+   "promedio": 7.025,
+   "min": 6.7
+  },
+  {
+   "id": "A2",
+   "nombre": "Triage funcional y reparación modular nivel 1-2 de CPE y accesorios",
+   "totales": [
+    7.7,
+    6.15
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 7.7,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.15
+   },
+   "promedio": 6.925000000000001,
+   "min": 6.15
+  },
+  {
+   "id": "C4",
+   "nombre": "Ensamble de exhibidores POP de cartón y displays de temporada",
+   "totales": [
+    6.25,
+    7.4
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 6.25,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 7.4
+   },
+   "promedio": 6.825,
+   "min": 6.25
+  },
+  {
+   "id": "F1",
+   "nombre": "Cajas rígidas y estuches de lujo ensamblados a mano para tequila/mezcal, joyería y regalo corporativo",
+   "totales": [
+    6.3,
+    6.9
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 6.3,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.9
+   },
+   "promedio": 6.6,
+   "min": 6.3
+  },
+  {
+   "id": "A4",
+   "nombre": "Jumpers de fibra, cables coaxiales/UTP preconectorizados y kits de instalación para instaladores",
+   "totales": [
+    6.35,
+    6.4
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 6.35,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.4
+   },
+   "promedio": 6.375,
+   "min": 6.35
+  },
+  {
+   "id": "C1",
+   "nombre": "Armado de packs promocionales para consumo masivo y co-packing e-commerce",
+   "totales": [
+    5.85,
+    6.84
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.85,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.84
+   },
+   "promedio": 6.345,
+   "min": 5.85
+  },
+  {
+   "id": "D3",
+   "nombre": "Bolsas ecológicas/tote, mandiles, bolsas porta-kit y chalecos reflejantes / EPP textil",
+   "totales": [
+    5.8,
+    6.83
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.8,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.83
+   },
+   "promedio": 6.3149999999999995,
+   "min": 5.8
+  },
+  {
+   "id": "D1",
+   "nombre": "Uniformes corporativos e industriales y ropa hospitalaria",
+   "totales": [
+    5.9,
+    6.38
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.9,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.38
+   },
+   "promedio": 6.140000000000001,
+   "min": 5.9
+  },
+  {
+   "id": "D2",
+   "nombre": "Serigrafía, bordado computarizado y DTF de playeras/gorras promocionales",
+   "totales": [
+    5.95,
+    6.23
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.95,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.23
+   },
+   "promedio": 6.09,
+   "min": 5.95
+  },
+  {
+   "id": "E4",
+   "nombre": "Subensambles mecánicos y kits: juguetes, cerraduras/herrajes, manijas y plástico inyectado con empaque",
+   "totales": [
+    5.25,
+    6.45
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.25,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.45
+   },
+   "promedio": 5.85,
+   "min": 5.25
+  },
+  {
+   "id": "C5",
+   "nombre": "Maquila de blíster manual y termoencogido para accesorios, ferretería ligera, papelería y juguetes",
+   "totales": [
+    5.7,
+    5.8
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.7,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 5.8
+   },
+   "promedio": 5.75,
+   "min": 5.7
+  },
+  {
+   "id": "D4",
+   "nombre": "Blancos institucionales (sábanas, batas) para hospitales, hoteles y el propio sistema penitenciario",
+   "totales": [
+    5.1,
+    6.13
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.1,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.13
+   },
+   "promedio": 5.615,
+   "min": 5.1
+  },
+  {
+   "id": "B1",
+   "nombre": "Procesamiento de devoluciones de e-commerce (moda, calzado, hogar, juguetes)",
+   "totales": [
+    5.45,
+    5.76
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.45,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 5.76
+   },
+   "promedio": 5.605,
+   "min": 5.45
+  },
+  {
+   "id": "B2",
+   "nombre": "Grading, limpieza y re-empaque de electrónica de consumo y electrodomésticos pequeños devueltos",
+   "totales": [
+    5.6,
+    5.34
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.6,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 5.34
+   },
+   "promedio": 5.47,
+   "min": 5.34
+  },
+  {
+   "id": "F4",
+   "nombre": "Juguetes de madera/rompecabezas y pintura a mano de figuras y artesanía",
+   "totales": [
+    4.6,
+    6.23
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 4.6,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.23
+   },
+   "promedio": 5.415,
+   "min": 4.6
+  },
+  {
+   "id": "F3",
+   "nombre": "Accesorios para mascotas: juguetes de cuerda trenzada, mordederas y camas cosidas",
+   "totales": [
+    4.95,
+    5.52
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 4.95,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 5.52
+   },
+   "promedio": 5.234999999999999,
+   "min": 4.95
+  },
+  {
+   "id": "A6",
+   "nombre": "Desensamble manual de CPE/RAEE e ITAD de cómputo corporativo para reciclador autorizado",
+   "totales": [
+    4.85,
+    5.39
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 4.85,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 5.39
+   },
+   "promedio": 5.119999999999999,
+   "min": 4.85
+  },
+  {
+   "id": "E2",
+   "nombre": "Extensiones eléctricas y multicontactos (NOM-003) y ensamble de luminarias LED",
+   "totales": [
+    5.05,
+    5.02
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.05,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 5.02
+   },
+   "promedio": 5.035,
+   "min": 5.02
+  },
+  {
+   "id": "E1",
+   "nombre": "Arneses y ensambles de cable de bajo/medio volumen (Tier 2-3 automotriz, electrodomésticos, tableros)",
+   "totales": [
+    4.65,
+    4.84
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 4.65,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 4.84
+   },
+   "promedio": 4.745,
+   "min": 4.65
+  },
+  {
+   "id": "F5",
+   "nombre": "Velas de cera de soya y aromatizantes",
+   "totales": [
+    4.5,
+    4.95
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 4.5,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 4.95
+   },
+   "promedio": 4.725,
+   "min": 4.5
+  },
+  {
+   "id": "D5",
+   "nombre": "Reacondicionamiento de uniformes industriales, EPP textil y calzado industrial en renta",
+   "totales": [
+    4.4,
+    5.02
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 4.4,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 5.02
+   },
+   "promedio": 4.71,
+   "min": 4.4
+  },
+  {
+   "id": "C6",
+   "nombre": "Acondicionamiento secundario de cosméticos (estuchado, etiquetado, sets de regalo)",
+   "totales": [
+    4.25,
+    5.04
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 4.25,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 5.04
+   },
+   "promedio": 4.645,
+   "min": 4.25
+  },
+  {
+   "id": "E3",
+   "nombre": "Inserción through-hole, box-build y pruebas funcionales para EMS; box-build IoT/GPS",
+   "totales": [
+    3.95,
+    4.27
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 3.95,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 4.27
+   },
+   "promedio": 4.109999999999999,
+   "min": 3.95
+  },
+  {
+   "id": "A7",
+   "nombre": "Cosmética exterior y kitting de terminales punto de venta (Mercado Pago, Clip, Getnet)",
+   "totales": [
+    5.05,
+    3
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 5.05,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 3
+   },
+   "promedio": 4.025,
+   "min": 3
+  },
+  {
+   "id": "B3",
+   "nombre": "Cosmética y kitting de laptops/tablets reacondicionadas para programas escolares y reventa corporativa",
+   "totales": [
+    4.65,
+    3
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 4.65,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 3
+   },
+   "promedio": 3.825,
+   "min": 3
+  },
+  {
+   "id": "F8",
+   "nombre": "Reciclaje textil: clasificación de ropa usada y trapo industrial",
+   "totales": [
+    4.4,
+    3
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 4.4,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 3
+   },
+   "promedio": 3.7,
+   "min": 3
+  },
+  {
+   "id": "F7",
+   "nombre": "Pelado manual de cable de cobre y recuperación de conectores",
+   "totales": [
+    3.95,
+    3
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 3.95,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 3
+   },
+   "promedio": 3.475,
+   "min": 3
+  },
+  {
+   "id": "F6",
+   "nombre": "Etiquetado y anotación de datos para IA en red aislada (offline)",
+   "totales": [
+    3.75,
+    3
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 3.75,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 3
+   },
+   "promedio": 3.375,
+   "min": 3
+  },
+  {
+   "id": "B4",
+   "nombre": "Grading cosmético y kitting de smartphones reacondicionados",
+   "totales": [
+    4.1,
+    2
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 4.1,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 2
+   },
+   "promedio": 3.05,
+   "min": 2
+  }
+ ],
+ "finalistas_verificados": [
+  {
+   "id": "A3",
+   "nombre": "Kits de autoinstalación y re-kitting de equipos telecom (Totalplay, Izzi, Megacable, Telcel)",
+   "totales": [
+    8.6,
+    8.88
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 8.6,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 8.88
+   },
+   "promedio": 8.74,
+   "min": 8.6,
+   "veredictos": []
+  },
+  {
+   "id": "A5",
+   "nombre": "Reacondicionamiento de controles remotos, eliminadores, cables, audífonos y accesorios (multi-operador y retail)",
+   "totales": [
+    7.55,
+    8.33
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 7.55,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 8.33
+   },
+   "promedio": 7.9399999999999995,
+   "min": 7.55,
+   "veredictos": []
+  },
+  {
+   "id": "A1",
+   "nombre": "Cosmética y screen & clean de CPE para otros operadores (Izzi, Megacable, Telmex, Sky/Dish, Telcel/AT&T FWA)",
+   "totales": [
+    7.25,
+    7.72
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 7.25,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 7.72
+   },
+   "promedio": 7.484999999999999,
+   "min": 7.25,
+   "veredictos": []
+  },
+  {
+   "id": "F2",
+   "nombre": "Regalos corporativos con marca de impacto social (ESG): kits curados hechos por personas en reinserción",
+   "totales": [
+    7,
+    7.48
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 7,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 7.48
+   },
+   "promedio": 7.24,
+   "min": 7,
+   "veredictos": []
+  },
+  {
+   "id": "C2",
+   "nombre": "Etiquetado NOM de información comercial para importadores y NOM-051",
+   "totales": [
+    6.55,
+    7.8
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 6.55,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 7.8
+   },
+   "promedio": 7.175,
+   "min": 6.55,
+   "veredictos": []
+  },
+  {
+   "id": "C3",
+   "nombre": "Kitting corporativo B2B: kits de bienvenida, cajas de regalo, suscripción, muestras",
+   "totales": [
+    6.7,
+    7.35
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 6.7,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 7.35
+   },
+   "promedio": 7.025,
+   "min": 6.7,
+   "veredictos": []
+  },
+  {
+   "id": "A2",
+   "nombre": "Triage funcional y reparación modular nivel 1-2 de CPE y accesorios",
+   "totales": [
+    7.7,
+    6.15
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 7.7,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 6.15
+   },
+   "promedio": 6.925000000000001,
+   "min": 6.15,
+   "veredictos": []
+  },
+  {
+   "id": "C4",
+   "nombre": "Ensamble de exhibidores POP de cartón y displays de temporada",
+   "totales": [
+    6.25,
+    7.4
+   ],
+   "por_lente": {
+    "Director comercial de logística inversa y maquila (20 años vendiendo a telecos, retail, consumo masivo y automotriz): demanda real 2026-2030, disposición del comprador a firmar con un taller penitenciario (compliance, códigos de conducta, auditorías de sitio, seguros), precio de mercado vs. costo ≈$62/h productiva, ciclo de venta y concentración de cliente.": 6.25,
+    "Operativo y de seguridad penitenciaria (ex director de centro; estándares ACA y práctica de talleres CDMX/Edomex): controlabilidad de objetos, cables, químicos, baterías, electrónicos con conectividad y datos; viabilidad en salones tipo aula sin maquinaria pesada; autorización de la Dirección Ejecutiva de Seguridad Penitenciaria en un centro de alto riesgo institucional (CEVASEP II); revisión razonable de entradas/salidas; supervisión externa limitada; resiliencia ante cierres por revisión general o motín.": 7.4
+   },
+   "promedio": 6.825,
+   "min": 6.25,
+   "veredictos": []
+  }
+ ]
+}

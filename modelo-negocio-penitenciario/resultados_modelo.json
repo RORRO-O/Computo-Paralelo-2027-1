@@ -1,0 +1,938 @@
+{
+ "costos": {
+  "4": {
+   "ppl": 140,
+   "nomina": 970323.2000000002,
+   "total_indirectos": 303820,
+   "admin": 150000,
+   "total": 1424143.2000000002,
+   "horas_pagadas": 24640,
+   "horas_productivas": 19712.0,
+   "costo_hora_pagada": 57.798019480519486,
+   "costo_hora_productiva": 72.24752435064936,
+   "costo_por_ppl_mes": 10172.45142857143
+  },
+  "7": {
+   "ppl": 245,
+   "nomina": 1698065.6,
+   "total_indirectos": 497935,
+   "admin": 150000,
+   "total": 2346000.6,
+   "horas_pagadas": 43120,
+   "horas_productivas": 34496.0,
+   "costo_hora_pagada": 54.40632189239332,
+   "costo_hora_productiva": 68.00790236549166,
+   "costo_por_ppl_mes": 9575.512653061225
+  },
+  "10": {
+   "ppl": 350,
+   "nomina": 2425808.0,
+   "total_indirectos": 692050,
+   "admin": 150000,
+   "total": 3267858.0,
+   "horas_pagadas": 61600,
+   "horas_productivas": 49280.0,
+   "costo_hora_pagada": 53.04964285714286,
+   "costo_hora_productiva": 66.31205357142858,
+   "costo_por_ppl_mes": 9336.737142857142
+  }
+ },
+ "indirectos_4": {
+  "supervisores": 196600,
+  "logistica": 66000,
+  "mermas": 14980,
+  "seguros": 10000,
+  "capacitacion": 8260,
+  "herramientas": 7980
+ },
+ "sensibilidad": {
+  "Base (22 días, sin IMSS, productividad 0.80)": 72.2,
+  "Pago de 30.4 días/mes": 91.0,
+  "IMSS/Infonavit/prestaciones (+30%)": 87.0,
+  "30.4 días + IMSS": 111.4,
+  "Productividad 0.70": 82.6,
+  "Productividad 0.90": 64.2,
+  "SM 2028 (+11%/año)": 83.7,
+  "SM 2030 (+11%/año)": 97.7
+ },
+ "lineas": {
+  "TP0": {
+   "conservador": {
+    "linea": "TP0",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 492800.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 125514.19999999995,
+    "margen": 0.25469602272727265,
+    "capex": 0,
+    "payback_meses": 0.0,
+    "ingreso_por_ppl_mes": 14080.0,
+    "ebitda_por_ppl_mes": 3586.1199999999985
+   },
+   "base": {
+    "linea": "TP0",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 739200.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 371914.19999999995,
+    "margen": 0.5031306818181818,
+    "capex": 0,
+    "payback_meses": 0.0,
+    "ingreso_por_ppl_mes": 21120.0,
+    "ebitda_por_ppl_mes": 10626.119999999999
+   },
+   "optimista": {
+    "linea": "TP0",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1084160.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 716874.2,
+    "margen": 0.6612254648760331,
+    "capex": 0,
+    "payback_meses": 0.0,
+    "ingreso_por_ppl_mes": 30976.0,
+    "ebitda_por_ppl_mes": 20482.12
+   }
+  },
+  "A3": {
+   "conservador": {
+    "linea": "A3",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 542080.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 174794.19999999995,
+    "margen": 0.322450929752066,
+    "capex": 150000,
+    "payback_meses": 0.8581520439465385,
+    "ingreso_por_ppl_mes": 15488.0,
+    "ebitda_por_ppl_mes": 4994.119999999999
+   },
+   "base": {
+    "linea": "A3",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 936320.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 569034.2,
+    "margen": 0.6077347488038277,
+    "capex": 150000,
+    "payback_meses": 0.26360454257406674,
+    "ingreso_por_ppl_mes": 26752.0,
+    "ebitda_por_ppl_mes": 16258.119999999999
+   },
+   "optimista": {
+    "linea": "A3",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1576960.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 1209674.2,
+    "margen": 0.7670925071022727,
+    "capex": 150000,
+    "payback_meses": 0.12400033000621159,
+    "ingreso_por_ppl_mes": 45056.0,
+    "ebitda_por_ppl_mes": 34562.119999999995
+   }
+  },
+  "A1": {
+   "conservador": {
+    "linea": "A1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 492800.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 125514.19999999995,
+    "margen": 0.25469602272727265,
+    "capex": 250000,
+    "payback_meses": 1.9918065047620117,
+    "ingreso_por_ppl_mes": 14080.0,
+    "ebitda_por_ppl_mes": 3586.1199999999985
+   },
+   "base": {
+    "linea": "A1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 862400.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 495114.19999999995,
+    "margen": 0.574112012987013,
+    "capex": 250000,
+    "payback_meses": 0.5049340132034186,
+    "ingreso_por_ppl_mes": 24640.0,
+    "ebitda_por_ppl_mes": 14146.119999999999
+   },
+   "optimista": {
+    "linea": "A1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1478400.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 1111114.2,
+    "margen": 0.7515653409090909,
+    "capex": 250000,
+    "payback_meses": 0.2249993745017389,
+    "ingreso_por_ppl_mes": 42240.0,
+    "ebitda_por_ppl_mes": 31746.12
+   }
+  },
+  "A2": {
+   "conservador": {
+    "linea": "A2",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 591360.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 224074.19999999995,
+    "margen": 0.3789133522727272,
+    "capex": 900000,
+    "payback_meses": 4.016526668398237,
+    "ingreso_por_ppl_mes": 16896.0,
+    "ebitda_por_ppl_mes": 6402.119999999999
+   },
+   "base": {
+    "linea": "A2",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 887040.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 519754.19999999995,
+    "margen": 0.5859422348484848,
+    "capex": 900000,
+    "payback_meses": 1.7315877389735381,
+    "ingreso_por_ppl_mes": 25344.0,
+    "ebitda_por_ppl_mes": 14850.119999999999
+   },
+   "optimista": {
+    "linea": "A2",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1281280.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 913994.2,
+    "margen": 0.7133446241258741,
+    "capex": 900000,
+    "payback_meses": 0.9846889619212026,
+    "ingreso_por_ppl_mes": 36608.0,
+    "ebitda_por_ppl_mes": 26114.12
+   }
+  },
+  "A5": {
+   "conservador": {
+    "linea": "A5",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 443520.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 76234.19999999995,
+    "margen": 0.1718844696969696,
+    "capex": 100000,
+    "payback_meses": 1.311747221063513,
+    "ingreso_por_ppl_mes": 12672.0,
+    "ebitda_por_ppl_mes": 2178.1199999999985
+   },
+   "base": {
+    "linea": "A5",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 640640.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 273354.19999999995,
+    "margen": 0.4266892482517482,
+    "capex": 100000,
+    "payback_meses": 0.36582573086493647,
+    "ingreso_por_ppl_mes": 18304.0,
+    "ebitda_por_ppl_mes": 7810.119999999999
+   },
+   "optimista": {
+    "linea": "A5",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 936320.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 569034.2,
+    "margen": 0.6077347488038277,
+    "capex": 100000,
+    "payback_meses": 0.1757363617160445,
+    "ingreso_por_ppl_mes": 26752.0,
+    "ebitda_por_ppl_mes": 16258.119999999999
+   }
+  },
+  "C2": {
+   "conservador": {
+    "linea": "C2",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 413952.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 46666.19999999995,
+    "margen": 0.11273336038961028,
+    "capex": 150000,
+    "payback_meses": 3.2143178574642923,
+    "ingreso_por_ppl_mes": 11827.2,
+    "ebitda_por_ppl_mes": 1333.3199999999986
+   },
+   "base": {
+    "linea": "C2",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 709632.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 342346.19999999995,
+    "margen": 0.482427793560606,
+    "capex": 150000,
+    "payback_meses": 0.43815295744483224,
+    "ingreso_por_ppl_mes": 20275.2,
+    "ebitda_por_ppl_mes": 9781.319999999998
+   },
+   "optimista": {
+    "linea": "C2",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1182720.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 815434.2,
+    "margen": 0.6894566761363636,
+    "capex": 150000,
+    "payback_meses": 0.18395107784294554,
+    "ingreso_por_ppl_mes": 33792.0,
+    "ebitda_por_ppl_mes": 23298.12
+   }
+  },
+  "C3": {
+   "conservador": {
+    "linea": "C3",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 443520.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 76234.19999999995,
+    "margen": 0.1718844696969696,
+    "capex": 120000,
+    "payback_meses": 1.5740966652762156,
+    "ingreso_por_ppl_mes": 12672.0,
+    "ebitda_por_ppl_mes": 2178.1199999999985
+   },
+   "base": {
+    "linea": "C3",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 887040.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 519754.19999999995,
+    "margen": 0.5859422348484848,
+    "capex": 120000,
+    "payback_meses": 0.23087836519647173,
+    "ingreso_por_ppl_mes": 25344.0,
+    "ebitda_por_ppl_mes": 14850.119999999999
+   },
+   "optimista": {
+    "linea": "C3",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1527680.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 1160394.2,
+    "margen": 0.7595793621700879,
+    "capex": 120000,
+    "payback_meses": 0.10341313322662248,
+    "ingreso_por_ppl_mes": 43648.0,
+    "ebitda_por_ppl_mes": 33154.119999999995
+   }
+  },
+  "F2": {
+   "conservador": {
+    "linea": "F2",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 739200.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 371914.19999999995,
+    "margen": 0.5031306818181818,
+    "capex": 800000,
+    "payback_meses": 2.151033759937104,
+    "ingreso_por_ppl_mes": 21120.0,
+    "ebitda_por_ppl_mes": 10626.119999999999
+   },
+   "base": {
+    "linea": "F2",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 1232000.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 864714.2,
+    "margen": 0.701878409090909,
+    "capex": 800000,
+    "payback_meses": 0.9251611688578724,
+    "ingreso_por_ppl_mes": 35200.0,
+    "ebitda_por_ppl_mes": 24706.12
+   },
+   "optimista": {
+    "linea": "F2",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1971200.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 1603914.2,
+    "margen": 0.8136740056818181,
+    "capex": 800000,
+    "payback_meses": 0.49877979757271307,
+    "ingreso_por_ppl_mes": 56320.0,
+    "ebitda_por_ppl_mes": 45826.119999999995
+   }
+  },
+  "F1": {
+   "conservador": {
+    "linea": "F1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 591360.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 224074.19999999995,
+    "margen": 0.3789133522727272,
+    "capex": 600000,
+    "payback_meses": 2.6776844455988247,
+    "ingreso_por_ppl_mes": 16896.0,
+    "ebitda_por_ppl_mes": 6402.119999999999
+   },
+   "base": {
+    "linea": "F1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 985600.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 618314.2,
+    "margen": 0.6273480113636363,
+    "capex": 600000,
+    "payback_meses": 0.9703804311788409,
+    "ingreso_por_ppl_mes": 28160.0,
+    "ebitda_por_ppl_mes": 17666.12
+   },
+   "optimista": {
+    "linea": "F1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1478400.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 1111114.2,
+    "margen": 0.7515653409090909,
+    "capex": 600000,
+    "payback_meses": 0.5399984988041734,
+    "ingreso_por_ppl_mes": 42240.0,
+    "ebitda_por_ppl_mes": 31746.12
+   }
+  },
+  "C4": {
+   "conservador": {
+    "linea": "C4",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 443520.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 76234.19999999995,
+    "margen": 0.1718844696969696,
+    "capex": 100000,
+    "payback_meses": 1.311747221063513,
+    "ingreso_por_ppl_mes": 12672.0,
+    "ebitda_por_ppl_mes": 2178.1199999999985
+   },
+   "base": {
+    "linea": "C4",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 739200.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 371914.19999999995,
+    "margen": 0.5031306818181818,
+    "capex": 100000,
+    "payback_meses": 0.268879219992138,
+    "ingreso_por_ppl_mes": 21120.0,
+    "ebitda_por_ppl_mes": 10626.119999999999
+   },
+   "optimista": {
+    "linea": "C4",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1182720.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 815434.2,
+    "margen": 0.6894566761363636,
+    "capex": 100000,
+    "payback_meses": 0.12263405189529701,
+    "ingreso_por_ppl_mes": 33792.0,
+    "ebitda_por_ppl_mes": 23298.12
+   }
+  },
+  "FLEX": {
+   "conservador": {
+    "linea": "FLEX",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 468160.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 100874.19999999995,
+    "margen": 0.2154694976076554,
+    "capex": 350000,
+    "payback_meses": 3.4696681609370894,
+    "ingreso_por_ppl_mes": 13376.0,
+    "ebitda_por_ppl_mes": 2882.1199999999985
+   },
+   "base": {
+    "linea": "FLEX",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 813120.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 445834.19999999995,
+    "margen": 0.5483006198347107,
+    "capex": 350000,
+    "payback_meses": 0.7850452029027832,
+    "ingreso_por_ppl_mes": 23232.0,
+    "ebitda_por_ppl_mes": 12738.119999999999
+   },
+   "optimista": {
+    "linea": "FLEX",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1330560.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 963274.2,
+    "margen": 0.7239614898989899,
+    "capex": 350000,
+    "payback_meses": 0.3633441028525419,
+    "ingreso_por_ppl_mes": 38016.0,
+    "ebitda_por_ppl_mes": 27522.12
+   }
+  },
+  "B1": {
+   "conservador": {
+    "linea": "B1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 443520.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 76234.19999999995,
+    "margen": 0.1718844696969696,
+    "capex": 300000,
+    "payback_meses": 3.935241663190539,
+    "ingreso_por_ppl_mes": 12672.0,
+    "ebitda_por_ppl_mes": 2178.1199999999985
+   },
+   "base": {
+    "linea": "B1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 689920.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 322634.19999999995,
+    "margen": 0.46764001623376616,
+    "capex": 300000,
+    "payback_meses": 0.9298456270290008,
+    "ingreso_por_ppl_mes": 19712.0,
+    "ebitda_por_ppl_mes": 9218.119999999999
+   },
+   "optimista": {
+    "linea": "B1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 1084160.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 716874.2,
+    "margen": 0.6612254648760331,
+    "capex": 300000,
+    "payback_meses": 0.4184834661367364,
+    "ingreso_por_ppl_mes": 30976.0,
+    "ebitda_por_ppl_mes": 20482.12
+   }
+  },
+  "D1": {
+   "conservador": {
+    "linea": "D1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 295680.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": -71605.80000000005,
+    "margen": -0.2421732954545456,
+    "capex": 850000,
+    "payback_meses": null,
+    "ingreso_por_ppl_mes": 8448.0,
+    "ebitda_por_ppl_mes": -2045.8800000000012
+   },
+   "base": {
+    "linea": "D1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 394240.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 26954.199999999953,
+    "margen": 0.06837002840909079,
+    "capex": 850000,
+    "payback_meses": 31.534974141321257,
+    "ingreso_por_ppl_mes": 11264.0,
+    "ebitda_por_ppl_mes": 770.1199999999986
+   },
+   "optimista": {
+    "linea": "D1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 542080.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 174794.19999999995,
+    "margen": 0.322450929752066,
+    "capex": 850000,
+    "payback_meses": 4.862861582363718,
+    "ingreso_por_ppl_mes": 15488.0,
+    "ebitda_por_ppl_mes": 4994.119999999999
+   }
+  },
+  "E1": {
+   "conservador": {
+    "linea": "E1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "conservador",
+    "ingreso_mensual": 394240.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 26954.199999999953,
+    "margen": 0.06837002840909079,
+    "capex": 500000,
+    "payback_meses": 18.549984789012505,
+    "ingreso_por_ppl_mes": 11264.0,
+    "ebitda_por_ppl_mes": 770.1199999999986
+   },
+   "base": {
+    "linea": "E1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "base",
+    "ingreso_mensual": 517440.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 150154.19999999995,
+    "margen": 0.2901866883116882,
+    "capex": 500000,
+    "payback_meses": 3.3299101856624733,
+    "ingreso_por_ppl_mes": 14784.0,
+    "ebitda_por_ppl_mes": 4290.119999999999
+   },
+   "optimista": {
+    "linea": "E1",
+    "salones": 1,
+    "ppl": 35,
+    "escenario": "optimista",
+    "ingreso_mensual": 640640.0,
+    "costo_mensual": 367285.80000000005,
+    "ebitda_mensual": 273354.19999999995,
+    "margen": 0.4266892482517482,
+    "capex": 500000,
+    "payback_meses": 1.8291286543246823,
+    "ingreso_por_ppl_mes": 18304.0,
+    "ebitda_por_ppl_mes": 7810.119999999999
+   }
+  }
+ },
+ "fases": {
+  "Hoy: 4 salones cosmética Totalplay": {
+   "asignacion": {
+    "TP0": 4
+   },
+   "conservador": {
+    "salones": 4,
+    "ppl": 140,
+    "ingreso_mensual": 1971200.0,
+    "costo_mensual": 1424143.2000000002,
+    "ebitda_mensual": 547056.7999999998,
+    "margen": 0.2775247564935064,
+    "capex": 0,
+    "payback_meses": 0.0,
+    "costo_hora_productiva": 72.24752435064936
+   },
+   "base": {
+    "salones": 4,
+    "ppl": 140,
+    "ingreso_mensual": 2956800.0,
+    "costo_mensual": 1424143.2000000002,
+    "ebitda_mensual": 1532656.7999999998,
+    "margen": 0.5183498376623376,
+    "capex": 0,
+    "payback_meses": 0.0,
+    "costo_hora_productiva": 72.24752435064936
+   },
+   "optimista": {
+    "salones": 4,
+    "ppl": 140,
+    "ingreso_mensual": 4336640.0,
+    "costo_mensual": 1424143.2000000002,
+    "ebitda_mensual": 2912496.8,
+    "margen": 0.6716021620425029,
+    "capex": 0,
+    "payback_meses": 0.0,
+    "costo_hora_productiva": 72.24752435064936
+   }
+  },
+  "Fase 1 (0-6 m): 2 cosmética + 2 kit de alta + 1 CPE otros operadores": {
+   "asignacion": {
+    "TP0": 2,
+    "A3": 2,
+    "A1": 1
+   },
+   "conservador": {
+    "salones": 5,
+    "ppl": 175,
+    "ingreso_mensual": 2562560.0,
+    "costo_mensual": 1731429.0,
+    "ebitda_mensual": 831131.0,
+    "margen": 0.32433621066433566,
+    "capex": 550000,
+    "payback_meses": 0.6617488699134072,
+    "costo_hora_productiva": 70.26903409090909
+   },
+   "base": {
+    "salones": 5,
+    "ppl": 175,
+    "ingreso_mensual": 4213440.0,
+    "costo_mensual": 1731429.0,
+    "ebitda_mensual": 2482011.0,
+    "margen": 0.589069976076555,
+    "capex": 550000,
+    "payback_meses": 0.22159450542322334,
+    "costo_hora_productiva": 70.26903409090909
+   },
+   "optimista": {
+    "salones": 5,
+    "ppl": 175,
+    "ingreso_mensual": 6800640.0,
+    "costo_mensual": 1731429.0,
+    "ebitda_mensual": 5069211.0,
+    "margen": 0.7454020503952569,
+    "capex": 550000,
+    "payback_meses": 0.10849814695028477,
+    "costo_hora_productiva": 70.26903409090909
+   }
+  },
+  "Fase 2 (6-12 m): + etiquetado NOM + salón flexible": {
+   "asignacion": {
+    "TP0": 2,
+    "A3": 2,
+    "A1": 1,
+    "C2": 1,
+    "FLEX": 1
+   },
+   "conservador": {
+    "salones": 7,
+    "ppl": 245,
+    "ingreso_mensual": 3444672.0,
+    "costo_mensual": 2346000.6,
+    "ebitda_mensual": 1098671.4,
+    "margen": 0.3189480449807703,
+    "capex": 1050000,
+    "payback_meses": 0.9556997660993087,
+    "costo_hora_productiva": 68.00790236549166
+   },
+   "base": {
+    "salones": 7,
+    "ppl": 245,
+    "ingreso_mensual": 5736192.0,
+    "costo_mensual": 2346000.6,
+    "ebitda_mensual": 3390191.4,
+    "margen": 0.5910177692796894,
+    "capex": 1050000,
+    "payback_meses": 0.3097170265961975,
+    "costo_hora_productiva": 68.00790236549166
+   },
+   "optimista": {
+    "salones": 7,
+    "ppl": 245,
+    "ingreso_mensual": 9313920.0,
+    "costo_mensual": 2346000.6,
+    "ebitda_mensual": 6967919.4,
+    "margen": 0.7481188801278087,
+    "capex": 1050000,
+    "payback_meses": 0.15069060643841545,
+    "costo_hora_productiva": 68.00790236549166
+   }
+  },
+  "Fase 3 (12-24 m): 10 salones (+ triage CPE, + 2ª ola otros operadores/accesorios)": {
+   "asignacion": {
+    "TP0": 2,
+    "A3": 2,
+    "A1": 2,
+    "A2": 1,
+    "A5": 1,
+    "C2": 1,
+    "FLEX": 1
+   },
+   "conservador": {
+    "salones": 10,
+    "ppl": 350,
+    "ingreso_mensual": 4972352.0,
+    "costo_mensual": 3267858.0,
+    "ebitda_mensual": 1704494.0,
+    "margen": 0.34279431544669403,
+    "capex": 2300000,
+    "payback_meses": 1.3493740664384855,
+    "costo_hora_productiva": 66.31205357142858
+   },
+   "base": {
+    "salones": 10,
+    "ppl": 350,
+    "ingreso_mensual": 8126272.0,
+    "costo_mensual": 3267858.0,
+    "ebitda_mensual": 4858414.0,
+    "margen": 0.5978650480810881,
+    "capex": 2300000,
+    "payback_meses": 0.4734055187557092,
+    "costo_hora_productiva": 66.31205357142858
+   },
+   "optimista": {
+    "salones": 10,
+    "ppl": 350,
+    "ingreso_mensual": 13009920.0,
+    "costo_mensual": 3267858.0,
+    "ebitda_mensual": 9742062.0,
+    "margen": 0.7488179788961039,
+    "capex": 2300000,
+    "payback_meses": 0.23608964919336378,
+    "costo_hora_productiva": 66.31205357142858
+   }
+  }
+ },
+ "proyeccion": {
+  "precios_4": [
+   {
+    "anio": 2026,
+    "sm_diario": 315.04,
+    "ingreso_mensual": 8126272.0,
+    "costo_mensual": 3267858.0,
+    "ebitda_mensual": 4858414.0,
+    "margen": 0.5978650480810881,
+    "ebitda_anual": 58300968.0
+   },
+   {
+    "anio": 2027,
+    "sm_diario": 349.69440000000003,
+    "ingreso_mensual": 8451322.88,
+    "costo_mensual": 3586372.1800000006,
+    "ebitda_mensual": 4864950.7,
+    "margen": 0.575643691416982,
+    "ebitda_anual": 58379408.400000006
+   },
+   {
+    "anio": 2028,
+    "sm_diario": 388.1607840000001,
+    "ingreso_mensual": 8789375.795200001,
+    "costo_mensual": 3937493.2066000006,
+    "ebitda_mensual": 4851882.5886,
+    "margen": 0.5520167417633548,
+    "ebitda_anual": 58222591.063200004
+   },
+   {
+    "anio": 2029,
+    "sm_diario": 430.8584702400001,
+    "ingreso_mensual": 9140950.827008002,
+    "costo_mensual": 4324658.3918548,
+    "ebitda_mensual": 4816292.435153201,
+    "margen": 0.5268918437809451,
+    "ebitda_anual": 57795509.221838415
+   },
+   {
+    "anio": 2030,
+    "sm_diario": 478.25290196640015,
+    "ingreso_mensual": 9506588.860088322,
+    "costo_mensual": 4751673.725834531,
+    "ebitda_mensual": 4754915.1342537915,
+    "margen": 0.5001704822027631,
+    "ebitda_anual": 57058981.611045495
+   }
+  ],
+  "precios_11": [
+   {
+    "anio": 2026,
+    "sm_diario": 315.04,
+    "ingreso_mensual": 8126272.0,
+    "costo_mensual": 3267858.0,
+    "ebitda_mensual": 4858414.0,
+    "margen": 0.5978650480810881,
+    "ebitda_anual": 58300968.0
+   },
+   {
+    "anio": 2027,
+    "sm_diario": 349.69440000000003,
+    "ingreso_mensual": 9020161.92,
+    "costo_mensual": 3596872.1800000006,
+    "ebitda_mensual": 5423289.739999999,
+    "margen": 0.6012408411400224,
+    "ebitda_anual": 65079476.879999995
+   },
+   {
+    "anio": 2028,
+    "sm_diario": 388.1607840000001,
+    "ingreso_mensual": 10012379.731200002,
+    "costo_mensual": 3960068.2066000006,
+    "ebitda_mensual": 6052311.524600001,
+    "margen": 0.6044828189786027,
+    "ebitda_anual": 72627738.29520002
+   },
+   {
+    "anio": 2029,
+    "sm_diario": 430.8584702400001,
+    "ingreso_mensual": 11113741.501632001,
+    "costo_mensual": 4361073.441854801,
+    "ebitda_mensual": 6752668.0597772,
+    "margen": 0.6075962859839418,
+    "ebitda_anual": 81032016.7173264
+   },
+   {
+    "anio": 2030,
+    "sm_diario": 478.25290196640015,
+    "ingreso_mensual": 12336253.066811524,
+    "costo_mensual": 4803905.503334531,
+    "ebitda_mensual": 7532347.563476994,
+    "margen": 0.6105863362791595,
+    "ebitda_anual": 90388170.76172392
+   }
+  ]
+ }
+}

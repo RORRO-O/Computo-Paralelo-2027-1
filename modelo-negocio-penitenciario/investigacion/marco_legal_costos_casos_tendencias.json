@@ -1,0 +1,933 @@
+{
+ "legal": {
+  "resumen": "Operar un taller privado con PPL en CEVASEP II es legalmente viable y ya tiene precedentes en CDMX: la Ley Nacional de Ejecución Penal (LNEP, arts. 91-93) reconoce el trabajo \"a cuenta de terceros\", la Ley de Centros Penitenciarios de la CDMX (2021, últ. reforma 27-sep-2024) y su Reglamento (Gaceta 17-mar-2023) prevén la figura de \"Socio Industrial\" mediante convenio de colaboración con la Subsecretaría de Sistema Penitenciario (adscrita a la SSC desde septiembre de 2021), y la autoridad reporta 28 convenios vigentes con empresas y 15,593 PPL en comisiones laborales (boletín SSC 2772, 27-sep-2024). La oferta recibida (la empresa sólo paga salario mínimo; la Secretaría aporta espacio, luz y servicios) coincide con el modelo institucional: la LNEP dice expresamente que la Autoridad Penitenciaria nunca es patrón ni patrón solidario, por lo que la empresa asume sola cualquier responsabilidad laboral/seguridad social; la LNEP exige \"acceso a seguridad social compatible con su situación jurídica\" pero no hay regla clara de afiliación al IMSS para PPL en CDMX (hueco legal que debe cerrarse en el convenio). Costo laboral base: salario mínimo 2026 = $315.04/día (DOF 9-dic-2025); para 140 PPL ≈ $44,106/día (estimación propia). Los riesgos más relevantes para una línea de reacondicionamiento de equipos de telecom son: (i) seguridad penitenciaria —CEVASEP II es centro de alta seguridad con perfil de \"alto riesgo institucional\" y el Reclusorio Norte contiguo es señalado por la SSC como principal origen de llamadas de extorsión en CDMX, con bloqueo de señal 3G/4G en curso en 2026—, lo que hace muy sensible el ingreso de módems/ONT, decodificadores, cables, baterías y herramientas punzocortantes; (ii) datos personales de clientes de Totalplay residentes en equipos (nueva LFPDPPP, DOF 20-mar-2025, régimen de encargado); (iii) reputacional: debate público 2025-2026 sobre \"explotación\" y \"trabajo forzado\" en prisiones; (iv) administrativo: el convenio, su vigencia y la continuidad del programa dependen de decisiones discrecionales de la SSC y de cambios de gobierno (horizonte 2026-2030). Nota metodológica: el proxy de red bloqueó la descarga íntegra de leyes y boletines; las citas provienen de extractos indexados de las fuentes listadas y se marcan los puntos a verificar en el texto oficial.",
+  "marco_legal": [
+   {
+    "norma": "Ley Nacional de Ejecución Penal (LNEP), DOF 16-jun-2016, última reforma DOF 01-abr-2024 (sin reformas posteriores verificadas a sep-2026)",
+    "articulo_o_seccion": "Art. 91 – Naturaleza y finalidad del trabajo",
+    "que_dice": "El trabajo es uno de los ejes de la reinserción social; es actividad productiva lícita dentro o fuera del centro bajo tres modalidades: I. autoempleo; II. actividades productivas no remuneradas para fines del sistema de reinserción; III. actividades productivas realizadas a cuenta de terceros. Las PPL tendrán acceso a seguros, prestaciones y servicios de seguridad social 'cuyo ejercicio sea compatible con su situación jurídica'. 'En ningún caso la Autoridad Penitenciaria podrá ser considerada como patrón, ni tampoco como patrón solidario, subsidiario o sustituto.' La Autoridad determina la participación con base en normatividad y régimen disciplinario del centro.",
+    "implicacion_para_la_empresa": "El taller encaja en la modalidad III (a cuenta de terceros). La autoridad se desliga expresamente de toda responsabilidad patronal: cualquier reclamo laboral, de seguridad social o por riesgos de trabajo recaería en la empresa. La autoridad decide qué PPL participan (perfil disciplinario), no la empresa.",
+    "fuente": "https://leyes-mx.com/ley_nacional_de_ejecucion_penal/91.htm ; http://www.diputados.gob.mx/LeyesBiblio/pdf/LNEP.pdf ; https://ordenjuridico.gob.mx/Leyes%20para%20todos/LNEP.pdf"
+   },
+   {
+    "norma": "LNEP",
+    "articulo_o_seccion": "Art. 92 – Bases mínimas del trabajo",
+    "que_dice": "No tendrá carácter aflictivo ni será medida correctiva; no atentará contra la dignidad; tendrá carácter formativo/creador o conservador de hábitos laborales; se realizará sin discriminación y en condiciones de seguridad y salud; preverá acceso a la seguridad social según la modalidad (fr. V); se crearán mecanismos de participación del sector privado para generar trabajo; será fuente de ingresos para quien lo realice. (Texto reconstruido de extractos; verificar redacción íntegra y fracciones en el PDF oficial.)",
+    "implicacion_para_la_empresa": "Fundamento expreso de la participación privada. Obliga a condiciones de seguridad e higiene en el taller (la empresa debe documentar capacitación, EPP, protocolos). No fija tope/piso salarial en la LNEP: el 'salario mínimo' ofrecido es práctica administrativa de la CDMX, no exigencia textual de la LNEP (verificar).",
+    "fuente": "https://leyes-mx.com/ley_nacional_de_ejecucion_penal/92.htm ; http://www.diputados.gob.mx/LeyesBiblio/pdf/LNEP.pdf"
+   },
+   {
+    "norma": "LNEP",
+    "articulo_o_seccion": "Art. 93 – Cuenta para la administración de las ganancias o salarios",
+    "que_dice": "Las ganancias o salarios de las PPL se administran en una cuenta a cargo de la Autoridad Penitenciaria; a solicitud de la PPL pueden destinarse a reparación del daño y seguridad social, y un porcentaje puede entregarse a sus familiares. No se localizó en la LNEP un reparto porcentual fijo.",
+    "implicacion_para_la_empresa": "La empresa no paga 'en mano': deposita a la cuenta administrada por la autoridad (en CDMX, Secretaría de Administración y Finanzas vía la Dirección Ejecutiva de Administración y Finanzas de la Subsecretaría). Debe pactarse en el convenio el mecanismo de dispersión, comprobantes y conciliación de nómina. Los porcentajes 70% PPL/20% reparación del daño/10% fondo de ahorro provienen de la abrogada Ley de Ejecución de Sanciones Penales del DF (art. 97, 2011) y no debe asumirse su vigencia sin confirmar con la Subsecretaría.",
+    "fuente": "https://leyes-mx.com/ley_nacional_de_ejecucion_penal/93.htm ; https://congresocdmx.gob.mx/archivos/iil/ley_de_ejecucion_de_sanciones_penales_y_reinsercion_social_para_el_distrito_federal.doc"
+   },
+   {
+    "norma": "Ley Federal del Trabajo (LFT) y Ley del Seguro Social – aplicabilidad",
+    "articulo_o_seccion": "LFT art. 20 (relación de trabajo: trabajo personal subordinado mediante salario)",
+    "que_dice": "La LNEP no declara aplicable ni inaplicable la LFT a la modalidad 'a cuenta de terceros'; sólo excluye a la autoridad como patrón. No se localizó jurisprudencia 2023-2026 que resuelva si la empresa privada es patrón de la PPL. En el CPS No. 12 Guanajuato (federal) la operadora textil sí da IMSS a PPL; en CDMX hay al menos una empresa (Airtrak México, Reclusorio Norte) que reporta tratar a las PPL como trabajadores con pago semanal, prestaciones y descansos.",
+    "implicacion_para_la_empresa": "Riesgo de que un tribunal laboral califique la relación como laboral (subordinación + salario) con todas las consecuencias (aguinaldo, vacaciones, prima, IMSS/INFONAVIT, riesgos de trabajo). Opciones: (a) asumir relación laboral formal e inscribir al IMSS (viable jurídicamente: la situación de reclusión no está listada como impedimento en la LSS, pero requiere CURP/RFC y análisis de 'compatibilidad' art. 91 LNEP); (b) esquema de 'beca/apoyo' vía convenio, con riesgo de recaracterización. Debe resolverse con abogado laboral antes de escalar a 280-350 PPL.",
+    "fuente": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFT.pdf ; https://sidof.segob.gob.mx/notas/docFuente/5774118 ; https://penitenciario.cdmx.gob.mx/comunicacion/nota/mas-de-16-mil-personas-privadas-de-la-libertad-laboran-en-los-reclusorios-de-la-ciudad-de-mexico"
+   },
+   {
+    "norma": "Ley de Centros Penitenciarios de la Ciudad de México (Gaceta Oficial CDMX 2-sep-2021; última reforma 27-sep-2024)",
+    "articulo_o_seccion": "Art. 33 (convenios con sector privado); artículos del capítulo de trabajo; arts. 53-55 (revisiones y objetos no permitidos); art. 84 (introducción de objetos prohibidos → denuncia al MP)",
+    "que_dice": "'La Subsecretaría podrá realizar convenios con el sector privado, con el objeto de impulsar la actividad industrial dentro de los Centros Penitenciarios' (art. 33). El trabajo es actividad productiva lícita y eje de reinserción. Las 'actividades a cuenta de terceros' son las que realizan PPL en espacios productivos a cargo de empresas o personas físicas con actividad empresarial, bajo la figura de Socios Industriales u Organismos Capacitadores, en el marco de convenios de colaboración entre la Subsecretaría y personas físicas y jurídicas. Los ingresos por talleres autogenerados y por 'uso de espacios' los administra la Subsecretaría. Visitantes y objetos del exterior son revisados con equipo; quien introduzca armas, narcóticos u objetos prohibidos es puesto a disposición del MP.",
+    "implicacion_para_la_empresa": "La figura aplicable es 'Socio Industrial'; el instrumento es un convenio de colaboración firmado por la Subsecretaría (SSC). La mención a ingresos por 'uso de espacios' sugiere que la ley permite cobrar por el espacio, aunque la oferta actual lo exenta: conviene dejar por escrito en el convenio que no hay contraprestación por renta/servicios. El personal de la empresa y toda mercancía/herramienta quedan sujetos a revisión; un error en el control de objetos puede derivar en denuncia penal.",
+    "fuente": "https://www.congresocdmx.gob.mx/media/documentos/030c6fdcd93ecec7801fd581a38e1f01a32954f1.pdf ; https://normas.cndh.org.mx/Documentos/Ciudad%20de%20M%C3%A9xico/Ley_CP_CdMex.pdf ; https://mexico.justia.com/estatales/ciudad-de-mexico/leyes/ley-de-centros-penitenciarios-de-la-ciudad-de-mexico/ ; https://www.congresocdmx.gob.mx/comsoc-congreso-cdmx-modifico-ley-centros-penitenciarios-5433-1.html"
+   },
+   {
+    "norma": "Reglamento de la Ley de Centros Penitenciarios de la CDMX (Gaceta Oficial CDMX 17-mar-2023 bis)",
+    "articulo_o_seccion": "Definiciones y capítulo de trabajo y capacitación (arts. ~89-105; el art. 100 remite a la LNEP para la administración de remuneraciones); disposiciones sobre objetos prohibidos",
+    "que_dice": "Tres modalidades operativas: autogenerado/autoconsumo, trabajo con empresas y organismos capacitadores (Socios Industriales), y autoempleo. La capacitación 'no implica relación laboral entre la Subsecretaría, el Centro y la PPL'. Al obtener la libertad se devuelve a la PPL el saldo del fondo de ahorro (principal e intereses). La Secretaría de Administración y Finanzas, vía la Dirección Ejecutiva de Administración y Finanzas en la Subsecretaría, administra las ganancias/remuneraciones. Prohíbe objetos que generen 'situaciones de privilegio', electrónicos (celulares, relojes inteligentes, vaporizadores) y dinero en efectivo por encima de $500; en los CEVASEP I y II está prohibido el ingreso de dinero (sólo depósito en área correspondiente).",
+    "implicacion_para_la_empresa": "Existe un 'fondo de ahorro' por PPL: confirmar con la Subsecretaría el porcentaje que se retiene de lo que paga la empresa. El régimen de CEVASEP es más estricto que el de los reclusorios preventivos (dinero prohibido), lo que anticipa controles más duros para electrónicos y herramientas. Se deben solicitar los Manuales/Lineamientos internos a los que remite el Reglamento (no están publicados en abierto).",
+    "fuente": "https://www.poderjudicialcdmx.gob.mx/wp-content/uploads/Reglamento-de-la-Ley-de-Centros-Penitenciarios-de-la-Ciudad-de-Mexico.pdf ; https://extbox.ibero.mx/portaldocentes/url/20_1_33_50330_X.pdf ; https://normas.cndh.org.mx/Documentos/Ciudad%20de%20M%C3%A9xico/Reglamento_LCP_CdMex.pdf ; https://www.publimetro.com.mx/noticias/2022/12/14/cdmx-cuales-son-los-objetos-prohibidos-en-centros-penitenciarios/"
+   },
+   {
+    "norma": "Acuerdo de transferencia del Sistema Penitenciario de la Secretaría de Gobierno a la SSC (2021)",
+    "articulo_o_seccion": "Acuerdo SECGOB–SSC (boletín 22-21) y boletín SSC 1655",
+    "que_dice": "Desde septiembre de 2021 la SSC regula, opera y administra los centros penitenciarios de la CDMX a través de la Subsecretaría del Sistema Penitenciario, con ejes de inteligencia penitenciaria, desarrollo penitenciario, coordinación interinstitucional, homologación de normas y combate a la corrupción.",
+    "implicacion_para_la_empresa": "La contraparte del convenio es la SSC (Subsecretaría de Sistema Penitenciario, Calz. San Antonio Abad 130, piso 7, Col. Tránsito; tel. 55 5132 5400). Convenios previos firmados con Secretaría de Gobierno deben estar ya migrados; verificar quién firma (Subsecretario u Oficialía Mayor de la SSC).",
+    "fuente": "https://secgob.cdmx.gob.mx/comunicacion/nota/22-21-bol ; https://www.ssc.cdmx.gob.mx/comunicacion/nota/1655-transferencia-de-la-subsecretaria-del-sistema-penitenciario-la-secretaria-de-seguridad-ciudadana-tendra-un-impacto-positivo-en-la-reinsersion-social ; https://penitenciario.cdmx.gob.mx/dependencia/directorio"
+   },
+   {
+    "norma": "Lineamientos de ayuda económica a PPL (Gaceta Oficial CDMX 4-may-2022)",
+    "articulo_o_seccion": "Lineamientos de operación (Programa de Pública Utilidad y Trabajo Penitenciario)",
+    "que_dice": "La ayuda económica que paga el Gobierno de la CDMX a PPL en capacitación, actividades de utilidad pública, autoconsumo y servicios generales no puede ser inferior al equivalente del salario mínimo de la CDMX; se calcula por hora trabajada con referencia a 10 días al mes y mínimo 4 horas por turno (40 h/mes). Inconformidades ante el Comité Técnico del centro en 5 días hábiles.",
+    "implicacion_para_la_empresa": "Confirma que el salario mínimo es la referencia institucional de pago a PPL en CDMX; la oferta de 'salario mínimo por 8 h' está por encima del estándar del programa público (40 h/mes). Útil como benchmark frente a acusaciones de explotación.",
+    "fuente": "https://extbox.ibero.mx/portaldocentes/url/20_1_33_98231_D.pdf"
+   },
+   {
+    "norma": "Ley Federal de Protección de Datos Personales en Posesión de los Particulares (nueva LFPDPPP, DOF 20-mar-2025, vigente 21-mar-2025) y su Reglamento",
+    "articulo_o_seccion": "Régimen responsable/encargado; deberes de seguridad; supresión/borrado seguro; autoridad: Secretaría Anticorrupción y Buen Gobierno (sustituye al INAI)",
+    "que_dice": "El encargado trata datos por cuenta del responsable bajo contrato obligatorio que fije alcance, instrucciones, medidas de seguridad y condiciones de devolución/destrucción; el responsable debe suprimir datos cuando dejan de ser necesarios y garantizar que el encargado cumpla medidas de seguridad.",
+    "implicacion_para_la_empresa": "Los ONT/módems y decodificadores pueden contener credenciales Wi-Fi, identificadores de cuenta, historial o configuraciones vinculadas a clientes de Totalplay. La empresa actúa como encargado de Totalplay: debe existir contrato de encargado, borrado/reset certificado antes de que el equipo entre al taller (o procedimiento de borrado documentado dentro), bitácora por número de serie y prohibición de que PPL accedan a interfaces de configuración. Incumplimiento = sanciones a Totalplay y terminación del contrato.",
+    "fuente": "https://basham.com.mx/en/nueva-ley-federal-de-proteccion-de-datos-personales-en-posesion-de-los-particulares-publicada-en-el-diario-oficial-de-la-federacion/ ; https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf ; https://www.diputados.gob.mx/LeyesBiblio/regley/Reg_LFPDPPP.pdf ; https://kpmg.com/mx/es/tendencias/2025/04/flash-nueva-ley-federal-de-proteccion-de-datos-personales-en-posesion-de-los-particulares.html"
+   },
+   {
+    "norma": "Salarios mínimos 2026 (CONASAMI, DOF 9-dic-2025)",
+    "articulo_o_seccion": "Resolución del H. Consejo de Representantes",
+    "que_dice": "Salario mínimo general 2026: $315.04 diarios ($9,582.47 mensuales), +13% vs 2025; ZLFN $440.87.",
+    "implicacion_para_la_empresa": "Base del costo laboral ofrecido. Proyección 2027-2030 incierta: los incrementos 2019-2026 fueron de dos dígitos; presupuestar al menos +10-12% anual como escenario (estimación propia).",
+    "fuente": "https://www.littler.com/news-analysis/asap/mexico-aumenta-el-salario-minimo-para-el-2026 ; https://www.bbva.mx/educacion-financiera/banca-digital/portabilidad-de-nomina/portabilidad-salario-minimo-mexico.html"
+   }
+  ],
+  "proceso_para_operar": [
+   "1) Contraparte: Subsecretaría de Sistema Penitenciario de la SSC CDMX → Dirección Ejecutiva de Trabajo Penitenciario (Calz. San Antonio Abad 130, piso 7, Col. Tránsito, Cuauhtémoc; tel. 55 5132 5400 ext. 1654/1657; correo institucional reportado: subtrabpenitenciario@gmail.com) y la J.U.D. de Fomento. Fuente: https://penitenciario.cdmx.gob.mx/dependencia/directorio ; https://penitenciario.cdmx.gob.mx/trabajo-penitenciario/hazme-valer",
+   "2) Instrumento: 'convenio de colaboración' bajo la figura de Socio Industrial (Ley CP CDMX art. 33 y Reglamento 2023). Lo firma la Subsecretaría (SSC) con la persona física o moral. Dado que la empresa ya opera en CEVASEP II, lo procedente es un convenio modificatorio/adenda o un nuevo convenio que amplíe objeto (de 'cosmética' a nueva línea), número de salones (4→8-10) y población (140→280-350), y que incluya anexos técnicos por línea de producto. Fuente: https://www.congresocdmx.gob.mx/media/documentos/030c6fdcd93ecec7801fd581a38e1f01a32954f1.pdf",
+   "3) Documentación típica solicitada a socios industriales (no publicada en abierto; lista de práctica administrativa a confirmar con la DETP): acta constitutiva y poder del representante, RFC y constancia de situación fiscal, identificación oficial, comprobante de domicilio, descripción del proyecto productivo (proceso, layout, lista de maquinaria, herramientas, insumos y sustancias con hojas de seguridad), número de PPL requerido y perfil, esquema de pago, plan de capacitación, listado de personal externo que ingresará (para credencialización y revisión de antecedentes), y seguros (responsabilidad civil y, en su caso, de la maquinaria). Marcado como estimación/práctica: no se encontró convocatoria ni formato público.",
+   "4) Aprobación interna: el Reglamento prevé que el Comité Técnico del centro y la Dirección del centro intervienen en la asignación de PPL a comisiones laborales; la Dirección Ejecutiva de Seguridad Penitenciaria debe validar materiales y herramientas (lista autorizada) antes del arranque. Fuente: https://extbox.ibero.mx/portaldocentes/url/20_1_33_50330_X.pdf ; https://penitenciario.cdmx.gob.mx/secretaria/estructura/4",
+   "5) Pago: la empresa deposita la remuneración a la cuenta administrada por la autoridad (LNEP art. 93; en CDMX la Dirección Ejecutiva de Administración y Finanzas de la Subsecretaría), que la dispersa a la PPL, su familia, reparación del daño y fondo de ahorro según solicitud/reglas internas. Pactar en el convenio: periodicidad, listas de asistencia firmadas por el supervisor y custodia, conciliación mensual, y constancia de pago por PPL. Fuente: https://leyes-mx.com/ley_nacional_de_ejecucion_penal/93.htm",
+   "6) Operación diaria: pase de lista por custodia al inicio y cierre de cada turno (9:00-13:00 y 14:00-18:00), entrega y devolución de herramientas contra inventario firmado, revisión de mercancía de entrada y salida por seguridad penitenciaria (Ley CP CDMX arts. 53-55), y registro de personal externo. Fuente: https://normas.cndh.org.mx/Documentos/Ciudad%20de%20M%C3%A9xico/Ley_CP_CdMex.pdf",
+   "7) Capacitación: la Subsecretaría ya tiene convenios con ICAT (960 PPL capacitados, $1.607 millones) y SEDECO; puede solicitarse certificación CONOCER de competencias para la nueva línea, lo que fortalece la narrativa de reinserción. Fuente: https://www.trabajo.cdmx.gob.mx/comunicacion/nota/comienza-programa-de-capacitacion-laboral-en-centros-penitenciarios-de-la-ciudad-de-mexico ; https://www.ssc.cdmx.gob.mx/comunicacion/nota/1848-ssc-y-sedeco-firman-convenio-para-fortalecer-la-capacitacion-y-el-trabajo-penitenciario",
+   "8) Comercialización: los productos de empresas privadas son propiedad de la empresa; la marca 'Hazme Valer' (registrada en IMPI) y la tienda de Izazaga 29 (L-S, 9/10-18 h) y la del Museo de la Policía (Victoria 82) son canales para producto institucional/autoempleo, no para la maquila privada, salvo acuerdo de co-branding. Fuente: https://www.ssc.cdmx.gob.mx/organizacion-policial/subsecretaria-del-sistema-penitenciario/hazme-valer ; https://www.ssc.cdmx.gob.mx/comunicacion/nota/2338-en-el-museo-de-la-policia-de-la-ciudad-de-mexico-la-ssc-inauguro-la-segunda-tienda-de-productos-penitenciarios-hazme-valer-elaborados-por-personas-privadas-de-la-libertad",
+   "9) Contrato aguas arriba: formalizar con Totalplay (u otro cliente) un contrato de servicios que reconozca expresamente que el trabajo se ejecuta en un centro penitenciario, con anexo de seguridad de la información (borrado/reset previo, cadena de custodia por serie) y contrato de encargado LFPDPPP. Fuente: https://basham.com.mx/en/nueva-ley-federal-de-proteccion-de-datos-personales-en-posesion-de-los-particulares-publicada-en-el-diario-oficial-de-la-federacion/"
+  ],
+  "obligaciones_y_costos": [
+   {
+    "concepto": "Remuneración a PPL (salario mínimo 2026)",
+    "detalle": "$315.04/día por PPL (DOF 9-dic-2025). Estimación propia: 140 PPL × $315.04 = $44,106/día; ≈ $957,000/mes si se paga sólo días laborados (21.7) o ≈ $1.34 millones/mes si se paga por día calendario (30.4). A 350 PPL: $110,264/día (≈ $2.39–3.35 millones/mes). Supuesto: pago íntegro del SM diario por jornada de 8 h; no incluye prestaciones ni cargas sociales.",
+    "fuente": "https://www.littler.com/news-analysis/asap/mexico-aumenta-el-salario-minimo-para-el-2026"
+   },
+   {
+    "concepto": "Cargas sociales potenciales (si se formaliza relación laboral/IMSS)",
+    "detalle": "Cuotas obrero-patronales IMSS+INFONAVIT+RCV sobre SM: entre ~25% y ~35% adicionales según prima de riesgo (estimación propia; la LSS no fija una regla especial para PPL). Más aguinaldo (15 días), vacaciones (12 días 1er año) y prima vacacional 25% conforme LFT si se reconoce relación laboral. El precedente Airtrak (Reclusorio Norte) reporta pago semanal y prestaciones.",
+    "fuente": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LSS.pdf ; https://www.diputados.gob.mx/LeyesBiblio/pdf/LFT.pdf ; https://penitenciario.cdmx.gob.mx/comunicacion/nota/mas-de-16-mil-personas-privadas-de-la-libertad-laboran-en-los-reclusorios-de-la-ciudad-de-mexico"
+   },
+   {
+    "concepto": "Fondo de ahorro y otras retenciones sobre lo pagado",
+    "detalle": "El Reglamento 2023 prevé un fondo de ahorro por PPL devuelto al liberarse (principal e intereses) y la LNEP permite destinos a reparación del daño y familia. El porcentaje vigente en CDMX no fue localizado (la regla 70/20/10 es de la ley local abrogada de 2011). No es costo adicional para la empresa: es distribución interna del mismo salario, pero afecta el ingreso neto percibido por la PPL y, por tanto, motivación y rotación.",
+    "fuente": "https://extbox.ibero.mx/portaldocentes/url/20_1_33_50330_X.pdf ; https://leyes-mx.com/ley_nacional_de_ejecucion_penal/93.htm"
+   },
+   {
+    "concepto": "Espacio, renta, energía y servicios",
+    "detalle": "Oferta de la autoridad: sin costo. La Ley CP CDMX contempla ingresos para la Subsecretaría por 'uso de espacios', por lo que debe quedar expresamente exento en el convenio y prever qué pasa si cambia la política (cláusula de renegociación). No se localizó ninguna cuota, fianza o seguro obligatorio publicado para socios industriales en CDMX; tampoco tarifas por servicios.",
+    "fuente": "https://www.congresocdmx.gob.mx/media/documentos/030c6fdcd93ecec7801fd581a38e1f01a32954f1.pdf"
+   },
+   {
+    "concepto": "Supervisión, capacitación y seguros propios",
+    "detalle": "La empresa aporta encargado/supervisores (costo propio; estimación: 1 supervisor por salón de 35 PPL = 4 a 10 personas externas con credencialización y revisión de antecedentes), ~15 días de capacitación inicial, EPP, herramientas con inventario, y seguro de responsabilidad civil y de mercancía (los seguros comerciales pueden excluir o sobreprimar riesgo 'centro penitenciario' — verificar con aseguradora). Estimación propia; no hay requisito publicado.",
+    "fuente": "https://extbox.ibero.mx/portaldocentes/url/20_1_33_50330_X.pdf"
+   },
+   {
+    "concepto": "Costos de cumplimiento de datos personales",
+    "detalle": "Contrato de encargado con Totalplay, procedimiento de borrado/reset certificado por número de serie, auditoría periódica y aviso de privacidad actualizado bajo la nueva LFPDPPP (2025). Costo bajo en dinero, alto en proceso.",
+    "fuente": "https://kpmg.com/mx/es/tendencias/2025/04/flash-nueva-ley-federal-de-proteccion-de-datos-personales-en-posesion-de-los-particulares.html"
+   },
+   {
+    "concepto": "Referencia institucional de pago público a PPL",
+    "detalle": "El programa de ayuda económica de la CDMX paga a PPL por hora con base en el SM de la CDMX, considerando 40 h/mes (10 días × 4 h): la oferta de 8 h/día supera ampliamente ese estándar, útil para defender el esquema ante críticas.",
+    "fuente": "https://extbox.ibero.mx/portaldocentes/url/20_1_33_98231_D.pdf"
+   }
+  ],
+  "reglas_de_seguridad": [
+   "Objetos prohibidos (Reglamento 2023 y Ley CP CDMX): celulares, relojes inteligentes, vaporizadores/cigarros electrónicos y cualquier electrónico 'que genere situaciones de privilegio'; dinero en efectivo arriba de $500, y en CEVASEP I y II el ingreso de dinero está totalmente prohibido (sólo depósito). Implicación: los módems/ONT con Wi-Fi, decodificadores con conectividad y controles remotos son, por naturaleza, objetos controlados: deben ingresar apagados, sin SIM/credenciales, con inventario por número de serie, y nunca energizarse ni conectarse a red dentro del salón sin autorización expresa y supervisión. Fuente: https://www.publimetro.com.mx/noticias/2022/12/14/cdmx-cuales-son-los-objetos-prohibidos-en-centros-penitenciarios/ ; https://extbox.ibero.mx/portaldocentes/url/20_1_33_50330_X.pdf",
+   "Sin internet ni telefonía para PPL: política confirmada por la condición de la autoridad y por la Estrategia Nacional contra la Extorsión (bloqueo de señal 3G/4G en los 13 centros de la CDMX anunciado para el primer trimestre de 2026; SSC CDMX contrató inhibidores por $37.2 millones en 2025 para Reclusorios Norte, Oriente, Sur, Penitenciaría y Santa Martha Acatitla femenil y varonil; CEVASEP I/II no aparecen en ese contrato). Implicación: cualquier equipo con radio (Wi-Fi/LTE) es un riesgo de seguridad de primer orden; los inhibidores además pueden interferir pruebas funcionales. Fuente: https://www.eluniversal.com.mx/nacion/bloquearan-senal-telefonica-en-penales-en-el-primer-trimestre-de-2026-para-evitar-extorsiones-denuncias-al-089-van-al-alza/ ; https://www.cronica.com.mx/metropoli/2026/02/25/fortalecen-con-mas-de-37-mdp-inversion-a-inhibidores-de-senal-en-6-reclusorios-de-cdmx/",
+   "Herramientas punzocortantes y metálicas (cutters, desarmadores, pinzas, navajas, tijeras): controladas; ingreso sólo bajo lista autorizada por Seguridad Penitenciaria, con tablero sombreado, conteo al inicio y fin de cada turno, y reporte inmediato de faltantes (un faltante detiene el turno). Práctica estándar penitenciaria; la Ley CP CDMX obliga revisiones con equipo (arts. 54-55) y sanciona penalmente la introducción de objetos prohibidos (art. 84). Fuente: https://normas.cndh.org.mx/Documentos/Ciudad%20de%20M%C3%A9xico/Ley_CP_CdMex.pdf",
+   "Cables, cordones y cintas: los cables de red/coaxiales/energía son insumo del proceso pero en prisión son objeto de riesgo (agresión/suicidio, ocultamiento); deben ingresar en largos cortos y contados, con retorno de sobrantes y desechos pesados/contados. Estimación de práctica; no hay lista pública específica. Fuente general: https://extbox.ibero.mx/portaldocentes/url/20_1_33_50330_X.pdf",
+   "Baterías, pilas y fuentes de poder: controladas (fuente de energía para celulares ilegales, riesgo de incendio). Los controles remotos de Totalplay usan pilas: el proceso debe excluir el suministro de pilas dentro del salón o controlarlas pieza por pieza. Estimación de práctica derivada de la prohibición de electrónicos. Fuente: https://www.publimetro.com.mx/noticias/2022/12/14/cdmx-cuales-son-los-objetos-prohibidos-en-centros-penitenciarios/",
+   "Químicos y solventes de limpieza (alcohol isopropílico, limpiadores, adhesivos, aerosoles): ingreso sólo con hoja de seguridad, en envases no presurizados, cantidades diarias medidas y resguardo bajo llave del supervisor; prohibidos los inflamables en volumen y los aerosoles (práctica estándar; el Reglamento remite a manuales no públicos). Fuente: https://extbox.ibero.mx/portaldocentes/url/20_1_33_50330_X.pdf",
+   "Ingreso/salida de mercancía: toda carga es revisada por seguridad penitenciaria con equipo (rayos X/escáner donde exista), con manifiesto por número de serie y sello; la salida del producto terminado se cuadra contra el ingreso (cadena de custodia). Desde 2024 el sistema reporta operativos y revisiones permanentes (843 revisiones en un mes; 1,666 celulares y 584 chips decomisados en un año), por lo que deben anticiparse demoras y revisiones aleatorias de contenedores. Fuente: https://penitenciario.cdmx.gob.mx/comunicacion/nota/sistema-penitenciario-de-la-cdmx-realiza-mas-de-14-mil-revisiones-y-operativos-en-reclusorios ; https://www.secgob.cdmx.gob.mx/comunicacion/nota/reclusorio-oriente-encabeza-decomiso-de-celulares-en-los-centros-penitenciarios-de-la-ciudad-de-mexico",
+   "Control de asistencia: la autoridad asigna PPL a la 'comisión laboral' y custodia realiza pase de lista; la empresa debe llevar lista propia firmada por turno para sustentar la nómina que deposita (LNEP 93) y para defenderse de reclamos. El CEVASEP II aloja población 'con perfil de alto grado de riesgo institucional' (578 PPL según la SSC), por lo que los traslados a salones son escoltados y los movimientos pueden suspenderse por incidentes o revisiones generales. Fuente: https://www.ssc.cdmx.gob.mx/comunicacion/nota/1142-el-centro-varonil-de-seguridad-penitenciaria-ii-obtiene-reacreditacion-aca-con-nivel-de-alta-seguridad",
+   "Personal externo: registro, credencial y revisión al ingreso; prohibido introducir celulares u objetos no autorizados; cualquier intento de introducir objetos prohibidos se denuncia al Ministerio Público (Ley CP CDMX art. 84). Fuente: https://www.congresocdmx.gob.mx/media/documentos/030c6fdcd93ecec7801fd581a38e1f01a32954f1.pdf",
+   "Estándar ACA: CEVASEP II está acreditado por la American Correctional Association (137 estándares al 100%, certificación desde mayo de 2016 y reacreditaciones), lo que implica auditorías periódicas de control de herramientas, llaves y sustancias; el taller será auditado como parte del centro. Fuente: https://www.penitenciario.cdmx.gob.mx/comunicacion/nota/el-centro-varonil-de-seguridad-penitenciaria-ii-obtiene-reacreditacion-aca-con-nivel-de-alta-seguridad"
+  ],
+  "precedentes_cdmx": [
+   {
+    "empresa_o_programa": "Airtrak México (empresa privada, inflables de alta gama para deportes extremos)",
+    "centro": "Reclusorio Preventivo Varonil Norte (contiguo a CEVASEP II)",
+    "actividad": "Nave industrial con áreas de costura y ensamble; abrió en marzo de 2023 dentro del programa de reinserción; exporta a EE.UU.",
+    "resultado": "Al año de operación (abril 2024) empleaba a 45 PPL seleccionados con el mismo proceso que sus demás trabajadores; la empresa reporta pago semanal, prestaciones, descansos fijos y días festivos; horarios fijos de entrada y salida. Es el precedente más cercano en ubicación y modelo (empresa privada con nómina propia).",
+    "fuente": "https://www.eluniversal.com.mx/metropoli/montan-una-singular-fabrica-de-inflables-dentro-de-una-carcel/ ; https://penitenciario.cdmx.gob.mx/comunicacion/nota/mas-de-16-mil-personas-privadas-de-la-libertad-laboran-en-los-reclusorios-de-la-ciudad-de-mexico"
+   },
+   {
+    "empresa_o_programa": "Socios industriales del Sistema Penitenciario CDMX (28 convenios con empresas y personas físicas con actividad empresarial)",
+    "centro": "13 centros de la CDMX",
+    "actividad": "Maquila de ropa, artículos de higiene personal, alimentos, artículos de hule, bolsas, empaque, muebles, inyección de plástico, edición de textos, joyería de fantasía (2022: 17 socios industriales / 25 convenios).",
+    "resultado": "Boletín SSC 2772 (27-sep-2024): 47,784 PPL han participado en actividades remuneradas desde 2019; 15,593 PPL asignados a comisión laboral (1,279 mujeres = 88% de la población femenil; 14,314 hombres = 59% de la varonil); 33 acuerdos con instituciones públicas y privadas para empleo y certificación. La CNDH (DNSP) registra en el Reclusorio Norte naves industriales donde 'cuatro empresas privadas' dan empleo remunerado y 40% de la población está laboralmente activa.",
+    "fuente": "https://www.ssc.cdmx.gob.mx/comunicacion/nota/2772-desde-su-incorporacion-la-ssc-la-subsecretaria-del-sistema-penitenciario-reconoce-y-garantiza-los-derechos-humanos-de-las-personas-privadas-de-la-libertad-y-la-seguridad-penitenciaria ; https://www.jornada.com.mx/noticia/2022/12/31/capital/mas-de-16-mil-presos-inscritos-en-programa-de-capacitacion-y-trabajo-6487 ; https://observatorio-de-prisiones.documenta.org.mx/centros-penitenciarios/reclusorio-norte/"
+   },
+   {
+    "empresa_o_programa": "'Hazme Valer, Productos Penitenciarios' (marca institucional SSC, registrada en IMPI, creada 2019 con apoyo de UNODC)",
+    "centro": "13 centros, incluido CEVASEP II (calzado deportivo pintado a mano en el catálogo 2020)",
+    "actividad": "Autoempleo y talleres autogenerados: muebles, herrería, piel, panadería, textil, promocionales, pintura vinílica; venta en tienda Izazaga 29 (desde 2019) y segunda tienda en el Museo de la Policía (Victoria 82, inaugurada sept. 2023 con +500 productos); 'Primer encuentro empresarial' con +30 coordinadores empresariales en Santa Martha Acatitla.",
+    "resultado": "Más de 8,000 PPL inscritos (2024-2025); la SSC afirma que la reincidencia baja de ~40% a ~10% entre quienes participan en programas laborales; la CDHCM reconoció públicamente el trabajo artesanal (dic. 2024). Es el canal de legitimidad pública del trabajo penitenciario en CDMX.",
+    "fuente": "https://www.ssc.cdmx.gob.mx/comunicacion/nota/2338-en-el-museo-de-la-policia-de-la-ciudad-de-mexico-la-ssc-inauguro-la-segunda-tienda-de-productos-penitenciarios-hazme-valer-elaborados-por-personas-privadas-de-la-libertad ; https://www.infobae.com/mexico/2025/06/04/hazme-valer-muebles-pintura-y-hasta-panes-por-catalogo-asi-puedes-apoyar-el-trabajo-penitenciario-en-la-cdmx/ ; https://cdhcm.org.mx/2024/12/reconoce-cdhcm-trabajo-de-personas-artesanas-privadas-de-su-libertad-en-la-ciudad-de-mexico/ ; https://penitenciario.cdmx.gob.mx/comunicacion/nota/la-ssc-fortalece-las-actividades-del-trabajo-penitenciario-en-los-reclusorios-de-la-ciudad-con-el-apoyo-de-nuevos-socios-industriales"
+   },
+   {
+    "empresa_o_programa": "Convenio SSC–SEDECO y convenio SSC–STyFE/ICAT",
+    "centro": "Todos los centros CDMX",
+    "actividad": "Capacitación y vinculación laboral; ICAT capacitó a 960 PPL en 18 especialidades con $1.607 millones; programa focalizado en 5 campos (socioemocional, industrial, ecológico, servicios, creatividad) y 3 modalidades (autogenerado/autoconsumo, trabajo con empresas y organismos capacitadores, autoempleo).",
+    "resultado": "Marco institucional para que la capacitación de ~15 días de la empresa se complemente con certificación oficial (CONOCER) y para acceder a bolsa de trabajo postliberación.",
+    "fuente": "https://www.ssc.cdmx.gob.mx/comunicacion/nota/1848-ssc-y-sedeco-firman-convenio-para-fortalecer-la-capacitacion-y-el-trabajo-penitenciario ; https://www.trabajo.cdmx.gob.mx/comunicacion/nota/comienza-programa-de-capacitacion-laboral-en-centros-penitenciarios-de-la-ciudad-de-mexico"
+   },
+   {
+    "empresa_o_programa": "La Cana (empresa social)",
+    "centro": "Centro Femenil Santa Martha Acatitla (y 3 centros del Edomex)",
+    "actividad": "Talleres de tejido y productos artesanales con venta externa y e-commerce; +350 mujeres apoyadas.",
+    "resultado": "Modelo de impacto social reconocido mediáticamente; muestra que los productos elaborados en reclusión pueden venderse con marca propia sin estigma.",
+    "fuente": "https://politica.expansion.mx/sociedad/2021/03/10/la-cana-el-empoderamiento-y-reinsercion-social-de-las-mujeres-en-prision ; https://lacana.org/"
+   },
+   {
+    "empresa_o_programa": "Capacitación con iniciativa privada a personas en preliberación/semilibertad (plataformas elevadas)",
+    "centro": "Subsecretaría (población en libertad anticipada)",
+    "actividad": "Empresa privada de capacitación certificó a 9 personas en operación de plataformas móviles elevadas.",
+    "resultado": "Muestra apertura de la SSC a alianzas privadas más allá de la maquila.",
+    "fuente": "https://www.ssc.cdmx.gob.mx/comunicacion/nota/2922-la-subsecretaria-del-sistema-penitenciario-de-la-ssc-en-coordinacion-con-la-iniciativa-privada-capacito-personas-en-situacion-de-preliberacion-y-semilibertad-para-el-manejo-de-plataformas-elevadas"
+   },
+   {
+    "empresa_o_programa": "Totalplay / telecomunicaciones en reclusorios",
+    "centro": "—",
+    "actividad": "Búsqueda específica de notas públicas sobre Totalplay (o cualquier operador de telecomunicaciones) con talleres de reacondicionamiento de equipos en reclusorios de la CDMX.",
+    "resultado": "No se localizó ninguna nota, boletín ni comunicado público (2018-2026) que vincule a Totalplay o Grupo Salinas con talleres en centros penitenciarios de la CDMX. La operación actual del empresario no tiene huella pública; esto es a la vez ventaja (bajo perfil) y riesgo (si se hace pública sin narrativa preparada). Totalplay sí aparece en la agenda pública sólo como proveedor de servicios.",
+    "fuente": "https://x.com/totalplaymx/status/1333923840569843713?lang=es ; https://en.wikipedia.org/wiki/Totalplay"
+   }
+  ],
+  "riesgos_legales_y_reputacionales": [
+   "Recaracterización laboral: la LNEP libera a la autoridad pero no a la empresa; con subordinación, jornada de 8 h y salario, un tribunal laboral podría reconocer relación de trabajo (LFT art. 20) y condenar al pago retroactivo de prestaciones y cuotas IMSS/INFONAVIT. Mitigación: definir el esquema con abogado laboral, considerar afiliación voluntaria/ordinaria al IMSS como hizo la operadora textil del CPS 12 Guanajuato, y documentar capacitación, EPP y reglamento interno. Fuentes: https://leyes-mx.com/ley_nacional_de_ejecucion_penal/91.htm ; https://sidof.segob.gob.mx/notas/docFuente/5774118",
+   "Acusación de explotación/'esclavitud moderna': hay debate público activo (columna de Daniela Ancira en El Universal; Foro Jurídico; Grupo Animal sobre una propuesta de trabajo obligatorio en 2025; CDHCM y Documenta documentan salarios bajos, pagos atrasados y falta de prestaciones). Pagar sólo salario mínimo por 8 h, sin prestaciones, a 140-350 PPL para un cliente corporativo grande (Totalplay/Grupo Salinas) es un blanco natural para reportajes. Mitigación: pago puntual y documentado, prestaciones equivalentes, certificación CONOCER, transparencia con la CDHCM. Fuentes: https://www.eluniversal.com.mx/opinion/daniela-ancira-ruiz/trabajo-penitenciario-esclavitud-moderna/ ; https://forojuridico.mx/el-trabajo-obligatorio-para-las-personas-privadas-de-la-libertad/ ; https://grupoanimal.mx/opinion/trabajo-forzado-prisiones-propuesta-regresiva",
+   "Paros o protestas de PPL: no se hallaron huelgas de PPL en talleres de CDMX 2024-2026, pero sí paros del personal penitenciario (bloqueo de Tlalpan por recorte salarial) y del Poder Judicial CDMX (junio 2025) que afectaron salas en los reclusorios Norte, Sur y Oriente. Riesgo operativo: suspensión de movimientos internos, revisiones generales y cierres por incidentes (CNDH señala autogobierno y personal insuficiente en Reclusorio Norte). Fuentes: https://oem.com.mx/la-prensa/metropoli/personal-del-sistema-penitenciario-bloquea-tlalpan-hacia-el-centro-denuncia-recorte-a-su-salario-29824061 ; https://politica.expansion.mx/cdmx/2025/06/12/entre-enfrentamientos-y-sin-acuerdos-poder-judicial-cdmx-cumple-11-dias-en-paro ; https://lopezdoriga.com/nacional/detectan-autogobierno-en-reclusorios-varoniles-norte-y-oriente/",
+   "Extorsión telefónica desde reclusorios: la SSC ha identificado al Reclusorio Norte como el centro donde más llamadas de extorsión se generan en CDMX (1,450 celulares decomisados en una etapa); 12 penales del país concentran 56% de las líneas reportadas al 089; bloqueo total de señal en los 13 centros de CDMX anunciado para el 1T-2026 y reforzado en 2026; en julio de 2026 se ejecutaron órdenes de aprehensión por extorsión dentro del Reclusorio Norte. Introducir cientos de dispositivos con capacidad de red (ONT/módems con Wi-Fi, decodificadores) en el complejo Norte es un riesgo de desvío de equipo hacia actividad delictiva y de señalamiento mediático ('la empresa metió módems al penal de la extorsión'). Mitigación: equipos sin energía ni radio activa, bitácora por serie, conteo 100% a la salida, y validación previa de la Dirección Ejecutiva de Seguridad Penitenciaria. Fuentes: https://www.razon.com.mx/ciudad/llamadas-extorsion-cdmx-son-principalmente-reclusorio-norte-ssc-487749 ; https://www.sinembargo.mx/4724917/el-56-de-las-lineas-telefonicas-reportadas-por-extorsion-estan-en-12-penales-sspc/ ; https://www.infobae.com/mexico/2026/05/27/asi-busca-el-gobierno-frenar-las-extorsiones-telefonicas-desde-prision/ ; https://www.diariodemexico.com/mi-ciudad/operativo-en-cdmx-caen-4-implicados-en-extorsion-homicidio-robo",
+   "Cadena de custodia y merma: pérdida, canibalización o robo de piezas (tarjetas, controles, cables) dentro del centro; el Reglamento y la Ley sancionan la posesión de objetos prohibidos por PPL, pero la pérdida patrimonial es de la empresa y la aseguradora puede excluir el riesgo. Mitigación: conteo por serie entrada/salida, sellos, CCTV propio autorizado, seguro específico. Fuente: https://normas.cndh.org.mx/Documentos/Ciudad%20de%20M%C3%A9xico/Ley_CP_CdMex.pdf",
+   "Datos personales de clientes: módems/ONT y decodificadores pueden retener SSID/contraseñas, identificadores de cuenta y configuraciones; bajo la nueva LFPDPPP (2025) la empresa es encargado y Totalplay responsable; una filtración atribuible a un PPL sería sancionable y mediáticamente grave. Mitigación: reset/borrado certificado antes del ingreso, prohibición de energizar equipos en salón, contrato de encargado y auditorías. Fuentes: https://basham.com.mx/en/nueva-ley-federal-de-proteccion-de-datos-personales-en-posesion-de-los-particulares-publicada-en-el-diario-oficial-de-la-federacion/ ; https://www.diputados.gob.mx/LeyesBiblio/regley/Reg_LFPDPPP.pdf",
+   "Propiedad intelectual y marca: los equipos y firmware son propiedad de Totalplay/fabricantes; la manipulación de carcasas y etiquetado requiere autorización expresa del titular (riesgo de alteración de etiquetas regulatorias/IFT y de garantía). Si se usa la marca 'Hazme Valer' (registrada ante IMPI por la SSC) se requiere acuerdo escrito. Fuente: https://www.ssc.cdmx.gob.mx/organizacion-policial/subsecretaria-del-sistema-penitenciario/hazme-valer",
+   "Riesgo de continuidad política/administrativa 2026-2030: el convenio es discrecional y la Subsecretaría ha cambiado de adscripción (Gobierno→SSC, 2021); la Crónica reporta caída de 34% en programas de reinserción y sobrepoblación creciente (nov. 2025); un cambio de titular de la SSC o de Jefatura de Gobierno (elección 2030) puede alterar condiciones (cobro de espacio/servicios, reubicación de salones, cambio de perfil de población). Mitigación: convenio con vigencia plurianual, cláusulas de preaviso y de reubicación. Fuentes: https://www.cronica.com.mx/metropoli/2025/11/13/carceles-en-cdmx-estan-sobrepobladas-y-programas-de-reinsercion-caen-34/ ; https://secgob.cdmx.gob.mx/comunicacion/nota/22-21-bol",
+   "Riesgo de corrupción y 'cuotas' informales: la CNDH documenta extorsión y cohecho dentro del Reclusorio Norte; la empresa debe blindarse con política anticorrupción, pagos únicamente por vía institucional (cuenta administrada, LNEP 93) y cero pagos a PPL o custodios fuera de canal. Fuente: https://observatorio-de-prisiones.documenta.org.mx/centros-penitenciarios/reclusorio-norte/",
+   "Exposición ante la CDHCM/CNDH: quejas de PPL por trato, jornada, descuentos o no pago pueden derivar en recomendaciones públicas que nombren a la empresa. Mitigación: buzón de quejas, constancias de pago individuales, reglamento interno validado por la Subsecretaría. Fuente: https://www.cndh.org.mx/sites/default/files/documentos/2024-12/DNSP_2024.pdf"
+  ],
+  "incertidumbres": [
+   "Acceso a fuentes: el proxy de red bloqueó la descarga de los textos íntegros de la LNEP, la Ley y el Reglamento de Centros Penitenciarios de la CDMX, y de los boletines de SSC/penitenciario.cdmx.gob.mx; las transcripciones y números de artículo provienen de extractos indexados. Deben cotejarse con los PDF oficiales antes de usarse en un convenio.",
+   "Porcentaje exacto de retenciones sobre lo que paga la empresa (fondo de ahorro, reparación del daño, familia) en CDMX: no localizado en fuentes abiertas; el 70/20/10 corresponde a la ley local de 2011 ya sustituida. Confirmar con la Dirección Ejecutiva de Administración y Finanzas de la Subsecretaría.",
+   "Afiliación al IMSS de PPL que trabajan para empresas privadas en CDMX: no se encontró criterio oficial del IMSS ni de la Subsecretaría; sólo el precedente federal (CPS 12 Guanajuato) y la declaración de Airtrak sobre 'prestaciones'. Requiere opinión legal y consulta al IMSS.",
+   "Si la LFT aplica plenamente a la relación empresa–PPL: sin jurisprudencia localizada 2023-2026; riesgo abierto.",
+   "Requisitos documentales y formato del convenio de Socio Industrial: no hay convocatoria ni lineamientos publicados; la lista dada es práctica administrativa inferida.",
+   "Manuales/lineamientos internos de seguridad (lista detallada de herramientas, químicos y electrónicos permitidos por centro, y en particular para CEVASEP II): no públicos; deben solicitarse a la Dirección Ejecutiva de Seguridad Penitenciaria.",
+   "Estado actual (sep-2026) del bloqueo de señal en CEVASEP II/Reclusorio Norte y su efecto sobre pruebas funcionales de equipos: las notas confirman el plan nacional (1T-2026) y el contrato de inhibidores 2025 para 6 centros (CEVASEP no incluido), pero no el estatus por centro a la fecha.",
+   "Fecha de algunas cifras: el boletín SSC 2772 (28 convenios; 15,593 PPL) es de 27-sep-2024; la cifra de '16 mil PPL laborando' y '17 socios industriales/25 convenios' es de 2022-2023; la CNDH DNSP citada es 2023-2024. No se hallaron cifras 2026 de convenios vigentes.",
+   "Población de CEVASEP II: 578 PPL 'de alto riesgo institucional' según SSC (nota de reacreditación ACA, datos 2022-2024); no se verificó la población 2026 ni si la oferta de 280-350 PPL es compatible con el perfil y la capacidad del centro.",
+   "Existencia de notas públicas sobre Totalplay en reclusorios: búsqueda negativa; no implica inexistencia de acuerdos privados.",
+   "Cálculos de costo mensual por nómina son estimación propia sobre SM 2026 ($315.04) y supuestos de días pagados; no incluyen prestaciones ni cuotas; proyección 2027-2030 del SM no es oficial.",
+   "Reforma a la LNEP en materia de trabajo aprobada por Diputados (27-oct-2022) y remitida al Senado: no se verificó su publicación en el DOF; la última reforma confirmada de la LNEP es 01-abr-2024."
+  ]
+ },
+ "costo_laboral": {
+  "resumen": "Con salario mínimo 2026 ($315.04/día, CONASAMI/DOF 9-dic-2025) y bajo el esquema CDMX (la empresa paga sólo la \"ayuda económica\" ≥ SMG directamente a la PPL, sin renta ni servicios), el costo base dentro del penal es $39.38 por hora pagada (jornada 8 h, 22 días/mes) vs. $78.97 por hora todo-incluido en nómina de un operario externo con sueldo bruto de $10,000/mes (vacantes reales 2026 Tlalnepantla/Cuautitlán/Azcapotzalco: $8,500–$11,000) más cargas de ley ~39% (IMSS, Infonavit, ISN CDMX 4%, aguinaldo, prima, PTU). Sumando costos indirectos (renta de nave $180/m²/mes zona norte, luz, seguridad, supervisión, rotación 50%/año) el externo cuesta ~$95/h pagada y ~$101/h productiva. Dentro del penal, sumando supervisores externos, logística de ingreso/egreso, mermas, seguros, capacitación y herramientas controladas (~$10.5/h) y aplicando un factor de productividad de 0.80 (pases de lista, revisiones, audiencias, traslados), el costo por hora productiva es ~$62/h. Ventaja de costo estimada: ~38% por hora productiva (rango 20%–38%: cae a ~20% si la autoridad exige pagar los 30.4 días del mes en vez de 22 días laborados; sube a ~45% en la línea salarial pura). La ventaja se sostiene 2026–2030 en términos relativos porque los sueldos de operario externo en la zona están pegados al mínimo y suben con él; en términos absolutos el costo interno nominal crecerá ~46–57% a 2030 (ruta 10–12% anual hacia 2.5 canastas básicas). Riesgo principal: que se exija afiliación al IMSS/Infonavit (LNEP art. 92-V) o se reinterprete la ayuda económica como salario, lo que agregaría ~30% al costo interno.",
+  "salario_minimo_2026": {
+   "diario_general_mxn": 315.04,
+   "mensual_mxn": 9582.47,
+   "fuente": "CONASAMI, acuerdo del Consejo de Representantes 3-dic-2025 (+13%), resolución publicada en DOF 9-dic-2025: https://www.gob.mx/conasami/articulos/incremento-a-los-salarios-minimos-para-2026?idiom=es ; https://dof.gob.mx/nota_detalle.php?codigo=5775534&fecha=09%2F12%2F2025 ; https://canaintex.org.mx/resolucion-conasami-salarios-minimos-generales-y-profesionales-a-partir-del-1-de-enero-de-2026/",
+   "nota": "Mensual = diario × 30.4 (convención CONASAMI). Zona Libre Frontera Norte: $440.87/día (no aplica). UMA 2026 (vigente 1-feb-2026): $117.31/día (INEGI, https://calculadora-uma.com/valores-historicos/2026). Si la empresa paga sólo días laborados (22/mes), el desembolso es $6,931/PPL/mes; si paga mes completo (30.4 días), $9,582/PPL/mes."
+  },
+  "costo_hora_dentro_penal": {
+   "mxn_por_hora": 62.4,
+   "supuestos": "Base: $315.04/8 h = $39.38 por hora pagada, pagando sólo días laborados (22/mes = $6,931/PPL/mes); si la autoridad exige pagar 30.4 días (séptimo día/descansos) la base sube a $54.44/h. Marco: Gaceta CDMX 04-may-2022 (lineamientos de ayuda económica a PPL): el pago lo hace directamente el socio industrial y no puede ser menor al SMG vigente en CDMX (https://extbox.ibero.mx/portaldocentes/url/20_1_33_98231_D.pdf; CDHCM https://directorio.cdhdf.org.mx/transparencia/2024/art_132/fr_XIII/15.CDHCM_Cuestionarioformascontemporneasesclavitud.pdf). LNEP art. 91-93: el trabajo 'a cuenta de terceros' se paga a una cuenta individual administrada por la autoridad penitenciaria; descuentos para reparación del daño, seguridad social y apoyo a familiares sólo a solicitud de la PPL; el fondo de ahorro se restituye al salir (https://leyes-mx.com/ley_nacional_de_ejecucion_penal/93.htm; Reglamento Ley de Centros Penitenciarios CDMX 2023 https://www.poderjudicialcdmx.gob.mx/wp-content/uploads/Reglamento-de-la-Ley-de-Centros-Penitenciarios-de-la-Ciudad-de-Mexico.pdf). Práctica CDMX: no hay relación laboral subordinada; en la práctica documentada en México (SLP 2019, fuente anterior a 2025: https://www.infobae.com/america/mexico/2019/10/13/asi-son-explotadas-las-trabajadoras-reclusas-en-carceles-de-san-luis-potosi-por-empresas-maquiladoras/) las empresas no pagan IMSS, Infonavit, aguinaldo, vacaciones ni PTU; en CDMX la Secretaría aporta instalaciones, luz y servicios (condición ofrecida). Costos ocultos sumados (estimación propia, 140 PPL × 176 h = 24,640 h/mes): supervisores externos 4 × $16,220 (promedio Indeed jul-2026, https://mx.indeed.com/career/supervisor-de-producci%C3%B3n/salaries) + 1 coordinador $30,000 + 1 encargado de logística $15,000, todos ×1.38 de carga social = $6.15/h; flete diario 3.5 t ida/vuelta ~$3,000 ($14–20/km, https://www.cotizadoraonline.com/cotizacion-transporte-fletes) = $2.68/h; mermas $15,000/mes = $0.61/h; seguro RC/mercancía $10,000/mes = $0.41/h; capacitación 15 días × $315.04 con reposición 15%/año = $0.34/h; herramientas controladas/consumibles $8,000/mes = $0.32/h. Total por hora pagada ≈ $49.9; entre factor de productividad 0.80 = $62.4 por hora productiva. Escenario pago 30.4 días: $81.2/h productiva.",
+   "cargas_adicionales_posibles": "(1) IMSS+Infonavit+SAR si la autoridad o el IMSS exigen afiliación (LNEP art. 92-V 'acceso a la seguridad social conforme a la modalidad'; denuncias por omisión de inspección del IMSS en penales, https://forojuridico.mx/el-trabajo-obligatorio-para-las-personas-privadas-de-la-libertad/): ~+$2,160/PPL/mes sobre SM (cuota fija 20.4% UMA $727 + ~13.7% variable + 5% Infonavit) ≈ +$12/h. (2) ISN CDMX 4% (Código Fiscal CDMX art. 158, vigente desde 2025, https://factorial.mx/blog/impuesto-sobre-la-nomina/): aplicaría sólo si Finanzas CDMX considera la ayuda económica 'remuneración al trabajo personal subordinado'; +$1.6/h. (3) Aguinaldo/prima si se reinterpreta como relación laboral: +4.9%. (4) Pago del séptimo día/descanso obligatorio (+38% sobre la base). (5) Contraprestación por instalaciones si la Secretaría cambia la condición (en SLP se documentó ~$30,000/mes por planta; fuente 2019). (6) Reajuste anual automático del SMG: +10–12% cada enero 2027–2030."
+  },
+  "costo_hora_fuera_cdmx": {
+   "mxn_por_hora_todo_incluido": 95.2,
+   "desglose": "Sueldo bruto operario/ayudante general $10,000/mes (punto medio de vacantes 2026: $8,500–$9,500 + prestaciones, $10,000 y $9,452–$12,047 en Tlalnepantla/Cuautitlán; $9,000–$11,000 en Azcapotzalco; técnico reparación celulares promedio $10,981). Diario $328.95; SBC $345.17 (factor 1.0493 por aguinaldo 15 días y prima vacacional 25% sobre 12 días) = 2.94 UMA. Cargas patronales mensuales: aguinaldo $411; prima vacacional $82; IMSS variable sobre SBC 13.66% ($1,433) = prestaciones en dinero 0.70% + gastos médicos pensionados 1.05% + invalidez y vida 1.75% + guarderías 1.00% + riesgo de trabajo clase II 1.13065% (LSS art. 73) + retiro 2.00% + CEAV 2026 tramo 2.51–3.00 UMA ≈6.03% (tabla progresiva, año 4 de 8); cuota fija enfermedades y maternidad 20.40% × UMA × 30.4 = $727.5 (excedente 1.10% = 0 por SBC < 3 UMA); Infonavit 5% = $525; ISN CDMX 4% = $420 (Edomex 3% con tope 1.5 SM en 2026: $315); PTU estimación propia 3% = $300. Costo nómina $13,898/mes (+39% sobre bruto) ÷ 176 h = $78.97/h. Indirectos para 140 operarios (24,640 h/mes): renta nave 700 m² (5 m²/persona, estimación propia) × $180/m² + 10% mantenimiento = $138,600 → $5.63/h (mercado: Tlalnepantla/Vallejo >11.65 USD/m², ZMVM 10.36 USD/m² 2T-2026, FIX 16.87 = $175–197 MXN/m²; listados $170–180/m² + mantenimiento); luz 70 kWh/persona/mes × $3.0/kWh all-in GDMTH (energía 2025: base $1.18, intermedia $1.95, punta $2.28/kWh + cargos de capacidad y distribución; estimación propia) = $1.19/h; seguridad 2 posiciones 12 h ($14,000–$22,000 c/u) = $41,760 con IVA → $1.69/h; supervisión (misma estructura que dentro) $130,934 → $5.31/h; rotación 50%/año (manufactura 50–70%; operarios 53%) × 70 reemplazos × $10,000 (reclutamiento + 15 días de capacitación, estimación propia conservadora frente al '3× sueldo mensual' de las fuentes) → $2.37/h. Total $95.16 por hora pagada; entre disponibilidad 0.94 (vacaciones 12 días, festivos, ausentismo) ≈ $101.2 por hora productiva. No incluye transporte de personal ni comedor (comunes en Cuautitlán; +$1–3/h).",
+   "fuentes": [
+    "https://www.glassdoor.com.mx/Empleo/tlalnepantla-operador-de-producci%C3%B3n-empleos-SRCH_IL.0,12_IC3483061_KO13,35.htm",
+    "https://mx.indeed.com/q-operador-de-produccion-l-cuautitl%C3%A1n-izcalli,-m%C3%A9x.-empleos.html",
+    "https://mx.jooble.org/trabajo-ayudante-general-fabricas/Tlalnepantla-de-Baz%2C-M%C3%A9x.",
+    "https://mx.indeed.com/career/t%C3%A9cnico-en-reparaci%C3%B3n-de-celulares/salaries",
+    "https://www.elcontribuyente.mx/indicadores/cuotas-imss/",
+    "https://elconta.mx/tabla-de-cuotas-patronales-cyv-para-2026-con-incremento-gradual-de-cuota-patronal-ceyv/",
+    "https://leyes-mx.com/ley_del_seguro_social/73.htm",
+    "https://factorial.mx/blog/impuesto-sobre-la-nomina/",
+    "https://www.bhrmx.com/cambios-fiscales-estatales-para-2026-estado-de-mexico/",
+    "https://www.pluxee.mx/blog/dias-de-vacaciones-por-ano/",
+    "https://facturama.mx/blog/reparto-de-utilidades/",
+    "https://mexicoindustry.com/noticia/precios-de-renta-de-naves-industriales-en-cdmx-superan-los-11-usd-m2-datoz",
+    "https://www.razon.com.mx/negocios/2026/07/20/costo-de-rentas-de-las-oficinas-naves-y-retail-se-dispara-89/",
+    "https://www.inmuebles24.com/nave-industrial-en-renta-en-tlalnepantla-de-baz.html",
+    "https://x.com/Banxico/status/2095935037141037375",
+    "https://www.ecoportal.net/energia/tarifas-gmdto-y-gmdth-cfe-mexico/",
+    "https://energymagazine.mx/2026/01/analisis-tarifas-2026-asi-cambian-tus-costos-si-eres-gdmth-y-que-mirar-en-tus-clausulas-de-suministro/",
+    "https://www.mercadoseguridad.mx/blog/cuanto-cuesta-seguridad-privada",
+    "https://factorial.mx/blog/tasa-rotacion-personal-mexico/",
+    "https://beetrics.com/blog/rotacion-de-personal-en-mexico-datos-2026/",
+    "https://wellhub.com/es-mx/blog/adquisicion-y-retencion-del-talento/costo-de-la-rotacion-de-personal/",
+    "https://mx.indeed.com/career/supervisor-de-producci%C3%B3n/salaries"
+   ]
+  },
+  "ventaja_costo_pct": 38,
+  "productividad_esperada": {
+   "factor_vs_exterior": 0.8,
+   "justificacion": "Estimación propia: de 8 h nominales se pierden ~1 h/día en pases de lista, revisiones de entrada/salida al taller y control de herramientas (−12%) y ~5–8% adicional por audiencias, traslados, visitas, atención médica y sanciones; parcialmente compensado por rotación casi nula, asistencia diaria y ausencia de distracciones (sin celulares). No existe un estudio cuantitativo publicado para talleres de CDMX. Evidencia comparada: HM Inspectorate of Prisons (Reino Unido, oct-2025) reporta que un 'empleo de tiempo completo' ocupa ~5 h/día y 18 h/semana y asistencia promedio de 67% en talleres, por restricciones de régimen y falta de personal; la literatura económica de EUA (NCPA/Poyker; Levitt-CRS) concluye que la mano de obra reclusa es en promedio menos productiva que la libre por impedimentos estructurales de la prisión (conteos, cierres, retrasos en el movimiento de mercancías) y rotación por liberaciones; CS Monitor (2001, fuente antigua) documenta pérdidas de productividad por revisiones corporales, conteos y demoras de transporte; en contraste, el programa PIE de Iowa exige que los internos sean 'igual o más productivos' que empleados civiles y empresas los describen como fuerza laboral confiable y motivada. El caso CDMX es más favorable que el británico (jornada acordada de 8 h efectivas, salones dedicados, tarea de baja complejidad ya en marcha), de ahí un factor 0.75–0.85; se usa 0.80. Sensibilidad: con 0.70 la ventaja baja a ~30%; con 0.90 sube a ~45%.",
+   "fuentes": [
+    "https://hmiprisons.justiceinspectorates.gov.uk/hmipris_reports/just-passing-time-a-review-of-work-and-training-provision-in-adult-prisons/",
+    "https://cdn.websitebuilder.service.justice.gov.uk/uploads/sites/19/2025/10/Just-passing-time-web-2025.pdf",
+    "https://www.instituteforgovernment.org.uk/publication/performance-tracker-2025/criminal-justice/prisons",
+    "http://www.ncpathinktank.org/pub/ba245",
+    "https://correction.org/wp-content/uploads/2014/05/6.-Summary-Economics-of-Inmate-Workforce-Participation.pdf",
+    "https://www.ineteconomics.org/uploads/papers/WP_91-Poyker-Convict-Labor-1.pdf",
+    "https://www.csmonitor.com/2001/0514/p15s1.html",
+    "https://www.legis.iowa.gov/docs/publications/IR/876.pdf",
+    "https://www.iaprisonind.com/store/pg/186-Private-Sector-Work-Program.aspx",
+    "https://www.gao.gov/products/gao-20-505",
+    "https://www.ebsco.com/research-starters/social-sciences-and-humanities/prison-industries",
+    "https://scioteca.caf.com/handle/123456789/1496"
+   ]
+  },
+  "costos_ocultos_operar_en_penal": [
+   {
+    "concepto": "Supervisores y encargado externos (4 supervisores de salón, 1 coordinador, 1 encargado de logística/ingreso), con cargas sociales completas",
+    "estimado_mensual_mxn": "151,600 (≈$6.15/h)",
+    "nota": "Sueldo promedio supervisor de producción $16,220/mes (Indeed, jul-2026) ×1.38 de carga; coordinador $30,000; logística $15,000. Al escalar a 8–10 salones: ~$260,000/mes. Deben pasar filtros de acceso diario; prever tiempo muerto de 30–60 min/día por ingreso."
+   },
+   {
+    "concepto": "Logística de ingreso/egreso de equipos (flete 3.5 t diario, esperas en aduana del penal, manifiestos de entrada/salida)",
+    "estimado_mensual_mxn": "66,000 (≈$2.68/h)",
+    "nota": "Tarifa $14–20/km para 3.5 t; se asume 1 viaje redondo/día a $3,000 con tiempo de revisión. Estimación propia; el volumen real de módems/decodificadores puede requerir 2 viajes (hasta $130,000/mes)."
+   },
+   {
+    "concepto": "Mermas, pérdidas y daño de equipo/consumibles dentro del centro",
+    "estimado_mensual_mxn": "15,000 (≈$0.61/h)",
+    "nota": "Estimación propia (~0.5% del valor manejado). La literatura de industrias penitenciarias señala robo de herramientas, sabotaje y descuido de calidad como riesgos de supervisión (EBSCO); Totalplay puede cobrar el equipo faltante a valor de reposición."
+   },
+   {
+    "concepto": "Seguros (responsabilidad civil, mercancía en depósito/tránsito)",
+    "estimado_mensual_mxn": "10,000 (≈$0.41/h)",
+    "nota": "Estimación propia; no se localizó tarifa pública. Las aseguradoras pueden excluir bienes dentro de centros penitenciarios: verificar cobertura antes de escalar."
+   },
+   {
+    "concepto": "Tiempos muertos por pases de lista, revisiones y audiencias/traslados",
+    "estimado_mensual_mxn": "Equivalente a 20% de la nómina interna (≈$194,000 sobre 140 PPL si se paga 22 días)",
+    "nota": "Se refleja en el factor de productividad 0.80, no como desembolso. CEVASEP II aloja perfil de alto riesgo institucional (recertificado por ACA), lo que implica revisiones más estrictas pero menos audiencias que el Reclusorio Norte (36% de procesados, 6,460 PPL al 22-abr-2026, Observatorio de Prisiones)."
+   },
+   {
+    "concepto": "Capacitación inicial de 15 días por PPL nueva (pagada al SMG sin producción útil)",
+    "estimado_mensual_mxn": "8,300 (≈$0.34/h)",
+    "nota": "$4,726/PPL; se asume reposición de 15%/año por liberaciones, traslados o sanciones (estimación propia; la autoridad afirma rotación 'muy baja'). Al abrir 4–6 salones nuevos: costo único de ~$660,000–$990,000."
+   },
+   {
+    "concepto": "Herramientas controladas, inventarios diarios, candados/gabinetes, reposición y consumibles no reutilizables",
+    "estimado_mensual_mxn": "8,000 (≈$0.32/h)",
+    "nota": "Estimación propia. Herramientas punzocortantes y desarmadores requieren control uno-a-uno; el extravío detiene el salón hasta localizarlo."
+   },
+   {
+    "concepto": "Cargas no exigidas hoy pero con riesgo regulatorio: IMSS/Infonavit/SAR, ISN 4%, aguinaldo, séptimo día",
+    "estimado_mensual_mxn": "0 hoy; hasta +$450,000/mes (140 PPL) si se exigieran todas",
+    "nota": "LNEP art. 92-V prevé acceso a seguridad social 'conforme a la modalidad'; hay denuncias contra IMSS/Infonavit por no inspeccionar penales (Foro Jurídico). Si se paga mes completo (30.4 días) en vez de días laborados, +$371,000/mes."
+   }
+  ],
+  "proyeccion_salario_minimo_2027_2030": "No hay cifra oficial para 2027 (CONASAMI resuelve en diciembre 2026; calendario: propuestas sep–oct, mesa tripartita nov). Política federal: el Programa Institucional 2025-2030 de CONASAMI (publicado en DOF, dic-2025) fija la meta de que el SMG compre 2.5 canastas básicas en 2030 (1.89 canastas en 2026), lo que CONASAMI y la Presidenta traducen en incrementos nominales de 10–12% anuales (https://www.gob.mx/conasami/articulos/programa-institucional-2025-2030-de-la-conasami ; https://www.elimparcial.com/dinero/2025/12/22/conasami-busca-mantener-aumentos-salariales-hasta-2030-para-cubrir-25-canas-basicas/ ; https://idconline.mx/laboral/2025/11/11/cuanto-subira-el-salario-minimo-en-2026-segun-los-planes-del-gobierno-de-sheinbaum). Propuesta de la CTM entregada a STPS en sep-2026: +5% a +10% para 2027 ($330.79–$346.54/día) (https://carbajalcontadores.com/2026/09/07/salario-minimo-2027-mexico-propuesta-ctm-impacto-nomina-imss-isr); prensa financiera proyecta 10–12% ($346.54–$352.84/día; $10,541–$10,732/mes) (https://www.clarosports.com/actualidad/salario-minimo-2027-este-sera-el-aumento-para-el-proximo-ano/). Proyección propia (cálculo aritmético sobre $315.04): escenario 10% anual → 2027 $346.54 ($10,535/mes), 2028 $381.20 ($11,588), 2029 $419.32 ($12,747), 2030 $461.25 ($14,022); escenario 12% anual → 2027 $352.84 ($10,726), 2028 $395.19 ($12,014), 2029 $442.61 ($13,455), 2030 $495.72 ($15,070). Implicación: el costo base interno por hora pagada pasaría de $39.38 (2026) a $57.66–$61.97 en 2030; como los sueldos de operario en la zona norte están a 1.0–1.1 SM y se arrastran con el mínimo, la ventaja porcentual se mantiene aproximadamente estable, pero el costo absoluto del proyecto sube ~46–57% nominal. Factor adicional: la reforma constitucional de 40 horas (en discusión, implementación gradual 2027-2030) elevaría el costo por hora externo (mismo sueldo, menos horas) más que el interno si el penal mantiene 8 h efectivas.",
+  "incertidumbres": [
+   "Base de pago a PPL en CDMX: no se pudo verificar si la ayuda económica ≥ SMG se paga por día efectivamente laborado (22/mes) o por mes calendario (30.4 días); la diferencia mueve la ventaja de 38% a 20%. Confirmar en el convenio con la Dirección Ejecutiva de Trabajo Penitenciario.",
+   "Retenciones: LNEP art. 93 sólo prevé descuentos a solicitud de la PPL (reparación del daño, seguridad social, familia); el Reglamento CDMX 2023 menciona fondo de ahorro restituible al salir pero no se encontró el porcentaje vigente. El 33% documentado corresponde a SLP en 2019 (fuente anterior a 2025). En cualquier caso no es costo adicional para la empresa.",
+   "Seguridad social: la práctica documentada (SLP 2019; Foro Jurídico) es que las empresas no afilian al IMSS, pero LNEP art. 92-V y denuncias en curso crean riesgo de que se exija; no se localizó criterio del IMSS o de la SCJN específico para CDMX 2025-2026.",
+   "ISN: la tasa CDMX es 4% desde 2025 (no 3% como indica la pregunta); su aplicabilidad a la ayuda económica de PPL (¿trabajo personal subordinado?) no está resuelta públicamente.",
+   "Los sitios de vacantes, IMSS, CFE, Datoz, la Gaceta CDMX y el Reglamento penitenciario no pudieron abrirse directamente (bloqueo de red); las cifras provienen de los extractos de búsqueda de esas mismas fuentes. Verificar las vacantes concretas antes de usar $10,000/mes como referencia contractual.",
+   "Tarifa GDMTH: los precios por kWh citados son 2025 (base $1.18, intermedia $1.95, punta $2.28); CFE publicó incrementos 2026 pero no se obtuvo el valor exacto para la región Central; el $3.0/kWh all-in es estimación propia.",
+   "CEAV 2026 para el tramo 2.51–3.00 UMA (≈6.03%) se interpoló de la tabla progresiva 2023-2030; el extremo confirmado es 7.51% para >4.01 UMA. Error máximo en el costo externo: ±$0.5/h.",
+   "Factor de productividad 0.80 es estimación propia; no existe medición publicada para talleres penitenciarios de CDMX ni para CEVASEP II. Se recomienda medir unidades/hora en los 4 salones actuales durante 4 semanas antes de escalar.",
+   "Costos de mermas, seguros, herramientas y logística son estimaciones propias; no se localizaron tarifas públicas específicas para operar dentro de un penal.",
+   "PTU se estimó en 3% de nómina; depende de la utilidad fiscal real (rango 0–8.3% con tope de 3 meses de sueldo).",
+   "Riesgo de continuidad: cambios de adscripción (Gobierno → SSC), traslados masivos a penales federales (54 PPL en jul-2026) y decisiones de la autoridad pueden interrumpir la operación sin indemnización; no se cuantificó."
+  ]
+ },
+ "casos_internacional": {
+  "casos": [
+   {
+    "programa_o_empresa": "UNICOR / Federal Prison Industries (FPI)",
+    "pais_o_estado": "EE.UU. (federal)",
+    "actividad": ">80 productos y servicios en 6 grupos: muebles de oficina, ropa/textil, electrónica, reciclaje de e-waste (R2 desde 2011, plantas en FCI Allenwood, Schuylkill, Texarkana, Terminal Island), servicios (call centers B2B, captura de datos, soporte TI) y flotas. 61 fábricas y 2 granjas en 51 prisiones; 11,043 PPL al 30/sep/2024 (~10,648 FTE diarios).",
+    "modelo_de_negocio": "Corporación propiedad del gobierno; cliente casi exclusivo = gobierno federal (FY2023: DoD 56%, DOJ 16%, DHS 9%, SSA 5%). Perdió estatus de 'fuente obligatoria' plena en 2002; desde 2012 puede subcontratar para empresas privadas trabajo que de otro modo se iría al extranjero (call centers, maquila). Paga a PPL US$0.23–1.15/h; no paga renta. Ventas pico >US$800 M/año a inicios de 2000s; ventas a jul/2024 US$335 M; FY2024 utilidad neta ~US$14.8 M (ganancia antes de gastos generales US$40 M; tras G&A sólo Muebles de Oficina +US$17 M y Reciclaje +US$5 M fueron rentables). FY2025: ingreso operativo US$15.5 M, ventas +US$43 M vs FY2024.",
+    "resultados": "Rentable pero pequeño respecto a su pico; dependencia casi total del gobierno; sólo 2 de 6 grupos cubren sus costos indirectos. Reciclaje electrónico hoy es de las pocas líneas rentables y crece con destrucción de datos (trituradora de discos, áreas de alta seguridad). Estados financieros FY2021 retirados por errores materiales (reporte OIG 26-006).",
+    "lecciones": "1) Un cliente ancla gubernamental sostiene volumen, pero la presión política (competencia desleal, despidos en American Apparel de Selma: 255 despedidos) recortó el privilegio. 2) El e-waste sólo funciona con control ambiental estricto (ver escándalo 2010) y hoy se monetiza con data destruction, no con desensamble barato. 3) Call centers de PPL sólo B2B: prohibidas llamadas a domicilios y acceso a datos personales; equivalente CDMX inviable sin internet. 4) Contabilidad auditable: el proyecto CDMX debe llevar costeo por salón/línea desde el día 1.",
+    "fuente": "https://www.unicor.gov/publications/bod/Board_Minutes_20240829.pdf ; https://oig.justice.gov/reports/audit-federal-prison-industries-inc-annual-financial-statements-fiscal-year-2025 ; https://oig.justice.gov/sites/default/files/reports/26-006.pdf ; https://www.bop.gov/inmates/custody_and_care/unicor_about.jsp ; https://www.unicor.gov/PubNotice_ContactCenter.aspx ; https://www.crowell.com/en/insights/client-alerts/unicor-banned-from-competing-in-small-business-set-asides-for-services ; https://www.foxnews.com/us/american-prison-labor-means-longer-unemployment-lines.print (fuente anterior a 2025)"
+   },
+   {
+    "programa_o_empresa": "UNICOR – Programa de reciclaje de e-waste (escándalo y cierres)",
+    "pais_o_estado": "EE.UU. (FCI Elkton, Marianna, Fort Dix, Tucson, Lewisburg, Leavenworth y otros)",
+    "actividad": "Desensamble de computadoras, monitores CRT, electrónica donada por agencias federales; venta de fracciones a recicladores registrados. Iniciado ~2002 con Dell, IBM, HP y Apple como socios (350 PPL en una planta de California).",
+    "modelo_de_negocio": "UNICOR cobraba por recibir/desmantelar equipo federal y vendía materiales; PPL con salarios UNICOR.",
+    "resultados": "Revisión OIG-DOJ (oct 2010, investigación de 4 años, con NIOSH): exposición de PPL y personal a cadmio y plomo por rotura de vidrio CRT; gerentes del Recycling Business Group ocultaron advertencias; tras identificar el peligro en 2002 la corrección fue lenta; la Office of Special Counsel concluyó que se expuso 'imprudentemente y en algunos casos a sabiendas'. Demandas de trabajadores. En dic/2016 UNICOR cerró el e-scrap en 5 prisiones (Fort Dix, Tucson, Marianna, Lewisburg, Leavenworth). Hoy sólo operan plantas certificadas R2 con enfoque en destrucción de datos.",
+    "lecciones": "Directamente aplicable a 'cosmética' de módems/decodificadores: aunque el refurbishment estético es bajo riesgo, cualquier paso hacia desensamble (baterías, fuentes, tarjetas, plásticos con retardantes) exige ventilación, EPP, monitoreo y disposición certificada; el ocultamiento gerencial fue peor que el riesgo técnico. Documentar por escrito los límites de proceso (qué NO se hace en el salón) protege a la empresa y a la Secretaría.",
+    "fuente": "https://www.prisonlegalnews.org/news/publications/doj-review-of-federal-prison-industries-electronic-waste-recycling-program-oct-2010/ (2010) ; https://www.recyclingtoday.com/news/doj-iog-unicor-violations/ (2010) ; https://resource-recycling.com/recycling/2016/12/05/federal-prison-system-halts-e-scrap-processing-at-five-sites/ (2016) ; https://www.prisonlegalnews.org/news/2003/aug/15/federal-prisoners-enlisted-for-dangerous-computer-refurbishing/ (2003)"
+   },
+   {
+    "programa_o_empresa": "CALPIA (California Prison Industry Authority) y su Joint Venture Program",
+    "pais_o_estado": "EE.UU. – California",
+    "actividad": ">100 fábricas en 34 centros; >1,400 bienes y servicios (muebles de oficina, ropa, guantes, placas vehiculares, equipo de celda, alimentos, servicios). JVP: empresas privadas instalan operaciones dentro de la prisión. Caso reciente: Surplus Service abrió en sept/2025 un JVP en CTF Soledad para e-waste/ITAD (refurbish y reparación de electrónica).",
+    "modelo_de_negocio": "CALPIA vende a agencias estatales (ingresos aprobados FY2023-24: US$258.5 M); PPL ganan US$0.30–0.95/h (sin aumento desde 2017; propuesta 2025 de +US$0.15/h). En JVP el empleador privado paga salario comparable al exterior; del salario se descuentan 5 bloques de 20% (alojamiento CDCR, restitución/víctimas, familia, ahorro obligatorio para libertad, cuenta personal), más impuestos.",
+    "resultados": "5,800–7,000 PPL empleados. JVP históricamente pequeño: sólo 5 empresas activas en 2016 aunque hubo 168 contratos 2010-2016. Organización de trabajadores en 2025 (paros lentos) por salarios bajos.",
+    "lecciones": "Es la analogía más cercana al esquema CDMX (privado dentro del penal). Dos diferencias clave: en California el privado paga salario de mercado con deducciones transparentes; en CDMX se paga salario mínimo y el Estado absorbe instalaciones. La línea e-waste/refurbish dentro de prisión es reciente y considerada 'formable en 15 días'. Riesgo: si el salario se percibe injusto, hay conflicto laboral aún dentro del penal.",
+    "fuente": "https://www.calpia.ca.gov/wp-content/uploads/calpia/news/Reports_and_Publications/CALPIA%20Annual%20Plan%202024-2025%20APPROVED-PIA.pdf ; https://www.cdcr.ca.gov/insidecdcr/2025/09/19/calpia-launches-new-ctf-joint-venture-program ; https://kioncentralcoast.com/news/monterey-county/soledad/2025/09/11/calpia-offers-career-opportunities-for-incarcerated-people-in-soledads-correctional-training-facility/ ; https://jointventureprogram.calpia.ca.gov/workers-wages/ ; https://jointventureprogram.calpia.ca.gov/about/history/ ; https://investigate.afsc.org/prison-labor-california-state-prisons ; https://prismreports.org/2025/04/29/incarcerated-workers-california-work-slowdown/"
+   },
+   {
+    "programa_o_empresa": "PIECP (Prison Industry Enhancement Certification Program)",
+    "pais_o_estado": "EE.UU. – 45 programas estatales/locales certificados",
+    "actividad": "Joint ventures privadas dentro de prisiones: ensamble electrónico, arneses de cableado, muebles, textiles, call centers, agro-alimentos. ≥222 alianzas con empresas; ~6,000 PPL (<1% de la población penitenciaria).",
+    "modelo_de_negocio": "La empresa paga salario ≥ prevaleciente local; deducciones legales hasta 80% (alojamiento, impuestos, víctimas 5–20%, familia). Acumulado a 30/sep/2022: US$109 M a programas de víctimas, US$54.9 M manutención familiar, US$343.8 M alojamiento, US$124.3 M impuestos.",
+    "resultados": "Escala nacional mínima pese a 45 años; concentración en pocos estados (Arizona, Carolina del Sur, etc.). Críticas permanentes por desplazamiento de empleo libre y por el neto que recibe el PPL (ej. Midcon Cables/BAE en Evans Correctional, SC: 68 PPL hacen arneses; neto ~US$100/mes tras deducciones).",
+    "lecciones": "El requisito de salario de mercado + deducciones + 'no desplazamiento' protege reputación pero frena adopción. Para CDMX: aunque la ley permite salario mínimo, conviene fijar por escrito la distribución del ingreso del PPL (familia/ahorro/personal) y un compromiso de no sustituir empleos existentes de la empresa; eso desactiva el ataque reputacional más común.",
+    "fuente": "https://bja.ojp.gov/program/piecp/overview ; https://www.nationalcia.org/about-piecp ; https://www.prisonpolicy.org/reports/pie2024.html ; https://www.vice.com/en/article/a-military-tech-giant-is-using-prison-labor-to-make-electronics/ (fecha no verificada) ; https://bja.ojp.gov/sites/g/files/xyckuh186/files/media/document/PIECP-Compliance-Guide.pdf (2021)"
+   },
+   {
+    "programa_o_empresa": "Televerde (PIECP, Arizona Correctional Industries e Indiana)",
+    "pais_o_estado": "EE.UU. – Arizona e Indiana",
+    "actividad": "Call centers B2B (generación de demanda, ventas internas, marketing ops con Salesforce/Marketo) operados por mujeres PPL en 5 centros dentro de prisiones (7 de sus 10 centros de engagement son de PPL).",
+    "modelo_de_negocio": "Empresa privada; paga salario mínimo estatal (con deducciones PIECP); ~230 PPL/día en Arizona; ~60% de sus >600 empleados son PPL. Clientes: empresas tecnológicas (SAP, Salesforce y otras). Reporta >US$14,000 M en ingresos generados para clientes desde 1995.",
+    "resultados": "2025: 88% de egresadas empleadas al salir; salario inicial promedio US$41,169; reincidencia <5% (vs >68% a 3 años nacional); 93% con certificaciones vigentes. Restricción: nunca llamadas a personas físicas ni datos personales sensibles.",
+    "lecciones": "Muestra que trabajo de conocimiento con PPL es viable si hay conectividad controlada y clientes B2B. En CEVASEP II está prohibido internet/celulares para PPL, así que no es replicable hoy; sí es replicable la idea de certificar habilidades (etiquetas, control de calidad, ESD) para empleabilidad al salir, que es lo que sostiene la reputación del programa.",
+    "fuente": "https://televerde.com/insights/newsroom/televerde-proves-power-of-second-chances-2025-results/ ; https://siliconangle.com/2025/08/08/prison-salesforce-call-center-model-thats-heping-reduce-recidivism-near-zero/ ; https://aci.az.gov/casestudy/televerde-phoenix-az/ ; https://www.prisonlegalnews.org/news/2023/jun/22/arizona-exploiting-prisoner-labor-profit/"
+   },
+   {
+    "programa_o_empresa": "Lockhart Technologies (PIECP, Texas) – caso de fracaso reputacional",
+    "pais_o_estado": "EE.UU. – Texas",
+    "actividad": "Ensamble y reparación de tarjetas de circuito impreso para Texas Instruments, IBM y Dell dentro de la prisión privada de Lockhart.",
+    "modelo_de_negocio": "En 1993 cerró su planta de Austin (~130–150 trabajadores a US$10/h) y trasladó toda la operación al penal; renta US$1/año; pagaba salario mínimo federal pero el PPL retenía ~20% (≈US$0.50/h neto).",
+    "resultados": "Se volvió el ejemplo canónico de 'desplazamiento de empleo libre' citado durante 30 años por sindicatos, prensa y académicos contra el trabajo penitenciario privado.",
+    "lecciones": "Nunca cerrar una operación exterior para moverla al penal; el ahorro laboral (Lockhart: >50%) se paga en reputación y en riesgo regulatorio. Presentar el proyecto CDMX como capacidad adicional (nueva línea, nuevos clientes), no como sustitución.",
+    "fuente": "https://www.corpwatch.org/article/profiting-punishment (fuente antigua) ; https://www.prisonlegalnews.org/news/2010/mar/15/the-prison-industries-enhancement-certification-program-why-everyone-should-be-concerned/ (2010)"
+   },
+   {
+    "programa_o_empresa": "Whole Foods / Colorado Correctional Industries – retiro de productos (2015)",
+    "pais_o_estado": "EE.UU. – Colorado/Texas",
+    "actividad": "Tilapia (Quixotic Farming) y queso de cabra (Haystack Mountain) producidos con PPL de Colorado Correctional Industries, vendidos en Whole Foods desde ~2011.",
+    "modelo_de_negocio": "Empresas privadas con producción en granjas penitenciarias; venta B2C bajo marcas comerciales.",
+    "resultados": "Tras una protesta en Houston (sept 2015) Whole Foods anunció que dejaría de vender productos hechos por PPL antes de abril 2016. Los proveedores perdieron su principal canal.",
+    "lecciones": "El riesgo reputacional recae en el cliente final visible (retail B2C), no en el fabricante. Para CDMX: los equipos de Totalplay se entregan al cliente final sin marca de origen, lo que reduce exposición; pero conviene acordar con el cliente corporativo (Totalplay u otros) una narrativa pública de reinserción antes de que la prensa la construya.",
+    "fuente": "https://www.npr.org/sections/thesalt/2015/09/30/444797169/whole-foods-says-it-will-stop-selling-foods-made-by-prisoners (2015) ; https://www.cpr.org/2015/10/01/whole-foods-to-stop-selling-products-made-by-inmates/ (2015)"
+   },
+   {
+    "programa_o_empresa": "HMPPS Prison Industries / New Futures Network (NFN)",
+    "pais_o_estado": "Reino Unido – Inglaterra y Gales",
+    "actividad": "Talleres de manufactura, manipulados, lavandería, reciclaje, carpintería, soldadura/CNC; NFN conecta a ~200 fabricantes que subcontratan producción a talleres penitenciarios y a empleadores para egresados; 11 Employment Councils regionales (Co-op, Greggs, Iceland, etc.).",
+    "modelo_de_negocio": "El Estado opera los talleres y vende horas/piezas a empresas; pago a PPL ~50p/h (salario mínimo exterior £9.50–12/h); pago típico £15/semana, +£1/semana en 2025 tras 8 años congelado (pérdida real ~20%). HMPPS reporta £300 M de ingreso operativo 2024-25 (todas las fuentes, no sólo industrias).",
+    "resultados": "Empleo a 6 meses de liberación (sentencias ≥12 meses) pasó de 15% (2020/21) a 38% (2024/25). ICPR 2024: talleres usados como bodega por falta de personal y de contratos con empresas; PPL valoran trabajar pero piden alineación con el mercado y certificaciones.",
+    "lecciones": "El cuello de botella no es la mano de obra sino los contratos y el personal de custodia para abrir talleres: en CDMX asegurar por escrito el número de custodios asignados por salón y horario. La métrica que defiende políticamente al programa es 'empleo a 6 meses de liberación', no unidades producidas: medirla desde el inicio.",
+    "fuente": "https://prisonreformtrust.org.uk/prison-the-facts/rehabilitation-and-resettlement/ ; https://www.gov.uk/government/news/leading-uk-business-bosses-help-prison-leavers-get-work-in-crime-cutting-drive ; https://www.gov.uk/government/publications/hmpps-annual-report-and-accounts-2024-to-2025/hmpps-annual-report-and-accounts-2024-25-performance-report-html ; https://insidetime.org/newsround/1-a-week-pay-rise-for-prisoners/ ; https://www.icpr.org.uk/news/2024/new-briefing-icpr-prison-work-uk ; https://newfuturesnetwork.gov.uk/a-welcome-to-our-current-and-future-partners"
+   },
+   {
+    "programa_o_empresa": "DHL Supply Chain – 'canteen' penitenciario",
+    "pais_o_estado": "Reino Unido",
+    "actividad": "Pick, pack y despacho de pedidos semanales de abarrotes/artículos de higiene de PPL: 520 PPL en 18 talleres dentro de prisiones, ~66,000 pedidos/semana para ~80,000 PPL.",
+    "modelo_de_negocio": "Contrato público de £375 M (vigente hasta 2025, opción a 2027); condición de licitación: el ganador debe seguir empleando PPL; DHL equipa los almacenes con tecnología de warehouse y da NVQ en almacenamiento/distribución y empleo al salir.",
+    "resultados": "Línea estable por 15+ años, alto volumen, baja complejidad. Críticas: Ombudsman por monopolio minorista e 'inflación de canteen'; sindicato de custodios pide salario mínimo para PPL.",
+    "lecciones": "Logística ligera (recepción, clasificación, etiquetado, empaque, despacho) es la línea más probada dentro de prisiones: trabajo repetitivo, sin herramientas peligrosas, escalable a cientos de PPL, con capacitación corta. Es el patrón exacto del reacondicionamiento de módems/decodificadores y el candidato natural para escalar a 8–10 salones con otros clientes (reverse logistics de telecom, retail, e-commerce).",
+    "fuente": "https://insidetime.org/newsround/dhl-wins-new-prison-canteen-contract/ ; https://insidetime.org/newsround/ombudsman-criticises-dhls-prison-retail-monopoly/ ; https://www.personneltoday.com/hr/how-dhl-supply-chain-works-successfully-with-ex-offenders/ ; https://www.find-tender.service.gov.uk/Notice/000311-2021"
+   },
+   {
+    "programa_o_empresa": "Timpson Group (academias en prisión) / Greggs Fresh Start / Halfords",
+    "pais_o_estado": "Reino Unido",
+    "actividad": "Timpson: academias que replican una tienda (reparación de calzado, grabado, relojes) en HMP Liverpool (desde 2008), Blantyre House y Forrest Bank (12–20 PPL cada una); trabajo en tiendas con ROTL antes de la liberación. Halfords: academias de mecánica de bicicletas en HMP Onley y HMP Drake Hall (mujeres); bicicletas reacondicionadas donadas a escuelas. Greggs: programa Fresh Start de contratación de egresados.",
+    "modelo_de_negocio": "La empresa paga la academia como pipeline de reclutamiento; el retorno es retención y menor costo de rotación, no margen del taller.",
+    "resultados": "Timpson: >12% de 4,500+ empleados con antecedentes; 75% retención de largo plazo; 1,500 ex-PPL contratados 2008-2021 con 4 reincidencias; James Timpson es ministro de prisiones desde jul/2024. Greggs: 369 colocaciones permanentes desde 2013, 17 llegaron a gerente de tienda; 78% retención (2022). Halfords: 28 egresados de Onley contratados; retención superior al piso de ventas (datos 2017-18).",
+    "lecciones": "El valor para la empresa está en la baja rotación (igual que en CEVASEP II: rotación muy baja, asistencia diaria). Convertir el salón en 'academia' con ruta de contratación al salir (supervisores, técnicos de refurbishment en el exterior) da legitimidad pública y fideliza a la Secretaría; funciona a escala de decenas, no de cientos.",
+    "fuente": "https://www.timpson-group.co.uk/about/timpson-foundation/ ; https://fortune.com/europe/2024/07/09/uk-newest-prisons-minister-james-timpson-multimillion-dollar-key-cutting-heir-hiring-hundreds-ex-offenders/ ; https://www.cipd.org/uk/get-involved/events/2025/4/timpsons-unique-story-behind-its-innovative-recruitment-approach/ ; https://corporate.greggs.co.uk/doing-good/better-business ; https://www.retailgazette.co.uk/blog/2018/02/halfords-prison-training-scheme-sees-hire-former-offenders/ (2018) ; https://www.halfordscompany.com/news-and-media/press-releases/halfords-news/halfords-help-women-offenders-get-their-lives-back-on-track/ (fuente anterior)"
+   },
+   {
+    "programa_o_empresa": "Recycling Lives (HMP Academies) y DSA Connect/Xerox en HMP Highpoint",
+    "pais_o_estado": "Reino Unido",
+    "actividad": "Recycling Lives: 11 prisiones, hasta 250 PPL simultáneos; procesamiento de residuos eléctricos y electrónicos (WEEE) para BT y British Gas y fabricación de contenedores; >1.3 millones de artículos WEEE/año. DSA Connect (socio de Xerox): taller de reciclaje/refurbish de impresoras y equipo TI en HMP Highpoint South desde 2023; >3,000 dispositivos, 30 PPL, cero relleno sanitario, acreditaciones WEEE y borrado de datos.",
+    "modelo_de_negocio": "Empresa privada/charity opera el taller dentro del penal con clientes corporativos ancla (BT, British Gas, Xerox); PPL reciben 'salario mejorado' del penal más apoyo de vivienda y empleo al salir.",
+    "resultados": "Recycling Lives: <5% reincidencia y >70% empleo directo al salir (141 liberados 2015-18: 5 reincidieron), vs ~67% reincidencia y ~20% empleo nacional; premio nacional y elogio del ministro.",
+    "lecciones": "Es el modelo más parecido al negocio de Totalplay: refurbish/WEEE de equipo de telecom y TI con cliente corporativo ancla, dentro de prisión, con acreditación de manejo de datos. Copiar: a) contrato marco con el operador telecom que incluya SLA de calidad y trazabilidad por número de serie; b) certificación de borrado/reset de datos de los equipos (los decodificadores/ONT guardan credenciales); c) reportar métricas ambientales (toneladas desviadas) y de reinserción para el relato público.",
+    "fuente": "https://www.letsrecycle.com/news/latest-news/inmates-recycle-weee/ ; https://recyclinglives.com/news/recycling-lives-praised-by-prisons-minister/ ; https://recyclinglives-services.com/news/recycling-lives-award-prisoner-reintegration/ ; https://news.xerox.co.uk/news/releases-20250129-6908102 ; https://mojdigital.blog.gov.uk/2024/01/30/hmp-highpoint-the-circular-economy-of-it-disposal/"
+   },
+   {
+    "programa_o_empresa": "Trabajo prisional con empresas privadas (Minas Gerais, São Paulo/Funap, Santa Catarina, Rio/Fundação Santa Cabrini)",
+    "pais_o_estado": "Brasil",
+    "actividad": "Fábricas dentro de presidios: calzado de seguridad (Bracol, Penitenciária II Pirajuí SP: 190 reeducandos), puertas automáticas (Original Portas, 45 PPL en Penitenciária da Capital), puertas/ventanas de aluminio (Itajubá MG, taller de 600 m², 20 PPL), confección, montaje. MG: 18,473 PPL en fábricas dentro de presidios y 640 empresas socias; SP: >51,000 PPL en actividades laborales; SC: R$28 M generados por trabajo de presos; RJ (Santa Cabrini): 42 contratos (12 con empresas, 28 con órganos estatales, 2 municipios), de 700 a ~1,000 puestos, meta 4,000.",
+    "modelo_de_negocio": "Ley de Ejecución Penal: remuneración mínima 3/4 del salario mínimo (STF la validó), sin relación CLT ni cargas sociales; remisión de pena 1 día por cada 3 trabajados; el Estado aporta galpón, luz, IPTU, transporte y seguridad (MG). Empresas contratan vía fundación estatal (Funap SP, Santa Cabrini RJ) que selecciona perfil y unidad. PL 352/2024 (votado en comisión oct/2025) permitiría que empresas administren el trabajo en presidios.",
+    "resultados": "Nacional (Senappen 2S2025): 192,338 PPL en actividades laborales; sólo 21.6% de la población penitenciaria trabaja (26.4% en unidades); 41.9% de quienes trabajan no recibe pago y 14% gana menos del mínimo legal; enorme dispersión (Maranhão 80%, RJ 3%). Meta Pena Justa: 50% trabajando en 2027.",
+    "lecciones": "El paquete 'salario reducido + sin cargas + remisión de pena + Estado pone instalaciones' es casi idéntico al ofrecido en CDMX y en Brasil sí atrajo cientos de empresas (MG). Lo que hace la diferencia entre MG (640 empresas) y RJ (12) es una gestora estatal con área comercial activa y galpones industriales listos. Riesgo: la crítica pública se centra en el pago; CDMX debe garantizar que el salario mínimo se pague completo y puntual y documentarlo.",
+    "fuente": "https://www.agenciaminas.mg.gov.br/noticia/no-sistema-prisional-de-minas-trabalho-recupera-a-dignidade-atrai-empresas-e-reduz-custos-para-o-estado ; https://www.sap.sp.gov.br/sec_adm_penitenciaria/Noticias/trabalho-prisional-em-sao-paulo_alem-dos-muros-a-construcao-de-um-futuro-digno ; https://www.agenciasp.sp.gov.br/governo-de-sp-faz-parceria-para-empregar-reeducandos-na-producao-de-calcados-de-seguranca/ ; https://sejuri.sc.gov.br/en/trabalho-de-presos-em-santa-catarina-gera-r-28-milhoes-e-contribui-para-reintegracao-social/ ; https://oabrj.org.br/noticias/oabrj-anuncia-parceria-fundacao-santa-cabrini-inclusao-social ; https://www.correiodobrasil.com.br/a/fundacao-santa-cabrini-parcerias-postos-trabalho-internos ; https://www.otempo.com.br/brasil/2026/8/10/so-26-dos-presos-trabalham-depois-da-liberdade-desafio-dos-egressos-e-conseguir-emprego ; https://www.gov.br/senappen/pt-br/servicos/sisdepen/relatorios/relatorios-de-informacoes-penitenciarias/relatorio-do-2o-semestre-de-2025.pdf ; https://fotosete.com.br/senado-vota-projeto-que-permite-empresas-gerenciar-trabalho-de-presos-no-brasil ; https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=461791&ori=1 ; https://conjur.com.br/2025-ago-05/obrigatoriedade-do-trabalho-prisional-e-a-remicao-de-pena-no-brasil/"
+   },
+   {
+    "programa_o_empresa": "INPEC – convenios con empresas, 'Libera Colombia' y 'Segundas Oportunidades'",
+    "pais_o_estado": "Colombia",
+    "actividad": "Talleres de confección (convenio INPEC–Industrias KP S.A.S. en Girón), artesanías bajo la marca Libera Colombia (reconocida por Artesanías de Colombia en 2025), cooperativa de trabajo asociado PPL-familias (memorando Supersolidaria–INPEC en Itagüí, 'Segundas Oportunidades').",
+    "modelo_de_negocio": "INPEC firma convenios con entidades públicas o privadas; las empresas pagan una remuneración mínima regulada; proyecto de resolución de Mintrabajo (2025) indexa la remuneración al IPC (+5.1% para 2026, retroactivo al 1/ene/2026) y exige afiliación a riesgos laborales; Corte Constitucional T-003/24 sobre derechos del trabajo penitenciario.",
+    "resultados": ">104,000 PPL en 125 establecimientos (2025); ~35,000 en actividades productivas remuneradas. Escala de convenios privados pequeña y poco publicada; Libera Colombia funciona como marca artesanal (equivalente a 'Hazme Valer'), no como industria.",
+    "lecciones": "La marca institucional sirve para artesanía y ventas al menudeo, pero la escala industrial viene de convenios empresa-por-empresa. La indexación de la remuneración al IPC reduce disputas: en CDMX, prever en el convenio la actualización anual automática del salario mínimo (que en México sube por decreto cada enero) en el precio al cliente.",
+    "fuente": "https://www.inpec.gov.co/en/web/guest/w/confeccionando-oportunidades-en-el-inpec ; https://inpec.gov.co/en/web/libera-colombia ; https://www.kienyke.com/kien-opina/supersolidaria-y-el-inpec-crean-segundas-oportunidades ; https://www.valoraanalitik.com/mintrabajo-prepara-resolucion-para-que-presos-reciban-salarios/ ; https://actualicese.com/proyecto-de-resolucion-busca-que-privados-de-la-libertad-reciban-salario-y-accedan-a-pension/ ; https://www.corteconstitucional.gov.co/relatoria/2024/t-003-24.htm ; https://revista-investigare.uexternado.edu.co/wp-content/uploads/sites/41/2019/10/INTERVENCIO%CC%81N-DE-LAS-EMPRESAS-PRIVADAS-EN-LA-CONTRATACIO%CC%81N-DE-RECLUSOS.pdf (2019)"
+   },
+   {
+    "programa_o_empresa": "Gendarmería de Chile – CET, alianza ALTO/Paternitas (Colina 2), Fundación Reinventarse/Cummins",
+    "pais_o_estado": "Chile",
+    "actividad": "57 Centros de Educación y Trabajo (21 semiabiertos, 36 cerrados) con confección, construcción, alimentos, muebles; 2,067 plazas laborales CET en 2024; 27 empresas colaboran. Colina 2: ampliación del CET (abr/2026) con ALTO Chile y Fundación Paternitas, duplica cobertura (+22 internos). Maule: Tres Volcanes y Aluminios Maule solicitan mano de obra (prestación de servicios o contrato formal con permiso). Fundación Reinventarse: call center para Distribuidora Cummins operado por mujeres PPL dentro del penal.",
+    "modelo_de_negocio": "Empresas presentan oferta de empleo/producción vía direcciones regionales (Decreto 943/2011, estatuto laboral penitenciario); el ingreso del PPL varía según ventas del CET; alternativamente contrato laboral formal. Programa +R (Sence) financia capacitación.",
+    "resultados": "Cobertura muy baja: ~2,000 plazas para 63,426 personas en sistema cerrado (134,046 en total) con 146.8% de ocupación; 60% de quienes cumplen condena no encuentra trabajo. Informe 'Hablemos de Reinserción' (2025) pide incentivos al sector privado y un Sistema Nacional de Reinserción.",
+    "lecciones": "Chile muestra el costo de no tener un vehículo comercial dedicado: proyectos de decenas de PPL, muy dependientes de fundaciones. Para CDMX el diferencial es que ya existe volumen (140 → 350 PPL) y un cliente; la lección es formalizar la relación (contrato de prestación de servicios con la Secretaría vs. contrato individual) porque en Chile la ambigüedad frena a las empresas.",
+    "fuente": "https://www.gendarmeria.gob.cl/empleabilidad.html ; https://html.gendarmeria.gob.cl/doc/cuenta_publica25/INFORME_BORRADOR_CPP25.pdf ; https://tierramarillano.cl/2026/04/21/alianza-publico-privada-gendarmeria-paternitas-y-alto-chile-inauguran-ampliacion-de-centro-de-educacion-y-trabajo-en-colina-2/ ; https://www.diariosustentable.com/2026/04/el-60-de-quienes-cumplieron-condena-no-encuentra-trabajo-en-chile-esta-alianza-quiere-cambiar-eso/ ; https://maulehoy.cl/2025/12/10/cep-de-gendarmeria-por-la-senda-de-la-reinsercion/ ; https://www.chileatiende.gob.cl/fichas/1609-presentar-oferta-de-empleo-produccion-o-servicios-para-personas-privadas-de-libertad ; https://conecta.pactoglobal.cl/casos-de-empresas/reinsercion-de-mujeres-privadas-de-libertad-fundacion-reinventarse/ ; https://www.ciperchile.cl/2025/10/25/seguridad-con-evidencia-por-que-invertir-en-reinsercion-funciona/"
+   },
+   {
+    "programa_o_empresa": "INPE – 'Cárceles Productivas' (D.L. 1343)",
+    "pais_o_estado": "Perú",
+    "actividad": "224 talleres (textil, carpintería, cerámica, metal, cuero) en penales; >29,000 internos trabajan en 68 establecimientos; convenios con privados: Lurigancho (mar/2026) renovó 3 convenios para >100 internos con Heyluc S.A.C. (confección), Industrias PAE (artesanía de exportación) y Kalatanta (panadería); Ica: 25 internos con empresa privada; catálogo/tienda virtual 'Cárceles Productivas'.",
+    "modelo_de_negocio": "D.L. 1343 (2017) y reglamento: personas naturales o jurídicas administran talleres productivos por convenio con INPE y contratan actividad productiva con internos; modificación posterior añade 'trabajo asistido externo'. INPE reportó 81 convenios con empresas privadas a nivel nacional (fecha del comunicado no verificada).",
+    "resultados": "Alta participación laboral (29 mil) pero mayoritariamente autoempleo/artesanía; los convenios privados son de decenas de internos cada uno; se renuevan periódicamente (señal de continuidad).",
+    "lecciones": "Convenios renovables por plazos cortos dan flexibilidad a la empresa pero impiden inversión en equipo: en CDMX negociar un convenio a 3–5 años (horizonte 2026-2030) con cláusula de salida y de traslado de activos. La tienda virtual institucional es un canal barato para líneas 'Hazme Valer', no para el negocio B2B.",
+    "fuente": "https://www.gob.pe/institucion/inpe/noticias/1365208-inpe-mas-de-100-internos-del-penal-de-lurigancho-trabajaran-tras-la-firma-de-convenios-con-el-sector-privado ; https://www.infobae.com/peru/2026/03/15/mas-de-100-internos-de-lurigancho-trabajaran-para-empresas-privadas-tras-convenio-con-el-inpe/ ; https://www.gob.pe/institucion/inpe/noticias/1423404-inpe-renueva-convenio-con-empresa-que-empleara-a-25-internos-del-penal-de-ica ; https://www.inpe.gob.pe/prensa/noticias/item/1055-inpe-suscribe-81-convenios-con-empresas-privadas-a-escala-nacional.html ; https://lpderecho.pe/reglamento-d-l-1343-carceles-productivas/ ; https://busquedas.elperuano.pe/dispositivo/NL/2486266-10"
+   },
+   {
+    "programa_o_empresa": "ENCOPE (Servicio Penitenciario Federal) y Polos Industriales del Servicio Penitenciario Bonaerense",
+    "pais_o_estado": "Argentina",
+    "actividad": "ENCOPE: talleres de laborterapia (agropecuario en 20 cárceles federales, carpintería, textil, panadería). SPB: 14,520 trabajadores en polos industriales, talleres productivos (tapicería, chapa y pintura, carpintería, herrería, bloquera, criaderos) y mantenimiento.",
+    "modelo_de_negocio": "Modelo casi totalmente estatal: ENCOPE con presupuesto 2024 de ARS 25,700 millones, 75% destinado a peculio (remuneración) de PPL; poca participación privada. En 2025 se presentó en la Legislatura bonaerense un proyecto para que empresas gestionen hotelería, alimentación, capacitación y talleres industriales.",
+    "resultados": "Cobertura amplia pero financiada por presupuesto público, con recomendaciones de la Procuración Penitenciaria (PPN) sobre acceso al trabajo; sin casos documentados recientes de empresas privadas produciendo a escala dentro de cárceles federales.",
+    "lecciones": "Cuando la remuneración depende del presupuesto estatal y no de ventas, el programa es vulnerable a recortes. El esquema CDMX (empresa paga salario, Estado pone instalaciones) es más sostenible, pero requiere que el precio al cliente cubra salario + supervisión + merma.",
+    "fuente": "https://www.encope.gob.ar/nosotros ; https://prensamercosur.org/2025/07/20/el-gobierno-nacional-impulsa-la-capacitacion-en-produccion-agropecuaria-en-las-carceles-de-todo-el-pais/ ; https://www.spb.gba.gob.ar/inicio/logros-institucionales/polos-industriales/ ; https://ppn.gov.ar/index.php/en-us/institucional/noticias/3867-la-ppn-emitio-la-recomendacion-sobre-el-acceso-al-trabajo-en-carceles-federales ; https://www.0221.com.ar/provincia/presentaron-un-nuevo-proyecto-privatizar-carceles-y-sumar-empresas-al-sistema-penitenciario-n128142/amp"
+   },
+   {
+    "programa_o_empresa": "TPFE (Trabajo Penitenciario y Formación para el Empleo) y CIRE (Centre d'Iniciatives per a la Reinserció)",
+    "pais_o_estado": "España (Administración General) y Cataluña",
+    "actividad": "TPFE: talleres productivos propios (confección, carpintería, imprenta, manipulados) y talleres en colaboración con empresas externas que instalan su actividad en el centro; >4,500 puestos de trabajo productivo remunerado en talleres y 103 convenios de colaboración con empresas vigentes; también economatos y alimentación. CIRE: >70 talleres (montaje, manipulados, imprenta, herrería, carpintería, costura) en todos los centros catalanes; >3,500 internos trabajan a diario y cotizan a la Seguridad Social; 42 empresas sólo en el área de Lleida; gestiona la alimentación de todos los centros; marca B2B 'Made in CIRE'.",
+    "modelo_de_negocio": "Relación laboral especial penitenciaria con alta a Seguridad Social; la empresa contrata a TPFE/CIRE (no al interno) por pieza u hora; CIRE factura servicios por hora (fracciones de 30 min). TPFE 2022: >76 M€ de capacidad de contratación (99% suministros). Civio (2024) documenta que los derechos laborales son menores que fuera (sin desempleo, despido flexible).",
+    "resultados": "Modelo maduro y estable (miles de internos, cientos de empresas), dominado por 'manipulados' de bajo valor: ensamble, empaque, etiquetado, kits promocionales, retrabajos.",
+    "lecciones": "El comprador de horas es la entidad pública, que absorbe la gestión laboral: en CDMX la empresa es a la vez empleadora y operadora, por lo que debe crear internamente la función que TPFE/CIRE cumplen (control de asistencia, nómina, seguridad, reporte a la autoridad). La cartera de 'manipulados' de CIRE es la lista natural de líneas adicionales para los salones 5–10: empaque de kits, etiquetado, montaje ligero, retrabajos de calidad para fabricantes.",
+    "fuente": "http://www.tpfe.es/seccion=1181&idioma=es_ES ; http://www.tpfe.es/portada/LaEntidad/Memoria/seccion=1255&idioma=es_ES.do ; http://www.tpfe.es/docs/repositorio//es_ES//Memoria_2024/informe_anual_2024_segunda_prueba.pdf ; https://civio.es/justicia/2024/04/11/los-derechos-laborales-se-quedan-fuera-de-los-muros-de-la-prision/ ; https://justicia.gencat.cat/ca/ambits/cire/serveis/tallers/ ; https://govern.cat/gov/notes-premsa/584603/42-empreses-catalanes-treballen-cire-area-lleida ; https://madeincire.cat/serveis/"
+   },
+   {
+    "programa_o_empresa": "Cooperativas sociales y Legge Smuraglia (Coop. Giotto, Padua; Del Brenta; Roncato)",
+    "pais_o_estado": "Italia",
+    "actividad": "Giotto (coop tipo B, Padua): pastelería (panettone, colomba, helado) vendida en tiendas de marca en toda Italia, call center, montaje; >500 personas, ~100 detenidos. Del Brenta: acabado de tacones de alta moda con 8 detenidos; Roncato: costura de divisores internos y montaje de maletas. Otras: gafas, guitarras, gastronomía.",
+    "modelo_de_negocio": "Ley 193/2000 (Smuraglia): crédito fiscal de €520/mes por detenido contratado dentro o en trabajo externo (€300 en semilibertad), hasta €250,000/año por empresa, y reducción del 95% de contribuciones sociales, ampliada en 2025 (D.L. 48/2025 → L. 80/2025) también a empresas públicas. La empresa contrata directamente al detenido bajo derecho laboral ordinario.",
+    "resultados": "Al 31/dic/2024: 21,235 detenidos trabajan (34.3%), pero sólo 3,172 para terceros y de ellos apenas 1,151 dentro de la cárcel. Las cooperativas reportan reincidencia ~2% de sus beneficiarios (cifra de las propias organizaciones, no verificada independientemente).",
+    "lecciones": "Incentivos fiscales muy generosos no bastan: el trabajo privado dentro de prisión sigue siendo marginal (5% del total) porque exige gestores especializados y productos con margen alto (alta moda, alimentos premium). Para CDMX: la ventaja competitiva es el volumen y la logística, no el subsidio; buscar clientes que valoren estabilidad de mano de obra.",
+    "fuente": "https://www.edotto.com/articolo/bonus-assunzione-detenuti-2025-incentivi-fiscali-e-contributivi-per-le-imprese ; https://www.giustizia.it/giustizia/it/mg_1_8_1.page?contentId=SDC1498036 ; https://www.quotidianopiu.it/dettaglio/13125365/bonus-assunzione-di-detenuti-domande-entro-il-31-ottobre-2025 ; https://www.coopgiotto.org/chi_siamo/ ; https://www.vaticannews.va/it/mondo/news/2024-12/libro-storia-cooperativa-giotto-carcere-padova.html ; https://en.ilsole24ore.com/art/lavoro-carcere-occhiali-chitarre-e-gastronomia-AGoTp2hC ; https://www.unioncamereveneto.it/wp-content/uploads/2024/12/liberiamo2025_web_res.pdf"
+   },
+   {
+    "programa_o_empresa": "Unternehmerbetriebe en el Justizvollzug (fallo del Bundesverfassungsgericht 2023)",
+    "pais_o_estado": "Alemania (Baviera, NRW y otros Länder)",
+    "actividad": "Dos pilares: talleres propios (Eigenbetriebe) y 'Unternehmerbetriebe' donde empresas instalan producción dentro de la JVA (montaje, empaque, piezas). Investigación FragDenStaat (2023) identificó 100 empresas que han producido en cárceles, entre ellas BMW, Würth y Villeroy & Boch.",
+    "modelo_de_negocio": "La empresa paga a la administración de justicia precios orientados a tarifas sindicales, pero el preso recibe sólo 9% de la 'Eckvergütung' (algunos Länder 15%); trabajo obligatorio en varios estados. El BVerfG (20/jun/2023) declaró inconstitucionales las reglas de Baviera y NRW por carecer de un concepto coherente de resocialización, con plazo al 30/jun/2025; NRW subió a ~€502/mes a tiempo completo desde fines de 2024.",
+    "resultados": "Baviera 2021: 54.5% de 9,601 presos ocupados. Presión legal y mediática creciente sobre las marcas que usan Unternehmerbetriebe.",
+    "lecciones": "1) Un salario sin justificación legal explícita es vulnerable a litigio; en CDMX apoyarse en la Ley Nacional de Ejecución Penal y en el salario mínimo vigente, y documentarlo. 2) Las listas públicas de empresas clientes (FragDenStaat) muestran que el riesgo reputacional migra al cliente: acordar con Totalplay y futuros clientes cómo se comunica.",
+    "fuente": "https://www.bundesverfassungsgericht.de/SharedDocs/Pressemitteilungen/DE/2023/bvg23-056.html ; https://fragdenstaat.de/artikel/exklusiv/2023/06/fuer-diese-firmen-arbeiten-strafgefangene/ ; https://www.mt.de/regionales/nrw/NRW-erhoeht-Lohn-fuer-Haeftlinge-23996482.html ; https://taz.de/Ausbeutung-hinter-Gittern/!6094927/ ; https://www.justiz.bayern.de/justizvollzug/justizvollzug-in-bayern/behandlung/ ; https://verfassungsblog.de/prekariat-gefangnis/"
+   }
+  ],
+  "lineas_que_mejor_funcionan": [
+   "Logística ligera y reverse logistics (recepción, clasificación, limpieza, etiquetado, empaque, despacho): DHL opera 18 talleres con 520 PPL y 66,000 pedidos/semana en Reino Unido; es trabajo repetitivo, sin herramientas peligrosas, capacitación corta y escalable a cientos de PPL. Es exactamente el patrón de la 'cosmética' de módems/decodificadores y el candidato más sólido para llenar 8–10 salones (otros operadores de telecom/TV de paga, retail, e-commerce, devoluciones). https://insidetime.org/newsround/dhl-wins-new-prison-canteen-contract/",
+   "Refurbish/reciclaje de electrónica y TI con cliente corporativo ancla y certificación de manejo de datos: Recycling Lives (11 prisiones, 250 PPL, WEEE para BT y British Gas, >1.3 M artículos/año), DSA Connect/Xerox en HMP Highpoint (>3,000 dispositivos, 30 PPL), UNICOR Recycling Business Group (uno de sólo dos grupos rentables en FY2024, +US$5 M, creciendo en destrucción de datos), CALPIA–Surplus Service (JVP e-waste/ITAD abierto en sept 2025). https://www.letsrecycle.com/news/latest-news/inmates-recycle-weee/ ; https://www.unicor.gov/publications/bod/Board_Minutes_20240829.pdf ; https://www.cdcr.ca.gov/insidecdcr/2025/09/19/calpia-launches-new-ctf-joint-venture-program",
+   "Manipulados y ensamble ligero para fabricantes (kits, empaque, etiquetado, retrabajos de calidad, montaje de subconjuntos): es el núcleo de CIRE (>70 talleres, >3,500 internos diarios), TPFE (103 convenios con empresas) y de los Unternehmerbetriebe alemanes; en Reino Unido NFN conecta ~200 fabricantes con talleres. https://justicia.gencat.cat/ca/ambits/cire/serveis/tallers/ ; https://newfuturesnetwork.gov.uk/a-welcome-to-our-current-and-future-partners",
+   "Confección/calzado con un solo cliente industrial dentro del penal: Bracol (190 reeducandos, calzado de seguridad, Pirajuí SP), Industrias KP (confección, Girón, Colombia), Heyluc (textil, Lurigancho); coincide con la maquila textil ya instalada en CDMX ('Hazme Valer'). https://www.agenciasp.sp.gov.br/governo-de-sp-faz-parceria-para-empregar-reeducandos-na-producao-de-calcados-de-seguranca/",
+   "Muebles de oficina y bienes para gobierno como cliente ancla: única otra línea rentable de UNICOR en FY2024 (+US$17 M) y núcleo de CALPIA (US$258.5 M FY2023-24); en CDMX equivale a vender mobiliario/uniformes de las líneas 'Hazme Valer' a dependencias de la Ciudad. https://www.unicor.gov/publications/bod/Board_Minutes_20240829.pdf",
+   "Call centers B2B con PPL (Televerde: 88% empleo al salir, reincidencia <5%; Reinventarse/Cummins en Chile): muy rentable y con mejor reputación, pero requiere conectividad controlada; no aplicable en CEVASEP II mientras rija la prohibición de internet para PPL. https://siliconangle.com/2025/08/08/prison-salesforce-call-center-model-thats-heping-reduce-recidivism-near-zero/",
+   "Academias de oficio ligadas a contratación al salir (Timpson: 75% retención, 1,500 contratados 2008-2021 con 4 reincidencias; Greggs: 369 colocaciones): funcionan a escala de decenas, y su valor es reputacional y de retención, no de margen; útil como 'capa' sobre la línea industrial. https://www.timpson-group.co.uk/about/timpson-foundation/"
+  ],
+  "lineas_que_fracasaron_y_por_que": [
+   "Reciclaje de e-waste de UNICOR (2002-2016): romper monitores CRT y desensamblar sin control ambiental expuso a PPL y personal a cadmio y plomo; la gerencia ocultó advertencias; investigación OIG de 4 años (2010), demandas, y cierre de 5 plantas en 2016. Causa: pasar de 'cosmética' a desensamble sin ingeniería de seguridad. https://www.recyclingtoday.com/news/doj-iog-unicor-violations/ ; https://resource-recycling.com/recycling/2016/12/05/federal-prison-system-halts-e-scrap-processing-at-five-sites/",
+   "Lockhart Technologies (Texas, 1993): cerró su planta exterior de tarjetas electrónicas (130–150 empleos a US$10/h) para mudarse al penal con renta de US$1/año; se convirtió en el caso emblemático de 'desplazamiento laboral' usado durante 30 años contra el trabajo penitenciario privado. Causa: sustitución visible de empleo libre. https://www.corpwatch.org/article/profiting-punishment",
+   "Productos B2C con marca visible (Whole Foods 2015): una sola protesta bastó para que el retailer retirara tilapia y queso de cabra hechos con PPL de Colorado, dejando sin canal a los proveedores. Causa: el consumidor final percibe explotación ('centavos por hora'). https://www.npr.org/sections/thesalt/2015/09/30/444797169/whole-foods-says-it-will-stop-selling-foods-made-by-prisoners",
+   "Textiles/uniformes militares de UNICOR: la pérdida de contratos por parte de American Apparel (Selma, 255 despidos) alimentó la campaña que acabó con la fuente obligatoria en 2002 y redujo las ventas de >US$800 M a ~US$350 M. Causa: competir con industria nacional intensiva en mano de obra en el mismo mercado. https://www.foxnews.com/us/american-prison-labor-means-longer-unemployment-lines.print ; https://www.crowell.com/en/insights/client-alerts/unicor-banned-from-competing-in-small-business-set-asides-for-services",
+   "Talleres ociosos en Inglaterra y Gales: ICPR (2024) encontró talleres usados como bodega por falta de custodios y de contratos con empresas; PPL sin trabajo pese a instalaciones disponibles. Causa: el cuello de botella es personal de custodia y ventas, no mano de obra. https://www.icpr.org.uk/news/2024/new-briefing-icpr-prison-work-uk",
+   "Joint Venture Program de CALPIA: sólo 5 empresas activas en 2016 pese a 168 contratos en 2010-2016; salario de mercado + deducciones de 80% + burocracia desincentivan a las empresas y generan conflicto con los PPL (paros lentos 2025). https://jointventureprogram.calpia.ca.gov/about/history/ ; https://prismreports.org/2025/04/29/incarcerated-workers-california-work-slowdown/",
+   "Trabajo privado dentro de cárceles en Italia: pese a crédito fiscal de €520/mes y 95% de descuento en contribuciones, sólo 1,151 detenidos trabajan dentro de prisión para terceros (de 21,235 que trabajan). Causa: falta de gestores especializados y de productos con margen; el subsidio no sustituye al modelo de negocio. https://www.edotto.com/articolo/bonus-assunzione-detenuti-2025-incentivi-fiscali-e-contributivi-per-le-imprese",
+   "Salarios sin base legal coherente en Alemania: el BVerfG (2023) anuló las reglas de Baviera y NRW (9% de la Eckvergütung); las marcas clientes (BMW, Würth, Villeroy & Boch) quedaron expuestas por listas públicas. Causa: pagar poco sin justificación legal explícita. https://www.bundesverfassungsgericht.de/SharedDocs/Pressemitteilungen/DE/2023/bvg23-056.html ; https://fragdenstaat.de/artikel/exklusiv/2023/06/fuer-diese-firmen-arbeiten-strafgefangene/",
+   "Cobertura desigual en Brasil: 41.9% de los PPL que trabajan no recibe pago y Rio de Janeiro tiene sólo 3% de PPL trabajando (Santa Cabrini: 12 contratos con empresas) frente a Minas Gerais (640 empresas). Causa: sin una gestora estatal con área comercial y galpones listos, el incentivo legal no se convierte en contratos. https://www.otempo.com.br/brasil/2026/8/10/so-26-dos-presos-trabalham-depois-da-liberdade-desafio-dos-egressos-e-conseguir-emprego ; https://oabrj.org.br/noticias/oabrj-anuncia-parceria-fundacao-santa-cabrini-inclusao-social"
+  ],
+  "lecciones_transversales": [
+   "El activo real del penal es la estabilidad: asistencia diaria, rotación casi nula y cero ausentismo (lo dijo el dueño de Lockhart y lo confirman Timpson y Televerde). Venderlo a clientes como 'capacidad garantizada' con SLA, no como 'mano de obra barata'.",
+   "Nunca sustituir empleos exteriores propios ni de proveedores locales para moverlos al penal (Lockhart, American Apparel/UNICOR): presentar cada salón nuevo como capacidad adicional y clientes nuevos.",
+   "Escalar por líneas de logística ligera y refurbish (DHL, Recycling Lives, CIRE manipulados) antes que por manufactura compleja: capacitación de ~15 días, herramientas de bajo riesgo, control de entradas/salidas sencillo, compatible con las reglas de CEVASEP II.",
+   "Definir por escrito el límite del proceso: cosmética, limpieza, etiquetado, pruebas funcionales básicas sí; apertura de fuentes, baterías, CRT, soldadura o químicos sólo con protocolo ambiental, EPP y disposición certificada (lección UNICOR 2010). El ocultamiento de riesgos fue peor que el riesgo.",
+   "Trazabilidad y datos: los ONT/decodificadores contienen credenciales y números de serie; copiar de DSA Connect/UNICOR RBG el reseteo/borrado certificado, registro por serie y área de acceso restringido; es además argumento de venta a otros operadores.",
+   "Ancla de cliente único es riesgo (UNICOR depende del gobierno, Whole Foods dejó a sus proveedores sin canal): meta explícita de diversificar a 2–3 clientes antes de pasar de 4 a 8 salones.",
+   "La reputación recae en el cliente visible: acordar desde ahora con Totalplay y futuros clientes el relato público (reinserción, salario mínimo íntegro, capacitación, contratación al salir) antes de que prensa u ONG lo construyan; en México el salario mínimo sube por decreto cada enero, así que el precio al cliente debe indexarse (Colombia indexa al IPC).",
+   "Medir lo que defiende políticamente al programa: empleo a 6 meses de liberación (Reino Unido pasó de 15% a 38%), reincidencia de participantes (Recycling Lives <5%, Timpson 4 de 1,500) y toneladas/unidades desviadas de residuo; sin esos datos el proyecto sólo será 'maquila en cárcel'.",
+   "El cuello de botella es la autoridad, no los PPL: custodios asignados por salón y horario, tiempos de revisión de materiales y continuidad de la política ante cambios de administración (la Subsecretaría cambió de Gobierno a Seguridad Ciudadana). Convenio plurianual (2026-2030) con cláusulas de salida y traslado de activos.",
+   "La empresa debe internalizar la función que TPFE/CIRE/Funap/Santa Cabrini cumplen: control de asistencia, nómina, distribución del ingreso del PPL (familia/ahorro/personal como en CALPIA), seguridad industrial y reporte mensual a la Secretaría. Un supervisor por salón de 35 PPL es el mínimo comparable a los modelos revisados.",
+   "Crear una 'academia' de refurbishment con certificación interna y ruta de contratación al salir (Timpson, Halfords, Televerde) para cubrir supervisores y técnicos exteriores; cuesta poco y es la principal defensa reputacional."
+  ],
+  "incertidumbres": [
+   "WebFetch estuvo bloqueado para casi todos los dominios (oig.justice.gov, calpia.ca.gov, gov.uk, wikipedia, prensa brasileña, etc.); las cifras provienen de resúmenes de búsqueda web de esas fuentes, no de lectura directa de los documentos. Verificar las cifras clave en los PDF citados antes de usarlas en un documento formal.",
+   "UNICOR: no se obtuvo la cifra de ventas totales FY2024 ni FY2025 (sólo US$335 M a julio 2024, utilidad neta ~US$14.8 M FY2024 e ingreso operativo US$15.5 M FY2025 con ventas +US$43 M). Márgenes por grupo de negocio sólo disponibles para FY2024 (muebles +US$17 M, reciclaje +US$5 M).",
+   "CALPIA: hay discrepancia entre el ingreso aprobado FY2023-24 (US$258.5 M, plan anual) y una cifra de US$91.3 M que aparece en un directorio comercial (ZoomInfo); se usó la del plan anual. El número de empresas activas en el JVP en 2025 no se encontró (último dato: 5 en 2016).",
+   "PIECP: las estadísticas acumuladas son al 30/sep/2022; no se encontró reporte 2024-2025. El caso Lockhart es de 1993-2000 y Midcon/BAE no tiene fecha verificada.",
+   "Reino Unido: el ingreso específico de Prison Industries dentro de los £300 M de ingreso operativo de HMPPS 2024-25 no está desglosado; el pago promedio semanal actual de PPL en talleres (~£15–20) proviene de FOI/prensa, no de estadística oficial. Datos de Halfords son de 2017-2018.",
+   "Brasil: la cifra de R$28 M de Santa Catarina no tiene fecha verificada; la distribución 50% familia / 25% custo / 25% ahorro es de un estado específico y no una regla nacional; el estado del PL 352/2024 después de octubre 2025 no se verificó.",
+   "Colombia: no se encontraron cifras del número de PPL empleados por empresas privadas ni el valor vigente de la bonificación/hora; la resolución de Mintrabajo se reportó como proyecto (2025), no se verificó su expedición final.",
+   "Chile: no se identificó qué produce el CET de Colina 2 con ALTO/Paternitas ni el salario pagado; el número de mujeres y condiciones del call center Reinventarse/Cummins no se verificó.",
+   "Perú: el comunicado de '81 convenios con empresas privadas' no tiene fecha verificada (probablemente 2018-2019); no se encontró cuánto pagan las empresas a los internos bajo D.L. 1343.",
+   "Argentina: el dato de presupuesto ENCOPE (ARS 25.7 mil millones 2024, 75% a peculio) proviene de un resumen de búsqueda sin documento primario verificado; no se hallaron empresas privadas produciendo dentro de cárceles federales.",
+   "España: no se obtuvo la facturación 2024 de TPFE ni de CIRE; el dato de '>4,500 puestos' de TPFE podría referirse sólo a talleres en colaboración con empresas externas y no al total de internos trabajadores (que otras fuentes sitúan en más de 12,000).",
+   "Italia: la reincidencia de ~2% en beneficiarios de cooperativas es una cifra reportada por las propias cooperativas/medios, sin evaluación independiente encontrada.",
+   "Alemania: no se encontró el porcentaje nacional de presos que trabajan en Unternehmerbetriebe ni los precios/hora que pagan las empresas a la administración.",
+   "No se analizó el marco legal mexicano (Ley Nacional de Ejecución Penal, art. 91-95 sobre trabajo, y reglas de CDMX) ni la existencia de convenios comparables en otras entidades de México; queda fuera del alcance de esta tarea pero condiciona la aplicabilidad de cada lección."
+  ]
+ },
+ "tendencias_2026_2030": {
+  "categoria": "Tendencias macro 2026–2030 en México que crean demanda de trabajo manual intensivo y demanda de compradores grandes (nearshoring/T-MEC, e-commerce y logística inversa, telecom/CPE, compras públicas, ESG, automatización, salario mínimo)",
+  "contexto_mercado": "Panorama al 11-sep-2026, con fuentes 2025-2026 salvo indicación.\n\n1) NEARSHORING / T-MEC / ARANCELES. La IED del 1S-2026 fue récord: 34,968 MUSD (+2.1%), manufactura 13,482 MUSD (38.6%), pero sólo 2,726 MUSD fueron inversiones nuevas; el resto es reinversión (SE / Expansión, ago-2026: https://expansion.mx/economia/2026/08/24/ied-mexico-record-primer-semestre-2026). La revisión conjunta del T-MEC del 1-jul-2026 no logró la extensión a 2042: EE.UU. no la apoyó y el tratado entra en revisiones anuales; hubo 3ª ronda bilateral en CDMX (21-23 jul) y 4ª ronda en Washington en sep-2026 (https://www.hklaw.com/en/insights/publications/2026/07/mexico-ante-una-nueva-etapa-continuidad-del-tmec ; https://amcham.org.mx/revision-del-t-mec-avances-de-la-tercera-ronda-de-negociaciones-bilaterales/). Aranceles de EE.UU. vigentes: Sección 232 de hasta 50% en acero/aluminio/cobre (con esquema diferenciado para contenido T-MEC), 25% autos sobre contenido no estadounidense, IEEPA 25% (exento si cumple T-MEC), y Sección 301 de 10% desde 24-jul-2026 con exención T-MEC (https://www.elfinanciero.com.mx/economia/2026/04/27/menos-aranceles-para-acero-y-aluminio-cuales-son-las-condiciones-que-puso-estados-unidos/ ; https://revistaflow.com/mexico-aranceles-eu-autos-aluminio-2026/). La incertidumbre elevó la vacancia industrial en la frontera norte a 7% y puso en pausa inversiones en Bajío/NL/Jalisco (https://incomex.org.mx/index.php/2026/04/22/incertidumbre-tmec-frena-nearshoring-norte/). En el centro, el corredor Cuautitlán-Tultitlán-Tepotzotlán concentra 47% de la demanda industrial de la región con vacancia de 0.8% (CBRE vía Milenio: https://www.milenio.com/negocios/boom-parques-industriales-cdmx-cuautitlan-queretaro); México pasó a 477 parques industriales en operación y 103 en construcción a marzo-2026 (https://www.americanindustrialmagazine.com/blogs/industria/nearshoring-en-mexico-2026-cifras-de-ied-parques-industriales-y-estados). RESTRICCIÓN CLAVE: 19 U.S.C. §1307 prohíbe importar a EE.UU. bienes fabricados total o parcialmente con trabajo de reclusos (\"convict labor\"), aunque sea remunerado (https://www.law.cornell.edu/uscode/text/19/1307). Por tanto el taller sólo puede atender cadenas de consumo nacional, no exportación a EE.UU.\n\nPlan México y aranceles a Asia: desde 1-ene-2026 subieron aranceles a 1,463 fracciones de 17 sectores (hasta 50%; textil/vestido 25-35%, calzado 35%). Importaciones de esas fracciones cayeron 23.2% ene-may 2026 y las de China 28.4% (https://www.elfinanciero.com.mx/economia/2026/08/30/aranceles-a-china-reducen-importaciones-a-mexico-en-28-ebrard-defiende-la-medida/); calzado chino -62% en el primer bimestre (https://expansion.mx/economia/2026/04/23/menos-china-en-mexico-aranceles-hunden-importaciones-calzado). Pero la producción nacional de prendas cayó 6% en mayo-2026 y CANAIVE atribuye la brecha a contrabando/subvaluación (https://expansion.mx/economia/2026/07/23/mexico-aranceles-textiles-china-produccion-industria-2026). Hay espacio de sustitución de importaciones no ocupado por la industria local.\n\n2) E-COMMERCE Y DEVOLUCIONES. E-commerce retail 2025: 941 mil mdp (+19.2%), 17.7% de ventas minoristas, 77.2 M compradores, 8° lugar mundial (AMVO EVO 2026: https://amvo.org.mx/descarga-evo-2026 ; https://marketing4ecommerce.mx/estudio-de-venta-online-2026-amvo-mexico/). Statista proyecta 2.31 billones de pesos y 131 M usuarios en 2030 (https://thelogisticsworld.com/logistica-comercio-electronico/presente-y-proyecciones-del-e-commerce-en-mexico/). Hot Sale 2025 cerró en 42,725 mdp; proyección 2026: 47,000-52,000 mdp (AMVO: https://blog.amvo.org.mx/blog/42725-millones-fueron-el-est%C3%A1ndar-de-2025-el-cierre-operativo-de-hot-sale-y-la-cuenta-regresiva-para-los-resultados-del-2026). Buen Fin 2025: 219 mil mdp totales, 45.9 mil mdp en línea (+31%) (https://tecnoempresa.mx/el-buen-fin-2025-alcanza-ventas-de-45-9-mil-millones-de-pesos-amvo/). Devoluciones: tasa promedio ~19%, moda hasta 38%, picos de 40% en Hot Sale/Buen Fin (https://www.elfinanciero.com.mx/empresas/2026/04/17/mundial-2026-elevaria-hasta-40-las-devoluciones-y-cambios-en-ventas-en-linea/); la gestión de devoluciones crece 20% anual y CDMX+Edomex concentran 51.6% de los casos (31.1% + 20.5%) (https://oem.com.mx/la-prensa/metropoli/crece-20-por-ciento-anual-la-gestion-de-devoluciones-en-el-comercio-electronico-en-mexico-29744634); costo de logística inversa hasta 15% de ventas (https://marketing4ecommerce.mx/devoluciones-y-cambios-el-capital-que-las-marcas-mexicanas-tienen-atrapado/). Mercado Libre invertirá 4,600 MUSD en México en 2026 (+35% vs 2025), 8,500 empleos nuevos, nuevo CD en Cuautitlán Izcalli (https://news.mercadolibre.com/centro-de-distribucion-en-cuautitlan-izcalli-2026 ; https://clusterindustrial.com.mx/mercado-libre-destinara-4-600-mdd-para-expandir-su-red-logistica-y-generar-8-500-empleos-en-mexico/). Recommerce: electrónicos reacondicionados 1,640 MUSD en 2024, ~1,900 MUSD esperados al cierre de 2026 y 2,920 MUSD en 2029 (>11% anual) (https://marketing4ecommerce.mx/el-recommerce-la-generacion-z-y-emprendedores-apuestan-por-articulos-reacondicionados-en-mexico/ ; https://www.reciclajeelectronicos.com/post.php?slug=mercado-de-reacondicionados-una-alternativa-inteligente-para-ahorrar-y-cuidar-el-planeta).\n\n3) TELECOM. Totalplay 2T26: 5,675,946 suscriptores (+6% anual), 121,572 adiciones netas, 19.5 M hogares pasados, penetración 29.1% (vs 30.4% un año antes), ingresos 11,360 mdp, EBITDA 5,074 mdp (https://elceo.com/negocios/totalplay-reporta-ingresos-por-11360-mdp-y-suma-121572-nuevos-suscriptores-en-2t26/). Megacable superó 6.02 M clientes de internet (+8.5%) en 2T26 (https://expansion.mx/empresas/2026/07/30/megacable-supera-los-6-millones-de-suscriptores-y-aumenta-11-su-ganancia-trimestral). Megacable y Totalplay rozan 20 M de hogares pasados y frenan expansión de red para llenarla (https://www.elimparcial.com/mexico/2026/09/03/megacable-y-totalplay-frenan-el-ritmo-de-expansion-de-sus-redes-de-fibra-despues-de-acercarse-a-20-millones-de-hogares-cubiertos-y-ahora-concentran-su-estrategia-en-conseguir-mas-clientes-y-aprovechar-mejor-la-infraestructura-existente/). Telmex sumó 900 mil clientes en 2025 pero recortó 20% su inversión y busca volver a 50% de participación (cayó a 38.9%) (https://expansion.mx/empresas/2026/03/11/telmex-adiciona-900-000-clientes-pero-recorta-su-inversion ; https://expansion.mx/empresas/2026/08/27/telmex-gana-batalla-internet-fijo-izzi-totalplay). Totalplay lanzó el decodificador Totalplay TV+ (Wi-Fi 6, Alexa, B&O, 4K HDR) y ONT Wi-Fi 6 rumbo al Mundial 2026, y avanza con Wi-Fi 7 (https://digitaltv.prensariozone.com/totalplay-acelera-su-apuesta-tecnologica-para-el-mundial-2026/ ; https://www.totalplay.com.mx/ontwifi6). Implicación: menos capex de red = más presión por reutilizar CPE y estirar vida útil; el recambio a Wi-Fi 6/7 y nuevos decodificadores genera olas de equipos de retorno. Riesgo de contraparte: Totalplay hizo canje de deuda por hasta 870 MUSD calificado como \"distressed\" por Moody's y Grupo Salinas acordó pagar 32,000 mdp al SAT (https://www.bloomberglinea.com/latinoamerica/mexico/totalplay-evita-posible-default-con-canje-de-bonos-moodys/ ; https://expansion.mx/empresas/2026/01/29/grupo-salinas-paga-al-sat-32-000-mdp-el-63-de-su-deuda-fiscal).\n\n4) COMPRAS PÚBLICAS. Nueva LAASSP federal (DOF 16-abr-2025) y su Reglamento (DOF 18-dic-2025); el reglamento debe fijar lineamientos para favorecer MIPYMES, cooperativas y organismos de economía social certificados por INAES, incluidos los de inclusión laboral de grupos vulnerables (https://comunicacionsocial.diputados.gob.mx/index.php/boletines/comision-de-economia-social-aprueba-opinion-favorable-a-iniciativa-presidencial-que-expide-la-ley-de-adquisiciones ; https://www.cronista.com/mexico/actualidad-mx/ya-es-oficial-cambiara-la-ley-de-adquisiciones-y-el-estado-ya-no-podra-comprar-ni-bienes-ni-servicios-como-antes/). Buen Gobierno reformó en ene-2026 las reglas de contenido nacional: mínimo 65%, calculado sobre costo neto de producción, para incentivar a fabricantes nacionales incl. cooperativas (https://www.gob.mx/buengobierno/prensa/buen-gobierno-reforma-las-reglas-de-contenido-nacional-en-contrataciones-publicas ; https://www.jornada.com.mx/noticia/2026/01/29/politica/reforman-reglas-de-contenido-nacional-en-compras-publicas-para-impulsar-la-industria). CDMX 2026: 704 mdp para útiles y uniformes de 650 mil alumnos, pero en efectivo (hasta $1,180 por alumno), no en especie (https://www.posta.com.mx/cdmx/utiles-y-uniformes-escolares-cdmx-2026-monto-beneficiarios-y-nuevos-apoyos/vl2241111). Sinaloa sí compra en especie: 481,690 alumnos, 2 uniformes + paquete de útiles + calzado deportivo, con padrón de proveedores y licitación de calzado (https://olegario.mx/2026/03/beneficiara-programa-escolar-gratuito-a-mas-de-481-mil-alumnos-en-sinaloa/ ; https://oem.com.mx/elsoldesinaloa/local/gobierno-de-sinaloa-inicia-proceso-para-licitacion-de-uniformes-y-utiles-escolares-para-2026-29038926). La Escuela es Nuestra 2026: 26 mil mdp para 75 mil planteles, con mobiliario escolar como gasto elegible vía comités (https://vanguardia.com.mx/noticias/mexico/la-escuela-es-nuestra-beneficiara-a-75-mil-planteles-en-2026-sep-invertira-26-mil-millones-de-pesos-MG19795911). IMSS-Bienestar: paquetes de uniformes de ~6,000 pesos con entregas deficientes en 2026 (https://lasillarota.com/nacion/2026/5/27/personal-medico-denuncia-entrega-a-medias-de-uniformes-en-imss-bienestar-601271.html). Marco penitenciario: LNEP arts. 91-92 (trabajo como eje de reinserción, no aflictivo, con mecanismos de participación del sector privado y acceso a seguridad social según modalidad) (https://leyes-mx.com/ley_nacional_de_ejecucion_penal/92.htm); Ley de Centros Penitenciarios CDMX faculta a la Subsecretaría a firmar convenios con el sector privado (https://www.congresocdmx.gob.mx/media/documentos/030c6fdcd93ecec7801fd581a38e1f01a32954f1.pdf). Sistema CDMX: 15,045 PPL con trabajo remunerado (59%), 28 convenios con empresas (dato 2024: https://www.cronica.com.mx/metropoli/59-reclusos-cdmx-empleo-penales-ssc.html ; https://www.ssc.cdmx.gob.mx/organizacion-policial/subsecretaria-del-sistema-penitenciario/hazme-valer). NO se encontró preferencia legal explícita (puntos o adjudicación directa) para productos elaborados por PPL ni en la LAASSP ni en la Ley de Adquisiciones de CDMX; ver incertidumbres.\n\n5) ESG / COMPRAS DE IMPACTO. Informe \"Compras Inclusivas, Sostenibles y de Impacto en México\" (ANDE, J.P. Morgan, CCMX, evolve, New Ventures; 24 empresas incl. Chedraui, IKEA, Lala; ago-2026): 90% de corporativos tiene alta intención de compras de impacto, 33% tiene metas formales, 19% se considera experto; compras gestionan hasta 70% del gasto (https://esg.expansion.mx/gobernanza/2026/08/20/las-empresas-en-mexico-quieren-compras-de-impacto). Cemefi entregó el Distintivo ESR 2026 a 1,093 empresas grandes (15% del PIB) el 19-may-2026 y opera el Programa de Cadena de Valor con el que las ESR invitan a sus proveedores (https://www.corresponsables.com/mx/ods-9-industria-innovacion-e-infraestructura/cemefi-reconocera-a-1093-grandes-empresas-con-el-distintivo-esr-2026-y-promovera-una-cultura-empresarial-mas-responsable-en-mexico/ ; https://www.cemefi.org/wp-content/uploads/2025/07/Convocatoria-Distintivo-ESR-Grandes-2026.pdf). Riesgo de percepción: el trabajo penitenciario se confunde con trabajo forzoso; los aranceles 301 de EE.UU. desde jul-2026 usan como criterio la aplicación de prohibiciones a bienes con trabajo forzoso y los indicios de \"trabajo penitenciario forzado\" exigen suspensión inmediata en auditorías de cadena (https://www.cronista.com/mexico/actualidad-mx/ ; https://www.greensealsolution.com/post/convenios-oit-trabajo-forzoso-legislacion-mexicana); una iniciativa en CDMX de trabajo obligatorio en reclusorios fue criticada (https://grupoanimal.mx/opinion/trabajo-forzado-prisiones-propuesta-regresiva).\n\n6) AUTOMATIZACIÓN. WEF Future of Jobs 2025: hacia 2030 sólo 33% de tareas serán exclusivamente humanas (47% hoy); la destreza manual pierde peso, pero la automatización es más intensa en economías de alto ingreso y en mercados en desarrollo los procesos manuales siguen siendo competitivos más tiempo (https://reports.weforum.org/docs/WEF_Future_of_Jobs_Report_2025.pdf). México instala >5,000 robots industriales/año; cobots crecen >20% anual (https://ecosistemastartup.com/robotica-en-mexico-2026-5-000-robots-anuales-y-las-3-carreras-con-mayor-empleo/ ; https://mexicoindustry.com/noticia/tendencias-de-automatizacion-2026-las-tres-tecnologias-que-redefiniran-la-industria-en-mexico-y-centroamerica). La mayoría de almacenes mexicanos siguen operando con procesos manuales (https://www.99minutos.com/blog/tendencias-de-fulfillment/). Los arneses son intensivos en mano de obra y no requieren automatización extrema; 81% de automotrices reporta escasez de talento (https://directoriodenegocios.net/manufactura-maquiladoras-mexico-2026/ ; https://clusterindustrial.com.mx/el-81-de-las-empresas-automotrices-enfrenta-escasez-de-talento-uvm-propone-capacitacion-sin-detener-la-linea/). Tareas que siguen manuales al 2030 (alta variabilidad, bajo volumen por SKU, juicio visual): inspección/grading de devoluciones, reacondicionamiento estético, armado de kits multi-SKU, confección, desensamble. Tareas a evitar (automatizables): etiquetado/empaque de alto volumen y un solo SKU, picking estándar, ensamble SMT.\n\n7) SALARIO MÍNIMO. 2026: $315.04/día (+13%), $9,582.47/mes; frontera norte $440.87 (https://expansion.mx/economia/2026/01/05/salario-minimo-2026). Meta oficial: 2.5 canastas básicas en 2030 (Programa Institucional Conasami 2025-2030); la Presidencia habló de una ruta de ~12% nominal anual; CTM propuso 5-10% para 2027 (https://www.luznoticias.mx/2026-09-03/mexico/cuando-subira-el-salario-minimo-en-2027-ctm-presenta-propuesta-a-la-secretaria-del-trabajo/303618 ; https://calcu.mx/salario-minimo-2027-prediccion). Estimación propia con 12% anual: 2027 ≈ $353, 2028 ≈ $395, 2029 ≈ $442, 2030 ≈ $495/día (≈ $62/hora en 2030 vs $39.4 en 2026). Reforma de 40 horas publicada en DOF el 1-may-2026: tope de 46 h en 2027, 44 en 2028, 42 en 2029 y 40 en 2030 sin reducción salarial (https://www.jornada.com.mx/noticia/2026/05/01/politica/publican-en-dof-reforma-para-jornada-laboral-de-40-horas ; https://www.infobae.com/mexico/2026/04/23/diputados-aprobaron-reduccion-escalonada-de-la-jornada-laboral-a-40-horas-hasta-2030-envian-dictamen-a-sheinbaum-para-publicacion-en-el-dof/). Efecto: la ventaja de costo del taller no está en el salario (paga el mínimo igual que cualquier empleador), sino en cero renta/servicios, rotación casi nula y disponibilidad diaria; esa ventaja se erosiona conforme el mínimo sube y la jornada externa baja, por lo que conviene migrar a servicios donde el valor esté en la confiabilidad y el impacto social, no en el costo por hora.",
+  "candidatos": [
+   {
+    "nombre": "Centro de procesamiento de devoluciones e-commerce (logística inversa: inspección, grading, reacondicionamiento ligero y reempaque)",
+    "descripcion": "Operar como nodo de logística inversa para marketplaces, retailers y 3PL del corredor CDMX-Edomex: recibir devoluciones, verificar contenido, clasificar (A/B/C/scrap), limpiar, reetiquetar y reempacar para reventa (incl. canales de 'reacondicionado/open box'). CDMX+Edomex concentran 51.6% de las devoluciones del país y la gestión crece 20% anual.",
+    "que_se_hace_en_el_salon": "Apertura y verificación contra lista de empaque; inspección visual con checklist; prueba funcional básica sin conexión a internet (encendido, botones); limpieza; reposición de accesorios/manuales; reempaque en caja nueva o sellado; etiquetado con etiquetas preimpresas; paletizado. Todo con escaneo offline o listas en papel controladas por el supervisor.",
+    "clientes_objetivo": [
+     "Mercado Libre (Mercado Envíos / logística inversa; nuevo CD en Cuautitlán Izcalli 2026)",
+     "Amazon México (centros de devoluciones)",
+     "Walmart de México / Bodega Aurrera omnicanal",
+     "Liverpool, Coppel, Elektra (Grupo Salinas, sinergia con Totalplay)",
+     "3PL/fulfillment: Cubbo, 99minutos, Bego, Envia.com, CEVA Logistics México (reverse logistics)",
+     "Marcas de moda y calzado con tasas de devolución de 38%: Shein/Temu no (importación), sí Andrea, Flexi, Cuidado con el Perro, Julio"
+    ],
+    "demanda_2026_2030": "E-commerce de 941 mil mdp (2025) a 2.31 billones proyectados en 2030 (Statista); tasa de devolución promedio ~19%, moda 38%, picos 40% en Hot Sale/Buen Fin; Hot Sale 2026 proyectado en 47-52 mil mdp; gestión de devoluciones crece 20% anual. Demanda estacional fuerte (mayo-junio y nov-dic) con base todo el año.",
+    "tamano_mercado_mx": "Estimación propia: 19% de devoluciones sobre 941 mil mdp = ~179 mil mdp en mercancía devuelta en 2025; con costo de logística inversa de hasta 15% de ventas (marketing4ecommerce), el gasto en procesar devoluciones es del orden de decenas de miles de mdp/año; el procesamiento físico (inspección/reempaque) es una fracción menor pero de miles de mdp.",
+    "margen_bruto_estimado_pct": "Estimación propia: 35-50% (servicio con precio por unidad procesada; costo principal salario mínimo + supervisores + consumibles de empaque aportados por el cliente).",
+    "ingreso_estimado_por_persona_hora_mxn": "Estimación propia: $80-120 MXN/persona-hora. Supuesto: 8-12 unidades/hora por operador en inspección+reempaque y tarifa de $10-12 por unidad (referencia: costo laboral del taller ≈ $39.4/h de salario mínimo + ~$5/h de supervisión). Sin tarifas públicas de 3PL para validar; requiere cotización real.",
+    "inversion_inicial_mxn": "Estimación propia: 1.5-3 millones MXN por 4 salones (mesas, básculas, escáneres offline, selladoras, racks, cámaras de CCTV adicionales, software de trazabilidad en el área de supervisión, jaula de valor). Transporte y consumibles suelen ser del cliente.",
+    "capacitacion_dias": "10-15 días por salón (estándares de grading por categoría, checklists, empaque); 5 días adicionales por cada nueva categoría de producto.",
+    "herramientas_y_materiales": "Cúteres de seguridad retráctiles, cinta y dispensadores, cajas, bolsas, etiquetas preimpresas, paños/alcohol isopropílico, básculas, escáneres de código de barras sin conectividad, lámparas de inspección.",
+    "riesgos_seguridad_penitenciaria": "Mercancía de alto valor (electrónica, calzado) = riesgo de sustracción: usar jaula cerrada, conteo de entrada/salida por lote, CCTV y revisión; cúteres controlados con bitácora; sin dispositivos conectados: cualquier prueba con datos personales o cuentas (celulares, laptops) se hace fuera del centro; devoluciones con líquidos/aerosoles/baterías dañadas excluidas por contrato.",
+    "regulacion": "NOM-024-SCFI-2013 (información comercial de electrónicos) y NOM-050-SCFI-2004 (etiquetado) al reempacar para venta; NOM-017-STPS (EPP); Ley Federal de Protección de Datos Personales: prohibir manejo de dispositivos con datos; lineamientos de trabajo penitenciario LNEP arts. 91-92 y Ley de Centros Penitenciarios CDMX (convenio con Subsecretaría).",
+    "sinergia_con_totalplay": "Alta: mismo flujo de logística inversa que ya opera (recepción, limpieza, reempaque, etiquetado); Grupo Salinas tiene Elektra/elektra.mx con devoluciones propias, cliente natural para un piloto.",
+    "competencia_y_barreras": "3PL establecidos (CEVA, DHL Supply Chain, Cubbo) ofrecen logística inversa integrada con transporte y sistemas; barrera del taller: sin conectividad en piso, sin transporte propio, percepción de riesgo del cliente. Ventaja: capacidad de 140-350 personas estables en CDMX, cero renta, precio por unidad bajo, narrativa de impacto.",
+    "riesgos": [
+     "Estacionalidad extrema (picos Hot Sale/Buen Fin) vs. plantilla fija diaria",
+     "Cliente exige trazabilidad en tiempo real (WMS conectado) que el centro no permite en piso",
+     "Fraude o merma atribuible al taller daña la relación en un solo incidente",
+     "Automatización parcial del grading (visión artificial) hacia 2028-2030 para categorías uniformes; el juicio manual persiste para moda/calzado/misceláneos",
+     "Contraparte Totalplay/Grupo Salinas con estrés financiero (canje de deuda 'distressed', adeudo SAT)"
+    ],
+    "fuentes": [
+     "https://amvo.org.mx/descarga-evo-2026",
+     "https://oem.com.mx/la-prensa/metropoli/crece-20-por-ciento-anual-la-gestion-de-devoluciones-en-el-comercio-electronico-en-mexico-29744634",
+     "https://www.elfinanciero.com.mx/empresas/2026/04/17/mundial-2026-elevaria-hasta-40-las-devoluciones-y-cambios-en-ventas-en-linea/",
+     "https://marketing4ecommerce.mx/devoluciones-y-cambios-el-capital-que-las-marcas-mexicanas-tienen-atrapado/",
+     "https://blog.amvo.org.mx/blog/42725-millones-fueron-el-est%C3%A1ndar-de-2025-el-cierre-operativo-de-hot-sale-y-la-cuenta-regresiva-para-los-resultados-del-2026",
+     "https://news.mercadolibre.com/centro-de-distribucion-en-cuautitlan-izcalli-2026",
+     "https://thelogisticsworld.com/logistica-comercio-electronico/presente-y-proyecciones-del-e-commerce-en-mexico/",
+     "https://www.99minutos.com/blog/tendencias-de-fulfillment/",
+     "https://www.go.cevalogistics.com/reverse-logistics-mexico"
+    ],
+    "calificacion_preliminar_1_10": 8.5,
+    "confianza": "alta"
+   },
+   {
+    "nombre": "Reacondicionamiento de CPE multi-operador (ONT/módems, decodificadores, controles, cables) y kits de instalación",
+    "descripcion": "Escalar la 'cosmética' actual de Totalplay a un centro de reacondicionamiento de equipo de cliente para los cuatro grandes operadores fijos (Totalplay, Megacable, Izzi/Sky, Telmex) y a armado de kits de instalación/autoinstalación (ONT + cables + guía + accesorios). El freno al capex de red y el recambio a Wi-Fi 6/7 y nuevos decodificadores (Totalplay TV+) generan olas de equipos de retorno que conviene reutilizar.",
+    "que_se_hace_en_el_salon": "Recepción y triage por lote; limpieza y desinfección; cambio de carcasas/tapas; verificación de puertos, LEDs y conectores; sustitución de cables/fuentes; borrado y reseteo lógico sólo si el operador provee equipo de prueba aislado (sin internet); etiquetado de serie/MAC con etiquetas preimpresas; empaque de kit (ONT, patch cord, fuente, guía, cinta velcro); armado y prueba visual de patch cords/jumpers preconectorizados suministrados.",
+    "clientes_objetivo": [
+     "Totalplay (ampliar de cosmética a reparación nivel 1 y kits; ola de recambio Totalplay TV+ y ONT Wi-Fi 6)",
+     "Megacable (6.02 M clientes internet, 2T26)",
+     "Izzi/Sky (Televisa; migrando a fibra con OLT remotas)",
+     "Telmex/Infinitum (900 mil clientes nuevos 2025, capex -20%: incentivo a reutilizar CPE)",
+     "Fabricantes/integradores de CPE con logística inversa en México: Sagemcom, Askey, Technicolor/Vantiva, Ubee, Huawei/ZTE vía distribuidores",
+     "Reconext y CEVA (subcontratación de capacidad manual)"
+    ],
+    "demanda_2026_2030": "Base instalada creciente: Totalplay 5.68 M suscriptores (+6%), Megacable 6.02 M (+8.5%), Telmex +900 mil en 2025; churn implícito de Totalplay (penetración bajó de 30.4% a 29.1% pese a adiciones) implica cientos de miles de equipos recuperados al año (estimación propia). Operadores frenan expansión de red y priorizan eficiencia de capex, lo que favorece reutilizar CPE (ahorro directo vs. equipo nuevo).",
+    "tamano_mercado_mx": "Estimación propia: con ~20 M de accesos fijos entre los cuatro grandes y una rotación anual de equipos de 10-15% (churn + upgrades), se recuperan 2-3 M de CPE/año; a $60-120 MXN por unidad reacondicionada, el mercado de servicio es de 120-360 mdp/año. No hay cifra pública; validar con operadores.",
+    "margen_bruto_estimado_pct": "Estimación propia: 30-45% en cosmética/kits (ya operando); 40-55% si se agrega reparación nivel 1 con refacciones del cliente.",
+    "ingreso_estimado_por_persona_hora_mxn": "Estimación propia: $90-150 MXN/persona-hora. Supuesto: 3-5 unidades/hora en cosmética completa a $25-35 por unidad, o 12-20 kits/hora a $6-8 por kit. Calibrar con la tarifa actual que ya cobra a Totalplay (dato que el empresario tiene).",
+    "inversion_inicial_mxn": "Estimación propia: 1-2.5 millones MXN adicionales por 4 salones (bancos ESD, estaciones de limpieza, herramientas manuales controladas, etiquetadoras offline, racks, jaula de series); equipo de prueba aislado lo aporta el operador.",
+    "capacitacion_dias": "15 días (ya existe curva en Totalplay); 5-10 días por modelo/operador nuevo.",
+    "herramientas_y_materiales": "Desarmadores Torx/Phillips con control de tornillería, pulseras ESD, paños, alcohol isopropílico, aire comprimido en lata (controlado), etiquetas, cajas y bolsas antiestáticas, cinta, cúteres de seguridad; refacciones (carcasas, fuentes, controles) del cliente.",
+    "riesgos_seguridad_penitenciaria": "Equipos con radio (Wi-Fi/LTE) podrían usarse para comunicación: mantener sin energía o con firmware/SIM removido, pruebas eléctricas sólo en gabinete de supervisor; herramientas metálicas con tablero sombra y conteo por turno; químicos limitados a alcohol/agua; cables cortos y contados (riesgo de uso como cuerda); datos: no acceder a configuración de clientes.",
+    "regulacion": "Homologación de equipos (CRT/ex-IFT) no aplica al reacondicionamiento pero sí a etiquetado de equipo homologado; NOM-019-SCFI (seguridad de equipo de TI) para equipos que se reintroducen; manejo de residuos electrónicos NOM-161-SEMARNAT-2011 y LGPGIR para scrap; NOM-017-STPS.",
+    "sinergia_con_totalplay": "Máxima: es la extensión directa del contrato actual; Totalplay puede ser referencia ante Megacable/Izzi/Telmex (competidores, requiere separación de lotes y confidencialidad por salón).",
+    "competencia_y_barreras": "Reconext (ex-Teleplan), CEVA y talleres propios de fabricantes ofrecen reacondicionamiento con pruebas automatizadas y garantía; barrera técnica: pruebas RF/velocidad requieren laboratorio conectado fuera del centro. Los operadores son rivales: exigirán exclusividad o separación física. Concentración de riesgo en Totalplay (estrés financiero).",
+    "riesgos": [
+     "Dependencia de un cliente con problemas de deuda; negociar plazos de pago cortos",
+     "Operadores pueden migrar a CPE de bajo costo desechable que no justifique reacondicionar",
+     "Fabricantes integran reacondicionamiento en su propia logística inversa",
+     "Fugas de información entre lotes de operadores competidores",
+     "Escalar a 'reparación' exige certificaciones de calidad (ISO 9001) difíciles de auditar dentro del centro"
+    ],
+    "fuentes": [
+     "https://elceo.com/negocios/totalplay-reporta-ingresos-por-11360-mdp-y-suma-121572-nuevos-suscriptores-en-2t26/",
+     "https://expansion.mx/empresas/2026/07/30/megacable-supera-los-6-millones-de-suscriptores-y-aumenta-11-su-ganancia-trimestral",
+     "https://www.elimparcial.com/mexico/2026/09/03/megacable-y-totalplay-frenan-el-ritmo-de-expansion-de-sus-redes-de-fibra-despues-de-acercarse-a-20-millones-de-hogares-cubiertos-y-ahora-concentran-su-estrategia-en-conseguir-mas-clientes-y-aprovechar-mejor-la-infraestructura-existente/",
+     "https://expansion.mx/empresas/2026/03/11/telmex-adiciona-900-000-clientes-pero-recorta-su-inversion",
+     "https://digitaltv.prensariozone.com/totalplay-acelera-su-apuesta-tecnologica-para-el-mundial-2026/",
+     "https://www.totalplay.com.mx/ontwifi6",
+     "https://www.panoramaaudiovisual.com/en/2026/02/20/izzi-televisa-plataforma-virtualizada-cos-harmonic-despliegue-fibra-optica-mexico/",
+     "https://www.promptlink.com/media-library/podcasts/equipment-restoration-is-the-cost-effective-and-ecological-strategy.html",
+     "https://www.bloomberglinea.com/latinoamerica/mexico/totalplay-evita-posible-default-con-canje-de-bonos-moodys/"
+    ],
+    "calificacion_preliminar_1_10": 8.5,
+    "confianza": "media"
+   },
+   {
+    "nombre": "Co-packing y armado de kits promocionales / packs de temporada para consumo masivo y retail (proveedor de impacto ESG)",
+    "descripcion": "Maquila manual de kits multi-SKU: packs promocionales, kits de bienvenida/onboarding, cajas de regalo corporativo, displays y exhibidores armados, packs Hot Sale/Buen Fin/Navidad, reetiquetado y reacondicionamiento de producto para CPG y retailers. Se vende como proveedor de impacto social a empresas con Distintivo ESR y metas de compras inclusivas.",
+    "que_se_hace_en_el_salon": "Armado de cajas y displays de cartón, inserción de producto y material POP, colocación de etiquetas/stickers promocionales, termoencogido manual con pistola (controlada) o bandas, flejado, lotificación por sello, conteo y paletizado; kits corporativos (playera + taza + folleto) y cajas de regalo.",
+    "clientes_objetivo": [
+     "Grupo Bimbo (kits promocionales y displays; empresa 'Excepcional 2025' por impacto social)",
+     "FEMSA / OXXO (packs de temporada, kits de tienda)",
+     "Chedraui, IKEA México, Grupo Lala (participantes del informe de compras de impacto ANDE/JP Morgan 2026)",
+     "Walmart de México (programa Adopta una PYME; compras inclusivas)",
+     "Grupo Salinas: Elektra/Italika (kits de accesorios) y Banco Azteca (kits de bienvenida)",
+     "Agencias BTL y co-packers que subcontratan picos: Universal Pack, CG Solutions, Packn'roll, Eslabón Logístico"
+    ],
+    "demanda_2026_2030": "Empaque flexible en México crece de 3.84 mil MUSD (2025) a 5.06 mil MUSD en 2031 (4.7% anual, Mordor); 90% de corporativos quiere compras de impacto pero sólo 33% tiene metas y 19% procesos (ANDE et al., 2026): hay demanda latente y pocos proveedores certificables. Los kits multi-SKU de bajo volumen siguen siendo manuales al 2030 (WEF: automatización menos intensa en economías en desarrollo).",
+    "tamano_mercado_mx": "No hay cifra pública del mercado de co-packing en México. Estimación propia: si 0.5-1% del gasto en empaque flexible (4,020 MUSD en 2026) se destina a acondicionamiento manual externo, el mercado es de 20-40 MUSD (~370-740 mdp) al año, más el gasto BTL/promocional.",
+    "margen_bruto_estimado_pct": "Estimación propia: 30-45% (tarifa por kit; insumos del cliente).",
+    "ingreso_estimado_por_persona_hora_mxn": "Estimación propia: $70-110 MXN/persona-hora. Supuesto: 30-60 kits simples/hora a $1.5-3 por kit, o 8-15 displays/hora a $8-12. Referencia de costo: $39.4/h salario + ~$5/h supervisión.",
+    "inversion_inicial_mxn": "Estimación propia: 0.8-2 millones MXN por 4 salones (mesas, bandas manuales/rodillos, flejadoras manuales, pistolas de termoencogido controladas, básculas, patines).",
+    "capacitacion_dias": "5-10 días por campaña (instrucción visual por kit); 15 días para líderes de mesa en control de calidad y conteo.",
+    "herramientas_y_materiales": "Cinta, cúteres de seguridad, engrapadoras de cartón, flejadoras manuales, pistola de calor (controlada por supervisor), etiquetas, cajas/insertos del cliente.",
+    "riesgos_seguridad_penitenciaria": "Producto consumible (alimentos, bebidas, cosméticos) es objeto de sustracción/consumo: conteo por lote, empaque sellado y CCTV; pistolas de calor y engrapadoras bajo control; sin aerosoles ni solventes; kits con alcohol o navajas quedan excluidos.",
+    "regulacion": "NOM-050-SCFI-2004 y NOM-051-SCFI/SSA1-2010 si se reetiqueta alimento (requiere control sanitario COFEPRIS del cliente y buenas prácticas); NOM-251-SSA1-2009 si hay contacto con alimentos abiertos (evitar: sólo producto cerrado); NOM-017-STPS.",
+    "sinergia_con_totalplay": "Media: la línea de re-empaque/etiquetado es la misma; Totalplay y Elektra generan kits de bienvenida y promocionales.",
+    "competencia_y_barreras": "Co-packers profesionales con planta certificada, transporte y capacidad de picos; ya existe en el sistema una 'maquila de bolsas publicitarias' y línea de promocionales Hazme Valer (competencia interna). Barrera: auditorías de proveedor (SMETA/BSCI) difíciles de pasar en un reclusorio; ventaja: precio, plantilla estable y relato ESG medible (horas de trabajo digno, reinserción).",
+    "riesgos": [
+     "Percepción 'prison labor' en marcas globales con políticas de cadena de suministro que excluyen trabajo penitenciario aunque sea voluntario y remunerado",
+     "Campañas de corta duración con picos que no aprovechan plantilla fija",
+     "Reglas de la marca sobre calidad y tiempos de entrega vs. controles de acceso del centro",
+     "Reetiquetado de alimentos abre responsabilidad sanitaria"
+    ],
+    "fuentes": [
+     "https://esg.expansion.mx/gobernanza/2026/08/20/las-empresas-en-mexico-quieren-compras-de-impacto",
+     "https://www.corresponsables.com/mx/ods-9-industria-innovacion-e-infraestructura/cemefi-reconocera-a-1093-grandes-empresas-con-el-distintivo-esr-2026-y-promovera-una-cultura-empresarial-mas-responsable-en-mexico/",
+     "https://www.cemefi.org/wp-content/uploads/2025/07/Convocatoria-Distintivo-ESR-Grandes-2026.pdf",
+     "https://www.mordorintelligence.com/industry-reports/mexico-flexible-packaging-market",
+     "https://www.grupouniversalpack.com/2025/09/29/servicios-maquila-co-packing-diversidad-especializacion-empaque/",
+     "https://www.cgsolutions.mx/servicios/co-packing/",
+     "https://expansion.mx/empresas/2025/12/18/grupo-bimbo-empresa-excepcional-2025",
+     "https://reports.weforum.org/docs/WEF_Future_of_Jobs_Report_2025.pdf"
+    ],
+    "calificacion_preliminar_1_10": 7.5,
+    "confianza": "media"
+   },
+   {
+    "nombre": "Confección y acondicionamiento de uniformes institucionales y textiles para compras públicas y corporativas (sustitución de importaciones)",
+    "descripcion": "Aprovechar los aranceles de 25-35% a prendas de países sin tratado (desde ene-2026), la regla de 65% de contenido nacional en compras federales y los programas estatales en especie (Sinaloa: 2 uniformes por alumno para 481,690 alumnos) para confeccionar/terminar uniformes escolares, hospitalarios (IMSS-Bienestar) y corporativos (retail, seguridad, limpieza), y hacer acabado (planchado, etiquetado, empaque por talla) para maquilas y marcas nacionales.",
+    "que_se_hace_en_el_salon": "Costura recta y overlock en máquinas industriales (línea ya existe en el sistema: 'confección de uniformes', 'costura industrial', 'maquila textil'), corte manual asistido, pegado de botones/ojales, bordado/estampado de logos (línea 'productos promocionales'), planchado, doblado, etiquetado de talla y composición, embolsado y armado de paquetes por escuela/unidad.",
+    "clientes_objetivo": [
+     "Gobierno de Sinaloa y otros estados con dotación en especie (padrón de proveedores de uniformes 2026-2027)",
+     "IMSS-Bienestar / Servicios de Salud estatales (paquetes de uniformes ~6,000 MXN con entregas deficientes 2025-2026)",
+     "Gobierno de CDMX: uniformes de policía auxiliar, limpia, personal de salud (Secretaría de Salud CDMX, SSC)",
+     "OXXO/FEMSA, Walmart, Elektra, Grupo Bimbo (uniformes de personal de tienda y reparto)",
+     "Maquilas y marcas nacionales que necesitan capacidad tras la caída de importaciones chinas (CANAIVE, Vestimundo, Yazbek, Grupo Kaltex)"
+    ],
+    "demanda_2026_2030": "Importaciones de textil/vestido de China -21.4% ene-may 2026 y calzado -62% en el 1er bimestre por aranceles, pero la producción nacional siguió cayendo (prendas -6% en mayo): hay brecha de oferta nacional. Compras federales exigen 65% de contenido nacional (reforma ene-2026). Programas en especie (Sinaloa) se renuevan cada año; IMSS-Bienestar tiene demanda anual masiva y problemas de entrega.",
+    "tamano_mercado_mx": "Sinaloa: 481,690 alumnos × 2 uniformes = ~963 mil uniformes/año (cálculo propio con dato oficial). IMSS-Bienestar: Veracruz sola destinó 91,500 uniformes a 896 unidades (2025-2026). Mercado corporativo de uniformes: sin cifra pública 2026 encontrada.",
+    "margen_bruto_estimado_pct": "Estimación propia: 20-35% en confección completa (tela es 50-60% del costo); 40-50% en sólo acabado/empaque para terceros.",
+    "ingreso_estimado_por_persona_hora_mxn": "Estimación propia: $60-90 MXN/persona-hora en confección (1-2 prendas básicas/hora a $40-60 de mano de obra por prenda); $70-100 en acabado/empaque. Referencia: costo laboral $39.4/h.",
+    "inversion_inicial_mxn": "Estimación propia: 3-6 millones MXN por 4 salones si se equipa desde cero (máquinas rectas/overlock industriales ~$15-25 mil c/u × 100, planchas, mesas de corte, bordadora); menor si se usan talleres textiles ya instalados en el sistema.",
+    "capacitacion_dias": "15-30 días para costura industrial (más que otras líneas); 5-10 días para acabado y empaque.",
+    "herramientas_y_materiales": "Máquinas de coser industriales, tijeras y agujas (control estricto), planchas, telas e insumos del cliente o compra propia, etiquetas, bolsas.",
+    "riesgos_seguridad_penitenciaria": "Tijeras, agujas, cúteres y planchas: tablero sombra, conteo por turno, agujas quebradas registradas (estándar de la industria del vestido); telas/hilos como cuerda: control de metraje. Ya opera costura industrial en el sistema, hay precedente de protocolo.",
+    "regulacion": "NOM-004-SE-2021 (etiquetado de textiles); NOM-017-STPS; para uniformes hospitalarios, especificaciones técnicas de IMSS/IMSS-Bienestar; licitaciones estatales/federales requieren registro de proveedor, fianzas y cumplimiento fiscal; contenido nacional 65% (Buen Gobierno).",
+    "sinergia_con_totalplay": "Baja directa; indirecta si Totalplay/Elektra compran uniformes de técnicos y tiendas al taller.",
+    "competencia_y_barreras": "Maquilas de Puebla/Tlaxcala/Edomex con bajo costo y capacidad instalada; 'empresas productivas' textiles ya dentro del sistema penitenciario; licitaciones exigen fianzas, tiempos y volumen que un solo centro difícilmente cubre. Ventaja: contenido nacional 100%, narrativa de reinserción, capacidad estable.",
+    "riesgos": [
+     "Contrabando/subvaluación mantiene precios de importación bajos (CANAIVE)",
+     "Curva de aprendizaje larga y calidad variable en costura",
+     "Capital de trabajo: telas por adelantado y pagos gubernamentales lentos",
+     "Pagos de gobierno atrasados; entregas de IMSS-Bienestar ya muestran fallas de proveedores",
+     "Sin preferencia legal explícita para productos de PPL en licitaciones (no encontrada)"
+    ],
+    "fuentes": [
+     "https://www.elfinanciero.com.mx/economia/2026/08/30/aranceles-a-china-reducen-importaciones-a-mexico-en-28-ebrard-defiende-la-medida/",
+     "https://expansion.mx/economia/2026/07/23/mexico-aranceles-textiles-china-produccion-industria-2026",
+     "https://expansion.mx/economia/2026/04/23/menos-china-en-mexico-aranceles-hunden-importaciones-calzado",
+     "https://www.gob.mx/buengobierno/prensa/buen-gobierno-reforma-las-reglas-de-contenido-nacional-en-contrataciones-publicas",
+     "https://olegario.mx/2026/03/beneficiara-programa-escolar-gratuito-a-mas-de-481-mil-alumnos-en-sinaloa/",
+     "https://oem.com.mx/elsoldesinaloa/local/gobierno-de-sinaloa-inicia-proceso-para-licitacion-de-uniformes-y-utiles-escolares-para-2026-29038926",
+     "https://lasillarota.com/nacion/2026/5/27/personal-medico-denuncia-entrega-a-medias-de-uniformes-en-imss-bienestar-601271.html",
+     "https://www.veracruz.gob.mx/2026/03/03/entrega-rocio-nahle-uniformes-a-personal-hospitalario-anuncia-compra-de-60-ambulancias/",
+     "https://www.elimparcial.com/dinero/2026/04/20/el-arancel-del-50-a-productos-chinos-no-detiene-el-flujo-comercial-en-mexico-por-la-persistencia-del-contrabando-y-la-triangulacion-factores-que-segun-la-canaive-mantienen-la-crisis-del-empleo-formal-en-la-industria-nacional/"
+    ],
+    "calificacion_preliminar_1_10": 6.5,
+    "confianza": "media"
+   },
+   {
+    "nombre": "Recommerce de electrónica de consumo: grading, reacondicionamiento estético y empaque para plataformas de reacondicionados",
+    "descripcion": "Hacer el trabajo manual del recommerce (inspección cosmética, limpieza, cambio de carcasas/protectores, kit de accesorios, empaque de venta) para plataformas y retailers que venden celulares, tablets, laptops y pantallas reacondicionados; el borrado de datos y pruebas de software se hacen fuera del centro por el cliente.",
+    "que_se_hace_en_el_salon": "Inspección visual con plantilla de grados (A/B/C), limpieza, pulido de carcasas, colocación de micas/fundas, armado de kit (cable, cargador, manual), empaque en caja genérica con sello, etiquetado con etiquetas preimpresas; desensamble de accesorios; sin encendido con SIM ni conexión.",
+    "clientes_objetivo": [
+     "Givu (startup de reacondicionados, meta de crecer 50-60% en 2H-2026)",
+     "Mercado Libre Reacondicionados (certificación y venta con hasta 50% de descuento)",
+     "Reuse, Trocafone/Mercado Libre, Back Market (si opera en MX), Amazon Renewed México",
+     "Elektra/Italika (Grupo Salinas: programas de trade-in y seminuevos)",
+     "Coppel, Liverpool, Walmart (trade-in y open box)",
+     "Operadores móviles con trade-in: Telcel, AT&T México"
+    ],
+    "demanda_2026_2030": "Electrónicos reacondicionados: 1,640 MUSD (2024) → ~1,900 MUSD (2026) → 2,920 MUSD (2029), >11% anual; 80% de la Generación Z compró reacondicionados en el último año (encuesta citada por marketing4ecommerce). Complementa la línea de CPE.",
+    "tamano_mercado_mx": "~1,900 MUSD de ventas en 2026 (≈35 mil mdp); el servicio manual de acondicionamiento es una fracción pequeña: estimación propia 1-2% = 350-700 mdp/año.",
+    "margen_bruto_estimado_pct": "Estimación propia: 35-50% (servicio por unidad, refacciones del cliente).",
+    "ingreso_estimado_por_persona_hora_mxn": "Estimación propia: $90-140 MXN/persona-hora. Supuesto: 3-4 unidades/hora a $30-40 por unidad (limpieza + grading + kit + empaque).",
+    "inversion_inicial_mxn": "Estimación propia: 1-2 millones MXN por 2-4 salones (bancos ESD, lupas/lámparas, herramientas de precisión controladas, jaula de valor, CCTV).",
+    "capacitacion_dias": "15 días (grading cosmético estandarizado, manejo ESD).",
+    "herramientas_y_materiales": "Kits de desarmadores de precisión (control estricto), espátulas plásticas, paños de microfibra, alcohol isopropílico, micas, cajas, etiquetas.",
+    "riesgos_seguridad_penitenciaria": "Celulares dentro de un penal son el riesgo máximo: sólo equipos sin batería o con batería descargada y sin SIM, conteo unitario de entrada/salida, jaula y CCTV; prohibido encender equipos con conectividad; datos personales nunca se manejan dentro (borrado certificado fuera). Herramientas de precisión con control de tablero.",
+    "regulacion": "Ley Federal de Protección de Datos Personales (el cliente debe entregar equipos con borrado certificado); NOM-024-SCFI-2013 y NOM-050-SCFI para reetiquetado; NOM-161-SEMARNAT-2011 para scrap; PROFECO: reglas de venta de seminuevos y garantía del vendedor.",
+    "sinergia_con_totalplay": "Alta con Elektra/Italika (mismo grupo) y con la línea de CPE (mismo tipo de trabajo).",
+    "competencia_y_barreras": "Plataformas tienen talleres propios con pruebas automatizadas de diagnóstico; el valor del taller es capacidad manual barata para cosmética/empaque, no diagnóstico. Barrera regulatoria/penitenciaria de ingresar celulares: podría no ser autorizado por la autoridad.",
+    "riesgos": [
+     "La autoridad penitenciaria puede vetar celulares/laptops en piso",
+     "Riesgo reputacional si un equipo con datos entra al penal",
+     "Diagnóstico y borrado quedan fuera: parte del margen se queda con el cliente",
+     "Mercado aún concentrado en pocas plataformas"
+    ],
+    "fuentes": [
+     "https://www.cronista.com/mexico/finanzas-economia/givu-la-startup-que-revoluciona-el-mercado-de-celulares-reacondicionados-y-busca-crecer-hasta-60-este-ano/",
+     "https://marketing4ecommerce.mx/el-recommerce-la-generacion-z-y-emprendedores-apuestan-por-articulos-reacondicionados-en-mexico/",
+     "https://www.reciclajeelectronicos.com/post.php?slug=mercado-de-reacondicionados-una-alternativa-inteligente-para-ahorrar-y-cuidar-el-planeta",
+     "https://www.mercadolibre.com.mx/ofertas/reacondicionados",
+     "https://marketing4ecommerce.mx/ecommerce-sustentable-tecnologia-reacondicionada-reuse/"
+    ],
+    "calificacion_preliminar_1_10": 6.5,
+    "confianza": "media"
+   },
+   {
+    "nombre": "Subensamble ligero y arneses/cableado simple para manufactura del centro del país (sólo consumo nacional)",
+    "descripcion": "Maquila de subensambles manuales de baja complejidad (arneses eléctricos sencillos, cables preconectorizados, ensamble de conectores, inserción de componentes en carcasas, ensamble de electrodomésticos menores, luminarias, medidores) para plantas del corredor Cuautitlán-Tultitlán-Tepotzotlán y Vallejo, exclusivamente para productos que se venden en México (por 19 U.S.C. §1307 no pueden exportarse a EE.UU.).",
+    "que_se_hace_en_el_salon": "Encintado y amarre de arneses en tableros, crimpado manual con pinzas controladas, inserción de terminales en conectores, ensamble de subconjuntos con tornillería, pegado de etiquetas y probado con jigs pasivos (continuidad con probador de batería aportado por el cliente), empaque.",
+    "clientes_objetivo": [
+     "Fabricantes de electrodomésticos y electrónica de consumo con planta en Edomex/CDMX para mercado nacional: Mabe (plantas Edomex), Koblenz, Man Industrias, Taurus México",
+     "Fabricantes de luminarias y material eléctrico: Tecnolite/Construlita, Cooper/Eaton (líneas nacionales), IUSA (Edomex)",
+     "Fabricantes de medidores/telecom para CFE y operadores (Iusa, Ericsson/partners locales)",
+     "Totalplay: cables patch cord y accesorios de instalación (consumo interno)",
+     "Empresas de inyección de plástico ya instaladas en el sistema (integración vertical: ensamble de sus piezas)"
+    ],
+    "demanda_2026_2030": "IED récord 1S-2026 (34,968 MUSD; manufactura 38.6%) pero con pocas inversiones nuevas (2,726 MUSD) e incertidumbre por revisiones anuales del T-MEC; el corredor CTT concentra 47% de la demanda industrial del centro con vacancia de 0.8%; 81% de automotrices reporta escasez de talento. Arneses siguen siendo intensivos en mano de obra hasta 2030. Sin embargo, la demanda exportadora (la mayor) está vedada por §1307.",
+    "tamano_mercado_mx": "México es 2° exportador mundial de arneses con 658-720 plantas, pero eso es exportación (vetada). El segmento de subensamble para consumo nacional no tiene cifra pública; estimación propia: cientos de mdp/año de maquila manual externa en el Valle de México.",
+    "margen_bruto_estimado_pct": "Estimación propia: 20-35% (mercado competido de maquila; se cobra por pieza).",
+    "ingreso_estimado_por_persona_hora_mxn": "Estimación propia: $55-85 MXN/persona-hora (tarifas de maquila con margen delgado sobre $39.4/h de salario + supervisión).",
+    "inversion_inicial_mxn": "Estimación propia: 1-3 millones MXN (tableros de arnés, pinzas de crimpado manual, jigs, bancos ESD, probadores pasivos).",
+    "capacitacion_dias": "15-20 días; certificación interna por operación (IPC/WHMA-A-620 como referencia, no certificable dentro).",
+    "herramientas_y_materiales": "Pinzas de crimpado y corte (control estricto), cinta, amarres, terminales, conectores, tornillería, destornilladores de torque manual; materiales del cliente.",
+    "riesgos_seguridad_penitenciaria": "Cables y alambre de cobre (cuerda, punzón), pinzas de corte y terminales metálicas: tablero sombra, conteo, kits de material exactos por orden; sin baterías de litio grandes en piso; probadores sólo con pilas AA controladas.",
+    "regulacion": "19 U.S.C. §1307 (prohibición de importación a EE.UU. de bienes con trabajo de reclusos): obligar por contrato que el destino sea mercado nacional y documentar; NOM-001-SEDE para producto final (responsabilidad del cliente); ISO 9001 del cliente exigirá auditoría de proveedor; NOM-017-STPS.",
+    "sinergia_con_totalplay": "Media: cables y accesorios de instalación para Totalplay son un primer pedido natural.",
+    "competencia_y_barreras": "Maquiladoras de arneses y talleres de ensamble en Edomex/Querétaro/Puebla con certificaciones y logística; plantas exigen auditorías in situ, ESD y trazabilidad; el veto a exportación reduce el universo de clientes a los que producen para México. Ventaja: cercanía (GAM) y plantilla estable.",
+    "riesgos": [
+     "Cliente exporta indirectamente el subensamble a EE.UU. y detona §1307 (retención en aduana, pérdida del cliente)",
+     "Auditorías de cadena (automotriz, electrónica) rechazan trabajo penitenciario por política interna",
+     "Márgenes delgados y presión de costo si el mínimo sube 12% anual",
+     "Pausa de inversiones por revisión anual del T-MEC"
+    ],
+    "fuentes": [
+     "https://www.law.cornell.edu/uscode/text/19/1307",
+     "https://expansion.mx/economia/2026/08/24/ied-mexico-record-primer-semestre-2026",
+     "https://www.milenio.com/negocios/boom-parques-industriales-cdmx-cuautitlan-queretaro",
+     "https://directoriodenegocios.net/manufactura-maquiladoras-mexico-2026/",
+     "https://clusterindustrial.com.mx/el-81-de-las-empresas-automotrices-enfrenta-escasez-de-talento-uvm-propone-capacitacion-sin-detener-la-linea/",
+     "https://www.hklaw.com/en/insights/publications/2026/07/mexico-ante-una-nueva-etapa-continuidad-del-tmec",
+     "https://incomex.org.mx/index.php/2026/04/22/incertidumbre-tmec-frena-nearshoring-norte/",
+     "https://www.americanindustrialmagazine.com/blogs/industria/nearshoring-en-mexico-2026-cifras-de-ied-parques-industriales-y-estados"
+    ],
+    "calificacion_preliminar_1_10": 5.5,
+    "confianza": "media"
+   },
+   {
+    "nombre": "Armado de paquetes de útiles escolares y kits de programas sociales / mobiliario escolar básico para gobiernos",
+    "descripcion": "Kitting de paquetes de útiles (mochila + cuadernos + lápices + diccionario) para programas estatales en especie (Edomex entrega paquetes físicos en escuelas; Sinaloa entrega paquete de útiles) y ensamble/acabado de mobiliario escolar sencillo (mesabancos, sillas, estantes) para comités de La Escuela es Nuestra (26 mil mdp en 2026, 75 mil planteles, mobiliario elegible), aprovechando líneas de madera y herrería ya existentes en el sistema.",
+    "que_se_hace_en_el_salon": "Conteo y armado de paquetes por grado, etiquetado por escuela, embolsado/encajado, paletizado; para mobiliario: lijado, pintura, ensamble con tornillería, embalaje.",
+    "clientes_objetivo": [
+     "Gobierno del Estado de México (paquetes de útiles en especie 2026)",
+     "Gobierno de Sinaloa (paquete de útiles + uniformes + calzado; padrón de proveedores)",
+     "Distribuidores mayoristas de papelería que ganan licitaciones estatales (p. ej., proveedores del padrón de Sinaloa, Office Depot/OfficeMax institucional, Grupo Dixon)",
+     "Comités CEAP de La Escuela es Nuestra vía distribuidores de mobiliario escolar (Memosa Muebles, Muebles para escuelas)",
+     "DIF CDMX / SIBISO (kits y despensas)",
+     "Fideicomiso Bienestar Educativo CDMX si en el futuro cambia a entrega en especie"
+    ],
+    "demanda_2026_2030": "Programas anuales recurrentes: Sinaloa 481,690 alumnos/año; Edomex (matrícula mayor del país) reparte paquetes físicos; La Escuela es Nuestra con 26 mil mdp en 2026 (+1 mil mdp vs 2025). Demanda concentrada en mayo-agosto. CDMX entrega dinero (704 mdp, $1,180 por alumno), no especie, lo que limita al cliente local.",
+    "tamano_mercado_mx": "Sinaloa: ~482 mil paquetes de útiles/año; La Escuela es Nuestra: 26 mil mdp anuales de los que el mobiliario es una fracción no publicada. Sin cifra nacional de compras en especie.",
+    "margen_bruto_estimado_pct": "Estimación propia: 25-40% en kitting (insumos del licitante); 20-30% en mobiliario (madera/metal propios).",
+    "ingreso_estimado_por_persona_hora_mxn": "Estimación propia: $60-90 MXN/persona-hora (20-30 paquetes/hora a $2.5-3.5 por paquete).",
+    "inversion_inicial_mxn": "Estimación propia: 0.5-1.5 millones MXN para kitting; 2-4 millones si se escala carpintería/herrería (ya existen talleres en el sistema).",
+    "capacitacion_dias": "5 días kitting; 15-20 días carpintería/herrería.",
+    "herramientas_y_materiales": "Mesas, bolsas, cajas, etiquetas; para mobiliario: lijadoras, pintura vinílica (línea propia Hazme Valer), tornillería, herramientas eléctricas controladas.",
+    "riesgos_seguridad_penitenciaria": "Útiles incluyen tijeras y cúteres escolares (punzocortantes): recibir esos ítems sellados en blíster y contarlos; herramientas de carpintería/herrería bajo protocolo existente; solventes y pinturas controlados.",
+    "regulacion": "Licitaciones estatales (Ley de Adquisiciones de cada estado), padrón de proveedores, fianzas; NOM-050-SCFI en etiquetado; NOM-017-STPS; para mobiliario escolar, especificaciones INIFED/SEP.",
+    "sinergia_con_totalplay": "Nula.",
+    "competencia_y_barreras": "Mayoristas de papelería y fabricantes de mobiliario con capacidad y logística nacional; ciclo de compra público lento y con pagos tardíos; se compite contra la propia tienda Hazme Valer. Ventaja: contenido nacional, relato de reinserción para gobiernos estatales, capacidad manual barata para picos de mayo-agosto.",
+    "riesgos": [
+     "Fuerte estacionalidad (3-4 meses/año)",
+     "Dependencia de licitaciones y de intermediarios que ganan el contrato",
+     "Pagos gubernamentales lentos",
+     "Cambio de programas a transferencias en efectivo (como CDMX) elimina la demanda en especie"
+    ],
+    "fuentes": [
+     "https://vanguardia.com.mx/noticias/mexico/la-escuela-es-nuestra-beneficiara-a-75-mil-planteles-en-2026-sep-invertira-26-mil-millones-de-pesos-MG19795911",
+     "https://www.memosamuebles.com/blog/guia-completa-del-programa-la-escuela-es-nuestra",
+     "https://www.noticiasgobierno.com/utiles-y-uniformes-escolares-gratuitos-2026/",
+     "https://olegario.mx/2026/03/beneficiara-programa-escolar-gratuito-a-mas-de-481-mil-alumnos-en-sinaloa/",
+     "https://www.posta.com.mx/cdmx/utiles-y-uniformes-escolares-cdmx-2026-monto-beneficiarios-y-nuevos-apoyos/vl2241111",
+     "https://sinaloa.quadratin.com.mx/aprueban-proveedores-para-programa-de-uniformes-escolares-en-sinaloa/"
+    ],
+    "calificacion_preliminar_1_10": 5,
+    "confianza": "media"
+   },
+   {
+    "nombre": "Desensamble manual de RAEE y CPE al final de vida (recuperación de componentes y separación de materiales)",
+    "descripcion": "Servicio de desensamble y separación manual (tarjetas, cables, plásticos, metales ferrosos/no ferrosos, fuentes) de equipos electrónicos y CPE que no pasan reacondicionamiento, para recicladores autorizados y para los propios operadores/fabricantes que necesitan destrucción certificada y trazabilidad de residuos. Cierra el ciclo con la línea de CPE.",
+    "que_se_hace_en_el_salon": "Desatornillado y apertura de carcasas, retiro de tarjetas, corte de cables (con herramienta controlada), separación por fracción en contenedores, pesaje, registro en papel, embalaje por fracción; sin trituración ni químicos.",
+    "clientes_objetivo": [
+     "Totalplay, Megacable, Izzi, Telmex (CPE de baja definitiva con destrucción certificada)",
+     "Recicladores autorizados: AMREE/AMRRE, Recupera, E-Waste Solutions, Recyel, REMSA",
+     "Fabricantes con planes de manejo (NOM-161): HP, Dell, Samsung, LG vía sus recicladores",
+     "Gobierno de CDMX (Reciclatrón, 4 jornadas en 2026) y Edomex (ElectroRecicla)"
+    ],
+    "demanda_2026_2030": "Crecimiento de la base instalada de CPE (≈20 M accesos fijos) y del consumo de electrónica implica flujos crecientes de RAEE; el desensamble sigue siendo mayoritariamente manual en México (AMREE clasifica, pesa y desensambla a mano). Sin cifra nacional 2026 de toneladas encontrada.",
+    "tamano_mercado_mx": "Sin cifra pública 2026. Estimación propia: si 10% de los 2-3 M de CPE/año recuperados se desechan, son 200-300 mil equipos/año sólo de telecom; el pago por desensamble es bajo (decenas de pesos por equipo) y el valor está en las fracciones recuperadas.",
+    "margen_bruto_estimado_pct": "Estimación propia: 15-30% (mercado de bajo valor; depende de precios de cobre/tarjetas).",
+    "ingreso_estimado_por_persona_hora_mxn": "Estimación propia: $45-70 MXN/persona-hora (apenas por encima del costo laboral; 6-10 equipos/hora a $6-8 por equipo más participación en fracciones).",
+    "inversion_inicial_mxn": "Estimación propia: 0.5-1 millón MXN (mesas, herramientas, contenedores, básculas, EPP).",
+    "capacitacion_dias": "10 días (identificación de fracciones, manejo seguro de baterías y tubos).",
+    "herramientas_y_materiales": "Desarmadores eléctricos y manuales, pinzas de corte (control estricto), guantes anticorte, lentes, contenedores, básculas.",
+    "riesgos_seguridad_penitenciaria": "Alto: herramientas de corte, piezas metálicas afiladas, baterías de litio (incendio), vidrio; requiere el protocolo más estricto; excluir monitores CRT, baterías y lámparas; sólo CPE y electrónica pequeña sin baterías.",
+    "regulacion": "NOM-161-SEMARNAT-2011 (residuos de manejo especial, planes de manejo), LGPGIR, registro como generador/manejador ante SEMARNAT o SEDEMA CDMX (o trabajar bajo el registro del reciclador cliente); NOM-052 si aparecen residuos peligrosos (baterías); NOM-017-STPS.",
+    "sinergia_con_totalplay": "Alta: Totalplay necesita disposición certificada de CPE de baja; cierra el ciclo con reacondicionamiento.",
+    "competencia_y_barreras": "Recicladores autorizados ya tienen plantas y registros; los permisos ambientales para operar dentro de un penal son inciertos; ingresos bajos.",
+    "riesgos": [
+     "Autorización ambiental y penitenciaria para manejar residuos dentro del centro",
+     "Precios de commodities volátiles",
+     "Riesgo de seguridad por herramientas de corte",
+     "Ingreso por hora bajo: sólo tiene sentido como complemento de la línea de CPE"
+    ],
+    "fuentes": [
+     "https://www.elmonitoredomex.com/post/primera-jornada-2026-de-electrorecicla-reune-mas-de-media-tonelada-de-residuos-electronicos-en-edome",
+     "https://www.infobae.com/mexico/2026/01/12/reciclatron-2026-como-y-donde-reciclar-residuos-electronicos-en-la-ciudad-de-mexico/",
+     "https://www.recyel.com/articulos/checklist-plan-reciclaje-electronico-empresas-mexico",
+     "https://www.nefab.com/es/news-insights/2025/how-reverse-logistics-and-smart-packaging-power-telecoms-infrastructure-upgrades/"
+    ],
+    "calificacion_preliminar_1_10": 4.5,
+    "confianza": "baja"
+   }
+  ],
+  "descartados": [
+   {
+    "nombre": "Maquila/subensamble para cadenas de exportación a EE.UU. (automotriz, dispositivos médicos, electrónica de exportación)",
+    "motivo": "19 U.S.C. §1307 prohíbe importar a EE.UU. bienes fabricados total o parcialmente con trabajo de reclusos aunque sea voluntario y remunerado; además, desde jul-2026 los aranceles 301 usan como criterio la aplicación de prohibiciones a trabajo forzoso. Riesgo de retención en aduana y pérdida del cliente. Es la mayor parte del 'nearshoring' y queda vetada."
+   },
+   {
+    "nombre": "Servicios de datos, captura, call center o moderación de contenido",
+    "motivo": "Sin internet ni dispositivos conectados para PPL y prohibición de manejar datos personales; inviable por reglas del centro y por la LFPDPPP."
+   },
+   {
+    "nombre": "Reparación de celulares/laptops con diagnóstico y borrado de datos dentro del centro",
+    "motivo": "Requiere encender equipos con conectividad y acceder a datos; riesgo de seguridad penitenciaria máximo y responsabilidad de datos personales. Sólo se conserva la parte cosmética/empaque (candidato 5)."
+   },
+   {
+    "nombre": "Etiquetado y empaque de alto volumen de un solo SKU (bebidas, botanas, farmacéutico)",
+    "motivo": "Tareas repetitivas y uniformes son las primeras en automatizarse (cobots >20% anual, AMR); además, farmacéutico y alimentos abiertos exigen COFEPRIS/NOM-251 y auditorías in situ difíciles en un penal."
+   },
+   {
+    "nombre": "Merchandising y kits del Mundial 2026",
+    "motivo": "El evento ya concluyó (jun-jul 2026); demanda extinguida."
+   },
+   {
+    "nombre": "Inyección de plástico y manufactura con maquinaria pesada",
+    "motivo": "Ya existe una empresa productiva instalada en el sistema; alto capex y no aprovecha la ventaja de mano de obra intensiva."
+   },
+   {
+    "nombre": "Producción para marcas globales de moda/calzado con auditorías SMETA/BSCI y exportación",
+    "motivo": "Políticas de cadena de suministro de marcas globales excluyen trabajo penitenciario; auditorías sociales no se pueden ejecutar con normalidad dentro de un centro."
+   }
+  ],
+  "incertidumbres": [
+   "No se encontró en la LAASSP 2025, su Reglamento 2025, la Ley de Adquisiciones de CDMX ni en la LNEP una preferencia legal explícita (puntos, reserva o adjudicación directa) para bienes elaborados por personas privadas de la libertad; el Reglamento federal sí prevé lineamientos para cooperativas/economía social con inclusión de grupos vulnerables (certificación INAES), que podría ser una vía si el taller se estructura como cooperativa o empresa social. Verificar con la Dirección Ejecutiva de Trabajo Penitenciario y con un abogado de contrataciones.",
+   "Tarifas de maquila y de logística inversa (por unidad o por persona-hora) no son públicas; todos los ingresos por persona-hora son estimación propia y deben calibrarse con la tarifa que ya cobra a Totalplay y con cotizaciones reales.",
+   "No hay cifra pública del volumen de CPE recuperados/reacondicionados por operador en México; la estimación de 2-3 M de equipos/año es propia.",
+   "No se pudo confirmar si la reforma de 40 horas (2027-2030) y las reglas de seguridad social aplican a PPL en actividades productivas ni cómo lo instrumenta la Subsecretaría (la LNEP habla de seguridad social 'según la modalidad'); esto afecta el costo real por hora y la jornada de 8 h × 5-6 días.",
+   "El salario mínimo 2027-2030 no está definido: la ruta de ~12% anual es declaración presidencial de 2025 y la CTM propone 5-10% para 2027; la proyección a $495/día en 2030 es estimación propia.",
+   "Cifras del sistema penitenciario CDMX (15,045 PPL con trabajo remunerado, 28 convenios) son de 2023-2024; no se encontró actualización 2026.",
+   "Varias fuentes primarias (Expansión, El Financiero, gob.mx, ssc.cdmx.gob.mx, Yahoo, Xataka) no pudieron abrirse por bloqueo del proxy; se usaron resúmenes de resultados de búsqueda que citan esas notas. Recomendable verificar cifras clave directamente.",
+   "El dato de 52.9% de devoluciones en Hot Sale (LogistixNews) es de mayo-2025 y no se pudo verificar su metodología; se usa como referencia de pico, no como promedio.",
+   "El mercado de electrónicos reacondicionados (1,640 MUSD 2024 → 2,920 MUSD 2029) proviene de notas de prensa que citan estimaciones de terceros sin metodología visible.",
+   "No se encontró evidencia pública de que Bimbo, Walmart, Cemex, FEMSA o bancos tengan programas específicos de compra a talleres penitenciarios; sí de compras inclusivas en general (informe ANDE/JP Morgan 2026, INcluye, Adopta una PYME). La aceptación de 'proveedor penitenciario' en sus políticas de cadena es una hipótesis a validar cliente por cliente.",
+   "La autoridad penitenciaria podría no autorizar el ingreso de celulares/laptops (candidato 5) ni de residuos electrónicos (candidato 8); se requiere consulta previa con la Subsecretaría."
+  ]
+ }
+}

@@ -1,0 +1,1765 @@
+[
+ {
+  "id": "A1",
+  "nombre": "Cosmética y screen & clean de CPE para otros operadores (Izzi, Megacable, Telmex, Sky/Dish, Telcel/AT&T FWA)",
+  "categoria": "telecom-logística inversa",
+  "fuentes_raw": [
+   "Cosmética y 'screen & clean' de CPE de otros operadores fijos (Izzi, Megacable, Telmex/Infinitum, ONT/routers Wi-Fi, decodificadores IPTV/cable)",
+   "Recuperación y cosmética de decodificadores y antenas de TV satelital (Sky, Dish) en fase de declive",
+   "Cosmética y kitting de módems FWA (Telcel/AT&T Internet en casa), routers empresariales y dispositivos GPS de rastreo vehicular",
+   "Reacondicionamiento y desensamble para reciclaje de equipo de otros operadores y de terminales de punto de venta (extensión del modelo Totalplay)"
+  ],
+  "calif_preliminar": [
+   8.5,
+   6,
+   5,
+   7
+  ],
+  "ingreso_persona_hora": [
+   "$200-350 MXN. Supuesto: 8-12 unidades/persona-hora (limpieza + inspección + etiqueta + kit) a $25-30 MXN por unidad; hasta $60 si incluye cambio de carcasa y prueba en banco (estimación propia; no se encontraron tarifas ",
+   "$150-250 MXN. Supuesto: 10-14 unidades/persona-hora a $15-20 MXN (estimación propia).",
+   "$180-280 MXN. Supuesto: 8-10 unidades/persona-hora a $22-28 MXN (estimación propia).",
+   "$150-350 MXN/persona-hora (estimación propia: tarifa de $25-60 por equipo reacondicionado, 5-8 equipos/hora; desensamble para reciclaje paga menos, $60-120/h)"
+  ],
+  "margen": [
+   "55-75% (estimación propia: ingreso $200-350/persona-hora vs costo laboral ≈$40-52/h con carga social, más ≈$8-15/h de consumibles, supervisor y transporte)",
+   "45-65% (estimación propia; precio por unidad menor que CPE de fibra porque una alta proporción se destina a scrap)",
+   "50-65% (estimación propia)",
+   "45-60% sobre tarifa de servicio (estimación propia; consumibles bajos, insumos del cliente)"
+  ],
+  "capex": [
+   "$150-350 mil MXN por salón (estimación propia): mesas y bancos, tapetes y pulseras ESD, lámparas, compresor y pistolas de aire, lectores de código de barras, 1-",
+   "$120-250 mil MXN por salón (estimación propia): similar al CPE más cajas de seguridad para tarjetas inteligentes y contenedores para scrap segregado.",
+   "$100-200 mil MXN por salón (estimación propia), reutilizando el equipamiento de la línea CPE.",
+   "$300-700 mil MXN por salón (estimación propia): bancos de prueba aislados, herramientas ESD, estaciones de limpieza, básculas, contenedores por material; ya hay"
+  ],
+  "capacitacion": [
+   "5-10 días (la operación ya existe con Totalplay; sólo cambian modelos y estándares de grado)",
+   "5-8 días",
+   "5-8 días",
+   "5-15 días (mismo oficio actual)."
+  ],
+  "clientes": [
+   "Grupo Televisa / Izzi (y Sky para decos), Megacable, Telmex / Infinitum (a través de su área de abastecimiento o de sus proveedores de CPE: Huawei, ZTE, Nokia, Fiberhome), Proveedores/OEM de CPE con programas de refurbishment (Nokia, Ingram Micro Lifecycle, Sagemcom, Askey), 3PL que hoy hacen la log",
+   "Sky México (Grupo Televisa), Dish México (Grupo MVS), Recicladores de RAEE autorizados que reciben el scrap de estos operadores, Izzi (decodificadores de cable retirados por migración a IPTV)",
+   "Telcel y AT&T México (módems 'Internet en casa' devueltos; AT&T tiene ≈25 millones de líneas y ofrece FWA LTE; https://www.att.com.mx/planes/internet-en-casa), Fabricantes/distribuidores de CPE FWA (Huawei, ZTE, Nokia, Askey) y de routers pyme (TP-Link, Ubiquiti, MikroTik, Cisco vía integradores), E",
+   "Operadores: Telmex/Infinitum, Izzi, Megacable, Sky, Adquirentes y fintech de TPV: Clip, Getnet, Mercado Pago Point, BBVA/Banorte (terminales), CFE (medidores, con licitación) y empresas de renta de dispositivos (handhelds de logística: Estafeta, DHL), Recicladores autorizados de RAEE en CDMX/Edomex "
+  ],
+  "seguridad": [
+   "Cables (posible uso como ligadura/arma): conteo por lote a la entrada y salida, longitudes cortas, kits sellados. Desarmadores: tablero de sombra con conteo al inicio y fin de turno. Alcohol isopropílico: dispensadores de 250 ml controlados por el supervisor, nunca botellas grandes en el salón. Módems con Wi-Fi/celular: sin fuente conectada a red, ",
+   "Tarjetas inteligentes y decodificadores activados son objetos de valor para piratería: custodia en caja fuerte del supervisor, conteo doble, destrucción documentada. Desguace genera piezas metálicas y placas con bordes: usar guantes anticorte y retirar todo el scrap cada día. Sin antenas ni LNB activos en salón (no aplica riesgo de RF).",
+   "Módems 4G/5G y GPS tienen radio celular: riesgo de comunicación desde el penal; mitigar retirando SIM antes de entrar (o en la mesa del supervisor), sin baterías internas cargadas (los GPS traen batería de respaldo: descargar o retirar), sin fuentes conectadas fuera del banco supervisado, conteo de unidades y SIM. Arneses de GPS (cables largos): co",
+   "Medio: desarmadores y cables (control por tablero de siluetas y conteo por turno); baterías de litio de handhelds/TPV (retirar antes de entrar); datos residuales en TPV/handhelds (exigir borrado o retiro de memoria por el cliente antes de entrar; PPL no deben acceder a datos); alcohol isopropílico (dosificación, cerrado)."
+  ],
+  "regulacion": [
+   "LFPDPPP nueva (DOF 20-mar-2025) obliga a supresión segura de datos personales; el CPE guarda SSID/contraseñas Wi-Fi, credenciales PPPoE/ACS, MAC y logs (https://datos-personales.scjn.gob.mx/sites/default/files/normativa-materia/LGPDPPSO-DOF-20Mar2025",
+   "NOM-161-SEMARNAT-2011 para RAEE (https://www.profepa.gob.mx/innovaportal/file/6633/1/nom-161-semarnat-2011.pdf); LFPDPPP 2025 (los decos guardan número de cliente/suscripción); normas internas de acceso condicional del operador (destrucción de smart ",
+   "LFPDPPP 2025 (geolocalización es dato personal según la ley; https://datos-personales.scjn.gob.mx/sites/default/files/normativa-materia/LGPDPPSO-DOF-20Mar2025.pdf); homologación de equipos de RF ante la CRT no se altera si no se modifica el radio; NO",
+   "LGPGIR y NOM-161-SEMARNAT-2011 (residuos de manejo especial, plan de manejo del generador); NOM-052-SEMARNAT-2005 para residuos peligrosos (baterías); Ley Federal de Protección de Datos Personales (nueva LFPDPPP 2025) para dispositivos con datos; NOM"
+  ],
+  "sinergia_totalplay": [
+   "Máxima: mismo proceso, mismos tableros, misma capacitación; conflicto comercial posible (Totalplay puede exigir exclusividad o separación física de lotes de competidores). Se recomienda salones separados por cliente y acuerdos de confidencialidad.",
+   "Alta en proceso; Totalplay es competidor directo de Sky/Izzi, por lo que hay que negociar separación de salones y confidencialidad.",
+   "Alta en proceso (mismo banco que CPE); los clientes móviles (Telcel/AT&T) no compiten directamente con Totalplay en fibra, lo que facilita la coexistencia.",
+   "Muy alta: es el negocio actual; riesgo de conflicto si se atiende a competidores directos; mitigar con segmentos no competidores o acuerdo explícito con Totalplay."
+  ],
+  "riesgos": [
+   [
+    "Dependencia de 3-4 clientes grandes con poder de negociación",
+    "Totalplay puede vetar el trabajo para competidores",
+    "Pérdida o robo de equipos: requiere seguro y conciliación de series por lote",
+    "Lotes con datos no borrados generan responsabilidad bajo LFPDPPP"
+   ],
+   [
+    "Mercado en contracción: ingreso decrece 15-25% anual (estimación propia)",
+    "Riesgo reputacional si aparece piratería ligada a tarjetas",
+    "Alta proporción de scrap con bajo valor"
+   ],
+   [
+    "Veto por dispositivos con radio celular",
+    "Volumen fragmentado entre muchos clientes pequeños (GPS)",
+    "Datos de geolocalización sensibles",
+    "Baterías de litio en GPS"
+   ],
+   [
+    "Conflicto de interés con Totalplay al atender competidores",
+    "Dispositivos con datos: responsabilidad legal si algo se filtra",
+    "Dependencia de pocos clientes grandes",
+    "Cambios tecnológicos (WiFi 7, ONT integradas) reducen vida útil de equipo y volumen de refurbish"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "media",
+   "baja",
+   "media"
+  ]
+ },
+ {
+  "id": "A2",
+  "nombre": "Triage funcional y reparación modular nivel 1-2 de CPE y accesorios (subir de cosmética a reacondicionamiento certificado)",
+  "categoria": "telecom-logística inversa",
+  "fuentes_raw": [
+   "Reparación nivel 1-2 y prueba funcional de CPE y accesorios (ONT, decodificadores, fuentes de poder, controles remotos, cargadores)",
+   "Triage funcional y reacondicionamiento 'grado B' de CPE y accesorios (extensión de la línea cosmética hacia economía circular certificada)"
+  ],
+  "calif_preliminar": [
+   8,
+   8
+  ],
+  "ingreso_persona_hora": [
+   "$120-220 MXN/persona-hora (estimación propia): $60-120 MXN por unidad × 1.5-2.5 unidades/h (prueba + reparación modular); sólo prueba y kitting $25-40 × 6-8/h.",
+   "$150–300 MXN por persona-hora (estimación propia): 4–6 unidades/h con tarifa de $30–60 por unidad reacondicionada (vs. ~$5–10 por unidad en cosmética)."
+  ],
+  "margen": [
+   "45-60% (estimación propia): trabajo de mayor valor por hora que el ensamble puro; refacciones del cliente.",
+   "35–55% (estimación propia) porque se cobra por unidad reacondicionada y el valor evitado para la teleco es alto."
+  ],
+  "capex": [
+   "$500k-1.2 M MXN (estimación propia): bancos de prueba offline y fixtures (con apoyo técnico del operador), fuentes de banco, estaciones de soldadura con extracc",
+   "$700,000–1,500,000 MXN por salón (estimación propia): bancos de prueba (fuentes, jigs, probadores IR, simulador PON básico), estaciones de soldadura con extracc"
+  ],
+  "capacitacion": [
+   "15 días para prueba y reparación modular; 3-5 días IPC-A-610/7711 para retrabajo de soldadura en líd",
+   "15–20 días (electrónica básica)."
+  ],
+  "clientes": [
+   "Totalplay (cliente actual): ONT, decodificadores, controles, fuentes; ampliar a routers Wi-Fi y extensores, Izzi, Megacable, Telmex y sus proveedores de logística inversa (reverse logistics), Elektra/Grupo Salinas: reacondicionamiento de electrónica devuelta (cargadores, audífonos, bocinas) para ven",
+   "Totalplay (reducción de compra de CPE nuevo; cada ONT reacondicionado evita ~USD 30–60 de equipo nuevo, estimación propia), izzi, Megacable, Telmex, Fabricantes de CPE con garantía/RMA en México (Huawei, ZTE, Fiberhome, Sagemcom, Askey) que subcontratan reparación de nivel 1"
+  ],
+  "seguridad": [
+   "Riesgo medio: los CPE tienen radios Wi-Fi y puertos de red → probar sólo en bancos aislados sin conexión a internet, con antenas desconectadas o en jaula; las PC/bancos de prueba deben estar bloqueados y sin salida; cautines y desarmadores controlados. Datos: los CPE pueden contener credenciales del suscriptor (SSID/contraseña, configuración) → bor",
+   "Estaciones de soldadura (calor, fuente de fuego) y multímetros: control por supervisor, número limitado. Firmware/actualización: sólo desde PC del supervisor, sin red hacia PPL. Equipos funcionales completos son atractivos para contrabando/fuga (un ONT no sirve sin red, pero un decodificador con Wi-Fi sí): conteo por serie entrada/salida. Datos de "
+  ],
+  "regulacion": [
+   "Ley Federal de Protección de Datos Personales en Posesión de los Particulares (nueva ley 2025) y aviso de privacidad/contrato de encargado con el operador; NOM-208-SCFI e IFT: equipos ya homologados, no se modifica RF; residuos electrónicos y batería",
+   "No requiere autorización de residuos si los equipos no se declaran residuo (son 'producto en logística inversa'); NOM-024-SCFI (información comercial de electrónicos) y NOM-001-SCFI/NOM-019-SCFI (seguridad eléctrica) si se venden a terceros; homologa"
+  ],
+  "sinergia_totalplay": [
+   "Máxima: es la extensión directa del contrato actual; sube el valor por unidad de $ cosmética a $ técnica y crea dependencia positiva (kit de alta listo para instalar).",
+   "Máxima: es la evolución natural del contrato actual y multiplica el valor por unidad; permite a Totalplay reportar tasa de reúso bajo REP."
+  ],
+  "riesgos": [
+   [
+    "Autoridad penitenciaria restringe equipos con Wi-Fi/red aunque estén aislados",
+    "Incidente de datos personales (equipo no borrado) daña la relación con el operador",
+    "Concentración en Grupo Salinas"
+   ],
+   [
+    "Requiere confianza de Totalplay para pruebas funcionales dentro del penal",
+    "Equipos funcionales como objeto de contrabando",
+    "Obsolescencia de generaciones de CPE reduce vida útil del reacondicionado"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "media"
+  ]
+ },
+ {
+  "id": "A3",
+  "nombre": "Kits de autoinstalación y re-kitting de equipos telecom (Totalplay, Izzi, Megacable, Telcel)",
+  "categoria": "telecom-logística inversa",
+  "fuentes_raw": [
+   "Kits de autoinstalación de internet y re-kitting de equipos de telecom reacondicionados (Totalplay, Izzi, Megacable, Telcel)"
+  ],
+  "calif_preliminar": [
+   8.5
+  ],
+  "ingreso_persona_hora": [
+   "$250-600 MXN. Supuesto: $10-25 por kit armado y etiquetado (estimación propia; los operadores pagan por unidad procesada e integran cosmética + kitting); 25-40 kits/persona-hora."
+  ],
+  "margen": [
+   "55-70% (estimación propia): precio $15/kit, 30 kits/persona-hora → $450/persona-hora; costo directo ~$50 + consumibles ~$5 (el cliente aporta cajas, cables y fu"
+  ],
+  "capex": [
+   "$80,000-200,000 por salón (estimación propia): escáneres offline, impresora de etiquetas térmica, mesas ESD, pulseras antiestáticas, fuentes de prueba, racks; b"
+  ],
+  "capacitacion": [
+   "3-5 días (ya existe base capacitada en cosmética)."
+  ],
+  "clientes": [
+   "Totalplay (cliente actual) y Totalplay Empresarial, Izzi (Grupo Televisa) y Megacable: programas de autoinstalación y reposición, Telcel/AT&T México: kits de MiFi y equipos de internet en casa, Refurbishers y logísticas inversas de telecom en ZMVM que atienden a varios operadores, Fabricantes/ODM de"
+  ],
+  "seguridad": [
+   "Cables, fuentes y módems son objetos sensibles (potencial comunicación o uso como arma/cuerda) → conteo por serie a entrada y salida, jaula de resguardo, cero equipos energizados con red, control de cables por longitud. Datos: los equipos contienen MAC/serie pero no datos de clientes; el operador debe borrar configuraciones antes de entregar (ya oc"
+  ],
+  "regulacion": [
+   "NOM-024-SCFI-2013 (info comercial de electrónicos) y NOM-001-SCFI (seguridad de fuentes) para la etiqueta del importador; NOM-208-SCFI-2016/IFT para homologación (responsabilidad del operador); si el operador exige, lineamientos de seguridad de la in"
+  ],
+  "sinergia_totalplay": [
+   "Máxima: es el mismo cliente, misma cadena de custodia, mismos supervisores. Permite pasar de vender 'cosmética' a vender 'equipo listo para instalar', subiendo precio por unidad."
+  ],
+  "riesgos": [
+   [
+    "Dependencia de Totalplay: cambio de proveedor o de política de reacondicionamiento",
+    "Cambio tecnológico (nuevos equipos) que reduce el volumen de reacondicionamiento",
+    "Incidente de seguridad con cables/equipos dentro del centro"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "A4",
+  "nombre": "Jumpers de fibra, cables coaxiales/UTP preconectorizados y kits de instalación para instaladores",
+  "categoria": "ensamble telecom",
+  "fuentes_raw": [
+   "Jumpers de fibra, cables coaxiales/UTP preconectorizados y kits de instalación para Totalplay/Izzi/Megacable"
+  ],
+  "calif_preliminar": [
+   8
+  ],
+  "ingreso_persona_hora": [
+   "$100-200 MXN/persona-hora (estimación propia): kits de instalación $4-6 MXN de mano de obra × 25-40 kits/h; jumpers coaxiales $5-8 × 15-25/h; jumpers de fibra con conector prepulido $15-25 × 4-6/h."
+  ],
+  "margen": [
+   "35-50% en maquila (material del cliente); 20-30% si el taller compra material (estimación propia)."
+  ],
+  "capex": [
+   "$400-900k MXN para 2 salones (estimación propia): ponchadoras de compresión y RJ45 ($1-3k c/u), cleavers de fibra ($8-25k c/u), medidores de potencia óptica y V"
+  ],
+  "capacitacion": [
+   "10-15 días (coaxial/UTP en 5 días; fibra con prepulidos 5-10 días adicionales). Certificaciones tipo"
+  ],
+  "clientes": [
+   "Totalplay (instaladores propios y contratistas; ya es cliente del taller), Izzi/Televisa, Megacable, Telmex/Infinitum y sus contratistas de instalación FTTH, Distribuidores mayoristas de telecom/redes en CDMX (Syscom, Ingram/TVC, Panduit/Belden vía integradores), Integradores de cableado estructurad"
+  ],
+  "seguridad": [
+   "Riesgo bajo-medio: cleavers y tijeras Kevlar son cortantes (controlar con tool-crib y conteo); fragmentos de fibra de vidrio requieren contenedor de desecho y protección ocular; alcohol isopropílico en dispensadores controlados. Sin datos personales ni electrónica activa. Sin celulares para pruebas."
+  ],
+  "regulacion": [
+   "Sin NOM de seguridad eléctrica para jumpers pasivos; especificaciones del operador (ej. pérdida de inserción ≤0.3-0.5 dB, retorno ≥50-60 dB en APC). NOM-024-SCFI si se vende al público con etiqueta. ISO 9001 deseable. NOM-017-STPS (EPP ocular)."
+  ],
+  "sinergia_totalplay": [
+   "Muy alta: el taller ya procesa equipos de Totalplay; extender a kits de instalación, jumpers y reempaque de accesorios (fuente, control, cable) en un 'kit de alta' listo para el instalador es una venta incremental natural al mismo comprador."
+  ],
+  "riesgos": [
+   [
+    "Operador decide comprar preconectorizado importado",
+    "Calidad óptica inconsistente con conectores mecánicos de campo (mayor pérdida que fusionados)",
+    "Concentración en un cliente (Totalplay)"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "A5",
+  "nombre": "Reacondicionamiento de controles remotos, eliminadores, cables, audífonos y accesorios (multi-operador y retail)",
+  "categoria": "telecom-logística inversa",
+  "fuentes_raw": [
+   "Reacondicionamiento de controles remotos, eliminadores, cables, audífonos y accesorios (multi-operador y retail)"
+  ],
+  "calif_preliminar": [
+   7
+  ],
+  "ingreso_persona_hora": [
+   "$150-250 MXN. Supuesto: 20-30 piezas/persona-hora a $7-8 MXN (estimación propia)."
+  ],
+  "margen": [
+   "45-60% (estimación propia)"
+  ],
+  "capex": [
+   "$80-150 mil MXN por salón (estimación propia): mesas, tinas de lavado, secadoras de aire, bancos con receptor IR y probadores de continuidad, flejadoras manuale"
+  ],
+  "capacitacion": [
+   "3-7 días"
+  ],
+  "clientes": [
+   "Izzi, Sky, Megacable, Dish (controles y eliminadores devueltos), Universal Electronics (planta Apodaca) y otros fabricantes de controles para tercerizar refurbishment de lotes, Retailers y marcas de accesorios: Steren, Coppel/Elektra (devoluciones de cargadores y audífonos), Walmart, Distribuidores "
+  ],
+  "seguridad": [
+   "Cables largos (ligaduras): entrada y salida contadas, enrollado inmediato. Pilas: riesgo de incendio/manipulación, almacenamiento en caja metálica del supervisor, entrega por cantidad exacta. Sin soldadura ni químicos agresivos. Riesgo bajo en general."
+  ],
+  "regulacion": [
+   "NOM-161-SEMARNAT-2011 para scrap y pilas (residuos de manejo especial; pilas con plan de manejo); NOM-024-SCFI-2013 si se venden como reacondicionados; sin datos personales (controles no almacenan datos)."
+  ],
+  "sinergia_totalplay": [
+   "Total: ya se hace para Totalplay; sólo se agregan modelos y clientes."
+  ],
+  "riesgos": [
+   [
+    "Precio de control nuevo cae y elimina el incentivo a reacondicionar",
+    "Ingreso por persona-hora bajo",
+    "Dependencia de que el operador provea repuestos"
+   ]
+  ],
+  "confianza": [
+   "alta"
+  ]
+ },
+ {
+  "id": "A6",
+  "nombre": "Desensamble manual de CPE/RAEE e ITAD de cómputo corporativo para reciclador autorizado",
+  "categoria": "reciclaje",
+  "fuentes_raw": [
+   "Desensamble manual de CPE de telecomunicaciones (módems/ONT, decodificadores, controles, fuentes) para reciclador autorizado",
+   "Desensamble ITAD manual de equipo de cómputo corporativo y servidores (sin manejo de datos)"
+  ],
+  "calif_preliminar": [
+   7,
+   7
+  ],
+  "ingreso_persona_hora": [
+   "$80–140 MXN por persona-hora (estimación propia). Supuesto: 6 equipos/h de 0.5 kg promedio; por equipo ~0.12 kg PCB ($40–120/kg est.), 0.25 kg plástico ABS/PC separado ($6–12/kg est.), 0.02 kg cobre ($80–120/kg, ref. SLP",
+   "$110–200 MXN por persona-hora (estimación propia). Supuesto: 3 equipos de escritorio/h (≈8 kg c/u): 0.5 kg tarjeta madre ($60–120/kg est.), 0.05 kg RAM/CPU ($300–1,500/kg est.), 1 kg fuente ($15–40/kg), 0.3 kg aluminio ("
+  ],
+  "margen": [
+   "Estimación propia: 15–35% si se cobra tarifa de servicio + participación en material; puede ser negativo si sólo se vive de la venta de fracciones (PCB de CPE e",
+   "25–45% (estimación propia) porque el cliente paga por servicio de destrucción certificada y el material (RAM, CPU, tarjetas madre) tiene valor alto por kg. Supu"
+  ],
+  "capex": [
+   "$450,000–900,000 MXN por salón de 35 PPL (estimación propia): mesas de trabajo antiestáticas, 35 juegos de herramienta manual con tablero sombra y cadena, báscu",
+   "$500,000–1,000,000 MXN por salón (estimación propia): igual que candidato 1 más racks de recepción, tapetes/muñequeras antiestáticas, carros para gabinetes, bás"
+  ],
+  "capacitacion": [
+   "10–15 días (compatible con los 15 días ofrecidos): identificación de componentes y grados de PCB, có",
+   "15 días: reconocimiento de componentes y grados, ESD, seguridad con UPS/capacitores, control de acti"
+  ],
+  "clientes": [
+   "Totalplay / Grupo Salinas (logística inversa de CPE y decodificadores), izzi (Televisa), Megacable, Telmex/Telnor, AT&T México (CPE, set-top boxes, teléfonos), Fabricantes/importadores de CPE con obligación REP-LGEC (p. ej. proveedores de ONT/routers) que necesiten evidencia de valorización, Recicla",
+   "Gobierno de la CDMX (baja de bienes informáticos de dependencias; convenio con la propia SSC/Secretaría de Administración y Finanzas), Bancos y aseguradoras (Banco Azteca/Grupo Salinas como puerta natural), Corporativos con renovación de flotas de cómputo cada 3-5 años, Recicladores/ITAD certificado"
+  ],
+  "seguridad": [
+   "Herramientas punzocortantes (desarmadores, cutters, pinzas): tablero sombra con conteo al inicio/fin de cada turno, herramientas sujetas con cable de acero a la mesa, cutters de hoja retráctil de seguridad, inventario firmado por supervisor y custodio. Cables y alambres recuperados (posible uso como cuerdas/armas): ensacar y sellar de inmediato, re",
+   "Alta densidad de herramientas metálicas y de gabinetes de lámina con bordes cortantes (posibles armas): mismo control de tablero sombra, lámina ensacada de inmediato. Capacitores de fuentes/UPS con carga: descarga previa por supervisor. Baterías de UPS (plomo-ácido) y laptops (Li-ion): no abrir, sólo segregar a contenedor. Datos: prohibir ingreso d"
+  ],
+  "regulacion": [
+   "LGPGIR art. 19 (residuos tecnológicos = manejo especial), art. 28 (plan de manejo obligatorio para productores/importadores/distribuidores y grandes generadores ≥10 t/año, art. 5), art. 9 (la entidad federativa autoriza el manejo integral de RME). NO",
+   "Igual que candidato 1 (LGPGIR arts. 5, 9, 19, 28; NOM-161; registro SEDEMA; LGEC 2026). Adicional: Ley Federal de Protección de Datos Personales en Posesión de Particulares y Ley General de Protección de Datos (sector público) — el borrado/destrucció"
+  ],
+  "sinergia_totalplay": [
+   "Muy alta: ya existe la relación, el flujo de CPE y la logística de entrada/salida al penal. Cierra el ciclo 'reacondicionar lo reacondicionable y desensamblar el resto' en el mismo sitio; da a Totalplay/Grupo Salinas evidencia REP y narrativa ESG; re",
+   "Media: Totalplay/Grupo Salinas (Elektra, Banco Azteca, TV Azteca) dan de baja miles de PCs y servidores; el mismo convenio y logística sirven. También servidores/OLT de red de Totalplay (PCB de alto grado)."
+  ],
+  "riesgos": [
+   [
+    "Precio de PCB de CPE es grado medio-bajo; sin tarifa de servicio el negocio depende del precio del cobre/oro (volatilidad)",
+    "Dependencia de Totalplay como único abastecedor",
+    "Autoridad ambiental podría no aceptar un domicilio penitenciario como sitio de manejo de RME",
+    "Auditorías R2/ISO de clientes corporativos difíciles de realizar dentro del penal"
+   ],
+   [
+    "Los clientes corporativos pueden vetar un sitio penitenciario por políticas de seguridad de la información",
+    "Robo/hurto de fracciones de alto valor",
+    "Volatilidad de precios de metales preciosos en PCB",
+    "Requiere que el reciclador final acepte fracciones manuales del penal en su cadena de custodia"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "media"
+  ]
+ },
+ {
+  "id": "A7",
+  "nombre": "Cosmética exterior y kitting de terminales punto de venta (Mercado Pago, Clip, Getnet)",
+  "categoria": "logística inversa fintech",
+  "fuentes_raw": [
+   "Cosmética exterior y kitting de terminales punto de venta (Mercado Pago Point, Clip, Getnet, Billpocket, Konfío, PinPads bancarios) sin apertura del dispositivo"
+  ],
+  "calif_preliminar": [
+   6
+  ],
+  "ingreso_persona_hora": [
+   "$180-300 MXN. Supuesto: 6-8 terminales/persona-hora a $30-40 MXN (estimación propia)."
+  ],
+  "margen": [
+   "50-65% (estimación propia)"
+  ],
+  "capex": [
+   "$150-300 mil MXN por salón (estimación propia): bancos con multicontactos protegidos, tarjetas limpiadoras, escáneres, caja fuerte para lotes, cámaras adicional"
+  ],
+  "capacitacion": [
+   "7-12 días (identificación de sellos anti-tamper, criterios de rechazo)"
+  ],
+  "clientes": [
+   "Mercado Pago (más de 1 millón de terminales activas en México, sep-2025), Clip (PayClip), Getnet México (Santander), Billpocket (Kushki), Konfío/Sr. Pago, Zettle/PayPal, KiWi, Adquirentes bancarios y sus proveedores de terminales (PAX, Ingenico, Verifone, Sunmi vía distribuidores), Operadores de est"
+  ],
+  "seguridad": [
+   "Riesgo alto de percepción: una terminal manipulada puede usarse para fraude con tarjetas; mitigar con inventario serie por serie, cámaras sobre cada banco, prohibición absoluta de abrir el equipo (el anti-tamper lo inutiliza y evidencia el intento), sin SIM ni conectividad, precintos numerados y auditoría del cliente. Cargadores y cables: control d"
+  ],
+  "regulacion": [
+   "PCI PTS POI: los dispositivos aprobados sólo pueden repararse/inyectarse llaves en instalaciones evaluadas; el salón sólo hace cosmética exterior (https://www.pcisecuritystandards.org/es/standards/pts-point-of-interaction-poi/; https://www.verifone.c"
+  ],
+  "sinergia_totalplay": [
+   "Media: mismo tipo de banco y disciplina de series; cliente distinto (fintech)."
+  ],
+  "riesgos": [
+   [
+    "Rechazo del cliente por riesgo reputacional/fraude",
+    "Un solo incidente de manipulación cancela el contrato",
+    "Rotación de modelos: lotes se vuelven obsoletos y van a scrap",
+    "Márgenes presionados por precio bajo de terminales nuevas chinas"
+   ]
+  ],
+  "confianza": [
+   "baja"
+  ]
+ },
+ {
+  "id": "B1",
+  "nombre": "Procesamiento de devoluciones de e-commerce (moda, calzado, hogar, juguetes): inspección, grado, limpieza, re-empaque",
+  "categoria": "logística inversa e-commerce",
+  "fuentes_raw": [
+   "Procesamiento de devoluciones de e-commerce (moda, calzado, hogar, juguetes): inspección, grado, limpieza, re-empaque y re-etiquetado"
+  ],
+  "calif_preliminar": [
+   7.5
+  ],
+  "ingreso_persona_hora": [
+   "$150-300 MXN. Supuesto: 15-25 prendas/accesorios por persona-hora a $10-12 MXN, o 6-10 artículos de hogar/juguetes a $25-30 MXN (estimación propia; los 3PL en EE.UU. cobran USD 2-5 por retorno procesado, cifra no verific"
+  ],
+  "margen": [
+   "40-60% (estimación propia; precio por pieza bajo, mucha variedad de SKU y merma de consumibles)"
+  ],
+  "capex": [
+   "$200-400 mil MXN por salón (estimación propia): mesas de inspección, vaporizadores/planchas industriales (controladas), embolsadoras manuales, selladoras, escán"
+  ],
+  "capacitacion": [
+   "5-10 días por familia de producto (estándares de grado del cliente)"
+  ],
+  "clientes": [
+   "Mercado Libre (Full) y Amazon México (FBA) vía sus 3PL, Walmart de México, Liverpool, Coppel, Elektra, Sears/Sanborns, Marcas de moda con e-commerce propio (Cuidado con el Perro, Shasa, Andrea, Price Shoes, Flexi), 3PL y plataformas de devoluciones: Reversso, 99minutos, Onest, GIEICOM, Eslabón Logís"
+  ],
+  "seguridad": [
+   "Cutters y tijeras: sólo cutters de hoja oculta con conteo por turno. Productos atractivos (ropa, tenis, perfumes, juguetes): riesgo de sustracción; revisión al salir, cámaras, conteo pieza a pieza y tarimas selladas. Planchas/vaporizadores: quemaduras y uso indebido, operar por personal designado. Datos: los paquetes traen etiquetas con nombre, dir"
+  ],
+  "regulacion": [
+   "LFPDPPP 2025 (datos del comprador en guías y facturas); NOM-024-SCFI-2013 si el producto se re-comercializa como abierto/reacondicionado (https://www.normasoficiales.mx/nom/nom-024-scfi-2013); reglas de Mercado Libre para reacondicionados (https://ww"
+  ],
+  "sinergia_totalplay": [
+   "Media: comparte disciplina de conteo, etiquetado y empaque, pero no herramientas ni cliente. Diversifica riesgo de depender del sector telecom."
+  ],
+  "riesgos": [
+   [
+    "Estacionalidad extrema (Hot Sale, Buen Fin, Navidad) vs plantilla fija",
+    "Mermas y robo hormiga de producto atractivo",
+    "SLA incompatibles con procesos offline",
+    "Precio por pieza muy bajo; el volumen decide la rentabilidad"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "B2",
+  "nombre": "Grading, limpieza y re-empaque de electrónica de consumo y electrodomésticos pequeños devueltos (Amazon Renewed, ML)",
+  "categoria": "logística inversa e-commerce",
+  "fuentes_raw": [
+   "Grading, limpieza y re-empaque de electrónica de consumo y electrodomésticos pequeños devueltos (para Amazon Renewed, Mercado Libre reacondicionados, outlets de retail)"
+  ],
+  "calif_preliminar": [
+   7
+  ],
+  "ingreso_persona_hora": [
+   "$200-320 MXN. Supuesto: 5-8 artículos/persona-hora a $40 MXN (estimación propia)."
+  ],
+  "margen": [
+   "50-65% (estimación propia)"
+  ],
+  "capex": [
+   "$250-450 mil MXN por salón (estimación propia): bancos con contactos protegidos e interruptores diferenciales, multímetros básicos (controlados), tapetes ESD, l"
+  ],
+  "capacitacion": [
+   "10-15 días (criterios de grado y pruebas por categoría)"
+  ],
+  "clientes": [
+   "Amazon México (programa Renewed y sus vendedores certificados), Mercado Libre (vendedores de reacondicionados de gran volumen), Walmart de México, Liverpool, Coppel, Elektra (outlet y liquidación), Marcas: Oster/Newell, Hamilton Beach, T-fal/SEB, Mabe, Taurus, Steren, Ninja/SharkNinja, Liquidadores "
+  ],
+  "seguridad": [
+   "Electricidad: bancos con protección y supervisión, prohibido conectar equipos con cables dañados. Cuchillas de licuadora/procesadores y elementos calefactores: conteo y bolsa sellada individual. Tablets y bocinas con Bluetooth/Wi-Fi: sin baterías cargadas ni encendido salvo en banco del supervisor; borrado de fábrica previo. Producto atractivo: rev"
+  ],
+  "regulacion": [
+   "NOM-024-SCFI-2013 (información comercial, aplica explícitamente a reconstruidos, reacondicionados, usados; https://www.normasoficiales.mx/nom/nom-024-scfi-2013) y su proyecto sustituto PROY-NOM-024-SE-2022 (https://sidof.segob.gob.mx/notas/docFuente/"
+  ],
+  "sinergia_totalplay": [
+   "Media-alta: bancos de prueba de encendido, limpieza y empaque son iguales; puede compartir salón con CPE en temporada baja."
+  ],
+  "riesgos": [
+   [
+    "Devoluciones de reacondicionados por fallas no detectadas sin prueba completa",
+    "Responsabilidad de garantía frente al consumidor",
+    "Mezcla de SKU muy alta baja la productividad",
+    "Riesgo de accidentes eléctricos"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "B3",
+  "nombre": "Cosmética y kitting de laptops/tablets reacondicionadas para programas escolares y reventa corporativa",
+  "categoria": "logística inversa TI",
+  "fuentes_raw": [
+   "Cosmética y kitting de laptops/desktops/tablets reacondicionadas para programas escolares, donación y reventa corporativa (después de borrado certificado externo)"
+  ],
+  "calif_preliminar": [
+   6
+  ],
+  "ingreso_persona_hora": [
+   "$200-300 MXN. Supuesto: 2-2.5 equipos/persona-hora a $100-120 MXN (estimación propia)."
+  ],
+  "margen": [
+   "50-65% (estimación propia)"
+  ],
+  "capex": [
+   "$200-400 mil MXN por salón (estimación propia): bancos ESD, kits de desarmadores de precisión controlados, aire comprimido, lámparas con lupa, cajas y espumas, "
+  ],
+  "capacitacion": [
+   "10-15 días"
+  ],
+  "clientes": [
+   "CircularIT / Rematech Empresas, Full Circle Electronics (R2v3), PC One, TiendaClic, Fundaciones y programas: Punto Verde Recíclame, MIN, Reciclatrón de Ciencias (UNAM), Gobierno de la CDMX (programa '1, 2, 3 por mi escuela', 500 escuelas 2025 y 500 más 2026 con aulas digitales) y gobiernos estatales"
+  ],
+  "seguridad": [
+   "Datos personales: riesgo crítico; sólo entran equipos con certificado de borrado NIST 800-88 por serie (Blancco/BitRaser) o sin disco; el supervisor coteja series contra certificados. Herramientas de precisión: conteo estricto. Baterías de litio: almacenamiento en gabinete metálico, sin cargar dentro del salón. Laptops encendidas hasta BIOS sin sis"
+  ],
+  "regulacion": [
+   "LFPDPPP 2025: supresión verificable de datos; el certificado individual por serie es la evidencia (https://www.circularit.mx/blog/borrado-certificado-datos-nist-800-88; https://datos-personales.scjn.gob.mx/sites/default/files/normativa-materia/LGPDPP"
+  ],
+  "sinergia_totalplay": [
+   "Baja-media: mismas prácticas ESD y de conteo; distinto cliente y ritmo."
+  ],
+  "riesgos": [
+   [
+    "Un equipo con datos no borrados que entre al centro genera responsabilidad legal",
+    "Baterías de litio: incendio",
+    "Auditorías R2v3/ISO del cliente pueden no aceptar el sitio",
+    "Volumen irregular (lotes corporativos esporádicos)"
+   ]
+  ],
+  "confianza": [
+   "baja"
+  ]
+ },
+ {
+  "id": "B4",
+  "nombre": "Grading cosmético y kitting de smartphones reacondicionados",
+  "categoria": "logística inversa",
+  "fuentes_raw": [
+   "Grading cosmético, limpieza y kitting de smartphones reacondicionados (sin reparación de placa ni borrado en sitio)"
+  ],
+  "calif_preliminar": [
+   4.5
+  ],
+  "ingreso_persona_hora": [
+   "$180-280 MXN. Supuesto: 5-7 equipos/persona-hora a $35-40 MXN (estimación propia)."
+  ],
+  "margen": [
+   "45-60% (estimación propia)"
+  ],
+  "capex": [
+   "$120-250 mil MXN por salón (estimación propia): lámparas de inspección, plantillas de grado, kits de limpieza, cajas fuertes para lotes, cámaras, precintos."
+  ],
+  "capacitacion": [
+   "7-12 días (estándar de grado del cliente)"
+  ],
+  "clientes": [
+   "Clevercel, Reuse México, Whmxshop, Doto, Vendedores grandes de reacondicionados en Mercado Libre y Amazon Renewed, Programas de trade-in de Telcel, AT&T, Samsung, Apple (a través de sus socios de logística), Walmart de México (celulares reacondicionados)"
+  ],
+  "seguridad": [
+   "Máximo riesgo: un celular es el objeto más prohibido en un penal. Mitigación: equipos sin SIM, sin batería cargada (o descargados a <5%), custodia en caja fuerte, conteo IMEI por IMEI a la entrada y salida, cámaras sobre cada banco, revisión corporal al salir, lotes pequeños. Datos: sólo entran equipos con reporte de borrado (Blancco Mobile/Phonech"
+  ],
+  "regulacion": [
+   "LFPDPPP 2025 (datos personales en el dispositivo; supresión verificable); NIST 800-88 / borrado certificado por IMEI; registro IMEI y normas contra robo de celulares (Padrón/CRT) — verificar; NOM-024-SCFI-2013 para venta como reacondicionado; NOM-161"
+  ],
+  "sinergia_totalplay": [
+   "Baja: no comparte cliente ni proceso; sí comparte la disciplina de conteo."
+  ],
+  "riesgos": [
+   [
+    "Prohibición de celulares en centros penitenciarios: veto de la autoridad",
+    "Fuga de un equipo = incidente grave de seguridad",
+    "Datos personales residuales",
+    "Clientes exigen software conectado a nube"
+   ]
+  ],
+  "confianza": [
+   "baja"
+  ]
+ },
+ {
+  "id": "C1",
+  "nombre": "Armado de packs promocionales para consumo masivo (2x1, banded packs, termoencogido) y co-packing e-commerce",
+  "categoria": "co-packing",
+  "fuentes_raw": [
+   "Armado de ofertas y packs promocionales para consumo masivo (2x1, producto + regalo, banded packs) con termoencogido/flejado",
+   "Co-packing y kitting promocional / e-commerce (armado de packs, displays, kits de bienvenida, cajas de suscripción)"
+  ],
+  "calif_preliminar": [
+   8,
+   8
+  ],
+  "ingreso_persona_hora": [
+   "$150-300 MXN. Supuesto: precio de mercado $1.50-4.00/pack armado (estimación propia); 60-120 packs/persona-hora según complejidad.",
+   "$110-220 MXN/persona-hora (estimación propia: tarifa de $1.5-4.0 MXN por unidad simple kitteada, 60-120 unidades por hora; displays complejos se cotizan por pieza a $40-150)"
+  ],
+  "margen": [
+   "50-60% (estimación propia): precio $2.50/pack, 80 packs/persona-hora → $200/persona-hora; costo directo ~$50 + energía de selladoras y consumibles ~$10.",
+   "45-60% sobre la tarifa de servicio (estimación propia; el cliente pone materiales; el costo es casi puramente mano de obra + supervisión + transporte)"
+  ],
+  "capex": [
+   "$250,000-600,000 por salón (estimación propia): 4-6 selladoras L con túnel pequeño o pistolas de calor ($15k-80k c/u), mesas de acero, básculas, flejadora, pati",
+   "$250-500 mil MXN por salón (estimación propia): mesas de trabajo, básculas cuentapiezas, impresoras térmicas de etiquetas offline, pistolas de calor, flejadoras"
+  ],
+  "capacitacion": [
+   "5-8 días (operación segura de calor, estándares de presentación del retail, control de calidad visua",
+   "3-7 días por SKU; 15 días para líderes de línea y control de calidad."
+  ],
+  "clientes": [
+   "Fabricantes de consumo masivo con planta u oficinas en ZMVM: Colgate-Palmolive, Unilever, P&G, Genomma Lab, Grupo Lala, Grupo Herdez, Jumex, Kimberly-Clark de México, Bimbo (no alimenticio: sólo empaque cerrado), Maquilas de armado de ofertas que subcontratan picos: RAIMEL (Lindavista Vallejo), Sert",
+   "Marcas de consumo que hacen packs de temporada para Walmart, Soriana, Chedraui, OXXO y Buen Fin: Genomma Lab, Grupo Herdez, Jumex, Nestlé MX, Colgate-Palmolive MX (a través de sus agencias de POP), Vendedores medianos de Mercado Libre y Amazon MX que necesitan kitting y re-empaque, Empresas de suscr"
+  ],
+  "seguridad": [
+   "Selladoras y túneles de calor (riesgo de quemadura e incendio) → área delimitada, extintores, un operador certificado por máquina, apagado con llave que retiene el supervisor. Cutters → tablero de sombras. Producto de alto valor (rastrillos, desodorantes, cosméticos) → conteo doble y cajas selladas. Aerosoles y alcohol: excluir del alcance.",
+   "Bajo. El producto del cliente puede ser objeto de robo/consumo (alimentos, cosméticos, productos con alcohol): cuadrar inventario por lote y evitar productos con alcohol, aerosoles, medicamentos, navajas o electrónicos con baterías. Pistolas de calor y flejadoras bajo custodia del supervisor."
+  ],
+  "regulacion": [
+   "NOM-050 y NOM-051 para la etiqueta del pack (información comercial del conjunto), NOM-030-SCFI (cantidad); si hay cosméticos u OTC, Aviso de Funcionamiento COFEPRIS (ver candidato 6); NOM-002-STPS (incendios) y NOM-STPS de seguridad aplican al centro",
+   "NOM-050-SCFI-2004 (información comercial y etiquetado) para productos re-etiquetados; NOM-051 si toca alimentos (sólo empaque secundario, no contacto directo con alimento; si hay contacto, se requiere aviso de funcionamiento COFEPRIS y NOM-251, lo cu"
+  ],
+  "sinergia_totalplay": [
+   "Baja directa; indirecta: Grupo Salinas (Elektra) hace packs promocionales de electrónica/celulares que podrían armarse en el mismo taller.",
+   "Alta: es el mismo flujo operativo (recepción, procesamiento, empaque, salida) y el mismo control de inventario que ya se hace; se puede vender a otras empresas de Grupo Salinas (Elektra, Italika: kits de accesorios; Banco Azteca: kits promocionales)."
+  ],
+  "riesgos": [
+   [
+    "Estacionalidad fuerte (meses valle sin trabajo para 140 PPL)",
+    "Requisitos de auditoría del cliente (certificaciones) difíciles de cumplir en un penal",
+    "Fuego/calor: un incidente puede cerrar el taller",
+    "Dependencia de 2-3 clientes grandes"
+   ],
+   [
+    "Picos estacionales con plazos rígidos: si el centro cierra por contingencia (motín, revisión, operativo), se incumple con el retailer",
+    "Auditorías de cadena de suministro y percepción de trabajo forzado en clientes multinacionales",
+    "Bajo valor unitario: se requiere volumen y varios clientes",
+    "Transporte y seguros de mercancía del cliente dentro del penal"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "media"
+  ]
+ },
+ {
+  "id": "C2",
+  "nombre": "Etiquetado NOM de información comercial para importadores (NOM-050/015/024/004/020) y NOM-051",
+  "categoria": "co-packing / etiquetado",
+  "fuentes_raw": [
+   "Etiquetado NOM de información comercial para importadores (NOM-050, NOM-015, NOM-024, NOM-004 textil, NOM-020 calzado)",
+   "Re-etiquetado NOM-051 Fase 3 de alimentos y bebidas importados (sellos frontales y leyendas)"
+  ],
+  "calif_preliminar": [
+   7.5,
+   5
+  ],
+  "ingreso_persona_hora": [
+   "$110-250 MXN. Supuesto: precio de mercado $0.60-1.50/etiqueta autoadherible aplicada y $1.50-3.00/etiqueta colgante textil (estimación propia; ninguna maquila publica precio); productividad penitenciaria 120-250 pzas/per",
+   "$100-200 MXN. Supuesto: $0.70-1.20/pieza (estimación propia), 140-200 pzas/persona-hora; la etiqueta de 2-3 piezas por envase (sello + tabla) baja la productividad."
+  ],
+  "margen": [
+   "55-65% (estimación propia): precio $0.90/pza, 180 pzas/persona-hora → $162 ingreso/persona-hora; costo directo $39.38 salario + ~$4 supervisor + ~$6 merma/insum",
+   "50-60% (estimación propia; misma estructura que etiquetado NOM general, con mayor merma y control)."
+  ],
+  "capex": [
+   "$120,000-250,000 por salón (estimación propia): mesas y sillas, tableros de sombras para herramientas, cutters de seguridad, pistolas etiquetadoras de plástico,",
+   "$100,000-200,000 por salón (estimación propia): mesas, jaula/almacén con candado, básculas, cutters de seguridad, racks; sin cadena de frío (sólo producto ambie"
+  ],
+  "capacitacion": [
+   "3-5 días por NOM (lectura de campos obligatorios, control de calidad, conteo); 10 días para líderes ",
+   "3-5 días (criterios de colocación de sellos, no cubrir lote/caducidad, higiene básica)."
+  ],
+  "clientes": [
+   "Importadores de electrónicos y accesorios (cables, cargadores, audífonos) en Vallejo/Azcapotzalco/Tlalnepantla que venden a Mercado Libre, Amazon MX, Elektra, Coppel, Maquilas de etiquetado ya establecidas que subcontratan picos: dam-pack, Ecommex, Novo Empaques, DAS Fabrik, Eslabón Logístico, Agent",
+   "Importadores de abarrotes asiáticos y estadounidenses con bodega en Vallejo, Central de Abasto y Tlalnepantla, Distribuidores de dulces y snacks de importación para tiendas de conveniencia y dulcerías mayoristas, Maquilas de etiquetado que reciben lotes alimentarios y necesitan capacidad extra, Cade"
+  ],
+  "seguridad": [
+   "Cutters y agujas de pistola etiquetadora son punzocortantes: usar cutters de seguridad de hoja oculta, tablero de sombras con conteo al inicio y fin de turno, agujas de plástico contadas. Mercancía atractiva (audífonos, cargadores) → riesgo de merma y de introducción de electrónicos a población: conteo a doble firma, cajas selladas con cinta numera",
+   "Alimentos dentro del salón → consumo/hurto y conflicto con reglas del centro sobre ingreso de comida: sólo producto sellado, conteo a doble firma, jaula cerrada, prohibición de abrir envases. Bebidas: sólo no alcohólicas (alcohol prohibido en el penal). Riesgo sanitario bajo porque no se abre el producto."
+  ],
+  "regulacion": [
+   "NOM-050-SCFI-2004 (info comercial general), NOM-015-SCFI-2007 (juguetes), NOM-024-SCFI-2013 (electrónicos), NOM-004-SE-2021 (textil), NOM-020-SCFI-2017 (cuero y calzado); Reglas y Criterios SE en comercio exterior (reglas 2.4.8/2.4.11, modificadas DO",
+   "NOM-051-SCFI/SSA1-2010 modificada (Fase 3 desde 1-ene-2026, https://vinculum.mx/2025/12/12/fase-3-de-la-nom-051-scfi-ssa1-2010-cambios-para-2026/); Ley General de Salud/COFEPRIS: el almacén de alimentos envasados requiere Aviso de Funcionamiento como"
+  ],
+  "sinergia_totalplay": [
+   "Media-alta: los equipos de Totalplay (ONT, decodificadores, controles) que hoy se reacondicionan requieren re-etiquetado (serie, MAC, NOM-024/NOM-001 de importador) → misma mesa, mismos supervisores, mismo flujo logístico Cuautepec-Vallejo.",
+   "Nula."
+  ],
+  "riesgos": [
+   [
+    "Cambio regulatorio 2026-2030 que obligue a etiquetar en origen o sólo en recintos fiscalizados (Reglas SE) eliminaría gran parte del mercado post-despacho",
+    "Reducción de importaciones asiáticas por aranceles 2026 (textil, calzado, juguetes)",
+    "Errores de etiquetado generan multas PROFECO al cliente → exige control de calidad muestral documentado",
+    "Merma/hurto de mercancía atractiva"
+   ],
+   [
+    "Mercado transitorio: la demanda cae cuando el origen adapta empaques",
+    "Conflicto con reglas internas sobre alimentos",
+    "Aviso de Funcionamiento COFEPRIS con domicilio del centro puede ser inviable"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "baja"
+  ]
+ },
+ {
+  "id": "C3",
+  "nombre": "Kitting corporativo B2B: kits de bienvenida, cajas de regalo, cajas de suscripción, kits de muestras",
+  "categoria": "co-packing",
+  "fuentes_raw": [
+   "Kitting corporativo y B2B: kits de bienvenida, cajas de regalo de fin de año, cajas de suscripción y kits de muestras"
+  ],
+  "calif_preliminar": [
+   7
+  ],
+  "ingreso_persona_hora": [
+   "$200-500 MXN. Supuesto: $8-25 por kit de 4-8 componentes (estimación propia; precio de agencias de fulfillment en CDMX); 15-40 kits/persona-hora."
+  ],
+  "margen": [
+   "55-65% (estimación propia): precio $15/kit, 25 kits/persona-hora → $375/persona-hora; costo directo ~$50 + consumibles menores."
+  ],
+  "capex": [
+   "$80,000-180,000 por salón (estimación propia): mesas, racks de picking, básculas, dispensadores de cinta, plegadoras manuales, impresora de etiquetas."
+  ],
+  "capacitacion": [
+   "3-5 días (picking por lista, estándar de presentación, doblado de cajas)."
+  ],
+  "clientes": [
+   "Agencias de artículos promocionales con bodega en ZMVM: Promo Opción (CDMX), Doble Vela (Naucalpan), Promo Life, Promotienda (nombres a validar como clientes; son los mayores importadores de promocionales), Departamentos de RH y marketing de corporativos (bancos, telecom, farmacéuticas) para kits de"
+  ],
+  "seguridad": [
+   "Componentes atractivos (USB, audífonos, termos de acero, plumas metálicas, dulces) → hurto; USB y electrónicos podrían usarse indebidamente: conteo por componente con doble firma, kits cerrados y sellados, cajas máster numeradas. Sin objetos punzocortantes salvo cutters de seguridad."
+  ],
+  "regulacion": [
+   "Sin regulación sanitaria si los componentes ya vienen envasados y etiquetados; NOM-050 aplica a cada componente (responsabilidad del cliente). Si hay alimentos envasados o cosméticos, aplican reglas de cuarentena y Aviso COFEPRIS sólo si se almacenan"
+  ],
+  "sinergia_totalplay": [
+   "Media: Totalplay y Grupo Salinas hacen kits de bienvenida a clientes y empleados; la relación existente facilita el primer contrato."
+  ],
+  "riesgos": [
+   [
+    "Estacionalidad extrema (nov-dic)",
+    "Pedidos con muchos SKU generan errores de picking → penalizaciones",
+    "Restricción de visitas de clientes al centro"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "C4",
+  "nombre": "Ensamble de exhibidores POP de cartón y displays de temporada (pre-armado y pre-cargado)",
+  "categoria": "co-packing / POP",
+  "fuentes_raw": [
+   "Ensamble de exhibidores de cartón POP y displays de temporada (pre-armado y pre-cargado para OXXO, Walmart, Soriana, Chedraui)"
+  ],
+  "calif_preliminar": [
+   6.5
+  ],
+  "ingreso_persona_hora": [
+   "$120-300 MXN. Supuesto: $10-40 por exhibidor armado según tamaño (estimación propia); 5-15 unidades por persona-hora; pre-carga con producto añade $3-8 por unidad."
+  ],
+  "margen": [
+   "45-60% (estimación propia): precio $25/exhibidor armado, 8 por persona-hora → $200/persona-hora; costo directo ~$50 + consumibles ~$5; la cinta doble cara y gra"
+  ],
+  "capex": [
+   "$60,000-150,000 por salón (estimación propia): mesas grandes, plantillas/gálibos de armado, engrapadoras plásticas, dispensadores de cinta doble cara, patines; "
+  ],
+  "capacitacion": [
+   "2-4 días por modelo de exhibidor (instructivo del fabricante)."
+  ],
+  "clientes": [
+   "Fabricantes de POP en ZMVM que subcontratan ensamble: Popmart Exhibidores, PopMarketDesign, SIMPOP, Format, Kibox, Exhibidores MX, Marcas de consumo con exhibidores de temporada en OXXO/autoservicio: Mondelez, Kellanova, PepsiCo/Sabritas, Nestlé, Mars, Coca-Cola FEMSA (vía sus agencias POP), Agencia"
+  ],
+  "seguridad": [
+   "Bajo riesgo: cartón y adhesivos; engrapadoras metálicas → sustituir por grapas plásticas o control estricto; producto pre-cargado (dulces, botanas) → hurto, aplicar conteo doble. Riesgo logístico: volumen (un exhibidor armado ocupa 0.2-0.5 m³) exige camiones frecuentes y espacio de estiba en el centro."
+  ],
+  "regulacion": [
+   "Sin regulación sanitaria; el gráfico y contenido son responsabilidad del cliente. Aplica NOM-050 al producto pre-cargado (ya etiquetado)."
+  ],
+  "sinergia_totalplay": [
+   "Baja-media: Totalplay/Elektra usan exhibidores y material POP en tiendas Elektra y módulos de venta."
+  ],
+  "riesgos": [
+   [
+    "Espacio y logística de material voluminoso",
+    "Estacionalidad",
+    "Daño al gráfico impreso genera rechazo del lote"
+   ]
+  ],
+  "confianza": [
+   "baja"
+  ]
+ },
+ {
+  "id": "C5",
+  "nombre": "Maquila de blíster manual y termoencogido para accesorios electrónicos, ferretería ligera, papelería y juguetes",
+  "categoria": "co-packing",
+  "fuentes_raw": [
+   "Maquila de blíster manual y termoencogido para accesorios electrónicos, ferretería ligera, papelería y juguetes"
+  ],
+  "calif_preliminar": [
+   6
+  ],
+  "ingreso_persona_hora": [
+   "$150-300 MXN. Supuesto: $2.00-5.00 por blíster sellado manual y $1.00-2.50 por pieza termoencogida (estimación propia); 60-120 blísters o 80-150 termoencogidos por persona-hora."
+  ],
+  "margen": [
+   "45-60% (estimación propia): precio $3.00/blíster, 70 pzas/persona-hora → $210/persona-hora; costo directo ~$50 + energía y mantenimiento de selladoras ~$10; el "
+  ],
+  "capex": [
+   "$300,000-700,000 por salón (estimación propia): 6-10 selladoras de blíster manuales ($15k-60k c/u), 2-3 selladoras L con túnel ($40k-150k), pistolas de calor, m"
+  ],
+  "capacitacion": [
+   "5-8 días (ajuste de temperatura/tiempo, calidad de sello, seguridad con calor)."
+  ],
+  "clientes": [
+   "Importadores de accesorios electrónicos en Vallejo/Centro que surten a Elektra, Coppel, Walmart, Mercado Libre, Marcas de herramienta y ferretería ligera de importación (distribuidores de Vallejo y Tlalnepantla; Truper y Urrea tienen líneas propias, pero sus competidores importadores no), Papelería "
+  ],
+  "seguridad": [
+   "Selladoras de calor y túneles (quemaduras, incendio) → operadores designados, llave de encendido con el supervisor, extintores, sin vapores (PVC bajo ventilación). Herramientas manuales y tornillería a emblisterar son armas potenciales → conteo por peso a entrada y salida, jaula, lotes pequeños; la autoridad podría vetar herramientas metálicas (des"
+  ],
+  "regulacion": [
+   "NOM-050 / NOM-024 / NOM-015 para la etiqueta del blíster; NOM-001-SCFI para cargadores; NOM-STPS de seguridad e incendio para el área de calor."
+  ],
+  "sinergia_totalplay": [
+   "Media: controles remotos, cables y accesorios de Totalplay pueden entregarse emblisterados o termoencogidos como parte del kit (candidato 4)."
+  ],
+  "riesgos": [
+   [
+    "Veto de la autoridad penitenciaria a herramientas/tornillería",
+    "Incidente con calor",
+    "Baja demanda de tirajes cortos en meses valle"
+   ]
+  ],
+  "confianza": [
+   "baja"
+  ]
+ },
+ {
+  "id": "C6",
+  "nombre": "Acondicionamiento secundario de cosméticos (estuchado, etiquetado, sets de regalo) sin envasar producto",
+  "categoria": "co-packing",
+  "fuentes_raw": [
+   "Acondicionamiento secundario de cosméticos y productos de cuidado personal (estuchado, etiquetado, celofanado, sets de regalo) — sin fabricar ni envasar producto"
+  ],
+  "calif_preliminar": [
+   5.5
+  ],
+  "ingreso_persona_hora": [
+   "$120-300 MXN. Supuesto: $1.50-4.00 por pieza estuchada/etiquetada y $8-20 por set de regalo (estimación propia); 50-100 pzas o 15-30 sets por persona-hora."
+  ],
+  "margen": [
+   "50-60% (estimación propia): precio $2.50/pieza estuchada, 70 pzas/persona-hora → $175/persona-hora; costo directo ~$50 + costo del Aviso/responsable y controles"
+  ],
+  "capex": [
+   "$200,000-450,000 por salón (estimación propia): área limpia delimitada, mesas de acero inoxidable, celofanadoras/pistolas de calor, básculas, racks, bitácoras, "
+  ],
+  "capacitacion": [
+   "5-10 días (buenas prácticas de higiene, control de lotes, manejo de producto)."
+  ],
+  "clientes": [
+   "Venta directa con kits de campaña: Jafra (Edomex), Fuller Cosmetics, Natura, Avon, Betterware (a validar), Marcas y distribuidores de cosmética coreana/asiática importada con bodega en CDMX (etiqueta de importador en español), Genomma Lab (línea cosmética; la línea OTC queda excluida), Maquilas de c"
+  ],
+  "seguridad": [
+   "Perfumes y lociones con alcohol son inflamables y consumibles (riesgo de ingesta/uso indebido) → excluir perfumería con alcohol; cremas y maquillaje: hurto y uso interno → conteo doble, jaula. Pistolas de calor → control de llave y extintores. Producto abierto o dañado se retira en bolsa sellada."
+  ],
+  "regulacion": [
+   "Ley General de Salud y Reglamento de Control Sanitario de Productos y Servicios: todo establecimiento que acondicione, almacene o maquile cosméticos debe presentar Aviso de Funcionamiento ante COFEPRIS (https://vinculum.mx/2025/05/23/aviso-de-funcion"
+  ],
+  "sinergia_totalplay": [
+   "Nula."
+  ],
+  "riesgos": [
+   [
+    "COFEPRIS podría no aceptar el domicilio o la verificación dentro del penal",
+    "Auditorías de clientes imposibles de cumplir",
+    "Hurto de producto cosmético"
+   ]
+  ],
+  "confianza": [
+   "baja"
+  ]
+ },
+ {
+  "id": "D1",
+  "nombre": "Uniformes corporativos e industriales (técnicos Totalplay/Grupo Salinas, seguridad privada, B2B) y ropa hospitalaria",
+  "categoria": "textil",
+  "fuentes_raw": [
+   "Uniformes corporativos e industriales para Grupo Salinas y B2B (camisolas, pantalones, polos bordadas)",
+   "Ropa hospitalaria: pijamas quirúrgicas (scrubs), batas y filipinas para hospitales y clínicas"
+  ],
+  "calif_preliminar": [
+   8,
+   6
+  ],
+  "ingreso_persona_hora": [
+   "$60-100. Supuesto: SAM industrial de camisola ~22 min; eficiencia 45-55 % tras 3 meses (PPL sin experiencia) → 1.2-1.5 piezas/h; tarifa CMT $60-70/camisola. Polo piqué: SAM ~9 min → 3-3.5 piezas/h × $25-30 = $75-105/h. E",
+   "$65-100. Supuesto: conjunto quirúrgico SAM ~18 min → 1.7-2 conjuntos por persona-hora al 55 %; maquila $38-50 por conjunto. Estimación propia."
+  ],
+  "margen": [
+   "20-35 % en esquema CMT (cliente pone tela) — estimación propia: precio de maquila $60-90 por camisola contra costo cargado $50/persona-hora y 0.8-1.2 camisolas ",
+   "20-30 % en CMT; 30-40 % con tela propia vendiendo a escuelas y clínicas (estimación propia)."
+  ],
+  "capex": [
+   "$700,000-1,000,000 por salón de 35: 25 rectas industriales ($9,000-14,000 c/u, estimación propia), 8 overlock 4 hilos ($12,000-20,000), ojaladora y botonadora (",
+   "$700,000-1,000,000 por salón (igual a candidato 1, más bordadora de 1 cabezal para logos)."
+  ],
+  "capacitacion": [
+   "15 días para operaciones simples (recta, overlock, empaque); 60-90 días para alcanzar 50 % de eficie",
+   "15 días básicos; 60 días para línea completa."
+  ],
+  "clientes": [
+   "Totalplay (técnicos de instalación y servicio), Elektra, Banco Azteca, Italika, Tiendas Neto (Grupo Salinas), Izzi/Megacable/Telmex contratistas (instaladores), Empresas de seguridad privada en CDMX/Edomex, Flotillas y logística (DHL contratistas, Estafeta franquicias), Subsecretaría de Sistema Peni",
+   "Secretaría de Salud CDMX y IMSS-Bienestar (licitación), Hospitales privados y cadenas de consultorios (Farmacias del Ahorro/Similares consultorios: batas; supuesto), Escuelas de enfermería y medicina (uniformes de alumnos, compra masiva cada semestre), Laboratorios clínicos y veterinarias"
+  ],
+  "seguridad": [
+   "Agujas y tijeras son objetos punzocortantes. Mitigación estándar de talleres textiles penitenciarios (práctica de la industria, no verificada específicamente para Santa Martha): tablero de sombras con conteo al inicio y fin de cada turno; agujas entregadas por número y las rotas se devuelven con todos los fragmentos antes de reponer; tijeras con ca",
+   "Igual al candidato 1. Uniformes médicos terminados no deben quedarse en el área de PPL (posible uso para suplantación durante traslados a hospital)."
+  ],
+  "regulacion": [
+   "NOM-004-SE-2021 (etiquetado de textiles y vestido: fibra, talla, país de origen, RFC del fabricante o importador); NOM-017-STPS-2008 si la prenda se vende como EPP; LNEP arts. 91-95 (condiciones de seguridad y salud, cuenta de ganancias); definir si ",
+   "NOM-004-SE-2021; especificaciones técnicas de la convocante (IMSS/SEDESA: gramaje, encogimiento <3 %, solidez al color); no requiere COFEPRIS por ser textil no estéril; venta a gobierno vía Ley de Adquisiciones DF (licitación o invitación restringida"
+  ],
+  "sinergia_totalplay": [
+   "Muy alta: el empresario ya es proveedor de Totalplay; ofrecer el uniforme del técnico (camisola, polo, gorra) con logo bordado cierra el ciclo 'equipo reacondicionado + técnico uniformado'. Grupo Salinas puede además usar la historia de reinserción e",
+   "Baja. Sinergia con Grupo Salinas: Banco Azteca/Elektra no aplica; Fundación Azteca podría donar uniformes a escuelas de enfermería (supuesto)."
+  ],
+  "riesgos": [
+   [
+    "Curva de aprendizaje: 3-6 meses de baja productividad antes de rentabilizar",
+    "Dependencia de un cliente ancla (Grupo Salinas)",
+    "Interrupciones por operativos, revisiones y traslados de PPL",
+    "Ambigüedad sobre obligación patronal IMSS"
+   ],
+   [
+    "Licitaciones con pagos tardíos y requisitos de fianza",
+    "Competencia de marcas con distribución en hospitales",
+    "Riesgo de suplantación con el producto dentro del centro"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "media"
+  ]
+ },
+ {
+  "id": "D2",
+  "nombre": "Serigrafía, bordado computarizado y DTF de playeras/gorras promocionales y personalización",
+  "categoria": "textil / promocionales",
+  "fuentes_raw": [
+   "Serigrafía y bordado de playeras y gorras promocionales (campañas, eventos, merchandising corporativo)",
+   "Bordado computarizado y personalización DTF para e-commerce y corporativos (célula de valor agregado)"
+  ],
+  "calif_preliminar": [
+   7,
+   6
+  ],
+  "ingreso_persona_hora": [
+   "$150-300. Supuesto: célula de 3 PPL en pulpo manual produce 90-150 impresiones/hora de 1-2 tintas → 30-50 impresiones por persona-hora × $6-8 de cobro neto de tinta. Estimación propia. Sólo absorbe 6-9 PPL por línea; no ",
+   "$250-500 por operador (supuesto: un operador atiende una bordadora de 6 cabezales: 30-40 logos/h × $12-15 neto de insumos; DTF: 25-35 aplicaciones/h × $12-18 neto). Estimación propia. Sólo emplea 6-10 PPL por célula."
+  ],
+  "margen": [
+   "40-60 % sobre el servicio de estampado (estimación propia: cobro $8-15 por impresión de 1-3 tintas en volumen; costo de tinta+emulsión $1.5-3 por prenda; mano d",
+   "45-60 % sobre el servicio (estimación propia): logo bordado de 5,000 puntadas cuesta $2-4 en hilo/pellón y se cobra $12-30; DTF cuesta $6-12 por transferencia A"
+  ],
+  "capex": [
+   "$180,000-350,000 por línea: pulpo manual 6 colores/6 estaciones ($30,000-70,000, estimación propia), horno de banda ($60,000-150,000), flash presecador ($10,000",
+   "Bordadora 1 cabezal 12 agujas: $60,000-150,000; 6 cabezales: $600,000-1,200,000; impresora DTF 60 cm con shaker/horno de polvo: $120,000-300,000; 2 planchas de "
+  ],
+  "capacitacion": [
+   "10-15 días para estampado y empaque; 30 días para registro multicolor; revelado de marcos lo retiene",
+   "15 días para operación; el diseño/ponchado lo hace el supervisor o se subcontrata."
+  ],
+  "clientes": [
+   "TV Azteca / Grupo Salinas (promocionales, eventos, Azteca Deportes), Agencias BTL y promocionales de CDMX (Polanco, Roma), Equipos deportivos amateur y ligas (post-Mundial 2026), Gobierno CDMX (campañas, brigadas, jornadas: playeras y gorras) vía Dirección Ejecutiva de Trabajo Penitenciario, Tiendas",
+   "Totalplay / Grupo Salinas (bordado de logos en uniformes y promocionales), Marcas de ropa de e-commerce y creadores de contenido (print-on-demand nacional), Uniformeras y talleres de serigrafía que subcontratan bordado, Escuelas privadas (escudos bordados), clubes y ligas deportivas"
+  ],
+  "seguridad": [
+   "Químicos (solventes, removedores, emulsión): usar tintas base agua y plastisol (no inflamables) y guardar solventes bajo llave en el cuarto del supervisor; horno de banda y flash operan a 160-180 °C: riesgo de quemaduras y de uso para calentar objetos, mitigado con supervisión y apagado con llave. Racletas de aluminio y espátulas: inventariar en ta",
+   "Computadoras y USB: equipo bajo llave, sin puertos accesibles a PPL y sin red (cumple regla de cero internet); datos personales de clientes de e-commerce (nombre/dirección) nunca a la vista de PPL: las etiquetas las maneja el supervisor; polvo TPU y tinta: hojas de seguridad, extracción; planchas calientes bajo supervisión."
+  ],
+  "regulacion": [
+   "NOM-018-STPS-2015 (comunicación de peligros por sustancias químicas: hojas de seguridad de tintas y removedores); NOM-002-STPS-2010 (prevención de incendios por horno); NOM-004-SE-2021 si se comercializa la prenda decorada; propiedad intelectual: sól",
+   "Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados / LFPDPPP para datos de compradores (contrato de encargado con el e-commerce); NOM-018-STPS (químicos); NOM-004-SE-2021 si se vende prenda terminada; propiedad intelectual"
+  ],
+  "sinergia_totalplay": [
+   "Alta: Totalplay y Grupo Salinas consumen playeras y gorras para promociones, activaciones de venta puerta a puerta y eventos; se puede empaquetar con uniformes (candidato 1) y con kits promocionales que ya reempaca el taller actual.",
+   "Alta como complemento: bordado de logos Totalplay en uniformes y chalecos; DTF para promocionales de campañas cortas."
+  ],
+  "riesgos": [
+   [
+    "Estacionalidad fuerte (picos de campaña) y baja utilización del resto del año",
+    "Riesgo de estampar marcas sin licencia si el cliente no acredita derechos",
+    "Control de químicos ante revisiones; retrasos por entrada/salida de insumos",
+    "Baja absorción de mano de obra (6-9 PPL por línea)"
+   ],
+   [
+    "Alta inversión por PPL empleado (bajo impacto en reinserción masiva)",
+    "Riesgo de datos personales",
+    "Obsolescencia rápida de DTF (tecnología cambia cada 2-3 años)",
+    "Baja utilización si no se integra a candidatos 1, 2 y 5"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "baja"
+  ]
+ },
+ {
+  "id": "D3",
+  "nombre": "Bolsas ecológicas/tote, mandiles, bolsas porta-kit y chalecos reflejantes / EPP textil básico",
+  "categoria": "textil",
+  "fuentes_raw": [
+   "Bolsas ecológicas (tote de manta/no tejido), mandiles y bolsas de tela para kits y herramientas",
+   "Chalecos reflejantes, mandiles y EPP textil básico (NOM-017-STPS)"
+  ],
+  "calif_preliminar": [
+   7,
+   7
+  ],
+  "ingreso_persona_hora": [
+   "$55-90. Supuesto: tote sencilla SAM ~5 min → 6-7 piezas por persona-hora al 55 % de eficiencia; tarifa de maquila $8-13 por bolsa (estimación propia). Mandil: 3-4 piezas/h × $18-25.",
+   "$70-110. Supuesto: chaleco básico SAM ~11 min → 2.7-3.2 piezas por persona-hora al 55 %; ingreso neto de material $25-35 por pieza. Estimación propia."
+  ],
+  "margen": [
+   "25-40 % en esquema con tela del cliente; 15-25 % si el taller compra la tela (estimación propia).",
+   "25-40 % (estimación propia): costo de materiales $25-40 (malla + cinta reflejante certificada) + mano de obra $12-18; precio de venta B2B $80-120."
+  ],
+  "capex": [
+   "$450,000-700,000 por salón: 20 rectas, 6 overlock, 2 rectas de doble aguja para asas, cortadora vertical, mesas, más 1 pulpo de serigrafía de 1-2 colores si se ",
+   "$400,000-600,000 por salón (misma base de rectas/overlock que candidato 1, sin ojaladora); cinta retrorreflejante certificada es el insumo caro (importada, 3M o"
+  ],
+  "capacitacion": [
+   "10-15 días; es la línea de arranque más rápida.",
+   "15 días."
+  ],
+  "clientes": [
+   "Totalplay (bolsa porta-kit de instalación con logo; bolsa de herramientas del técnico), Elektra / Tiendas Neto / Banco Azteca (bolsas reutilizables de marca en caja), Supermercados y farmacias regionales (Ley de residuos CDMX prohíbe bolsa plástica de un solo uso; dato de conocimiento previo, no ver",
+   "Totalplay (técnicos en vía pública y en postes: chaleco obligatorio), Contratistas de telecomunicaciones y CFE, empresas de mensajería/última milla, Constructoras y proveedores de obra pública de CDMX, Secretaría de Obras, Alcaldías, SSC (brigadas viales, tránsito) vía J.U.D. de Fomento, Distribuido"
+  ],
+  "seguridad": [
+   "Iguales a candidato 1 (agujas, tijeras) pero con menos operaciones y sin cierres metálicos ni botones. Rollos de tela voluminosos: coordinar horarios de entrada y revisión con rayos X o inspección manual.",
+   "Bajo: sin componentes metálicos si se usa velcro/cierre plástico. Un chaleco de alta visibilidad podría usarse para hacerse pasar por personal en una fuga: producto terminado debe salir del salón el mismo día y contarse pieza por pieza (igual que uniformes de custodio)."
+  ],
+  "regulacion": [
+   "NOM-004-SE-2021 (etiquetado textil) si la bolsa se vende al consumidor; Ley de Residuos Sólidos de la CDMX (bolsas reutilizables; conocimiento previo, no verificado); NOM-050-SCFI si se empaca en caja como producto.",
+   "NOM-017-STPS-2008 (obligación del patrón de proveer EPP; el chaleco debe cumplir especificación que el patrón determine); ANSI/ISEA 107 como referencia técnica de clase 1/2/3 (no es NOM obligatoria; fuente: guía de chalecos 2025 en https://raw.github"
+  ],
+  "sinergia_totalplay": [
+   "Directa: el taller ya reempaca módems y controles; agregar la bolsa de tela del kit integra verticalmente el empaque y da a Totalplay un mensaje de reinserción + sustentabilidad.",
+   "Alta: cada técnico de Totalplay usa chaleco; se vende junto con el uniforme (candidato 1) como 'kit del técnico'."
+  ],
+  "riesgos": [
+   [
+    "Commoditización: margen unitario pequeño, requiere volumen",
+    "Competencia interna con la maquila de bolsas ya instalada en el sistema",
+    "Si Totalplay no adopta la bolsa, el mercado abierto es muy competido"
+   ],
+   [
+    "Guerra de precios con importación",
+    "Dependencia de cinta reflejante importada",
+    "Uso indebido del producto dentro del centro (suplantación)"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "media"
+  ]
+ },
+ {
+  "id": "D4",
+  "nombre": "Blancos institucionales (sábanas, batas) para hospitales, hoteles y el propio sistema penitenciario",
+  "categoria": "textil",
+  "fuentes_raw": [
+   "Blancos institucionales: sábanas, fundas, batas de paciente y ropa de cama para hospitales, hoteles y el propio sistema penitenciario"
+  ],
+  "calif_preliminar": [
+   7
+  ],
+  "ingreso_persona_hora": [
+   "$80-130 en maquila; $180-260 si se vende producto terminado con tela propia. Supuesto: sábana plana SAM ~4 min → 8-10 piezas por persona-hora al 60 % (operación muy simple); maquila $10-14/pieza. Estimación propia."
+  ],
+  "margen": [
+   "20-30 % (estimación propia): sábana plana con tela de $45-60 y venta a $110-140; costo de mano de obra $6-9 por pieza."
+  ],
+  "capex": [
+   "$500,000-800,000 por salón: 20 rectas, 6 overlock, 2 dobladilladoras, 2 elastiqueras, cortadora vertical y mesa de tendido de 8-10 m, planchadora opcional. Capi"
+  ],
+  "capacitacion": [
+   "10-15 días (es la operación más simple de la categoría)."
+  ],
+  "clientes": [
+   "Subsecretaría de Sistema Penitenciario CDMX (ropa de cama y uniformes de PPL para ~26,000 PPL en CDMX; cifra de conocimiento previo, no verificada hoy) por adjudicación directa art. 54 fr. XIV, Secretaría de Salud CDMX (hospitales generales y de especialidades) e IMSS-Bienestar (licitación), Hospita"
+  ],
+  "seguridad": [
+   "Sábanas son el producto más sensible: el material puede usarse para cuerdas o ahorcamiento; la producción debe contarse pieza por pieza y salir del salón el mismo día (no almacenar producto terminado dentro del área de PPL). Mismo control de agujas/tijeras del candidato 1."
+  ],
+  "regulacion": [
+   "NOM-004-SE-2021 (etiquetado); especificaciones técnicas de IMSS/ISSSTE/SEDESA para ropa hospitalaria (gramaje, encogimiento, resistencia a 200+ ciclos de lavado industrial) exigidas en licitación; Ley de Adquisiciones DF arts. 52 y 54 para venta dire"
+  ],
+  "sinergia_totalplay": [
+   "Baja directa. Indirecta: Grupo Salinas opera hoteles/eventos limitados; el valor está en el cliente cautivo (sistema penitenciario) y en la simplicidad para arrancar."
+  ],
+  "riesgos": [
+   [
+    "Riesgo de seguridad por el producto (cuerdas)",
+    "Dependencia de licitaciones con pagos a 60-120 días",
+    "Precio de tela poliéster-algodón volátil (importada)",
+    "Competencia con productores integrados de Puebla"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "D5",
+  "nombre": "Reacondicionamiento de uniformes industriales, EPP textil y calzado industrial en renta",
+  "categoria": "textil / logística inversa",
+  "fuentes_raw": [
+   "Reacondicionamiento de uniformes industriales, EPP textil y calzado industrial devuelto o en renta"
+  ],
+  "calif_preliminar": [
+   6
+  ],
+  "ingreso_persona_hora": [
+   "$130-200 MXN. Supuesto: 6-10 prendas/persona-hora a $18 MXN o 5-7 pares/persona-hora a $25-30 MXN (estimación propia)."
+  ],
+  "margen": [
+   "40-55% (estimación propia; precio por pieza bajo)"
+  ],
+  "capex": [
+   "$250-500 mil MXN por salón (estimación propia): 15-20 máquinas de coser rectas y overlock (o uso de las existentes en el centro), planchas, mesas de corte, etiq"
+  ],
+  "capacitacion": [
+   "10-15 días (costura industrial básica; el centro ya tiene personal capacitado en confección)"
+  ],
+  "clientes": [
+   "Elis México (Lavartex), Dust Control, Clean In, Cintas (si opera en México — verificar), Fabricantes de calzado industrial: Flexi, Berrendo, Emyco, Riddell, Duramax; marcas de EPP: 3M, Honeywell/distribuidores, Lazzar, Retailers de uniformes y e-commerce con devoluciones de calzado/ropa de trabajo, "
+  ],
+  "seguridad": [
+   "Agujas, tijeras y descosedores: conteo pieza por pieza al inicio y fin de turno (práctica ya establecida en talleres de confección penitenciarios). Uniformes con logos de policía/seguridad privada o de CFE: riesgo de uso para fuga o suplantación; excluir uniformes de corporaciones de seguridad y contar prendas por lote. Calzado industrial (casquill"
+  ],
+  "regulacion": [
+   "NOM-017-STPS-2008 (EPP en centros de trabajo: el patrón debe verificar que el EPP conserve su función; una prenda reparada no debe perder protección — verificar texto vigente); NOM-113-STPS-2009 calzado de protección (no se altera casquillo ni suela)"
+  ],
+  "sinergia_totalplay": [
+   "Baja en producto, alta en infraestructura: el sistema penitenciario ya tiene maquila textil, costura industrial y confección de uniformes (catálogo Hazme Valer), lo que reduce inversión y capacitación."
+  ],
+  "riesgos": [
+   [
+    "Precio por pieza muy bajo",
+    "Responsabilidad si un EPP reparado falla en el trabajo",
+    "Logística de ida y vuelta encarece frente a reparar en planta",
+    "Uniformes de seguridad son un riesgo de fuga y serán vetados"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "E1",
+  "nombre": "Arneses y ensambles de cable de bajo/medio volumen (Tier 2-3 automotriz, electrodomésticos, tableros)",
+  "categoria": "ensamble eléctrico",
+  "fuentes_raw": [
+   "Arneses y ensambles de cable de bajo/medio volumen (Tier 2-3 automotriz, electrodomésticos, tableros eléctricos)"
+  ],
+  "calif_preliminar": [
+   8
+  ],
+  "ingreso_persona_hora": [
+   "$90-130 MXN/persona-hora (estimación propia): mano de obra cobrada $3-8 MXN por ensamble simple × 15-30 piezas/h según complejidad; el cliente suele aportar el material (maquila pura). Al 70-80% de la productividad de un"
+  ],
+  "margen": [
+   "40-55% (estimación propia): costo PPL ~$39 MXN/h + supervisor, merma, consumibles y tiempo perdido en revisiones ≈ $60-70 MXN/persona-hora efectiva; facturación"
+  ],
+  "capex": [
+   "$1.0-2.5 millones MXN para 4 salones (estimación propia): mesas y tableros de enrutado ($150-300k), 20-40 prensas de crimpado de banco con aplicadores ($8-40k c"
+  ],
+  "capacitacion": [
+   "15 días para operación básica (crimpado, inserción, encintado, lectura de dibujo); +3-5 días para ce"
+  ],
+  "clientes": [
+   "Tier 2-3 automotriz en Toluca/Lerma, Cuautitlán y Querétaro que abastecen a arneseros grandes (Yazaki, Aptiv, Sumitomo, Lear, Condumex Autopartes de Grupo Carso en Querétaro/San Juan del Río) — identificar por directorio INA/CLAUT, Fabricantes de electrodomésticos y línea blanca en Edomex/Querétaro "
+  ],
+  "seguridad": [
+   "Riesgo medio: pinzas de corte y cuchillas de peladora son punzocortantes; el cable de cobre y las terminales metálicas pueden convertirse en objetos prohibidos. Mitigación: tool-crib con tableros sombra y conteo de entrada/salida por turno, herramientas numeradas y encadenadas a la mesa, sustituir pinzas manuales por prensas de banco fijas, cable p"
+  ],
+  "regulacion": [
+   "Calidad: IPC/WHMA-A-620 (arneses y cables) e IPC-A-610 no son obligatorias por ley pero las exigen los clientes; ISO 9001 alcanzable en 6-12 meses (costo estimado $200-400k MXN con consultoría). IATF 16949 es prácticamente inalcanzable de inicio; la "
+  ],
+  "sinergia_totalplay": [
+   "Media: Totalplay/Grupo Salinas usa cables de control, puentes y ensambles internos en su red (jumpers de cobre, cables de alimentación DC para ONT/OLT en gabinetes) y Grupo Salinas tiene ensambladora de motocicletas Italika en Toluca que usa arneses "
+  ],
+  "riesgos": [
+   [
+    "Revisión del T-MEC 2026 y aranceles de EUA a partes: reducción de volumen automotriz 2027-2030",
+    "Automatización de corte/crimpado en volúmenes altos deja al taller sólo el nicho de baja escala",
+    "Rechazos de calidad por crimpado defectuoso (requiere medición de altura de crimp y pull-test)",
+    "Dependencia de que el cliente entregue kits completos; robo/extravío de terminales metálicas"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "E2",
+  "nombre": "Extensiones eléctricas y multicontactos (NOM-003) y ensamble de luminarias LED",
+  "categoria": "ensamble eléctrico",
+  "fuentes_raw": [
+   "Extensiones eléctricas, multicontactos y cordones de alimentación (NOM-003-SCFI-2014)",
+   "Ensamble de luminarias LED (interior, industrial y alumbrado público chico) y lámparas de emergencia"
+  ],
+  "calif_preliminar": [
+   7,
+   7
+  ],
+  "ingreso_persona_hora": [
+   "$90-150 MXN/persona-hora (estimación propia): mano de obra $6-10 MXN por extensión/multicontacto × 12-18 piezas/h.",
+   "$80-150 MXN/persona-hora (estimación propia): $10-20 MXN de mano de obra por luminaria × 6-10 piezas/h según tamaño; luminarias de alumbrado público (2-4/h) se cobran $40-80 c/u."
+  ],
+  "margen": [
+   "30-45% en maquila con material del cliente (estimación propia); commodity, presión de precio alta.",
+   "35-50% en maquila con material del cliente (estimación propia)."
+  ],
+  "capex": [
+   "$600k-1.5 M MXN (estimación propia): probadores hipot/polaridad ($40-120k c/u), desarmadores eléctricos de torque ($3-6k c/u), peladoras, mesas, selladora de bl",
+   "$500k-1.2 M MXN (estimación propia): mesas ESD, desarmadores de torque, fuentes de prueba y racks de burn-in ($100-250k), luxómetro/esfera integradora básica op"
+  ],
+  "capacitacion": [
+   "10-15 días; +5 días para líderes en prueba hipot y criterios NOM.",
+   "10-15 días; +3-5 días IPC-A-610 para quienes suelden."
+  ],
+  "clientes": [
+   "Truper/Surtek (Jilotepec, Edomex) — el mayor comercializador de herramientas y accesorios eléctricos del país, IUSA (Jocotitlán/Pastejé, Edomex) — cables, contactos, extensiones, Voltech/Volteck y Adir (Edomex) — marcas de extensiones y multicontactos, Cadenas y marcas propias (Elektra/Grupo Salinas",
+   "Magg (CDMX) — fabricante de iluminación con planta en la ciudad, Construlita y Tecnolite (Grupo Construlita, Tlalnepantla/Guadalajara), Lumiance/Signify y distribuidores que nacionalizan producto, Empresas de alumbrado público que ganan licitaciones municipales en CDMX/Edomex (retrofit de luminarias"
+  ],
+  "seguridad": [
+   "Riesgo medio: desarmadores y peladoras (control por tool-crib); probador hipot de 1.5-3 kV debe estar en cabina con enclavamiento; cobre y láminas de contacto son metal reutilizable (conteo por kit). Sin químicos peligrosos.",
+   "Riesgo bajo-medio: desarmadores y cautines controlados (estaciones fijas a la mesa con llave, extracción de humos, soldadura sin plomo); racks de burn-in a 127-220 V en zona enclavada; vidrio/policarbonato de difusores puede romperse en piezas cortantes (usar policarbonato, conteo)."
+  ],
+  "regulacion": [
+   "NOM-003-SCFI-2014 (seguridad de productos eléctricos) obligatoria para venta; certificación por ANCE/NYCE con pruebas de tipo y verificación de seguimiento en planta: el certificado suele ser del titular de marca (cliente), pero el organismo debe pod",
+   "NOM-003-SCFI-2014 (seguridad), NOM-030-ENER-2016 (lámparas LED integradas) y NOM-031-ENER-2019 (luminarias LED para alumbrado exterior) con certificación de eficiencia; NOM-024-SCFI-2013 (etiquetado). Certificados a nombre del titular de marca; verif"
+  ],
+  "sinergia_totalplay": [
+   "Baja-media: cordones/adaptadores para equipos CPE y multicontactos para kits de instalación; Elektra (Grupo Salinas) vende extensiones de marca propia.",
+   "Baja; posible uso interno en tiendas Elektra/oficinas de Grupo Salinas."
+  ],
+  "riesgos": [
+   [
+    "Producto commodity: precio dictado por importación",
+    "Responsabilidad por producto eléctrico defectuoso (incendio) — exige prueba 100% e ISO 9001",
+    "Verificación de seguimiento NOM dentro de un penal puede no ser aceptada por el organismo certificador"
+   ],
+   [
+    "Cliente prefiere ensamblar en su propia planta para control de calidad fotométrica",
+    "Rechazos por daño ESD a placas LED (requiere mesas y pulseras ESD)",
+    "Volúmenes de alumbrado público ligados a ciclos de licitación pública"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "media"
+  ]
+ },
+ {
+  "id": "E3",
+  "nombre": "Inserción through-hole, box-build y pruebas funcionales para EMS; box-build IoT/GPS",
+  "categoria": "ensamble electrónico",
+  "fuentes_raw": [
+   "Inserción through-hole, ensamble final (box-build) y pruebas funcionales con fixtures para EMS y fabricantes de electrónica de CDMX/Edomex",
+   "Box-build de dispositivos IoT/GPS de flotillas, cerraduras electrónicas, timbres inteligentes y medidores de agua (sin cuerpo de medición)"
+  ],
+  "calif_preliminar": [
+   6,
+   5
+  ],
+  "ingreso_persona_hora": [
+   "$100-140 MXN/persona-hora (estimación propia): $0.30-0.50 MXN por inserción × 250-350 inserciones/h; box-build y prueba $60-120 MXN por unidad × 1-2 unidades/h.",
+   "$90-140 MXN/persona-hora (estimación propia): $20-40 MXN de mano de obra por dispositivo × 3-5 unidades/h; kits de accesorios $5-8 × 20-30/h."
+  ],
+  "margen": [
+   "40-55% (estimación propia) al cobrar por punto de inserción o por hora-persona con material del cliente.",
+   "35-50% (estimación propia)."
+  ],
+  "capex": [
+   "$700k-2 M MXN (estimación propia): mesas y piso ESD ($150-300k), 20-30 estaciones de soldadura con extracción ($8-15k c/u), lupas/microscopios de inspección ($5",
+   "$300-800k MXN (estimación propia): desarmadores de torque, mesas ESD, fuentes de banco, prensas manuales para sellos, etiquetadoras, empaque. Fixtures de prueba"
+  ],
+  "capacitacion": [
+   "15 días básicos; 3-5 días IPC-A-610 CIS para inspectores/líderes; 30-60 días para tasas de defecto a",
+   "10-15 días."
+  ],
+  "clientes": [
+   "EMS/contract manufacturers y fabricantes de equipo en Edomex/CDMX: controles industriales, fuentes de poder, equipo médico de bajo riesgo, básculas, timbres, alarmas, controles de acceso (empresas medianas en Naucalpan, Tlalnepantla, Vallejo, Iztapalapa), Fabricantes de controles de bombas, cercas e",
+   "Integradores de rastreo GPS con ensamble local en CDMX/Edomex (que importan módulos y arman kits para flotillas), Fabricantes de cerraduras y controles de acceso (Phillips, Assa Abloy/Yale México, Hermex, marcas de cerraduras digitales), IUSA (Edomex) y ensambladores de medidores de agua/gas para or"
+  ],
+  "seguridad": [
+   "Riesgo medio: cautines (quemadura/arma improvisada) → estaciones fijas con llave y apagado central, conteo de puntas; flush cutters y pinzas → tool-crib con tableros sombra; componentes metálicos pequeños → BOM cerrado por kit; flux/alcohol en dispensadores; extracción de humos. Firmware: sólo programadores offline, sin PC conectadas; sin dispositi",
+   "Riesgo medio: dispositivos con comunicación (GPS/GSM/BLE) son objetos de alto riesgo en un penal → nunca activar SIM ni cargar credenciales; PCBA sin firmware activo o con SIM insertada sólo en planta del cliente; conteo unitario estricto de módulos y antenas; baterías de litio recargable prohibidas; cerraduras: no manejar llaves maestras ni código"
+  ],
+  "regulacion": [
+   "IPC-A-610 (aceptabilidad), J-STD-001 (soldadura) exigidas por clientes; ISO 9001 recomendable; ISO 13485 sólo para médico (excluir). NOM-001-SCFI-2018 y NOM-019-SCFI si el producto final se vende; certificado del cliente. Ambiental: soldadura sin plo",
+   "NOM-208-SCFI-2016 e IFT (homologación de dispositivos RF a nombre del importador/fabricante); NOM-001-SCFI-2018; medidores de agua: NOM-012-SCFI-1994 y aprobación de modelo (CENAM/organismo); ley de datos personales (LFPDPPP 2025) aplica al cliente, "
+  ],
+  "sinergia_totalplay": [
+   "Media-alta: reparación nivel 2 de fuentes, decodificadores y ONT (cambio de capacitores, conectores, fuentes) sería el siguiente paso natural del servicio cosmético actual (ver candidato 10).",
+   "Media: Totalplay opera flotilla de instaladores y vende servicios de seguridad/hogar inteligente (cámaras, sensores); ensamble de kits de 'hogar inteligente' para su canal es posible pero no confirmado."
+  ],
+  "riesgos": [
+   [
+    "Volumen THT decreciente por miniaturización",
+    "ESD y calidad de soldadura: curva de aprendizaje larga",
+    "Clientes reacios a mandar fixtures y firmware a un penal"
+   ],
+   [
+    "Veto de la autoridad penitenciaria a módulos GSM/GPS/BLE aunque estén inactivos",
+    "Volúmenes pequeños y fragmentados por cliente",
+    "Calibración/homologación fuera del alcance del taller"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "baja"
+  ]
+ },
+ {
+  "id": "E4",
+  "nombre": "Subensambles mecánicos y kits: juguetes, cerraduras/herrajes, manijas y plástico inyectado con empaque",
+  "categoria": "ensamble mecánico",
+  "fuentes_raw": [
+   "Subensambles mecánicos y kits: juguetes, cerraduras/herrajes, manijas y artículos de plástico inyectado con ensamble y empaque"
+  ],
+  "calif_preliminar": [
+   7
+  ],
+  "ingreso_persona_hora": [
+   "$70-110 MXN/persona-hora (estimación propia): $2-5 MXN por subensamble/kit × 20-40 piezas/h; empaque y kitting cobrados por pieza."
+  ],
+  "margen": [
+   "35-50% (estimación propia)."
+  ],
+  "capex": [
+   "$200-600k MXN (estimación propia): mesas, prensas manuales de banco, desarmadores de torque, selladora de blister/termoencogible ($30-80k), básculas cuenta-piez"
+  ],
+  "capacitacion": [
+   "5-10 días; operación de baja complejidad."
+  ],
+  "clientes": [
+   "Juguetes Mi Alegría (Tlalnepantla, Edomex) y otros fabricantes de juguete de Edomex/CDMX agremiados en AMIJU, Cerraduras Phillips, Assa Abloy/Yale México, Hermex, fabricantes de herrajes y chapas en Edomex, Truper/Surtek (herrajes, kits de fijación, empaque), Fabricantes de artículos de plástico y p"
+  ],
+  "seguridad": [
+   "Riesgo bajo-medio: cerraduras y cilindros son sensibles (conocimiento de mecanismos de cerrajería y pernos/resortes metálicos) → conviene limitar a herrajes/manijas y no a cilindros de seguridad; piezas metálicas pequeñas por conteo; adhesivos solventes en dispensadores controlados o usar adhesivos base agua."
+  ],
+  "regulacion": [
+   "Juguetes: NOM-015-SCFI-2007 (seguridad de juguetes) y NOM-252-SE-2021 (juguetes, seguridad) a cargo del titular de marca; NOM-050-SCFI-2004 (etiquetado). Cerraduras: NMX voluntarias. Residuos plásticos como RME. ISO 9001 opcional."
+  ],
+  "sinergia_totalplay": [
+   "Baja: kitting/empaque de accesorios y promocionales para Elektra/Totalplay (ya se hace algo similar con el reempaque de CPE)."
+  ],
+  "riesgos": [
+   [
+    "Estacionalidad y volúmenes erráticos",
+    "Márgenes bajos por competencia de maquilas informales",
+    "La autoridad puede objetar cerraduras/cilindros por seguridad"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "F1",
+  "nombre": "Cajas rígidas y estuches de lujo ensamblados a mano (rigid boxes) para tequila/mezcal, joyería y regalo corporativo",
+  "categoria": "alto valor / empaque premium",
+  "fuentes_raw": [
+   "Cajas rígidas y estuches de lujo ensamblados a mano (rigid boxes) para tequila, mezcal, joyería, cosmética y regalo corporativo"
+  ],
+  "calif_preliminar": [
+   8
+  ],
+  "ingreso_persona_hora": [
+   "$200-350 MXN/persona-hora (estimación propia: 5-8 cajas medianas por hora a $40-60 de venta cada una, una vez que el operador está entrenado; primeras semanas 50% de esa productividad)"
+  ],
+  "margen": [
+   "40-55% (estimación propia: precio de venta $35-120 MXN por caja mediana; materiales 35-45%; mano de obra 8-15%)"
+  ],
+  "capex": [
+   "$400-900 mil MXN para un salón de 35 (estimación propia): mesas, prensas manuales de esquinas, rodillos de adhesivo, plegaderas, plantillas, secadores/estantes,"
+  ],
+  "capacitacion": [
+   "10-15 días para forrado básico; 30 días para calidad de lujo (esquinas perfectas). Recomendable un m"
+  ],
+  "clientes": [
+   "Casas tequileras y mezcaleras con presentaciones premium: Casa Cuervo/Beckmann, Casa Herradura (Brown-Forman), Casa Sauza (Suntory), Patrón (Bacardi), Don Julio (Diageo), 400 Conejos/Montelobos (Pernod), Ojo de Tigre, mezcaleros artesanales de Oaxaca que venden en CDMX, Joyerías y relojerías: Tane, "
+  ],
+  "seguridad": [
+   "Bajo. Riesgos: imanes (pueden usarse para manipular cerraduras o esconder objetos) -> conteo por unidad y entrada dosificada; plegaderas de hueso pueden afilarse -> usar plástico blando y conteo; adhesivo PVA no es inhalable ni inflamable; evitar pegamentos de contacto/solvente. Cartón pre-cortado elimina cuchillas."
+  ],
+  "regulacion": [
+   "Sin NOM específica para el estuche. Etiquetado del producto contenido lo hace el cliente (NOM-006-SCFI tequila, NOM-070-SCFI mezcal). Si se exporta como empaque, T-MEC sin arancel (capítulo 48 SA). Para clientes que exigen FSC, el papel/cartón debe v"
+  ],
+  "sinergia_totalplay": [
+   "Media: estuche de presentación para ONT/decodificadores premium o kits de bienvenida; misma lógica de recepción/empaque que la cosmética actual; Grupo Salinas (Elektra, Banco Azteca) compra regalos corporativos."
+  ],
+  "riesgos": [
+   [
+    "Estacionalidad fuerte (Q4); necesidad de otro producto para Q1-Q2",
+    "Calidad de lujo requiere curva de aprendizaje > 15 días; rechazos en primeros lotes",
+    "Logística de producto voluminoso desde Cuautepec; daño en transporte",
+    "Dependencia de un suajador externo (tiempos, calidad)"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "F2",
+  "nombre": "Regalos corporativos con marca de impacto social (ESG): kits curados hechos por personas en reinserción",
+  "categoria": "alto valor / marca",
+  "fuentes_raw": [
+   "Regalos corporativos con marca de impacto social (ESG): kits curados 'hechos por personas en reinserción'"
+  ],
+  "calif_preliminar": [
+   8
+  ],
+  "ingreso_persona_hora": [
+   "$250-450 MXN/persona-hora en temporada (estimación propia: 2-4 kits/hora con $120-150 de valor agregado interno por kit); el límite es comercial, no productivo"
+  ],
+  "margen": [
+   "40-55% sobre precio de venta (estimación propia: kit vendido a $450-900; costo de contenidos 35-45%; mano de obra 5-10%)"
+  ],
+  "capex": [
+   "$500 mil-1.2 M MXN (estimación propia): diseño de marca y catálogo, muestras, inventario de contenidos para Q4, vendedor B2B, plataforma de pedidos (fuera del p"
+  ],
+  "capacitacion": [
+   "10-15 días (ensamble + calidad); la venta B2B la hace personal externo."
+  ],
+  "clientes": [
+   "Áreas de RH/compras/sustentabilidad de: Grupo Salinas, BBVA México, Banorte, Bimbo, FEMSA, Cemex, despachos (Creel, Galicia, White & Case MX), consultoras (Deloitte, EY, KPMG MX), tecnológicas con oficina en CDMX, Gobierno de la CDMX y dependencias federales para eventos institucionales (verificar r"
+  ],
+  "seguridad": [
+   "Bajo. Listas de destinatarios con nombres son datos personales: manejar la personalización nominal fuera del penal o con sobres pre-impresos afuera. Contenidos comestibles: conteo estricto."
+  ],
+  "regulacion": [
+   "NOM-050-SCFI; si hay alimentos, los proveedores externos deben cumplir NOM-051 y ser establecimientos con aviso COFEPRIS (no manipular alimentos adentro). Comunicación de impacto social sin exponer identidad de PPL (Ley de Protección de Datos y LNEP)"
+  ],
+  "sinergia_totalplay": [
+   "Alta: Grupo Salinas (Totalplay, Elektra, Banco Azteca, TV Azteca) es cliente ancla natural para decenas de miles de kits para empleados y clientes premium; además da credibilidad al programa de reinserción."
+  ],
+  "riesgos": [
+   [
+    "Reputacional: explotación percibida si el salario mínimo se comunica mal; se requiere transparencia (salario, cuenta individual, capacitación)",
+    "Fuerte estacionalidad Q4",
+    "Dependencia de otros talleres penitenciarios para contenidos (calidad y tiempos variables)",
+    "Cambios políticos en la Subsecretaría pueden afectar uso de la marca o convenios"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "F3",
+  "nombre": "Accesorios para mascotas: juguetes de cuerda trenzada, mordederas y camas cosidas",
+  "categoria": "manufactura ligera",
+  "fuentes_raw": [
+   "Accesorios para mascotas: juguetes de cuerda trenzada, mordederas de tela y camas cosidas (sin alimentos)"
+  ],
+  "calif_preliminar": [
+   7
+  ],
+  "ingreso_persona_hora": [
+   "$100-220 MXN/persona-hora (estimación propia: 4-8 juguetes de cuerda por hora a $25-40; camas 1-2/h a $120-180 de valor agregado)"
+  ],
+  "margen": [
+   "35-50% (estimación propia: juguete de cuerda vendido a mayoreo en $25-60, cuerda $8-15; camas vendidas a $250-500, materiales 40-50%)"
+  ],
+  "capex": [
+   "$300-800 mil MXN (estimación propia): máquinas de coser rectas y overlock (10-15), cortadora de cuerda bajo custodia, mesas, inventario de cuerda, telas y relle"
+  ],
+  "capacitacion": [
+   "3-5 días trenzado; 15 días costura básica; 30 días para camas con acabado comercial."
+  ],
+  "clientes": [
+   "Cadenas: Petco México, +Kota, Maskota, Petn'Go, Marcas mexicanas de accesorios y marcas propias de autoservicio (Walmart, Chedraui, Soriana), Vendedores en Mercado Libre/Amazon MX que buscan proveedor local con MOQ bajo, Marcas DTC de mascotas en Instagram (personalizadas)"
+  ],
+  "seguridad": [
+   "Bajo-medio: cuerda es material de riesgo (estrangulación, escalada) -> entrega por lote pesado y conteo de piezas terminadas contra cuerda entregada; agujas de máquina contadas; tijeras atadas."
+  ],
+  "regulacion": [
+   "NOM-004-SE-2021 (etiquetado de textiles) para camas; NOM-050-SCFI; sin registro SENASICA para accesorios (sí lo requerirían alimentos/snacks, por eso se excluyen). Para exportar a EE.UU. no hay certificación obligatoria para juguetes de mascota."
+  ],
+  "sinergia_totalplay": [
+   "Baja (sólo como regalo corporativo o promocional)."
+  ],
+  "riesgos": [
+   [
+    "Competencia de precio con importación asiática",
+    "Cuerda como material sensible en un centro de seguridad",
+    "Margen bajo en juguetes simples; requiere volumen",
+    "Necesita fuerza de ventas hacia cadenas (listados, condiciones de pago a 60-90 días)"
+   ]
+  ],
+  "confianza": [
+   "media"
+  ]
+ },
+ {
+  "id": "F4",
+  "nombre": "Juguetes de madera/rompecabezas y pintura a mano de figuras y artesanía (extensión del taller de tenis pintados)",
+  "categoria": "manufactura ligera / artesanía",
+  "fuentes_raw": [
+   "Juguetes de madera y rompecabezas (acabado, ensamble, pintura no tóxica y empaque)",
+   "Pintura a mano de figuras, miniaturas y artesanía de resina/cerámica para exportación y regalos (extensión del taller de tenis pintados)"
+  ],
+  "calif_preliminar": [
+   6,
+   6
+  ],
+  "ingreso_persona_hora": [
+   "$120-250 MXN/persona-hora (estimación propia: 3-6 piezas/h con $40-60 de valor agregado interno cada una)",
+   "$120-350 MXN/persona-hora (estimación propia; depende del nivel: pintura básica 3-4 piezas/h a $40; pintura fina 1 pieza/2 h a $500+). Comisión de miniaturas en EE.UU. paga el equivalente a US$8-20 por hora de trabajo (d"
+  ],
+  "margen": [
+   "40-55% (estimación propia: rompecabezas/juguete vendido a mayoreo en $120-350; madera cortada y pintura 30-40%)",
+   "50-65% (estimación propia: figura pintada vendida a $150-600; blanco de resina/cerámica $30-120; pintura $5-15)"
+  ],
+  "capex": [
+   "$400-900 mil MXN (estimación propia): lijadoras orbitales pequeñas bajo custodia (o lijado manual), cabina de secado, prensas manuales, pintura base agua, inven",
+   "$150-400 mil MXN por salón (estimación propia): mesas con luz, pinceles, acrílicos, cabina de secado, blancos iniciales, cámara para control de calidad (sin red"
+  ],
+  "capacitacion": [
+   "10-15 días para lijado/ensamble/pintura básica; pintura fina 30 días (ya hay pintores a mano en CEVA",
+   "15 días para nivel básico; 60-90 días para nivel fino; selección por aptitud (ya existe núcleo de pi"
+  ],
+  "clientes": [
+   "Tiendas y marcas de juguete educativo en México (vendedores de Mercado Libre/Amazon con marca propia, jugueterías didácticas, Liverpool/Palacio en marcas de nicho), Escuelas Montessori y preescolares privados de CDMX (material didáctico), Exportación a EE.UU. bajo T-MEC a tiendas de juguete de mader",
+   "Tiendas de souvenirs y decoración de CDMX (Ciudadela, Coyoacán, aeropuerto) y mayoristas de artesanía para EE.UU. (Texas, California), Marcas de calzado/streetwear para ediciones pintadas a mano (ya hay experiencia; clientes: marcas mexicanas de sneakers, personalizadores), Estudios de pintura de mi"
+  ],
+  "seguridad": [
+   "Medio: piezas de madera pueden afilarse como puntas -> conteo por pieza; lijas y lijadoras controladas; pinturas al agua sin solventes (evitar thinner/lacas).",
+   "Bajo: pinceles y pinturas al agua; piezas de cerámica rotas pueden usarse como filo -> preferir resina/poliresina; conteo de piezas."
+  ],
+  "regulacion": [
+   "NOM-252-SSA1-2011 (seguridad de juguetes: metales pesados, piezas pequeñas, bordes) con pruebas de laboratorio acreditado; NOM-015-SCFI-2007 (etiquetado de juguetes); para EE.UU. ASTM F963/CPSIA (tercera parte). Sin certificación no se puede vender a",
+   "NOM-050-SCFI; si son figuras para niños aplica NOM-252-SSA1 (evitar; vender como decorativo/coleccionable 14+); licencias de propiedad intelectual si se pintan personajes o equipos (evitar fan-art no licenciado para exportación)."
+  ],
+  "sinergia_totalplay": [
+   "Baja-media (regalos corporativos infantiles, promocionales).",
+   "Baja-media (regalos corporativos, activaciones de marca)."
+  ],
+  "riesgos": [
+   [
+    "Costo y tiempo de certificación NOM-252/ASTM",
+    "Astillas o piezas pequeñas = riesgo de producto y responsabilidad civil",
+    "Mercado nicho; ventas dependen de marketing digital que el empresario debe hacer afuera"
+   ],
+   [
+    "Escalabilidad limitada por talento",
+    "Propiedad intelectual en fan-art",
+    "Ventas dependen de canal turístico/exportación que hay que construir"
+   ]
+  ],
+  "confianza": [
+   "media",
+   "baja"
+  ]
+ },
+ {
+  "id": "F5",
+  "nombre": "Velas de cera de soya y aromatizantes",
+  "categoria": "manufactura ligera",
+  "fuentes_raw": [
+   "Velas de cera de soya y aromatizantes (vertido, etiquetado y empaque) en salón acondicionado"
+  ],
+  "calif_preliminar": [
+   5
+  ],
+  "ingreso_persona_hora": [
+   "$150-300 MXN/persona-hora en línea de vertido (estimación propia: 20-40 velas/h por persona en línea de 6-8 personas, $8-12 de valor agregado por vela); sólo etiquetado/empaque: $80-140/h"
+  ],
+  "margen": [
+   "45-60% (estimación propia: vela de 200 g vendida a mayoreo en $90-180; cera, fragancia, vaso y pabilo $35-60)"
+  ],
+  "capex": [
+   "$250-600 mil MXN (estimación propia): fundidores eléctricos, mesas de vertido, termómetros, extintores y adecuación eléctrica/ventilación del salón (aprobación "
+  ],
+  "capacitacion": [
+   "7-15 días."
+  ],
+  "clientes": [
+   "Marcas de decoración/home fragrance mexicanas y tiendas de diseño (Liverpool en marcas propias, tiendas de Polanco/Roma), Hoteles boutique y spas (amenidades con marca), Agencias de regalos corporativos (vela + caja = kit clásico), Vendedores en Mercado Libre/Amazon MX con marca propia (maquila priv"
+  ],
+  "seguridad": [
+   "Medio-alto: cera caliente (quemaduras/agresión), vidrio (filos), fragancias inflamables y con alcohol (uso indebido), pabilo con núcleo de algodón (bajo riesgo). Mitigar: fundidores con tapa y llave, vasos de lata o cerámica, fragancias sin alcohol, sólo 6-8 personas en vertido bajo supervisión directa, resto en empaque."
+  ],
+  "regulacion": [
+   "NOM-050-SCFI (etiquetado); Ley General de Salud/COFEPRIS si se declara aromaterapia (no declarar); para exportar a EE.UU., ASTM F2417 y etiquetas de advertencia; NOM-002-STPS (prevención de incendios) para el área."
+  ],
+  "sinergia_totalplay": [
+   "Baja (regalos corporativos)."
+  ],
+  "riesgos": [
+   [
+    "Autoridad penitenciaria puede rechazar cera caliente y fragancias en un centro de seguridad",
+    "Vidrio",
+    "Mercado saturado en gama baja"
+   ]
+  ],
+  "confianza": [
+   "baja"
+  ]
+ },
+ {
+  "id": "F6",
+  "nombre": "Etiquetado y anotación de datos para IA en red aislada (offline)",
+  "categoria": "servicios digitales",
+  "fuentes_raw": [
+   "Etiquetado y anotación de datos para IA en red aislada (offline) — precedente Finlandia"
+  ],
+  "calif_preliminar": [
+   5
+  ],
+  "ingreso_persona_hora": [
+   "$110-220 MXN/persona-hora (estimación propia: tarifas de outsourcing básico en LATAM de US$6-12/h; peso a ~18-19 MXN/USD, dato de memoria)"
+  ],
+  "margen": [
+   "50-65% (estimación propia: tarifa a cliente US$6-12/h equivalente; costo laboral $39 MXN/h más supervisor técnico y equipo)"
+  ],
+  "capex": [
+   "$1.0-1.8 M MXN por salón de 35 (estimación propia): 35 PC básicas, switch, servidor local, software de anotación open-source (CVAT/Label Studio en LAN), jaulas "
+  ],
+  "capacitacion": [
+   "10-15 días para tareas simples (requiere alfabetización digital básica; seleccionar PPL con secundar"
+  ],
+  "clientes": [
+   "Startups y áreas de IA en México que necesitan datos en español mexicano: retail tech, logística, agrotech, fintech (después de anonimización), Empresas globales de datos que subcontratan en LATAM (Sama, CloudFactory, Appen, TaskUs, Telus International tienen operaciones en la región; dato de memori"
+  ],
+  "seguridad": [
+   "Alto: computadoras y cables en un centro de seguridad (riesgo de comunicación clandestina si algún dispositivo se conecta a red o se introduce un módem/celular); datos de clientes (exigir anonimización y NDA); requiere aval explícito de la Subsecretaría y probablemente de la SSC. Mitigar: LAN físicamente aislada, sin WiFi, equipos con BIOS bloquead"
+  ],
+  "regulacion": [
+   "Nueva Ley Federal de Protección de Datos Personales en Posesión de los Particulares (2025, sustituyó a la de 2010; dato de memoria) y LGPDPPSO si hay datos de gobierno: el taller sería 'encargado' y necesita contrato, medidas de seguridad y aviso; IS"
+  ],
+  "sinergia_totalplay": [
+   "Media: Totalplay/Grupo Salinas generan grandes volúmenes de datos (llamadas, fotos de instalación) que podrían etiquetarse anonimizados; sería un cliente ancla con confianza ya construida."
+  ],
+  "riesgos": [
+   [
+    "Rechazo de la autoridad a computadoras en un centro de seguridad",
+    "Filtración de datos = daño legal y reputacional severo",
+    "Automatización reduce tareas simples",
+    "Selección de PPL con habilidades digitales limita escala"
+   ]
+  ],
+  "confianza": [
+   "baja"
+  ]
+ },
+ {
+  "id": "F7",
+  "nombre": "Pelado manual de cable de cobre y recuperación de conectores (con cable residual del cliente)",
+  "categoria": "reciclaje",
+  "fuentes_raw": [
+   "Pelado manual de cable de cobre y recuperación de conectores/adaptadores de corriente"
+  ],
+  "calif_preliminar": [
+   5
+  ],
+  "ingreso_persona_hora": [
+   "$180–300 MXN por persona-hora con cable de energía de cobre suministrado sin costo (estimación propia): 5 kg/h de cable aislado, 45% de rendimiento = 2.25 kg Cu × $80–120/kg. Con eliminadores de módem: ~$40–70/h (transfo"
+  ],
+  "margen": [
+   "Si el cable llega gratis (residuo del cliente): 60–75% (estimación propia). Si se compra cable aislado a chatarreras: 5–20% y muy sensible al precio del cobre. "
+  ],
+  "capex": [
+   "$150,000–300,000 MXN por salón (estimación propia): peladoras manuales de manivela (sin motor) ~$1,500–4,000 c/u, cuchillas de seguridad, imanes, básculas, guan"
+  ],
+  "capacitacion": [
+   "3–5 días."
+  ],
+  "clientes": [
+   "Chatarreras y fundidoras de cobre en Vallejo/Ecatepec/Tlalnepantla (compradores locales, no verificados), Contratistas eléctricos y de telecomunicaciones (residuos de obra: THW, arneses), Totalplay: eliminadores/adaptadores y cable de acometida de cobre de instalaciones antiguas (bajo volumen, red m"
+  ],
+  "seguridad": [
+   "El producto es alambre de cobre (uso potencial como arma punzante, garrote o para manipular chapas) y el cable aislado como cuerda: control estricto de pesaje entrada/salida (balance de masa por turno), ensacado y sellado inmediato, retiro diario. Cuchillas: sólo hoja retráctil, contadas. Prohibir quemado de cable (dioxinas). Riesgo de recibir cabl"
+  ],
+  "regulacion": [
+   "Cable y metales son residuos de manejo especial (LGPGIR art. 19) si provienen de obra o generador industrial; venta de cobre chatarra: comprobar origen (compras de metal robado tienen tipificación penal en varios estados). Registro SEDEMA como acopia"
+  ],
+  "sinergia_totalplay": [
+   "Baja-media: la red de Totalplay es de fibra; sólo eliminadores, cables de poder de CPE y arneses. Útil como complemento del salón de desensamble (candidato 1), no como línea independiente."
+  ],
+  "riesgos": [
+   [
+    "Precio del cobre volátil",
+    "Coaxial/UTP típicos de telecos no contienen cobre útil",
+    "Riesgo penal por materia prima de origen ilícito",
+    "Alambre de cobre como contrabando interno"
+   ]
+  ],
+  "confianza": [
+   "baja"
+  ]
+ },
+ {
+  "id": "F8",
+  "nombre": "Reciclaje textil: clasificación de ropa usada y trapo industrial",
+  "categoria": "reciclaje",
+  "fuentes_raw": [
+   "Reciclaje textil: clasificación de ropa usada y producción de trapo industrial (wiping rags) y relleno"
+  ],
+  "calif_preliminar": [
+   6
+  ],
+  "ingreso_persona_hora": [
+   "$120-250. Supuesto: 10-15 kg procesados por persona-hora (clasificación + corte + empaque); valor agregado neto de insumo $12-20/kg. Estimación propia con alta incertidumbre."
+  ],
+  "margen": [
+   "40-60 % (estimación propia): insumo (retazo o ropa usada por paca) $3-10/kg, incluso gratis por donación de marcas; venta $18-35/kg; mano de obra $3-5/kg."
+  ],
+  "capex": [
+   "$150,000-400,000: mesas de clasificación, 3-4 guillotinas/cortadoras rotativas de mesa con guarda, básculas, prensa empacadora manual o hidráulica ($80,000-250,"
+  ],
+  "capacitacion": [
+   "5-10 días."
+  ],
+  "clientes": [
+   "Talleres mecánicos, imprentas y plantas industriales de la Zona Metropolitana (compra directa de pacas), Distribuidores de productos de limpieza industrial y ferreteros mayoristas, Empresas de mantenimiento de flotillas (Totalplay, Italika: talleres de motos, flotas de camionetas), Lavanderías indus"
+  ],
+  "seguridad": [
+   "Riesgo alto en el insumo: la ropa usada puede traer objetos ocultos (drogas, celulares, navajas) y ropa de civil facilita suplantación en una fuga; mitigación: pacas pasadas por rayos X o inspección manual completa antes de entrar, insumo triturado/cortado antes de ingresar al área o ropa sin estructura (retazo de fábrica en vez de ropa post-consum"
+  ],
+  "regulacion": [
+   "Ley General para la Prevención y Gestión Integral de los Residuos y Ley de Residuos Sólidos de la CDMX (plan de manejo de residuos de manejo especial si se reciben residuos textiles industriales; registro ante SEDEMA como planta de acopio/reciclaje; "
+  ],
+  "sinergia_totalplay": [
+   "Media: Totalplay y Grupo Salinas pueden donar uniformes dados de baja (evitan que su marca aparezca en la calle) y comprar el trapo para sus talleres de flotilla; historia ESG fuerte."
+  ],
+  "riesgos": [
+   [
+    "Contrabando de objetos en el insumo (riesgo de seguridad crítico)",
+    "Volatilidad de precio y calidad del insumo",
+    "Mercado de trapo fragmentado y con pagos en efectivo/informalidad",
+    "Absorbe pocas horas-hombre por kg: puede quedar mal aprovechado un salón entero si no hay insumo"
+   ]
+  ],
+  "confianza": [
+   "baja"
+  ]
+ }
+]
