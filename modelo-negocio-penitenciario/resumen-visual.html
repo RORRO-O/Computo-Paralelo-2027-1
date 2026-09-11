@@ -1,0 +1,575 @@
+<title>Taller CEVASEP II 2030</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@85,600;85,800;100,400;100,600&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #f2f4f6;
+    --paper: #ffffff;
+    --ink: #142230;
+    --ink-2: #4a5866;
+    --ink-3: #7b8794;
+    --line: #d6dce2;
+    --accent: #1f6f8b;
+    --accent-ink: #145a72;
+    --accent-soft: #dcecf2;
+    --warn: #b8501f;
+    --warn-soft: #f7e6dc;
+    --ok: #2f7a4a;
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
+    --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+    --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f161c; --paper: #16202a; --ink: #e7edf2; --ink-2: #b4c0cb; --ink-3: #8797a5;
+      --line: #2a3742; --accent: #5fb3d0; --accent-ink: #8fd0e6; --accent-soft: #1b3440;
+      --warn: #f0925f; --warn-soft: #3a2418; --ok: #6cc389;
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f161c; --paper: #16202a; --ink: #e7edf2; --ink-2: #b4c0cb; --ink-3: #8797a5;
+    --line: #2a3742; --accent: #5fb3d0; --accent-ink: #8fd0e6; --accent-soft: #1b3440;
+    --warn: #f0925f; --warn-soft: #3a2418; --ok: #6cc389;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); padding-block: 32px 80px; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 40px; }
+  @media (max-width: 900px) { .wrap { grid-template-columns: minmax(0, 1fr); gap: 24px; } nav.toc { display: none; } }
+  nav.toc { position: sticky; top: 24px; align-self: start; font-size: 14px; }
+  nav.toc .eyebrow { margin-bottom: 10px; }
+  nav.toc a { display: block; color: var(--ink-2); text-decoration: none; padding: 5px 0 5px 12px; border-left: 2px solid var(--line); }
+  nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent-ink); border-left-color: var(--accent); outline: none; }
+  main { min-width: 0; }
+  .eyebrow { font-family: var(--display); font-variation-settings: "wdth" 85; font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-ink); }
+  h1 { font-family: var(--display); font-variation-settings: "wdth" 85; font-weight: 800; font-size: clamp(30px, 4.6vw, 48px); line-height: 1.05; margin: 8px 0 14px; text-wrap: balance; letter-spacing: -0.01em; }
+  h2 { font-family: var(--display); font-variation-settings: "wdth" 85; font-weight: 800; font-size: 26px; line-height: 1.15; margin: 56px 0 14px; text-wrap: balance; padding-top: 18px; border-top: 1px solid var(--line); }
+  h3 { font-family: var(--display); font-weight: 600; font-size: 19px; margin: 28px 0 8px; text-wrap: balance; }
+  p { max-width: 68ch; margin: 0 0 14px; }
+  .lede { font-size: 19px; color: var(--ink-2); max-width: 64ch; }
+  .meta { color: var(--ink-3); font-size: 14px; margin-bottom: 26px; }
+  .answer { background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 20px 22px; margin: 26px 0 30px; }
+  .answer p { max-width: 74ch; }
+  .answer p:last-child { margin-bottom: 0; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 0 0 8px; }
+  .tile { background: var(--paper); border: 1px solid var(--line); padding: 14px 16px; }
+  .tile .k { font-family: var(--mono); font-size: 26px; font-weight: 500; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .tile .l { font-size: 13px; color: var(--ink-2); margin-top: 2px; }
+  .tile .n { font-size: 12px; color: var(--ink-3); margin-top: 6px; }
+  ul, ol { max-width: 72ch; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 600; }
+  .tablewrap { overflow-x: auto; margin: 14px 0 22px; border: 1px solid var(--line); background: var(--paper); }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  th { font-family: var(--display); font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); background: var(--bg); white-space: nowrap; }
+  td.num, th.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  td.neg { color: var(--warn); }
+  .pill { display: inline-block; font-family: var(--display); font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; background: var(--accent-soft); color: var(--accent-ink); white-space: nowrap; }
+  .pill.warn { background: var(--warn-soft); color: var(--warn); }
+  .pill.ok { background: var(--accent-soft); color: var(--ok); }
+  .note { font-size: 14px; color: var(--ink-2); max-width: 74ch; border-left: 3px solid var(--warn); padding-left: 12px; margin: 14px 0 20px; }
+  figure { margin: 18px 0 26px; background: var(--paper); border: 1px solid var(--line); padding: 16px 16px 10px; }
+  figcaption { font-size: 14px; color: var(--ink-2); margin-top: 8px; max-width: 74ch; }
+  figure svg { width: 100%; height: auto; display: block; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--ink-2); margin: 4px 0 6px; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .legend .l1::before { background: var(--s1); } .legend .l2::before { background: var(--s2); } .legend .l3::before { background: var(--s3); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 14px 0 10px; }
+  .card { background: var(--paper); border: 1px solid var(--line); padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+  .card h3 { margin: 0; font-size: 17px; }
+  .card .row { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; color: var(--ink-2); border-top: 1px dashed var(--line); padding-top: 6px; }
+  .card .row b { font-family: var(--mono); font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .card p { font-size: 15px; margin: 4px 0 0; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px 28px; }
+  .canvas { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+  .canvas div { background: var(--paper); border: 1px solid var(--line); padding: 12px 14px; font-size: 14.5px; }
+  .canvas div b { display: block; font-family: var(--display); font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); margin-bottom: 6px; }
+  details { border: 1px solid var(--line); background: var(--paper); padding: 10px 16px; margin: 10px 0; }
+  summary { cursor: pointer; font-weight: 600; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  a { color: var(--accent-ink); }
+  footer { margin-top: 60px; font-size: 13.5px; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 16px; max-width: 74ch; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Secciones">
+  <div class="eyebrow">Contenido</div>
+  <a href="#respuesta">Respuesta corta</a>
+  <a href="#activos">Lo que tienes</a>
+  <a href="#legal">Marco legal</a>
+  <a href="#economia">Economía del taller</a>
+  <a href="#metodo">Cómo se evaluó</a>
+  <a href="#lineas">Líneas recomendadas</a>
+  <a href="#no">Lo que no conviene</a>
+  <a href="#fases">Plan de fases</a>
+  <a href="#finanzas">Modelo financiero</a>
+  <a href="#canvas">Business Model Canvas</a>
+  <a href="#operacion">Operación</a>
+  <a href="#comercial">Comercial y riesgos</a>
+  <a href="#90dias">Próximos 90 días</a>
+  <a href="#fuentes">Fuentes</a>
+</nav>
+
+<main>
+  <div class="eyebrow">Modelo de negocio · Ciudad de México · 11 de septiembre de 2026</div>
+  <h1>Taller de manufactura y servicios con personas privadas de la libertad en CEVASEP II, 2026–2030</h1>
+  <p class="lede">Con 4 salones de 35 personas (ampliables a 10), pagando sólo salario mínimo y con instalaciones, luz y servicios a cargo de la Secretaría: qué líneas meter, cuánto dejan, qué las mata y cómo se arma el convenio.</p>
+  <p class="meta">Centro Varonil de Seguridad Penitenciaria II, contiguo al Reclusorio Norte (Cuautepec, GAM). Base: cosmética de equipos Totalplay ya autorizada y vendida. Documento completo y modelo en Python en la carpeta <code>modelo-negocio-penitenciario</code> del repositorio.</p>
+
+  <section id="respuesta">
+    <div class="answer">
+      <p><strong>Respuesta corta.</strong> No diversifiques hacia manufactura pesada, textil o electrónica de exportación. Crece <strong>en la misma vertical que ya tienes autorizada y vendida</strong> (logística inversa de telecomunicaciones) y súbela de valor: del "limpiar y etiquetar" al <strong>kit de alta listo para autoinstalación</strong>, al <strong>triage funcional</strong> y a <strong>otros operadores</strong>. Complementa con dos salones de "manipulados" de bajo riesgo (etiquetado NOM para importadores, kitting corporativo, cajas rígidas y regalos con marca de impacto social) para absorber estacionalidad y dejar de depender de un solo cliente.</p>
+      <p>Todo depende de cinco condiciones que hay que cerrar por escrito antes de escalar: convenio plurianual como Socio Industrial, base de pago (22 o 30.4 días), definición del IMSS, carta de no objeción de Totalplay y oficio de seguridad para bancos de prueba.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile"><div class="k">$4.9 M</div><div class="l">EBITDA mensual, 10 salones, escenario base</div><div class="n">$1.7 M en escenario conservador</div></div>
+      <div class="tile"><div class="k">$72 / h</div><div class="l">Costo por hora productiva con 4 salones</div><div class="n">$66 con 10 salones; $101 un operario externo</div></div>
+      <div class="tile"><div class="k">29–35 %</div><div class="l">Ventaja de costo frente a un taller externo</div><div class="n">Se evapora con pago de 30.4 días más IMSS</div></div>
+      <div class="tile"><div class="k">$2.3 M</div><div class="l">Capex acumulado para llegar a 10 salones</div><div class="n">Payback por línea menor a 2 meses</div></div>
+    </div>
+  </section>
+
+  <section id="activos">
+    <h2>1. Lo que tienes hoy</h2>
+    <div class="grid2">
+      <div>
+        <h3>Activos</h3>
+        <ul>
+          <li><strong>4 salones tipo aula</strong> (≈140 PPL), ampliables a 8–10 (≈280–350). Capacidad de manipulados: mesas, no naves.</li>
+          <li><strong>Jornada</strong> 9–13 y 14–18 h: 176 h pagadas por persona al mes.</li>
+          <li><strong>Salario mínimo 2026: $315.04/día</strong> (DOF 9-dic-2025) → $39.38 por hora pagada. Sin renta, luz ni servicios.</li>
+          <li><strong>Rotación casi nula</strong>, asistencia diaria, sin celulares. El activo real es capacidad garantizada, no mano de obra barata.</li>
+          <li><strong>Proceso ya autorizado</strong> por la Dirección de Seguridad: cadena de custodia, herramientas y materiales de la cosmética de Totalplay.</li>
+          <li><strong>Cliente ancla:</strong> Totalplay, 5.68 millones de suscriptores al 2T-2026, +121,572 en el trimestre, EBITDA trimestral de 5,074 mdp.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Restricciones que mandan</h3>
+        <ul>
+          <li><strong>Centro de alta seguridad</strong> (alto riesgo institucional, acreditado ACA). Prohibidos celulares, electrónicos con conectividad, internet, litio, cobre a granel, discos con datos. Bloqueo de señal celular en 2026; el Reclusorio Norte contiguo es el principal origen de extorsión telefónica de la ciudad.</li>
+          <li><strong>Capacitación de 15 días:</strong> fuera oficios de curva larga.</li>
+          <li><strong>Sólo mercado nacional:</strong> 19 U.S.C. §1307 prohíbe importar a Estados Unidos bienes hechos con trabajo de reclusos.</li>
+          <li><strong>Cliente visible = riesgo:</strong> multinacionales con códigos anti "prison labor" no firman directo ni pueden auditar el sitio. Se entra vía 3PL, co-packer o convertidor mexicano.</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Cinco condiciones que cerrar por escrito antes de escalar</h3>
+    <ol>
+      <li><strong>Convenio plurianual 2026–2030</strong> como Socio Industrial: objeto ampliado, salones, población, custodios por salón y horario, exención expresa de cuota por espacio y servicios, cláusula de salida y traslado de activos.</li>
+      <li><strong>Base de pago:</strong> por día laborado (22) o calendario (30.4). Mueve el costo por hora productiva de $72 a $91.</li>
+      <li><strong>Seguridad social:</strong> definir con abogado laboral si habrá IMSS (+30% de costo) o cómo se documenta la modalidad "a cuenta de terceros" para evitar recaracterización retroactiva.</li>
+      <li><strong>Carta de no objeción de Totalplay</strong> para atender operadores no competidores o a competidores vía 3PL en salón separado.</li>
+      <li><strong>Oficio de la Dirección Ejecutiva de Seguridad Penitenciaria</strong> para bancos de prueba aislados (triage funcional). Sin oficio, ese salón se queda en cosmética y kits.</li>
+    </ol>
+  </section>
+
+  <section id="legal">
+    <h2>2. Marco legal y del convenio</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Norma</th><th>Qué dice</th><th>Implicación</th></tr></thead>
+      <tbody>
+        <tr><td>LNEP art. 91</td><td>Trabajo "a cuenta de terceros" (modalidad III). La autoridad nunca es patrón ni patrón solidario. La autoridad decide qué PPL participan.</td><td>Toda responsabilidad laboral es de la empresa. La selección de personal la controla el centro.</td></tr>
+        <tr><td>LNEP art. 92</td><td>Trabajo formativo, con seguridad e higiene; mecanismos de participación privada.</td><td>Fundamento expreso del taller; documentar capacitación, EPP y protocolos.</td></tr>
+        <tr><td>LNEP art. 93</td><td>Salarios en cuenta administrada por la autoridad; destinos a reparación del daño, seguridad social y familia a solicitud de la PPL.</td><td>Se deposita, no se paga en mano. Pactar periodicidad, listas firmadas, conciliación y constancias. El 70/20/10 era de la ley local de 2011, ya abrogada.</td></tr>
+        <tr><td>Ley y Reglamento de Centros Penitenciarios CDMX</td><td>Figura de Socio Industrial por convenio; revisiones e ingreso de objetos (arts. 53–55); objetos prohibidos se denuncian al MP (art. 84); fondo de ahorro restituible.</td><td>Convenio o adenda con anexos técnicos por línea: proceso, layout, herramientas, insumos con hoja de seguridad, personal externo, pago.</td></tr>
+        <tr><td>Lineamientos de ayuda económica (Gaceta 4-may-2022)</td><td>El socio industrial paga directo y nunca menos del salario mínimo general de la CDMX.</td><td>Base del "sólo pagas salario mínimo". El programa público considera 40 h/mes; tu jornada de 8 h/día lo supera: argumento frente a críticas.</td></tr>
+        <tr><td>LFT art. 20 / Ley del Seguro Social</td><td>La LNEP no declara aplicable ni inaplicable la LFT; sin jurisprudencia 2023–2026.</td><td>Riesgo abierto de recaracterización. Resolver antes de pasar de 140 a 350 personas.</td></tr>
+        <tr><td>Nueva LFPDPPP (DOF 20-mar-2025)</td><td>Régimen de encargado.</td><td>Contrato de encargado con Totalplay; reset certificado por serie antes de entrar; no energizar en salón.</td></tr>
+        <tr><td>19 U.S.C. §1307</td><td>Prohíbe importar a EE.UU. bienes hechos con trabajo de reclusos.</td><td>Nada del taller va a Estados Unidos. No tomar a Airtrak (Reclusorio Norte, "exporta inflables") como modelo.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Contraparte: Subsecretaría de Sistema Penitenciario (SSC CDMX) → Dirección Ejecutiva de Trabajo Penitenciario (tel. 55 5132 5400 ext. 1654 y 1657) y su J.U.D. de Fomento. La SSC reportaba 28 convenios con empresas y 15,593 PPL en comisión laboral (sep-2024). El Estado de México tiene 22 empresas y 33 convenios; en Ecatepec 3,500 de 6,100 PPL están en industria penitenciaria. El modelo existe y tiene escala.</p>
+  </section>
+
+  <section id="economia">
+    <h2>3. Economía del taller</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Concepto</th><th>Dentro del penal (4 salones)</th><th>Operario externo, zona norte</th></tr></thead>
+      <tbody>
+        <tr><td>Sueldo</td><td>$315.04/día = $6,931/mes por 22 días</td><td>$10,000/mes bruto (vacantes 2026 en Tlalnepantla, Cuautitlán, Azcapotzalco)</td></tr>
+        <tr><td>Cargas de ley</td><td>Ninguna hoy (riesgo +30 %)</td><td>IMSS, Infonavit, ISN 4 %, aguinaldo, prima, PTU ≈ +39 %</td></tr>
+        <tr><td>Renta, luz, vigilancia</td><td>$0</td><td>≈ $8.5/h</td></tr>
+        <tr><td>Supervisión, logística, mermas, seguros, capacitación, herramientas</td><td>≈ $304,000/mes (≈ $12/h)</td><td>Supervisión y rotación 50 %/año ≈ $7.7/h</td></tr>
+        <tr><td>Administración fija</td><td>$150,000/mes</td><td>Incluida</td></tr>
+        <tr><td><strong>Costo por hora pagada</strong></td><td class="num"><strong>57.8</strong></td><td class="num"><strong>95.2</strong></td></tr>
+        <tr><td>Productividad</td><td class="num">0.80</td><td class="num">0.94</td></tr>
+        <tr><td><strong>Costo por hora productiva</strong></td><td class="num"><strong>72</strong> (66 con 10 salones)</td><td class="num"><strong>101</strong></td></tr>
+      </tbody>
+    </table></div>
+
+    <figure>
+      <div class="eyebrow">Costo por hora productiva según supuestos (4 salones, pesos)</div>
+      <svg id="chart-cost" viewBox="0 0 760 330" role="img" aria-labelledby="cc-title"><title id="cc-title">Costo por hora productiva por escenario, con umbral de 110 pesos</title></svg>
+      <figcaption>La línea punteada marca la regla de oro: ninguna línea entra al portafolio si no factura más de $110 por persona-hora en escenario conservador, porque a 2030 el salario mínimo estará entre $460 y $495 por día. Fuente: modelo financiero, sección 8 del documento.</figcaption>
+    </figure>
+    <p class="note">La productividad de 0.80 es estimación propia (Reino Unido reporta ~5 h efectivas por día en sus talleres). Mide unidades por hora en tus 4 salones durante 4 semanas antes de comprometer volúmenes. Todo contrato debe indexar el precio al salario mínimo cada enero.</p>
+  </section>
+
+  <section id="metodo">
+    <h2>4. Cómo se evaluaron las líneas</h2>
+    <ol>
+      <li><strong>Investigación</strong> con 11 agentes (marco legal, costo laboral, seis categorías de mercado, tendencias 2026–2030, casos internacionales): <strong>63 líneas candidatas</strong> con clientes, precios, productividad, capex, seguridad y regulación.</li>
+      <li><strong>Consolidación</strong> en 34 líneas únicas.</li>
+      <li><strong>Panel de jueces</strong> con criterios distintos: un director comercial de logística inversa (disposición del cliente 25 %, demanda 20 %, margen 20 %) y un ex director de centro penitenciario (seguridad 30 %, capacitación y formato 20 %). El tercer juez y los 16 escépticos adversariales no se ejecutaron por límite de uso de la sesión; esa verificación la cubrió el modelo financiero y se marca como tal.</li>
+      <li><strong>Números corregidos hacia abajo</strong> respecto a las fichas originales (por ejemplo, kit de alta a $6–12 y 15–25 kits por hora).</li>
+    </ol>
+    <p>Ranking (promedio de jueces, 1–10): kit de alta 8.7 · accesorios multi-operador 7.9 · CPE de otros operadores 7.5 · regalos ESG 7.2 · etiquetado NOM 7.2 · kitting corporativo 7.0 · triage funcional 6.9 · exhibidores POP 6.8 · cajas rígidas 6.6. Al final: smartphones 3.1, anotación de datos 3.4, pelado de cobre 3.5, reciclaje textil 3.7, laptops 3.8, terminales de pago 4.0.</p>
+  </section>
+
+  <section id="lineas">
+    <h2>5. Líneas recomendadas</h2>
+    <div class="cards">
+      <div class="card">
+        <span class="pill">Prioridad 1 · 0–3 meses</span>
+        <h3>Kit de alta / autoinstalación y re-kitting telecom</h3>
+        <p>ONT reacondicionado + fuente + cable + guía + etiqueta con serie y QR + caja sellada, para que el cliente se instale solo. Es una renegociación de precio por unidad con Totalplay, no una venta nueva.</p>
+        <div class="row"><span>$ por persona-hora (cons / base / opt)</span><b>110 / 190 / 320</b></div>
+        <div class="row"><span>Precio · productividad</span><b>$6–12 por kit · 15–25/h</b></div>
+        <div class="row"><span>Capex por salón · capacitación</span><b>$150 mil · 3–5 días</b></div>
+        <div class="row"><span>Tope de mercado con Totalplay</span><b>1–2 salones</b></div>
+        <p><strong>Qué la mata:</strong> que Totalplay compre CPE nuevo ya kitteado de fábrica. Mitigación: contrato anual con volumen mínimo e indexación.</p>
+      </div>
+      <div class="card">
+        <span class="pill">Prioridad 2 · 3–9 meses</span>
+        <h3>Cosmética de CPE de otros operadores</h3>
+        <p>El mismo proceso para módems, decodificadores y controles de Sky/Dish, Telcel/AT&amp;T (internet en casa) y, vía 3PL/OEM, Megacable, Izzi y Telmex. Más de 45 millones de accesos fijos en el país.</p>
+        <div class="row"><span>$ por persona-hora</span><b>100 / 175 / 300</b></div>
+        <div class="row"><span>Precio · productividad</span><b>$20–30 por unidad · 5–10/h</b></div>
+        <div class="row"><span>Capex por salón · capacitación</span><b>$250 mil · 5–10 días</b></div>
+        <div class="row"><span>Tope de mercado</span><b>2–4 salones entre todos</b></div>
+        <p><strong>Condiciones:</strong> carta de no objeción de Totalplay; excluir FWA con SIM y GPS con litio; reset certificado antes de entrar.</p>
+      </div>
+      <div class="card">
+        <span class="pill">Relleno · 0–3 meses</span>
+        <h3>Controles, eliminadores, cables y accesorios</h3>
+        <p>Ya se hace; se extiende a Sky/Dish, Izzi, Megacable, Universal Electronics, Steren, Coppel, Elektra. Llena horas valle; no es motor de crecimiento.</p>
+        <div class="row"><span>$ por persona-hora</span><b>90 / 130 / 190</b></div>
+        <div class="row"><span>Precio · productividad</span><b>$5–8 por pieza · 15–30/h</b></div>
+        <div class="row"><span>Capex por salón · capacitación</span><b>$100 mil · 3–7 días</b></div>
+      </div>
+      <div class="card">
+        <span class="pill warn">Condicionada · 6–18 meses</span>
+        <h3>Triage funcional y reparación modular nivel 1–2</h3>
+        <p>Prueba con fixtures, reemplazo modular, clasificación A/B/scrap y reporte por serie. Cada ONT recuperado evita a Totalplay USD 30–60 de equipo nuevo.</p>
+        <div class="row"><span>$ por persona-hora</span><b>120 / 180 / 260</b></div>
+        <div class="row"><span>Precio · productividad</span><b>$60–120 por unidad · 1.5–2.5/h</b></div>
+        <div class="row"><span>Capex por salón · capacitación</span><b>$900 mil · 15–20 días</b></div>
+        <p><strong>Sólo con oficio</strong> de la Dirección de Seguridad: banco aislado con Wi-Fi apantallado, sin red, piloto de 30 días con máximo 12 personas.</p>
+      </div>
+      <div class="card">
+        <span class="pill">Salón nuevo · 6–12 meses</span>
+        <h3>Etiquetado NOM para importadores</h3>
+        <p>Etiquetas de información comercial (NOM-050, 015, 024, 004, 020) para importadores de Vallejo, Azcapotzalco y Tlalnepantla; no alimentos. Los aranceles de 2026 y las reglas de etiquetado en almacén empujan la demanda.</p>
+        <div class="row"><span>$ por persona-hora</span><b>84 / 144 / 240</b></div>
+        <div class="row"><span>Precio · productividad</span><b>$0.60–1.50 por etiqueta · 120–200/h</b></div>
+        <div class="row"><span>Capex por salón · capacitación</span><b>$150 mil · 3–5 días</b></div>
+        <p>La operación más benigna del catálogo; 8–12 clientes, ninguno arriba del 20 % del salón.</p>
+      </div>
+      <div class="card">
+        <span class="pill">Salón flexible · 6–12 meses</span>
+        <h3>Kitting corporativo, regalos ESG, cajas rígidas, exhibidores POP</h3>
+        <p>Un salón que rota por temporada: kits de bienvenida y cajas de regalo (ago–dic), regalos con marca de impacto social (Q4, Grupo Salinas como ancla), cajas rígidas para tequila y joyería vía convertidor de empaque, displays de cartón (ene–jul).</p>
+        <div class="row"><span>$ por persona-hora (mezcla anual)</span><b>95 / 165 / 270</b></div>
+        <div class="row"><span>Capex del salón</span><b>≈ $350 mil</b></div>
+        <p>Regla: nunca más del 40 % de la capacidad total en líneas con entrega menor a 72 h, para sobrevivir un cierre por revisión general.</p>
+      </div>
+    </div>
+    <details>
+      <summary>Opcionales para 2028 en adelante</summary>
+      <ul>
+        <li><strong>Devoluciones de e-commerce vía 3PL:</strong> 941 mil mdp de e-commerce en 2025, ~19 % de devoluciones, 51.6 % de los casos en CDMX y Edomex. $90 / 140 / 220 por persona-hora. Nunca directo a Amazon, Mercado Libre o Walmart; excluir electrónica de consumo.</li>
+        <li><strong>Textil para el propio ecosistema</strong> (bolsa porta-kit, chaleco, uniforme del técnico): $60–110 por persona-hora, al nivel del costo. Sólo con contrato plurianual de Grupo Salinas y máquinas usadas.</li>
+      </ul>
+    </details>
+  </section>
+
+  <section id="no">
+    <h2>6. Lo que no conviene</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Línea</th><th>Por qué no</th></tr></thead>
+      <tbody>
+        <tr><td>Smartphones</td><td>El objeto más prohibido del sistema; bloqueo de señal; proponerlo daña la relación con la Subsecretaría.</td></tr>
+        <tr><td>Terminales punto de venta</td><td>Radio, litio, SIM, potencial de fraude; PCI exige instalaciones certificadas; ningún adquirente firma.</td></tr>
+        <tr><td>Laptops, ITAD, anotación de datos para IA</td><td>Conectividad, litio y discos con datos; un puerto USB o un módem convierte el salón en un call center de extorsión; clientes exigen ISO 27001 o R2v3 con auditoría de sitio.</td></tr>
+        <tr><td>Pelado de cobre y desensamble de RAEE</td><td>Alambre desnudo por kilos; balance de masa que no cierra; NOM-161; UNICOR cerró plantas tras un escándalo de cadmio y plomo. Paga $45–140/h, al nivel del costo.</td></tr>
+        <tr><td>Reciclaje textil y uniformes usados</td><td>Pacas post-consumo son vector de contrabando; ropa de civil y uniformes de corporaciones son material de fuga.</td></tr>
+        <tr><td>Arneses automotrices, THT, box-build IoT</td><td>Códigos de conducta Tier-1 prohíben trabajo penitenciario; IATF e IPC inalcanzables; cautines y módulos GSM/GPS; $90–130/h.</td></tr>
+        <tr><td>Extensiones, luminarias, kits solares</td><td>Cobre a granel, cuchillas, hipot a 3 kV, burn-in a 220 V; commodity que no paga la carga de control.</td></tr>
+        <tr><td>Cosméticos, velas</td><td>Auditorías de abastecimiento ético y COFEPRIS; cera caliente e inflamables.</td></tr>
+        <tr><td>Uniformes escolares, piñatas, rafia, tornillería, ensobretado</td><td>$40–110 por persona-hora: en pérdida cuando el mínimo suba 10–12 % anual.</td></tr>
+        <tr><td>Exportación a EE.UU.</td><td>19 U.S.C. §1307.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="fases">
+    <h2>7. Portafolio y plan de fases</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Fase</th><th>Cuándo</th><th class="num">Salones</th><th class="num">PPL</th><th>Qué entra</th><th>Condición previa</th><th class="num">Capex acum.</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Hoy</strong></td><td>sep-2026</td><td class="num">4</td><td class="num">140</td><td>Cosmética Totalplay</td><td>—</td><td class="num">0</td></tr>
+        <tr><td><strong>Fase 1</strong></td><td>0–6 meses</td><td class="num">5</td><td class="num">175</td><td>2 salones en cosmética; 2 migran a kit de alta con célula de accesorios; salón 5 con CPE de otros operadores vía 3PL / no competidores</td><td>Adenda al convenio; productividad medida 4 semanas; carta de no objeción; contrato de encargado LFPDPPP</td><td class="num">550,000</td></tr>
+        <tr><td><strong>Fase 2</strong></td><td>6–12 meses</td><td class="num">7</td><td class="num">245</td><td>Salón 6: etiquetado NOM; salón 7: salón flexible con kits corporativos y regalos ESG en Q4</td><td>8–12 clientes de etiquetado; Grupo Salinas como ancla; convertidor de empaque</td><td class="num">1,050,000</td></tr>
+        <tr><td><strong>Fase 3</strong></td><td>12–24 meses</td><td class="num">10</td><td class="num">350</td><td>Salón 8: segunda ola de otros operadores; salón 9: accesorios a escala; salón 10: célula de triage si hay oficio, si no pintura a mano o segunda célula de kits</td><td>Oficio de bancos aislados; ningún cliente arriba del 40 % del ingreso</td><td class="num">2,300,000</td></tr>
+        <tr><td><strong>2028–2030</strong></td><td></td><td class="num">10</td><td class="num">350</td><td>Sustituir líneas de menor valor por hora conforme suba el mínimo</td><td>Renovar el convenio antes del cambio de gobierno (2030)</td><td class="num">—</td></tr>
+      </tbody>
+    </table></div>
+    <p>Hitos: mes 1, productividad medida y tarifa real documentada · mes 3, kit de alta vendido con precio indexado · mes 6, primer cliente distinto de Totalplay facturando · mes 12, Totalplay menor al 60 % del ingreso · mes 24, Totalplay menor al 40 %, 10 salones, empleo a 6 meses de liberación medido.</p>
+  </section>
+
+  <section id="finanzas">
+    <h2>8. Modelo financiero</h2>
+    <figure>
+      <div class="eyebrow">EBITDA mensual por fase, millones de pesos de 2026</div>
+      <div class="legend"><span class="l1">Conservador</span><span class="l2">Base</span><span class="l3">Optimista</span></div>
+      <svg id="chart-ebitda" viewBox="0 0 760 340" role="img" aria-labelledby="ce-title"><title id="ce-title">EBITDA mensual por fase en tres escenarios</title></svg>
+      <figcaption>Escenario conservador: precios y productividad en el piso de los rangos estimados; base: punto medio; optimista: techo. Pago de 22 días, sin IMSS. La tabla de abajo da los mismos valores.</figcaption>
+    </figure>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Fase</th><th class="num">Salones</th><th class="num">PPL</th><th class="num">Ingreso base</th><th class="num">EBITDA cons.</th><th class="num">EBITDA base</th><th class="num">EBITDA opt.</th><th class="num">Margen base</th><th class="num">Capex acum.</th></tr></thead>
+      <tbody>
+        <tr><td>Hoy: 4 salones cosmética</td><td class="num">4</td><td class="num">140</td><td class="num">2,956,800</td><td class="num">547,057</td><td class="num">1,532,657</td><td class="num">2,912,497</td><td class="num">52 %</td><td class="num">0</td></tr>
+        <tr><td>Fase 1</td><td class="num">5</td><td class="num">175</td><td class="num">4,213,440</td><td class="num">831,131</td><td class="num">2,482,011</td><td class="num">5,069,211</td><td class="num">59 %</td><td class="num">550,000</td></tr>
+        <tr><td>Fase 2</td><td class="num">7</td><td class="num">245</td><td class="num">5,736,192</td><td class="num">1,098,671</td><td class="num">3,390,191</td><td class="num">6,967,919</td><td class="num">59 %</td><td class="num">1,050,000</td></tr>
+        <tr><td>Fase 3: 10 salones</td><td class="num">10</td><td class="num">350</td><td class="num">8,126,272</td><td class="num">1,704,494</td><td class="num">4,858,414</td><td class="num">9,742,062</td><td class="num">60 %</td><td class="num">2,300,000</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Resultado por línea, un salón de 35 personas (mensual)</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Línea</th><th class="num">$/h cons.</th><th class="num">$/h base</th><th class="num">$/h opt.</th><th class="num">EBITDA cons.</th><th class="num">EBITDA base</th><th class="num">Margen base</th><th class="num">Capex</th></tr></thead>
+      <tbody>
+        <tr><td>Cosmética actual Totalplay (calibrar con tarifa real)</td><td class="num">100</td><td class="num">150</td><td class="num">220</td><td class="num">125,514</td><td class="num">371,914</td><td class="num">50 %</td><td class="num">0</td></tr>
+        <tr><td>Kit de alta / re-kitting</td><td class="num">110</td><td class="num">190</td><td class="num">320</td><td class="num">174,794</td><td class="num">569,034</td><td class="num">61 %</td><td class="num">150,000</td></tr>
+        <tr><td>CPE de otros operadores</td><td class="num">100</td><td class="num">175</td><td class="num">300</td><td class="num">125,514</td><td class="num">495,114</td><td class="num">57 %</td><td class="num">250,000</td></tr>
+        <tr><td>Triage funcional (célula)</td><td class="num">120</td><td class="num">180</td><td class="num">260</td><td class="num">224,074</td><td class="num">519,754</td><td class="num">59 %</td><td class="num">900,000</td></tr>
+        <tr><td>Accesorios multi-operador</td><td class="num">90</td><td class="num">130</td><td class="num">190</td><td class="num">76,234</td><td class="num">273,354</td><td class="num">43 %</td><td class="num">100,000</td></tr>
+        <tr><td>Etiquetado NOM</td><td class="num">84</td><td class="num">144</td><td class="num">240</td><td class="num">46,666</td><td class="num">342,346</td><td class="num">48 %</td><td class="num">150,000</td></tr>
+        <tr><td>Kitting corporativo B2B</td><td class="num">90</td><td class="num">180</td><td class="num">310</td><td class="num">76,234</td><td class="num">519,754</td><td class="num">59 %</td><td class="num">120,000</td></tr>
+        <tr><td>Regalos ESG (Q4)</td><td class="num">150</td><td class="num">250</td><td class="num">400</td><td class="num">371,914</td><td class="num">864,714</td><td class="num">70 %</td><td class="num">800,000</td></tr>
+        <tr><td>Cajas rígidas</td><td class="num">120</td><td class="num">200</td><td class="num">300</td><td class="num">224,074</td><td class="num">618,314</td><td class="num">63 %</td><td class="num">600,000</td></tr>
+        <tr><td>Exhibidores POP</td><td class="num">90</td><td class="num">150</td><td class="num">240</td><td class="num">76,234</td><td class="num">371,914</td><td class="num">50 %</td><td class="num">100,000</td></tr>
+        <tr><td>Devoluciones e-commerce vía 3PL</td><td class="num">90</td><td class="num">140</td><td class="num">220</td><td class="num">76,234</td><td class="num">322,634</td><td class="num">47 %</td><td class="num">300,000</td></tr>
+        <tr><td>Uniformes (sólo con contrato plurianual)</td><td class="num">60</td><td class="num">80</td><td class="num">110</td><td class="num neg">−71,606</td><td class="num">26,954</td><td class="num">7 %</td><td class="num">850,000</td></tr>
+        <tr><td>Arneses (mercado nacional)</td><td class="num">80</td><td class="num">105</td><td class="num">130</td><td class="num">26,954</td><td class="num">150,154</td><td class="num">29 %</td><td class="num">500,000</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Proyección 2026–2030, 10 salones, escenario base</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th class="num">Año</th><th class="num">Salario mínimo diario</th><th class="num">Precios +4 %/año: EBITDA/mes</th><th class="num">Margen</th><th class="num">Precios indexados al mínimo: EBITDA/mes</th><th class="num">Margen</th></tr></thead>
+      <tbody>
+        <tr><td class="num">2026</td><td class="num">315.04</td><td class="num">4,858,414</td><td class="num">60 %</td><td class="num">4,858,414</td><td class="num">60 %</td></tr>
+        <tr><td class="num">2027</td><td class="num">349.69</td><td class="num">4,864,951</td><td class="num">58 %</td><td class="num">5,423,290</td><td class="num">60 %</td></tr>
+        <tr><td class="num">2028</td><td class="num">388.16</td><td class="num">4,851,883</td><td class="num">55 %</td><td class="num">6,052,312</td><td class="num">60 %</td></tr>
+        <tr><td class="num">2029</td><td class="num">430.86</td><td class="num">4,816,292</td><td class="num">53 %</td><td class="num">6,752,668</td><td class="num">61 %</td></tr>
+        <tr><td class="num">2030</td><td class="num">478.25</td><td class="num">4,754,915</td><td class="num">50 %</td><td class="num">7,532,348</td><td class="num">61 %</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Los ingresos por persona-hora son estimaciones propias sobre precios de mercado no públicos; el único ancla dura es la tarifa que ya cobras a Totalplay. Con pago de 30.4 días más IMSS, el costo por hora productiva sube a $111 y el EBITDA base de 10 salones cae aproximadamente a la mitad. El modelo no incluye ISR, PTU ni el capital de trabajo (clientes corporativos pagan a 60–90 días; la nómina quincenal con 350 personas ronda $1.2 millones).</p>
+  </section>
+
+  <section id="canvas">
+    <h2>9. Business Model Canvas</h2>
+    <div class="canvas">
+      <div><b>Propuesta de valor</b>Capacidad de manipulados y logística inversa garantizada (cero rotación, sin fugas por celulares), cadena de custodia por serie, 30–35 % menos costo, con narrativa verificable de reinserción para el reporte de sustentabilidad del cliente.</div>
+      <div><b>Segmentos</b>Operadores fijos y sus 3PL/OEM; importadores medianos de la zona norte; agencias de promocionales, convertidores de empaque y fabricantes de POP; áreas de RH y sustentabilidad de corporativos mexicanos; 3PL de e-commerce (2028+).</div>
+      <div><b>Canales</b>Venta directa B2B; 3PL/co-packer/convertidor como canal ante multinacionales; Hazme Valer y tiendas de la SSC como vitrina; referencias de Totalplay.</div>
+      <div><b>Relación con clientes</b>Contratos anuales o plurianuales con volumen mínimo, SLA, reporte por serie, precio indexado al salario mínimo, dossier de proveedor y visita coordinada con la Subsecretaría.</div>
+      <div><b>Ingresos</b>Tarifa por unidad procesada; tarifa por hora-persona en proyectos; producto terminado con marca propia (regalos ESG, cajas).</div>
+      <div><b>Recursos clave</b>Convenio plurianual; 8–10 salones; 280–350 PPL capacitadas; supervisores credencializados; protocolos aprobados; bancos de prueba si se autorizan; marca de impacto.</div>
+      <div><b>Actividades clave</b>Recepción y manifiesto; cosmética, kitting, etiquetado, ensamble de mesa; calidad; cadena de custodia; nómina a cuenta administrada; capacitación y certificación; relación diaria con custodia.</div>
+      <div><b>Socios clave</b>Subsecretaría y Dirección Ejecutiva de Trabajo Penitenciario; Dirección de Seguridad; Totalplay/Grupo Salinas; 3PL; ICAT y SEDECO; Instituto de Reinserción Social y empresas sociales; abogado laboral y de datos; aseguradora.</div>
+      <div><b>Costos</b>Nómina de PPL (≈ 74 % con 10 salones); supervisión; logística de ingreso/egreso; mermas; seguros; capacitación; herramientas; administración fija. Sin renta ni servicios mientras el convenio lo exente.</div>
+    </div>
+  </section>
+
+  <section id="operacion">
+    <h2>10. Operación</h2>
+    <div class="grid2">
+      <div>
+        <h3>Protocolo de seguridad y cadena de custodia</h3>
+        <ol>
+          <li>Manifiesto por lote y serie; revisión con equipo; sello; conteo firmado por supervisor y custodio.</li>
+          <li>Tablero de sombras por salón; conteo al inicio y fin de turno; un faltante detiene el salón.</li>
+          <li>Cables cortos y contados; pilas en caja del supervisor; químicos en envases no presurizados con hoja de seguridad; sin aerosoles.</li>
+          <li>Ningún equipo entra sin reset certificado; ninguno se energiza salvo en bancos autorizados; contrato de encargado con cada cliente.</li>
+          <li>Cuadre de salida contra ingreso; merma documentada; lote sellado.</li>
+          <li>Personal externo credencializado; pagos sólo por vía institucional; cero pagos fuera de canal.</li>
+          <li>Inventario de seguridad de 72 h fuera del centro; plazos en días hábiles del centro.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Estructura, academia e indicadores</h3>
+        <ul>
+          <li>Un supervisor externo por salón, un líder de calidad, un coordinador y un encargado de ingreso: unas 13 personas con 10 salones; 2–3 PPL líderes por salón.</li>
+          <li>Los 15 días iniciales se complementan con certificación ICAT/CONOCER y una ruta de contratación al salir: es la principal defensa reputacional (Timpson contrató 1,500 egresados con 4 reincidencias; Recycling Lives reporta menos de 5 %).</li>
+          <li>Medir desde el día uno: unidades por persona-hora; horas productivas/pagadas ≥ 0.80; ppm; merma menor a 0.5 %; incidentes de seguridad en cero; concentración de cliente; PPL certificadas, egresados contratados, empleo a 6 meses de liberación.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="comercial">
+    <h2>11. Comercial y riesgos</h2>
+    <ul>
+      <li><strong>Dossier de proveedor</strong> listo para auditoría documental: convenio, fundamento LNEP 91–93, comprobantes de pago a cuenta individual, voluntariedad, capacitación, EPP, protocolos, póliza, aviso de privacidad.</li>
+      <li><strong>Nunca directo a una multinacional</strong> con código anti-trabajo penitenciario; entrar por 3PL, co-packer o convertidor. A empresas mexicanas medianas y a Grupo Salinas, directo.</li>
+      <li><strong>Vender capacidad garantizada</strong>, no mano de obra barata. <strong>Nunca sustituir empleos exteriores</strong> para moverlos al penal (Lockhart, Texas, se cita 30 años después).</li>
+      <li><strong>Acordar el relato público</strong> con cada cliente antes de que la prensa lo construya (Whole Foods retiró productos hechos con reclusos tras una sola protesta en 2015).</li>
+      <li><strong>Indexación anual</strong> al salario mínimo; <strong>2–3 clientes</strong> antes de pasar de 4 a 8 salones.</li>
+    </ul>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Riesgo</th><th>Prob. / impacto</th><th>Mitigación</th></tr></thead>
+      <tbody>
+        <tr><td>Recaracterización laboral e IMSS retroactivo</td><td>Media / alto</td><td>Dictamen laboral; afiliación voluntaria; provisionar; esquema explícito en el convenio</td></tr>
+        <tr><td>Pago de 30.4 días o cuota por espacio</td><td>Media / alto</td><td>Cláusula expresa; renegociación automática de precios</td></tr>
+        <tr><td>Veto de exclusividad de Totalplay</td><td>Media / medio</td><td>Carta de no objeción; salones separados; no competidores primero</td></tr>
+        <tr><td>Negativa a bancos de prueba</td><td>Alta / medio</td><td>Plan B en el mismo salón</td></tr>
+        <tr><td>Incidente de datos personales</td><td>Baja / muy alto</td><td>Reset certificado; contrato de encargado; auditoría</td></tr>
+        <tr><td>Acusación pública de explotación</td><td>Media / alto</td><td>Dossier, salario íntegro, academia, métricas, relato acordado</td></tr>
+        <tr><td>Cierres del centro</td><td>Alta / medio</td><td>Inventario de 72 h fuera; ≤ 40 % en líneas de entrega corta; SLA en días hábiles del centro</td></tr>
+        <tr><td>Cambio de gobierno o de titular de la SSC (2030)</td><td>Media / alto</td><td>Convenio plurianual con salida y traslado de activos; renovar en 2029</td></tr>
+        <tr><td>Cliente único</td><td>Alta / alto</td><td>Metas de concentración; fases 1–2</td></tr>
+        <tr><td>Alza del mínimo 10–12 % anual</td><td>Cierta / medio</td><td>Sólo líneas arriba de $110/h conservador; indexación; sustitución de líneas</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="90dias">
+    <h2>12. Próximos 90 días</h2>
+    <div class="grid2">
+      <div>
+        <h3>Semanas 1–4</h3>
+        <ul>
+          <li>Medir productividad real por salón y documentar la tarifa por unidad con Totalplay.</li>
+          <li>Solicitar la adenda/convenio plurianual con las cinco condiciones; pedir a Seguridad la lista autorizada de herramientas y el criterio sobre bancos aislados.</li>
+          <li>Dictamen laboral (relación, IMSS, ISN) y de datos personales.</li>
+          <li>Cotizar seguro de responsabilidad civil y mercancía en centro penitenciario.</li>
+        </ul>
+        <h3>Semanas 5–8</h3>
+        <ul>
+          <li>Propuesta a Totalplay: kit de alta certificado con precio, volumen mínimo, indexación, SLA y trazabilidad; carta de no objeción.</li>
+          <li>Prospección: 3 3PL/OEM de logística inversa, Sky/Dish, Telcel/AT&amp;T, 10 importadores, 3 agencias de promocionales, 2 convertidores de empaque, sustentabilidad de Grupo Salinas.</li>
+          <li>Layout y capex de salones 5–7; custodios por salón y horario.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Semanas 9–13</h3>
+        <ul>
+          <li>Piloto de kit de alta en un salón (4 semanas) con medición de ppm y tiempo de ciclo.</li>
+          <li>Arranque de la academia: convenio ICAT/CONOCER; ruta de contratación al salir.</li>
+          <li>Dossier de proveedor terminado; relato público acordado con Totalplay.</li>
+          <li>Decisión de fase 1 con números reales.</li>
+        </ul>
+        <h3>Lecciones de otros países</h3>
+        <ul>
+          <li>Lo que mejor funciona en prisión es lo que ya haces: logística ligera (DHL, 520 PPL en 18 talleres británicos), refurbish con cliente ancla y certificación de datos (Recycling Lives para BT), manipulados para fabricantes (CIRE y TPFE en España).</li>
+          <li>Lo que fracasa: desensamble sin control ambiental (UNICOR), mover una planta exterior al penal (Lockhart), marca visible B2C (Whole Foods), talleres sin custodios ni contratos (Inglaterra 2024).</li>
+          <li>Brasil, con el esquema más parecido al tuyo, atrajo 640 empresas en Minas Gerais gracias a una gestora con área comercial; sin ella, Río tiene 12. Aquí esa función comercial es tuya.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="fuentes">
+    <h2>13. Fuentes y notas</h2>
+    <p><strong>Verificado con fuentes 2025–2026:</strong> salario mínimo 2026 (CONASAMI/DOF 9-dic-2025) y programa institucional 2025–2030; LNEP arts. 91–93; Ley y Reglamento de Centros Penitenciarios CDMX; lineamientos de ayuda económica (Gaceta 4-may-2022); boletines de la SSC (convenios, PPL en comisión laboral, tiendas Hazme Valer, ICAT/SEDECO, acreditación ACA de CEVASEP II); Airtrak en el Reclusorio Norte (El Universal); Totalplay 2T-2026, Megacable 2T-2026, Telmex 2025; AMVO EVO 2026, devoluciones y recommerce; aranceles 2026 e importaciones; T-MEC 2026; 19 U.S.C. §1307; nueva LFPDPPP; reglas de etiquetado de la SE y NOM-051 fase 3; vacantes 2026 en la zona norte; renta industrial ZMVM; industria penitenciaria del Estado de México; casos internacionales (UNICOR/OIG, CALPIA, PIECP, Televerde, HMPPS, DHL, Timpson, Recycling Lives, Brasil, INPEC, Chile, Perú, Argentina, España, Italia, Alemania).</p>
+    <p><strong>Estimación propia:</strong> productividad 0.80; costos indirectos de operar dentro del penal; precios por pieza, piezas por hora y márgenes de todas las líneas; volúmenes de CPE devueltos; proyección del salario mínimo 2027–2030.</p>
+    <p><strong>No verificado hoy:</strong> el proxy de red bloqueó la descarga íntegra de leyes y boletines; varios agentes de categoría agotaron su presupuesto de búsqueda; el agente de casos mexicanos, el tercer juez y los 16 escépticos no se ejecutaron por límite de uso. El porcentaje de retenciones al pago de la PPL, la afiliación al IMSS y los manuales internos de seguridad de CEVASEP II no son públicos: confirmarlos con la Subsecretaría.</p>
+  </section>
+
+  <footer>Documento completo, fichas de las 63 líneas, calificaciones de los jueces y modelo financiero reproducible: carpeta <code>modelo-negocio-penitenciario</code> de la rama <code>claude/modelo-negocio-penitenciario-4cyt2l</code> del repositorio.</footer>
+</main>
+</div>
+
+<script>
+(function () {
+  var css = getComputedStyle(document.documentElement);
+  function tok(n) { return css.getPropertyValue(n).trim(); }
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    parent.appendChild(e);
+    return e;
+  }
+  function fmt(n) { return n.toLocaleString('es-MX', { maximumFractionDigits: 1 }); }
+
+  // ---- Chart 1: cost per productive hour by scenario (horizontal bars) ----
+  (function () {
+    var svg = document.getElementById('chart-cost');
+    if (!svg) return;
+    var data = [
+      ['Base (22 días, sin IMSS, prod. 0.80)', 72.2],
+      ['Pago de 30.4 días al mes', 91.0],
+      ['IMSS y prestaciones (+30 %)', 87.0],
+      ['30.4 días + IMSS', 111.4],
+      ['Productividad 0.70', 82.6],
+      ['Productividad 0.90', 64.2],
+      ['Mínimo 2028 (+11 % anual)', 83.7],
+      ['Mínimo 2030 (+11 % anual)', 97.7]
+    ];
+    var W = 760, H = 330, left = 290, right = 44, top = 16, bottom = 34;
+    var plotW = W - left - right, plotH = H - top - bottom;
+    var max = 130, rowH = plotH / data.length, barH = Math.min(18, rowH * 0.55);
+    var ink = tok('--ink'), ink2 = tok('--ink-2'), line = tok('--line'), s1 = tok('--s1'), warn = tok('--warn');
+    var x = function (v) { return left + plotW * v / max; };
+    var g = el('g', { 'font-family': 'IBM Plex Mono, Consolas, monospace', 'font-size': '12' }, svg);
+    [0, 25, 50, 75, 100, 125].forEach(function (v) {
+      el('line', { x1: x(v), x2: x(v), y1: top, y2: top + plotH, stroke: line, 'stroke-width': 1 }, g);
+      el('text', { x: x(v), y: H - 12, fill: ink2, 'text-anchor': 'middle' }, g, '$' + v);
+    });
+    data.forEach(function (d, i) {
+      var y = top + rowH * i + rowH / 2;
+      el('text', { x: left - 12, y: y + 4, fill: ink, 'text-anchor': 'end', 'font-family': 'Source Sans 3, Segoe UI, Arial, sans-serif', 'font-size': '13' }, g, d[0]);
+      var bar = el('rect', { x: x(0), y: y - barH / 2, width: x(d[1]) - x(0), height: barH, fill: d[1] > 110 ? warn : s1, rx: 3 }, g);
+      el('title', {}, bar, d[0] + ': $' + fmt(d[1]) + ' por hora productiva');
+      el('text', { x: x(d[1]) + 6, y: y + 4, fill: ink, 'font-size': '12.5' }, g, '$' + fmt(d[1]));
+    });
+    el('line', { x1: x(110), x2: x(110), y1: top - 4, y2: top + plotH, stroke: warn, 'stroke-width': 1.5, 'stroke-dasharray': '4 4' }, g);
+    el('text', { x: x(110) + 4, y: top + 8, fill: warn, 'font-size': '11.5', 'font-family': 'Source Sans 3, Arial, sans-serif' }, g, 'umbral $110');
+  })();
+
+  // ---- Chart 2: EBITDA by phase, grouped bars ----
+  (function () {
+    var svg = document.getElementById('chart-ebitda');
+    if (!svg) return;
+    var phases = ['Hoy (4 salones)', 'Fase 1 (5)', 'Fase 2 (7)', 'Fase 3 (10)'];
+    var series = [
+      { name: 'Conservador', color: tok('--s1'), v: [0.547, 0.831, 1.099, 1.704] },
+      { name: 'Base', color: tok('--s2'), v: [1.533, 2.482, 3.390, 4.858] },
+      { name: 'Optimista', color: tok('--s3'), v: [2.912, 5.069, 6.968, 9.742] }
+    ];
+    var W = 760, H = 340, left = 56, right = 20, top = 16, bottom = 44;
+    var plotW = W - left - right, plotH = H - top - bottom;
+    var max = 10, ink = tok('--ink'), ink2 = tok('--ink-2'), line = tok('--line'), bg = tok('--paper');
+    var y = function (v) { return top + plotH - plotH * v / max; };
+    var g = el('g', { 'font-family': 'IBM Plex Mono, Consolas, monospace', 'font-size': '12' }, svg);
+    [0, 2, 4, 6, 8, 10].forEach(function (v) {
+      el('line', { x1: left, x2: left + plotW, y1: y(v), y2: y(v), stroke: line, 'stroke-width': 1 }, g);
+      el('text', { x: left - 8, y: y(v) + 4, fill: ink2, 'text-anchor': 'end' }, g, '$' + v + ' M');
+    });
+    var groupW = plotW / phases.length, barW = Math.min(34, groupW / 4.2), gap = 2;
+    phases.forEach(function (p, i) {
+      var cx = left + groupW * i + groupW / 2;
+      var totalW = series.length * barW + (series.length - 1) * gap;
+      series.forEach(function (s, j) {
+        var x0 = cx - totalW / 2 + j * (barW + gap);
+        var v = s.v[i];
+        var bar = el('rect', { x: x0, y: y(v), width: barW, height: y(0) - y(v), fill: s.color, rx: 3, stroke: bg, 'stroke-width': 1 }, g);
+        el('title', {}, bar, p + ' · ' + s.name + ': $' + fmt(v) + ' millones al mes');
+        el('text', { x: x0 + barW / 2, y: y(v) - 5, fill: ink, 'text-anchor': 'middle', 'font-size': '11.5' }, g, fmt(v));
+      });
+      el('text', { x: cx, y: H - 16, fill: ink, 'text-anchor': 'middle', 'font-family': 'Source Sans 3, Segoe UI, Arial, sans-serif', 'font-size': '13' }, g, p);
+    });
+    el('line', { x1: left, x2: left + plotW, y1: y(0), y2: y(0), stroke: ink2, 'stroke-width': 1 }, g);
+  })();
+})();
+</script>
