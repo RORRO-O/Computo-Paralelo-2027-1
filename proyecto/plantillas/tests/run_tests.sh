@@ -2,7 +2,8 @@
 # run_tests.sh — Prueba de humo de las plantillas del proyecto. Código 0 solo si todo pasa.
 # Verifica: (1) el esqueleto calcula pi con error < 1e-6 e imprime TIEMPO_S; (2) run_all.sh crea el CSV
 # con V1 (speedup 1.000) y agrega V2 con 1, 2 y 4 hilos; (3) run_all.sh rechaza un programa sin TIEMPO_S;
-# (4) una V3 simulada produce las filas V3 y V3-kernel; (5) graficar_proyecto.py genera tabla y PNG.
+# (4) una V3 simulada produce las filas V3 y V3-kernel, también con formato clave=valor; (5) graficar_proyecto.py
+# genera tabla y PNG.
 # Uso: ./tests/run_tests.sh   (o `make test` desde proyecto/plantillas/)
 set -uo pipefail
 cd "$(dirname "$0")/.."
@@ -53,6 +54,9 @@ check "run_all.sh produce filas V3 y V3-kernel con -t gpu" \
     "./run_all.sh -e V3 -n $N -t gpu -o $CSV -- ./tests/falso_gpu.sh && awk -F, '\$1 == \"V3\" && \$2 == \"gpu\" { a = 1 } \$1 == \"V3-kernel\" { b = 1 } END { exit !(a && b) }' $CSV"
 check "la fila gpu tiene eficiencia NA y speedup numérico" \
     "awk -F, '\$1 == \"V3\" { exit !(\$11 == \"NA\" && \$10 != \"NA\") }' $CSV"
+
+check "run_all.sh acepta el formato clave=valor (tiempo_total_s=, tiempo_kernel_s=)" \
+    "./run_all.sh -e V3kv -n $N -t gpu -o $CSV -- ./tests/falso_gpu_kv.sh && awk -F, '\$1 == \"V3kv\" && \$9 == \"0.012000\" { a = 1 } \$1 == \"V3kv-kernel\" && \$9 == \"0.003000\" { b = 1 } END { exit !(a && b) }' $CSV"
 
 # 5. Gráficas
 check "graficar_proyecto.py termina con código 0" \

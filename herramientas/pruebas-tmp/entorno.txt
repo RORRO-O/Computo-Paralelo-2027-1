@@ -1,0 +1,15 @@
+fecha: 2026-10-14 05:58:06 +0000
+sistema: Linux 6.18.44-fc-v114 x86_64
+CPU(s): 4
+Model name: Intel(R) Xeon(R) Processor @ 2.80GHz
+Thread(s) per core: 1
+Core(s) per socket: 4
+Socket(s): 1
+MemTotal: 16479424 kB
+cuota_cpu_cgroup_v1 (us por periodo; -1 = sin límite): -1
+compilador: gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+mpi: mpirun (Open MPI) 4.1.6
+modo: mpi
+comando: ./ejemplo_mpi.out 2000000
+clave leida: tiempo_s
+repeticiones: 3 (+1 de calentamiento)

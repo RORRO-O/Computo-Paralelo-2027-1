@@ -1,0 +1,16 @@
+# Binarios y objetos: nunca se versionan (se regeneran con make)
+v1/v1
+v2/v2
+v3/v3
+*.o
+*.out
+*.exe
+# Python
+__pycache__/
+*.pyc
+# Colab/Jupyter
+.ipynb_checkpoints/
+# Sistema
+.DS_Store
+# Datos grandes: si tu entrada pesa más de 10 MB, no la subas; documenta cómo regenerarla o descargarla
+# datos/*.bin

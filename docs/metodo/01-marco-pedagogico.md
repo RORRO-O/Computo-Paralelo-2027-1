@@ -46,7 +46,11 @@ cada principio están en `06-evidencia-y-bibliografia.md`, §1.
   (Ashman, Kalyuga y Sweller, 2020). No es excusa para soltar al grupo sin base.
 - **Regla operativa.** Ningún concepto nuevo se pide en una práctica antes de haber sido modelado con un
   ejemplo resuelto en clase. El andamiaje se desvanece dentro de la misma unidad: ejemplo completo → ejemplo
-  por completar → problema con pistas → problema libre (el proyecto).
+  por completar → problema con pistas → problema libre (el proyecto). El nivel de andamiaje se declara en cada
+  `plan-sesion.md` y sigue la posición de la sesión en la unidad (`07-guia-de-autoria.md`, §A.5). Un constructo
+  que aparece por primera vez en una sesión de laboratorio (tareas en U3 S09, colectivas en U4 S03, memoria
+  compartida y *tiling* en U5 S02) se modela ahí con un ejemplo resuelto corto antes de pedirlo
+  (`02-plantilla-sesion.md`, §2.1).
 
 ### P2. Recuperar, espaciar, intercalar
 
@@ -56,8 +60,16 @@ cada principio están en `06-evidencia-y-bibliografia.md`, §1.
   práctica de recuperación y la práctica distribuida como las dos técnicas de utilidad alta, y la práctica
   intercalada como de utilidad moderada; Cepeda et al. (2006) sobre espaciado.
 - **Regla operativa.** Cinco minutos de recuperación al inicio de **toda** sesión, individual y sin apuntes.
-  De las 4–5 preguntas, al menos una es de una unidad anterior. Las tareas son cortas (20–40 min) y siempre
-  incluyen un ejercicio intercalado. Los exámenes 2 y 3 reservan entre 10 % y 20 % a unidades previas.
+  Composición fija (`docs/CONVENCIONES.md`, §1): 2 preguntas de la sesión anterior, 1–2 de unidades previas y
+  1 que anticipa el tema. Cada pregunta se contesta en una línea o eligiendo una opción; el rastreo largo y
+  "explica con tus palabras" van al *exit ticket*, a PRIMM o a la tarea. La pregunta que anticipa no es práctica
+  de recuperación: se contesta con una conjetura de una línea, "no sé" es válida y no cuenta. Es una decisión de
+  diseño (su respaldo como *pretesting* está pendiente de verificación en `06`, §5). Las tareas son cortas
+  (20–40 min) y siempre incluyen un ejercicio intercalado. Intercalar aquí significa obligar a elegir entre
+  primitivas o estrategias parecidas vistas en sesiones distintas (`atomic`, `critical` o `reduction`; `static` o
+  `dynamic`; `Reduce` o `Allreduce`; `Send` o `Isend`), no solo repasar otra unidad; el ejercicio de unidades
+  previas aporta el espaciado. Los exámenes 2 y 3 reservan entre 10 % y 20 % a unidades previas, integrado en
+  problemas de la unidad evaluada (`04-evaluacion.md`, §2.1).
 
 ### P3. Ejemplos resueltos con autoexplicación y desvanecimiento
 
@@ -97,7 +109,11 @@ cada principio están en `06-evidencia-y-bibliografia.md`, §1.
   revoto → explicación del profesor. Si el primer voto supera 80 % de aciertos, se salta la discusión y se
   sigue; si queda por debajo de 30 %, se vuelve a explicar antes de discutir. Práctica guiada en parejas con
   roles *conductor* y *navegante* que se intercambian cada 15 minutos. El profesor elige al azar quién
-  responde (tarjetas con números de lista), nunca "¿alguien quiere…?".
+  responde (tarjetas con números de lista), nunca "¿alguien quiere…?"; tras una discusión en parejas pregunta
+  "¿qué concluyó tu pareja?" y no "¿qué piensas tú?": baja el costo para quien va atrás sin perder la
+  participación obligatoria. En el ConcepTest 2 (minuto 65–75) la discusión en parejas y el revoto ocurren
+  solo si el primer voto queda entre 30 % y 80 %; fuera de ese rango se pasa a la explicación. Si no hay tiempo,
+  pasa como pregunta 1 de la recuperación siguiente.
 
 ### P6. Evaluación formativa continua con retroalimentación rápida
 
@@ -108,10 +124,11 @@ cada principio están en `06-evidencia-y-bibliografia.md`, §1.
   una herramienta de evaluación formativa de bajo costo que se justifica por la práctica de recuperación (P2) y
   por el uso de la información para ajustar la siguiente sesión. La calificación por especificaciones (Nilson,
   2015) es una propuesta de diseño sin evaluación experimental (Howitz et al., 2025).
-- **Regla operativa.** *Exit ticket* de 2 preguntas + 1 de confianza al cierre. El profesor las revisa el mismo
-  día (10 minutos) y abre la siguiente sesión con el error más frecuente. Toda rúbrica se publica antes de la
-  entrega. Toda entrega recibe retroalimentación en ≤ 7 días. Una semana antes de cada examen hay examen de
-  práctica con clave.
+- **Regla operativa.** *Exit ticket* de 2 preguntas + 1 de confianza al cierre, con clave literal que permite
+  clasificar cada ticket en ≤ 20 segundos (`07-guia-de-autoria.md`, §A.9). El profesor las revisa el mismo día
+  o antes de la siguiente sesión (10 minutos, procedimiento en §4) y abre la siguiente sesión con el error más
+  frecuente. Toda rúbrica se publica antes de la entrega. Toda entrega recibe retroalimentación en ≤ 7 días, con
+  el formato mínimo de `04-evaluacion.md`, §3. Una semana antes de cada examen hay examen de práctica con clave.
 
 ### P7. Proyecto auténtico como culminación, no como punto de partida
 
@@ -148,7 +165,8 @@ cada principio están en `06-evidencia-y-bibliografia.md`, §1.
 - **Evidencia.** Los estudiantes juzgan mal su aprendizaje: Deslauriers et al. (2019); Roediger y Karpicke
   (2006) y Karpicke y Blunt (2011) muestran más confianza en la técnica que menos enseña. La bitácora de errores
   y el pre-mortem son hábitos de ingeniería adoptados por diseño, sin fuente verificada (`06`, §1).
-- **Regla operativa.** Antes de cada examen, el estudiante predice su calificación; después compara. Cada
+- **Regla operativa.** Al recibir el examen, el estudiante anota la calificación que espera (predicción); al
+  entregarlo, la que cree haber obtenido (postdicción); después compara ambas con la real. Cada
   equipo lleva una **bitácora de errores** (qué falló, por qué, cómo se detectó) que forma parte del reporte del
   proyecto. Las prácticas incluyen "pre-mortem": antes de medir, escribe qué *speedup* esperas y por qué.
 
@@ -158,12 +176,19 @@ cada principio están en `06-evidencia-y-bibliografia.md`, §1.
   con laptops desiguales.
 - **Evidencia.** La guía importa más para quien tiene menos conocimiento previo (Kirschner et al., 2006); con
   IA, la brecha se abre entre quienes aceleran y quienes luchan (Prather et al., 2024). Herramientas gratuitas en
-  la nube (Colab/Kaggle) igualan el acceso a GPU.
+  la nube (Colab/Kaggle) acercan el acceso a GPU, con cuotas que el estudiante no controla.
 - **Regla operativa.** Todo el material es reutilizable y autocontenido (un estudiante que faltó puede
   recuperar la sesión con `notas-estudiante.md`, el ejemplo resuelto y la práctica guiada). La asesoría se
   da por protocolo: primero el estudiante escribe qué intentó y qué observó; después se atiende. La
   retroalimentación entre pares se estructura con listas de cotejo, no se improvisa. La GPU se usa desde la
-  nube para que nadie dependa de su hardware.
+  nube para que nadie dependa de su hardware; como la cuota no es controlable, la correctitud de P6 y V3 nunca
+  depende de ella (`04-evaluacion.md`, §5). El diagnóstico de agosto se usa, no solo se reporta: las parejas de
+  PRIMM se forman por nivel adyacente en ese diagnóstico (nunca extremos juntos) y se reconforman al inicio de
+  cada unidad. "Apoyo" en todo plan de sesión es el mismo ejemplo resuelto con un hueco menos o una pista
+  sellada en `<details>`; "Ampliación" es el problema sin ejemplo. Si la recuperación de inicio cae bajo 60 % en
+  las preguntas de la sesión anterior, la siguiente recuperación repite ese ítem con pista en lugar de uno nuevo.
+  Quien faltó sustituye el *exit ticket* y la recuperación de ese día con la `tarea-espaciada.md` de la sesión
+  (`04-evaluacion.md`, §5).
 
 ### P11. Disciplina al servicio del criterio
 
@@ -198,17 +223,58 @@ se usa en la versión correspondiente del proyecto.
 | Cierre | 7–10 dic | 3 | Entrega final (7 dic); Examen 3 (8 dic); defensa (10 dic) |
 | Reserva | 14–17 dic | 3 | Contingencias, retroalimentación, cierre de actas |
 
+### 3.4 Cómo arranca el jueves 15 de octubre (S07)
+
+El grupo lleva seis sesiones de la Unidad III y dos semanas del 2º parcial con otras reglas. El cambio se anuncia
+una vez, en 10 minutos, y después se sostiene con la rutina; no se vuelve a "vender".
+
+**Antes del jueves.** Confirmar la ponderación del 2º parcial. Publicar en el repositorio `05-politica-ia.md`, la
+política de entregas (`04-evaluacion.md`, §5) y `08-carta-al-grupo.md`. Imprimir las tarjetas de números de lista.
+
+**S07, minutos 0–5: recuperación-diagnóstico.** Cinco preguntas de una línea sobre S01–S06 (región paralela;
+`shared`/`private`/`firstprivate`; `reduction`; qué es el *speedup*; cómo se midió el tiempo). Cuenta por
+participación. Si menos del 60 % acierta tres o más, la instrucción explícita de S07 repasa esos puntos y el
+ConcepTest 2 se omite (el calendario ya prevé usar S07–S09 como repaso si hace falta).
+
+**S07, minutos 5–15: qué cambia, por qué y qué se espera.** Sustituye al bloque de objetivos; el resto de la
+sesión sigue la plantilla con Transferencia recortada. Texto que el profesor puede decir:
+
+> "A partir de hoy la clase tiene tres rutinas nuevas. Una: abrimos con cinco minutos de preguntas sin apuntes
+> y cerramos con un *ticket* de salida. No cuentan por acierto; cuentan por entregarse. Lo hacemos porque
+> recordar algo enseña más que volver a leerlo; releer se siente mejor y rinde menos. Dos: la práctica es en
+> parejas con roles que se cambian cada 15 minutos, y antes de que yo explique una pregunta, votan y la discuten
+> con su pareja. Lo hacemos porque la clase que se siente más clara no es la que más enseña; está medido. Tres:
+> la IA se usa con semáforo: verde para que les explique, amarillo para fragmentos pequeños que declaran y
+> reescriben, rojo para entregar lo que no pueden explicar. Todo lo que entreguen lo tienen que poder explicar
+> en voz alta, y en el laboratorio se los voy a preguntar. Lo hacemos porque quien usa la IA para no pensar rinde
+> peor en el examen sin ayuda; eso también está medido.
+>
+> Lo que no cambia: los mismos equipos de P1–P3 para la Práctica 4 y el proyecto, las fechas que ya conocen y las
+> ponderaciones. Nada cuenta hacia atrás: *tickets* y tareas suman desde hoy.
+>
+> Lo que pueden exigirme: la rúbrica antes de cada entrega, retroalimentación en siete días y una razón escrita
+> para cada regla. Si la razón deja de valer, la regla se cambia."
+
+Las tres afirmaciones de "está medido" remiten a Roediger y Karpicke (2006), Deslauriers et al. (2019) y
+Bastani et al. (2025), todas en `06`, §1. Al terminar se entrega o proyecta `08-carta-al-grupo.md`.
+
 ## 4. Lista de cotejo del profesor
 
-**Antes de la sesión (15 min).** Leer el `plan-sesion.md`. Revisar los *exit tickets* de la sesión anterior y
-anotar el error más frecuente. Compilar la práctica guiada en la máquina del salón. Preparar las tarjetas de
-números de lista.
+**Antes de la sesión (20 min; revisión mínima del material generado).** Leer completos `plan-sesion.md` y
+`conceptests.md`. Correr `make test` de la práctica guiada en la máquina del salón. Leer la clave de
+`exit-ticket.md`. El resto se revisa por muestreo (un archivo al azar); lo que falle se anota en "Notas
+post-sesión" y se corrige después. Tener a mano el error más frecuente de los *exit tickets* anteriores y las
+tarjetas de números de lista. En la Unidad V, comprobar ese día que Colab asigna GPU; si no, usar el Plan B
+(`02-plantilla-sesion.md`, §2.7).
 
 **Durante.** Cronómetro visible. Respetar los bloques; si la práctica guiada se alarga, se recorta el reto de
 transferencia, nunca la recuperación ni el *exit ticket*. Anotar en el plan qué ConcepTest falló y por qué.
 
-**Después (10 min).** Clasificar los *exit tickets* en tres montones (bien / parcial / mal). Escribir dos líneas
-en "Notas post-sesión". Ajustar la recuperación de la siguiente sesión.
+**Después (10 min, el mismo día o antes de la siguiente sesión).** Clasificar los *exit tickets* en tres
+montones (bien / parcial / mal) por la clave literal de la pregunta 1; leer la pregunta 2 solo en el montón
+"mal" y en 5 tickets al azar del resto. La participación se registra una vez por semana a partir de los montones,
+no por sesión. Escribir dos líneas en "Notas post-sesión". Ajustar la recuperación de la siguiente sesión (si la
+pregunta 1 quedó bajo 60 %, se repite con pista).
 
 ## 5. Cómo sabremos si funciona
 
@@ -218,10 +284,13 @@ en "Notas post-sesión". Ajustar la recuperación de la siguiente sesión.
 | Aciertos en *exit ticket* | Montones bien/parcial/mal | > 30 % en "mal" |
 | Entregas a tiempo | Repositorios | < 80 % del grupo |
 | Avance del proyecto por hito | Rúbricas H1/H2 | Equipos con < 60 % en un hito |
-| Brecha de calibración | Predicción vs. calificación del examen | Promedio > 1.5 puntos de sobreestimación |
+| Brecha de calibración | Postdicción (al entregar el examen) vs. calificación real; la predicción (al recibirlo) se reporta aparte | Promedio > 1.5 puntos de sobreestimación |
 | Mejora de examen 1 → 2 → 3 | Calificaciones | Sin mejora en los estudiantes que estaban en "requiere refuerzo" |
 
-Estos datos se registran en una hoja de cálculo sencilla (plantilla en `herramientas/seguimiento-grupo.csv`).
+Estos datos se registran en una hoja de cálculo sencilla. La plantilla vacía está en
+`herramientas/seguimiento-grupo.csv` e incluye la columna `nivel_diagnostico_ago` (refuerzo / medio / alto), sin
+la cual el último indicador no se puede calcular. La hoja llena contiene datos personales: vive en
+`docente/seguimiento-grupo.csv` o fuera del repositorio y nunca se versiona en `main`.
 
 ## 6. Límites
 
@@ -299,3 +368,18 @@ Cada entrada: **la idea errónea** → la idea correcta → dónde se trabaja.
     perder paralelismo útil. → Proyecto H1.
 29. **"Primero se programa y luego se diseña la descomposición."** → Primero partición, comunicación,
     aglomeración y mapeo; después código. → Proyecto H1.
+
+### Adiciones (14 de octubre de 2026; se anexan al final, no se renumera)
+
+30. **"Cualquier `for` se paraleliza con `parallel for`."** → Solo si no hay dependencias entre iteraciones
+    (`a[i] = a[i-1] + x`, *scan*, Jacobi sobre el mismo arreglo); primero se identifican lecturas y escrituras
+    cruzadas. → U3 S07, S11; P4 Parte C; V2.
+31. **"`clock()` mide tiempo de pared" / "el *speedup* se calcula contra la versión paralela con 1 hilo".** →
+    `clock()` suma el tiempo de CPU de todos los hilos; el denominador es el mejor secuencial
+    (`herramientas/protocolo-medicion.md`, §2–§3). → U3 S10; H2.
+32. **"Un `barrier` dentro de un `if` está bien si lo ejecuta algún hilo."** → Todos los hilos del equipo deben
+    encontrar la misma barrera o hay interbloqueo. → U3 S07.
+33. **"El *kernel* terminó cuando regresa la llamada."** → El lanzamiento es asíncrono; sin
+    `cudaDeviceSynchronize` o eventos, el tiempo medido es ≈ 0 y los errores aparecen después. → U5 S01, S04.
+34. **"No hace falta comprobar `idx < n`."** → La malla casi siempre excede `n`; sin guarda hay accesos fuera de
+    rango que "a veces funcionan". → U5 S01–S02.

@@ -57,9 +57,13 @@ d1="$(ls -d v1* 2>/dev/null | head -1)"; d2="$(ls -d v2* 2>/dev/null | head -1)"
 [ -f tests/run_tests.sh ] && PASS 5 "tests/run_tests.sh existe" || FAIL 5 "falta tests/run_tests.sh"
 
 # ---------- Compilación, pruebas, run_all ----------
+# Se ejecutan en una COPIA temporal: así `make clean` y `run_all.sh --rapido` no tocan los
+# binarios ni las mediciones reales del equipo (resultados/ se revisa en el original).
 if [ "$EJECUTAR" -eq 1 ] && [ -f Makefile ]; then
-    make clean > /dev/null 2>&1
-    salida="$(make all 2>&1)"; codigo=$?
+    TMP="$(mktemp -d)"
+    cp -a "$REPO/." "$TMP/"
+    LOG="$TMP/.verificar.log"
+    salida="$(make -C "$TMP" clean > /dev/null 2>&1; make -C "$TMP" all 2>&1)"; codigo=$?
     if [ $codigo -ne 0 ]; then
         FAIL 6 "make all falla (código $codigo)"; printf '%s\n' "$salida" | tail -5 | sed 's/^/       /'
     elif printf '%s\n' "$salida" | grep -qi "warning"; then
@@ -67,21 +71,20 @@ if [ "$EJECUTAR" -eq 1 ] && [ -f Makefile ]; then
     else
         PASS 6 "make all compila sin warnings"
     fi
-    if make test > /tmp/verificar_test.$$ 2>&1; then
-        PASS 7 "make test termina con código 0 ($(grep -c '^PASS' /tmp/verificar_test.$$) casos PASS)"
+    if make -C "$TMP" test > "$LOG" 2>&1; then
+        PASS 7 "make test termina con código 0 ($(grep -c '^PASS' "$LOG") casos PASS)"
     else
-        FAIL 7 "make test falla:"; grep -E '^FAIL|error' /tmp/verificar_test.$$ | head -5 | sed 's/^/       /'
+        FAIL 7 "make test falla:"; grep -E '^FAIL|error' "$LOG" | head -5 | sed 's/^/       /'
     fi
-    rm -f /tmp/verificar_test.$$
-    if [ -x run_all.sh ]; then
+    if [ -x "$TMP/run_all.sh" ]; then
         inicio=$(date +%s)
-        if timeout 900 ./run_all.sh --rapido > /tmp/verificar_run.$$ 2>&1; then
-            PASS 8 "run_all.sh --rapido termina bien en $(( $(date +%s) - inicio )) s"
+        if (cd "$TMP" && timeout 900 ./run_all.sh --rapido > "$LOG" 2>&1); then
+            PASS 8 "run_all.sh --rapido termina bien en $(( $(date +%s) - inicio )) s (en una copia temporal)"
         else
-            FAIL 8 "run_all.sh --rapido falla o excede 15 min:"; tail -5 /tmp/verificar_run.$$ | sed 's/^/       /'
+            FAIL 8 "run_all.sh --rapido falla o excede 15 min:"; tail -5 "$LOG" | sed 's/^/       /'
         fi
-        rm -f /tmp/verificar_run.$$
     fi
+    rm -rf "$TMP"
 else
     MANUAL 6 "compilación sin warnings (make all) — no ejecutado"
     MANUAL 7 "make test con código 0 — no ejecutado"

@@ -17,6 +17,12 @@ Esta guía convierte el método en pasos. Se usa junto con `docs/CONVENCIONES.md
    reales, no imaginadas.
 5. **Ejemplo resuelto**: problema → plan en 3 líneas → código comentado → salida real → 3+ pausas de
    autoexplicación con respuesta en `<details>`. Incluye una "variante que falla" cuando el tema lo permite.
+   **Nivel de andamiaje por posición en la unidad** (se declara en `plan-sesion.md`, "Prerrequisitos y vínculo"):
+   en las dos primeras sesiones de contenido de cada unidad (U3 S07–S08; U4 S01–S02; U5 S01 y S03) el ejemplo
+   resuelto es completo y la práctica guiada lleva las cinco fases de PRIMM. De la tercera en adelante (U3
+   S10–S11; U4 S04; U5 S04) el ejemplo resuelto es un problema por completar (2–3 huecos, respuesta en
+   `<details>`) y la práctica guiada abrevia Predecir/Investigar para dar ≥ 10 min a Crear; si el ejemplo ya
+   está escrito completo, el desvanecimiento se hace en la práctica guiada.
 6. **Práctica guiada PRIMM** en `practica-guiada/`:
    - `README.md` con las cinco fases. *Predecir*: preguntas concretas con espacio para la respuesta ("¿qué hilo
      imprime primero? ¿cuántas líneas salen?"). *Ejecutar*: comandos exactos. *Investigar*: tabla de rastreo o
@@ -27,29 +33,58 @@ Esta guía convierte el método en pasos. Se usa junto con `docs/CONVENCIONES.md
    - Lista de errores esperados (para el profesor) dentro de `plan-sesion.md`, con la pregunta socrática que se
      hace ante cada uno.
 7. **ConcepTests** (2–3): enunciado, 4 opciones, respuesta, origen de cada distractor (número del Anexo A o
-   descripción), porcentaje de acierto esperado en el primer voto, guion de 3 líneas para la discusión.
+   descripción), porcentaje de acierto esperado en el primer voto, guion de 3 líneas para la discusión. La
+   sesión usa dos; el tercero, si existe, es reserva para la recuperación siguiente o el examen de práctica. En
+   el ConcepTest 2 la discusión y el revoto ocurren solo si el primer voto queda entre 30 % y 80 %; fuera de ese
+   rango se pasa a la explicación.
 8. **Recuperación de inicio** (4–5 preguntas): 2 de la sesión anterior, 1–2 de unidades previas (I–II o anteriores),
-   1 que anticipe el tema. Respuestas en `<details>`. Deben contestarse en ≤ 4 minutos sin apuntes.
+   1 que anticipe el tema. Respuestas en `<details>`. Deben contestarse en ≤ 4 minutos sin apuntes. Cada pregunta
+   se contesta en una línea o eligiendo una opción (recordar/comprender); nada de rastrear código largo ni de
+   "explica con tus palabras": eso va al *exit ticket*, a PRIMM o a la tarea. La que anticipa el tema se plantea
+   como conjetura ("¿qué crees que pase si…?"); "no sé" es válida y no cuenta. Si un ítem de la sesión anterior
+   quedó bajo 60 %, se repite con pista en lugar de uno nuevo.
 9. **Exit ticket**: 2 preguntas (una conceptual, una de aplicación corta) + "¿Qué tan seguro estás? (1–4) ¿Qué
-   te quedó menos claro?". Clave en `<details>`.
+   te quedó menos claro?". Clave en `<details>`. Formato que permite revisar 35 tickets en 10 minutos: la
+   pregunta 1 es de opción múltiple con distractores del Anexo A o de respuesta de una línea; la pregunta 2 se
+   contesta con un número, una palabra clave o una línea de código, con clave literal. Si una pregunta pide 2–3
+   líneas, la clave señala el dato o la palabra que decide bien / parcial / mal. "¿Qué te quedó menos claro?" es
+   opcional y no se clasifica.
 10. **Tarea espaciada** (20–40 min): 1 ejercicio del tema, 1 intercalado (unidad previa), 1 de preparación de
-    la siguiente sesión (lectura breve o pregunta de predicción). Indica cómo se entrega y qué cuenta.
+    la siguiente sesión (lectura breve o la predicción de la práctica guiada siguiente). El ejercicio del tema
+    se plantea como elección justificada entre 2–3 alternativas confundibles vistas en sesiones distintas de la
+    misma unidad (`atomic`/`critical`/`reduction`; `static`/`dynamic`; `Reduce`/`Allreduce`; `Send`/`Isend`);
+    el de unidades previas aporta el espaciado. Si en clase se recortó Transferencia, el "Crear" de PRIMM es el
+    ejercicio del tema. Entrega fija, igual en todas las sesiones: el estudiante la autocalifica con la clave en
+    `<details>` al inicio de la siguiente sesión (2 min, dentro del bloque 5–10); el profesor registra entrega,
+    no acierto, y revisa 3 al azar por parcial. En U4–U5 la tarea dice, con estas palabras: "Esta tarea no tiene
+    peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del Examen 3 toman
+    ítems de aquí".
 11. **Notas del estudiante** (≤ 2 páginas): el concepto con sus palabras clave, el ejemplo resuelto resumido,
     errores frecuentes, y "para saber más" (documentación oficial, no blogs).
 12. **Plan de sesión**: llena el esqueleto de `02-plantilla-sesion.md` minuto a minuto. Debe poder darla otro
-    profesor sin hablar contigo.
+    profesor sin hablar contigo. La sección "Diferenciación" se llena con dos formas concretas: "Apoyo" es el
+    mismo ejemplo resuelto con un hueco menos o una pista sellada en `<details>`; "Ampliación" es el problema sin
+    ejemplo. "Prerrequisitos y vínculo" declara el nivel de andamiaje (A.5).
 13. **Verifica** con la lista de cotejo de `02-plantilla-sesion.md` §4. Corrige lo que falle.
 
 ## B. Cómo escribir una práctica
 
 Sigue `03-plantilla-practica.md` sección por sección. Además:
 
-- Las Partes A y B se prueban en ≤ 90 minutos de laboratorio por un equipo promedio. La Parte C requiere
-  trabajo fuera de clase. La Parte D usa `herramientas/protocolo-medicion.md` y `herramientas/graficar_speedup.py`.
+- Las Partes A y B se prueban en ≤ 90 minutos de laboratorio por un equipo promedio (≤ 55 min cuando el
+  Laboratorio 1 abre con el ejemplo resuelto de un constructo nuevo: U3 S09, U4 S03, U5 S02). Un constructo que
+  aparece por primera vez en el Laboratorio 1 entra en la Parte A como código completo para leer y predecir;
+  nunca como `TODO` en la Parte B de esa misma sesión. La Parte C requiere trabajo fuera de clase. La Parte D usa
+  `herramientas/protocolo-medicion.md` y `herramientas/graficar_speedup.py`.
 - La solución de referencia completa (todas las partes) va en `docente/practicas/Pn/` con su propio `Makefile`
   y pasa `tests/run_tests.sh`. La carpeta pública solo tiene el código base con `TODO(n)`.
 - Los casos de prueba públicos cubren lo básico; en `docente/` hay 2–3 casos adicionales para calificar.
-- La rúbrica se instancia con criterios específicos de la práctica (no se copia la genérica tal cual).
+- La rúbrica se instancia con criterios específicos de la práctica (no se copia la genérica tal cual). Ningún
+  descriptor usa "claro", "adecuado", "sólido" o "útil" sin el dato que lo demuestra (modelo: filas Medición y
+  Proceso e integridad de `03` §2).
+- El pre-laboratorio de P6 incluye, obligatorio: "Antes del martes 24 de noviembre, verifica que obtienes GPU en
+  Colab y en Kaggle (verificación telefónica hecha), anota el modelo asignado y reporta ese día si no pudiste."
+  La correctitud de P6 se verifica sin GPU (`04-evaluacion.md`, §5).
 
 ## C. Cómo escribir un examen departamental
 
@@ -91,3 +126,6 @@ Salidas verificadas: qué salidas "esperadas" del material se obtuvieron realmen
 Lista de cotejo (02 §4): ítem por ítem ✓/✗
 Pendientes o dudas para el profesor: lista
 ```
+
+El profesor no revisa todo lo generado: aplica la revisión mínima de `01-marco-pedagogico.md`, §4 (20 min por
+sesión) y muestrea el resto. Lo que falle se anota en "Notas post-sesión".

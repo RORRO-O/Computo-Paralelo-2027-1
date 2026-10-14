@@ -1,0 +1,10 @@
+# Binarios y objetos que generan make / make run / el notebook (make clean los borra)
+*.o
+matmul_cpu
+matmul_naive
+matmul_tiled
+transpose
+matmul_tiled_*
+matmul_naive_*
+*.csv
+__pycache__/

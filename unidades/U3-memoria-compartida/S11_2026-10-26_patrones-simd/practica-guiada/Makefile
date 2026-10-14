@@ -40,8 +40,8 @@ test: all
 report:
 	@echo "== vec_kernels.c (saxpy en tres versiones y prefix_dep) =="
 	$(CC) $(CFLAGS) $(VECINFO) -c vec_kernels.c -o /dev/null
-	@echo "== jacobi1d.c (solo 'loop vectorized' y 'couldn't vectorize'; el resto es ruido del compilador) =="
-	$(CC) $(CFLAGS) $(VECINFO) -c jacobi1d.c -o /dev/null 2>&1 | grep -E "optimized: loop vectorized|couldn't vectorize loop"
+	@echo "== jacobi1d.c: ciclos de step_seq, step_par y step_simd (lineas 40-99; el resto del archivo se omite) =="
+	$(CC) $(CFLAGS) $(VECINFO) -c jacobi1d.c -o /dev/null 2>&1 | grep -E "jacobi1d.c:[4-9][0-9]:" | grep -E "optimized: loop vectorized|couldn't vectorize loop"
 
 # La carrera del scan ingenuo vista por ThreadSanitizer (tamaño pequeño; TSan es lento).
 tsan: scan_buggy.c

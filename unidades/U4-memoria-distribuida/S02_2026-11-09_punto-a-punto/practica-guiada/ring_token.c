@@ -9,7 +9,7 @@
  * Orden de operaciones (importa):
  *   rango 0:      Send -> Recv   (rompe la simetría del anillo)
  *   rangos r>=1:  Recv -> Send
- * Si TODOS hicieran Recv primero, nadie enviaría nunca: interbloqueo.
+ * Si todos los rangos hicieran Recv primero, nadie enviaría nunca: interbloqueo.
  *
  * Uso: mpirun -np N ./ring_token [valor_inicial]
  *

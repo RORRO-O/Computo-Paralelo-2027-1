@@ -1,0 +1,18 @@
+# binarios y objetos generados (make / make run); el código fuente sí se versiona
+caza1_bcast_buggy
+caza2_guard_buggy
+caza3_reduce_buggy
+caza_cpu
+ejemplo_predict_mpi
+ejemplo_grid
+ejemplo_grid_ok
+soluciones/caza1_bcast_fixed
+soluciones/caza2_guard_fixed
+soluciones/caza3_reduce_fixed
+examen_items/item_II1_mpi
+examen_items/item_II2_reverse
+examen_items/item_IV_dot_mpi
+*.o
+__pycache__/
+tests/out/
+resultados_S06_*.csv

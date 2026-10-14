@@ -208,7 +208,7 @@ def graficar_comparacion(sel, series, n, carpeta, titulo, asignados):
     barras.append(("V1 (1 hilo)", v1["mediana"], COLORES["V1"], None))
     for config, pts in series.items():
         p, f = min(pts, key=lambda pf: pf[1]["mediana"])
-        barras.append((f"{config} ({p} hilos)", f["mediana"], color_de(config, asignados), None))
+        barras.append((f"{config} ({p} hilo{'s' if p != 1 else ''})", f["mediana"], color_de(config, asignados), None))
     for f in sel:
         if f["p"] is None:
             hatch = "//" if f["config"].endswith("-kernel") else None
@@ -232,7 +232,9 @@ def graficar_comparacion(sel, series, n, carpeta, titulo, asignados):
     ax.set_xlabel("Tiempo (s)" + (" — escala logarítmica" if log else ""), color=INK2)
     ax.grid(True, axis="x", color=GRID, linewidth=0.8)
     ax.grid(False, axis="y")
-    if not log:
+    if log:
+        ax.set_xlim(min(tiempos) / 2, max(tiempos) * 4)
+    else:
         ax.set_xlim(0, max(tiempos) * 1.25)
     fig.tight_layout()
     fig.savefig(os.path.join(carpeta, "comparacion.png"))

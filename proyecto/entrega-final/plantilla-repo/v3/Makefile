@@ -26,7 +26,7 @@ $(BIN): kernel.cu ../comun/problema.h
 
 check: kernel.cu ../comun/problema.h
 	$(NVCC) $(NVFLAGS) $(INC) -c -o kernel.o kernel.cu
-	@echo "v3: compila sin errores (solo verificación de sintaxis; la ejecución es en Colab/Kaggle)"
+	@echo "v3: compilación correcta con nvcc -c (solo sintaxis; la ejecución y las pruebas de V3 son en Colab/Kaggle)"
 
 run: $(BIN)
 	./$(BIN)

@@ -26,6 +26,10 @@ all: $(PROGS) $(EXTRA)
 %_tsan: %.c common.h
 	$(CC) $(TSANFLAGS) $< -o $@
 
+# Version sin optimizar, para ver que la carrera del contador se manifiesta distinto (ejemplo resuelto).
+%_O0: %.c common.h
+	$(CC) -std=c11 -O0 -Wall -Wextra -fopenmp $< -o $@
+
 # Corre todo con THREADS hilos (tamanos por defecto: < 5 s en total en 4 nucleos).
 run: run-histograms run-sum run-demos
 
@@ -57,4 +61,4 @@ tsan: $(TSAN_BINS)
 	  echo; done; true
 
 clean:
-	rm -f $(PROGS) $(EXTRA) $(TSAN_BINS) histogram_locks_tsan *.o
+	rm -f $(PROGS) $(EXTRA) *_tsan *_O0 *.o

@@ -20,7 +20,7 @@ la usa para que le resuelva, no (Lehmann et al., 2025). Las fuentes están en `0
 | Pedir preguntas de práctica o un examen simulado sobre un tema | Pedir que revise tu código y te señale posibles carreras o interbloqueos (tú decides y verificas) | Usarla durante la recuperación de inicio, los exámenes o la defensa oral |
 | Pedir que te explique un error de compilación o un mensaje de `mpirun` | Pedir que te sugiera casos de prueba | Inventar o "mejorar" mediciones con la IA |
 | Pedir que te ayude a planear el estudio o a organizar el reporte | Traducir documentación | Entregar texto de reporte generado sin revisar (se nota, y en la defensa se pregunta) |
-| Pedir que critique tu diseño de Foster con preguntas | Generar gráficas a partir de **tus** datos | Pedirle el proyecto completo o una versión completa (V1/V2/V3) |
+| Pedir que critique tu diseño de Foster con preguntas | Generar gráficas a partir de **tus** datos | Pedirle el proyecto completo o una versión completa (V1/V2/V3); cualquier fragmento de más de 10 líneas o una función completa generada por IA, salvo que la sección "Política de IA aplicada" de la práctica lo autorice |
 
 ### Declaración de uso (va al final de cada reporte)
 
@@ -32,13 +32,26 @@ Uso de IA en esta entrega:
 - Qué nos dijo la IA que resultó estar mal: …
 ```
 
-La última línea no es opcional. Si no encontraste nada mal, no verificaste lo suficiente.
+La última línea no es opcional. Si no encontraron nada mal, escriban qué verificaron y cómo (compilaron con
+`-Wall -Wextra`, midieron con el protocolo, contrastaron con la documentación oficial). "Nada; verificado con X"
+es una respuesta válida; inventar un error no lo es. Si no usaron IA, escriban "No usamos IA en esta entrega" y
+fírmenlo todos. Declarar uso verde o amarillo nunca baja la calificación; omitirlo sí (criterio "Proceso e
+integridad" de la rúbrica).
 
 ### Prueba de propiedad
 
 Cualquier línea que entregues debe poder explicarla cualquier integrante del equipo en voz alta: qué hace,
-por qué está ahí, qué pasaría si se quita. En laboratorio y en la defensa oral se pregunta. Si no puedes
-explicarla, no es tuya, y cuenta como si no la hubieras entregado.
+por qué está ahí, qué pasaría si se quita. En la práctica, el profesor te pregunta sobre la parte que firmaste
+en el reparto de trabajo; del resto del código debes poder decir qué hace cada función y por qué está. Se
+pregunta en laboratorio, al recibir los hitos y en la defensa oral.
+
+Reglas, iguales en todo el curso (`03-plantilla-practica.md` §2 y `04-evaluacion.md` §6 solo las citan):
+
+- Si no puedes explicar una línea de la parte que firmaste, el criterio "Proceso e integridad" de esa entrega
+  baja a Insuficiente **para ti**, no para tu equipo. Si además hay indicios de copia, aplica `04-evaluacion.md` §6.
+- Si la primera respuesta falla, el profesor pregunta sobre otra línea y cuenta la mejor de las dos.
+- Puedes pedir, sin dar razones, responder las mismas preguntas por escrito en el momento (5 min, papel, sin
+  dispositivos). Vale igual.
 
 ### Un *prompt* que sí ayuda a aprender
 
@@ -69,4 +82,5 @@ que entendí.
   (que se revisan), casos de prueba adicionales, y resúmenes de *exit tickets*. Todo se verifica antes de llegar
   al estudiante, con los mismos cinco pasos de arriba.
 - En las mini-defensas de laboratorio, dos preguntas fijas bastan: "¿qué hace esta línea?" y "¿qué pasaría si la
-  quito?".
+  quito?". Se hace la primera a cada integrante; la segunda solo si la primera falla. Con 12–17 equipos no hay
+  tiempo para más (`02-plantilla-sesion.md`, §2.1).

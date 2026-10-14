@@ -13,7 +13,7 @@
 NVCC      ?= nvcc
 ARCH      ?= sm_75
 NVCCFLAGS ?= -O2 -arch=$(ARCH)
-CC        ?= gcc
+CC        := gcc
 CFLAGS    ?= -std=c11 -O2 -Wall -Wextra
 PY        ?= python3
 N         ?= 16777216

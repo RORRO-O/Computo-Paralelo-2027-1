@@ -14,7 +14,8 @@
 #   -h  Muestra esta ayuda.
 #
 # Contrato con el programa medido:
-#   - Imprime en stdout una línea "TIEMPO_S <segundos>" con el tiempo de la región de interés.
+#   - Imprime en stdout una línea "TIEMPO_S <segundos>" con el tiempo de la región de interés. Se acepta también
+#     el formato clave=valor de la plantilla de entrega final (tiempo_s= o tiempo_total_s=, tiempo_kernel_s=).
 #   - Opcional (V3): una línea "TIEMPO_KERNEL_S <segundos>" con el tiempo SIN transferencias; produce una
 #     fila adicional con etiqueta "<ETIQUETA>-kernel".
 #   - Termina con código 0. Si falla, la medición se aborta con código 4.
@@ -117,8 +118,22 @@ fi
 } > "$DIR/entorno.txt"
 
 # extraer ARCHIVO CLAVE -> imprime el valor de la última línea "CLAVE valor"; código 1 si no existe.
+# También acepta el formato clave=valor de la plantilla de entrega final: TIEMPO_S <- tiempo_total_s= o tiempo_s=;
+# TIEMPO_KERNEL_S <- tiempo_kernel_s=.
 extraer() {
-    awk -v k="$2" '$1 == k { v = $2 } END { if (v == "") exit 1; print v }' "$1"
+    awk -v k="$2" '
+        BEGIN {
+            alt1 = ""; alt2 = ""
+            if (k == "TIEMPO_S") { alt1 = "tiempo_total_s"; alt2 = "tiempo_s" }
+            if (k == "TIEMPO_KERNEL_S") { alt1 = "tiempo_kernel_s" }
+        }
+        $1 == k { v = $2 }
+        index($0, "=") > 0 {
+            split($0, kv, "=")
+            if (kv[1] == alt1 || (kv[1] == alt2 && alt1 != "" && v == "")) v = kv[2]
+            else if (kv[1] == alt2 && alt1 == "") v = kv[2]
+        }
+        END { if (v == "") exit 1; print v }' "$1"
 }
 
 # escribir_fila CONFIG HILOS rep1 rep2 ... -> calcula estadísticos, speedup y eficiencia; agrega la fila.

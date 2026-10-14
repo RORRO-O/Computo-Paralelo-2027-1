@@ -87,8 +87,8 @@ static long summary_phase(const double *px, const double *py, long m, int parall
 
 int main(int argc, char **argv)
 {
-    long n = (argc > 1) ? atol(argv[1]) : 1000000L;
-    long m = (argc > 2) ? atol(argv[2]) : 24000L;
+    long n = (argc > 1) ? atol(argv[1]) : 2000000L;
+    long m = (argc > 2) ? atol(argv[2]) : 48000L;
     const char *mode = (argc > 3) ? argv[3] : "seq";
     const char *plan = (argc > 4) ? argv[4] : "dynamic";
 

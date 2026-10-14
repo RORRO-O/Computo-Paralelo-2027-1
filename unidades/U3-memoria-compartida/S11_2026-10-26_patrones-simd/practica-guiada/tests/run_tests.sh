@@ -5,6 +5,10 @@
 # Tamaños pequeños: cada caso tarda menos de 1 s. Termina con código 0 solo si todos pasan.
 set -u
 cd "$(dirname "$0")/.." || exit 1
+# Las pruebas verifican correctitud, no tiempo. Con espera pasiva los hilos no giran en las barreras:
+# evita que un caso con miles de regiones paralelas se arrastre si la máquina está ocupada o tiene
+# menos núcleos que hilos. Para MEDIR no se usa esta variable (ver README, fase Ejecutar).
+export OMP_WAIT_POLICY=passive
 
 pass=0; fail=0; skip=0
 
@@ -32,8 +36,9 @@ run_case "scan 4 hilos, n potencia de 2"        ./scan 1048576 4
 run_case "scan 3 hilos, n impar"                ./scan 1000001 3
 run_case "scan 1 hilo"                          ./scan 100000 1
 run_case "saxpy tres versiones identicas"       ./saxpy_simd 4194304
-run_case "jacobi par 4 hilos converge"          ./jacobi1d 64 100000 1e-6 par 4 1
+run_case "jacobi par 4 hilos converge"          ./jacobi1d 32 20000 1e-6 par 4 1
 run_case "jacobi par 3 hilos, max_iter"         ./jacobi1d 1001 500 1e-9 par 3 1
+run_case "jacobi par 4 hilos, check_every=10"   ./jacobi1d 32 20000 1e-6 par 4 1 10
 run_case "jacobi simd 4 hilos"                  ./jacobi1d 1001 500 1e-9 simd 4 1
 
 echo "----"

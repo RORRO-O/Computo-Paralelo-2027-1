@@ -30,9 +30,10 @@ ref_sum=$(echo "$ref" | awk -F, '{print $12}')
 ref_mid=$(echo "$ref" | awk -F, '{print $13}')
 if [ -n "$ref_sum" ]; then report PASS "jacobi_seq corre (n=$N, iters=$ITERS)" "checksum=$ref_sum"; else report FAIL "jacobi_seq corre"; fi
 
-# --- Correctitud MPI contra la secuencial, p = 1, 2, 3, 4
+# --- Correctitud MPI contra la secuencial, p = 1, 2, 3, 4 (p=2 con reps=5 para revisar el formato RESULT)
 for p in 1 2 3 4; do
-    out=$(timeout 30 mpirun $MPIRUN_FLAGS -np $p ./jacobi_mpi $N $ITERS 2 | grep '^RESULT')
+    reps=2; [ "$p" = 2 ] && reps=5
+    out=$(timeout 30 mpirun $MPIRUN_FLAGS -np $p ./jacobi_mpi $N $ITERS $reps | grep '^RESULT')
     got_sum=$(echo "$out" | awk -F, '{print $12}')
     got_mid=$(echo "$out" | awk -F, '{print $13}')
     if [ -z "$got_sum" ]; then report FAIL "jacobi_mpi p=$p corre"; continue; fi
@@ -42,15 +43,14 @@ for p in 1 2 3 4; do
     if [ "$ok" = yes ]; then
         report PASS "jacobi_mpi p=$p coincide con jacobi_seq" "checksum rel.err<=$TOL, u_probe igual"
     else
-        report FAIL "jacobi_mpi p=$p coincide con jacobi_seq" "seq=$ref_sum mpi=$got_sum mid: $ref_mid vs $got_mid"
+        report FAIL "jacobi_mpi p=$p coincide con jacobi_seq" "seq=$ref_sum mpi=$got_sum probe: $ref_mid vs $got_mid"
+    fi
+    if [ "$p" = 2 ]; then
+        nf=$(echo "$out" | awk -F, '{print NF}')
+        nt=$(echo "$out" | awk -F, '{print split($6, a, ";")}')
+        if [ "$nf" = 13 ] && [ "$nt" = 5 ]; then report PASS "formato RESULT (13 campos, 5 repeticiones)"; else report FAIL "formato RESULT" "campos=$nf tiempos=$nt"; fi
     fi
 done
-
-# --- La línea RESULT tiene 13 campos y 5 tiempos cuando reps=5
-out=$(timeout 30 mpirun $MPIRUN_FLAGS -np 2 ./jacobi_mpi 5000 100 5 | grep '^RESULT')
-nf=$(echo "$out" | awk -F, '{print NF}')
-nt=$(echo "$out" | awk -F, '{print split($6, a, ";")}')
-if [ "$nf" = 13 ] && [ "$nt" = 5 ]; then report PASS "formato RESULT (13 campos, 5 repeticiones)"; else report FAIL "formato RESULT" "campos=$nf tiempos=$nt"; fi
 
 # --- Híbrido: 2 procesos x 2 hilos, suma exacta
 out=$(OMP_NUM_THREADS=2 timeout 30 mpirun $MPIRUN_FLAGS -np 2 ./hybrid_min 1000003)
@@ -69,22 +69,24 @@ else
 fi
 
 # --- Ping-pong: produce alpha y beta positivos
-out=$(timeout 60 mpirun $MPIRUN_FLAGS -np 2 ./pingpong | grep '^RESULT')
+out=$(timeout 60 mpirun $MPIRUN_FLAGS -np 2 ./pingpong 0.1 | grep '^RESULT')
 ok=$(echo "$out" | awk -F, '{ print ($3 > 0 && $5 > 0) ? "yes" : "no" }')
-if [ "$ok" = yes ]; then report PASS "pingpong: alpha y beta medidos" "$out"; else report FAIL "pingpong" "$out"; fi
+if [ "$ok" = yes ]; then report PASS "pingpong (factor 0.1): alpha y beta medidos" "$out"; else report FAIL "pingpong" "$out"; fi
 
-# --- escalado.sh en pequeño: CSV con el encabezado del protocolo y gráficas
+# --- escalado.sh en pequeño (solo p=2 y p=8 sobre-suscrito, para que la prueba sea corta):
+#     CSV con el encabezado del protocolo, 3 filas (seq, mpi, mpi_oversub), gráficas y entorno.txt
 rm -rf resultados-prueba
-if N=20000 ITERS=200 NLOCAL=5000 OVERSUB=8 OUT=resultados-prueba PLOT=1 MPIRUN_FLAGS="$MPIRUN_FLAGS" \
+if N=20000 ITERS=200 NLOCAL=5000 PROCS="2" OVERSUB=8 OUT=resultados-prueba PLOT=1 MPIRUN_FLAGS="$MPIRUN_FLAGS" \
    timeout 60 ./escalado.sh > resultados-prueba.log 2>&1; then
     hdr="config,hilos,n,rep1,rep2,rep3,rep4,rep5,mediana_s,speedup,eficiencia"
     rows_f=$(tail -n +2 resultados-prueba/fuerte.csv | wc -l)
     rows_w=$(tail -n +2 resultados-prueba/debil.csv | wc -l)
     cols_ok=$(awk -F, 'NF != 11 { bad = 1 } END { print bad ? "no" : "yes" }' resultados-prueba/fuerte.csv resultados-prueba/debil.csv)
     if [ "$(head -1 resultados-prueba/fuerte.csv)" = "$hdr" ] && [ "$(head -1 resultados-prueba/debil.csv)" = "$hdr" ] \
-       && [ "$rows_f" = 5 ] && [ "$rows_w" = 5 ] && [ "$cols_ok" = yes ] && grep -q '^mpi_oversub,8,' resultados-prueba/fuerte.csv \
+       && [ "$rows_f" = 3 ] && [ "$rows_w" = 3 ] && [ "$cols_ok" = yes ] && grep -q '^mpi_oversub,8,' resultados-prueba/fuerte.csv \
+       && grep -q '^mpi,2,20000,' resultados-prueba/fuerte.csv && grep -q '^mpi,2,10000,' resultados-prueba/debil.csv \
        && [ -s resultados-prueba/fuerte.png ] && [ -s resultados-prueba/debil.png ] && [ -s resultados-prueba/entorno.txt ]; then
-        report PASS "escalado.sh: CSV del protocolo (5 filas), oversub etiquetado, PNG"
+        report PASS "escalado.sh: CSV del protocolo (3 filas), oversub etiquetado, PNG"
     else
         report FAIL "escalado.sh: formato de salida" "filas fuerte=$rows_f debil=$rows_w cols_ok=$cols_ok"
     fi

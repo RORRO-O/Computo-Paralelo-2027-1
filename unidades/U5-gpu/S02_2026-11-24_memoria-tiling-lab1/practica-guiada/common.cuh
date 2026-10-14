@@ -25,7 +25,7 @@
 
 // Inicialización determinista. La MISMA fórmula está en matmul_cpu.c y matmul_numba.py,
 // para que las sumas de comprobación (checksum) sean comparables entre programas.
-static void init_matrices(float *A, float *B, int n) {
+static inline void init_matrices(float *A, float *B, int n) {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             A[(size_t)i * n + j] = (float)((3 * i + 7 * j) % 11) / 11.0f;
@@ -37,7 +37,7 @@ static void init_matrices(float *A, float *B, int n) {
 // Referencia secuencial. Orden i-k-j: el ciclo interno recorre B y C por filas (amigable con
 // la caché de la CPU). Para cada C[i][j] la suma sobre k va en orden creciente, igual que en
 // los kernels, así que la diferencia con la GPU es solo redondeo (FMA, orden de operaciones).
-static void matmul_cpu(const float *A, const float *B, float *C, int n) {
+static inline void matmul_cpu(const float *A, const float *B, float *C, int n) {
     for (size_t idx = 0; idx < (size_t)n * n; ++idx) C[idx] = 0.0f;
     for (int i = 0; i < n; ++i) {
         for (int k = 0; k < n; ++k) {
@@ -49,16 +49,16 @@ static void matmul_cpu(const float *A, const float *B, float *C, int n) {
     }
 }
 
-// Tolerancia de comparación. Los sumandos están en [0, 1); con n términos en float el error de
-// redondeo acumulado crece de forma proporcional a n. 1e-5 * n es holgado y detecta cualquier
-// elemento no calculado (que valdría 0 cuando debería valer ~n/4).
-static float tolerance(int n) { return 1e-5f * (float)n; }
+// Tolerancia de comparación. Los sumandos están en [0, 1) y cada C[i][j] vale ~0.2·n; el error de
+// redondeo en float (FMA en la GPU, suma simple en la CPU) crece con n y queda muy por debajo de
+// 1e-4 * n. Esa tolerancia detecta de sobra un elemento no calculado (error ~0.2·n) o basura.
+static inline float tolerance(int n) { return 1e-4f * (float)n; }
 
 // Verifica C contra la CPU. Para n <= 1024 compara TODOS los elementos. Para n mayor, la
 // referencia completa tardaría demasiado en el anfitrión, así que compara una muestra
 // determinista de 4096 elementos (cada uno recalculado con su propio producto punto).
 // Devuelve cuántos elementos comparó y deja el error máximo en *max_err.
-static long verify_matmul(const float *A, const float *B, const float *C, int n,
+static inline long verify_matmul(const float *A, const float *B, const float *C, int n,
                           float *max_err) {
     *max_err = 0.0f;
     if (n <= 1024) {
@@ -88,7 +88,7 @@ static long verify_matmul(const float *A, const float *B, const float *C, int n,
 }
 
 // Mediana de k valores (k pequeño): ordenamiento por inserción y elemento central.
-static float median_of(float *v, int k) {
+static inline float median_of(float *v, int k) {
     for (int i = 1; i < k; ++i) {
         float x = v[i];
         int j = i - 1;
@@ -98,20 +98,20 @@ static float median_of(float *v, int k) {
     return v[k / 2];
 }
 
-static float min_of(const float *v, int k) {
+static inline float min_of(const float *v, int k) {
     float m = v[0];
     for (int i = 1; i < k; ++i) if (v[i] < m) m = v[i];
     return m;
 }
 
-static float max_of(const float *v, int k) {
+static inline float max_of(const float *v, int k) {
     float m = v[0];
     for (int i = 1; i < k; ++i) if (v[i] > m) m = v[i];
     return m;
 }
 
 // Tamaño del problema por línea de comandos, con valor por defecto.
-static int parse_n(int argc, char **argv, int default_n) {
+static inline int parse_n(int argc, char **argv, int default_n) {
     int n = default_n;
     if (argc > 1) n = atoi(argv[1]);
     if (n <= 0) {

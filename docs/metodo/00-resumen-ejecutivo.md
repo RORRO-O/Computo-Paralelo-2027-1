@@ -15,7 +15,7 @@ repetida en cada sesión, en cada unidad y en el semestre completo.
 |---|---|
 | El pensamiento crítico depende de conocimiento en memoria a largo plazo (Willingham; Sweller). | Instrucción explícita con ejemplos resueltos antes de pedir diseño propio. |
 | Recuperar información de la memoria enseña más que releer (Roediger y Karpicke, 2006; Karpicke y Blunt, 2011; Dunlosky et al., 2013). | Cada sesión abre con 5 minutos de recuperación sin apuntes. |
-| Espaciar la práctica mejora la retención (Cepeda et al., 2006); intercalar temas es de utilidad moderada (Dunlosky et al., 2013). | Tareas cortas que mezclan la unidad actual con las anteriores; exámenes ligeramente acumulativos. |
+| Espaciar la práctica mejora la retención (Cepeda et al., 2006); intercalar temas es de utilidad moderada (Dunlosky et al., 2013). | Tareas cortas que obligan a elegir entre primitivas parecidas (intercalado) y repasan unidades anteriores (espaciado); exámenes ligeramente acumulativos. |
 | El aprendizaje activo reduce la reprobación en STEM (Freeman et al., 2014: 33.8 % → 21.8 %) y la instrucción entre pares la redujo a menos de la mitad en cuatro cursos de computación (Porter et al., 2013: ≈20 % → 7 %, estudio observacional). | ConcepTests con voto–discusión–revoto; programación en parejas con roles. |
 | Rastrear y explicar código correlaciona con saber escribirlo (Lister et al., 2009; Murphy et al., 2012). PRIMM tiene evidencia cuasiexperimental en secundaria (Sentance et al., 2019); los problemas de Parsons ahorran tiempo con aprendizaje equivalente (Ericson et al., 2017). | Toda práctica guiada sigue Predecir → Ejecutar → Investigar → Modificar → Crear. |
 | En un ECA de preparatoria, la IA sin guardarraíles mejoró la práctica y empeoró 17 % el examen sin ayuda; con diseño de tutor el daño desapareció, sin ganancia (Bastani et al., 2025). | Política de IA con semáforo, declaración de uso y "prueba de propiedad" oral. |
@@ -42,6 +42,12 @@ Fuentes, grado de certeza y afirmaciones que no deben citarse: `06-evidencia-y-b
 - **Unidad V (GPU, CUDA en Colab/Kaggle)**: 6 sesiones del 23 de noviembre al 3 de diciembre, Práctica 6.
 - **Proyecto integrador**: H1 (29 oct) → H2 (23 nov) → entrega final (7 dic) → Examen 3 (8 dic) → defensa oral (10 dic).
 - **Reserva**: 14, 15 y 17 de diciembre para contingencias, retroalimentación y cierre.
+
+## Cómo arranca
+
+El jueves 15 de octubre (S07) los primeros 15 minutos son diagnóstico de S01–S06 y anuncio de las tres rutinas
+nuevas, con el texto que el profesor puede decir (`01-marco-pedagogico.md`, §3.4) y la carta al grupo
+(`08-carta-al-grupo.md`). Nada cuenta hacia atrás.
 
 ## Qué NO hacemos
 

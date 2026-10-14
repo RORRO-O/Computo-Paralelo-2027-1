@@ -4,6 +4,7 @@
  * Calcula suma, promedio y máximo de los mismos elementos element(i) que usan
  * los programas distribuidos. Contra ESTA versión se comparan las pruebas y se
  * calcula el speedup (T(1) es el mejor programa secuencial, no el MPI con -np 1).
+ * El cronómetro cubre solo la suma; el máximo se calcula aparte, sin medir.
  *
  * Compilar:  gcc -std=c11 -O2 -Wall -Wextra -o referencia_secuencial referencia_secuencial.c
  * Uso:       ./referencia_secuencial [n]
@@ -33,20 +34,25 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    /* Región cronometrada: SOLO la suma, que es lo que paraleliza suma_distribuida.
+     * Así T(1) es el mejor programa secuencial de la suma, sin trabajo extra. */
     double t_start = wall_seconds();
     double sum = 0.0;
+    for (long long i = 0; i < n; i++)
+        sum += element(i);
+    double t_end = wall_seconds();
+
+    /* Máximo fuera del cronómetro: sirve de referencia para la fase Crear. */
     double max = element(0);
-    for (long long i = 0; i < n; i++) {
+    for (long long i = 1; i < n; i++) {
         double x = element(i);
-        sum += x;
         if (x > max) max = x;
     }
-    double t_end = wall_seconds();
 
     printf("n = %lld\n", n);
     printf("suma = %.3f\n", sum);
     printf("promedio = %.3f\n", sum / (double)n);
     printf("maximo = %.3f\n", max);
-    printf("tiempo = %.6f s\n", t_end - t_start);
+    printf("tiempo = %.6f s (solo la suma)\n", t_end - t_start);
     return 0;
 }

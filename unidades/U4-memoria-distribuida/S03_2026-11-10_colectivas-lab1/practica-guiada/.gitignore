@@ -1,0 +1,9 @@
+# Binarios de la práctica guiada (no se versionan)
+colectivas_demo
+matvec_collectives
+matvec_p2p
+matvec_bcast_buggy
+matvec_scatterv
+matvec_allgather
+matvec_seq
+norma_allreduce

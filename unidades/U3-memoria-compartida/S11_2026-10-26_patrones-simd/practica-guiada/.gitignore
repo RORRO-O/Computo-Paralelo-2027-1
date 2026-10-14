@@ -1,0 +1,9 @@
+# Binarios generados por make (no se versionan; `make clean` los borra)
+jacobi1d
+array_reduction
+scan
+scan_buggy
+saxpy_simd
+scan_buggy_tsan
+*.o
+*.vect

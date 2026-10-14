@@ -81,8 +81,10 @@ int main(int argc, char **argv)
     int grid = (argc > 3) ? atoi(argv[3]) : 0;
     const char *csv_path = (argc > 4) ? argv[4] : NULL;
 
-    if (n <= 0 || block <= 0 || block > 1024) {
-        fprintf(stderr, "uso: %s [n>0] [block 1..1024] [grid; 0=auto] [archivo.csv]\n", argv[0]);
+    /* No se limita block a 1024 a propósito: con block=2000 el lanzamiento es inválido y
+     * cudaGetLastError lo reporta ("invalid configuration argument"). Ver fase Investigar. */
+    if (n <= 0 || block <= 0) {
+        fprintf(stderr, "uso: %s [n>0] [block>0; máximo 1024 en la GPU] [grid; 0=auto] [archivo.csv]\n", argv[0]);
         return 1;
     }
     if (grid <= 0)

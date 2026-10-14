@@ -7,8 +7,11 @@
  * difieren en COSTO. Al final se mide tambien una suma en double con reduction
  * para ver que el orden de las operaciones cambia el redondeo (idea erronea 10).
  *
- * Uso: ./sum_variants [n]      (n por defecto: 10 000 000)
+ * Uso: ./sum_variants [n]      (n por defecto: 4 000 000)
  * Protocolo: 1 calentamiento + 5 repeticiones por version; se reporta la mediana.
+ * Nota: n es pequeno a proposito (critical y lock tardan ~60 ns por elemento con
+ * 4 hilos). Esto compara el COSTO de cada mecanismo, no es una medicion de speedup
+ * del protocolo (para eso la version secuencial debe tardar >= 1 s).
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -121,7 +124,7 @@ static double measure(const char *name, sum_fn fn, const int *data, long n,
 
 int main(int argc, char **argv)
 {
-    long n = (argc > 1) ? atol(argv[1]) : 10000000L;
+    long n = (argc > 1) ? atol(argv[1]) : 4000000L;
     if (n <= 0) { fprintf(stderr, "Uso: %s [n > 0]\n", argv[0]); return 2; }
 
     int *data = malloc((size_t)n * sizeof(int));
@@ -146,9 +149,11 @@ int main(int argc, char **argv)
         all_ok = all_ok && ok;
     }
 
-    printf("\nCosto relativo (tiempo / tiempo secuencial; <1 es mas rapido que secuencial):\n");
+    printf("\n%-10s %14s %18s\n", "version", "ns/elemento", "tiempo/secuencial");
+    printf("%-10s %14.2f %18s\n", "secuencial", 1e9 * t_seq / (double)n, "x1.00");
     for (int k = 0; k < 5; k++)
-        printf("  %-10s x%.2f\n", names[k], times[k] / t_seq);
+        printf("%-10s %14.2f %17.2f\n", names[k], 1e9 * times[k] / (double)n, times[k] / t_seq);
+    printf("(ns/elemento = tiempo / n: costo medio de cada actualizacion; <1.00 = mas rapido que secuencial)\n");
 
     /* Suma en punto flotante: mismo conjunto de numeros, distinto orden => distinto redondeo. */
     double dseq = 0.0, dred = 0.0;

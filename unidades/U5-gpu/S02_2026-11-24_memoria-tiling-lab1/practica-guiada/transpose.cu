@@ -13,9 +13,12 @@
 #define TILE 16
 #endif
 
-// Cambia a 1 cuando termines TODO(1). Mientras valga 0, el programa imprime "TODO pendiente"
-// para la versión con compartida y solo ejecuta (y verifica) la ingenua.
+// Cambia a 1 cuando termines TODO(1) (o compila con -DTODO1_LISTO=1). Mientras valga 0, el
+// programa imprime "TODO pendiente" para la versión con compartida y solo ejecuta (y verifica)
+// la ingenua.
+#ifndef TODO1_LISTO
 #define TODO1_LISTO 0
+#endif
 
 // Versión ingenua. Lectura: los hilos de un warp (threadIdx.x consecutivos) leen
 // in[row*n + col] con col consecutivos → direcciones consecutivas → coalescido.
@@ -41,7 +44,10 @@ __global__ void transpose_shared(const float *in, float *out, int n) {
     /* TODO(1): implementa la transposición por mosaicos.
        Criterio de "listo": ./transpose 1000 y ./transpose 1024 reportan OK en ambas versiones
        y, en la GPU, transpose_shared alcanza más GB/s que transpose_naive para n = 4096. */
-    (void)in; (void)out; (void)n; (void)tile;
+    if (n < 0) {   // nunca se cumple (n > 0): solo evita avisos del compilador mientras el TODO
+        tile[0][0] = in[0];   // está pendiente. Bórralo al implementar.
+        out[0] = tile[0][0];
+    }
 }
 
 // Referencia secuencial.

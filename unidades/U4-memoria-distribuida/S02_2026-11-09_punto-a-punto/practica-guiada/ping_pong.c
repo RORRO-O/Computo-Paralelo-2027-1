@@ -38,11 +38,12 @@ static int cmp_double(const void *a, const void *b)
  * (tiempos de microsegundos), pocas para mensajes grandes. */
 static int roundtrips_for(size_t bytes)
 {
-    if (bytes <= 64) return 20000;
-    if (bytes <= 4096) return 5000;
-    if (bytes <= 65536) return 1000;
-    if (bytes <= 1048576) return 100;
-    return 20;
+    if (bytes <= 64) return 5000;
+    if (bytes <= 512) return 2000;
+    if (bytes <= 4096) return 1000;
+    if (bytes <= 65536) return 300;
+    if (bytes <= 1048576) return 40;
+    return 10;
 }
 
 int main(int argc, char **argv)
@@ -65,7 +66,7 @@ int main(int argc, char **argv)
     if (reps < 1) reps = 1;
     if (reps > MAX_REPS) reps = MAX_REPS;
 
-    const size_t sizes[] = {0, 1, 8, 64, 512, 4096, 32768, 262144,
+    const size_t sizes[] = {0, 8, 64, 512, 4096, 32768, 262144,
                             1048576, 4194304, 16777216};
     const int n_sizes = (int)(sizeof(sizes) / sizeof(sizes[0]));
 

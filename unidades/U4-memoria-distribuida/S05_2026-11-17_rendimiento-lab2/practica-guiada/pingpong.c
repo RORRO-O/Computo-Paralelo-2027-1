@@ -9,7 +9,9 @@
  *   α ≈ tiempo de ida del mensaje más pequeño (8 bytes).
  *   β ≈ m_grande / (T(m_grande) − α), con m_grande = 1 MiB.
  *
- * Uso: mpirun -np 2 ./pingpong
+ * Uso: mpirun -np 2 ./pingpong [factor]
+ *   factor (opcional, por defecto 1.0) multiplica el número de viajes por
+ *   tamaño; las pruebas usan 0.1 para terminar rápido. Para medir, usa 1.
  * Compilar: mpicc -std=c11 -O2 -Wall -Wextra -o pingpong pingpong.c
  */
 #include <mpi.h>
@@ -54,6 +56,8 @@ static double one_way_time(int rank, char *buf, int bytes, int rounds, double *t
 int main(int argc, char **argv)
 {
     MPI_Init(&argc, &argv);
+    double factor = (argc > 1) ? atof(argv[1]) : 1.0;
+    if (factor <= 0.0) factor = 1.0;
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
@@ -64,7 +68,12 @@ int main(int argc, char **argv)
     }
 
     const int sizes[N_SIZES] = { 8, 1024, 65536, 1048576, 4194304 };
-    const int rounds[N_SIZES] = { 2000, 2000, 500, 200, 50 };
+    const int base_rounds[N_SIZES] = { 2000, 2000, 500, 200, 50 };
+    int rounds[N_SIZES];
+    for (int s = 0; s < N_SIZES; s++) {
+        rounds[s] = (int)(base_rounds[s] * factor);
+        if (rounds[s] < 2) rounds[s] = 2;
+    }
     char *buf = calloc((size_t)sizes[N_SIZES - 1], 1);
     if (!buf) MPI_Abort(MPI_COMM_WORLD, 1);
 
@@ -75,7 +84,7 @@ int main(int argc, char **argv)
     if (rank == 0) {
         double alpha = t_med[0];                                   /* s */
         double beta = (double)sizes[3] / (t_med[3] - alpha);        /* bytes/s, ajustado con 1 MiB */
-        printf("ping-pong entre rangos 0 y 1 (mediana de %d repeticiones, tras calentamiento)\n", REPS);
+        printf("ping-pong entre rangos 0 y 1 (mediana de %d repeticiones, tras calentamiento; factor de rondas %.2f)\n", REPS, factor);
         printf("%10s %12s %12s %12s %12s %12s\n", "bytes", "T_ida(us)", "min(us)", "max(us)", "MB/s", "modelo(us)");
         for (int s = 0; s < N_SIZES; s++) {
             double model = alpha + (double)sizes[s] / beta;

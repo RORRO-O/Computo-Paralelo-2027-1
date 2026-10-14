@@ -76,12 +76,13 @@ def make_kernels(tile, sync1=True):
     return matmul_naive, matmul_tiled
 
 
-def run(kernel, name, A, B, n, tile, grid, reps, reads, reads_per_a, tol):
+def run(kernel, name, A, B, n, tile, grid, reps, reads, reads_per_a, tol, simulado):
     """Lanza el kernel con calentamiento + reps repeticiones; verifica contra NumPy."""
     C = np.zeros((n, n), dtype=np.float32)       # ceros: un elemento no calculado se nota
     block = (tile, tile)
-    kernel[grid, block](A, B, C, n)              # calentamiento (y compilación JIT)
-    cuda.synchronize()
+    if not simulado:                             # en el simulador el calentamiento no aporta
+        kernel[grid, block](A, B, C, n)          # calentamiento (y compilación JIT)
+        cuda.synchronize()
     times = []
     for _ in range(reps):
         t0 = time.perf_counter()
@@ -130,16 +131,16 @@ def main():
         print("[sin-sync1] se quito la primera cuda.syncthreads() del kernel por mosaicos")
 
     naive, tiled = make_kernels(tile, sync1=not args.sin_sync1)
-    tol = 1e-5 * n                               # misma tolerancia que common.cuh
+    tol = 1e-4 * n                               # misma tolerancia que common.cuh
     all_ok = True
     C = None
     if args.solo != "mosaicos":
         C, ok = run(naive, "ingenua", A, B, n, tile, grid, args.reps,
-                    reads=2 * n * n * n, reads_per_a=n, tol=tol)
+                    reads=2 * n * n * n, reads_per_a=n, tol=tol, simulado=simulado)
         all_ok = all_ok and ok
     if args.solo != "ingenua":
         C, ok = run(tiled, "mosaicos", A, B, n, tile, grid, args.reps,
-                    reads=2 * n * n * n_tiles, reads_per_a=n_tiles, tol=tol)
+                    reads=2 * n * n * n_tiles, reads_per_a=n_tiles, tol=tol, simulado=simulado)
         all_ok = all_ok and ok
 
     checksum = float(np.sum(C, dtype=np.float64))

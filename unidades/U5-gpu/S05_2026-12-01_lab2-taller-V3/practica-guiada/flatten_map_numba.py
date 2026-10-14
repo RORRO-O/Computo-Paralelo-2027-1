@@ -111,8 +111,7 @@ def run_once(cfg, h_init, d_a, d_b, d_who, grid, block, kernel):
     t_total0 = time.perf_counter()
     if not cfg["copy_each"]:
         # Porte correcto: subir una vez, iterar en la GPU, bajar una vez.
-        d_a.copy_to_device(h_init)
-        d_b.copy_to_device(h_init)
+        d_a.copy_to_device(h_init)      # una sola subida: el kernel escribe todas las celdas de `out`
         cuda.synchronize()
         t_k0 = time.perf_counter()
         for _ in range(iters):
@@ -124,7 +123,6 @@ def run_once(cfg, h_init, d_a, d_b, d_who, grid, block, kernel):
     else:
         # Porte incorrecto (a propósito): copiar ida y vuelta en cada iteración.
         h_scratch = h_init.copy()
-        d_b.copy_to_device(h_init)
         for _ in range(iters):
             d_a.copy_to_device(h_scratch)
             cuda.synchronize()

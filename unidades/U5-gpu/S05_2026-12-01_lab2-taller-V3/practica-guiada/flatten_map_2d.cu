@@ -178,8 +178,9 @@ static void run_once(const Config &cfg, const float *h_init, float *h_out, float
     CUDA_CHECK(cudaEventRecord(e_total0));
     if (!cfg.copy_each) {
         // Porte correcto: los datos suben una vez, iteran en la GPU y bajan una vez.
+        // Una sola subida: el kernel escribe TODAS las celdas de `out` (la frontera se copia dentro
+        // del kernel), así que el segundo búfer no necesita inicializarse.
         CUDA_CHECK(cudaMemcpy(d_a, h_init, bytes, cudaMemcpyHostToDevice));
-        CUDA_CHECK(cudaMemcpy(d_b, h_init, bytes, cudaMemcpyHostToDevice));  // frontera en ambos
         CUDA_CHECK(cudaEventRecord(e_k0));
         for (int it = 0; it < cfg.iters; it++) {
             if (cfg.mode_2d)
@@ -196,7 +197,6 @@ static void run_once(const Config &cfg, const float *h_init, float *h_out, float
     } else {
         // Porte incorrecto (a propósito): cada iteración sube la malla, lanza y baja el resultado.
         memcpy(h_scratch, h_init, bytes);
-        CUDA_CHECK(cudaMemcpy(d_b, h_init, bytes, cudaMemcpyHostToDevice));  // frontera en d_b
         for (int it = 0; it < cfg.iters; it++) {
             CUDA_CHECK(cudaMemcpy(d_a, h_scratch, bytes, cudaMemcpyHostToDevice));
             CUDA_CHECK(cudaEventRecord(e_k0));

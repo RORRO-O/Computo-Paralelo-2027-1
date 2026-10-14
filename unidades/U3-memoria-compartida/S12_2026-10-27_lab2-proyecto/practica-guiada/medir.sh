@@ -8,7 +8,7 @@
 #
 # Uso:  ./medir.sh <programa> <fase> "<lista de hilos>" [argumentos del programa...]
 # Ej.:  ./medir.sh ./fases computo "1 2 4" 500000 200
-#       ./medir.sh ./ejemplo_perfil resumen "1 2 4" 1000000 24000 resumen dynamic
+#       ./medir.sh ./ejemplo_perfil resumen "1 2 4" 2000000 48000 resumen dynamic
 # Variables: REPS (repeticiones, 5 por defecto).
 set -u
 if [ $# -lt 3 ]; then
