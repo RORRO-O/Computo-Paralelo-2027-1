@@ -14,12 +14,14 @@ repetida en cada sesión, en cada unidad y en el semestre completo.
 | Lo que dice la evidencia | Lo que hacemos |
 |---|---|
 | El pensamiento crítico depende de conocimiento en memoria a largo plazo (Willingham; Sweller). | Instrucción explícita con ejemplos resueltos antes de pedir diseño propio. |
-| Recuperar información de la memoria enseña más que releer (Roediger y Karpicke; Dunlosky et al., 2013). | Cada sesión abre con 5 minutos de recuperación sin apuntes. |
-| Espaciar e intercalar la práctica mejora la retención (Cepeda et al., 2006). | Tareas cortas que mezclan la unidad actual con las anteriores; exámenes ligeramente acumulativos. |
-| El aprendizaje activo reduce la reprobación en STEM (Freeman et al., 2014) y la instrucción entre pares la reduce a la mitad en cursos de computación (Porter et al., 2013). | ConcepTests con voto–discusión–revoto; programación en parejas con roles. |
-| Leer y predecir código antes de escribirlo reduce la carga cognitiva (PRIMM, Sentance et al., 2019; problemas de Parsons). | Toda práctica guiada sigue Predecir → Ejecutar → Investigar → Modificar → Crear. |
-| La IA sin barreras daña el aprendizaje; con diseño de tutor, no (Bastani et al., 2025). | Política de IA con semáforo, declaración de uso y "prueba de propiedad" oral. |
-| La retroalimentación formativa frecuente es de las intervenciones más efectivas (Black y Wiliam, 1998). | *Exit ticket* diario, rúbricas publicadas antes, devolución en ≤ 7 días. |
+| Recuperar información de la memoria enseña más que releer (Roediger y Karpicke, 2006; Karpicke y Blunt, 2011; Dunlosky et al., 2013). | Cada sesión abre con 5 minutos de recuperación sin apuntes. |
+| Espaciar la práctica mejora la retención (Cepeda et al., 2006); intercalar temas es de utilidad moderada (Dunlosky et al., 2013). | Tareas cortas que mezclan la unidad actual con las anteriores; exámenes ligeramente acumulativos. |
+| El aprendizaje activo reduce la reprobación en STEM (Freeman et al., 2014: 33.8 % → 21.8 %) y la instrucción entre pares la redujo a menos de la mitad en cuatro cursos de computación (Porter et al., 2013: ≈20 % → 7 %, estudio observacional). | ConcepTests con voto–discusión–revoto; programación en parejas con roles. |
+| Rastrear y explicar código correlaciona con saber escribirlo (Lister et al., 2009; Murphy et al., 2012). PRIMM tiene evidencia cuasiexperimental en secundaria (Sentance et al., 2019); los problemas de Parsons ahorran tiempo con aprendizaje equivalente (Ericson et al., 2017). | Toda práctica guiada sigue Predecir → Ejecutar → Investigar → Modificar → Crear. |
+| En un ECA de preparatoria, la IA sin guardarraíles mejoró la práctica y empeoró 17 % el examen sin ayuda; con diseño de tutor el daño desapareció, sin ganancia (Bastani et al., 2025). | Política de IA con semáforo, declaración de uso y "prueba de propiedad" oral. |
+| La evaluación formativa es una herramienta de bajo costo con evidencia moderada (Black y Wiliam, 1998, revisión narrativa; Kingston y Nash, 2011: ≈0.20). El *exit ticket* se justifica por la práctica de recuperación, no por evidencia propia. | *Exit ticket* diario, rúbricas publicadas antes, devolución en ≤ 7 días. |
+
+Fuentes, grado de certeza y afirmaciones que no deben citarse: `06-evidencia-y-bibliografia.md`.
 
 ## Cómo se ve una sesión de 90 minutos
 

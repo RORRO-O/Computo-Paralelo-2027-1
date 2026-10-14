@@ -20,25 +20,30 @@ deja seis conclusiones útiles y tres advertencias. Las conclusiones:
 6. **Se mide.** Si un cambio no deja rastro en los datos del curso (recuperación, entregas, exámenes), se revisa.
 
 Las advertencias: (a) no citar cifras no verificadas (varias de las que circularon en esa conversación no
-tienen fuente localizable; ver `06-evidencia-y-bibliografia.md`); (b) la evidencia de preescolar y secundaria
+tienen fuente localizable; ver `06-evidencia-y-bibliografia.md`, §2); (b) la evidencia de preescolar y secundaria
 no se traslada automáticamente a ingeniería; (c) ningún principio sustituye a la observación del grupo real.
 
-El mito de Rockefeller en sí no forma parte del curso. Lo que sí forma parte es su lección metodológica:
-verificar fuentes antes de repetir una afirmación. Eso es exactamente lo que se les pide a los estudiantes con
-las salidas de la IA.
+El mito de Rockefeller en sí no forma parte del curso. La frase que se le atribuye no tiene fuente primaria
+(Snopes, 2023: *Unproven*); el texto auténtico que se le parece es de Gates (1913). Lo que sí forma parte es su
+lección metodológica: verificar fuentes antes de repetir una afirmación. Eso es exactamente lo que se les pide a
+los estudiantes con las salidas de la IA.
 
 ## 2. Once principios y cómo se ven en este curso
 
 Cada principio tiene tres partes: la idea, la evidencia que la sostiene y la **regla operativa** que la convierte
-en algo que se puede ver en el salón 3208 o en el laboratorio LS4.
+en algo que se puede ver en el salón 3208 o en el laboratorio LS4. Las fuentes completas y el grado de certeza de
+cada principio están en `06-evidencia-y-bibliografia.md`, §1.
 
 ### P1. Fundamentos antes que proyectos (guiar → practicar → aplicar)
 
 - **Idea.** Los novatos aprenden más con instrucción explícita y ejemplos resueltos que con descubrimiento;
-  conforme ganan pericia, la guía debe retirarse (efecto de inversión por pericia).
-- **Evidencia.** Kirschner, Sweller y Clark (2006); Rosenshine (2012); Sweller, teoría de la carga cognitiva;
-  Kalyuga, inversión por pericia. La "falla productiva" (Kapur) funciona cuando el problema previo está
-  diseñado y va seguido de instrucción explícita; no es excusa para soltar al grupo sin base.
+  conforme ganan pericia, la guía debe retirarse (reversión por pericia, *expertise reversal*).
+- **Evidencia.** Kirschner, Sweller y Clark (2006); Rosenshine (2012; evidencia sobre todo de educación básica,
+  se toma como heurística); carga cognitiva y ejemplo resuelto (Sweller, 1988; Sweller y Cooper, 1985); reversión
+  por pericia (Kalyuga et al., 2003). La "falla productiva" (Kapur) funciona cuando el problema previo está
+  diseñado y lo sigue instrucción explícita y contrastiva: Sinha y Kapur (2021), g = 0.36 [0.20, 0.51], mayor en
+  conceptos que en procedimientos; con alta interactividad de elementos gana instrucción-explícita-primero
+  (Ashman, Kalyuga y Sweller, 2020). No es excusa para soltar al grupo sin base.
 - **Regla operativa.** Ningún concepto nuevo se pide en una práctica antes de haber sido modelado con un
   ejemplo resuelto en clase. El andamiaje se desvanece dentro de la misma unidad: ejemplo completo → ejemplo
   por completar → problema con pistas → problema libre (el proyecto).
@@ -48,7 +53,8 @@ en algo que se puede ver en el salón 3208 o en el laboratorio LS4.
 - **Idea.** Traer algo de la memoria lo fortalece más que volver a leerlo. Repartir la práctica en el tiempo y
   mezclar temas cuesta más en el momento y rinde más después ("dificultades deseables", Bjork).
 - **Evidencia.** Roediger y Karpicke (2006); Karpicke y Blunt (2011); Dunlosky et al. (2013) califican la
-  práctica de recuperación y la práctica distribuida como las dos técnicas de mayor utilidad; Cepeda et al. (2006).
+  práctica de recuperación y la práctica distribuida como las dos técnicas de utilidad alta, y la práctica
+  intercalada como de utilidad moderada; Cepeda et al. (2006) sobre espaciado.
 - **Regla operativa.** Cinco minutos de recuperación al inicio de **toda** sesión, individual y sin apuntes.
   De las 4–5 preguntas, al menos una es de una unidad anterior. Las tareas son cortas (20–40 min) y siempre
   incluyen un ejercicio intercalado. Los exámenes 2 y 3 reservan entre 10 % y 20 % a unidades previas.
@@ -57,7 +63,9 @@ en algo que se puede ver en el salón 3208 o en el laboratorio LS4.
 
 - **Idea.** Estudiar un ejemplo resuelto bien construido enseña más a un novato que resolver el problema a ciegas,
   siempre que el estudiante se explique a sí mismo cada paso.
-- **Evidencia.** Efecto del ejemplo resuelto (Sweller y Cooper); Renkl, autoexplicación; Atkinson et al.
+- **Evidencia.** Efecto del ejemplo resuelto (Sweller y Cooper, 1985); el desvanecimiento se justifica por la
+  reversión por pericia (Kalyuga et al., 2003; Kalyuga, 2007); la autoexplicación es de utilidad moderada en
+  Dunlosky et al. (2013).
 - **Regla operativa.** Cada sesión tiene un `ejemplo-resuelto.md` con pausas marcadas ("¿Por qué aquí va
   `firstprivate` y no `private`?"). En clase el profesor piensa en voz alta: dice lo que mira, lo que descarta
   y por qué. La práctica guiada de la misma sesión parte de ese ejemplo y quita una pieza a la vez.
@@ -66,8 +74,10 @@ en algo que se puede ver en el salón 3208 o en el laboratorio LS4.
 
 - **Idea.** Escribir código desde cero exige sostener demasiadas cosas en la memoria de trabajo. Leer,
   predecir la salida, rastrear y modificar código ajeno construye los esquemas necesarios con menos carga.
-- **Evidencia.** PRIMM (Sentance, Waite y Kallia, 2019); problemas de Parsons (Parsons y Haden, 2006;
-  Ericson et al., 2017); correlación entre leer/explicar código y saber escribirlo (Lister et al.; Lopez et al.).
+- **Evidencia.** PRIMM (Sentance, Waite y Kallia, 2019; evidencia cuasiexperimental en secundaria, sin evaluación
+  universitaria publicada); problemas de Parsons (Parsons y Haden, 2006; Ericson et al., 2017: menos tiempo con
+  aprendizaje equivalente); correlación entre rastrear/explicar código y saber escribirlo (Lopez et al., 2008;
+  Lister et al., 2009; Murphy et al., 2012).
 - **Regla operativa.** Toda práctica guiada sigue PRIMM: **P**redecir la salida por escrito antes de correr,
   **R**un (ejecutar) y comparar, **I**nvestigar (tablas de rastreo, preguntas dirigidas), **M**odificar con un
   objetivo concreto, y **M**ake (crear) una variante propia. Antes de escribir un `#pragma` nuevo, el estudiante
@@ -78,9 +88,11 @@ en algo que se puede ver en el salón 3208 o en el laboratorio LS4.
 - **Idea.** La clase magistral sin verificación produce sensación de aprendizaje, no aprendizaje. Las
   estructuras que obligan a cada estudiante a comprometerse con una respuesta (votar, explicar a un par,
   escribir) sí producen aprendizaje.
-- **Evidencia.** Freeman et al. (2014), metaanálisis de aprendizaje activo en STEM; Deslauriers et al. (2019);
-  Crouch y Mazur (2001) y Porter, Bailey Lee y Simon (2013), instrucción entre pares en cursos de computación;
-  McDowell et al. (2006), programación en parejas.
+- **Evidencia.** Freeman et al. (2014), metaanálisis de aprendizaje activo en STEM (+0.47 DE; reprobación
+  33.8 % → 21.8 %); Deslauriers et al. (2019): más aprendizaje y menos sensación de aprender; Crouch y Mazur
+  (2001) y Porter, Bailey Lee y Simon (2013), instrucción entre pares (en cuatro cursos de computación, ≈61 %
+  menos reprobación; observacional); McDowell et al. (2006), programación en parejas en CS1 (más terminación y
+  permanencia, mismo examen individual).
 - **Regla operativa.** Dos ConcepTests por sesión con la secuencia voto individual → discusión en parejas →
   revoto → explicación del profesor. Si el primer voto supera 80 % de aciertos, se salta la discusión y se
   sigue; si queda por debajo de 30 %, se vuelve a explicar antes de discutir. Práctica guiada en parejas con
@@ -91,8 +103,11 @@ en algo que se puede ver en el salón 3208 o en el laboratorio LS4.
 
 - **Idea.** Saber hoy quién no entendió qué cambia la sesión de mañana. Una calificación sin retroalimentación
   no enseña nada.
-- **Evidencia.** Black y Wiliam (1998); Hattie y Timperley (2007) sobre retroalimentación; Nilson (2015) sobre
-  calificación por especificaciones.
+- **Evidencia.** Black y Wiliam (1998a, 1998b) es una revisión narrativa: su "0.4–0.7" no es un promedio
+  metaanalítico; Kingston y Nash (2011) estiman ≈0.20. El *exit ticket* no tiene evidencia experimental propia: es
+  una herramienta de evaluación formativa de bajo costo que se justifica por la práctica de recuperación (P2) y
+  por el uso de la información para ajustar la siguiente sesión. La calificación por especificaciones (Nilson,
+  2015) es una propuesta de diseño sin evaluación experimental (Howitz et al., 2025).
 - **Regla operativa.** *Exit ticket* de 2 preguntas + 1 de confianza al cierre. El profesor las revisa el mismo
   día (10 minutos) y abre la siguiente sesión con el error más frecuente. Toda rúbrica se publica antes de la
   entrega. Toda entrega recibe retroalimentación en ≤ 7 días. Una semana antes de cada examen hay examen de
@@ -102,9 +117,9 @@ en algo que se puede ver en el salón 3208 o en el laboratorio LS4.
 
 - **Idea.** El proyecto integrador es donde se transfiere lo aprendido a un problema propio, con datos reales y
   decisiones de diseño. Funciona porque llega después de los fundamentos y porque tiene hitos.
-- **Evidencia.** Transferencia y aprendizaje basado en proyectos con andamiaje (Hmelo-Silver, Duncan y Chinn,
-  2007, respuesta a Kirschner et al.); evidencia de rendición de cuentas individual en trabajo en equipo
-  (Slavin; Johnson y Johnson).
+- **Evidencia.** Las réplicas a Kirschner et al. (Hmelo-Silver, Duncan y Chinn, 2007) precisan que el ABP bien
+  andamiado no es guía mínima; de Jong et al. (2023) sobre combinar indagación e instrucción directa. La rendición
+  de cuentas individual en equipos es una decisión de diseño; no se verificó fuente (`06`, §1).
 - **Regla operativa.** Tres versiones (V1 secuencial con diseño de Foster y perfilado; V2 memoria compartida con
   *speedup*; V3 GPU) con hitos fechados y rúbrica analítica. Defensa oral con preguntas **individuales** que
   pueden mover la calificación de cada integrante. Cada versión exige el protocolo de medición del curso.
@@ -113,10 +128,14 @@ en algo que se puede ver en el salón 3208 o en el laboratorio LS4.
 
 - **Idea.** Un estudiante con base sólida usa la IA para ir más rápido y más profundo. Uno sin base la usa
   para no pensar, y aprende menos que sin ella.
-- **Evidencia.** Bastani et al. (2025): acceso a GPT sin barreras mejoró la práctica pero empeoró el examen;
-  con diseño de tutor (pistas, sin respuestas directas) el daño desapareció. Kestin et al. (2025): un tutor de IA
-  diseñado con principios pedagógicos superó a la clase activa en física. Prather et al. (2024): los novatos
-  con IA muestran "ilusión de competencia" y dificultades metacognitivas.
+- **Evidencia.** Bastani et al. (2025), ECA con ≈1,000 estudiantes de preparatoria: el acceso a GPT sin
+  guardarraíles mejoró la práctica (+48 %) y empeoró 17 % el examen sin ayuda; con diseño de tutor (pistas, sin
+  respuestas directas) el grupo quedó igual al control. Kestin et al. (2025), ECA cruzado (n = 194) en física: un
+  tutor de IA diseñado ad hoc con principios pedagógicos superó a la clase activa en dos lecciones con posprueba
+  inmediata; no equivale a "usar ChatGPT". Prather et al. (2024): entre novatos con IA se abre una brecha; quienes
+  luchan muestran una falsa sensación de avance (*false sense of progress*) y dificultades metacognitivas.
+  Bassner et al. (2025) y Lehmann et al. (2025): la IA mejora el desempeño inmediato; el aprendizaje depende de
+  usarla como tutor y no como sustituto.
 - **Regla operativa.** Política de semáforo (`05-politica-ia.md`): verde para explicar, generar preguntas y
   depurar con pistas; amarillo para fragmentos pequeños con declaración; rojo para entregar sin comprender.
   Zonas sin IA: recuperación, exámenes, defensa oral. "Prueba de propiedad": cualquier línea entregada debe
@@ -126,8 +145,9 @@ en algo que se puede ver en el salón 3208 o en el laboratorio LS4.
 ### P9. Metacognición y hábitos de ingeniería
 
 - **Idea.** Saber qué sabes y qué no, y tener rutinas que no dependan de la motivación del día.
-- **Evidencia.** Calibración y juicios de aprendizaje (Dunlosky y Metcalfe); bitácoras de errores en
-  programación; planeación de implementación (Gollwitzer).
+- **Evidencia.** Los estudiantes juzgan mal su aprendizaje: Deslauriers et al. (2019); Roediger y Karpicke
+  (2006) y Karpicke y Blunt (2011) muestran más confianza en la técnica que menos enseña. La bitácora de errores
+  y el pre-mortem son hábitos de ingeniería adoptados por diseño, sin fuente verificada (`06`, §1).
 - **Regla operativa.** Antes de cada examen, el estudiante predice su calificación; después compara. Cada
   equipo lleva una **bitácora de errores** (qué falló, por qué, cómo se detectó) que forma parte del reporte del
   proyecto. Las prácticas incluyen "pre-mortem": antes de medir, escribe qué *speedup* esperas y por qué.
@@ -136,9 +156,9 @@ en algo que se puede ver en el salón 3208 o en el laboratorio LS4.
 
 - **Idea.** El método tiene que funcionar para los 35, con un profesor, sin ayudantes, en 4.5 horas semanales y
   con laptops desiguales.
-- **Evidencia.** El costo de los proyectos abiertos sin andamiaje recae en quien tiene menos capital cultural
-  (Kirschner et al., 2006; discusión en la conversación de origen). Herramientas gratuitas en la nube
-  (Colab/Kaggle) igualan el acceso a GPU.
+- **Evidencia.** La guía importa más para quien tiene menos conocimiento previo (Kirschner et al., 2006); con
+  IA, la brecha se abre entre quienes aceleran y quienes luchan (Prather et al., 2024). Herramientas gratuitas en
+  la nube (Colab/Kaggle) igualan el acceso a GPU.
 - **Regla operativa.** Todo el material es reutilizable y autocontenido (un estudiante que faltó puede
   recuperar la sesión con `notas-estudiante.md`, el ejemplo resuelto y la práctica guiada). La asesoría se
   da por protocolo: primero el estudiante escribe qué intentó y qué observó; después se atiende. La
@@ -205,9 +225,11 @@ Estos datos se registran en una hoja de cálculo sencilla (plantilla en `herrami
 
 ## 6. Límites
 
-La mayor parte de la evidencia viene de otros contextos (física universitaria, CS1 en EE. UU., secundaria).
-Se adopta porque los mecanismos (memoria, carga cognitiva, recuperación) son generales, no porque garantice
-resultados aquí. Por eso el punto 5 existe: el método se corrige con los datos del grupo 6BM1, no con la fe.
+La mayor parte de la evidencia viene de otros contextos (educación básica, física universitaria, CS1 en EE. UU.,
+secundaria y preparatoria). Se adopta porque los mecanismos (memoria, carga cognitiva, recuperación) son
+generales, no porque garantice resultados aquí. El grado de certeza de cada principio está en
+`06-evidencia-y-bibliografia.md`, §1. Por eso el punto 5 existe: el método se corrige con los datos del grupo
+6BM1, no con la fe.
 
 ---
 

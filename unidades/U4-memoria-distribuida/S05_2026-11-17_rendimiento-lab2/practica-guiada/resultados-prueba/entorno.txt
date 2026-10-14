@@ -1,0 +1,7 @@
+fecha: 2026-10-14T05:20:08+00:00
+cpu: Intel(R) Xeon(R) Processor @ 2.80GHz
+nucleos: 4  (hilos por núcleo: 1)
+compilador: gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+mpi: mpirun (Open MPI) 4.1.6
+flags: -std=c11 -O2 -Wall -Wextra ; mpirun --oversubscribe
+fuerte: N=20000 ITERS=200 ; debil: NLOCAL=5000 ITERS=200 ; PROCS='1 2 4' OVERSUB='8'

@@ -1,0 +1,12 @@
+fecha: 2026-10-14 05:20:05 +0000
+sistema: Linux 6.18.44-fc-v114 x86_64
+CPU(s): 4
+Model name: Intel(R) Xeon(R) Processor @ 2.80GHz
+Thread(s) per core: 1
+Core(s) per socket: 4
+Socket(s): 1
+MemTotal: 16479424 kB
+compilador: gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+nvcc: Build cuda_12.0.r12.0/compiler.32267302_0
+gpu: no detectada
+comando: ./tests/falso_gpu.sh <N>

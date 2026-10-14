@@ -6,9 +6,11 @@
 
 La IA generativa (ChatGPT, Claude, Gemini, Copilot y similares) es parte de tu caja de herramientas y lo será en
 tu trabajo. En este curso la usas como **tutor**, no como **sustituto**. La razón es práctica, no moral: un
-estudio con miles de estudiantes mostró que quienes usaron un asistente sin restricciones resolvieron mejor
-las tareas y peor el examen; quienes usaron un asistente diseñado como tutor (que da pistas y no respuestas)
-no sufrieron ese daño. Queremos el segundo efecto.
+ensayo controlado con cerca de mil estudiantes de preparatoria (Bastani et al., 2025) mostró que quienes usaron
+un asistente sin restricciones resolvieron mejor la práctica y 17 % peor el examen sin ayuda; quienes usaron un
+asistente diseñado como tutor (que da pistas y no respuestas) quedaron igual que quienes no usaron IA. Queremos
+el segundo efecto. En cursos de programación pasa lo mismo: quien usa la IA para que le explique aprende; quien
+la usa para que le resuelva, no (Lehmann et al., 2025). Las fuentes están en `06-evidencia-y-bibliografia.md`.
 
 ### Semáforo
 
