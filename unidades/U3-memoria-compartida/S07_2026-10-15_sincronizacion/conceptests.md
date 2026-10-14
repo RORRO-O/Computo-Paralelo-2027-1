@@ -40,7 +40,7 @@ printf("%ld\n", count);
 **Guion de discusión (3 líneas).** "Quien votó A: ¿qué tendría que pasar para que saliera mal? Si no puedes
 describir una secuencia de eventos que lo rompa, busca la tabla de leer-modificar-escribir. Quien votó C: ¿qué
 hace el procesador con `count++` cuando `count` está en la caché de otro núcleo?" Cerrar con la salida real de
-`counter_buggy` a `-O2` (correcto tres veces) y a `-O0` (incorrecto tres veces): mismo código, misma carrera.
+`counter_buggy` a `-O2` (correcto tres veces) y a `-O0` (casi siempre incorrecto): mismo código, misma carrera.
 
 ## CT2 · `atomic` en el histograma (minuto ~68, puesta en común)
 

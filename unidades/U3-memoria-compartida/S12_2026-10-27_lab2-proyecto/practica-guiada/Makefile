@@ -21,9 +21,11 @@ test: all
 medir: all
 	./medir.sh ./fases computo "1 2 4"
 
-# Versión con ThreadSanitizer para cazar la carrera si olvidas la reducción
+# Versión con ThreadSanitizer para cazar la carrera si olvidas la reducción. Se compila con -O0
+# a propósito: así el aviso cae en la línea de `sum += p`; con -O1 (S07, H2) el compilador acumula
+# en un registro y el aviso cae en la línea del pragma. Nunca se mide con este binario.
 tsan: fases.c
-	$(CC) -std=c11 -O1 -g -Wall -Wextra -fopenmp -fsanitize=thread $< -o fases_tsan $(LDLIBS)
+	$(CC) -std=c11 -O0 -g -Wall -Wextra -fopenmp -fsanitize=thread $< -o fases_tsan $(LDLIBS)
 
 clean:
 	rm -f $(PROGS) fases_tsan *.o

@@ -2,7 +2,7 @@
 
 # Práctica guiada S12 · ¿Dónde está el tiempo? Perfilado por secciones y plan de la V2
 
-Mini PRIMM (15 minutos en clase, el resto en la tarea) sobre `fases.c`, un programa de tres fases: carga,
+Mini PRIMM (≈ 9 minutos en clase para Predecir–Modificar y 10 para arrancar Crear; el resto en la tarea) sobre `fases.c`, un programa de tres fases: carga,
 cómputo caliente y salida. Vas a **predecir** qué fase domina, **medir** con `omp_get_wtime()`, **calcular** la
 fracción paralelizable en tiempo y la cota de Amdahl, **paralelizar** la fase correcta y **comparar** predicción
 con medición. Al final aplicas lo mismo a tu V1 con la plantilla `plan-paralelizacion-V2.md`.
@@ -29,7 +29,7 @@ Entorno en que se obtuvieron las salidas de este documento: máquina virtual Lin
 hasta tener una ventana sin carga ajena y se reportan mediana, mínimo y máximo. Tus tiempos serán distintos;
 las fracciones y las conclusiones no deberían.
 
-## P · Predecir (2 min, por escrito, antes de compilar)
+## P · Predecir (1 min, por escrito, antes de compilar)
 
 Lee el encabezado de `fases.c` y las tres funciones (`load_phase`, `compute_phase`, `output_phase`). No lo
 corras todavía.
@@ -41,7 +41,7 @@ corras todavía.
    programa completo esperas? ______
 4. ¿Qué imprimirá el programa si lo corres con `OMP_NUM_THREADS=4` **sin** tocar el código? ______
 
-## R · Ejecutar (2 min)
+## R · Ejecutar (1 min)
 
 ```bash
 make
@@ -70,7 +70,7 @@ TODO pendiente: la fase de computo corrio con 1 hilo; completa TODO(1) en fases.
 
 Compara con tu predicción: ¿acertaste la fase dominante? ¿Por cuántos puntos porcentuales fallaste? Anótalo.
 
-## I · Investigar (3 min)
+## I · Investigar (2 min en clase: preguntas 1 y 2; la 3–6 se terminan en la tarea)
 
 1. **Fracción paralelizable.** Supón que solo la fase de cómputo se paraleliza. Con la tabla de 1 hilo:
    f = tiempo de cómputo / tiempo total = ______. Cota de Amdahl: S_max(2) = 1/((1−f) + f/2) = ______;
@@ -122,7 +122,7 @@ Corridas reales (1 hilo, una corrida cada una; tiempo en s y fracción):
 
 </details>
 
-## M · Modificar (6 min; cambio de roles)
+## M · Modificar (4 min; cambio de roles)
 
 **Objetivo verificable:** la fase de cómputo corre en paralelo, `make test` pasa, y la tabla de abajo tiene
 predicción y medición para 1, 2 y 4 hilos.
@@ -160,31 +160,44 @@ corridas de 4 hilos la carga tardó entre 0.16 y 0.21 s. Por eso se reportan mí
 (idea errónea 5). La diferencia entre 3.78 (fase) y 2.89 (total) es exactamente la carga secuencial: Amdahl
 no es una opinión.
 
-5. **Si `make test` falla o la suma cambia entre corridas**: te faltó la reducción. Compruébalo con el
-   detector de carreras (tamaño chico, porque TSan hace el programa 10–30× más lento; nunca se mide con él):
+5. **Si `make test` falla o la suma cambia entre corridas**: te faltó la reducción. La evidencia decisiva es
+   la suma: sin `reduction`, con `-O2` cada hilo acumula su parcial en un registro y la escribe en `sum` al
+   final, así que sobrevive la de **un solo** hilo: ≈ ¼ del valor correcto, y cuál de las cuatro sobrevive
+   cambia entre corridas (cinco corridas reales con 4 hilos, `./fases 500000 200`):
+   ```
+   suma=-3.009552028892e+04
+   suma=-2.999118887396e+04
+   suma=-2.999118887396e+04
+   suma=-3.002570444867e+04
+   suma=-3.009552028892e+04
+   --- referencia correcta (1 hilo): suma=-1.201347451248e+05
+   ```
+   "Salió bien una vez" no es evidencia (idea errónea 7). Confírmalo con el detector de carreras (tamaño chico:
+   TSan hace el programa 10–30× más lento y nunca se mide con él; `make tsan` compila con `-O0 -g` para que el
+   aviso caiga en la línea exacta):
    ```bash
    make tsan
    OMP_NUM_THREADS=4 ./fases_tsan 20000 50
    ```
-   Con el pragma sin `reduction`, TSan reporta `WARNING: ThreadSanitizer: data race` y señala la línea de
-   `sum += p` (salida real recortada):
+   Con el pragma sin `reduction` (insertado en la línea 70, así `sum += p` queda en la 80), TSan reporta un
+   aviso en que **dos hilos trabajadores** escriben la misma dirección en `sum += p` (salida real recortada):
    ```
-   WARNING: ThreadSanitizer: data race (pid=439)
-     Read of size 8 at 0x7ffe9761b010 by thread T2:
-       #0 compute_phase._omp_fn.0 fases.c:79 ...
-     Previous write of size 8 at 0x7ffe9761b010 by main thread:
-       #0 compute_phase fases.c:79 ...
-   SUMMARY: ThreadSanitizer: data race fases.c:79 in compute_phase._omp_fn.0
+   WARNING: ThreadSanitizer: data race (pid=21104)
+     Write of size 8 at 0x7ffd2f095a50 by thread T1:
+       #0 compute_phase._omp_fn.0 fases.c:80
+     Previous write of size 8 at 0x7ffd2f095a50 by thread T3:
+       #0 compute_phase._omp_fn.0 fases.c:80
+   SUMMARY: ThreadSanitizer: data race fases.c:80 in compute_phase._omp_fn.0
    ```
-   Y la suma sin reducción, con 4 hilos, da un valor distinto en cada corrida (tres corridas reales):
-   ```
-   suma=-3.002570444867e+04
-suma=-3.009552028892e+04
-suma=-2.999118887396e+04
---- referencia correcta (1 hilo): suma=-1.201347451248e+05
-   ```
-   "Salió bien una vez" no es evidencia (idea errónea 7). Con `reduction(+:sum)` TSan queda limpio y la suma
-   coincide con la secuencial dentro de 1e-9 (el orden de la suma cambia el redondeo: por eso hay tolerancia).
+   **Con `reduction(+:sum)` ese aviso desaparece, pero TSan no queda en cero**: con la `libgomp` de gcc salen
+   dos avisos más (`fases.c:70`, la línea del pragma, hilo principal contra un trabajador; y `fases.c:92`,
+   `output_phase` leyendo `p[]` después de la región) que aparecen igual con la reducción correcta. Son ruido
+   de la biblioteca, cuya sincronización TSan no ve (S07, práctica guiada §3.3; H2 §2.1). La regla: hilo
+   principal contra trabajador al arrancar o terminar la región = ruido; dos trabajadores sobre tu variable
+   dentro del ciclo = carrera tuya. Con `-O1` (lo que usan S07 y H2) el aviso real sigue siendo "trabajador
+   contra trabajador", pero cae en la línea del pragma porque el compilador acumula en un registro y escribe
+   `sum` una vez al final. Con la reducción, la suma coincide con la secuencial dentro de 1e-9 (el orden de
+   la suma cambia el redondeo: por eso hay tolerancia).
 
 <details>
 <summary>Solución de TODO(1) (ábrela solo después de intentarlo y de correr <code>make test</code>)</summary>
@@ -201,7 +214,7 @@ uniforme → `static` (idea errónea 11: `dynamic` no "siempre gana").
 
 </details>
 
-## M · Crear (arranque en clase, se termina como tarea)
+## M · Crear (*Make*; 10 min de arranque en clase, se termina como tarea)
 
 **Instrumenta tu V1.** Con tu equipo:
 

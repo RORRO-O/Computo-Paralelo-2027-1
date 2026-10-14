@@ -36,7 +36,9 @@ Tipo: Contenido (estructura base de 90 min). Este guion debe bastar para que otr
 
 - Archivos de esta carpeta; proyector; cronómetro visible; tarjetas con números de lista.
 - Máquina del salón con gcc ≥ 11 y OpenMP; `make` ya ejecutado en `practica-guiada/` **antes** de la sesión
-  (`make clean && make && make test` → `22 PASS, 0 FAIL`). Verificar `uptime` < 1 antes de medir en vivo.
+  (`make clean && make && make test` → `22 PASS, 0 FAIL`). Verificar `uptime` < 1 antes de medir en vivo y
+  regenerar las tablas de `ejemplo-resuelto.md` y `notas-estudiante.md` con `make tabla` en esa máquina: las
+  publicadas vienen de una máquina virtual que no entrega 4 núcleos reales (varios *speedups* quedan < 1).
 - Pizarrón: 16 cuadritos dibujados en una fila (para el mapa) y una cuadrícula de 3 × 6 (para `collapse`).
 - Hojas del *exit ticket* (una por estudiante) y la lista de errores esperados impresa (sección 35–65).
 
@@ -109,7 +111,7 @@ en común.
 | Concluyen "entonces `dynamic` siempre" después del triangular (idea 11) | "¿Qué viste en `uniform`? ¿Cuánto cuesta una iteración ahí y cuánto cuesta pedirla?" |
 | En I3(c) estiman el costo por *chunk* sin multiplicar por los 4 hilos | "El tiempo extra que mediste, ¿lo pagó un hilo o los cuatro a la vez?" |
 | Con `dynamic`, `nowait_buggy` les sale 0 incorrectas y concluyen que está bien (idea 7) | "¿Qué garantiza la especificación para `static`? ¿Dice lo mismo de `dynamic`? Si no lo dice, ¿qué prueba una corrida buena?" |
-| Toman el reporte de TSan sobre la línea 78 (ciclo de verificación) como la carrera | "¿Esa línea está dentro o fuera de la región paralela? ¿Aparece también con `static`? ¿Qué no puede ver TSan de libgomp?" |
+| Toman el reporte de TSan sobre la línea 78 (ciclo de verificación) o la 82 (`free`) como la carrera | "¿Esa línea está dentro o fuera de la región paralela? ¿Aparece también con `static`? ¿Qué no puede ver TSan de libgomp?" |
 | En M2 modifican `run_par` en lugar de `triangular_item` | "¿Qué parte del programa define cuánto cuesta una iteración y cuál define quién la ejecuta?" |
 | En M3 esperan que `collapse(2)` mejore 4 × 4 con 4 hilos | "¿Cuántos trozos de trabajo había antes y cuántos después? Si ya eran 4 iguales para 4 hilos, ¿qué puede mejorar?" |
 | Olvidan revertir M2 y `make test` sigue pasando, así que no se dan cuenta | "¿Qué verifica `make test`: tiempos o resultados? ¿Por qué la prueba no puede detectar que cambiaste el costo?" |
@@ -170,8 +172,9 @@ Anuncios, con fecha:
 - **Apoyo (quien no arranca en Predecir):** entregarle la fila `static` ya llena y pedirle solo `static,2` y
   `static,5`; para `dynamic` aceptar "no se puede saber" con la razón. En Investigar, limitarse a I1, I3 e I5.
 - **Ampliación (quien termina):** (a) la extensión del rango invertido en Crear; (b) correr
-  `./unbalanced mandelbrot 1000 static,125 guided,1 guided,8` y explicar por qué `static,125` (4 bloques de 250
-  filas, cíclico) rinde tan distinto de `static`, y por qué `guided,8` supera a `guided,1`; (c) medir
+  `./unbalanced mandelbrot 1000 static static,125 guided,1 guided,8` y explicar por qué `static,125` (8 bloques
+  de 125 filas repartidos cíclicamente: cada hilo recibe una franja de borde y una del centro) debe rendir mejor
+  que `static` (dos hilos cargan con todo el centro), y por qué `guided,8` supera a `guided,1`; (c) medir
   `collatz` y argumentar si una carga irregular pero sin patrón está "desbalanceada" en bloques grandes.
 
 ## Evaluación formativa de la sesión

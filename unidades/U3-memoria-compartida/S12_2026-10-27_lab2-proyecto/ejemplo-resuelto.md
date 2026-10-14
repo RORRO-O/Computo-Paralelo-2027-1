@@ -297,7 +297,7 @@ Amdahl, es el hardware (4 núcleos) y la memoria.
 | Paso | En este ejemplo | En tu V1 |
 |---|---|---|
 | Perfil por secciones | tabla de 3 fases, 1 hilo, mediana de 5 | sección 1 de la plantilla |
-| Fracción en tiempo | f_resumen = 0.911; f_cómputo = 0.073 (7 % del tiempo con 62 % de las líneas de las tres funciones) | f de las secciones "sí" |
+| Fracción en tiempo | f_resumen = 0.911; f_cómputo = 0.073 (7 % del tiempo con 51 % de las líneas de las tres funciones: 23 de 45) | f de las secciones "sí" |
 | Cota de Amdahl | S_max(2) = 1.84, S_max(4) = 3.16 para el resumen; 1.06 para el cómputo | S_max(2), S_max(4) |
 | Dependencias | `count` y `sum_w` reducciones; escrituras `arreglo[i]` independientes | sección 2 |
 | Estrategia | `parallel for` + `reduction` + `dynamic, 64` por ciclo triangular | sección 3 |

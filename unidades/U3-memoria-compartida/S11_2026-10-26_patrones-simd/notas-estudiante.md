@@ -83,9 +83,11 @@ AVX2: 32 bytes; AVX-512: 64). Es paralelismo **dentro de un núcleo**, distinto 
 combinan: `#pragma omp parallel for simd` reparte el ciclo entre hilos y vectoriza el trozo de cada uno.
 
 **Qué hace la directiva.** `#pragma omp simd` no es una petición: es una **promesa** de que las iteraciones son
-independientes (y de que las reducciones que declares se combinan al final). El compilador deja de analizar
-dependencias y aliasing y vectoriza. Si la promesa es falsa (`a[i] = a[i-1] + …`), el resultado queda mal sin
-aviso.
+independientes (y de que las reducciones que declares se combinan al final). El compilador deja de exigir
+pruebas de independencia y vectoriza. Si la promesa es falsa (`a[i] = a[i-1] + …`), el programa queda fuera de
+la especificación: GCC 13 respeta una dependencia que puede ver (mismo arreglo, distancia 1) y no vectoriza
+aunque se lo pidas; una que no puede ver (el mismo arreglo llega por dos punteros distintos) la ignora por tu
+promesa, vectoriza y el resultado queda mal sin aviso.
 
 **Cómo saber qué pasó.** Compila con `-fopt-info-vec-optimized -fopt-info-vec-missed` (o `make report`).
 Cada línea trae `archivo:línea:columna`:
@@ -132,8 +134,9 @@ escritura de `double`) y hace 2 flops. Con `n` de millones, en RAM, la ganancia 
 2. Suponer que 4 hilos son más rápidos sin mirar el trabajo por región paralela (idea 1). Jacobi con
    `n = 64`: 9626 regiones paralelas de 62 puntos; pierde contra el secuencial.
 3. `atomic`/`critical` por elemento en una reducción sobre arreglo: contención y falso compartido (idea 14).
-4. Poner `#pragma omp simd` a un ciclo con `a[i-1]` "para ver si vectoriza": vectoriza y da resultados
-   incorrectos. La directiva es una promesa.
+4. Poner `#pragma omp simd` a un ciclo con `a[i-1]` "para ver si vectoriza". La directiva es una promesa, no
+   una petición: si la dependencia está a la vista, GCC 13 la respeta y no vectoriza (no ganaste nada); si está
+   oculta tras otro puntero, vectoriza y el resultado sale mal sin aviso. Se cambia el algoritmo.
 5. Leer y escribir el **mismo** arreglo en el *stencil* ("Gauss-Seidel sin querer"): el resultado depende del
    orden de los hilos. Doble búfer.
 6. Copiar `u_new` a `u` con un ciclo en cada iteración en vez de intercambiar punteros: duplica el tráfico de

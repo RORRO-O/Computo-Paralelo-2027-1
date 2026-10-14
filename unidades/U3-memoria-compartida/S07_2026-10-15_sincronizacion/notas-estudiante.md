@@ -28,7 +28,8 @@ Tres hechos que conviene memorizar:
 lee o escribe? ¿qué construcción ordena esos accesos? Si la respuesta a la última es "nada", hay carrera.
 
 **Con ThreadSanitizer.** `gcc -std=c11 -fsanitize=thread -g -O1 -fopenmp archivo.c` y ejecutar con `n`
-pequeño (es 5–20 veces más lento). El reporte dice la línea, los dos hilos y la memoria en conflicto:
+pequeño (es 5–20 veces más lento). El reporte dice las líneas, los dos hilos y la memoria en conflicto (qué hilo
+lee y cuál escribe cambia entre corridas; las líneas y la dirección, no):
 
 ```
 WARNING: ThreadSanitizer: data race
@@ -46,7 +47,7 @@ comparar contra la versión secuencial con varias corridas y distinto número de
 
 | Mecanismo | Qué protege | Cuándo usarlo | Costo medido (ns por actualización, 4 hilos, orientativo) |
 |---|---|---|---|
-| `reduction(op:x)` | Acumulación con `+ * - & | ^ && || min max` | Siempre que la operación sea una reducción | ~3 |
+| `reduction(op:x)` | Acumulación con `+ * - & \| ^ && \|\| min max` | Siempre que la operación sea una reducción | ~3 |
 | Acumulador local + combinación | Lo que tú quieras (arreglos, estructuras) | Reducciones que `reduction` no expresa (p. ej. histograma en OpenMP < 4.5) | ~3 |
 | `#pragma omp atomic` | **Una** actualización simple de **una** variable escalar: `x++`, `x += e`, `x = x op e` | Actualizaciones dispersas (histograma) donde los hilos rara vez chocan | ~15 |
 | `#pragma omp critical` | Una región arbitraria de código | Varias variables a la vez, condiciones, llamadas | ~60 |

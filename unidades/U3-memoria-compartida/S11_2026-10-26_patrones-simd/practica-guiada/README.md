@@ -151,7 +151,8 @@ hilo para que el trabajo pague el costo fijo de la región?
 - `vec_kernels.c`: ¿coincidió con tu P3? Lee los comentarios del archivo y explica en una línea por qué
   `saxpy_restrict` (sin aliasing posible) **tampoco** se vectoriza a `-O2`.
 - `jacobi1d.c`: aparecen `couldn't vectorize loop` para los seis ciclos de `step_seq`, `step_par` y
-  `step_simd` (líneas 48–99). Todavía ninguno se vectoriza, ni siquiera los que solo actualizan (sin
+  `step_simd` (líneas 48–99; son ocho mensajes porque en 72 y 97 el compilador reporta además el ciclo externo
+  que genera la directiva). Todavía ninguno se vectoriza, ni siquiera los que solo actualizan (sin
   reducción) y tienen `restrict`. ¿Por qué? (pista: es la misma razón que `saxpy_restrict`; y el ciclo con
   `if (d > max_diff)` además tiene una reducción condicional que el vectorizador no acepta sin la directiva).
 
@@ -178,12 +179,16 @@ la de la memoria. Con los datos en L1 el cálculo era el cuello de botella y SIM
 ancho de banda y SIMD cambia poco. (A `-O2` sin `-march=native` GCC usa SSE2: 4 `float` por instrucción.)
 </details>
 
-**I6. La carrera del *scan* ingenuo.** Corre `./scan_buggy 1000000 4` dos veces y luego `make tsan`. ¿Cambió
-`max|dif|` entre corridas? ¿Qué par de accesos señala ThreadSanitizer (lectura de `y_bad[i-1]`, escritura de
-`y_bad[i]`)? Compara con `./scan 8388608 4`: la diferencia ahí es 2.873e-07 (6.850e-14 relativo), **la misma** en cada
-corrida, y es redondeo, no carrera.
+**I6. La carrera del *scan* ingenuo.** Corre `./scan_buggy 1000000 4` dos veces, luego `./scan_buggy 1000000 2`
+y por último `make tsan`. ¿Cambió `max|dif|` entre corridas? ¿Y entre 4 y 2 hilos? ¿Por qué `y_bad[n-1]` vale
+≈ 1/4 (≈ 1/2) de la suma total? (pista: cada hilo arranca leyendo un `y_bad[i-1]` que otro hilo aún no escribió,
+el 0 con que llegó la memoria). Que salga igual dos veces, ¿lo vuelve correcto? ¿Qué par de accesos señala
+ThreadSanitizer (lectura de `y_bad[i-1]`, escritura de `y_bad[i]`)? Compara con `./scan 8388608 4`: la
+diferencia ahí es 2.873e-07 (6.850e-14 relativo), del tamaño del redondeo, y es la misma en cada corrida.
 
 ## Fase 4 · Modificar (10 min)
+
+M1 y M1b son el objetivo mínimo de la clase; M2 y M3 se terminan en casa si no alcanza el tiempo.
 
 **M1 · `TODO(1)`: vectoriza el ciclo interno.** En `step_simd` de `jacobi1d.c` hay dos directivas (la del
 ciclo que solo actualiza y la del ciclo con la reducción `max`). Cambia ambas para que repartan el ciclo entre
@@ -192,7 +197,8 @@ hilos **y** lo vectoricen, conservando la cláusula de reducción en la segunda;
 L2 dio 2.44×)? ¿Y con 4 hilos frente a `par`?
 
 Verificación: `make report` debe mostrar dos líneas `optimized: loop vectorized using 16 byte vectors` en
-`step_simd`; `make test` debe pasar los 10 casos (ya sin SKIP); y
+`step_simd` (los `missed` que queden en la línea de la directiva son el ciclo externo del reparto entre hilos,
+no el ciclo interno); `make test` debe pasar los 10 casos (ya sin SKIP); y
 
 ```bash
 for t in 1 2 4; do ./jacobi1d 100000 2000 1e-6 simd $t; done
@@ -311,8 +317,11 @@ CHECK OK
 </details>
 
 **M2 · Planificación.** En `step_par` cambia la directiva a `#pragma omp parallel for schedule(dynamic) reduction(max:max_diff)`
-(chunk por defecto = 1). Predice y mide con `n = 100000`, 4 hilos. Regresa a `static` al terminar. Objetivo
-verificable: explicar la diferencia de tiempo con lo visto en S08 (costo por *chunk*; iteraciones uniformes).
+(chunk por defecto = 1). Predice y mide con **pocas iteraciones y una sola repetición**, porque es muy lento:
+`./jacobi1d 100000 200 1e-6 par 4 1` (con los valores por defecto tardaría minutos; medido: 3.9 s frente a
+0.03 s de `seq`, cuando `static` con 4 hilos tarda ~0.01 s en esas 200 iteraciones). Prueba después
+`schedule(dynamic,4096)` con el mismo comando. Regresa a `static` al terminar. Objetivo verificable: explicar las
+dos diferencias de tiempo con lo visto en S08 (costo por *chunk*; iteraciones uniformes).
 
 **M3 · ¿Quién manda, `restrict` o la directiva?** Quita los dos `restrict` de la firma de `step_simd` y corre
 `make report`: ¿sigue vectorizado? Ahora haz lo contrario en `step_seq`: déjale `restrict` y agrega solo

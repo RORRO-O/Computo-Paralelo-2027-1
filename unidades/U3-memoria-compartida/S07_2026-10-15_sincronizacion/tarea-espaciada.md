@@ -9,7 +9,11 @@ en el parcial, según `planeacion/mapa-evaluacion.md`). Se hace de forma individ
 IA: verde para que te explique un mensaje de error; amarillo (declarado) para que revise tu código y señale
 carreras; rojo para que resuelva el ejercicio 1 por ti.
 
-## 1. Del tema de hoy (15 min) · Encontrar y corregir carreras
+## 1. Del tema de hoy (20 min) · Encontrar y corregir carreras
+
+**Si en clase no se llegó a la Fase 5 (Crear) de la práctica guiada**, este ejercicio se sustituye por
+`histogram_locks.c` con el criterio de "listo" de `practica-guiada/README.md`, Fase 5 (el profesor lo anuncia en el
+cierre). En ese caso entrega `tareas/S07/histogram_locks.c` y la tabla de tiempos en `respuestas.md`.
 
 Este fragmento calcula tres cosas sobre un arreglo `v[0..n)` de `double`. Compilado con `-O2 -fopenmp` y 4 hilos
 "a veces" da bien.

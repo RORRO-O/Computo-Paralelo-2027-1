@@ -18,7 +18,8 @@ private(t)`, ¿qué vale `t` al entrar cada hilo? ¿Y si la cláusula fuera `fir
 partición natural (por dominio o funcional, y de qué)? ¿Qué comunicación aparece entre las tareas al final?
 
 **5. (Tema de hoy)** Dos hilos ejecutan `c++` una vez cada uno sobre la misma variable compartida `c`, que vale
-5. ¿Qué valores finales son posibles? Explica uno de ellos paso a paso.
+5. ¿Qué valores finales son posibles? (Conjetura: "no sé" es válido; si te animas, escribe en una línea el orden
+de pasos que da el menor.)
 
 <details><summary>Respuestas</summary>
 

@@ -63,7 +63,8 @@ sum   = 4292975516  (esperado 5115395184)  INCORRECTO
 ```
 
 Observa tres cosas. `sum` cambia en cada corrida y una vez salió **bien**. `count` salió bien las tres veces con
-`-O2` y mal las tres con `-O0`. Con un solo hilo (`OMP_NUM_THREADS=1`) todo sale bien siempre.
+`-O2` y mal las tres con `-O0` (en una corrida posterior de revisión, una de tres con `-O0` también dio `count`
+correcto: cambia la probabilidad, no la carrera). Con un solo hilo (`OMP_NUM_THREADS=1`) todo sale bien siempre.
 
 **Pausa 1.** ¿Por qué `count` sale bien con `-O2` y mal con `-O0`, si el código es el mismo?
 
@@ -127,7 +128,9 @@ SUMMARY: ThreadSanitizer: data race counter_buggy.c:38 in main._omp_fn.0
 Cómo leerlo: la línea 38 es `count++`; el hilo principal escribe y el hilo T1 había leído la misma dirección
 (`0x7fff…`, una variable de la pila de `main`: `count`). `main._omp_fn.0` es el nombre que gcc da al cuerpo de
 la primera región paralela. ThreadSanitizer encontró la carrera **aunque el resultado de esa corrida fuera
-correcto**: analiza accesos, no resultados.
+correcto**: analiza accesos, no resultados. En otra corrida el reporte invierte los papeles (T1 lee en la 37, el
+hilo principal había escrito en la 38) y el `SUMMARY` señala la 37: lo que no cambia es el par de líneas y la
+dirección de memoria.
 
 Dos avisos. Primero, ThreadSanitizer multiplica el tiempo por 5–20: úsalo con `n` pequeño. Segundo, con gcc
 también reporta "carreras" en código **correcto** que usa `critical`, candados o barreras, porque no ve la
@@ -220,7 +223,7 @@ Lectura. Estos números son **orientativos** (máquina virtual compartida; `n` p
 
 - `critical` y `lock` cuestan lo mismo: son el mismo mecanismo (exclusión mutua con un candado). Diez millones
   de regiones críticas en cuatro hilos son diez millones de turnos: todos esperan a todos.
-- `atomic` es 4–5 veces más barato que `critical`, pero cada actualización sigue viajando entre las cachés de
+- `atomic` es 3–5 veces más barato que `critical`, pero cada actualización sigue viajando entre las cachés de
   los núcleos: la línea de caché con `s` rebota de un núcleo a otro.
 - `reduction` y `local` son el mismo patrón (acumular en privado, combinar una vez) y por eso cuestan casi
   igual. Que ninguna versión paralela gane aquí a la secuencial no es un error de medición: sumar 4 millones

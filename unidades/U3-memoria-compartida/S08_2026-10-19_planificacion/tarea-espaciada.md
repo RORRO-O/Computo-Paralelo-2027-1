@@ -42,10 +42,14 @@ distingue entre "código secuencial" y "hilos esperando".
 <details>
 <summary>Verifica tus cálculos (ábrelo después de hacerlos)</summary>
 
-Los valores exactos dependen de la tabla publicada; el procedimiento es: S = T_sec / T_pol; E = S / 4;
-f = (1/S − 1/4) / (3/4). Con `static` la eficiencia de Mandelbrot queda por debajo de 0.5 y f sale grande;
-con `dynamic,4` la eficiencia sube hacia 0.8–0.9 y f se acerca a cero. Lo que `f` mide es el **tiempo de
-procesador ocioso** por cualquier causa: código secuencial, sincronización **o desbalance**. Con `static`, dos
+Procedimiento: S = T_sec / T_pol; E = S / 4; f = (1/S − 1/4) / (3/4). Con la tabla publicada en
+`notas-estudiante.md` §4 (medida con la máquina de autoría limitada, como ahí se advierte): `static`
+S = 0.406 / 0.424 ≈ 0.96, E ≈ 0.24, f ≈ 1.06; `dynamic,4` S = 0.406 / 0.313 ≈ 1.30, E ≈ 0.32, f ≈ 0.69. Si
+el profesor regeneró la tabla en una máquina libre, tus números serán mejores (la E de `dynamic,4` queda
+mucho más cerca de 1 y la de `static` cerca de 0.5), pero el patrón es el mismo: **f baja al cambiar solo el
+`schedule`**, con el mismo código. Lo que `f` mide es el **tiempo de procesador ocioso** por cualquier causa:
+código secuencial, sincronización, **desbalance** y, en la máquina de autoría, también la competencia por los
+núcleos (por eso ahí f sale mayor que 1, algo imposible si solo midiera código secuencial). Con `static`, dos
 hilos esperan en la barrera mientras los del centro de la imagen terminan; ese tiempo de espera entra en la
 fórmula como si fuera "fracción secuencial". Por eso Karp–Flatt se usa como diagnóstico: si f crece con p,
 hay sobrecarga o desbalance crecientes, y la primera pregunta es qué `schedule` tiene el ciclo.

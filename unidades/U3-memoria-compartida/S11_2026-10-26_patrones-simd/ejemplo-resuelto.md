@@ -156,8 +156,10 @@ CHECK OK
 > No es error: el secuencial suma `x[0] + x[1] + … + x[i]` de izquierda a derecha; el paralelo suma
 > `(x[lo] + … + x[i]) + offset`, otra agrupación, otro redondeo. La suma en punto flotante no es asociativa
 > (idea errónea 10). Dos pistas lo separan de una carrera: la diferencia es **diminuta** respecto a la
-> magnitud (6.850e-14 relativo a la suma total) y es **la misma** en cada corrida con el mismo número de hilos. Una carrera da
-> diferencias grandes y distintas cada vez (abajo). Por eso las pruebas comparan con tolerancia relativa.
+> magnitud (6.850e-14 relativo a la suma total, del orden de n·ε) y es **la misma** en cada corrida con el mismo
+> número de hilos. Una carrera da diferencias grandes, sin relación con el redondeo, que cambian con el reparto
+> (hilos, máquina) y a veces entre corridas (abajo). Si cambia entre corridas, seguro es carrera; si no cambia,
+> no sabes: mira la magnitud y usa ThreadSanitizer. Por eso las pruebas comparan con tolerancia relativa.
 > </details>
 
 > **Pausa 5.** El *speedup* con 4 hilos fue 1.89, lejos de 4, aunque las fases 1 y 3 son perfectamente
@@ -184,18 +186,20 @@ for (long i = 1; i < n; i++)
     y_bad[i] = y_bad[i - 1] + x[i];
 ```
 
-Dos corridas con 4 hilos (`./scan_buggy 1000000 4`):
+Con 4 hilos (`./scan_buggy 1000000 4`; dos corridas seguidas dan lo mismo) y con 2 (`./scan_buggy 1000000 2`):
 
 ```
 scan_buggy: n=1000000 hilos=4
   y_seq[n-1]=499991.298367   y_bad[n-1]=124627.779762   max|dif|=3.754e+05
-  (con 1 hilo coincide; con 2 o mas hilos el resultado es incorrecto y cambia entre corridas)
+  (con 1 hilo coincide; con 2 o mas hilos es incorrecto: cada hilo arranca leyendo un y_bad[i-1]
+   que otro hilo aun no escribio. Que salga igual en varias corridas no lo vuelve correcto: make tsan)
 ```
 
 ```
-scan_buggy: n=1000000 hilos=4
-  y_seq[n-1]=499991.298367   y_bad[n-1]=124627.779762   max|dif|=3.754e+05
-  (con 1 hilo coincide; con 2 o mas hilos el resultado es incorrecto y cambia entre corridas)
+scan_buggy: n=1000000 hilos=2
+  y_seq[n-1]=499991.298367   y_bad[n-1]=249723.729388   max|dif|=2.503e+05
+  (con 1 hilo coincide; con 2 o mas hilos es incorrecto: cada hilo arranca leyendo un y_bad[i-1]
+   que otro hilo aun no escribio. Que salga igual en varias corridas no lo vuelve correcto: make tsan)
 ```
 
 Y lo que dice ThreadSanitizer (`make tsan`, primeras líneas):
@@ -225,8 +229,12 @@ SUMMARY: ThreadSanitizer: data race scan_buggy.c:48 in main._omp_fn.0
 ==================
 ```
 
-La diferencia es enorme y cambia entre corridas: eso es una carrera. Compárala con la de 2.873e-07 del *scan*
-correcto. El mismo ciclo tampoco se vectoriza (Problema C): la dependencia es la misma, solo que entre
+La diferencia es enorme (el 75 % de la suma con 4 hilos, el 50 % con 2) y depende del reparto: con `static`, el
+hilo `t` arranca leyendo `y_bad[lo−1]` antes de que el hilo `t−1` lo escriba y encuentra el 0 con que llegó la
+memoria, así que `y_bad[n−1]` es solo la suma del último bloque (≈ 1/4 del total). Eso es una carrera aunque en
+esta máquina salga igual en todas las corridas: "salió igual" no es evidencia de nada (idea errónea 7); lo que la
+delata es la magnitud, el cambio al cambiar hilos o máquina, y ThreadSanitizer. Compárala con la de 2.873e-07 del
+*scan* correcto. El mismo ciclo tampoco se vectoriza (Problema C): la dependencia es la misma, solo que entre
 iteraciones consecutivas de un vector en lugar de entre hilos.
 
 ## Problema C · saxpy y el reporte del vectorizador
@@ -308,8 +316,11 @@ CHECK OK
 > *dynamic*: genera epílogos y comprobaciones de aliasing en tiempo de ejecución; por eso `saxpy_plain` sí se
 > vectoriza a `-O3`, "versioned … because of possible aliasing"); (b) `-fvect-cost-model=dynamic` con `-O2`;
 > (c) `#pragma omp simd`. Solo (c) cambia la semántica: afirma que no hay dependencias. Es segura en saxpy
-> y falsa en `prefix_dep`, donde produciría resultados incorrectos sin ningún aviso. El compilador decide
-> con su modelo de costo; tú respondes por la promesa.
+> y falsa en `prefix_dep`. Ahí GCC 13 todavía ve la dependencia (mismo arreglo, distancia 1), la respeta y no
+> vectoriza aunque se lo pidas; pero si el mismo arreglo llega por dos punteros distintos
+> (`a[i] = 0.5 * c[i-1] + b[i]` llamado con `c == a`) ya no la ve, vectoriza por tu promesa y el resultado sale
+> mal sin ningún aviso (comprobado: max|dif| = 0.76 con `n = 10^6`). El compilador decide con su modelo de
+> costo; tú respondes por la promesa.
 > </details>
 
 > **Pausa 7.** En la tabla, `S_simd` es grande con `n = 4096` (16 KB por arreglo, L1) y cae con `n = 2^24`

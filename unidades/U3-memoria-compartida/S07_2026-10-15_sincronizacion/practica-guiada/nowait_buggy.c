@@ -35,10 +35,7 @@ int main(int argc, char **argv)
     long *ref = malloc((size_t)n * sizeof(long));
     if (!a || !b || !ref) { fprintf(stderr, "Sin memoria\n"); return 1; }
 
-    /* Referencia secuencial. */
-    for (long i = 0; i < n; i++) ref[i] = f(i, n);
-    for (long i = 0; i < n; i++) ref[i] = ref[i] + ref[n - 1 - i];
-    /* (ref[i] ya contiene a[i]+a[n-1-i] solo para i < n/2; recalculamos limpio) */
+    /* Referencia secuencial; despues a[] vuelve a cero para la version paralela. */
     for (long i = 0; i < n; i++) a[i] = f(i, n);
     for (long i = 0; i < n; i++) ref[i] = a[i] + a[n - 1 - i];
     for (long i = 0; i < n; i++) a[i] = 0;

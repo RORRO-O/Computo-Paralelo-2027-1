@@ -34,6 +34,9 @@ práctica guiada y la tarea.
   ejemplo, *exit ticket* P1 y pruebas con tolerancia; **1** (más hilos = más rápido) en PRIMM P1(d), I2–I3 y
   CT2; **14** (falso compartido) en recuperación 2, pausa 2 del ejemplo y CT2/CT3; **2** (Amdahl en líneas) en
   recuperación 3. Nueva para el Anexo: "`reduction` serializa el ciclo" (distractor C de CT2).
+- Nivel de andamiaje: con pistas (07 §A.5: tercera sesión de contenido de la unidad). El ejemplo resuelto está
+  escrito completo, así que el desvanecimiento va en la práctica guiada: Predecir y Ejecutar en 5 min cada uno,
+  `TODO(1)` con la pista en el código, M3 y Crear sin ejemplo y con ≥ 10 min.
 
 ## Materiales
 
@@ -75,7 +78,8 @@ Pensar en voz alta con `ejemplo-resuelto.md` proyectado y la terminal al lado.
   línea `identicos bit a bit: no` y pasar directo al ConcepTest 1.
 - **26–31 ConcepTest 1** (`conceptests.md`): voto → parejas → revoto → explicación. Regla en una frase:
   "enteros y max/min exactos; sumas flotantes con tolerancia; una carrera no es 'un poquito distinto'".
-  Correr `./scan_buggy 1000000 4` dos veces para mostrar la diferencia entre redondeo y carrera.
+  Correr `./scan_buggy 1000000 4` y `./scan_buggy 1000000 2` para mostrar la diferencia entre redondeo y carrera
+  (enorme y depende del reparto; aquí sale igual entre corridas y aun así es carrera: lo confirma `make tsan`).
 - **31–35 Problema C (vectorizador).** Mostrar `make report` (salida ya generada). Leer: "línea 34 vectorizada;
   18, 25 y 41 no". Pausa 6 en voz alta (no preguntar, explicar): *very-cheap*, aliasing, epílogo, dependencia.
   Mostrar la tabla de `./saxpy_simd` y decir: "guarden esta pregunta: ¿por qué gana más en L1 que en RAM? La
@@ -164,7 +168,7 @@ la Parte D; **jueves 29 de octubre, 10:30: H1 · Avance 1 del proyecto en clase 
 | Objetivo | Qué mira el profesor |
 |---|---|
 | 1 (reducción sobre arreglo) | Pausas 1–2 contestadas por números de lista al azar; CT3 si se aplica; ejercicio 2 de la tarea |
-| 2 (*scan* / dependencia) | CT1 ≥ 80 % en el revoto; *exit ticket* P2 con "se rompe" y la razón |
+| 2 (*scan* / dependencia) | CT1 ≥ 80 % en el revoto; *exit ticket* P2 con "no queda correcto" y la razón (promesa falsa) |
 | 3 (Jacobi) | Tabla de la fase Ejecutar con P1(a)–(c) acertadas; I2–I3 con el cruce localizado; M1 con `make test` sin SKIP |
 | 4 (vectorización) | P3 e I4 contestadas; I5 explica L1 vs RAM; *exit ticket* P1 distingue max de suma |
 

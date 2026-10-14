@@ -4,9 +4,11 @@
 
 El código completo está en `practica-guiada/unbalanced.c` (medición) y `practica-guiada/schedule_map.c`
 (mapas). Aquí se muestran solo los fragmentos que importan. Las salidas son reales: 4 hilos, gcc 13, `-O2`.
-Las tablas de tiempos se obtuvieron en una máquina **compartida con otros procesos** (carga promedio de 9 a 18
-sobre 4 núcleos), por lo que los *speedups* absolutos salen bajos; el orden relativo entre políticas es el que
-importa aquí. Antes de la sesión se regeneran con `make tabla` en una máquina libre (`uptime` < 1).
+Las tablas de tiempos se obtuvieron en una **máquina virtual de autoría con 4 vCPU que entrega solo ~2
+núcleos efectivos a 4 hilos** (medido: 4 hilos con trabajo idéntico tardan 1.6–1.8× lo que 1 hilo), por lo
+que los *speedups* absolutos salen bajos y varios quedan por debajo de 1; el orden relativo entre políticas
+es el que importa aquí. Antes de la sesión se regeneran con `make tabla` en una máquina física con 4 núcleos
+libres (`uptime` < 1) y se sustituyen.
 Lee cada **pausa** antes de abrir su respuesta.
 
 ## Problema
@@ -178,7 +180,8 @@ Lectura de la tabla:
 
 Porque el protocolo del curso define T(1) como el **mejor programa secuencial**. La versión paralela con 1 hilo
 incluye la creación del equipo de hilos, la reducción y el despacho de `schedule`; en este ciclo cuesta casi lo
-mismo (medido: 1.0407 s con 1 hilo contra 1.0182 s secuencial), pero en ciclos con sincronización fina puede ser mucho más lenta y
+mismo (medido: 1.080 s con 1 hilo contra 1.104 s secuencial; la diferencia está dentro del ruido), pero en
+ciclos con sincronización fina puede ser mucho más lenta y
 el *speedup* "contra 1 hilo" saldría inflado. Si se reporta contra 1 hilo se dice explícitamente y se dan
 ambas cifras.
 
@@ -261,10 +264,11 @@ n=2000 hilos=4 política=dynamic -> b[i] incorrectas: 0 de 2000
 
 Fíjate en la última línea: bajo TSan la corrida salió "bien" (0 incorrectas) y aun así el detector encontró
 la carrera, porque razona sobre accesos sin sincronización, no sobre si el error se manifestó. TSan imprime
-además un segundo reporte que involucra el ciclo de verificación del hilo principal (línea 78), fuera de la
-región paralela; ese también aparece con la variante `static` y es un **falso positivo**: la libgomp de
-Ubuntu no está instrumentada y TSan no ve la barrera del final de la región. Regla para leerlo: un reporte
-real involucra dos accesos dentro de la región paralela (aquí `main._omp_fn.0`).
+además uno o dos reportes más, que involucran el ciclo de verificación del hilo principal (línea 78) y el
+`free(a)` final (línea 82), ambos fuera de la región paralela; el de la línea 78 aparece también con la
+variante `static`. Son **falsos positivos**: la libgomp de Ubuntu no está instrumentada y TSan no ve la
+barrera del final de la región. Regla para leerlo: un reporte real involucra dos accesos dentro de la región
+paralela (aquí `main._omp_fn.0`).
 
 ## Qué te llevas
 

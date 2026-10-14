@@ -90,9 +90,9 @@ Secuencial (referencia): mediana **1.0554 s** (mín 1.0246  máx 1.1016); n = 40
 | `dynamic,1024` | 0.5574 | 0.5361 | 0.6574 | 1.89 | 0.47 | OK |
 | `dynamic,4096` | 0.7003 | 0.6123 | 0.9654 | 1.51 | 0.38 | OK |
 
-(Las dos tablas se midieron con la máquina compartida con otros procesos; por eso algunos *speedups* quedan
-por debajo de 1. El orden entre *chunks* es lo que se lee. Regenéralas en una máquina libre con los comandos
-de la fase Investigar de la práctica.)
+(Las dos tablas se midieron en la máquina virtual de autoría, que entrega ~2 núcleos efectivos a 4 hilos;
+por eso algunos *speedups* quedan por debajo de 1. El orden entre *chunks* es lo que se lee. Regenéralas en
+una máquina física con 4 núcleos libres con los comandos de la fase Investigar de la práctica.)
 
 Lectura: el *chunk* se elige para que el trabajo de un bloque sea **mucho mayor** que el costo de pedirlo,
 pero lo bastante pequeño para que al final del ciclo no quede un hilo con un bloque gigante mientras los
@@ -100,7 +100,7 @@ demás esperan. Un buen punto de partida es n / (p × 10 a 100).
 
 ## 4. Tabla de referencia: tiempos por política (4 hilos, mediana de 5)
 
-Máquina de autoría: 4 núcleos Intel Xeon a 2.8 GHz, gcc 13.3, `-O2`, `OMP_NUM_THREADS=4`. Mediana de 5 repeticiones tras 1 calentamiento; *speedup* contra la versión secuencial del mismo binario. **Advertencia:** estas corridas se hicieron con la máquina compartida con otros procesos (carga promedio de 9 a 18 en 4 núcleos), así que los tiempos absolutos y los *speedups* están contaminados (varios quedan por debajo de 1). Lo que sí se conserva es el **orden relativo** entre políticas dentro de cada fila. Antes de proyectar esta tabla en clase, regenérala con `make tabla` en una máquina con `uptime` < 1 y sustitúyela.
+Máquina de autoría: máquina virtual con 4 vCPU Intel Xeon a 2.1 GHz, gcc 13.3, `-O2`, `OMP_NUM_THREADS=4`. Mediana de 5 repeticiones tras 1 calentamiento; *speedup* contra la versión secuencial del mismo binario. **Advertencia:** esa máquina virtual entrega solo ~2 núcleos efectivos a 4 hilos (4 hilos con trabajo idéntico tardan 1.6–1.8× lo que 1 hilo), así que los tiempos absolutos y los *speedups* están contaminados (varios quedan por debajo de 1). Lo que sí se conserva es el **orden relativo** entre políticas dentro de cada fila. Antes de proyectar esta tabla en clase, regenérala con `make tabla` en una máquina física con 4 núcleos y `uptime` < 1, y sustitúyela.
 
 | Núcleo (n) | T secuencial (s) | `static` | `static,1` | `dynamic` (=1) | `dynamic,c` | `guided,c` |
 |---|---|---|---|---|---|---|
@@ -139,8 +139,12 @@ Mapa real con 3 filas × 6 columnas y 4 hilos (`./collapse_map 3 6`): sin `colla
 nada** (solo hay 3 filas que repartir); con `collapse(2)` las 18 celdas se reparten 5, 5, 4, 4. Requisitos:
 los ciclos deben estar perfectamente anidados (nada entre los `for`) y los límites del interno no pueden
 depender de variables modificadas dentro. Que el límite dependa de `i` (`j < i`, ciclo triangular) lo permite
-OpenMP 5.0 ("ciclos no rectangulares"); gcc 13 lo compila y reparte bien (verificado), pero compiladores
-anteriores a gcc 11 lo rechazan: si cambias de máquina, compila primero.
+OpenMP 5.0 ("ciclos no rectangulares"), con una restricción práctica verificada en gcc 13: compila y reparte
+bien **solo sin cláusula `schedule`**; si escribes `collapse(2) schedule(static)` sobre `j < i`, gcc 13
+responde `'schedule' clause may not appear on non-rectangular 'for'`. Compiladores anteriores a gcc 11 lo
+rechazan por completo. Para el ciclo triangular, por tanto, se elige entre `collapse(2)` (reparto fijado por
+el compilador) o `schedule(...)` sobre el ciclo externo (lo que hace `unbalanced.c`); si cambias de máquina,
+compila primero.
 
 ## 7. Errores frecuentes
 
@@ -148,7 +152,7 @@ anteriores a gcc 11 lo rechazan: si cambias de máquina, compila primero.
 |---|---|---|
 | `schedule(dynamic)` "por si acaso" en un ciclo barato (idea errónea 11) | miles de pedidos atómicos; más lento que secuencial | `uniform` con `dynamic` en la tabla |
 | Creer que al final del `omp for` no hay barrera (idea 12) | se intenta "optimizar" con `nowait` y aparece una carrera | `nowait_buggy.c` con `dynamic`: `b[i]` mal **a veces**; TSan señala `a[i] = i` contra `b[i] = 2 * a[i]` |
-| Tomar todo reporte de ThreadSanitizer como carrera real | la libgomp de Ubuntu no está instrumentada: TSan no ve la barrera del final de la región | el reporte que toca código **fuera** de la región paralela (el ciclo de verificación) sale también con `static`: es falso |
+| Tomar todo reporte de ThreadSanitizer como carrera real | la libgomp de Ubuntu no está instrumentada: TSan no ve la barrera del final de la región | los reportes que tocan código **fuera** de la región paralela (ciclo de verificación, línea 78; `free`, línea 82) son falsos; el primero sale también con `static` |
 | Comparar contra la versión paralela con 1 hilo | el *speedup* se infla | el protocolo exige el mejor secuencial |
 | Medir una vez o con la máquina ocupada (idea 5) | tiempos todos parecidos o invertidos | mínimo y máximo muy separados; revisa `uptime` |
 | Medir con `REPS` altas y n grande "para que sea exacto" | esperas minutos y el ruido no baja | el protocolo pide 5 repeticiones y mediana |

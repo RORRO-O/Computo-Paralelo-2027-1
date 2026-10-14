@@ -37,7 +37,9 @@ operación atómica sobre un contador compartido, con un costo comparable al de 
 el tiempo total se dispara (en la tabla de la sesión, `dynamic` quedó más lento que la versión secuencial).
 `static` reparte una sola vez y no paga nada en ejecución. Se acepta también: "con *chunk* muy pequeño en
 cualquier ciclo barato". No se acepta: "porque `static` siempre es mejor" (es la idea errónea opuesta).
-Ataca la idea errónea 11.
+Ataca la idea errónea 11. Clasificación literal: **bien** = nombra una carga uniforme o barata **y** el costo
+por pedido (contador compartido / operación atómica por *chunk*); **parcial** = solo una de las dos cosas, o un
+caso correcto sin la causa; **mal** = ninguna, o "`static` siempre es mejor".
 
 **2a.** Carga concentrada en el centro → `schedule(dynamic, c)` con *chunk* pequeño (2–8 filas) o
 `schedule(static, 1)` (cíclico: cada hilo recibe filas de todas las zonas). Razón: con `static` en bloques,

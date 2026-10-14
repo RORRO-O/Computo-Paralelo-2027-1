@@ -5,7 +5,9 @@
  * El ciclo y[i] = y[i-1] + x[i] tiene una dependencia acarreada por el ciclo: la iteración i lee
  * lo que escribió la iteración i-1. Repartir las iteraciones entre hilos rompe esa cadena: cada
  * hilo arranca su bloque leyendo un y[i-1] que otro hilo todavía no escribió (o escribió a medias).
- * Es una condición de carrera (data race): a veces el resultado "casi" coincide, nunca es confiable.
+ * Es una condición de carrera (data race). En la práctica el resultado suele ser estable (cada hilo lee el
+ * 0 con que llegó la memoria recién pedida), pero es incorrecto y cambia con el número de hilos: que salga
+ * igual en varias corridas no lo vuelve correcto.
  *
  * Compila con ThreadSanitizer para verlo: `make tsan` (gcc -fsanitize=thread -g -O1 ...).
  */
@@ -54,7 +56,8 @@ int main(int argc, char **argv)
     }
     printf("scan_buggy: n=%ld hilos=%d\n", n, n_threads);
     printf("  y_seq[n-1]=%.6f   y_bad[n-1]=%.6f   max|dif|=%.3e\n", y_seq[n - 1], y_bad[n - 1], max_abs_diff);
-    printf("  (con 1 hilo coincide; con 2 o mas hilos el resultado es incorrecto y cambia entre corridas)\n");
+    printf("  (con 1 hilo coincide; con 2 o mas hilos es incorrecto: cada hilo arranca leyendo un y_bad[i-1]\n"
+           "   que otro hilo aun no escribio. Que salga igual en varias corridas no lo vuelve correcto: make tsan)\n");
 
     free(x); free(y_seq); free(y_bad);
     return 0;

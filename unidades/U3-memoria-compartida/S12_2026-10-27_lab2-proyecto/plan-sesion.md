@@ -18,7 +18,8 @@ del proyecto** (de la V1 a la V2, rumbo a H1 y H2). Recuperación y *exit ticket
    dependencia verdadera, E/S) y **elegir** una estrategia (`parallel for`/tareas, `schedule`) justificada
    con el método de Foster. (analizar)
 
-Los objetivos 2–4 se verifican en el *exit ticket*; el 1 en el punto de control y en las mini-defensas.
+Los objetivos 3 y 4 se verifican en el *exit ticket*; el 2 en el PRIMM (tabla de tres fases en pantalla) y en
+la tarea 1a; el 1 en el punto de control y en las mini-defensas.
 
 ## Prerrequisitos y vínculo
 
@@ -65,7 +66,7 @@ mostrar respuestas y pedir manos por pregunta; anotar el conteo de la 4 (protoco
   (`07-guia-de-autoria.md`, §A.8).
 - Si la 4 queda por debajo del 60 %: en la demostración (5–12) se vota el CT3 de reserva (mediana contra
   promedio) y se recorre la tabla del protocolo renglón por renglón en vez de solo mostrarla.
-- Si la 5 queda por debajo del 60 %: en 60–64 se hace el cálculo de Amdahl del ejemplo en el pizarrón, paso a
+- Si la 5 queda por debajo del 60 %: en 60–65 se hace el cálculo de Amdahl del ejemplo en el pizarrón, paso a
   paso, antes de votar CT1.
 
 ### 5–12 · Demostración del profesor: el protocolo en vivo y los errores de entorno
@@ -106,6 +107,10 @@ según la prueba de propiedad de `docs/metodo/05-politica-ia.md` y `03-plantilla
 - **Pregunta 1 (una por integrante):** "¿qué hace esta línea?". **Pregunta 2, solo si la primera falla**, sobre
   otra línea suya: "¿qué pasa si la quito?". Cuenta la mejor de las dos. Quien lo pida responde por escrito en
   el momento (5 min, papel). No se acepta "la puso mi compañero".
+- Si para H1 se eligió la **opción B** de `proyecto/hitos/H1-avance-1.md` §8 (recepción anticipada el 27 para
+  quien ya tiene la etiqueta), esos equipos reciben en este bloque la ronda de H1 (3 min: dos preguntas fijas +
+  una individual) en lugar de la mini-defensa de 2 min; con más de 6 equipos en esa situación el bloque no
+  alcanza y conviene la opción A o C.
 - Si la primera sale bien y hay tiempo, una pregunta sobre una **función ajena** ("¿qué hace y por qué está?")
   distingue Ejemplar de Competente en "Proceso e integridad" (rúbrica de `03` §2).
 - Registrar en la hoja. Un "no" en la mejor de las dos baja "Proceso e integridad" **de ese integrante** a
@@ -150,9 +155,9 @@ Orden por sorteo con tarjetas. Cada equipo proyecta (o muestra en su pantalla) *
 El profesor marca en la hoja del equipo cuatro casillas: mediana de ≥ 5 · T(1) secuencial declarado ·
 `-O2` · interpretación con causa. Un equipo sin medición válida expone lo que tiene y recibe la pregunta
 "¿qué les falta para que cuente?"; no se les da más tiempo de clase. Doce equipos × 1 min + cambios ≈ 15 min.
-Si sobran minutos: ConcepTest CT1 aquí (y en 60–64 se va directo al ejemplo).
+Si sobran minutos: ConcepTest CT1 aquí (y en 60–65 se va directo al ejemplo).
 
-### 60–64 · Mini-lección: de la V1 a la V2 (ejemplo resuelto) + CT1
+### 60–65 · Mini-lección: de la V1 a la V2 (ejemplo resuelto) + CT1
 
 Proyectar la tabla del perfil de `ejemplo-resuelto.md` **sin** la columna de tiempos y preguntar al grupo:
 "Carga de puntos, cómputo de seis rasgos con `sqrt`, `atan2` y `exp` en una función de 23 líneas, y un resumen
@@ -169,7 +174,7 @@ y al final se escribe el pragma. La fracción de Amdahl se mide en segundos, no 
 **CT1** (perfil 0.25 / 1.20 / 0.05 s con 95 % de las líneas en cómputo): voto → si < 80 %, discusión en parejas
 de 90 s → revoto → explicación con la suma fase por fase (0.25 + 0.30 + 0.05 = 0.60 s; S = 2.5).
 
-### 64–73 · Taller: mini PRIMM de perfilado (`practica-guiada/fases.c`), abreviado
+### 65–73 · Taller: mini PRIMM de perfilado (`practica-guiada/fases.c`), abreviado
 
 Parejas dentro de cada equipo (conductor/navegante; el tercer integrante abre `plan-paralelizacion-V2.md` y
 va llenando la sección 0 con los datos de su proyecto). Predecir e Investigar van abreviados a propósito
@@ -177,9 +182,9 @@ va llenando la sección 0 con los datos de su proyecto). Predecir e Investigar v
 
 | Min | Fase PRIMM | Qué hacen | Criterio de "listo" |
 |---|---|---|---|
-| 64–65 | Predecir | Leen el encabezado de `fases.c`; escriben qué fase domina y su porcentaje | Predicción escrita |
-| 65–66 | Ejecutar | `make` y `OMP_NUM_THREADS=1 ./fases` (≈ 1.5 s); comparan con la predicción | Tabla de tiempos a la vista |
-| 66–69 | Investigar | Calculan f y S_max(4); dicen qué escribe cada iteración en la línea 79 (`sum += p`) y qué pasaría con la 94 (`hist[bin]++`); el resto de Investigar queda para la tarea | f y S_max(4) escritos; `sum` identificada como reducción |
+| 65–66 | Predecir | Leen el encabezado de `fases.c`; escriben qué fase domina y su porcentaje | Predicción escrita |
+| 66–67 | Ejecutar | `make` y `OMP_NUM_THREADS=1 ./fases` (≈ 1.5 s); comparan con la predicción | Tabla de tiempos a la vista |
+| 67–69 | Investigar | Calculan f y S_max(4); dicen qué escribe cada iteración en la línea 79 (`sum += p`) y qué pasaría con la 94 (`hist[bin]++`); el resto de Investigar queda para la tarea | f y S_max(4) escritos; `sum` identificada como reducción |
 | 69–73 | Modificar | Completan `TODO(1)` (línea 65), `make test` y lanzan `make medir` (1/2/4 hilos; tarda ≈ 30 s y lo leen mientras pasan a Crear) | `make test` pasa; S de la fase y del total anotados |
 
 Si un equipo trae su V1 compilando, puede saltar "Modificar" e ir directo a instrumentar su V1 (Crear).
@@ -202,7 +207,7 @@ ciclo dominante con sus variables leídas y escritas. Lo que falte es la tarea 1
 |---|---|
 | Predicen que domina la carga "porque es entrada/salida" | "¿Cuántas operaciones hace la carga por registro? ¿Y el cómputo? Cuenta el ciclo interno." |
 | Calculan f con la corrida de 4 hilos | "¿De qué versión son los tiempos que usa Amdahl? ¿Qué pasó con el total al cambiar de hilos?" |
-| Olvidan `reduction(+:sum)`; `make test` pasa "a veces" | "¿Cuántas iteraciones escriben `sum`? ¿Qué le pasa a una variable que escriben todos los hilos? Compílalo con `make tsan` y córrelo con n chico." |
+| Olvidan `reduction(+:sum)`; `make test` falla y la suma sale ≈ ¼ de la correcta (sobrevive la parcial de un hilo) y cambia entre corridas | "¿Cuántas iteraciones escriben `sum`? ¿Qué le pasa a una variable que escriben todos los hilos? Compílalo con `make tsan`, córrelo con n chico y busca el aviso en que **dos hilos trabajadores** escriben `sum += p`; los avisos entre el hilo principal y un trabajador son ruido de `libgomp` (S07)." |
 | Ponen el `pragma` en el ciclo interno `j` | "¿Las iteraciones de `j` son independientes? ¿Cuántas veces se crearía el equipo de hilos?" |
 | Agregan `private(p, v)` por miedo | "¿Dónde están declaradas `p` y `v`? ¿Qué alcance tiene una variable declarada dentro del ciclo?" |
 | Corren `make medir` sin completar el TODO; *speedup* 1.0 | "Lee la línea `hilos_en_computo`. ¿Qué dice?" |

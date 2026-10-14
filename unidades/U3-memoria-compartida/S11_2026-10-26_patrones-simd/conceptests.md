@@ -30,17 +30,17 @@ Con 1 hilo imprime `identicos bit a bit: si`. ¿Qué concluyes?
 
 | Opción | Origen del distractor |
 |---|---|
-| A | Idea errónea 7 al revés: "distinto ⇒ carrera". Una carrera da diferencias **grandes y cambiantes** entre corridas (ver `scan_buggy`); aquí la diferencia es de 2.873e-07 absoluto (6.850e-14 relativo a la suma total) y es la **misma** en cada corrida con 4 hilos. |
+| A | Idea errónea 7 al revés: "distinto ⇒ carrera". Una carrera da diferencias **grandes**, sin relación con el redondeo, que cambian con el reparto (`scan_buggy`: 3.754e+05 con 4 hilos y 2.503e+05 con 2, el 75 % y el 50 % de la suma) y que ThreadSanitizer señala; aquí la diferencia es de 2.873e-07 absoluto (6.850e-14 relativo a la suma total, del orden de n·ε) y es la **misma** en cada corrida con 4 hilos. |
 | C | Idea errónea 10: "`reduction` da exactamente lo mismo que la suma secuencial". La suma en punto flotante no es asociativa. |
 | D | Idea errónea 5 ("se mide/se verifica con -O0"). La optimización no cambia el orden de las sumas que dicta el algoritmo; sí podría cambiar otras cosas, pero no es la causa. |
 
 **Primer voto esperado:** 50–60 % B; 20–25 % A; 15 % C; resto D.
 
-**Guion de discusión (3 líneas).** "Quien votó A: ¿qué pasa con la diferencia si corres cuatro veces? ¿Y en
-`scan_buggy`?" (misma vs. cambia). "Quien votó C: suma 1e16 + 1 − 1e16 en `double` a mano, y luego
-1e16 − 1e16 + 1" (0 vs 1). Regla: **enteros y max/min son exactos; sumas flotantes se comparan con
-tolerancia; una carrera no es "un poquito distinto", es impredecible.** Conecta con la Práctica 4: sus pruebas
-usan tolerancia por esto.
+**Guion de discusión (3 líneas).** "Quien votó A: ¿de qué tamaño es la diferencia respecto a la suma total? ¿Y
+en `scan_buggy` con 4 y con 2 hilos?" (1e-14 vs. 0.75 y 0.50). "Quien votó C: suma 1e16 + 1 − 1e16 en `double` a
+mano, y luego 1e16 − 1e16 + 1" (0 vs 1). Regla: **enteros y max/min son exactos; sumas flotantes se comparan con
+tolerancia; una carrera no es "un poquito distinto": es un resultado sin garantía, que cambia con el reparto.**
+Conecta con la Práctica 4: sus pruebas usan tolerancia por esto.
 
 ## ConcepTest 2 · Más hilos, más lento (minuto ~68, puesta en común del PRIMM)
 

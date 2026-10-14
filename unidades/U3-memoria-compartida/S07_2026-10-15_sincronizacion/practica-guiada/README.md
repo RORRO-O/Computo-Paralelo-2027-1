@@ -30,7 +30,7 @@ valores. Si el resultado cambia entre corridas, el culpable es el programa, no l
 
 ## Fase 1 · Predecir (5 min, por escrito, antes de compilar)
 
-Lee `histogram_buggy.c` (20 líneas) y `histogram_local.c`. Responde en tu cuaderno o en un archivo
+Lee `histogram_buggy.c` (la función ocupa 10 líneas) y `histogram_local.c`. Responde en tu cuaderno o en un archivo
 `predicciones.md`:
 
 | # | Pregunta | Tu predicción |
@@ -72,7 +72,9 @@ RESULT version=buggy threads=4 n=10000000 nbins=16 ... reps_incorrectas=0 status
 ```
 
 Anota: ¿coincidió con P1? La segunda salida es la trampa de la sesión: "salió bien" no es evidencia de
-que no haya carrera (idea errónea 7).
+que no haya carrera (idea errónea 7). También pasa al revés: en la revisión del material, una corrida completa
+con 64 bins dio 5 de 5 repeticiones correctas y la siguiente 4 de 5 incorrectas. Corre varias veces y con
+distinto `nbins` antes de anotar nada.
 
 Salida real de las tres versiones correctas (misma máquina, corridas consecutivas con 4 hilos):
 
@@ -136,7 +138,8 @@ SUMMARY: ThreadSanitizer: data race histogram_buggy.c:21 in histogram_buggy._omp
 ```
 
 Lee el reporte con estas tres preguntas: (a) ¿qué **línea** señala? (21: `hist[bin]++`); (b) ¿qué dos hilos
-chocan y qué hace cada uno? (el hilo principal lee; T2 había escrito); (c) ¿de quién es la memoria?
+chocan y qué hace cada uno? (el hilo principal lee; T2 había escrito; en otra corrida fue T1 quien leyó y el principal quien escribió:
+los papeles cambian, la línea y el bloque no); (c) ¿de quién es la memoria?
 (el bloque de 512 bytes = 64 `long`: el histograma compartido). Esas tres respuestas son el diagnóstico.
 
 ### 3.3 ThreadSanitizer sobre una versión correcta (lee esto antes de confiar ciegamente)
@@ -148,7 +151,8 @@ OMP_NUM_THREADS=4 TSAN_OPTIONS=halt_on_error=1 ./histogram_critical_tsan 50000  
 ```
 
 Las dos versiones correctas también producen "data race". En la máquina de autoría, `atomic` señaló la línea 16
-(`hist[b] = 0`, escrita por el hilo principal antes de la región) y la 18 (el encabezado del `parallel for`);
+(`hist[b] = 0`, escrita por el hilo principal antes de la región) emparejada con la 18 o la 21 según la corrida
+(el encabezado del `parallel for` o el propio `atomic`);
 `critical` señaló la línea 20, `hist[bin]++`, que está **dentro** del `critical`. Son **falsos positivos**:
 ThreadSanitizer no ve la sincronización interna de la biblioteca OpenMP de gcc (`libgomp`): ni sus barreras,
 ni `critical`, ni los candados. Regla de la sesión:
@@ -168,7 +172,7 @@ ni `critical`, ni los candados. Regla de la sesión:
 3. `histogram_local.c`, línea 21: si cambias `calloc` por `malloc`, ¿qué sale? Relaciónalo con
    `private` vs `firstprivate` (idea errónea 9): `private` tampoco inicializa.
 4. `histogram_local.c`, línea 23: el `for` lleva `nowait`. ¿Por qué aquí es seguro y en `nowait_buggy.c`
-   (línea 48) no? Pista: ¿qué lee cada hilo después del ciclo?
+   (línea 45) no? Pista: ¿qué lee cada hilo después del ciclo?
 5. `barrier_demo.c`: hay un `#pragma omp barrier` explícito antes de leer `sum_phase3`. Quítalo, compila y
    corre tres veces. ¿Falla? Si no falla, ¿ya es correcto? (idea errónea 7 otra vez)
 
@@ -188,7 +192,7 @@ del `#pragma omp parallel`), con un solo `calloc`. Compila, corre con 4 hilos: �
 Después agrégale `private(local)` a la región: ¿compila? ¿funciona? ¿por qué no? (cada hilo recibe un
 puntero sin inicializar). Deja el archivo como estaba al terminar (`git checkout histogram_local.c`).
 
-**M4 · Quita el `nowait` de `nowait_buggy.c`** (línea 48). Corre tres veces: los errores deben ser 0.
+**M4 · Quita el `nowait` de `nowait_buggy.c`** (línea 45). Corre tres veces: los errores deben ser 0.
 Explica en una frase qué garantiza ahora la barrera implícita. Vuelve a dejar el `nowait`.
 
 ## Fase 5 · Crear (transferencia, 10 min)
@@ -206,8 +210,77 @@ Criterio de "listo":
    preferirías un candado a `atomic`? (pista: `atomic` solo cubre `x++`, `x += e`, `x = x op e` y similares
    sobre **una** variable escalar; un candado cubre cualquier bloque).
 
+<details><summary>Pista si no arrancas (ábrela después de 3 minutos de intento)</summary>
+
+Copia `histogram_atomic.c`. Antes de la región reserva `omp_lock_t *locks = malloc(nbins * sizeof(omp_lock_t))`
+y, en el mismo ciclo que pone `hist[b] = 0`, llama `omp_init_lock(&locks[b])`: un candado por bin, inicializado
+**una** vez, fuera de la región. Dentro del ciclo paralelo sustituye el `#pragma omp atomic` por
+`omp_set_lock(&locks[bin]); hist[bin]++; omp_unset_lock(&locks[bin]);`. Al final, `omp_destroy_lock` para cada
+bin y `free(locks)`. Cambia `"atomic"` por `"locks"` en las dos cadenas de `main`.
+</details>
+
 Si terminas antes: versión con reducción de arreglo, `#pragma omp parallel for reduction(+:hist[:nbins])`
 (OpenMP 4.5; gcc lo soporta). Mide y compara con `local`: ¿qué está haciendo OpenMP por ti?
+
+## Respuestas de referencia (ábrelas después de Ejecutar; sirven si faltaste a la sesión)
+
+<details><summary>Predicciones P1–P5</summary>
+
+- **P1.** Menor que `n` (se pierden cuentas) y distinto en cada repetición. A veces una repetición, o una
+  corrida entera, sale igual a `n`; eso no la hace correcta.
+- **P2.** De más rápido a más lento: `local`, `atomic`, `critical`. Con `n = 10⁷` y 4 hilos, en la máquina de
+  autoría las tres fueron más lentas que la secuencial (`critical` unas 30 veces): el trabajo por elemento es
+  tan pequeño que dominan la sincronización y la coordinación de hilos.
+- **P3.** Cuatro, uno por hilo: lo declarado dentro de la región es privado por alcance (idea errónea 15).
+- **P4.** Los de índice **bajo**. Con el reparto por omisión el hilo 0 toma el primer cuarto, cuya `f` es barata,
+  termina antes y lee `a[n-1-i]` (último cuarto, del hilo 3, el más lento) antes de que exista. Medido en la
+  máquina de autoría: todos los errores caen en la primera mitad de `b[]`.
+- **P5.** Una vez. `master` lo ejecuta siempre el hilo 0; `single` lo ejecuta el primer hilo que llega (cambia
+  entre corridas).
+</details>
+
+<details><summary>Investigar 3.1 y 3.4</summary>
+
+- **3.1.** Hay 20 entrelazados de dos secuencias de 3 pasos. Solo 2 dan 9: los que un hilo completa sus tres
+  pasos antes de que el otro lea. Los otros 18 dan 8. Ningún entrelazado da 10 ni 7, por eso el total solo
+  puede quedar por debajo de `n`.
+- **3.4-1.** Más lento: el cálculo de `bin`, que es trabajo privado, también se serializaría. La corrección no
+  cambia.
+- **3.4-2.** Privada por alcance. Declarada afuera necesitaría `private(local)`, y entonces cada hilo tendría un
+  puntero sin inicializar: habría que reservar la memoria **dentro** de la región de todos modos (ver M3).
+- **3.4-3.** `malloc` no inicializa: `local` arranca con basura y el total sale mal. `private` tampoco inicializa
+  (idea errónea 9).
+- **3.4-4.** Tras el ciclo cada hilo solo lee su `local`; en `nowait_buggy.c` el ciclo 2 lee `a[n-1-i]`, que
+  escribió otro hilo.
+- **3.4-5.** En la máquina de autoría falló 3 de 3 (`status=INCORRECTO`): el primer hilo que llega al `single`
+  lee `sum_phase3` antes de que los demás sumen. Si en la tuya no falla, sigue sin ser correcto: nada ordena
+  las sumas antes de la lectura.
+</details>
+
+<details><summary>Modificar M1–M4 (lo observado en la máquina de autoría, 4 hilos)</summary>
+
+- **M1.** Con 64 bins la diferencia entre `critical` y `atomic` en la combinación es ruido (0.043–0.057 s las
+  dos): son 256 operaciones protegidas contra 10 millones del ciclo. Con 4096 bins tampoco se distingue
+  (0.052 contra 0.055 s). El cuello de botella era `hist[bin]++` por elemento, no la combinación.
+- **M2.** `atomic`: 0.168 s con 4 bins, 0.153 con 64, 0.128 con 4096: mejora cuando baja la contención (dos
+  hilos chocan solo si caen en el mismo bin al mismo tiempo). `local`: 0.049 / 0.043 / 0.046 s: no depende de
+  `nbins`.
+- **M3.** `local` compartida: total incorrecto en 5 de 5 repeticiones. Con `private(local)`: compila con el
+  aviso `'local' is used uninitialized` y termina con fallo de segmentación o basura: cada hilo recibe un
+  puntero sin inicializar.
+- **M4.** 0 errores en 3 de 3. La barrera implícita garantiza que todo `a[]` está escrito antes de que cualquier
+  hilo entre al ciclo 2.
+</details>
+
+<details><summary>Crear: referencia de tiempos</summary>
+
+Con 4 hilos, `n = 10 000 000`, 64 bins: `locks` 0.71 s, `atomic` 0.15 s, `local` 0.057 s;
+`reduction(+:hist[:nbins])` 0.044 s (lo mismo que `local`: OpenMP crea la copia privada y la combina por ti).
+`locks` es más lento que `atomic` porque cada `omp_set_lock`/`omp_unset_lock` es una llamada a `libgomp` con
+posible espera, mientras que `atomic` es una instrucción del procesador. Un candado se prefiere cuando lo
+protegido no es una actualización simple de una variable: por ejemplo, actualizar dos arreglos juntos o una
+estructura.
+</details>
 
 ## Verificación automática
 
@@ -241,7 +314,8 @@ Resumen: 16 PASS, 0 FAIL
 
 Los histogramas son conteos enteros: la comparación es exacta. La suma en `double` de `sum_variants` se
 compara con tolerancia relativa `1e-9`, porque `reduction` suma en otro orden y el redondeo cambia
-(idea errónea 10). Las versiones `*_buggy` no forman parte del PASS/FAIL: una carrera puede "salir bien".
+(idea errónea 10). Las versiones `*_buggy` no forman parte del PASS/FAIL: una carrera puede "salir bien"; la
+línea `INFO` cambia entre corridas (`reps_incorrectas` entre 0 y 5).
 
 ## Problemas de entorno frecuentes
 

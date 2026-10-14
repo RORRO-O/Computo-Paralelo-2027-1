@@ -67,14 +67,15 @@ Marca en tu tabla ✓ o ✗ por fila. Luego:
 - Compara la columna `trabajo:` de `static` y `static,2` con tu P1.
 - La fila `runtime=…` te dice la política real. Compárala con tu P2.
 
-## Fase 3 · Investigar (10 min)
+## Fase 3 · Investigar (10 min; I1, I3 e I5 son obligatorios, I2 e I4 si alcanza el tiempo)
 
 - **I1. ¿Dónde se decide la política?** Abre `schedule_map.c`. Localiza las funciones `run_static`,
   `run_dynamic`, `run_guided` y `run_runtime`. ¿Por qué hay **dos** `#pragma` en cada una de las tres
   primeras? ¿Qué pasaría si escribieras `schedule(static, chunk)` con `chunk == 0`?
 - **I2. Cómo se encoge `guided`.** Corre `OMP_NUM_THREADS=4 ./schedule_map 32 guided 0 uniform` y mide la
-  longitud de cada tramo de iteraciones consecutivas del mismo hilo. Escribe la secuencia de tamaños. ¿Qué
-  relación tiene cada tamaño con las iteraciones que faltan y el número de hilos?
+  longitud de cada tramo de iteraciones consecutivas del mismo hilo. Escribe la secuencia de tamaños (si un
+  mismo hilo toma dos bloques seguidos verás un tramo más largo: es la suma de dos). ¿Qué relación tiene cada
+  tamaño con las iteraciones que faltan y el número de hilos?
 - **I3. El costo del *chunk*.** Corre:
   ```bash
   OMP_NUM_THREADS=4 ./unbalanced uniform 8000000 static dynamic,1 dynamic,16 dynamic,256 dynamic,4096
@@ -93,20 +94,20 @@ Marca en tu tabla ✓ o ✗ por fila. Luego:
   ```
   (a) ¿Por qué con `static` siempre salen 0 incorrectas? Busca en `nowait_buggy.c` el comentario que lo
   explica y escribe la garantía con tus palabras. (b) Con `dynamic`, ¿cuántas salen mal? Si en alguna corrida
-  salieran 0, ¿estaría correcto el programa? (c) `make tsan` imprime dos reportes con `dynamic`. En el
+  salieran 0, ¿estaría correcto el programa? (c) `make tsan` imprime dos o tres reportes con `dynamic`. En el
   primero, ¿qué dos líneas del archivo señala como la lectura y la escritura en conflicto? Abre el archivo y
-  di qué instrucción hay en cada una. (d) El segundo reporte involucra la línea del ciclo de verificación
-  (`if (b[i] != 2 * i)`), que corre **fuera** de la región paralela, y aparece también si corres la variante
-  `static` bajo TSan. ¿Puede ser una carrera real si la región paralela ya terminó? (Pista: la libgomp de
-  Ubuntu no está instrumentada y TSan no ve la barrera del final de la región.) ¿Cómo distinguirías, en
-  general, un reporte real de uno falso?
+  di qué instrucción hay en cada una. (d) Los reportes restantes involucran la línea del ciclo de verificación
+  (`if (b[i] != 2 * i)`) y, a veces, el `free(a)` final: código que corre **fuera** de la región paralela. El
+  del ciclo de verificación aparece también si corres la variante `static` bajo TSan. ¿Puede ser una carrera
+  real si la región paralela ya terminó? (Pista: la libgomp de Ubuntu no está instrumentada y TSan no ve la
+  barrera del final de la región.) ¿Cómo distinguirías, en general, un reporte real de uno falso?
 
 ## Fase 4 · Modificar (7 min; cada cambio tiene un objetivo verificable)
 
 - **M1. Repara la carrera sin cambiar la política.** En `nowait_buggy.c`, variante `dynamic`, quita el
   `nowait` del primer ciclo. Recompila (`make nowait_buggy`). Objetivo: `./nowait_buggy 2000 dynamic`
   reporta `0 de 2000` en 5 corridas seguidas y el primer reporte de `make tsan` (el de `a[i] = i` contra
-  `b[i] = 2 * a[i]`) desaparece; el del ciclo de verificación seguirá ahí porque es falso. Después vuelve a
+  `b[i] = 2 * a[i]`) desaparece; los del ciclo de verificación y de `free` seguirán ahí porque son falsos. Después vuelve a
   poner el `nowait` (o `git checkout nowait_buggy.c`).
 - **M2. Vuelve uniforme el ciclo triangular.** En `unbalanced.c`, función `triangular_item`, cambia
   `j < i` por `j < 20000` (todas las iteraciones hacen el mismo número de divisiones). Recompila y corre

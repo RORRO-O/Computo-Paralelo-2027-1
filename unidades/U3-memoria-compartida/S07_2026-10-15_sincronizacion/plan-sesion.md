@@ -39,7 +39,7 @@ tarea espaciada.
 ## Materiales
 
 - Esta carpeta completa, compilada **antes** de la sesión en la máquina del salón: `cd practica-guiada && make
-  && make test` (16 PASS, ~5 s) y `make tsan` (~1 s). Tener abiertas dos terminales: una en `practica-guiada/`
+  && make test` (16 PASS, ~6 s) y `make tsan` (~3 s). Tener abiertas dos terminales: una en `practica-guiada/`
   con 4 hilos (`export OMP_NUM_THREADS=4`) y otra para `-O0`.
 - Proyector; cronómetro visible; tarjetas con números de lista; pizarrón para la tabla leer-modificar-escribir.
 - Estudiantes: laptop con `gcc` + OpenMP por pareja (basta una por pareja). Si alguna pareja no tiene
@@ -60,7 +60,8 @@ respuestas y pedir manos por pregunta ("¿quién la tuvo bien?"); anotar el cont
 
 ### 5–10 · Objetivos y anclaje
 
-Proyectar los cuatro objetivos. Frase de anclaje: "El martes 13 el error más frecuente del *exit ticket* fue
+No hay tarea espaciada previa en este formato (S07 es la primera sesión con el método): los 2 minutos de
+autocalificación se usan en el anclaje. Proyectar los cuatro objetivos. Frase de anclaje: "El martes 13 el error más frecuente del *exit ticket* fue
 [sustituir por el error real registrado en las notas post-sesión del martes 13; si no se tiene, usar: *pensar que
 `reduction` es la única forma de acumular en paralelo*]. Hoy vemos qué pasa cuando no se usa nada, por qué, y
 las cinco formas de arreglarlo." Vínculo con el proyecto: "En la V2 de su proyecto va a haber al menos una variable
@@ -73,10 +74,10 @@ Seguir `ejemplo-resuelto.md`. El profesor **piensa en voz alta**: qué mira, qu�
 
 | Minuto | Qué se hace | Qué se dice |
 |---|---|---|
-| 10–13 | Proyectar `counter_buggy.c` (solo los dos ciclos). Correr `./counter_buggy` tres veces en vivo. Después `make counter_buggy_O0 && ./counter_buggy_O0` tres veces. | "Mismo código. Con `-O2` el contador sale bien y la suma mal; con `-O0` todo sale mal. ¿Qué es lo que cambia y qué es lo que no?" (Pausa 1; elegir al azar quién responde). |
+| 10–13 | Proyectar `counter_buggy.c` (solo los dos ciclos). Correr `./counter_buggy` tres veces en vivo. Después `make counter_buggy_O0 && ./counter_buggy_O0` tres veces. | "Mismo código. Con `-O2` el contador sale bien y la suma mal; con `-O0` casi todo sale mal (si una corrida de `-O0` sale bien, mejor: es la idea 7 en vivo). ¿Qué es lo que cambia y qué es lo que no?" (Pausa 1; elegir al azar quién responde). |
 | 13–17 | Tabla leer-modificar-escribir en el pizarrón, con dos hilos y `sum = 100`. Pedir al grupo que dicte los pasos. | "Tres pasos por hilo. Seis pasos en total. ¿En cuántos órdenes queda 112 y en cuántos menos?" Cerrar con: "por eso el total siempre queda por debajo" (Pausa 2). |
-| 17–20 | `make tsan`. Proyectar el reporte de `counter_buggy` y leerlo línea por línea: línea 38, hilo principal escribe, T1 leyó, memoria de la pila de `main`. | "ThreadSanitizer no mira resultados: mira accesos. Por eso lo encuentra aunque la corrida haya salido bien." Advertir una sola vez: "con gcc también se queja de código correcto con `critical`; en la práctica van a ver cómo distinguirlo". |
-| 20–26 | Proyectar las cinco correcciones de `sum_variants.c` (una pantalla). Correr `./sum_variants` en vivo (~4 s) y proyectar la tabla. | Recorrer la tabla de arriba abajo: "`critical` y `lock`: lo mismo, un turno por elemento. `atomic`: 4–5 veces más barato, pero la línea de caché rebota. `reduction` y `local`: el mismo patrón, acumular en privado y combinar una vez." Pausas 3 y 4 (dos estudiantes al azar). Señalar la suma `double`: "mismos números, otro orden, otro redondeo: por eso se compara con tolerancia" (idea 10). |
+| 17–20 | `make tsan`. Proyectar el reporte de `counter_buggy` y leerlo línea por línea: par de líneas 37–38 (`for` y `count++`), un hilo escribe y otro leyó la misma dirección, memoria de la pila de `main`; qué hilo hace qué cambia entre corridas. | "ThreadSanitizer no mira resultados: mira accesos. Por eso lo encuentra aunque la corrida haya salido bien." Advertir una sola vez: "con gcc también se queja de código correcto con `critical`; en la práctica van a ver cómo distinguirlo". |
+| 20–26 | Proyectar las cinco correcciones de `sum_variants.c` (una pantalla). Correr `./sum_variants` en vivo (~4 s) y proyectar la tabla. | Recorrer la tabla de arriba abajo: "`critical` y `lock`: lo mismo, un turno por elemento. `atomic`: 3–5 veces más barato, pero la línea de caché rebota. `reduction` y `local`: el mismo patrón, acumular en privado y combinar una vez." Pausas 3 y 4 (dos estudiantes al azar). Señalar la suma `double`: "mismos números, otro orden, otro redondeo: por eso se compara con tolerancia" (idea 10). |
 | 26–28 | `./private_buggy` dos veces. | "Fila B cambia, fila C no. `private` no copia; `firstprivate` sí" (Pausa 6). |
 | 28–35 | **CT1** (`conceptests.md`): voto → parejas → revoto → explicación. | Guion de discusión de CT1. Si el primer voto > 80 %, saltar la discusión y usar los 3 minutos para preguntar "¿y si fuera `-O3`?" |
 
@@ -132,8 +133,9 @@ el archivo solo) + tabla de 4 hilos contra `atomic` y `local` + tres líneas de 
   ciclo que lo llama?" Dejarles la pregunta y volver en 3 minutos.
 - **Quien termina:** versión con `reduction(+:hist[:nbins])` (OpenMP 4.5). "¿Qué está haciendo OpenMP por ti?
   Compara su tiempo con `local`." Si también termina: **CT3** en su mesa, y que lo expliquen a la pareja de al lado.
-- Si la práctica se alargó, este bloque se recorta (nunca Recuperación ni Cierre). Lo mínimo: dejar el reto
-  planteado como parte opcional de la tarea.
+- Si la práctica se alargó, este bloque se recorta (nunca Recuperación ni Cierre). Entonces el reto pasa
+  **íntegro** a la tarea espaciada como ejercicio del tema (sustituye al ejercicio 1; `tarea-espaciada.md` ya
+  trae la nota) y se anuncia así en el cierre.
 
 ### 85–90 · Cierre
 
@@ -152,7 +154,8 @@ el archivo solo) + tabla de 4 hilos contra `atomic` y `local` + tres líneas de 
 
 - **Apoyo (quien no arranca en PRIMM):** entregarle impresa la tabla leer-modificar-escribir de la Fase 3.1 con
   los seis pasos y pedirle que la llene para `hist[5]` antes de volver a la computadora; después, hacer solo
-  Ejecutar + Investigar 3.2 y M2 (no requiere escribir código).
+  Ejecutar + Investigar 3.2 y M2 (no requiere escribir código). En Crear, la pista sellada (`<details>`) de la
+  Fase 5 del README.
 - **Ampliación (quien termina):** reducción de arreglo (`reduction(+:hist[:nbins])`), medición con `nbins = 4096` y
   explicación de por qué `atomic` se degrada menos con muchos bins; CT3 explicado a otra pareja.
 
