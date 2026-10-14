@@ -8,8 +8,9 @@ LDLIBS  = -lm
 THREADS ?= 4
 HILOS   ?= 1 2 4
 RES     ?= resultados
-# Afinidad: un hilo por nucleo, sin migraciones. Hace reproducibles las mediciones (en maquinas virtuales la
-# diferencia es enorme; ver `make afinidad`). Si tu sistema no soporta afinidad (macOS), usa: make medir BIND=
+# Afinidad: un hilo por nucleo fisico, sin migraciones. Es la configuracion que el curso declara en todo reporte:
+# en cuatro nucleos iguales y desocupados cambia poco; con hyper-threading o nucleos hibridos cambia mucho
+# (`make afinidad` lo muestra). Si tu sistema no soporta afinidad (macOS), usa: make medir BIND=
 BIND    ?= OMP_PROC_BIND=close OMP_PLACES=cores
 
 # Tamaños de la fase Ejecutar (cada programa termina en < 5 s con 4 nucleos)
@@ -70,7 +71,7 @@ afinidad: weak_scaling
 	OMP_PROC_BIND=false OMP_NUM_THREADS=$(THREADS) ./weak_scaling $(N_WEAK) | grep -E '^  (secuencial|fuerte|debil) '
 	@echo "== OMP_PROC_BIND=close OMP_PLACES=cores: un hilo por nucleo, sin migraciones"
 	OMP_DISPLAY_AFFINITY=true OMP_PROC_BIND=close OMP_PLACES=cores OMP_NUM_THREADS=$(THREADS) \
-	  ./weak_scaling $(N_WEAK) 2>&1 | grep -E '^  (secuencial|fuerte|debil) |affinity' | sort -u
+	  ./weak_scaling $(N_WEAK) 2>&1 | grep -E '^  (secuencial|fuerte|debil) |affinity' | awk '!seen[$$0]++'
 	@echo "== OMP_PROC_BIND=spread OMP_PLACES=threads: reparte los hilos lo mas lejos posible"
 	OMP_PROC_BIND=spread OMP_PLACES=threads OMP_NUM_THREADS=$(THREADS) ./weak_scaling $(N_WEAK) | grep -E '^  (fuerte|debil) '
 

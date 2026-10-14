@@ -18,7 +18,7 @@ navegante (lee el código y anota); se intercambian a los 10 minutos.
 | `transpose.cu`, `transpose_numba.py` | Fase Crear: transposición ingenua completa + `transpose_shared` con `TODO(1)` |
 | `Makefile` | `all` (compila sin GPU), `run` (requiere GPU), `test` (sin GPU), `notebook`, `clean` |
 | `notebook_colab.ipynb` | Todo lo anterior listo para Colab/Kaggle: escribe, compila, ejecuta, mide y guarda CSV |
-| `tests/run_tests.sh` | 20 comprobaciones sin GPU (≈ 30 s) |
+| `tests/run_tests.sh` | 21 comprobaciones sin GPU (≈ 30 s) |
 
 ## Cómo se ejecuta
 
@@ -30,7 +30,7 @@ navegante (lee el código y anota); se intercambian a los 10 minutos.
 
 ```bash
 make              # nvcc -c de los .cu (solo compila) + matmul_cpu
-make test         # 20 comprobaciones: compilación, CPU, simulador de Numba, notebook
+make test         # 21 comprobaciones: compilación, CPU, simulador de Numba, notebook
 ./matmul_cpu 64 16
 NUMBA_ENABLE_CUDASIM=1 python3 matmul_numba.py --n 64 --tile 16     # ≈ 10 s
 ```
@@ -59,6 +59,7 @@ Lee `matmul_tiled.cu` (solo el *kernel*, 30 líneas) y contesta en tu cuaderno:
 
 **P1.** Con `n = 64` y `TILE = 16`: lecturas a memoria global de la ingenua = ______ ; de la de mosaicos =
 ______ ; cociente = ______ . Cada elemento de A se lee ______ veces en la ingenua y ______ en la de mosaicos.
+(El ejercicio 3.2 de la tarea de S01 ya te hizo la última pregunta con `N = 1024`: compara.)
 
 **P2.** Si se quita la primera `__syncthreads()` (la marcada con `(2)`), ¿qué pasa? Marca una y justifica
 en una línea: (a) no compila · (b) CUDA reporta un error en tiempo de ejecución · (c) corre sin error y el
@@ -204,7 +205,8 @@ de qué hilo llegó primero, y tu número será otro. Ninguno de los dos program
 
 **I4. n no múltiplo de `TILE`.** `./matmul_tiled 100`, `./matmul_tiled 20`, `./matmul_tiled 1000` en la GPU;
 sin GPU, `--n 20 --tile 16` y `--n 24 --tile 8`. Todos deben dar OK. Salida real del simulador con
-`n = 100`: `malla=7x7 … (cada elemento de A: 7 veces) … error maximo vs NumPy 8.05e-06 -> PASS`.
+`n = 100` (`--solo mosaicos`; tarda ≈ 45 s, es la excepción a "`n ≤ 64`"): `malla=7x7 … (cada elemento de
+A: 7 veces) … error maximo vs NumPy 8.05e-06 -> PASS`.
 
 ## 4. Modificar (en casa; se retoma en el Laboratorio 2, martes 1 de diciembre)
 

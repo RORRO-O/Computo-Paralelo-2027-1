@@ -1,0 +1,12 @@
+# Binarios de la Práctica 5 (se regeneran con make; no se versionan: docs/CONVENCIONES.md §6)
+a1_hello_rank
+a2_stats_seq
+a2_stats_mpi
+b_matvec_seq
+b_matvec_mpi
+c_heat_seq
+c_heat_mpi
+c_primes_seq
+c_primes_mpi
+d_pingpong
+*.o

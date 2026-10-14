@@ -33,7 +33,7 @@ estimaron una fracción secuencial de 0.05, ¿qué `S(4)` predecía Amdahl? (dos
    vez de 3.48 significa que hay sobrecarga que el perfil de H1 no vio; Karp–Flatt la cuantifica: `f(4) =
    (1/3 − 1/4)/(1 − 1/4) = 0.111`, más del doble de la estimada. Eficiencia y *speedup* no son lo mismo (idea 3).
 4. Barrera de OpenMP con 4 hilos: **del orden de 1 µs** (en la máquina de autoría, 100 000 barreras vacías
-   tardaron 0.08–0.11 s: 0.8–1.1 µs cada una; con 2 hilos, 0.4 µs). `2α` con α entre 0.2 y 0.5 µs (S02):
+   tardaron 0.07–0.11 s: 0.7–1.1 µs cada una, el mismo rango que la clave de la tarea de S05; con 2 hilos, 0.4–0.5 µs). `2α` con α entre 0.2 y 0.5 µs (S02):
    **0.4–1 µs**. Mismo orden de magnitud: "MPI dentro de un nodo siempre pierde contra OpenMP" no se sostiene con
    estos números; lo que pesa es cuántas veces por iteración se paga cada cosa.
 5. Con tipos básicos: **1000 mensajes** de 1 `double` (uno por fila; cada uno paga la latencia α), o 1 mensaje

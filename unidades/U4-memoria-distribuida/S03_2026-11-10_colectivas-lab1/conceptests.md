@@ -6,7 +6,7 @@ Secuencia del ConcepTest 1: voto individual (1 min) → discusión en parejas (2
 → revoto → explicación del profesor. Si el primer voto supera 80 % de aciertos se salta la discusión; si queda
 por debajo de 30 % se vuelve a explicar antes de discutir. Tras la discusión se pregunta por tarjeta de lista
 "¿qué concluyó tu pareja?", no "¿qué piensas tú?".
-El ConcepTest 2 se vota **una sola vez** (punto de control, minuto 80) y solo se discute si el acierto queda
+El ConcepTest 2 se vota **una sola vez** (punto de control, minuto 83) y solo se discute si el acierto queda
 entre 30 % y 80 %; si no hay tiempo, pasa como pregunta 1 de la recuperación de S04 (jueves 12 de noviembre).
 El ConcepTest 3 es reserva: recuperación de S05 (martes 17 de noviembre) o examen de práctica.
 
@@ -67,7 +67,7 @@ qué todos llaman a `Bcast`, pero no lo han visto fallar; A es el distractor fue
 
 ---
 
-## ConcepTest 2 · ¿Qué dice el desglose de tiempos? (minuto 80, punto de control; voto único)
+## ConcepTest 2 · ¿Qué dice el desglose de tiempos? (minuto 83, punto de control; voto único)
 
 Una corrida real de `matvec_collectives` con `n = 4096`, `p = 4` y **un solo** producto (máquina virtual de 4
 núcleos compartida):

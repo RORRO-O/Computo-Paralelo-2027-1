@@ -13,8 +13,9 @@
 #   5. Sin __syncthreads entre niveles (--sin-sync) el programa termina y reporta verificacion= (el resultado
 #      concreto es no determinista; se imprime como información: "a veces sale bien").
 #   6. Espejo Numba del histograma bajo CUDASIM: la versión global coincide EXACTAMENTE con la CPU
-#      (n=4096/256 y n=2000/128, 16 y 256 bins); la versión shared imprime "TODO pendiente" (fase Crear) o,
-#      si ya se completó, verificacion=OK. FALLA si imprime FALLA.
+#      (n=4096/256 y n=2000/128, 16 y 256 bins); la versión shared (n=2000/128: el simulador tarda ~2 s con
+#      el TODO completo, ~12 s con 4096/256) imprime "TODO pendiente" (fase Crear) o, si ya se completó,
+#      verificacion=OK. FALLA si imprime FALLA.
 #   7. notebook_colab.ipynb existe y es válido (nbformat), con las celdas obligatorias.
 #   8. Opcionales (fase Modificar): si existen reduce_max.cu / reduce_max_numba.py, se compilan o se corren bajo
 #      CUDASIM y deben imprimir max=9.500000 y verificacion=OK.
@@ -152,13 +153,15 @@ if [ $rc -eq 0 ] && [ "$got" = "$ref" ]; then
 else
     echo "$out" | head -3; ko "CUDASIM histogram_numba --bins 256"
 fi
-out=$($PY histogram_numba.py shared 4096 256 2>&1); rc=$?
+ref=$("$TMP/histogram_cpu" 2000 128 | sed -n 's/^hist_cpu=\(.*\)$/\1/p')
+out=$($PY histogram_numba.py shared 2000 128 2>&1); rc=$?
+got=$(echo "$out" | sed -n 's/^ *hist_gpu=\(.*\)$/\1/p')
 if echo "$out" | grep -q "TODO pendiente"; then
-    ok "CUDASIM histogram_numba shared 4096 256 -> TODO pendiente (fase Crear sin completar; no es error)"
-elif [ $rc -eq 0 ] && echo "$out" | grep -q "verificacion=OK"; then
-    ok "CUDASIM histogram_numba shared 4096 256 -> verificacion=OK (TODO(1) completado)"
+    ok "CUDASIM histogram_numba shared 2000 128 -> TODO pendiente (fase Crear sin completar; no es error)"
+elif [ $rc -eq 0 ] && echo "$out" | grep -q "verificacion=OK" && [ "$got" = "$ref" ]; then
+    ok "CUDASIM histogram_numba shared 2000 128 -> verificacion=OK, idéntico a histogram_cpu (TODO(1) completado)"
 else
-    echo "$out"; ko "CUDASIM histogram_numba shared 4096 256 -> FALLA (el TODO(1) está mal)"
+    echo "$out"; ko "CUDASIM histogram_numba shared 2000 128 -> FALLA (el TODO(1) está mal)"
 fi
 
 # ---------- 7. Notebook válido ----------

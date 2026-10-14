@@ -3,7 +3,8 @@
  *
  *   global   cada hilo hace atomicAdd(&hist[v[i]], 1) sobre el histograma en memoria GLOBAL:
  *            n atómicas que compiten por las mismas BINS direcciones (contención alta si los datos
- *            están sesgados: aquí el 25 % cae en el bin 0).
+ *            están sesgados: aquí ≈ 30 % cae en el bin 0: 25 % forzado por i % 4 == 0 más lo que
+ *            el hash reparte en ese bin).
  *   shared   TODO(1) (fase Crear): histograma PRIVADO por bloque en memoria compartida con atómicas
  *            baratas, y al final un volcado de BINS atómicas por bloque al histograma global.
  *            Es la misma idea que los histogramas privados por hilo + reducción de la Práctica 4.

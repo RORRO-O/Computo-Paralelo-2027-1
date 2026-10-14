@@ -83,8 +83,8 @@ proyecta `make revisar` otra vez antes de discutir.
 **Guion de discusión (3 líneas).** "Quien votó A o D: ¿qué número va en el numerador del *speedup* según el
 protocolo? ¿Está en esa tabla? Quien votó C: ¿cuántos núcleos físicos tiene la laptop? ¿Qué hacen los hilos 5 a 8
 mientras los 4 núcleos están ocupados?" Regla general: **sin `T(1)` = V1, sin mediana de 5 y sin marcar la fila
-sobre-suscrita, la tabla no es evidencia; es una anécdota.** Enlace con H2: criterio 2 de la rúbrica cae a "En
-desarrollo" por cualquiera de las tres cosas.
+sobre-suscrita, la tabla no es evidencia; es una anécdota.** Enlace con H2: el criterio 2 de la rúbrica cae a "En desarrollo" por las dos primeras (`T(1)` tomado de
+`V2,1` sin decirlo; < 5 repeticiones); la fila de 8 sin declarar lo deja fuera de "Ejemplar".
 
 ## CT3 · "Funcionó con n = 100" (reserva: recuperación de U5·S01 o examen de práctica)
 

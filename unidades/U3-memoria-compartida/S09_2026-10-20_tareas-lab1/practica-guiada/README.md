@@ -32,7 +32,8 @@ sirven (idea errónea 5).
 
 ## Fase 1 · Predecir (4 min, por escrito, sin compilar)
 
-Lee `merge_sort_tasks` (líneas 79–103) y `main` desde la línea 185. Responde en la hoja de la pareja:
+Lee `merge_sort_tasks` (líneas 79–103) y el bloque de medición con tareas de `main` (líneas 186–200). Responde
+en la hoja de la pareja:
 
 | # | Pregunta | Tu predicción |
 |---|---|---|
@@ -158,19 +159,22 @@ donde se crea la tarea entra como **`firstprivate`** (copia con el valor de ese 
 Llena la tabla con tus líneas `resumen:` y escribe **dos líneas**: dónde está el mínimo y por qué `cutoff = 1`
 y `cutoff = n` pierden por razones distintas.
 
-Barrido real en la máquina de autoría (`REPS=5`, 4 núcleos **compartidos con otros procesos**; por eso los
-tiempos absolutos y los *speedups* están contaminados y la fila 4 096 quedó por debajo de la corrida por defecto;
-lo que se repite en cualquier máquina es el orden):
+Barrido real en la máquina de autoría (`REPS=5`, 4 núcleos de una máquina virtual **compartida con otros
+procesos**: los tiempos absolutos cambian entre corridas, el orden no; una corrida anterior del mismo barrido
+dio 1.50 en 256 y 1.13 en 4 096):
 
 | `cutoff` | Tareas creadas | t_seq (s) | t_tareas (s) | *Speedup* | Lectura |
 |---|---|---|---|---|---|
-| 1 | 3 999 998 | 0.2171 | **3.6987** | 0.06 | 17 veces más lento que la secuencial: 4 millones de tareas de 1–2 elementos |
-| 16 | 262 142 | 0.1846 | 0.2735 | 0.67 | todavía más lento que la secuencial |
-| 256 | 16 382 | 0.2087 | 0.1392 | 1.50 | zona útil: miles de tareas, cada una de cientos de elementos |
-| 4 096 | 1 022 | 0.1953 | 0.1731 | 1.13 | zona útil (en corridas aisladas, 1.93–2.10) |
-| 65 536 | 62 | 0.1998 | 0.1565 | 1.28 | 62 tareas para 4 hilos: aún hay con qué balancear |
-| 500 000 | 6 | 0.2239 | 0.1842 | 1.22 | 4 hojas iguales; las mezclas grandes van en 1 y 2 hilos |
-| 2 000 000 | 0 | 0.1878 | 0.2187 | 0.86 | sin tareas: un hilo hace todo y los otros tres esperan |
+| 1 | 3 999 998 | 0.1980 | **3.7123** | 0.05 | 19 veces más lento que la secuencial: 4 millones de tareas de 1–2 elementos |
+| 16 | 262 142 | 0.1889 | 0.3361 | 0.56 | todavía más lento que la secuencial |
+| 256 | 16 382 | 0.2321 | 0.1042 | 2.23 | zona útil: miles de tareas, cada una de cientos de elementos |
+| 4 096 | 1 022 | 0.1961 | 0.0935 | 2.10 | zona útil |
+| 65 536 | 62 | 0.1877 | 0.0990 | 1.90 | 62 tareas para 4 hilos: aún hay con qué balancear |
+| 500 000 | 6 | 0.2051 | 0.0936 | 2.19 | 4 hojas iguales: aquí basta porque el trabajo es uniforme; con cargas irregulares no |
+| 2 000 000 | 0 | 0.1938 | 0.2079 | 0.93 | sin tareas: un hilo hace todo y los otros tres esperan |
+
+Entre 256 y 500 000 la diferencia (1.9–2.2) es menor que el ruido de la máquina; lo robusto es la meseta y
+sus dos bordes: por abajo, la sobrecarga por tarea; por arriba, quedarse sin tareas que repartir.
 
 | `cutoff` | Tareas | t_seq | t_tareas | *Speedup* |
 |---|---|---|---|---|

@@ -1,0 +1,24 @@
+# Binarios generados por el Makefile de esta práctica (no se versionan)
+caza1_race_buggy
+caza2_barrier_buggy
+caza3_private_buggy
+caza4_*_buggy
+!caza4_*_buggy.c
+caza3_private_warn
+ejemplo_revision
+ejemplo_revision_falla
+soluciones/caza1_race_fixed
+soluciones/caza2_barrier_fixed
+soluciones/caza3_private_fixed
+examen_items/item_II1_firstprivate
+examen_items/item_II2_static_map
+examen_items/item_III1_dot_buggy
+examen_items/item_III1_dot_fixed
+examen_items/item_III2_scan_buggy
+examen_items/item_III2_scan_fixed
+examen_items/item_IV_tasks_sum
+examen_items/item_VI_collatz
+*_tsan
+*.o
+tests/out/
+__pycache__/

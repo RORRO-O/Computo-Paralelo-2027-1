@@ -34,7 +34,8 @@ contestando "¿quién tiene el dato antes y quién lo necesita después?". Si ha
 
 <details><summary>Clave</summary>
 
-1. `MPI_Bcast` (dos valores: un arreglo de 2 o dos llamadas). Antes: solo el 0. Después: todos, el mismo dato.<br>
+1. `MPI_Bcast` (dos llamadas, porque `tol` es `double` y las iteraciones `int`; o una sola con un arreglo de 2
+`double`). Antes: solo el 0. Después: todos, el mismo dato.<br>
 2. `MPI_Reduce` con `MPI_SUM`, raíz 0. Antes: todos un pedazo. Después: solo el 0 lo necesita combinado.
 `Allreduce` también da el resultado correcto, pero paga por dejarlo en todos.<br>
 3. `MPI_Allreduce` con `MPI_SUM`. Después lo necesitan todos, y además todos deben tomar la **misma** decisión

@@ -277,8 +277,9 @@ síntomas preferirías encontrarte y por qué? ¿MPI avisó de que faltaban tres
 Es el mismo límite *eager* de S02. Con 64 bytes, Open MPI copia el mensaje del `Bcast` a un búfer interno y el
 rango 0 **sale** de la llamada aunque nadie lo haya recibido; sigue, multiplica sus dos filas con `x` correcto y
 hace el `Gather`, donde recibe los bloques de los rangos 1–3, que multiplicaron con `x = 0`: `y[2..7] = 0`, sin
-ningún error. Con 8 KB el rango 0 espera dentro de `Bcast` a que los demás lleguen, y los demás están esperando
-en el `Gather` a que el rango 0 llegue: interbloqueo. El cuelgue es el síntoma **menos** peligroso: se nota. El
+ningún error. Con 8 KB el rango 0 espera dentro de `Bcast` a que los demás lleguen, y los demás nunca van a
+llamar a ese `Bcast`: se quedan esperando al rango 0 en la siguiente llamada que los sincroniza (el `Gather` o
+`MPI_Finalize`, según la implementación): interbloqueo. El cuelgue es el síntoma **menos** peligroso: se nota. El
 resultado incorrecto silencioso llega al reporte. Y no, MPI no avisa (opción D del ConcepTest 1): el rango 0 no
 tiene forma de saber que los otros tres nunca van a llamar. La verificación es tuya: ninguna colectiva dentro de
 un `if` por rango, y `make test` contra la secuencial.
@@ -293,7 +294,7 @@ un `if` por rango, y `make test` contra la secuencial.
 |---|---|---|---|---|
 | `matvec_seq 4096 40` | 1.092 | 1.055–1.214 | 1.00 | — |
 | `matvec_collectives -np 2`, 40 productos | 0.659 | 0.621–0.857 | 1.66 | 0.83 |
-| `matvec_collectives -np 4`, 40 productos | 0.360 | 0.244–0.395 | 3.04 | 0.76 |
+| `matvec_collectives -np 4`, 40 productos | 0.360 | 0.244–0.395 | 3.03 | 0.76 |
 | `matvec_p2p -np 4`, 40 productos | 0.349 | 0.310–0.376 | 3.13 | 0.78 |
 | `matvec_seq 4096 1` | 0.043 | 0.028–0.047 | 1.00 | — |
 | `matvec_collectives -np 4`, **1** producto | 0.115 | 0.088–0.191 | **0.37** | 0.09 |
@@ -305,7 +306,7 @@ Desglose que imprime el programa en una corrida con `-np 4`:
  1 producto : scatter = 0.085271, bcast = 0.000053, calcular = 0.007559 (max entre rangos), gather = 0.000744, total = 0.092992
 ```
 
-**Pausa 7.** Con **un** producto el *speedup* es 0.37; con 40 productos, 3.04. El código es el mismo. ¿Qué
+**Pausa 7.** Con **un** producto el *speedup* es 0.37; con 40 productos, 3.03. El código es el mismo. ¿Qué
 cambió? Escribe los dos números que lo explican.
 
 <details><summary>Respuesta</summary>

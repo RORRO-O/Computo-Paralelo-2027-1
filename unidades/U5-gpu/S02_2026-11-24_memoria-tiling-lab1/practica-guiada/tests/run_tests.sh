@@ -4,7 +4,8 @@
 # (2) la referencia CPU compila sin warnings con -Wall -Wextra y corre; (3) los espejos Numba
 # pasan en el simulador (NUMBA_ENABLE_CUDASIM=1), incluidos n no múltiplo de TILE y los dos
 # experimentos que deben FALLAR sin lanzar error de CUDA; (4) el checksum de la CPU coincide con
-# el del simulador; (5) el notebook es válido y está sincronizado con los fuentes.
+# el del simulador; (5) el notebook es válido y está sincronizado con los fuentes; (6) las líneas de
+# matmul_tiled.cu que cita el material (README, exit-ticket.md) siguen siendo las 91 y 100.
 # Imprime PASS/FAIL por caso y termina con 0 solo si todo pasa. Duración típica: 25–40 s.
 set -u
 cd "$(dirname "$0")/.."
@@ -103,6 +104,14 @@ if python3 tests/check_notebook.py >"$TMP/out.txt" 2>&1; then
     ok "notebook_colab.ipynb válido (nbformat) y sincronizado con los fuentes"
 else
     bad "notebook_colab.ipynb"; cat "$TMP/out.txt"
+fi
+
+echo "== (6) Líneas de matmul_tiled.cu citadas en el material =="
+lines=$(grep -n 'CUDA_CHECK(cudaGetLastError())' matmul_tiled.cu | cut -d: -f1 | tr '\n' ' ')
+if [ "$lines" = "91 100 " ]; then
+    ok "cudaGetLastError en las líneas 91 y 100 de matmul_tiled.cu (README §4.2, exit-ticket Q2b)"
+else
+    bad "cudaGetLastError en líneas '$lines'; el material cita 91 y 100: actualiza README.md y exit-ticket.md"
 fi
 
 echo "== Resumen: $pass PASS, $fail FAIL =="

@@ -9,6 +9,8 @@ Sin GPU (simulador en CPU: verifica la LÓGICA, los tiempos no significan nada; 
 Mismo índice global, misma guardia, misma inicialización y mismo checksum que a_vectores.cu y
 a_vectores_cpu.c. Con GPU real mide el kernel con eventos de CUDA (cuda.event) y el total con
 copias usando perf_counter + cuda.synchronize(); 1 calentamiento (incluye la compilación JIT) + 5.
+Bajo CUDASIM se hace una sola repetición: el tiempo del simulador no significa nada y cada hilo
+se ejecuta en Python (n = 1000 tarda ~1 s; n = 20 000, ~20 s).
 Termina con código 0 si todas las verificaciones contra NumPy pasan.
 """
 import os
@@ -62,7 +64,8 @@ def run(name, n, block):
     cuda.synchronize()
 
     kernel_ms, total_ms = [], []
-    for _ in range(REPS):
+    reps = 1 if CUDASIM else REPS  # en el simulador el tiempo no es una medición: una repetición basta
+    for _ in range(reps):
         # --- total con copias: H2D + kernel + D2H, reloj de CPU con sincronización ---
         t0 = time.perf_counter()
         d_a, d_b = cuda.to_device(a), cuda.to_device(b)       # equivalente de cudaMemcpy H2D

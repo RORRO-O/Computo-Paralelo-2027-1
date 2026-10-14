@@ -86,7 +86,7 @@ Medido en la máquina de autoría (4 núcleos, VM compartida, carga ajena ≈ 3;
 | Configuración | Mediana (s) | *Speedup* |
 |---|---|---|
 | `matvec_seq`, 40 productos | 1.092 | 1.00 |
-| `matvec_collectives -np 4`, 40 productos (matriz repartida una vez) | 0.360 | 3.04 |
+| `matvec_collectives -np 4`, 40 productos (matriz repartida una vez) | 0.360 | 3.03 |
 | `matvec_seq`, 1 producto | 0.043 | 1.00 |
 | `matvec_collectives -np 4`, 1 producto | 0.115 | 0.37 |
 

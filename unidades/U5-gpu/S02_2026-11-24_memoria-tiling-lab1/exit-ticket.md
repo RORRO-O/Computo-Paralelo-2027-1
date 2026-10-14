@@ -9,7 +9,7 @@ tiled ______ ms · cociente ______
 
 **1. (Conceptual · lecturas y coalescencia)** Multiplicación de matrices con `n = 256` y `TILE = 16`.
 (a) Cada elemento de A se lee desde memoria global ______ veces en la versión ingenua y ______ veces en la
-de mosaicos. (b) En una línea: ¿de dónde sale el segundo número (quién lo carga y quién lo reutiliza)?
+de mosaicos. (b) En una línea: ¿de dónde sale el segundo número (quién lo carga, en qué memoria queda y quién lo reutiliza)?
 (c) En la carga `s_A[ty][tx] = A[row * n + a_col]`, ¿qué índice de hilo (`threadIdx.x` o `threadIdx.y`)
 recorre la columna de A, y por qué eso hace que la lectura del *warp* sea coalescida (pocas transacciones
 en vez de 32)? (una línea)
@@ -29,7 +29,9 @@ atraparía el error de todos modos y con qué síntoma? (una línea)
    (= `⌈256/16⌉`, una vez por cada bloque de la fila de bloques que lo necesita). Totales:
    `2·256³ = 33 554 432` frente a `2·256²·16 = 2 097 152` (cociente 16).
    (b) Palabras que deciden: "un bloque por cada bloque-columna" / "lo carga **un** hilo (`(tx, ty)` en la
-   fase `t = a_col / TILE`) y lo usan los 16 hilos de su fila del mosaico desde memoria compartida".
+   fase `t = a_col / TILE`) y lo usan los 16 hilos de su fila del mosaico desde memoria compartida". Debe
+   nombrar la memoria **compartida** (`__shared__`, alcance de bloque); "caché" o "global" cuentan como parcial
+   (objetivo 1).
    (c) **`threadIdx.x`** (`a_col = t·TILE + tx`): los 16 hilos de una fila del bloque leen 16 `float`
    consecutivos (64 bytes contiguos); el *warp* (dos filas) necesita dos segmentos, no 32. Palabras que
    deciden: `threadIdx.x`/`tx` **y** "consecutivas"/"contiguas"/"coalescido".
@@ -42,7 +44,11 @@ atraparía el error de todos modos y con qué síntoma? (una línea)
    (c) La **verificación contra la CPU** (`verify_matmul`): el `cudaMemcpy` de regreso traería la C en ceros
    del `cudaMemset`, los tiempos de *kernel* serían casi nulos (GFLOP/s absurdos) y la comparación diría
    `FALLA` con error máximo ≈ `0.2·n` (≈ 100 para `n = 512`). Sin verificación, nada lo atraparía (idea 27).
-   Palabras que deciden: "verificación" / "comparar con la CPU" / "FALLA".
+   Palabras que deciden: "verificación" / "comparar con la CPU" / "FALLA". Quien conteste
+   "`cudaDeviceSynchronize()`" va a **parcial**: un error de configuración ocurre *antes* del lanzamiento y no es
+   "pegajoso"; queda solo en la variable de error del hilo anfitrión, que únicamente devuelven
+   `cudaGetLastError()` / `cudaPeekAtLastError()` (*CUDA C++ Programming Guide*, "Error Checking"); la
+   sincronización regresa `cudaSuccess` porque no hubo *kernel* que fallara.
 3. Se registra. Si la confianza media es ≥ 3 y los aciertos en 2(a) son < 60 %, hay sobreconfianza: abrir
    S03 con ese ítem.
 

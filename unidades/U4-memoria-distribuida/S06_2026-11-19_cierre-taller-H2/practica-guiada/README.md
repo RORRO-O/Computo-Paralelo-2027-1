@@ -4,7 +4,7 @@
 
 Dos partes. La **Parte 1** es una actividad PRIMM corta: tres programas MPI con un error cada uno; predices el
 síntoma, lo ves, lo explicas, lo corriges y creas un cuarto programa con error para tu pareja. En clase caben las
-fases Predecir y Ejecutar (9 minutos); Investigar, Modificar y Crear se terminan como ejercicio 1 de
+fases Predecir y Ejecutar (8 minutos); Investigar, Modificar y Crear se terminan como ejercicio 1 de
 `tarea-espaciada.md`. La **Parte 2** es el taller del proyecto: lista de cotejo de lo que debe quedar cerrado hoy
 para H2 (lunes 23 de noviembre), el revisor automático de tablas de *speedup* y la lista de revisión por pares.
 
@@ -53,7 +53,7 @@ envía con la que usa el que recibe.
 - **P2.** caza2 con `n = 100`: ¿se cuelga, aborta o termina? Si termina, ¿qué imprime `suma=`? ____
 - **P3.** caza3 con `n = 8` y 4 procesos: ¿funciona? ¿Y con `n = 10`? ____
 
-### Fase 2 · Ejecutar (5 min)
+### Fase 2 · Ejecutar (4 min; `make sintomas` tarda ~25 s por los dos cuelgues bajo `timeout 10`)
 
 ```bash
 make
@@ -93,7 +93,7 @@ VERIFICACION OK                                  <- "funciona"... porque 8 es di
 Si `mpirun` se queda colgado **después** de imprimir el error de caza3, es el lanzador al limpiar los procesos;
 Ctrl-C y repite. El código de salida distinto de 0 ya es el síntoma.
 
-### Fase 3 · Investigar (10 min; en casa si no alcanza)
+### Fase 3 · Investigar (8 min; ejercicio 1a de la tarea)
 
 - **I1. El umbral de caza1.** Corre `caza1_orden_send_buggy` con `n` = 400, 500, 505, 508 y 600 (con `timeout
   10`). ¿A partir de qué `n` se cuelga? Multiplica por 8 bytes. ¿Qué cantidad conocida de S02 te recuerda?
@@ -117,7 +117,7 @@ Ctrl-C y repite. El código de salida distinto de 0 ya es el síntoma.
   cazador su fila. Quedan cuatro filas sin cazador: para cada una escribe en una línea **qué síntoma** tendría y
   con qué `n` o `-np` se vería siempre.
 
-### Fase 4 · Modificar (10 min; en casa si no alcanza)
+### Fase 4 · Modificar (10 min; ejercicio 1b de la tarea)
 
 Para cada cazador: copia el archivo sin el sufijo `_buggy`, corrige **solo lo necesario** y verifica.
 
@@ -141,12 +141,13 @@ Objetivos verificables (lo que `make listo` comprueba):
 `make test` sigue pasando mientras no tengas las correcciones (las marca `SKIP`); `make listo` solo pasa cuando
 las tres existen y funcionan.
 
-### Fase 5 · Crear (en casa; ejercicio 1 de la tarea)
+### Fase 5 · Crear (7 min; ejercicio 1c de la tarea)
 
 Escribe **un cuarto programa con error** para que tu pareja lo cace. Reglas:
 
 1. Nombre `caza4_<tema>_buggy.c` (p. ej. `caza4_etiquetas_buggy.c`). ≤ 60 líneas. Compila sin *warnings*.
-   El rango 0 imprime `VERIFICACION OK`/`FAIL` al final, como los otros tres.
+   El rango 0 imprime `VERIFICACION OK`/`FAIL` al final, como los otros tres. Parte de una copia de un cazador ya
+   corregido (o del ejemplo) y cambia ≤ 5 líneas: lo que cuenta es el error plantado, no un programa nuevo.
 2. El error es **uno** de los cuatro clásicos que no tienen cazador todavía (`notas-estudiante.md` §4, filas
    2, 5, 6 y 7): etiquetas (o fuente, o comunicador) cruzadas · `MPI_Finalize` con mensajes pendientes (o una
    colectiva llamada por un subconjunto distinto de "solo la raíz") · usar el rango como índice de un arreglo sin

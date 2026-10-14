@@ -117,6 +117,28 @@ for n in [1 << 16, 1 << 20, 1 << 24]:
 print("\\nUna fila con FALLA no tiene speedup: primero corrige, luego mide.")
 ''')
 
+md("""## Ejemplo resuelto y ítems CUDA del examen de práctica — comprueba tu predicción
+`ejemplo_grid.cu` es la parte B de `ejemplo-resuelto.md` (el error está en el anfitrión: `grid = n / block`); se compila dos veces,
+con y sin `-DCORREGIDO`. `item_II2_reverse.cu` es el ítem II.2 del examen de práctica (predecir la salida de un kernel) e
+`item_III2_hist.cu` el ítem III.2 (encontrar y corregir el error). **Escribe tu respuesta en el examen antes de ejecutar estas celdas.**""")
+code("%%writefile ejemplo_grid.cu\n" + read("ejemplo_grid.cu"))
+code("%%writefile item_II2_reverse.cu\n" + read("examen_items/item_II2_reverse.cu"))
+code("%%writefile item_III2_hist.cu\n" + read("examen_items/item_III2_hist.cu"))
+code("%%writefile item_III2_hist_numba.py\n" + read("examen_items/item_III2_hist_numba.py"))
+code("!nvcc -O2 -arch=sm_75 ejemplo_grid.cu -o ejemplo_grid && nvcc -O2 -arch=sm_75 -DCORREGIDO ejemplo_grid.cu -o ejemplo_grid_ok && echo 'ejemplo_grid listo'\n"
+     "!nvcc -O2 -arch=sm_75 item_II2_reverse.cu -o item_II2_reverse && echo 'II.2 listo'\n"
+     "!nvcc -O2 -arch=sm_75 item_III2_hist.cu -o item_III2_hist && nvcc -O2 -arch=sm_75 -DCORREGIDO item_III2_hist.cu -o item_III2_hist_ok && echo 'III.2 listo'")
+code("# Ejemplo resuelto, parte B: el mismo kernel, dos anfitriones. ¿Hubo error de CUDA en el primero?\n"
+     "!./ejemplo_grid 1000 256; echo \"codigo de salida: $?\"\n"
+     "!./ejemplo_grid_ok 1000 256; echo \"codigo de salida: $?\"")
+code("# Ítem II.2: la clave del examen dice 3 2 1 0 7 6 5 4 8 9. ¿Por qué el último bloque no se invierte?\n"
+     "!./item_II2_reverse")
+code("# Ítem III.2: con el error, en la GPU se pierden casi todas las cuentas (total_gpu << n); corregido, exacto.\n"
+     "!./item_III2_hist 1048576; echo \"codigo de salida: $?\"\n"
+     "!./item_III2_hist_ok 1048576; echo \"codigo de salida: $?\"\n"
+     "# El simulador casi nunca intercala dos hilos sobre el mismo contador: la carrera se razona, no se observa aquí.\n"
+     "!NUMBA_ENABLE_CUDASIM=1 python3 item_III2_hist_numba.py 1000")
+
 md("""## Opcional en Colab · el error de MPI (caza1)
 Colab no trae MPI. Esta celda lo instala (≈ 1 minuto) y corre `caza1_bcast_buggy` con 4 procesos y un `timeout` de 5 s.
 Código de salida 124 = `timeout` lo mató = interbloqueo. Con `-np 1` "funciona". Corrige la celda `%%writefile`, recompila y repite.""")
@@ -126,6 +148,18 @@ code("!mpicc -std=c11 -O2 -Wall -Wextra caza1_bcast_buggy.c -o caza1_bcast_buggy
      "!./caza_cpu media 1000\n"
      "!timeout 5 mpirun --allow-run-as-root --oversubscribe -np 4 ./caza1_bcast_buggy 1000; echo \"codigo de salida: $? (124 = interbloqueo)\"\n"
      "!timeout 5 mpirun --allow-run-as-root --oversubscribe -np 1 ./caza1_bcast_buggy 1000; echo \"codigo de salida: $?\"")
+
+md("""### Ítems MPI del examen de práctica (II.1 predecir la salida · III.1 encontrar el error · IV.a completar)
+Comprueba tu respuesta **después** de escribirla. III.1 se compila dos veces: con el error y con `-DCORREGIDO`.""")
+code("%%writefile item_II1_mpi.c\n" + read("examen_items/item_II1_mpi.c"))
+code("%%writefile item_III1_mean_buggy.c\n" + read("examen_items/item_III1_mean_buggy.c"))
+code("%%writefile item_IV_dot_mpi.c\n" + read("examen_items/item_IV_dot_mpi.c"))
+code("!mpicc -std=c11 -O2 -Wall -Wextra item_II1_mpi.c -o item_II1_mpi && mpicc -std=c11 -O2 -Wall -Wextra item_III1_mean_buggy.c -o item_III1_mean_buggy \\\n"
+     "  && mpicc -std=c11 -O2 -Wall -Wextra -DCORREGIDO item_III1_mean_buggy.c -o item_III1_mean_fixed && mpicc -std=c11 -O2 -Wall -Wextra item_IV_dot_mpi.c -o item_IV_dot_mpi && echo 'items MPI listos'\n"
+     "!echo '== II.1 con 4 procesos (las lineas salen en cualquier orden) y con 1'; timeout 5 mpirun --allow-run-as-root --oversubscribe -np 4 ./item_II1_mpi; timeout 5 mpirun --allow-run-as-root --oversubscribe -np 1 ./item_II1_mpi\n"
+     "!echo '== III.1 con el error'; timeout 5 mpirun --allow-run-as-root --oversubscribe -np 4 ./item_III1_mean_buggy\n"
+     "!echo '== III.1 corregido'; timeout 5 mpirun --allow-run-as-root --oversubscribe -np 4 ./item_III1_mean_fixed\n"
+     "!echo '== IV.a'; timeout 5 mpirun --allow-run-as-root --oversubscribe -np 4 ./item_IV_dot_mpi")
 
 md("""## Guardar resultados (CSV)
 El archivo lleva la fecha y la GPU. Si usas estas mediciones en algún reporte, súbelo a `resultados/` de tu repositorio.""")

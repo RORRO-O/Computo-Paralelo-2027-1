@@ -34,9 +34,11 @@ propia casilla de `long c[2]`: el hilo 0 hace `c[0]++` y el hilo 1 hace `c[1]++`
 4. **Midiendo tiempo** en la versión secuencial: la fracción de Amdahl es una fracción de **tiempo**, no de líneas
    (idea errónea 2). En la Unidad II se usó un perfilador (`gprof`) o cronómetros por sección
    (`omp_get_wtime()` / `clock_gettime`) alrededor de cada etapa de la V1.
-5. Conjetura; no cuenta. Lo que pasa en realidad: suele tardar **más** que con un hilo, aunque no hay carrera.
-   `c[0]` y `c[1]` viven en la misma línea de caché (64 bytes) y cada escritura de un hilo invalida la copia
-   del otro núcleo: falso compartido (*false sharing*). Es el experimento central de la práctica guiada de hoy.
+5. Conjetura; no cuenta. Lo que pasa en realidad: tarda bastante **más de la mitad** y en algunas máquinas más
+   que con un hilo, aunque no hay carrera. `c[0]` y `c[1]` viven en la misma línea de caché (64 bytes) y cada
+   escritura de un hilo invalida la copia del otro núcleo: falso compartido (*false sharing*). Es el experimento
+   central de la práctica guiada de hoy (en la máquina de autoría, 4 hilos aceleraron 2.2× con las casillas
+   contiguas y 3.6× con relleno).
 </details>
 
 **Para el profesor.** Las preguntas 1 y 2 son de S09: anotar el porcentaje de acierto de cada una. Si la 1

@@ -14,7 +14,7 @@ Examen 3 toman ítems de aquí.
 IA: verde para que te explique un mensaje de `mpirun` o la semántica de `MPI_Send`; amarillo (declarado) para que
 revise tu `caza4_*_buggy.c` y te diga si el síntoma es reproducible; rojo para que corrija los cazadores por ti.
 
-## 1. Del tema de hoy (20–25 min) · Terminar el cazador de errores: Investigar, Modificar y Crear
+## 1. Del tema de hoy (25 min: Investigar 8 · Modificar 10 · Crear 7) · Terminar el cazador de errores
 
 En clase hiciste Predecir y Ejecutar con los tres programas de `practica-guiada/`. Termina las tres fases que
 faltan siguiendo `practica-guiada/README.md`, Parte 1:
@@ -34,7 +34,8 @@ b) **Modificar (M1–M3), como elección justificada.** Para `caza1` hay tres co
 
 c) **Crear.** Escribe `caza4_<tema>_buggy.c` con **uno** de los cuatro errores clásicos sin cazador (README, Fase
    5: etiquetas cruzadas, `Finalize` con mensajes pendientes, rango como índice sin verificar `p`, imprimir desde
-   todos los rangos con verificación), ≤ 60 líneas, con la ficha sellada en el encabezado. Tu pareja lo caza y
+   todos los rangos con verificación), ≤ 60 líneas (parte de una copia de un cazador ya corregido y cambia ≤ 5
+   líneas), con la ficha sellada en el encabezado. Tu pareja lo caza y
    escribe `caza4_<tema>.c`. Si no coincidieron fuera de clase, cázalo tú mismo y dilo en `respuestas.md`.
 
 Criterio de "listo": `make listo` termina con `0 FAIL` y la línea `LISTO:`; los tres comentarios citan la regla

@@ -6,7 +6,9 @@
  * mejor secuencial (lineal) tarda menos de un microsegundo. El programa imprime los dos speedups para que
  * se vea la diferencia.
  *
- * Uso: ./fib_tasks [n] [cutoff]   (por defecto n=36, cutoff=20). Entorno: OMP_NUM_THREADS, REPS (5).
+ * Uso: ./fib_tasks [n] [cutoff]   (por defecto n=40, cutoff=25: el recursivo tarda ~0.16 s y con 4 hilos las
+ *      tareas lo mejoran ~2x; con n=36 el trabajo es tan corto que despertar hilos cuesta más que lo que ahorra).
+ *      Entorno: OMP_NUM_THREADS, REPS (5).
  */
 #include <omp.h>
 #include <stdio.h>
@@ -64,8 +66,8 @@ static int cmp_double(const void *p, const void *q)
 
 int main(int argc, char **argv)
 {
-    int n = (argc > 1) ? atoi(argv[1]) : 36;
-    int cutoff = (argc > 2) ? atoi(argv[2]) : 20;
+    int n = (argc > 1) ? atoi(argv[1]) : 40;
+    int cutoff = (argc > 2) ? atoi(argv[2]) : 25;
     if (n < 0) n = 0;
     if (n > 45) n = 45;             /* más allá, el recursivo tarda minutos */
     if (cutoff < 2) cutoff = 2;

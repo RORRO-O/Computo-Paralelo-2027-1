@@ -122,7 +122,7 @@ falla P3 ("con 1 hilo también 6"): guardar para la puesta en común.
 
 Proyectar el barrido de cortes de **una pareja** junto al de autoría (README, fase 4). Dos hallazgos, un minuto
 cada uno: (1) el número de tareas no depende de los hilos (P3); (2) `cutoff = 1` ≈ 4 millones de tareas y
-20–40 veces más lento que la secuencial; `cutoff = n` = sin paralelismo. **CT2**: ¿por qué `cutoff = 1` tarda
+17–19 veces más lento que la secuencial (3.7 s contra 0.2 s en autoría); `cutoff = n` = sin paralelismo. **CT2**: ¿por qué `cutoff = 1` tarda
 tanto? Voto; discusión y revoto **solo si** el primer voto queda entre 30 % y 80 %; fuera de ese rango, a la
 explicación. **Regla general** en el pizarrón: *"el corte se elige para que una tarea valga mucho más que
 crearla, y para que aun así haya varias veces más tareas que hilos; se mide"*.

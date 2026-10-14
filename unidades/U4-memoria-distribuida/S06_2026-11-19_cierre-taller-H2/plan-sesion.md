@@ -2,9 +2,9 @@
 
 # S06 · Cierre de la Unidad IV: tipos derivados y comunicadores (panorama), errores clásicos de MPI; taller del proyecto rumbo a H2 (V2 con *speedup*)
 
-**Tipo:** taller de proyecto (`02-plantilla-sesion.md`, variante 2.4) con la mini-lección ampliada a 25 min
-(cierre de unidad): recuperación 5 · mini-lección 25 (ejemplo resuelto + CT1 + cazador de errores PRIMM, fases
-Predecir y Ejecutar) · taller hacia H2 50 (lista de cotejo, protocolo aplicado, revisión por pares, rondas del
+**Tipo:** taller de proyecto (`02-plantilla-sesion.md`, variante 2.4) con el bloque de mini-lección ampliado a 25 min
+(cierre de unidad; minutos 5–30): recuperación 5 · objetivos y anclaje 3 · mini-lección 22 (ejemplo resuelto + CT1 +
+cazador de errores PRIMM, fases Predecir y Ejecutar) · taller hacia H2 50 (lista de cotejo, protocolo aplicado, revisión por pares, rondas del
 profesor, CT2) · dos equipos muestran 5 · *exit ticket* 5. Está escrito para que lo dé otro profesor sin hablar con
 el autor.
 
@@ -50,7 +50,8 @@ objetivo 4 → rondas del profesor (tabla de registro) y tarea ej. 3a.
 ## Materiales
 
 - Esta carpeta, compilada **antes** de la sesión en la máquina del salón: `cd practica-guiada && make && make
-  test` (22 PASS, 0 FAIL, 4 SKIP; ~40 s porque cuatro casos esperan el `timeout 10`). Como root exportar
+  test` (22 PASS, 0 FAIL, 4 SKIP; ~35 s porque cuatro casos esperan el `timeout 10`; `make listo` con las
+  correcciones hechas tarda ~55 s). Como root exportar
   `OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1` (el `Makefile` ya lo hace). Dejar corrido `make
   revisar` y tener `ejemplo_mediciones_mal.csv` abierto para proyectarlo.
 - Dos terminales: una en `practica-guiada/` para el ejemplo y `make sintomas`; otra para los comandos cortos de
@@ -59,7 +60,7 @@ objetivo 4 → rondas del profesor (tabla de registro) y tarea ej. 3a.
   el encabezado del CSV del protocolo, "P5: dom 22 nov 23:59" y "H2: lun 23 nov, etiqueta antes de 10:30".
 - `proyecto/hitos/H2-avance-2.md` abierto (§5 lista de cotejo, §6 preguntas de la recepción, §8 opciones de
   logística). **Decidir antes de la sesión** la opción A/B/C de H2 §8 para anunciarla hoy (lo pide ese documento).
-- Estudiantes: una laptop por pareja con `mpicc` (verificado en S05); cada equipo del proyecto con su repositorio
+- Estudiantes: una laptop por pareja con `mpicc` funcionando (la misma con la que corrieron la Práctica 5 en S05); cada equipo del proyecto con su repositorio
   de V2 y su CSV de mediciones tal como esté (lo pidió la tarea de S05, ej. 3.2). Hoja con los dos números de
   lista para las predicciones del cazador (se recoge con el *exit ticket*).
 
@@ -93,7 +94,7 @@ la ensayan con otro equipo antes que conmigo."
 | 13–16 | Proyectar líneas 103–114. Leer la Parte B de la misma salida (sumas 1 y 5) y correr `-np 6` (sumas 3 y 12). | "`color` junta, `key` ordena. `Comm_split` lo llaman los `p`; el `Allreduce` lo llaman los del comunicador." Pausa 4 solo si no se vota CT1 por tiempo. |
 | 16–20 | **CT1** (`conceptests.md`): voto → parejas → revoto → explicación. | Guion de CT1. Cerrar con el Hueco 3: comunicador equivocado = `FAIL` sin cuelgue ni aborto. |
 | 20–22 | Proyectar la tabla de `notas-estudiante.md` §4 (siete errores). Correr `-np 3`: el programa rechaza la malla. | "Tres de estos siete los van a cazar ahora; los otros cuatro los escriben ustedes para su pareja en la tarea. Los peores son los que no avisan: filas 4 con `n` chico, 6 y 7." |
-| 22–30 | **Cazador de errores PRIMM, Parte 1 del README.** 22–26 Predecir: por escrito, en la hoja de la pareja, sin ejecutar; el navegante escribe. 26–29 Ejecutar: `make sintomas` proyectado (30 s de espera por cada cuelgue: usar ese tiempo para preguntar "¿quién predijo cuelgue?") y los cuatro comandos con `n` chico. 29–30 manos: "¿quién acertó los tres síntomas? ¿quién predijo que `caza1` con `n = 100` también se colgaba?" | Lo que se dice al final, una vez: "`caza1` y `caza3` *funcionan* con datos chicos. Eso es lo que su `make test` de la V2 tiene que atrapar: carreras que *salen bien una vez*. Investigar, Modificar y Crear son el ejercicio 1 de la tarea." |
+| 22–30 | **Cazador de errores PRIMM, Parte 1 del README.** 22–26 Predecir: por escrito, en la hoja de la pareja, sin ejecutar; el navegante escribe. Si al minuto 25 no han leído los tres programas, marcan solo la casilla del síntoma de cada uno; la línea del error se completa en Investigar (tarea). 26–29 Ejecutar: `make sintomas` proyectado (10 s de espera por cada cuelgue, el `timeout 10`: usar ese tiempo para preguntar "¿quién predijo cuelgue?") y los cuatro comandos con `n` chico. 29–30 manos: "¿quién acertó los tres síntomas? ¿quién predijo que `caza1` con `n = 100` también se colgaba?" | Lo que se dice al final, una vez: "`caza1` y `caza3` *funcionan* con datos chicos. Eso es lo que su `make test` de la V2 tiene que atrapar: carreras que *salen bien una vez*. Investigar, Modificar y Crear son el ejercicio 1 de la tarea." |
 
 Qué **no** hacer: no corregir los cazadores en vivo (es la tarea); no entrar en `MPI_Type_create_resized` salvo que
 lo pregunten (es la pausa 3, en `<details>`); no explicar CUDA aunque pregunten por la tarea 3b ("el lunes").

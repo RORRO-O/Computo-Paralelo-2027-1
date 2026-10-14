@@ -17,7 +17,8 @@ de esta carpeta + Práctica 6 Partes A/B de 30 min) · punto de control 5 min ·
 4. Verificar un *kernel* contra la CPU y distinguir "no dio error de CUDA" de "el resultado es correcto",
    usando `cudaGetLastError()` y comparación con tolerancia. (evaluar)
 
-Evaluación de cada objetivo: 1 → recuperación Q5, CT1 y tarea 1(d); 2 → *exit ticket* Q1(c), CT1 y fase
+Evaluación de cada objetivo: 1 → recuperación Q5, CT1, *exit ticket* Q1(b) (nombra la memoria compartida) y
+tarea 1(d); 2 → *exit ticket* Q1(c), CT1 y fase
 Crear; 3 → *exit ticket* Q1(a–b), CT2, tabla de rastreo I1; 4 → *exit ticket* Q2, I3 y CT3.
 
 ## Prerrequisitos y vínculo
@@ -42,7 +43,8 @@ Crear; 3 → *exit ticket* Q1(a–b), CT2, tabla de rastreo I1; 4 → *exit tick
   tiempos del día (la GPU asignada cambia).
 - Proyector, cronómetro visible, tarjetas con números de lista, caja para los pre-lab en la entrada.
 - Cada pareja: una laptop con cuenta de Colab/Kaggle (de la Práctica 1) y el repositorio clonado.
-- `practicas/P6-gpu/README.md` y su rúbrica impresa (para las mini-defensas).
+- `practicas/P6-gpu/README.md` y su rúbrica impresa (para las mini-defensas). Si el README no está en el
+  repositorio la víspera, hoy se aplica la alternativa del bloque 50–80 (Modificar + Crear de la práctica guiada).
 - Pizarrón: dibujar antes de empezar la matriz 4×4 dividida en mosaicos 2×2 y una fila de 32 puntos.
 
 ## Guion minuto a minuto
@@ -65,6 +67,8 @@ toca qué elemento; hoy ese índice decide además si la lectura es rápida o 32
 "hilo = núcleo": "Ayer varios escribieron que un hilo de CUDA es como un núcleo; hoy van a ver que 32 hilos
 comparten una sola instrucción y una sola petición de memoria, y eso cambia cómo se escribe el código".
 Proyecto: "La V3 es portar su V2 a GPU; la primera decisión será qué va a memoria compartida".
+La autocalificación de la tarea de S01 (2 min, clave en su `<details>`) se hace al minuto 30, no aquí: su
+ejercicio 3.2 (cuántas veces se lee cada `A[i][k]` con `N = 1024`) es la predicción P1 de hoy.
 
 **7–13 · Jerarquía de memoria.** Tabla de `notas-estudiante.md` §1 en el proyector, fila por fila. Pensar
 en voz alta: "Si tengo un valor que solo usa este hilo, registro. Si lo usan los 256 hilos de mi bloque en
@@ -96,7 +100,9 @@ Arranque (1 min): parejas; conductor abre el notebook en Colab y activa la GPU; 
 `matmul_tiled.cu` en el repositorio. Cambio de roles al minuto 40. Quien no tenga GPU disponible trabaja
 con `make test` y el simulador (`NUMBA_ENABLE_CUDASIM=1 python3 matmul_numba.py --n 64 --tile 16`).
 
-- **30–35 Predecir.** P1–P4 por escrito. No se corre nada. El profesor circula y lee predicciones; no corrige.
+- **30–35 Predecir.** Primero 2 min: autocalificar la tarea de S01 con su clave; el profesor registra entrega.
+  Su ejercicio 3.2 ya es P1 con `N = 1024`, así que P1 se contesta en 30 s y el tiempo va a P2–P4. Por
+  escrito; no se corre nada. El profesor circula y lee predicciones; no corrige.
 - **35–40 Ejecutar.** Pasos 2–3 del notebook (o CPU + simulador). Comparar con P1 y P3.
 - **40–50 Investigar.** I1 (tabla de rastreo del segundo hilo), I2 (preguntas 1–4), I3 (los dos programas
   sin error que fallan), I4 si da tiempo. Modificar y Crear quedan para casa y para el Lab 2 (martes 1 de
@@ -131,6 +137,8 @@ Enunciado: `practicas/P6-gpu/README.md` (publicado el lunes 23 de noviembre). Fl
   `make test` pase con `n` múltiplo y no múltiplo de `TILE`; si viene como código completo para leer y
   predecir (07 §B: un constructo nuevo no va como `TODO` el mismo día del Lab 1), el criterio es la tabla
   de predicción (lecturas, fases, bloques, columnas sobrantes) llena y contrastada con la salida del programa.
+  Lo que no quede de la Parte B al minuto 80 se termina en casa antes del Lab 2 (martes 1 de diciembre); el
+  criterio de verificación no cambia. En 18 min lo realista es llegar a la carga cooperativa y la primera barrera.
 
 El profesor circula con la rúbrica. **Mini-defensas** (02 §2.1): 2 min por equipo, al azar con tarjetas; una
 pregunta por integrante sobre el código que tengan en pantalla ("¿qué hace esta línea?"); la segunda ("¿qué

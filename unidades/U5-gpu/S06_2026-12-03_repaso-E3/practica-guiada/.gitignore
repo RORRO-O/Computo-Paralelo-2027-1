@@ -11,6 +11,10 @@ soluciones/caza2_guard_fixed
 soluciones/caza3_reduce_fixed
 examen_items/item_II1_mpi
 examen_items/item_II2_reverse
+examen_items/item_III1_mean_buggy
+examen_items/item_III1_mean_fixed
+examen_items/item_III2_hist
+examen_items/item_III2_hist_ok
 examen_items/item_IV_dot_mpi
 *.o
 __pycache__/

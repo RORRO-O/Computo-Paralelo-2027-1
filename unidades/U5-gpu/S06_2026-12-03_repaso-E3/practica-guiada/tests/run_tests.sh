@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
-# tests/run_tests.sh — Verificación SIN GPU del cazador de errores (S06 · Unidad V · 6BM1 · 27/1).
+# tests/run_tests.sh — Verificación SIN GPU del cazador de errores y de los ítems del examen de práctica
+# (S06 · Unidad V · 6BM1 · 27/1).
 #
 # Uso:  bash tests/run_tests.sh          (= make test)   todo, en menos de 60 s
 #       bash tests/run_tests.sh cazar    (= make cazar)  solo tus archivos: pasa cuando los tres errores están corregidos
 #
 # Modo "todo" (el material tal como se entrega debe pasar):
-#   A. Compilación: cada .cu con nvcc -c para sm_75 (T4) y sm_60 (P100) sin errores ni warnings; los .c con
-#      gcc/mpicc -std=c11 -O2 -Wall -Wextra -Werror.
+#   A. Compilación: cada .cu con nvcc -c para sm_75 (T4) y sm_60 (P100) sin errores ni warnings (corre en segundo
+#      plano mientras pasan B–H; se reporta al final); los .c con gcc/mpicc -std=c11 -O2 -Wall -Wextra -Werror.
 #   B. Referencia CPU: caza_cpu imprime los valores de referencia fijados.
 #   C. Cazador 1 (MPI): el *_buggy SE INTERBLOQUEA con 4 procesos (timeout, código 124), "funciona" con 1, y la
 #      solución da la media correcta con 4 y con 3 procesos (n con residuo).
@@ -16,7 +17,8 @@
 #      suma exacta con bloques de 256 y de 64.
 #   F. Ejemplo resuelto: ejemplo_predict_mpi imprime la salida de ejemplo-resuelto.md; ejemplo_grid_numba deja
 #      232 elementos sin procesar y, con --corregido, pasa.
-#   G. Ítems del examen de práctica: las salidas coinciden con la clave de examen-practica-U4-U5.md.
+#   G. Ítems del examen de práctica: las salidas coinciden con la clave de examen-practica-U4-U5.md (II.1, II.2,
+#      III.1 con y sin error, III.2 corregido, IV.a).
 #   H. notebook_colab.ipynb es válido (nbformat) y tiene las celdas obligatorias.
 # Imprime PASS/FAIL/SKIP por caso; código de salida 0 solo si no hay FAIL.
 set -u
@@ -43,17 +45,22 @@ ko() { echo "FAIL  $1${2:+   ($2)}"; fail=$((fail + 1)); }
 sk() { echo "SKIP  $1"; skip=$((skip + 1)); }
 has_nvcc() { command -v "$NVCC" >/dev/null 2>&1; }
 
-# nvcc_all <arch>: compila todos los .cu a objeto; falla si hay error o cualquier "warning" en el log.
+CU_FILES="caza2_guard_buggy.cu caza3_reduce_buggy.cu ejemplo_grid.cu examen_items/item_II2_reverse.cu \
+          examen_items/item_III2_hist.cu soluciones/caza2_guard_fixed.cu soluciones/caza3_reduce_fixed.cu"
+
+# nvcc_all <arch>: compila todos los .cu a objeto (más las variantes -DCORREGIDO); deja el código en $OUT/nvcc_<arch>.rc
+# (0 = bien, 1 = error, 2 = algún "warning" en el log).
 nvcc_all() {
-    local arch=$1 rc=0 log="$OUT/nvcc_$arch.log"
+    local arch=$1 rc=0 log
+    log="$OUT/nvcc_$arch.log"
     : > "$log"
-    for src in caza2_guard_buggy.cu caza3_reduce_buggy.cu ejemplo_grid.cu examen_items/item_II2_reverse.cu \
-               soluciones/caza2_guard_fixed.cu soluciones/caza3_reduce_fixed.cu; do
+    for src in $CU_FILES; do
         "$NVCC" -c -arch="$arch" "$src" -o "$OUT/${src%.cu}_$arch.o" >>"$log" 2>&1 || rc=1
     done
     "$NVCC" -c -arch="$arch" -DCORREGIDO ejemplo_grid.cu -o "$OUT/ejemplo_grid_ok_$arch.o" >>"$log" 2>&1 || rc=1
+    "$NVCC" -c -arch="$arch" -DCORREGIDO examen_items/item_III2_hist.cu -o "$OUT/examen_items/item_III2_hist_ok_$arch.o" >>"$log" 2>&1 || rc=1
     grep -qi "warning" "$log" && rc=2
-    return $rc
+    echo $rc > "$OUT/nvcc_$arch.rc"
 }
 
 # mpi_run <np> <timeout> <bin> [args]: ejecuta y deja la salida en $OUT/last.txt; regresa el código de salida.
@@ -73,7 +80,7 @@ if [ "$MODE" = "cazar" ]; then
         if mpi_run 4 "$TIMEOUT" "$OUT/caza1" 1000 && grep -q "media=3.497000" "$OUT/last.txt"; then
             ok "caza1 con 4 procesos termina y da media=3.497000"
         else
-            c1=0; ko "caza1 con 4 procesos" "$( [ $? -eq 124 ] && echo 'sigue interbloqueado: ¿quién llama a MPI_Bcast?' || tail -1 "$OUT/last.txt")"
+            rc=$?; c1=0; ko "caza1 con 4 procesos" "$( [ $rc -eq 124 ] && echo 'sigue interbloqueado: ¿quién llama a MPI_Bcast?' || tail -1 "$OUT/last.txt")"
         fi
         if mpi_run 3 "$TIMEOUT" "$OUT/caza1" 10007 && grep -q "media=3.499400" "$OUT/last.txt"; then
             ok "caza1 con 3 procesos y n=10007 (residuo) da media=3.499400"
@@ -124,22 +131,19 @@ if [ "$MODE" = "cazar" ]; then
 fi
 
 # ---------------------------------------------------------------- modo todo
-# A. Compilación
+# A. Compilación de los .cu: en segundo plano (≈ 10 s por arquitectura); se recoge al final.
 if has_nvcc; then
-    for arch in sm_75 sm_60; do
-        nvcc_all "$arch"; rc=$?
-        if [ $rc -eq 0 ]; then ok "nvcc -c -arch=$arch: 6 archivos .cu + ejemplo_grid -DCORREGIDO (sin warnings)"
-        else sed -n 1,10p "$OUT/nvcc_$arch.log"; ko "nvcc -c -arch=$arch" "$( [ $rc -eq 2 ] && echo warnings || echo error)"; fi
-    done
-else
-    sk "nvcc no está instalado: no se verifica la compilación de los .cu"
+    nvcc_all sm_75 &
+    nvcc_all sm_60 &
 fi
 if "$CC" $CFLAGS caza_cpu.c -o "$OUT/caza_cpu" >"$OUT/gcc.log" 2>&1; then ok "gcc $CFLAGS caza_cpu.c"; else cat "$OUT/gcc.log"; ko "gcc caza_cpu.c"; fi
 mpi_ok=1
-for src in caza1_bcast_buggy soluciones/caza1_bcast_fixed ejemplo_predict_mpi examen_items/item_II1_mpi examen_items/item_IV_dot_mpi; do
+for src in caza1_bcast_buggy soluciones/caza1_bcast_fixed ejemplo_predict_mpi examen_items/item_II1_mpi \
+           examen_items/item_III1_mean_buggy examen_items/item_IV_dot_mpi; do
     "$MPICC" $CFLAGS "$src.c" -o "$OUT/$src" >>"$OUT/mpicc.log" 2>&1 || mpi_ok=0
 done
-if [ $mpi_ok -eq 1 ]; then ok "mpicc $CFLAGS: 5 programas MPI"; else cat "$OUT/mpicc.log"; ko "mpicc: algún programa MPI no compila"; fi
+"$MPICC" $CFLAGS -DCORREGIDO examen_items/item_III1_mean_buggy.c -o "$OUT/examen_items/item_III1_mean_fixed" >>"$OUT/mpicc.log" 2>&1 || mpi_ok=0
+if [ $mpi_ok -eq 1 ]; then ok "mpicc $CFLAGS: 6 programas MPI + item III.1 con -DCORREGIDO"; else cat "$OUT/mpicc.log"; ko "mpicc: algún programa MPI no compila"; fi
 
 # B. Referencia CPU
 "$OUT/caza_cpu" todo 1000 >"$OUT/cpu.txt" 2>&1
@@ -205,6 +209,13 @@ if [ $mpi_ok -eq 1 ]; then
        && grep -q "^rango 0: value=1 total=1 from_left=1 max_root=1$" "$OUT/last.txt"; then
         ok "item II.1 (MPI): las 4 líneas de la clave (en cualquier orden) y la salida con -np 1"
     else cat "$OUT/last.txt"; ko "item II.1 (MPI)"; fi
+    exp_bug=$'rango 0: media=4.50 centrado=-3.50 -2.50\nrango 1: media=0.00 centrado=3.00 4.00\nrango 2: media=0.00 centrado=5.00 6.00\nrango 3: media=0.00 centrado=7.00 8.00'
+    exp_fix=$'rango 0: media=4.50 centrado=-3.50 -2.50\nrango 1: media=4.50 centrado=-1.50 -0.50\nrango 2: media=4.50 centrado=0.50 1.50\nrango 3: media=4.50 centrado=2.50 3.50'
+    mpi_run 4 "$TIMEOUT" "$OUT/examen_items/item_III1_mean_buggy"; out_bug=$(sort "$OUT/last.txt")
+    mpi_run 4 "$TIMEOUT" "$OUT/examen_items/item_III1_mean_fixed"; out_fix=$(sort "$OUT/last.txt")
+    if [ "$out_bug" = "$exp_bug" ] && [ "$out_fix" = "$exp_fix" ]; then
+        ok "item III.1 (MPI): con el error solo el rango 0 tiene media=4.50; con -DCORREGIDO (Allreduce) los 4 rangos"
+    else printf '%s\n---\n%s\n' "$out_bug" "$out_fix"; ko "item III.1 (MPI)"; fi
     if mpi_run 4 "$TIMEOUT" "$OUT/examen_items/item_IV_dot_mpi" && grep -q "^dot=36.000000$" "$OUT/last.txt" \
        && mpi_run 2 "$TIMEOUT" "$OUT/examen_items/item_IV_dot_mpi" && grep -q "^dot=36.000000$" "$OUT/last.txt"; then
         ok "item IV(a) (MPI, huecos llenos): dot=36.000000 con 4 y con 2 procesos"
@@ -213,6 +224,10 @@ fi
 if [ "$("$PY" examen_items/item_II2_reverse_numba.py 2>"$OUT/ii2.err")" = "3 2 1 0 7 6 5 4 8 9" ]; then
     ok "item II.2 (kernel, CUDASIM): 3 2 1 0 7 6 5 4 8 9"
 else cat "$OUT/ii2.err"; ko "item II.2 (kernel, CUDASIM)"; fi
+if "$PY" examen_items/item_III2_hist_numba.py 1000 --corregido >"$OUT/iii2_ok.txt" 2>&1 && grep -q "total_gpu=1000 bins_incorrectos=0 verificacion=OK" "$OUT/iii2_ok.txt"; then
+    "$PY" examen_items/item_III2_hist_numba.py 1000 >"$OUT/iii2_bug.txt" 2>&1
+    ok "item III.2 (histograma, CUDASIM): corregido con cuda.atomic.add exacto; con el error el simulador da $(grep -o 'total_gpu=[0-9]*' "$OUT/iii2_bug.txt") (la carrera se razona, no se observa aquí)"
+else cat "$OUT/iii2_ok.txt"; ko "item III.2 (histograma, CUDASIM, corregido)"; fi
 
 # H. Notebook
 "$PY" - >"$OUT/nb.log" 2>&1 <<'PYEOF'
@@ -221,13 +236,28 @@ nb = nbformat.read("notebook_colab.ipynb", as_version=4)
 nbformat.validate(nb)
 src = "\n".join(c.source for c in nb.cells if c.cell_type == "code")
 for needle in ("!nvidia-smi", "%%writefile caza2_guard_buggy.cu", "%%writefile caza3_reduce_buggy.cu",
-               "%%writefile caza_cpu.c", "%%writefile caza1_bcast_buggy.c", "nvcc -O2 -arch=sm_75",
+               "%%writefile ejemplo_grid.cu", "%%writefile item_II2_reverse.cu", "%%writefile item_III2_hist.cu",
+               "%%writefile caza_cpu.c", "%%writefile caza1_bcast_buggy.c", "%%writefile item_III1_mean_buggy.c",
+               "nvcc -O2 -arch=sm_75", "-DCORREGIDO",
                "./caza2_guard_buggy 1000 256", "./caza2_guard_buggy 1024 256", "./caza3_reduce_buggy 1000",
+               "./item_II2_reverse", "./item_III2_hist 1048576",
                "NUMBA_ENABLE_CUDASIM=1", "t_kernel_ms", "resultados_S06_", "csv"):
     assert needle in src, needle
 print("notebook OK:", len(nb.cells), "celdas")
 PYEOF
 if [ $? -eq 0 ]; then ok "notebook_colab.ipynb válido (nbformat) con las celdas obligatorias"; else cat "$OUT/nb.log"; ko "notebook_colab.ipynb"; fi
+
+# A (cierre). Resultado de las compilaciones nvcc lanzadas al inicio.
+if has_nvcc; then
+    wait
+    for arch in sm_75 sm_60; do
+        rc=$(cat "$OUT/nvcc_$arch.rc" 2>/dev/null || echo 1)
+        if [ "$rc" -eq 0 ]; then ok "nvcc -c -arch=$arch: 7 archivos .cu + 2 variantes -DCORREGIDO (sin warnings)"
+        else sed -n 1,10p "$OUT/nvcc_$arch.log"; ko "nvcc -c -arch=$arch" "$( [ "$rc" -eq 2 ] && echo warnings || echo error)"; fi
+    done
+else
+    sk "nvcc no está instalado: no se verifica la compilación de los .cu"
+fi
 
 echo "---- $pass PASS, $fail FAIL, $skip SKIP"
 if [ $fail -eq 0 ]; then rm -rf "$OUT"; exit 0; fi

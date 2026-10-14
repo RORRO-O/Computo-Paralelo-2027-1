@@ -91,19 +91,29 @@ def main():
     max_p = max(p for v in graficables.values() for p in v)
     ax.plot([1, max_p], [1, max_p], linestyle="--", linewidth=1.5, color="#898781", label="ideal S = p", zorder=1)
     libres = [c for c in PALETA]
+    y_max = max(max_p, max(y for v in graficables.values() for y in (r["_speedup"] for r in v.values()))) * 1.1
+    finales = []                                   # (y del último punto, x, etiqueta) para rotular al final
     for k, (nombre, puntos) in enumerate(graficables.items()):
         color = COLORES.get(nombre) or libres.pop(0)
         xs = sorted(puntos)
         ys = [puntos[p]["_speedup"] for p in xs]
-        ax.plot(xs, ys, marker=MARCADORES[k % len(MARCADORES)], markersize=7, linewidth=2,
+        ax.plot(xs, ys, marker=MARCADORES[k % len(MARCADORES)], markersize=8, linewidth=2,
                 color=color, markeredgecolor=SURFACE, markeredgewidth=1.5, label=nombre, zorder=3)
-        ax.annotate(f"{nombre} {ys[-1]:.2f}", (xs[-1], ys[-1]), textcoords="offset points",
-                    xytext=(8, 0), va="center", fontsize=9, color=INK2)
+        finales.append([ys[-1], xs[-1], f"{nombre} {ys[-1]:.2f}"])
+    # Etiquetas directas al final de cada serie, separadas al menos 4 % del eje para que no se encimen.
+    finales.sort()
+    gap = 0.04 * y_max
+    for i in range(1, len(finales)):
+        if finales[i][0] - finales[i - 1][0] < gap:
+            finales[i][0] = finales[i - 1][0] + gap
+    for y_txt, x_fin, texto in finales:
+        ax.annotate(texto, (x_fin, y_txt), textcoords="offset points", xytext=(8, 0), va="center",
+                    fontsize=9, color=INK2)
     ax.set_xlabel("hilos", color=INK2)
     ax.set_ylabel("speedup = T(1) / T(p)", color=INK2)
     ax.set_xticks(sorted({p for v in graficables.values() for p in v}))
     ax.set_xlim(0.8, max_p + 1.2)
-    ax.set_ylim(0, max(max_p, max(y for v in graficables.values() for y in (r["_speedup"] for r in v.values()))) * 1.1)
+    ax.set_ylim(0, y_max)
     ax.grid(True, color=GRID, linewidth=0.8)
     for lado in ("top", "right"):
         ax.spines[lado].set_visible(False)

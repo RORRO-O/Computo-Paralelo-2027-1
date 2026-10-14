@@ -6,7 +6,8 @@ Uso:
 Sin GPU (simulador, solo correctitud; n pequeño):
     NUMBA_ENABLE_CUDASIM=1 python3 histogram_numba.py global 4096 256
 
-Mismos datos que histogram.cu / histogram_cpu.c (hash multiplicativo; 25 % de los datos en el bin 0) y
+Mismos datos que histogram.cu / histogram_cpu.c (hash multiplicativo; ≈ 30 % de los datos en el bin 0:
+25 % forzado por i % 4 == 0 más lo que el hash reparte ahí) y
 verificación EXACTA contra numpy.bincount (conteos enteros: no hay redondeo).
 La versión `shared` es el TODO(1) de la fase Crear: mientras el kernel no escriba nada, se imprime
 "TODO pendiente".

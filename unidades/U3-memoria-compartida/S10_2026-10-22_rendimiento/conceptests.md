@@ -53,13 +53,14 @@ long counts[4] = {0, 0, 0, 0};
 }
 ```
 
-`make test` pasa: el total coincide siempre con la versión secuencial. Pero con 4 hilos el ciclo tarda **más**
-que con 1. ¿Cuál es la explicación y la corrección?
+`make test` pasa: el total coincide siempre con la versión secuencial. Pero con 4 hilos el ciclo acelera solo
+2.2×, mientras que la misma cuenta hecha en una variable local de cada hilo acelera 3.6× (y en otras máquinas la
+versión con `counts[tid]` llega a tardar más que con 1 hilo). ¿Cuál es la explicación y la corrección?
 
 - **A)** Hay una condición de carrera porque los cuatro hilos escriben en el mismo arreglo; falta `atomic`.
 - **B)** Las cuatro casillas caben en la misma línea de caché y cada escritura invalida la copia de los otros
   núcleos (falso compartido); se corrige acumulando en una variable local o separando las casillas con relleno.
-- **C)** Es la sobrecarga normal de crear hilos; con 8 o 16 hilos se compensa.
+- **C)** Es la sobrecarga normal de crear hilos; con 8 o 16 hilos se compensa y las dos versiones se igualan.
 - **D)** Es un error de medición: hay que compilar con `-O0` para ver el tiempo real del ciclo.
 
 | Opción | Origen |
@@ -70,7 +71,7 @@ que con 1. ¿Cuál es la explicación y la corrección?
 | D | Idea errónea 5: nunca se mide con `-O0`; además `-O0` no cambia dónde viven los datos. |
 
 **Acierto esperado en el primer voto:** 60–75 % (acaban de medirlo; A atrae a quien no distingue carrera de
-contención).
+contención; C a quien no miró que `local` tiene las mismas creaciones de hilos y escala bien).
 
 **Guion de discusión.** "Quien votó A: ¿qué dos hilos escriben la **misma** posición? Si ninguno, ¿qué protege
 `atomic`? Quien votó C: en tu tabla, ¿`contiguo` mejoró de 2 a 4 hilos tanto como `relleno`?" Regla general:

@@ -312,8 +312,8 @@ version=shared  atomicas_globales=256      atomicas_compartidas=4096     …
 ```
 
 - **Criterio de "listo":** `histogram shared` imprime el **mismo** histograma que la CPU y `verificacion=OK`, en
-  CUDASIM (`4096 256` y `2000 128`) y en GPU (`n = 2^20`: `atomicas_globales=65536`, 16 veces menos que `global`).
-  `make test` lo revisa. Esperado en una T4: la versión `shared` entre 10 y 100 veces más rápida que `global` con
+  CUDASIM (`2000 128` y `4096 256`; el simulador tarda 2 s y 12 s) y en GPU (`n = 2^20`:
+  `atomicas_globales=65536`, 16 veces menos que `global`). `make test` lo revisa con `2000 128`. Esperado en una T4: la versión `shared` entre 10 y 100 veces más rápida que `global` con
   estos datos sesgados; anota tu número con el modelo de GPU y la fecha.
 - **Restricciones:** `BINS ≤ blockDim.x`; dos `__syncthreads()` exactamente (piensa dónde y por qué); sin escribir
   en `hist` desde más de un sitio por bloque y por bin.

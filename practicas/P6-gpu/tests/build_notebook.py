@@ -90,7 +90,11 @@ print("ARCH =", ARCH)
     md("## 3 · Parte A · Ejecutar\n\nPrimero `n = 1000`, el caso de tus predicciones (A.1): compara los *checksums* de la CPU, la GPU y el espejo Numba. "
        "Después el tamaño por defecto, `n = 2^24` (64 MB por vector)."),
     code("!./a_vectores_cpu 1000\n!./a_vectores uno 1000 256\n!python3 a_vectores_numba.py 1000 256"),
-    code("!./a_vectores_cpu 16777216\n!./a_vectores uno 16777216 256"),
+    code("!./a_vectores_cpu 16777216\n!./a_vectores uno 16777216 256\n# Espejo Numba en la GPU real (la primera llamada compila el kernel: por eso hay calentamiento)\n!python3 a_vectores_numba.py 16777216 256"),
+    md("### Tabla de la Parte A (A.3): tres tamaños, con y sin copias\n\nUna configuración por tamaño con bloque 256. Copia a la tabla del README, para cada kernel, "
+       "`kernel ms`, `total ms` y `CPU ms`; la columna `S_total` es el *speedup* **con** copias y `S_kern` **sin** ellas. "
+       "Anota también qué porcentaje del total son las copias (H2D + D2H)."),
+    code("%%bash\nfor n in 100000 1000000 10000000; do ./a_vectores uno $n 256; done"),
     md("## 4 · Parte A · Medir (A.4): umbral de tamaño y barrido de bloque\n\nTodo se acumula en `resultados_P6.csv` con el esquema del curso. "
        "`umbral` recorre `n = 2^10 … 2^26` con bloque 256; `bloque` recorre 32 … 1024 con `n = 2^24`. Tarda 1–2 minutos en una T4."),
     code("""
@@ -118,16 +122,16 @@ done
 ]
 if SOLUCION:
     cells += [
-        md("### Solución de referencia de la Parte C (docente)\n\nOpción 1 (histograma/reducción) con barrido de bloque y opción 2 (Jacobi) con cuatro formas de bloque."),
+        md("### Solución de referencia de la Parte C (docente)\n\nOpción 1 (histograma/reducción) con barrido de bloque 32…1024 y opción 2 (Jacobi) con barrido `32×{1,2,4,8,16,32}` (bloques 32…1024), más `16×16` como comparación de forma y dos casos pequeños."),
         code("""
 !nvcc -O2 -arch={ARCH} c_histograma.cu -o c_histograma
 !nvcc -O2 -arch={ARCH} c_jacobi.cu -o c_jacobi
 !for b in 32 64 128 256 512 1024; do ./c_histograma 16777216 $b resultados_P6.csv | grep -E "histograma_|reduccion_|Verif"; done
 !python3 c_histograma_numba.py 16777216 256
-!./c_jacobi 1024 1024 1e-3 500 10 32 8 resultados_P6.csv
-!./c_jacobi 1024 1024 1e-3 500 10 16 16 resultados_P6.csv
-!./c_jacobi 1024 1024 1e-3 500 10 32 32 resultados_P6.csv
-!./c_jacobi 1024 1024 1e-3 500 10 256 1 resultados_P6.csv
+!for by in 1 2 4 8 16 32; do ./c_jacobi 1024 1024 1e-3 500 10 32 $by resultados_P6.csv | grep -E "jacobi_2d |GPU:"; done
+!./c_jacobi 1024 1024 1e-3 500 10 16 16
+!./c_jacobi 64 64 1e-2 1000 10 32 8
+!./c_jacobi 24 24 1e-2 3000 10 8 8
 """),
     ]
 else:

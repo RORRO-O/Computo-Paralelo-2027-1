@@ -43,14 +43,14 @@ las tres líneas de la elección citan un dato medido.
 
 ## 2. Intercalado, Unidades I y II (10 min) · Gustafson, `clock()` y Foster sobre los datos de hoy
 
-a) Con `weak_scaling` en la máquina de autoría (ver `notas-estudiante.md`, §4) se midió `T(1, n) = 0.104 s` y
-`T(4, 4n) = 0.118 s`. Calcula la eficiencia débil `E_w = T(1,n)/T(p,p·n)` y el *speedup* escalado
-`S_w = p · E_w`. ¿Qué ley de la Unidad I describe este experimento (Amdahl o Gustafson) y por qué su techo no es
-`1/f`?
+a) Con `weak_scaling` en la máquina de autoría (ver `notas-estudiante.md`, §3 d) se midió `T(1, n) = 0.108 s`
+(secuencial, `n = 10^6`) y `T(4, 4n) = 0.131 s`. Calcula la eficiencia débil `E_w = T(1,n)/T(p,p·n)` y el
+*speedup* escalado `S_w = p · E_w`. ¿Qué ley de la Unidad I describe este experimento (Amdahl o Gustafson) y por
+qué su techo no es `1/f`?
 
-b) `profile_amdahl` con 4 hilos imprimió (valores de una corrida): reloj de pared `0.75 s`, `clock()` `1.28 s`
-en el mismo lapso. Si alguien calculara el *speedup* con `clock()`, ¿saldría mayor o menor que el real, y por qué
-el protocolo prohíbe `clock()` para esto? (dos líneas)
+b) `profile_amdahl` con 4 hilos imprimió (corrida de `notas-estudiante.md`): reloj de pared `0.48 s`, `clock()`
+`1.40 s` en el mismo lapso. Si alguien calculara el *speedup* con `clock()`, ¿saldría mayor o menor que el real,
+y por qué el protocolo prohíbe `clock()` para esto? (dos líneas)
 
 c) Foster sobre `false_sharing.c`: la partición son los índices `i`; la aglomeración es "un bloque de `n/p`
 índices por hilo". ¿En qué etapa de Foster se decide que cada hilo tenga **sus propias** casillas, y por qué esa
@@ -59,13 +59,13 @@ es la que decide el acomodo en memoria).
 
 <details><summary>Para autoverificar</summary>
 
-a) `E_w = 0.104 / 0.118 ≈ 0.88`; `S_w = 4 × 0.88 ≈ 3.5`. Es el escenario de **Gustafson**: el problema crece
+a) `E_w = 0.108 / 0.131 ≈ 0.82`; `S_w = 4 × 0.82 ≈ 3.3`. Es el escenario de **Gustafson**: el problema crece
 con los procesadores y la parte secuencial se vuelve proporcionalmente más pequeña, así que el *speedup*
 escalado crece casi linealmente con `p` en lugar de toparse con `1/f`. Amdahl responde "¿cuánto más rápido el
 mismo problema?"; Gustafson, "¿cuánto más problema en el mismo tiempo?".
 
-b) **Menor.** `clock()` suma el tiempo de CPU de **todos** los hilos: con 4 hilos ocupados marca ≈ 1.7 veces más que
-el reloj de pared aquí, así que `T(4)` medido con `clock()` sale inflado y el *speedup* se encoge (incluso por
+b) **Menor.** `clock()` suma el tiempo de CPU de **todos** los hilos: con 4 hilos ocupados marcó casi 3 veces más
+que el reloj de pared, así que `T(4)` medido con `clock()` sale inflado y el *speedup* se encoge (incluso por
 debajo de 1). El usuario espera tiempo de pared; por eso `omp_get_wtime()` (idea errónea 31).
 
 c) En la **aglomeración/mapeo** se decide qué datos locales tiene cada hilo (las casillas propias). Pero tener
@@ -88,9 +88,10 @@ for (long i = 1; i < n; i++)
     y[i] = y[i - 1] + x[i];
 ```
 
-b) En `saxpy_vs_matmul.c` de hoy, `saxpy` quedó limitado por memoria (la eficiencia cae aunque no haya parte
-secuencial). Conjetura: si el compilador vectoriza el ciclo con `simd` (4 operaciones por instrucción), ¿esperas
-que `saxpy` se acelere ~4 veces, poco o nada? Una línea con la razón. "No sé" es válida.
+b) En `saxpy_vs_matmul.c` de hoy, `saxpy` hace 2 flop por cada 24 bytes que mueve (0.083 flop/byte) y en una
+laptop queda limitado por el ancho de banda de memoria. Conjetura: si el compilador vectoriza el ciclo con `simd`
+(4 operaciones por instrucción), ¿esperas que `saxpy` se acelere ~4 veces, poco o nada? Una línea con la razón.
+"No sé" es válida.
 
 <details><summary>Para comparar después de leer</summary>
 
@@ -98,7 +99,7 @@ a) **No.** La iteración `i` lee `y[i-1]`, que escribe la iteración `i-1`: depe
 hilos con iteraciones consecutivas leerían un valor aún no escrito (resultado incorrecto). En S11 se reescribe en
 dos fases (sumas por bloque + corrección).
 
-b) **Poco o nada**: si el ciclo ya está limitado por el ancho de banda de memoria, hacer la aritmética más rápido
-no cambia cuánto tardan los datos en llegar. `simd` ayuda cuando el ciclo está limitado por cómputo. En S11 se
-mide exactamente esto con `-fopt-info-vec`.
+b) **Poco o nada** cuando el ciclo está limitado por el ancho de banda de memoria: hacer la aritmética más rápido
+no cambia cuánto tardan los datos en llegar. `simd` ayuda cuando el ciclo está limitado por cómputo (o cuando los
+datos caben en caché). En S11 se mide exactamente esto con `-fopt-info-vec`.
 </details>

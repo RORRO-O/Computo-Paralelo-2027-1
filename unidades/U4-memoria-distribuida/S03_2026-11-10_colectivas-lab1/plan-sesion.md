@@ -4,8 +4,8 @@
 
 Tipo: **laboratorio** (variante 2.1 adaptada; caso "constructo nuevo en Lab 1" de `02-plantilla-sesion.md` §2.1):
 recuperación 5 min · objetivos 3 min · mini-lección 22 min (ejemplo resuelto corto con pausas, ConcepTest 1 y
-la variante que falla) · bloque de laboratorio 50 min (= PRIMM corto de 20 min con `practica-guiada/` +
-Práctica 5 Partes A y B de 30 min con mini-defensas) · punto de control 5 min con ConcepTest 2 · *exit ticket*
+la variante que falla) · bloque de laboratorio 48 min (= PRIMM corto de 20 min con `practica-guiada/` +
+Práctica 5 Partes A y B de 28 min con mini-defensas) · punto de control 7 min con ConcepTest 2 · *exit ticket*
 5 min. Suma 90. Este plan debe poder darlo otro profesor sin hablar con el autor: trae las frases clave, las
 salidas reales y las soluciones de referencia.
 
@@ -96,7 +96,7 @@ que si el programa funcionó con mensajes chicos está bien]. Hoy ese mismo lím
 error de hoy se ve como cuelgue o como basura silenciosa."
 
 Proyectar los cuatro objetivos. Vínculo con la práctica y el proyecto: "La Parte A de la Práctica 5 es el programa
-de hoy; la Parte D va a medir exactamente lo que vamos a leer en el minuto 80: cuánto cuesta repartir los datos.
+de hoy; la Parte D va a medir exactamente lo que vamos a leer en el punto de control: cuánto cuesta repartir los datos.
 En la V2 del proyecto la pregunta es la misma con hilos: ¿cuánto trabajo hay por cada dato que se mueve?"
 
 ### 8–30 · Mini-lección: colectivas y la regla de oro (ejemplo resuelto corto + ConcepTest 1 + variante que falla)
@@ -110,7 +110,7 @@ Seguir `ejemplo-resuelto.md`. El profesor **piensa en voz alta**: qué mira, qu�
 | 11–15 | Correr en vivo `mpirun -np 4 ./colectivas_demo` dos veces. Las líneas salen mezcladas: decirlo. Leer agrupado por rango (§4 del ejemplo). **Pausa 1** (`squares = {-1,-1,-1,-1}` tras `Gather` en el rango 1). | "Hay cuatro `squares`, uno por proceso. `Gather` y `Reduce` dejan el resultado **solo** en la raíz; `All…` lo deja en todos. Que todos la llamen es la condición para que ocurra; dónde queda el resultado lo define cada colectiva." |
 | 15–21 | Proyectar `matvec_collectives.c` líneas 54–85 (solo las colectivas). Correr `mpirun -np 4 ./matvec_collectives 8 1 filas`. Señalar "empieza: 4 5 6" en el rango 2 y `x[0] = 1` en los cuatro. **Pausa 2** (`sendcount = local_n * n`), **Pausa 3** (la línea del `Bcast` en el rango 2: ¿envío o recepción?), **Pausa 4** (`MPI_MAX`). Una pantalla con el bloque de `Send`/`Recv` de `matvec_p2p.c` al lado; **Pausa 5** en una frase. | "Misma línea, dos papeles: en la raíz es la fuente; en los demás, el destino. El rango 2 **tiene** que ejecutarla: nadie más va a escribir en su `x`." Sobre p2p: "tres llamadas por rango contra seis envíos y tres recepciones en el 0; y aquí el `if` es normal porque cada lado hace algo distinto; en una colectiva el `if` quita la recepción." |
 | 21–27 | **ConcepTest 1** (`conceptests.md`): voto → parejas → revoto → explicación. Esperado 45–55 % en el primer voto; A es el distractor fuerte (idea 18), B la idea 16, D "MPI lo detecta". Si el primer voto > 80 %, saltar la discusión y ganar 3 min para la práctica. | Guion de discusión de CT1: "Quien votó A: señala la línea que ejecuta el rango 2 para *recibir* `x`." (No hay.) "Quien votó D: ¿cómo sabría el rango 0 que los otros tres no van a llamar nunca?" |
-| 27–30 | **Variante que falla, en vivo**: `make run-buggy N=8` (termina: `y[2..7] = 0.0`, `checksum = 372`) y `make run-buggy N=1024` (10 segundos de silencio hasta `codigo de salida: 124`: vale la pena). Mencionar el umbral (4 032 termina, 4 064 se cuelga) y el `eager_limit` de ayer. **Pausa 6**. Escribir la regla y dejarla todo el día. | Regla en el pizarrón: **"Una colectiva la llaman TODOS los procesos del comunicador. Si uno falta, no hay aviso: los demás esperan para siempre o siguen con datos que no son."** Cerrar: "El cuelgue es el síntoma bueno: se nota. El resultado incorrecto llega al reporte. La medición (Paso 5 del ejemplo) la leemos en el minuto 80." |
+| 27–30 | **Variante que falla, en vivo**: `make run-buggy N=8` (termina: `y[2..7] = 0.0`, `checksum = 372`) y `make run-buggy N=1024` (10 segundos de silencio hasta `codigo de salida: 124`: vale la pena). Mencionar el umbral (4 032 termina, 4 064 se cuelga) y el `eager_limit` de ayer. **Pausa 6**. Escribir la regla y dejarla todo el día. | Regla en el pizarrón: **"Una colectiva la llaman TODOS los procesos del comunicador. Si uno falta, no hay aviso: los demás esperan para siempre o siguen con datos que no son."** Cerrar: "El cuelgue es el síntoma bueno: se nota. El resultado incorrecto llega al reporte. La medición (Paso 5 del ejemplo) la leemos en el punto de control." |
 
 Qué **no** hacer: no teclear código nuevo en vivo (solo correr el que existe); no explicar `Sendrecv`,
 `Isend`/`Irecv` ni halos aunque pregunten ("el jueves 12"); no entrar en `Scatterv` más allá de "existe, y
@@ -155,7 +155,7 @@ respuesta:
 | 13 | Crear: hacen `Gather` de `y_local` y la suma de cuadrados en el rango 0, luego `Bcast` | "Funciona; ¿cuántas colectivas usaste y cuántos bytes mueve cada una? ¿Cuál dice la restricción?" |
 | 14 | Con `n = 4096` y 40 productos el *speedup* sale < 1 "entonces MPI es más lento" | "¿Qué dice `uptime`? ¿Quién más corre algo en esta máquina? Lee el desglose: ¿qué parte creció y cuál no?" |
 
-### 50–80 · Práctica 5 · Laboratorio 1: Partes A y B (30 min)
+### 50–78 · Práctica 5 · Laboratorio 1: Partes A y B (28 min)
 
 Enunciado: `practicas/P5-mpi/README.md` (publicado el jueves 5 de noviembre). Flujo del Lab 1:
 
@@ -164,7 +164,7 @@ Enunciado: `practicas/P5-mpi/README.md` (publicado el jueves 5 de noviembre). Fl
   recibe cada rango, qué colectiva mueve qué dato, cuántos bytes) y lo verifica con `make test`. Es el mismo
   programa que acaban de rastrear en la práctica guiada; se les dice así. Las colectivas entran aquí como código
   para leer y predecir (03 §1, 07 §B), no como `TODO`.
-- **Parte B (semi-guiada, 62–80).** Los `TODO(n)` del enunciado, con criterio de verificación por `TODO`
+- **Parte B (semi-guiada, 62–78).** Los `TODO(n)` del enunciado, con criterio de verificación por `TODO`
   (`make test`). Por regla del método (03 §1), hoy los `TODO` completan piezas que ya dominan alrededor de las
   colectivas ya escritas: el reparto con residuo de S01 para `n` no múltiplo de `p` (cuentas y desplazamientos de
   `Scatterv`/`Gatherv`), el cronómetro con `MPI_Barrier` + `MPI_Wtime` y el `Reduce` con `MPI_MAX` del tiempo
@@ -195,17 +195,18 @@ Errores de entorno frecuentes en este bloque y la pregunta que se hace:
 | El programa se cuelga al agregar el cronómetro | "¿Pusiste el `MPI_Barrier` dentro de un `if`? ¿Cuántos rangos llegan a él?" |
 | `checksum` distinto al secuencial en la última cifra con `n` grande | "¿Qué tolerancia usa `tests/run_tests.sh` y por qué? ¿En qué orden suma cada versión?" |
 
-### 80–85 · Punto de control y ConcepTest 2
+### 78–85 · Punto de control y ConcepTest 2
 
-Cinco equipos al azar (tarjetas) muestran en 1 minuto la salida de `make test` de la Parte B (o, si no llegaron,
+**78–83.** Cinco equipos al azar (tarjetas) muestran en 1 minuto la salida de `make test` de la Parte B (o, si no llegaron,
 el `PASS` de `matvec_allgather` de la práctica guiada) y dicen qué colectiva usaron para qué dato. Los demás
 anotan su propia salida (`PASS`/`FAIL`/`SKIP`) en la cabecera del *exit ticket* (02 §2.1). Mostrar sin nombres
 dos hallazgos de la ronda (los más probables: #1/#2 y #11/#12 de la lista).
 
-**ConcepTest 2** (`conceptests.md`, desglose de tiempos con un producto): **voto único**; discusión de 90 s en
-parejas y revoto solo si el acierto queda entre 30 % y 80 %; fuera de ese rango se pasa a la explicación. Si no
-hay tiempo, pasa como pregunta 1 de la recuperación de S04. Proyectar al lado la tabla de medición de
-`ejemplo-resuelto.md` §8 (un producto: *speedup* 0.37; cuarenta: 3.04).
+**83–85 · ConcepTest 2** (`conceptests.md`, desglose de tiempos con un producto): **voto único** (proyectado
+mientras el último equipo se sienta); discusión de 90 s en parejas y revoto solo si el acierto queda entre 30 %
+y 80 % **y** el reloj no pasó del minuto 84; fuera de ese rango se pasa a la explicación de una frase. Si no hay
+tiempo ni para el voto, pasa como pregunta 1 de la recuperación de S04. Proyectar al lado la tabla de medición de
+`ejemplo-resuelto.md` §8 (un producto: *speedup* 0.37; cuarenta: 3.03).
 
 **Regla general en una frase** (escribirla debajo de la de las 08:58): *"El costo de repartir los datos se
 cuenta: se paga una vez y se amortiza, o se evita generando los datos donde se usan."*

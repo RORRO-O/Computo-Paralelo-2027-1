@@ -354,7 +354,7 @@ declara porque invalida la regla "cierra lo demás" del protocolo):
 |---|---|---|---|---|
 | `matvec_seq 4096 40` | 1.092 | 1.055–1.214 | 1.00 | — |
 | `matvec_collectives -np 2`, 40 productos | 0.659 | 0.621–0.857 | 1.66 | 0.83 |
-| `matvec_collectives -np 4`, 40 productos | 0.360 | 0.244–0.395 | 3.04 | 0.76 |
+| `matvec_collectives -np 4`, 40 productos | 0.360 | 0.244–0.395 | 3.03 | 0.76 |
 | `matvec_p2p -np 4`, 40 productos | 0.349 | 0.310–0.376 | 3.13 | 0.78 |
 | `matvec_seq 4096 1` | 0.043 | 0.028–0.047 | 1.00 | — |
 | `matvec_collectives -np 4`, **1** producto | 0.115 | 0.088–0.191 | **0.37** | 0.09 |
