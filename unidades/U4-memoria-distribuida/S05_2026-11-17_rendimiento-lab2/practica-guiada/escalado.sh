@@ -17,6 +17,7 @@
 #
 # Cada corrida hace 1 calentamiento + 5 repeticiones dentro del programa;
 # aquí se calculan speedup y eficiencia contra jacobi_seq (el mejor secuencial).
+# "Núcleos" son los FÍSICOS (lscpu); con p > núcleos físicos la fila se etiqueta mpi_oversub.
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -34,18 +35,13 @@ REPS=5
 if [ "$(id -u)" -eq 0 ]; then
     export OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 fi
-CORES=$(nproc)
+# Núcleos FÍSICOS (protocolo §2: se mide hasta el número de núcleos físicos; HT y sobre-suscripción
+# se reportan aparte). lscpu -p lista una línea por CPU lógica con su núcleo y su socket.
+CORES=$(lscpu -p=CORE,SOCKET 2>/dev/null | grep -v '^#' | sort -u | wc -l)
+[ "${CORES:-0}" -ge 1 ] || CORES=$(nproc)
+LOGICAL=$(nproc)
 mkdir -p "$OUT"
 make -s all
-
-# Carga del sistema ANTES de medir (protocolo §1.5: "cierra lo demás"). Con p = núcleos,
-# cualquier otro proceso activo roba un núcleo a un proceso MPI que hace sondeo activo y
-# distorsiona todo; la carga se guarda en entorno.txt para poder explicar una medición rara.
-LOAD1=$(cut -d' ' -f1 /proc/loadavg)
-if awk -v l="$LOAD1" 'BEGIN { exit !(l > 0.5) }'; then
-    echo "== AVISO: carga promedio (1 min) = $LOAD1 antes de medir. Hay otros procesos usando CPU;"
-    echo "          las mediciones con p = $CORES saldrán distorsionadas. Cierra lo demás y repite."
-fi
 
 HEADER="config,hilos,n,rep1,rep2,rep3,rep4,rep5,mediana_s,speedup,eficiencia"
 # Nota: la columna se llama "hilos" por el formato fijo del protocolo; en MPI son procesos.
@@ -58,6 +54,17 @@ cpu_idle_pct() {
         for (i = 2; i <= 9; i++) { ta += x[i]; tb += y[i] }
         printf "%d", (tb > ta) ? 100 * (y[5] - x[5]) / (tb - ta) : 0 }'
 }
+
+# Estado de la máquina ANTES de medir (protocolo §1.5: "cierra lo demás"). Con p = núcleos,
+# cualquier otro proceso activo roba un núcleo a un proceso MPI que hace sondeo activo y
+# distorsiona todo. Se mira la CPU ociosa AHORA (1 s); la carga promedio de 1 min se guarda
+# solo como contexto, porque también la sube el `make test` que acabas de correr tú.
+IDLE0=$(cpu_idle_pct)
+LOAD1=$(cut -d' ' -f1 /proc/loadavg)
+if [ "$IDLE0" -lt 85 ]; then
+    echo "== AVISO: solo ${IDLE0}% de CPU ociosa antes de medir (carga 1 min = $LOAD1). Hay otros procesos usando CPU;"
+    echo "          las mediciones con p = $CORES saldrán distorsionadas. Cierra lo demás y repite."
+fi
 # Espera (hasta WAIT_IDLE s) a que la CPU esté >= 90 % ociosa antes de una corrida
 wait_idle() {
     [ "$WAIT_IDLE" -le 0 ] && return 0
@@ -75,22 +82,43 @@ reps_and_median() { # $1 = línea RESULT
 }
 median_of() { echo "$1" | awk -F, '{ print $7 }'; }
 
-run_seq() { wait_idle; ./jacobi_seq "$1" "$ITERS" "$REPS" | grep '^RESULT'; }
+# Devuelve la línea RESULT completa (13 campos). Si llega incompleta (se ha visto con p > núcleos
+# y la máquina saturada), repite la corrida una vez; si vuelve a fallar, el script se detiene.
+valid_result() { [ "$(echo "$1" | awk -F, '{ print NF }')" = 13 ]; }
+run_seq() { # $1 = n
+    local line attempt
+    for attempt in 1 2; do
+        wait_idle
+        line=$(./jacobi_seq "$1" "$ITERS" "$REPS" | grep '^RESULT' | tail -1 || true)
+        if valid_result "$line"; then echo "$line"; return 0; fi
+        echo "== AVISO: jacobi_seq n=$1 no dio una línea RESULT válida (intento $attempt); se repite." >&2
+    done
+    echo "== ERROR: jacobi_seq n=$1 falló dos veces; revisa la salida del programa." >&2
+    return 1
+}
 run_mpi() { # $1 = p, $2 = n
-    wait_idle
-    mpirun $MPIRUN_FLAGS -np "$1" ./jacobi_mpi "$2" "$ITERS" "$REPS" | grep '^RESULT'
+    local line attempt
+    for attempt in 1 2; do
+        wait_idle
+        line=$(mpirun $MPIRUN_FLAGS -np "$1" ./jacobi_mpi "$2" "$ITERS" "$REPS" | grep '^RESULT' | tail -1 || true)
+        if valid_result "$line"; then echo "$line"; return 0; fi
+        echo "== AVISO: jacobi_mpi p=$1 n=$2 no dio una línea RESULT válida (intento $attempt); se repite." >&2
+    done
+    echo "== ERROR: jacobi_mpi p=$1 n=$2 falló dos veces; revisa la salida del programa (¿OMPI_ALLOW_RUN_AS_ROOT, slots?)." >&2
+    return 1
 }
 label_for() { if [ "$1" -gt "$CORES" ]; then echo mpi_oversub; else echo mpi; fi; }
 
-echo "== Entorno: $CORES núcleos; ITERS=$ITERS; REPS=$REPS (+1 calentamiento); MPIRUN_FLAGS='$MPIRUN_FLAGS'"
+echo "== Entorno: $CORES núcleos físicos ($LOGICAL CPU lógicas); ITERS=$ITERS; REPS=$REPS (+1 calentamiento); MPIRUN_FLAGS='$MPIRUN_FLAGS'"
 {
     echo "fecha: $(date -Is)"
     echo "cpu: $(lscpu | awk -F: '/Model name/ {gsub(/^ +/, "", $2); print $2}')"
-    echo "nucleos: $CORES  (hilos por núcleo: $(lscpu | awk -F: '/Thread\(s\) per core/ {gsub(/ /, "", $2); print $2}'))"
+    echo "nucleos_fisicos: $CORES  (CPU lógicas: $LOGICAL; hilos por núcleo: $(lscpu | awk -F: '/Thread\(s\) per core/ {gsub(/ /, "", $2); print $2}'))"
     echo "compilador: $(mpicc --version | head -1)"
     echo "mpi: $(mpirun --version | head -1)"
     echo "flags: -std=c11 -O2 -Wall -Wextra ; mpirun $MPIRUN_FLAGS"
-    echo "carga_promedio_1min_antes_de_medir: $LOAD1  (debe ser cercana a 0)"
+    echo "cpu_ociosa_antes_de_medir: ${IDLE0}%  (debe ser >= 85 %)"
+    echo "carga_promedio_1min_antes_de_medir: $LOAD1  (contexto; la sube también tu propio make test)"
     echo "wait_idle_s: $WAIT_IDLE"
     echo "fuerte: N=$N ITERS=$ITERS ; debil: NLOCAL=$NLOCAL ITERS=$ITERS ; PROCS='$PROCS' OVERSUB='$OVERSUB'"
 } > "$OUT/entorno.txt"

@@ -2,6 +2,7 @@
 #
 # Objetivos:  make        compila todo (mpicc -std=c11 -O2 -Wall -Wextra; sin warnings)
 #             make run    corre la secuencia de demostración de la sesión
+#             make run-buggy  corre la variante que falla con timeout 10 (N=8 termina mal; N=1024 se cuelga)
 #             make test   ejecuta tests/run_tests.sh (código 0 solo si no hay FAIL)
 #             make clean  borra los ejecutables
 #
@@ -24,7 +25,7 @@ SEQ_PROGS   := matvec_seq
 # Programa de la fase "Crear" de PRIMM: se compila solo si el archivo existe.
 EXTRA_PROGS := $(patsubst %.c,%,$(wildcard norma_allreduce.c))
 
-.PHONY: all run test clean
+.PHONY: all run run-buggy test clean
 
 all: $(MPI_PROGS) $(SEQ_PROGS) $(EXTRA_PROGS)
 
@@ -43,6 +44,12 @@ run: all
 	$(MPIRUN) $(MPIRUN_FLAGS) -np $(NP) ./matvec_collectives $(N)
 	@echo "== matvec_p2p (-np $(NP), N=$(N)) =="
 	$(MPIRUN) $(MPIRUN_FLAGS) -np $(NP) ./matvec_p2p $(N)
+
+# Variante que falla a propósito (Bcast solo en el rango 0). SIEMPRE con timeout:
+# código 124 = se colgó; código 0 con checksum distinto de la secuencial = terminó mal.
+#   make run-buggy N=8      make run-buggy N=1024
+run-buggy: matvec_bcast_buggy
+	-timeout 10 $(MPIRUN) $(MPIRUN_FLAGS) -np $(NP) ./matvec_bcast_buggy $(N); echo "codigo de salida: $$?"
 
 test: all
 	@MPIRUN="$(MPIRUN)" MPIRUN_FLAGS="$(MPIRUN_FLAGS)" bash tests/run_tests.sh

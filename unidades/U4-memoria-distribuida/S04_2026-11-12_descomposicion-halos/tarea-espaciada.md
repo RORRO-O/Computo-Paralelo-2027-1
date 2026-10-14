@@ -5,9 +5,10 @@
 **Entrega.** Carpeta `tareas/U4-S04/` en tu repositorio personal, antes del **martes 17 de noviembre de 2026, 08:30** (inicio de
 S05, Lab 2 de la Práctica 5). Un archivo `respuestas.md` más el código del ejercicio 1. El lunes 16 de noviembre no hay clase.
 
-**Qué cuenta.** En el 3er parcial las tareas no tienen ponderación propia (ver `planeacion/mapa-evaluacion.md`: Examen 3 30 %,
-P5 15 %, P6 15 %, proyecto 40 %). Esta tarea se revisa en la recuperación de inicio de S05 y el ejercicio 3 es tu "pre-mortem"
-obligatorio para la Parte D de la Práctica 5 (15 % del parcial), que se mide ese día.
+**Qué cuenta.** Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del
+Examen 3 toman ítems de aquí (ponderaciones del 3er parcial en `planeacion/mapa-evaluacion.md`: Examen 3 30 %, P5 15 %, P6 15 %,
+proyecto 40 %). La autocalificas con la clave al inicio de S05 (2 min); el profesor registra la entrega. El ejercicio 3 es tu
+predicción obligatoria para la Parte D de la Práctica 5 (15 % del parcial), que se mide ese día.
 
 ## 1. Del tema (15 min) · Fuente de calor en el centro
 
@@ -15,11 +16,20 @@ Termina la opción A de la fase Crear de la práctica guiada: fronteras en 0, ce
 `jacobi1d_seq.c` y `jacobi1d_mpi.c` (usa una bandera `--source` o una constante nueva; los valores por defecto no cambian y
 `make test` sigue pasando).
 
-Verificación: `./jacobi1d_seq 15 1e-3 100000` debe dar `iteraciones=117` y `checksum=7.999401682787e+02`; con
-`mpirun -np 4 ./jacobi1d_mpi 15 1e-3 100000` exactamente lo mismo. Agrega ese caso a `tests/run_tests.sh`.
+Verificación: `./jacobi1d_seq 15 1e-3 100000 --source` debe dar `iteraciones=117` y `checksum=7.999401682787e+02`; con
+`mpirun -np 4 ./jacobi1d_mpi 15 1e-3 100000 --source` exactamente lo mismo (verificado con la solución del profesor con 3 y 4
+procesos). Descomenta la línea `run_case "fuente n=15 p=4 ..."` de `tests/run_tests.sh`: debe salir `PASS`.
 
 En `respuestas.md`: (a) ¿en qué rango cae la fuente con `n = 15, p = 4` y qué índice local tiene? (b) Un compañero fijó la celda
 `local_n / 2` en cada rango: ¿cuántas fuentes tiene su programa con `p = 4`? ¿Cómo lo delata la salida sin leer su código?
+
+<details><summary>Respuestas</summary>
+Código: la secuencial fija `u[src] = u_new[src] = 100` con `src = (n + 1) / 2` y salta esa celda en el ciclo (`if (i == src) continue;`);
+la MPI convierte `src_local = src - offset` y la fija solo si `1 <= src_local <= local_n`, en ambos arreglos.
+(a) Con `n = 15, p = 4` el reparto es 4, 4, 4, 3 (`offset` = 0, 4, 8, 12). La fuente `src = 8` cae en el rango 1 (celdas 5–8), índice local
+`8 − 4 = 4`. (b) Cuatro fuentes, una por rango (globales 2, 6, 10 y 13). Lo delata `--print`: cuatro celdas exactamente en 100 en vez de
+una, perfil con cuatro picos, `checksum` mucho mayor que 799.94 y otro número de iteraciones; `make test` con el caso `--source` da FAIL.
+</details>
 
 ## 2. Intercalado (Unidades I y III, 10 min) · Leer un speedup
 

@@ -105,8 +105,10 @@ if (global_diff < tol) { converged = 1; break; }
 > `local_diff`. ¿Qué pasa al ejecutarlo con 3 procesos?
 > <details><summary>Respuesta</summary>
 > Se cuelga. `MPI_Allreduce` es colectiva: la deben llamar **todos** los procesos del comunicador (idea errónea 18). El rango 0 se
-> queda esperando a los rangos 1 y 2, que siguieron de largo hasta el siguiente `Sendrecv` con el rango 0, que nunca llega. Y
-> aunque no se colgara, cada rango decidiría parar en una iteración distinta y el `Gatherv` final mezclaría estados de iteraciones diferentes.
+> queda esperando dentro de `Allreduce` a los rangos 1 y 2, que nunca la llaman: ellos siguen de largo al siguiente `Sendrecv` con el
+> rango 0 o, si su `local_diff` ya quedó bajo `tol` (con `n = 12` pasa en la iteración 1: todas sus celdas y halos valen 0), al
+> `Gatherv` final, y ahí esperan al rango 0. Verificado en el entorno de autoría: con `timeout 10` el programa no regresa. Y aunque
+> no se colgara, cada rango decidiría parar en una iteración distinta y el `Gatherv` final mezclaría estados de iteraciones diferentes.
 > </details>
 
 ### 3.5 Reconstrucción

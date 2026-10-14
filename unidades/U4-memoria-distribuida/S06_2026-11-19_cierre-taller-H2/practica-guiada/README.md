@@ -70,7 +70,7 @@ Marca ✓/✗ en tu tabla. Salida real del entorno de autoría (Open MPI 4.1.6, 
 == caza1_orden_send_buggy (-np 4, timeout 10 s) ==
    -> código de salida 124  (124/137 = no terminó en 10 s; 0 = terminó; otro = abortó)
 == caza2_bcast_solo_raiz_buggy (-np 4, timeout 10 s) ==
-   -> código de salida 124
+   -> código de salida 124                                (en otra corrida salió 137: timeout tuvo que usar KILL)
 == caza3_recv_corto_buggy (-np 4, timeout 10 s) ==
 [vm:13067] *** An error occurred in MPI_Recv
 [vm:13067] *** reported by process [1610350593,0]
@@ -113,8 +113,9 @@ Ctrl-C y repite. El código de salida distinto de 0 ya es el síntoma.
 
   ¿Por qué `n = 8` no falla? ¿Y `n = 5`? ¿Qué habría pasado si el receptor hubiera pedido **más** elementos de
   los enviados (p. ej. `n`)? ¿Cómo sabría cuántos llegaron de verdad? (S02: `MPI_Get_count`.)
-- **I4. Los seis errores clásicos.** En `notas-estudiante.md` §4 hay una tabla con seis errores. Asigna a cada
-  cazador su fila. Quedan tres filas sin cazador: para cada una escribe en una línea **qué síntoma** tendría.
+- **I4. Los siete errores clásicos.** En `notas-estudiante.md` §4 hay una tabla con siete errores. Asigna a cada
+  cazador su fila. Quedan cuatro filas sin cazador: para cada una escribe en una línea **qué síntoma** tendría y
+  con qué `n` o `-np` se vería siempre.
 
 ### Fase 4 · Modificar (10 min; en casa si no alcanza)
 
@@ -146,11 +147,11 @@ Escribe **un cuarto programa con error** para que tu pareja lo cace. Reglas:
 
 1. Nombre `caza4_<tema>_buggy.c` (p. ej. `caza4_etiquetas_buggy.c`). ≤ 60 líneas. Compila sin *warnings*.
    El rango 0 imprime `VERIFICACION OK`/`FAIL` al final, como los otros tres.
-2. El error es **uno** de los tres clásicos que no tienen cazador todavía: etiquetas (o fuente, o comunicador)
-   cruzadas · `MPI_Finalize` con mensajes pendientes o colectiva llamada por un subconjunto distinto de "solo
-   la raíz" · usar el rango como índice de un arreglo sin verificar `p` (p. ej. un arreglo de tamaño 4 con
-   `-np 6`). Si quieres, el error de "imprimir desde todos los rangos sin orden": entonces el síntoma debe ser
-   verificable (compara la salida con el orden esperado y escribe `FAIL` si no coincide).
+2. El error es **uno** de los cuatro clásicos que no tienen cazador todavía (`notas-estudiante.md` §4, filas
+   2, 5, 6 y 7): etiquetas (o fuente, o comunicador) cruzadas · `MPI_Finalize` con mensajes pendientes (o una
+   colectiva llamada por un subconjunto distinto de "solo la raíz") · usar el rango como índice de un arreglo sin
+   verificar `p` (p. ej. un arreglo de tamaño 4 con `-np 6`) · imprimir desde todos los rangos: en ese caso el
+   síntoma debe ser verificable (el rango 0 compara la salida con el orden esperado y escribe `FAIL` si no coincide).
 3. Encabezado con la **ficha** (comentario de 4 líneas, sellada: tu pareja la lee **después** de cazar):
    ```
    /* FICHA (no leer antes de cazar)

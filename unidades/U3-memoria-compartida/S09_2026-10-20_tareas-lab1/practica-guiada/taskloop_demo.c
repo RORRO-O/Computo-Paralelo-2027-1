@@ -6,7 +6,10 @@
  * de un single y no se quiere abrir otra región paralela.
  *
  * Uso: ./taskloop_demo [n] [grainsize]   (por defecto n=16, grainsize=4)
- *   n <= 64 : imprime el mapa owner[i] (qué hilo ejecutó cada iteración) con taskloop y con parallel for
+ *   n <= 64 : imprime el mapa owner[i] (qué hilo ejecutó cada iteración) con taskloop y con parallel for.
+ *             Cada iteración hace ~0.1 ms de trabajo; si no hiciera nada, el hilo que genera las tareas
+ *             las terminaría todas antes de que los demás alcanzaran a tomar una (el mapa saldría de un
+ *             solo hilo y no enseñaría nada). El mapa cambia entre corridas: el reparto es dinámico.
  *   n  > 64 : mide el ciclo triangular de S08 con parallel for schedule(dynamic,g) y con taskloop grainsize(g)
  */
 #include <math.h>
@@ -21,6 +24,14 @@ static double triangular_item(long i)
     for (long j = 0; j < i; j++)
         s += 1.0 / (1.0 + (double)i * (double)j);
     return s;
+}
+
+/* Trabajo pequeño pero no nulo para el modo mapa (~0.1 ms); el resultado se descarta vía volatile. */
+static void small_work(void)
+{
+    volatile double sink = 0.0;
+    for (int k = 0; k < 20000; k++)
+        sink += 1.0 / (1.0 + k);
 }
 
 static void print_map(const char *label, const int *owner, long n)
@@ -48,15 +59,19 @@ int main(int argc, char **argv)
         #pragma omp parallel
         #pragma omp single
         #pragma omp taskloop grainsize(g)
-        for (long i = 0; i < n; i++)
+        for (long i = 0; i < n; i++) {
+            small_work();
             owner[i] = omp_get_thread_num();
+        }
         snprintf(label, sizeof label, "taskloop grainsize(%ld)", g);
         print_map(label, owner, n);
 
         /* Comparación: la planificación dinámica de S08 con el mismo tamaño de bloque. */
         #pragma omp parallel for schedule(dynamic, g)
-        for (long i = 0; i < n; i++)
+        for (long i = 0; i < n; i++) {
+            small_work();
             owner[i] = omp_get_thread_num();
+        }
         snprintf(label, sizeof label, "for schedule(dynamic,%ld)", g);
         print_map(label, owner, n);
         return 0;

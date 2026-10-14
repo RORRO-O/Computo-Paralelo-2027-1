@@ -3,7 +3,7 @@
 # En el entorno de autoría (root, 4 núcleos) se usa MPIRUN_FLAGS="--oversubscribe"; en una laptop normal
 # puede dejarse vacío: make MPIRUN_FLAGS= run
 
-CC          ?= gcc
+CC           = gcc
 MPICC       ?= mpicc
 CFLAGS      ?= -std=c11 -O2 -Wall -Wextra
 LDLIBS       = -lm

@@ -87,6 +87,10 @@ static double *jacobi_run(double *u, double *u_new, long n_local, int iters,
 int main(int argc, char **argv)
 {
     MPI_Init(&argc, &argv);
+    /* Búfer completo para stdout: la línea RESULT que lee escalado.sh se escribe de una
+     * vez al terminar; así el reenvío de salida de mpirun no puede partirla. */
+    static char out_buf[1 << 14];
+    setvbuf(stdout, out_buf, _IOFBF, sizeof out_buf);
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);

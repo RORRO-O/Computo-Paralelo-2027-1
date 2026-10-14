@@ -53,6 +53,10 @@ static void init_state(double *u, double *u_new, long n)
 
 int main(int argc, char **argv)
 {
+    /* Búfer completo para stdout: toda la salida (incluida la línea RESULT que lee
+     * escalado.sh) se escribe de una vez al terminar y no puede llegar partida. */
+    static char out_buf[1 << 14];
+    setvbuf(stdout, out_buf, _IOFBF, sizeof out_buf);
     long n = (argc > 1) ? atol(argv[1]) : 1000000L;
     int iters = (argc > 2) ? atoi(argv[2]) : 500;
     int reps = (argc > 3) ? atoi(argv[3]) : 5;

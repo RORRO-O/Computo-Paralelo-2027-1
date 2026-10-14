@@ -32,6 +32,11 @@ control de la P5. El objetivo 4 se verifica con `make run-hibrido` en la prácti
   rápido"). Dónde aparece cada una: 21 → CT1, *exit ticket* P1/P2a, fase Investigar; 20 → CT3, fila `mpi_oversub`
   del script, *exit ticket* P2b; 6 → CT2, las dos tablas del script; 1 → CT1 distractor A, fase Predecir con n
   pequeño.
+- **Nivel de andamiaje:** con pistas (07 §A.5; cuarta sesión de contenido de la unidad y Lab 2). El ejemplo
+  resuelto está completo porque es el procedimiento de medición que la Parte D de P5 copia; el desvanecimiento
+  se hace en la práctica guiada: Predecir se abrevia (la tarea de S04, ej. 3, ya pidió la predicción para
+  n = 10⁶ y p = 4), Investigar se acota a 7 min, y el tiempo va a Modificar (la Parte D del equipo) y a Crear
+  (n* con sus propios parámetros, sin ejemplo).
 
 ## Materiales
 
@@ -75,11 +80,13 @@ aproximación, suficiente para decidir, no para predecir al 5 %.
 cómputo = (n/p)·t_c; comunicación = 2 mensajes de 8 bytes ≈ 2α (constante, **no depende de n**). Con
 t_c ≈ 0.8 ns (lo imprime `jacobi_seq`: "ns por punto-iteración") y α ≈ 0.5 µs:
 
-| n | cómputo con p=4 | comunicación | razón | *speedup* esperado |
+| n | cómputo con p=4 (n/4 · 0.8 ns) | comunicación (2α) | razón | *speedup* esperado |
 |---|---|---|---|---|
-| 1 000 | 250 ns | ~1 µs | 0.25 | < 1 |
-| 100 000 | 25 µs | ~1 µs | 25 | ≈ 3.8 |
-| 1 000 000 | 250 µs | ~1 µs | 250 | ≈ 4 (si la memoria no limita) |
+| 1 000 | 200 ns | ~1 µs | 0.2 | ≈ 0.7 (< 1) |
+| 100 000 | 20 µs | ~1 µs | 20 | ≈ 3.8 |
+| 1 000 000 | 200 µs | ~1 µs | 200 | ≈ 4 (si la memoria no limita) |
+
+(CT1 y el *exit ticket* usan t_c = 1 ns para que las cuentas salgan redondas: 250 ns, 25 µs, 250 µs.)
 
 **ConcepTest 1 (minuto ~17)**: n = 1 000, ¿*speedup* con 4? Voto → si < 80 % discusión en parejas → revoto.
 Guion en `conceptests.md`. Regla en una frase: "la comunicación por iteración es fija; el cómputo es n/p; por eso
@@ -114,13 +121,18 @@ roles conductor/navegante y el cambio a los 15 min.
 
 **33–48 · Predecir → Ejecutar → Investigar (15 min)** con `practica-guiada/`:
 - *Predecir* (3 min, por escrito): *speedup* con 2 y 4 procesos para n = 1 000 000 y para n = 1 000; ¿cuál
-  será mayor, T(seq) o T(mpi, p=1)?; ¿qué pasa con p = 8?
+  será mayor, T(seq) o T(mpi, p=1)?; ¿qué pasa con p = 8? La fila n = 10⁶, p = 4 ya la trajeron de la tarea de
+  S04 (ej. 3): se copia tal cual, en 1 min, y se llenan las demás (02 §1: si la tarea anterior ya pidió la
+  predicción, se revisa y se arranca en Ejecutar).
 - *Ejecutar* (5 min): `make run` (tamaños por defecto, ~1 min en 4 núcleos) y
   `N=1000 ITERS=100000 NLOCAL=1000 OVERSUB="" PLOT=0 OUT=resultados-chico ./escalado.sh`. Comparar con la
   predicción.
 - *Investigar* (7 min): preguntas del README sobre la línea "razón cómputo/comunicación" que imprime
   `jacobi_mpi` (correr `make run-fuerte NP=4 N=4000 ITERS=20000` y `... N=1000000 ITERS=500`), y sobre la
-  fila `mpi_oversub`.
+  fila `mpi_oversub`. Salida de autoría: n = 4 000 → cómputo 1.5 µs, comunicación 2.4 µs, razón 0.6, S = 1.2;
+  n = 10⁶ → cómputo 235 µs, comunicación 64 µs, razón 3.6, S = 3.4. El punto que hay que sacar: la comunicación
+  **medida** sí crece con n (64 µs ≫ 2α) porque `Waitall` espera al vecino más lento; el modelo solo cuenta los
+  mensajes.
 
 **48–68 · Modificar = aplicar a la Parte D de la P5 (20 min).** Cada equipo copia `escalado.sh` a su repositorio
 de P5 y lo adapta a su programa (cambiar los nombres de los binarios y los argumentos; conservar el encabezado
@@ -183,7 +195,7 @@ con p = 2 y explicar por qué n* es distinto (el factor 1 − 1/p).
 |---|---|
 | 1 (modelo de costo) | En la hoja de predicción: T₄ escrito como dos sumandos; en *exit ticket* P2a: n* ≈ 1 333 con el cálculo |
 | 2 (fuerte/débil, oversub aparte) | En el punto de control: dos tablas con la etiqueta correcta; la fila p = 8 separada o ausente; CT2 y CT3 ≥ 80 % en el revoto |
-| 3 (razón cómputo/comunicación) | En Investigar: explican por qué la razón cambia ~250× entre n = 4 000 y n = 10⁶ con p = 4; *exit ticket* P1 nombra las dos cantidades |
+| 3 (razón cómputo/comunicación) | En Investigar: explican por qué el **modelo** dice que la razón crece 250× entre n = 4 000 y n = 10⁶ (cómputo ∝ n/p, mensajes fijos) y por qué el programa imprime solo ~6× más (0.6 → 3.6 en la VM de autoría: la "comunicación" medida incluye la espera en `Waitall` al vecino más lento); *exit ticket* P1 nombra las dos cantidades |
 | 4 (híbrido) | `make run-hibrido` corrido por el equipo; alguien dice qué nivel pidió `MPI_Init_thread` y por qué FUNNELED basta |
 
 Registro del punto de control (llenar en clase):

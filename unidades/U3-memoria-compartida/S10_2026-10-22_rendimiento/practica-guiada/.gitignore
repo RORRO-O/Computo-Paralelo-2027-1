@@ -1,0 +1,9 @@
+# Binarios y resultados generados por el Makefile de esta práctica (no se versionan; `make clean` los borra)
+false_sharing
+profile_amdahl
+region_overhead
+saxpy_vs_matmul
+weak_scaling
+*.o
+resultados/
+__pycache__/

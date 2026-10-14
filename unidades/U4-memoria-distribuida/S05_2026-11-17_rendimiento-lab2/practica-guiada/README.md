@@ -10,7 +10,7 @@ aquí es la plantilla de la **Parte D** de la P5: el mismo script, el mismo CSV,
 | Archivo | Qué es |
 |---|---|
 | `jacobi_seq.c` | Jacobi 1D secuencial. Es el T(1) del protocolo y la referencia de correctitud. Imprime t_c ("ns por punto-iteración"). |
-| `jacobi_mpi.c` | Jacobi 1D con halos (`Isend`/`Irecv`/`Waitall`, S04). Mide el tiempo total y, aparte, cuánto de cada iteración es cómputo y cuánto comunicación. |
+| `jacobi_mpi.c` | Jacobi 1D con halos (`Isend`/`Irecv`/`Waitall`, S04) con un número **fijo** de iteraciones: no lleva la prueba de convergencia con `Allreduce` de S04, para que la única comunicación por iteración sean los dos halos. Mide el tiempo total y, aparte, cuánto de cada iteración es cómputo y cuánto comunicación. |
 | `pingpong.c` | Mide α (latencia) y β (ancho de banda) entre dos procesos y los ajusta a `T_com = α + m/β`. |
 | `hybrid_min.c` | Mínimo MPI + OpenMP: cada proceso suma su bloque con hilos; `MPI_Init_thread`. |
 | `escalado.sh` | Corre `jacobi_seq` y `jacobi_mpi` con p = 1, 2, 4 (y 8 sobre-suscrito, etiquetado); escribe `resultados/fuerte.csv`, `debil.csv`, `entorno.txt` y llama a `graficar.py`. |
@@ -37,6 +37,9 @@ un proceso MPI que está haciendo sondeo activo, y el *speedup* se desploma. `es
 la carga del sistema es alta y la guarda en `entorno.txt`.
 
 ## Fase 1 · Predecir (por escrito, 3 min, antes de correr nada)
+
+Si hiciste el ejercicio 3 de la tarea de S04, ya tienes la predicción de P2 (n = 10⁶, p = 4): cópiala tal cual
+(no la "mejores") y llena las demás filas.
 
 Datos: `jacobi_seq` tarda ≈ 0.8 ns por punto por iteración en una laptop reciente; un mensaje de 8 bytes
 cuesta ≈ α (medio microsegundo, más o menos); cada proceso interior intercambia 2 halos por iteración.
@@ -88,7 +91,11 @@ make run-fuerte NP=4 N=1000000 ITERS=500
 | 1 000 000 | | | | | |
 
 1. ¿Cuántas veces creció n? ¿Cuántas veces creció el cómputo por iteración? ¿Y la comunicación? Escribe la
-   fórmula de la razón en función de n, p, t_c y α.
+   fórmula de la razón **del modelo** en función de n, p, t_c y α (2 mensajes de 8 bytes: no depende de n). Ahora
+   mira lo que imprimió el programa: la "comunicación" con n = 10⁶ es decenas de microsegundos, no ~1 µs. ¿Qué
+   mide en realidad `t1 − t0` en `jacobi_run`? (Pista: `MPI_Waitall` no regresa hasta que el vecino **envió**, y el
+   vecino envía cuando terminó **su** cómputo de la iteración anterior.) ¿Qué pasa con ese tiempo si un proceso
+   tarda un 10 % más que los demás en calcular?
 2. En `jacobi_mpi.c`, localiza el `MPI_Barrier` y el `MPI_Reduce(..., MPI_MAX, ...)` del tiempo. ¿Por qué el tiempo
    de la corrida es el del proceso **más lento** y no el promedio? ¿Qué pasaría con el *speedup* si un proceso
    recibiera 2× más puntos que los demás?
@@ -116,9 +123,11 @@ for n in 1000 2000 4000 8000 16000; do
 done
 ```
 
-Criterio de "listo": una tabla n → *speedup* con el cruce por 1 localizado entre dos n consecutivos.
-Anota también la razón cómputo/comunicación que imprime el programa en el cruce: según el modelo, en S = 1 vale
-exactamente `1/(p − 1)` (0.33 con p = 4). Compruébalo con el modelo de la Fase 5.
+Criterio de "listo": una tabla n → *speedup* con el cruce por 1 localizado entre dos n consecutivos (en la VM
+de autoría quedó entre 2 000 y 4 000; ver `ejemplo-resuelto.md`, Paso 5). Anota también la razón
+cómputo/comunicación que imprime el programa en el cruce: según el modelo, en S = 1 vale exactamente `1/(p − 1)`
+(0.33 con p = 4); el programa imprime algo menor (0.1–0.6) porque su "comunicación" incluye la espera en
+`Waitall`. Compruébalo con el modelo de la Fase 5.
 
 **M2 · Adapta `escalado.sh` a tu programa de la Práctica 5.** Copia el script a tu repositorio y cambia solo:
 los nombres de los binarios en `run_seq`/`run_mpi`, los argumentos (tu programa debe imprimir una línea

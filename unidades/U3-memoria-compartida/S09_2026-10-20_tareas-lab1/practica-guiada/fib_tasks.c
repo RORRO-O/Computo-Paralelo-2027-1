@@ -69,6 +69,14 @@ int main(int argc, char **argv)
     if (n < 0) n = 0;
     if (n > 45) n = 45;             /* más allá, el recursivo tarda minutos */
     if (cutoff < 2) cutoff = 2;
+    /* Guarda: el número de tareas es 2*(fib(n-cutoff+3)-1) y crece como 1.618^(n-cutoff). Con n-cutoff = 28
+     * son ~2.7 millones de tareas (segundos); con 34, 48 millones (minutos). Se acota para que una prueba
+     * del corte "por curiosidad" no cuelgue la máquina del laboratorio. */
+    if (n - cutoff > 28) {
+        fprintf(stderr, "aviso: cutoff=%d crearia demasiadas tareas para n=%d; se usa cutoff=%d (n-28)\n",
+                cutoff, n, n - 28);
+        cutoff = n - 28;
+    }
     const char *env = getenv("REPS");
     int reps = env ? atoi(env) : 5;
     if (reps < 1) reps = 1;

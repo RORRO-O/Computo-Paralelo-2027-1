@@ -20,11 +20,14 @@ Los objetivos 1–3 se miden en el exit ticket; el 4 en la fase Crear y en la ta
 - **Viene de:** S03 (martes 10 de noviembre): colectivas (`Bcast`, `Scatter`, `Gather`, `Reduce`, `Allreduce`), producto matriz-vector, Lab 1 de P5.
   S02 (lunes 9): `Send`/`Recv`, interbloqueo, *ping-pong*. U3-S11 (lunes 26 de octubre): Jacobi 1D con doble búfer en OpenMP. U2: método de Foster.
 - **Va hacia:** S05 (martes 17 de noviembre, 08:30, Lab LS4): rendimiento en MPI (modelo latencia + ancho de banda, escalabilidad fuerte y débil, sobre-suscripción) y Lab 2 de P5 (Partes C y D). El lunes 16 de noviembre no hay clase.
+- **Nivel de andamiaje:** con pistas (07 §A.5). Es la tercera sesión de contenido de la unidad: el ejemplo resuelto está completo
+  (se escribió antes de esta regla), así que el desvanecimiento va en la práctica guiada: Predecir e Investigar abreviados (6 y 7 min),
+  Modificar con `TODO(1)`–`TODO(4)` sin código dado, y Crear sin estructura (7 min en clase, el resto en la tarea 1).
 - **Ideas erróneas que ataca (Anexo A):** 17 (semántica de `Send`, dos envíos cruzados) → CT1 y pausa 3 del ejemplo; 18 (las colectivas las llaman todos) → CT2, pausa 4, exit ticket 1; 20 (más procesos que núcleos) → I6 de la práctica y tarea 2(c); 21 (la comunicación no es gratis) → CT3, notas §6, tarea 3; 28 (aglomerar no es juntar todo) → recuperación 3, pausa 1, CT3.
 
 ## Materiales
 
-- Esta carpeta compilada en la máquina del salón: `cd practica-guiada && make && make test` (debe dar 7 PASS, 0 FAIL, 3 SKIP).
+- Esta carpeta compilada en la máquina del salón: `cd practica-guiada && make && make test` (debe dar 7 PASS, 0 FAIL, 3 SKIP; tarda ≈ 15 s en 4 núcleos).
   Si `mpirun` rechaza 4 procesos por falta de *slots*, el Makefile ya pasa `--oversubscribe`.
 - Proyector; cronómetro visible; tarjetas con números de lista; tarjetas A/B/C/D para los ConcepTests.
 - Tres diapositivas o impresiones con los 3 ítems peor contestados del Examen 2 (sin la respuesta) y el registro de abajo lleno.
@@ -84,7 +87,7 @@ Proyectar `ejemplo-resuelto.md` y el código `practica-guiada/jacobi1d_mpi.c`. P
 
 ### 43–70 · Práctica guiada PRIMM (parejas conductor/navegante; cambio a los 12 min, minuto 55)
 
-Arranque (1 min): "Abran `practica-guiada/README.md`. Fase P sin tocar el teclado, 8 minutos; el navegante escribe. Después R, I y M.
+Arranque (1 min): "Abran `practica-guiada/README.md`. Fase P sin tocar el teclado, 6 minutos; el navegante escribe. Después R, I y M.
 Quien termine M antes del minuto 70 empieza C." Circular con esta lista. No dar respuestas: hacer la pregunta.
 
 | Error esperado | Dónde aparece | Pregunta que se hace |
@@ -92,7 +95,7 @@ Quien termine M antes del minuto 70 empieza C." Circular con esta lista. No dar 
 | "El rango 1 envía `u[1]` y `u[4]`" (índices locales como globales) | P2 | "¿Qué índice global tiene la celda local 1 del rango 1? ¿Qué devuelve `block_partition` como `offset`?" |
 | "Sin halo izquierdo se interbloquea / da error" | P5 | "¿Qué llamada se queda esperando una pareja que no llega? Señálala en el código." |
 | "MPI converge en otro número de iteraciones por redondeo" | P4 | "¿Qué operaciones hace cada celda en cada versión? ¿Hay alguna suma cuyo orden cambie?" |
-| "El halo llegó en 0.0000: el intercambio falló" | R, I2 | "¿Cuánto valía la celda 4 del rango 0 antes de la iteración 1? ¿Cuándo deja de ser 0? Prueba `--trace 3`." |
+| "El halo llegó en 0.0000: el intercambio falló" | R, I2 | "¿Cuánto valía la celda 4 del rango 0 antes de la iteración 1? ¿Cuándo deja de ser 0? Prueba `--trace 6`." (el rango 1 ve `u[4]=6.2500` en la iteración 5; el rango 0 ve `u[5]=3.1250` en la 6) |
 | `mpirun`: "not enough slots" | R | "¿Cuántos núcleos ve `mpirun`? ¿Qué bandera agrega el Makefile y qué efecto tiene en los tiempos?" (idea 20) |
 | Tiempos enormes con `NP=4` | I6 | "¿Cuántos procesos corren y cuántos núcleos libres hay? ¿Qué hace un proceso dentro de `Allreduce` mientras espera?" |
 | En M: `MPI_Waitall` antes de los `Isend`, o sin `Waitall` | M, paso 3–4 | "¿En qué momento está garantizado que `u[0]` ya tiene el valor? ¿Qué dice el estándar sobre leer el búfer de un `Irecv` antes de `Wait`?" |
@@ -158,10 +161,10 @@ Exit ticket en papel (`exit-ticket.md`), individual. Mientras escriben, anunciar
 |---|---|
 | 1 Reparto y halos | Tabla P1/P2 correcta en ≥ 80 % de las parejas al minuto 52; exit ticket 2(a)(b) |
 | 2 Sendrecv/Isend y halo omitido | CT1 revoto ≥ 80 %; P5 con opción (c) justificada; exit ticket 2(c) |
-| 3 Convergencia global | CT2 revoto ≥ 80 %; exit ticket 1(a)(b)(c) |
+| 3 Convergencia global | CT2 revoto ≥ 80 %; exit ticket 1 (opción B con la llamada que espera nombrada) |
 | 4 Verificación y proyecto | `make test` con el caso de la variante propia (tarea 1); mención del halo en la V3 en la pregunta de cierre al azar: "¿dónde reaparece el halo en CUDA?" |
 
-Umbral de alerta: > 30 % de exit tickets en "mal" (dicen que `Allreduce` la llama solo la raíz, o que el halo faltante produce error) → abrir S05 con el buggy en vivo antes de medir.
+Umbral de alerta: > 30 % de exit tickets en "mal" (pregunta 1 en A, C o D, o 2(c) con "error" o "se cuelga") → abrir S05 con el buggy en vivo antes de medir.
 
 ## Notas post-sesión
 

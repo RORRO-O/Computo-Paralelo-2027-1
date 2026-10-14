@@ -3,7 +3,8 @@
 # S05 · Ejemplo resuelto: del *ping-pong* al n a partir del cual conviene usar 4 procesos
 
 Todo el código está en `practica-guiada/`. Las salidas son reales, obtenidas en el entorno de autoría (VM con
-4 núcleos Intel Xeon a 2.8 GHz, 1 hilo por núcleo, Open MPI 4.1.6, gcc 13.3, `-O2`). En el laboratorio los
+4 núcleos Intel Xeon a 2.1 GHz, 1 hilo por núcleo, Open MPI 4.1.6, gcc 13.3, `-O2`; la corrida completa está en
+`practica-guiada/resultados-ejemplo/`). En el laboratorio los
 números cambian; el procedimiento no. Los tiempos no son deterministas: dos corridas difieren en algunos por
 ciento, y mucho más si hay carga ajena en la máquina (ver la variante que falla, al final).
 
@@ -39,7 +40,22 @@ if (r >= 0) t[r] = elapsed / (2.0 * rounds); /* ida y vuelta -> ida */
 
 `make run-pingpong` (`mpirun -np 2 ./pingpong`):
 
-<!-- MED:pingpong -->
+```
+ping-pong entre rangos 0 y 1 (mediana de 5 repeticiones, tras calentamiento; factor de rondas 1.00)
+     bytes    T_ida(us)      min(us)      max(us)         MB/s   modelo(us)
+         8        0.403        0.374        0.595         19.9        0.404
+      1024        1.265        1.204        1.347        809.6        0.577
+     65536       15.890       15.623       20.378       4124.2       11.534
+   1048576      178.507      162.061      187.284       5874.2      178.507
+   4194304      616.037      581.621      631.870       6808.5      712.818
+alpha (latencia) ~ 0.403 us ; beta (ancho de banda) ~ 5.89 GB/s
+modelo: T_com(m) = 0.403 us + m / (5.89 GB/s)
+RESULT,alpha_us,0.4029,beta_GBps,5.8874
+```
+
+Lectura: **α ≈ 0.40 µs** (la fila de 8 bytes) y **β ≈ 5.9 GB/s** (ajustado con 1 MiB). Un halo de 8 bytes cuesta
+0.403 + 0.0014 µs: es α. En otra corrida de la misma VM salió α = 0.397 µs y β = 6.58 GB/s: el 10 % de
+diferencia en β es normal; en α la diferencia es de 1.5 %.
 
 **Pausa 1. ¿Por qué se divide entre `2·rounds` y no entre `rounds`?**
 <details><summary>Respuesta</summary>
@@ -61,7 +77,14 @@ efectos de caché que una recta no captura. Para los halos de 8 bytes eso no imp
 
 `./jacobi_seq 1000000 1200` (6 corridas: 1 de calentamiento + 5 medidas):
 
-<!-- MED:seq -->
+```
+jacobi_seq: n=1000000 iters=1200 reps=5 | mediana=1.0646 s (min 1.0218, max 1.1820) | 8.872e-04 s/iter | 0.887 ns por punto-iteración | checksum=2.714529e+01
+RESULT,1,1000000,1200,5,1.022171;1.182017;1.021782;1.074771;1.064601,1.064601,1.021782,1.182017,8.871671e-04,0.000000e+00,2.7145288395e+01,0.90811693532361526
+```
+
+**t_c ≈ 0.89 ns** por punto por iteración (mediana 1.0646 s / 1 200 iteraciones / 10⁶ puntos). Entre repeticiones
+hay un 16 % de diferencia (1.02–1.18 s); otra corrida dio 0.79 ns. Con un t_c de ±10 % el modelo sigue sirviendo
+para lo que se usa: decidir el orden de magnitud de n*.
 
 **Pausa 3. ¿Por qué t_c se mide con n = 1 000 000 y no con n = 1 000, que es más rápido?**
 <details><summary>Respuesta</summary>
@@ -76,11 +99,27 @@ en caché y el cómputo sale algo más barato de lo que predice el modelo.
 Por iteración y por proceso interior: cómputo `(n/p)·t_c`; comunicación `T_halo = 2(α + 8/β)`.
 `python3 modelo.py --alpha-us <α> --beta-gbps <β> --tc-ns <t_c> --p 4 --tabla` con los valores de arriba:
 
-<!-- MED:modelo -->
+```
+$ python3 modelo.py --alpha-us 0.4029 --beta-gbps 5.8874 --tc-ns 0.887 --p 4 --tabla
+T_halo por iteración = 2*(alpha + 8 B/beta) = 0.809 us
+t_c = 0.887 ns por punto;  p = 4
+n* (punto de equilibrio, S=1):      1,215 puntos
+n_E (eficiencia >= 50%):            3,646 puntos
+           n    T_1(us)    T_p(us)      S      E  comp/comm
+       1,000       0.89       1.03   0.86    22%        0.3
+       3,000       2.66       1.47   1.81    45%        0.8
+      10,000       8.87       3.03   2.93    73%        2.7
+      30,000      26.61       7.46   3.57    89%        8.2
+     100,000      88.70      22.98   3.86    96%       27.4
+     300,000     266.10      67.33   3.95    99%       82.3
+   1,000,000     887.00     222.56   3.99   100%      274.3
+   3,000,000    2661.00     666.06   4.00   100%      822.8
+```
 
-Lectura: con n = 1 000 000 la razón cómputo/comunicación es de cientos: el *speedup* debería acercarse a 4 (si la
-memoria no limita). Con n = 1 000 la razón es menor que 1: cuatro procesos tardan **más** que uno. Y hay un n*,
-de unos pocos miles de puntos, donde se cruzan.
+Lectura: con n = 1 000 000 la razón cómputo/comunicación es de cientos (274): el *speedup* debería acercarse a 4
+(si la memoria no limita). Con n = 1 000 la razón es 0.3: cuatro procesos tardan **más** que uno (S = 0.86). Y hay
+un n* de unos 1 200 puntos donde se cruzan. Predicción escrita antes de medir: S(2) ≈ 2 y S(4) ≈ 3.5–4 para
+n = 10⁶; S(4) < 1 para n = 1 000.
 
 ## Paso 4 · Medir y comparar
 
@@ -115,18 +154,44 @@ errónea 20.
 Del modelo, en el punto de equilibrio (S = 1): `n·t_c = (n/4)·t_c + T_halo` ⇒ `n* = T_halo / (0.75·t_c)`. Y para
 eficiencia E: `n_E = E·4·T_halo / (t_c·(1 − E))`. Con los parámetros medidos (`modelo.py`, salida de arriba):
 
-<!-- MED:nstar -->
+```
+n* (punto de equilibrio, S=1):      1,215 puntos      ← 0.809 µs / (0.887 ns × 0.75) = 1 216
+n_E (eficiencia >= 50%):            3,646 puntos      ← 0.5 × 4 × 0.809 µs / (0.887 ns × 0.5) = 3 648
+```
+
+(La diferencia de una unidad es redondeo: el programa usa α, β y t_c con todos sus decimales.)
 
 Verificación cerca de n* (`make run-fuerte NP=4 N=<n> ITERS=<2·10⁸/n>`):
 
-<!-- MED:verif -->
+Mediana de 5 repeticiones (tras calentamiento) con `jacobi_seq` y `jacobi_mpi -np 4`; ITERS = 2·10⁸/n para que
+cada corrida dure ≥ 0.1 s. "razón" es la que imprime `jacobi_mpi`; "S modelo" sale de `modelo.py --n`:
 
-**Pausa 6. En S = 1, ¿cuánto vale la razón cómputo/comunicación que imprime el programa? Compruébalo con la
-fórmula.**
+| n | ITERS | T_seq (s) | T₄ (s) | S medido | S modelo | razón impresa | t_c secuencial (ns) |
+|---|---|---|---|---|---|---|---|
+| 607 (n*/2) | 329 489 | 0.1181 | 0.3409 | **0.35** | 0.57 | 0.1 | 0.59 |
+| 1 215 (n*) | 164 609 | 0.0879 | 0.2116 | **0.42** | 1.00 | 0.2 | 0.44 |
+| 2 430 (2n*) | 82 304 | 0.0951 | 0.1026 | **0.93** | 1.60 | 0.1 | 0.48 |
+| 3 646 (n_E) | 54 854 | 0.1328 | 0.1084 | **1.23** | 2.00 | 0.4 | 0.66 |
+| 8 000 | 25 000 | 0.2064 | 0.1683 | **1.23** | 2.86 | 0.7 | 1.03 |
+| 16 000 | 12 500 | 0.1382 | 0.0824 | **1.68** | 3.33 | 1.1 | 0.69 |
+
+El cruce por S = 1 medido está entre **2 400 y 3 600 puntos**: el doble o el triple del n* del modelo (1 215). El
+modelo acierta el orden de magnitud y la forma de la curva, no el valor al 10 %. Tres causas, todas visibles en la
+tabla: (1) la "comunicación" que imprime el programa es 0.9–1.1 µs por iteración, no los 0.81 µs del modelo: incluye
+las cuatro llamadas no bloqueantes, los relojes y la **espera en `Waitall`** a que el vecino llegue; (2) con n chico
+el rival secuencial es más rápido de lo que supone el modelo (t_c = 0.44–0.66 ns porque el arreglo cabe en caché,
+contra 0.887 ns con n = 10⁶); (3) el tiempo de la corrida es el del proceso **más lento** (`MPI_MAX`), no el promedio.
+La línea `jacobi_mpi` para n = 3 646 fue: `mediana=0.1084 s (min 0.1049, max 0.1134) | por iteración: cómputo
+6.344e-07 s, comunicación 1.561e-06 s, razón cómputo/comunicación 0.4`.
+
+**Pausa 6. Según el modelo, en S = 1, ¿cuánto vale la razón cómputo/comunicación? ¿Coincide con la que imprime el
+programa en el cruce medido?**
 <details><summary>Respuesta</summary>
 En el equilibrio `(n*/p)·t_c = T_halo / (p − 1)`, así que la razón `(n*/p)·t_c / T_halo = 1/(p − 1)` = 0.33 con
 p = 4. Es decir: para que cuatro procesos empaten con uno, el cómputo local de cada iteración tiene que valer
-al menos un tercio de la comunicación. Para eficiencia del 50 % la razón debe ser 1; para 80 %, 4.
+al menos un tercio de la comunicación. Para eficiencia del 50 % la razón debe ser 1; para 80 %, 4. En la tabla,
+en el cruce medido (n ≈ 2 400–3 600) el programa imprime 0.1–0.4: del mismo orden, pero menor, porque su
+"comunicación" incluye la espera en `Waitall` (causa 1 de arriba).
 </details>
 
 ## Variante que falla: medir con otros programas corriendo

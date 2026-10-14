@@ -11,6 +11,13 @@ ITERS     ?= 500
 
 PROGS = jacobi_seq jacobi_mpi hybrid_min pingpong
 
+# Como root (contenedor de prácticas) Open MPI exige declararlo; para cualquier otro usuario
+# estas dos líneas no hacen nada (el Makefile no depende de ser root; guía de autoría §E).
+ifeq ($(shell id -u),0)
+export OMPI_ALLOW_RUN_AS_ROOT = 1
+export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM = 1
+endif
+
 .PHONY: all run run-fuerte run-hibrido run-pingpong test clean
 
 all: $(PROGS)
@@ -45,6 +52,7 @@ run-pingpong: pingpong
 test: all
 	MPIRUN_FLAGS="$(MPIRUN_FLAGS)" ./tests/run_tests.sh
 
+# clean borra binarios y las corridas propias; resultados-ejemplo/ (corrida de referencia) se conserva.
 clean:
-	rm -f $(PROGS) *.o
-	rm -rf resultados resultados-prueba
+	rm -f $(PROGS) *.o resultados-prueba.log
+	rm -rf resultados resultados-prueba resultados-chico

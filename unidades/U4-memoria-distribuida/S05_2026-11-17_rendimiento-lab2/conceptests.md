@@ -3,10 +3,11 @@
 # S05 · ConcepTests (instrucción entre pares)
 
 Secuencia fija: voto individual (1 min) → discusión en parejas (2 min) → revoto → explicación. Si el primer
-voto supera 80 % de aciertos se salta la discusión; si queda por debajo de 30 % se reexplica antes de discutir.
+voto supera 80 % de aciertos se salta la discusión; si queda por debajo de 30 % se pasa directamente a la
+explicación (02 §1, bloque 65–75) y la discusión en parejas se hace después, si hay tiempo.
 Los porcentajes esperados son estimaciones para decidir el ritmo; se anotan los reales en `plan-sesion.md`.
 
-## CT1 · ¿Más procesos para un problema pequeño? (minuto ~25, al cerrar el modelo de costo)
+## CT1 · ¿Más procesos para un problema pequeño? (minuto ~17, al cerrar el modelo de costo)
 
 Jacobi 1D con **n = 1 000 puntos**. El cómputo cuesta t_c = 1 ns por punto por iteración. Cada mensaje de halo
 (8 bytes) cuesta α = 0.5 µs; cada proceso interior envía y recibe de dos vecinos (cuenta 2α por iteración).
@@ -38,7 +39,7 @@ cambia?" Cierre: "La comunicación por iteración es constante; el cómputo es n
 partir del cual conviene paralelizar: lo van a calcular en la fase Crear."
 </details>
 
-## CT2 · Leer una tabla de escalabilidad (minuto ~30, antes de arrancar la práctica)
+## CT2 · Leer una tabla de escalabilidad (minuto ~25, al cerrar fuerte/débil, antes del híbrido)
 
 Un equipo entrega esta tabla de Jacobi 1D:
 

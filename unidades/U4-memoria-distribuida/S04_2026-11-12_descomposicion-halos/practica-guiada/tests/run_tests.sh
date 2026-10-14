@@ -4,6 +4,10 @@
 # y DIFERIR de la secuencial con p > 1 (ese es el punto didáctico).
 # Termina con código 0 solo si ninguna prueba falla. Los casos "isend" se marcan SKIP mientras
 # exchange_halos_isend tenga TODO pendientes.
+# Cada caso corre con `timeout 20`: los casos legítimos tardan < 3 s en 4 núcleos (medido); si uno
+# llega a 20 s es que se colgó (etiquetas cruzadas, falta un Waitall, una colectiva que no llaman todos).
+# Los casos se eligieron con pocas iteraciones (≤ 4 000): con p=4 en 4 núcleos cada iteración cuesta
+# 3 operaciones de latencia, y un caso de 13 000 iteraciones tardaba > 60 s en una máquina ocupada.
 
 set -u
 cd "$(dirname "$0")/.." || exit 1
@@ -35,11 +39,13 @@ compare_outputs() {
               if (bad || n == 0 || m > tol) exit 1; else exit 0 }'
 }
 
-# run_case NOMBRE N TOL MAX_ITER NP MODO   (MODO: sendrecv | isend)
+# run_case NOMBRE N TOL MAX_ITER NP MODO [banderas extra]   (MODO: sendrecv | isend)
+# Las banderas extra (p. ej. --source en la fase Crear) se pasan a LOS DOS programas.
 run_case() {
     local name=$1 n=$2 tol=$3 maxit=$4 np=$5 mode=$6 detail rc
-    ./jacobi1d_seq "$n" "$tol" "$maxit" --print > "$tmp/seq.txt"
-    timeout 60 "$MPIRUN" $MPIRUN_FLAGS -np "$np" ./jacobi1d_mpi "$n" "$tol" "$maxit" --print --exchange "$mode" > "$tmp/mpi.txt" 2> "$tmp/err.txt"
+    shift 6
+    ./jacobi1d_seq "$n" "$tol" "$maxit" --print "$@" > "$tmp/seq.txt"
+    timeout 20 "$MPIRUN" $MPIRUN_FLAGS -np "$np" ./jacobi1d_mpi "$n" "$tol" "$maxit" --print --exchange "$mode" "$@" > "$tmp/mpi.txt" 2> "$tmp/err.txt"
     rc=$?
     if grep -q 'TODO pendiente' "$tmp/mpi.txt"; then
         echo "SKIP  $name (exchange_halos_isend con TODO pendiente)"; skip=$((skip+1)); return
@@ -74,9 +80,11 @@ run_buggy() {
 echo "== jacobi1d_mpi (Sendrecv) vs jacobi1d_seq =="
 run_case "n=12 p=3 tol=1e-3 (caso de la práctica)"      12   1e-3 100000 3 sendrecv
 run_case "n=13 p=5 tol=1e-2 (bloques 3,3,3,2,2)"        13   1e-2 100000 5 sendrecv
-run_case "n=100 p=4 tol=1e-4"                           100  1e-4 1000000 4 sendrecv
+run_case "n=101 p=4 tol=1e-2 (bloques 26,25,25,25)"      101  1e-2 100000 4 sendrecv
 run_case "n=5000 p=4 max_iter=2000 (para por límite)"   5000 1e-9 2000 4 sendrecv
 run_case "n=7 p=1 (sin vecinos: todo es MPI_PROC_NULL)" 7    1e-6 100000 1 sendrecv
+# Fase Crear, opción A: descomenta cuando tus dos programas acepten --source (fuente fija en el centro).
+# run_case "fuente n=15 p=4 (Crear, opción A)"          15   1e-3 100000 4 sendrecv --source
 
 echo "== jacobi1d_mpi (Isend/Irecv/Waitall, fase MODIFICAR) =="
 run_case "isend n=12 p=3 tol=1e-3"                      12   1e-3 100000 3 isend

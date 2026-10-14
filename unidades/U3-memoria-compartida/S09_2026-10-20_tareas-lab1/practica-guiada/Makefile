@@ -1,6 +1,6 @@
 # Práctica guiada S09 · Paralelismo de tareas: task, taskwait, taskloop y corte (cutoff)
 # Objetivos: all, run, test, clean (convención del curso) + cutoffs, tsan.
-# Variables ajustables: make run THREADS=2 N=1000000
+# Variables ajustables: make run THREADS=2 N=1000000 · make cutoffs REPS=5
 
 CC        = gcc
 CFLAGS    = -std=c11 -O2 -Wall -Wextra -fopenmp
@@ -28,10 +28,13 @@ run: all
 	@echo
 	OMP_NUM_THREADS=$(THREADS) ./mergesort_tasks $(N) 4096
 
-# Barrido del corte (fase Modificar y tarea): mismo n, cutoff de 1 hasta n. Una línea por cutoff.
+# Barrido del corte (fase Modificar M1): mismo n, cutoff de 1 hasta n, una línea por cutoff.
+# REPS=3 para que quepa en ~20 s en clase (cutoff=1 crea 2n-2 tareas y tarda segundos por repetición);
+# para el protocolo completo: make cutoffs REPS=5.
+REPS ?= 3
 cutoffs: mergesort_tasks
 	@for c in 1 16 256 4096 65536 $(N); do \
-	  OMP_NUM_THREADS=$(THREADS) ./mergesort_tasks $(N) $$c | grep '^resumen'; done
+	  OMP_NUM_THREADS=$(THREADS) REPS=$(REPS) ./mergesort_tasks $(N) $$c | grep '^resumen'; done
 
 test: all
 	bash tests/run_tests.sh
