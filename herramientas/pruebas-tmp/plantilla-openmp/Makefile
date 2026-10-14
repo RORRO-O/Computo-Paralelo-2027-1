@@ -1,0 +1,71 @@
+# Makefile.openmp — Plantilla de Makefile para un programa C + OpenMP (práctica o V2 del proyecto).
+# Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1 · herramientas/
+#
+# Cómo usarla:  cp herramientas/Makefile.openmp <tu-carpeta>/Makefile  y ajusta la sección "Ajusta aquí".
+# Objetivos (docs/CONVENCIONES.md §3 exige los cuatro primeros):
+#   make          compila $(BIN) con OpenMP y $(BIN_SEQ): la MISMA fuente sin -fopenmp, que es la referencia
+#                 secuencial de las pruebas (los #pragma omp se ignoran). Si tu referencia es otro archivo,
+#                 cambia SRC_SEQ.
+#   make run      ejecuta $(BIN) con N y THREADS (OMP_NUM_THREADS)
+#   make test     ejecuta tests/run_tests.sh (copia de herramientas/plantilla-run_tests.sh) con las variables
+#                 de abajo; termina con código 0 solo si todo pasa
+#   make medir    aplica el protocolo con medir.sh: secuencial (T1) y luego OpenMP con HILOS; CSV en $(CSV)
+#   make grafica  genera speedup.png y eficiencia.png a partir de $(CSV)
+#   make clean    borra binarios y objetos
+# Banderas de las convenciones: -std=c11 -O2 -Wall -Wextra -fopenmp. Sin warnings o no se entrega.
+# Ejemplo ejecutable (desde herramientas/):  make -f Makefile.openmp SRC=ejemplo_cronometro.c BIN=ej.out run
+
+# ---------- Ajusta aquí ----------
+SRC      ?= main.c                 # fuente(s) de la versión OpenMP
+SRC_SEQ  ?= $(SRC)                 # fuente(s) de la referencia secuencial (por defecto la misma, sin -fopenmp)
+BIN      ?= programa               # ejecutable OpenMP
+BIN_SEQ  ?= $(BIN)_seq             # ejecutable secuencial de referencia
+N        ?= 20000000               # tamaño por defecto para `make run` y `make medir` (T1 >= 1 s al medir)
+THREADS  ?= 4                      # hilos para `make run`
+HILOS    ?= 1 2 4 8                # lista para `make medir` (hasta núcleos físicos + 1)
+TAMANOS  ?= 1000 100000            # tamaños pequeños para `make test` (<= 1 s cada uno)
+CLAVE    ?= resultado              # línea clave=valor que comparan las pruebas
+TOL      ?= 1e-6                   # tolerancia relativa de las pruebas
+CSV      ?= resultados/mediciones.csv
+MEDIR    ?= ./medir.sh             # ruta a herramientas/medir.sh (cópialo junto a este Makefile)
+GRAFICAR ?= ./graficar_speedup.py  # ruta a herramientas/graficar_speedup.py
+
+# ---------- Normalmente no se toca ----------
+CC        = gcc
+CFLAGS   ?= -std=c11 -O2 -Wall -Wextra
+OMPFLAGS  = -fopenmp
+LDLIBS    = -lm
+
+# strip: los comentarios al final de las líneas "?=" dejan espacios que romperían los nombres de archivo.
+SRC     := $(strip $(SRC))
+SRC_SEQ := $(strip $(SRC_SEQ))
+BIN     := $(strip $(BIN))
+BIN_SEQ := $(strip $(BIN_SEQ))
+CSV     := $(strip $(CSV))
+
+.PHONY: all run test medir grafica clean
+
+all: $(BIN) $(BIN_SEQ)
+
+$(BIN): $(SRC)
+	$(CC) $(CFLAGS) $(OMPFLAGS) -o $@ $(SRC) $(LDLIBS)
+
+$(BIN_SEQ): $(SRC_SEQ)
+	$(CC) $(CFLAGS) -o $@ $(SRC_SEQ) $(LDLIBS)
+
+run: $(BIN)
+	OMP_NUM_THREADS=$(strip $(THREADS)) ./$(BIN) $(strip $(N))
+
+test: all
+	PROGRAMA_SEQ=./$(BIN_SEQ) PROGRAMA_PAR=./$(BIN) CLAVE=$(strip $(CLAVE)) TOL=$(strip $(TOL)) \
+	TAMANOS="$(strip $(TAMANOS))" HILOS="$(strip $(HILOS))" MODO=openmp ./tests/run_tests.sh
+
+medir: all
+	$(strip $(MEDIR)) -c secuencial -t 1 -n $(strip $(N)) -o $(CSV) -- ./$(BIN_SEQ)
+	$(strip $(MEDIR)) -c openmp -t "$(strip $(HILOS))" -n $(strip $(N)) -o $(CSV) -- ./$(BIN)
+
+grafica:
+	python3 $(strip $(GRAFICAR)) $(CSV)
+
+clean:
+	rm -f $(BIN) $(BIN_SEQ) *.o

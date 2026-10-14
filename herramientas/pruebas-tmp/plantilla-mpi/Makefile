@@ -1,0 +1,75 @@
+# Makefile.mpi — Plantilla de Makefile para un programa C + MPI (Práctica 5 o experimentos distribuidos).
+# Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1 · herramientas/
+#
+# Cómo usarla:  cp herramientas/Makefile.mpi <tu-carpeta>/Makefile  y ajusta la sección "Ajusta aquí".
+# Objetivos (docs/CONVENCIONES.md §3 exige los cuatro primeros):
+#   make          compila $(BIN) con mpicc y $(BIN_SEQ) con gcc (referencia secuencial para las pruebas)
+#   make run      mpirun $(MPIRUN_FLAGS) -np $(NP) ./$(BIN) $(N)
+#   make test     tests/run_tests.sh (copia de herramientas/plantilla-run_tests.sh) en MODO=mpi
+#   make medir    protocolo con medir.sh --mpi: secuencial (T1) y luego MPI con PROCESOS; CSV en $(CSV)
+#   make grafica  speedup.png y eficiencia.png a partir de $(CSV)
+#   make clean
+# Banderas de las convenciones: mpicc -std=c11 -O2 -Wall -Wextra; mpirun -np N con $(MPIRUN_FLAGS).
+# MPIRUN_FLAGS: "--oversubscribe" si pides más procesos que núcleos (entorno de autoría, contenedores);
+# en una laptop con núcleos suficientes puede ir vacío: make MPIRUN_FLAGS= run. El Makefile no depende de ser
+# root; si lo eres (contenedor), exporta OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 (medir.sh y
+# plantilla-run_tests.sh lo hacen solos).
+# Ejemplo ejecutable (desde herramientas/):
+#   make -f Makefile.mpi SRC=ejemplo_mpi.c SRC_SEQ=ejemplo_cronometro.c BIN=mpi.out MPIRUN_FLAGS=--oversubscribe run
+
+# ---------- Ajusta aquí ----------
+SRC      ?= main_mpi.c             # fuente(s) de la versión MPI
+SRC_SEQ  ?= main_seq.c             # fuente(s) de la referencia secuencial (se compila con gcc, sin MPI)
+BIN      ?= programa_mpi           # ejecutable MPI
+BIN_SEQ  ?= programa_seq           # ejecutable secuencial de referencia
+N        ?= 20000000               # tamaño por defecto para `make run` y `make medir`
+NP       ?= 4                      # procesos para `make run`
+PROCESOS ?= 1 2 4 8                # lista para `make medir` y `make test`
+TAMANOS  ?= 1000 100000            # tamaños pequeños para `make test`
+CLAVE    ?= resultado              # línea clave=valor que comparan las pruebas
+TOL      ?= 1e-6                   # tolerancia relativa de las pruebas
+CSV      ?= resultados/mediciones.csv
+MEDIR    ?= ./medir.sh             # ruta a herramientas/medir.sh (cópialo junto a este Makefile)
+GRAFICAR ?= ./graficar_speedup.py  # ruta a herramientas/graficar_speedup.py
+
+# ---------- Normalmente no se toca ----------
+CC            = gcc
+MPICC        ?= mpicc
+CFLAGS       ?= -std=c11 -O2 -Wall -Wextra
+LDLIBS        = -lm
+MPIRUN       ?= mpirun
+MPIRUN_FLAGS ?= --oversubscribe
+
+SRC     := $(strip $(SRC))
+SRC_SEQ := $(strip $(SRC_SEQ))
+BIN     := $(strip $(BIN))
+BIN_SEQ := $(strip $(BIN_SEQ))
+CSV     := $(strip $(CSV))
+
+.PHONY: all run test medir grafica clean
+
+all: $(BIN) $(BIN_SEQ)
+
+$(BIN): $(SRC)
+	$(MPICC) $(CFLAGS) -o $@ $(SRC) $(LDLIBS)
+
+$(BIN_SEQ): $(SRC_SEQ)
+	$(CC) $(CFLAGS) -o $@ $(SRC_SEQ) $(LDLIBS)
+
+run: $(BIN)
+	$(MPIRUN) $(MPIRUN_FLAGS) -np $(strip $(NP)) ./$(BIN) $(strip $(N))
+
+test: all
+	PROGRAMA_SEQ=./$(BIN_SEQ) PROGRAMA_PAR=./$(BIN) CLAVE=$(strip $(CLAVE)) TOL=$(strip $(TOL)) \
+	TAMANOS="$(strip $(TAMANOS))" HILOS="$(strip $(PROCESOS))" MODO=mpi \
+	MPIRUN="$(MPIRUN) $(MPIRUN_FLAGS)" ./tests/run_tests.sh
+
+medir: all
+	$(strip $(MEDIR)) -c secuencial -t 1 -n $(strip $(N)) -o $(CSV) -- ./$(BIN_SEQ)
+	MPIRUN_FLAGS="$(MPIRUN_FLAGS)" $(strip $(MEDIR)) --mpi -c mpi -t "$(strip $(PROCESOS))" -n $(strip $(N)) -o $(CSV) -- ./$(BIN)
+
+grafica:
+	python3 $(strip $(GRAFICAR)) $(CSV)
+
+clean:
+	rm -f $(BIN) $(BIN_SEQ) *.o

@@ -1,0 +1,8 @@
+make[1]: Entering directory '/home/user/Computo-Paralelo-2027-1/herramientas/pruebas-tmp/plantilla-openmp'
+OMP_NUM_THREADS=2 ./programa.out 1000
+n=1000
+hilos=2
+reps=1
+resultado=3.141592736923
+tiempo_s=0.000117
+make[1]: Leaving directory '/home/user/Computo-Paralelo-2027-1/herramientas/pruebas-tmp/plantilla-openmp'

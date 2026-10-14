@@ -1,0 +1,6 @@
+# Binarios y salidas temporales de la práctica guiada (no se versionan)
+jacobi1d_seq
+jacobi1d_mpi
+jacobi1d_mpi_buggy
+perfil_*.txt
+perfil.png

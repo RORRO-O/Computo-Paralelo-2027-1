@@ -1,0 +1,11 @@
+# Salidas de compilación y de ejecución de esta práctica guiada (no se versionan)
+*.o
+vector_add
+index_probe
+vector_add_cpu
+vector_add_sin_guardia
+saxpy
+dot_partial
+resultados.csv
+resultados_S01_*.csv
+__pycache__/
