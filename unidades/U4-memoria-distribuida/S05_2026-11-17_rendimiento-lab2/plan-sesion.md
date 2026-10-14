@@ -98,8 +98,8 @@ columna `eficiencia` es la **eficiencia débil** `T(1,n)/T(p,p·n)`; la columna 
 escalado (Gustafson). Mostrar las dos gráficas (`fuerte.png`, `debil.png`): la línea ideal, los puntos medidos y
 el punto hueco naranja de p = 8 ("p > núcleos"). Explicar la sobre-suscripción con una pregunta: "¿qué hace un
 proceso MPI mientras espera un halo?" (sondeo activo: consume el núcleo). Con 8 procesos en 4 núcleos los que
-esperan le quitan CPU a los que calculan. Mostrar también la línea `carga_promedio_1min_antes_de_medir` de
-`entorno.txt`: con p = núcleos, **cualquier** otro programa activo (navegador, otra corrida de un compañero en
+esperan le quitan CPU a los que calculan. Mostrar también la línea `cpu_ociosa_antes_de_medir` de
+`entorno.txt` (y la carga de 1 min, que también la sube el `make test` propio): con p = núcleos, **cualquier** otro programa activo (navegador, otra corrida de un compañero en
 la misma máquina) produce el mismo efecto que sobre-suscribir. Es la razón del paso 1.5 del protocolo.
 **ConcepTest 2 (minuto ~25)**: leer la tabla de escalabilidad débil. Regla: "fuerte: n fijo, se reporta
 *speedup*; débil: n/p fijo, se reporta eficiencia débil; las dos van etiquetadas".
@@ -167,7 +167,7 @@ con p = 2 y explicar por qué n* es distinto (el factor 1 − 1/p).
 
 | Síntoma | Pregunta socrática |
 |---|---|
-| El *speedup* con p = núcleos es muy bajo (incluso < 1 con n grande) y las 5 repeticiones varían 3× | "¿Qué dice `carga_promedio_1min_antes_de_medir` en `entorno.txt`? ¿Qué hace un proceso MPI mientras espera un halo? ¿Qué más está corriendo en esta máquina?" |
+| El *speedup* con p = núcleos es muy bajo (incluso < 1 con n grande) y las 5 repeticiones varían 3× | "¿Qué dice `cpu_ociosa_antes_de_medir` en `entorno.txt`? ¿Qué hace un proceso MPI mientras espera un halo? ¿Qué más está corriendo en esta máquina?" |
 | Calculan el *speedup* contra `mpi,1` en vez de `seq` | "¿Contra qué T(1) dice el protocolo? ¿Qué diferencia ves entre las filas `seq` y `mpi,1`? ¿A qué se debe?" |
 | Tamaño tan chico que T_seq < 0.1 s ("así corre rápido") | "Con una corrida de 20 ms, ¿qué estás midiendo: el trabajo o el arranque? ¿Qué pide el protocolo para T(1)?" |
 | La fila p = 8 va en la curva junto con 1, 2, 4; "MPI escala mal" | "¿Cuántos núcleos tiene cada proceso con p = 8? ¿Qué etiqueta trae esa fila en el CSV?" |

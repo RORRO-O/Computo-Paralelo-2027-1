@@ -89,7 +89,21 @@ Siempre se revisa `provisto`: la biblioteca puede dar menos de lo pedido.
 
 ## 6. Ejemplo resumido (detalle y pausas en `ejemplo-resuelto.md`)
 
-<!-- SALIDA-AUTORIA -->
+<!-- GEN:SALIDA-AUTORIA -->
+Entorno de autoría: VM de 4 núcleos, Open MPI 4.1.6, `-O2`. Todo está en `practica-guiada/` y la corrida en
+`practica-guiada/resultados-ejemplo/`.
+
+1. *Ping-pong* (`make run-pingpong`): **α ≈ 0.40 µs**, **β ≈ 5.9 GB/s**. Un halo de 8 bytes cuesta α.
+2. Secuencial (`./jacobi_seq 1000000 1200`): **t_c ≈ 0.89 ns** por punto-iteración (1.06 s la corrida).
+3. Modelo (`modelo.py`): T_halo = 2(α + 8/β) = 0.81 µs; **n* ≈ 1 200**, **n_E(50 %) ≈ 3 600**; con n = 10⁶ predice
+   S(4) = 3.99 y razón cómputo/comunicación 274; con n = 1 000 predice S(4) = 0.86.
+4. Medido (`make run`, n = 10⁶): S(2) = 1.77, S(4) = 3.47 (eficiencia 87 %); `mpi_oversub,8` aparte. Débil
+   (n/p = 250 000): eficiencia débil 0.91 con p = 2 y 0.75 con p = 4. Con n = 1 000: S(4) = 0.38 (< 1, como
+   decía el modelo). El cruce medido por S = 1 queda entre 2 400 y 3 600 puntos: dos o tres veces el n* del modelo.
+5. Por qué difieren: la "comunicación" medida incluye la espera en `Waitall` al proceso más lento; t_c baja a
+   ~0.5 ns cuando el bloque cabe en caché; con n grande el límite es el ancho de banda de memoria compartido, no
+   los mensajes. El modelo da el orden de magnitud y la forma de la curva; la medición da el número.
+<!-- /GEN:SALIDA-AUTORIA -->
 
 ## 7. Errores frecuentes
 

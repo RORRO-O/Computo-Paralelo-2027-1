@@ -13,7 +13,7 @@ aquí es la plantilla de la **Parte D** de la P5: el mismo script, el mismo CSV,
 | `jacobi_mpi.c` | Jacobi 1D con halos (`Isend`/`Irecv`/`Waitall`, S04) con un número **fijo** de iteraciones: no lleva la prueba de convergencia con `Allreduce` de S04, para que la única comunicación por iteración sean los dos halos. Mide el tiempo total y, aparte, cuánto de cada iteración es cómputo y cuánto comunicación. |
 | `pingpong.c` | Mide α (latencia) y β (ancho de banda) entre dos procesos y los ajusta a `T_com = α + m/β`. |
 | `hybrid_min.c` | Mínimo MPI + OpenMP: cada proceso suma su bloque con hilos; `MPI_Init_thread`. |
-| `escalado.sh` | Corre `jacobi_seq` y `jacobi_mpi` con p = 1, 2, 4 (y 8 sobre-suscrito, etiquetado); escribe `resultados/fuerte.csv`, `debil.csv`, `entorno.txt` y llama a `graficar.py`. |
+| `escalado.sh` | Corre `jacobi_seq` y `jacobi_mpi` con p = potencias de 2 hasta tus núcleos **físicos** y, aparte, 2 × núcleos sobre-suscrito y etiquetado (en 4 núcleos: 1, 2, 4 y 8); escribe `resultados/fuerte.csv`, `debil.csv`, `entorno.txt` y llama a `graficar.py`. Con `WAIT_IDLE=60` espera a que la CPU esté libre antes de cada corrida. |
 | `graficar.py` | `fuerte.png` (*speedup* vs p con la línea ideal) y `debil.png` (eficiencia débil vs p). |
 | `modelo.py` | El modelo de costo: predice *speedup* y calcula n* (punto de equilibrio) y n_E (eficiencia objetivo). |
 | `tests/run_tests.sh` | `make test`: MPI contra secuencial con tolerancia, híbrido exacto, formato del CSV. |
@@ -27,9 +27,10 @@ make test       # ~30 s; debe terminar en "12 PASS, 0 FAIL"
 nproc; lscpu | grep -E "Model name|Core|Thread"   # anota núcleos FÍSICOS: va en tu reporte
 ```
 
-Si trabajas como `root` (contenedor), `tests/run_tests.sh` y `escalado.sh` exportan solos
-`OMPI_ALLOW_RUN_AS_ROOT`. `MPIRUN_FLAGS` vale `--oversubscribe` por defecto para poder pedir p = 8 en 4
-núcleos; eso **no** convierte la medición en válida: la etiqueta `mpi_oversub` existe para eso.
+Si trabajas como `root` (contenedor), el `Makefile`, `tests/run_tests.sh` y `escalado.sh` exportan solos
+`OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1`; si lanzas `mpirun` a mano (Fase 3, pregunta 7),
+expórtalas tú. `MPIRUN_FLAGS` vale `--oversubscribe` por defecto para poder pedir p = 8 en 4 núcleos; eso
+**no** convierte la medición en válida: la etiqueta `mpi_oversub` existe para eso.
 
 Regla del protocolo que hoy importa más: **cierra lo demás**. Con p = número de núcleos, un navegador con
 video, otra corrida de un compañero en la misma máquina o un compilador en segundo plano le quita un núcleo a
@@ -59,7 +60,7 @@ Pre-mortem (una línea): "La configuración que creo que va a salir peor es ____
 ## Fase 2 · Ejecutar (5 min)
 
 ```bash
-make run                      # fuerte: N=1000000, ITERS=1200 ; débil: NLOCAL=250000 ; p = 1 2 4 + 8 oversub
+make run                      # fuerte: N=1000000, ITERS=1200 ; débil: NLOCAL=250000 ; p = 1 2 4 + 8 oversub (en 4 núcleos)
 cat resultados/fuerte.csv resultados/debil.csv resultados/entorno.txt
 # abre resultados/fuerte.png y resultados/debil.png
 N=1000 ITERS=100000 NLOCAL=1000 OVERSUB="" PLOT=0 OUT=resultados-chico ./escalado.sh    # el caso pequeño
@@ -71,7 +72,48 @@ Formato del CSV (el del protocolo; `hilos` son procesos en MPI):
 `speedup` es el *speedup* escalado `p × eficiencia` (Gustafson). La fila `seq` es `jacobi_seq`; `mpi,1` es
 `jacobi_mpi` con un proceso (sin vecinos, pero con `Barrier`, `Waitall` y relojes).
 
-<!-- SALIDA-AUTORIA -->
+<!-- GEN:SALIDA-AUTORIA -->
+Salida de autoría (VM de 4 núcleos; está completa en `resultados-ejemplo/`; **tus números cambian**, la forma no):
+
+```
+$ make run
+== Entorno: 4 núcleos físicos (4 CPU lógicas); ITERS=1200; REPS=5 (+1 calentamiento); MPIRUN_FLAGS='--oversubscribe'
+== Escalabilidad fuerte: n=1000000
+config         p          n  mediana_s  speedup     efic
+seq            1    1000000   1.087526   1.0000   1.0000
+mpi            1    1000000   1.138031   0.9556   0.9556
+mpi            2    1000000   0.615347   1.7673   0.8837
+mpi            4    1000000   0.313223   3.4721   0.8680
+mpi_oversub    8    1000000   0.453003   2.4007   0.3001
+== Escalabilidad débil: n/p=250000
+config         p          n  mediana_s  S_escal efic_debil
+seq            1     250000   0.254483   1.0000   1.0000
+mpi            1     250000   0.253055   1.0056   1.0056
+mpi            2     500000   0.281000   1.8113   0.9056
+mpi            4    1000000   0.337665   3.0146   0.7537
+mpi_oversub    8    2000000   0.617223   3.2984   0.4123
+== Aviso: p=8 > 4 núcleos -> sobre-suscrito; etiquetado mpi_oversub, se reporta aparte.
+== CSV: resultados/fuerte.csv, resultados/debil.csv ; entorno: resultados/entorno.txt
+```
+
+```
+$ N=1000 ITERS=100000 NLOCAL=1000 OVERSUB="" PLOT=0 OUT=resultados-chico ./escalado.sh
+== Entorno: 4 núcleos físicos (4 CPU lógicas); ITERS=100000; REPS=5 (+1 calentamiento); MPIRUN_FLAGS='--oversubscribe'
+== Escalabilidad fuerte: n=1000
+config         p          n  mediana_s  speedup     efic
+seq            1       1000   0.044894   1.0000   1.0000
+mpi            1       1000   0.055508   0.8088   0.8088
+mpi            2       1000   0.099218   0.4525   0.2262
+mpi            4       1000   0.119713   0.3750   0.0938
+== Escalabilidad débil: n/p=1000
+config         p          n  mediana_s  S_escal efic_debil
+seq            1       1000   0.043560   1.0000   1.0000
+mpi            1       1000   0.067574   0.6446   0.6446
+mpi            2       2000   0.133621   0.6520   0.3260
+mpi            4       4000   0.190368   0.9153   0.2288
+== CSV: resultados-chico/fuerte.csv, resultados-chico/debil.csv ; entorno: resultados-chico/entorno.txt
+```
+<!-- /GEN:SALIDA-AUTORIA -->
 
 Marca en tu tabla de predicción qué acertaste y qué no. Lo que no acertaste es lo que vas a investigar.
 
@@ -169,7 +211,7 @@ Extensión: repite para p = 2 y explica por qué n* cambia (el factor 1 − 1/p)
 |---|---|
 | `There are not enough slots available in the system` | Pides más procesos que *slots*; agrega `--oversubscribe` (y etiqueta la medición). |
 | `mpirun has detected an attempt to run as root` | Exporta `OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1` (el script lo hace si `id -u` es 0). |
-| Las 5 repeticiones de p = 4 difieren 3× y el *speedup* es ridículo | Hay otro programa usando CPU. Mira `entorno.txt` (`carga_promedio…`), cierra lo demás y repite. |
+| Las 5 repeticiones de p = 4 difieren 3× y el *speedup* es ridículo | Hay otro programa usando CPU (o lo hubo durante la corrida). Mira `entorno.txt` (`cpu_ociosa_antes_de_medir`), cierra lo demás y repite; `WAIT_IDLE=60 ./escalado.sh` espera a que la CPU esté libre antes de cada corrida. |
 | `hybrid_min` tarda más con más hilos | `OMP_NUM_THREADS × np` supera los núcleos: sobre-suscripción. |
 | `graficar.py` falla con `ModuleNotFoundError` | Falta matplotlib: `PLOT=0 ./escalado.sh` y grafica con `herramientas/graficar_speedup.py` o a mano. |
 

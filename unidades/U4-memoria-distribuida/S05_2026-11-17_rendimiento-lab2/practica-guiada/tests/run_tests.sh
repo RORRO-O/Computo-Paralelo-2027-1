@@ -73,20 +73,22 @@ out=$(timeout 60 mpirun $MPIRUN_FLAGS -np 2 ./pingpong 0.1 | grep '^RESULT')
 ok=$(echo "$out" | awk -F, '{ print ($3 > 0 && $5 > 0) ? "yes" : "no" }')
 if [ "$ok" = yes ]; then report PASS "pingpong (factor 0.1): alpha y beta medidos" "$out"; else report FAIL "pingpong" "$out"; fi
 
-# --- escalado.sh en pequeño (solo p=2 y p=8 sobre-suscrito, para que la prueba sea corta):
+# --- escalado.sh en pequeño (solo p=2 y p=2*núcleos sobre-suscrito, para que la prueba sea corta):
 #     CSV con el encabezado del protocolo, 3 filas (seq, mpi, mpi_oversub), gráficas y entorno.txt
+CORES=$(lscpu -p=CORE,SOCKET 2>/dev/null | grep -v '^#' | sort -u | wc -l); [ "${CORES:-0}" -ge 1 ] || CORES=$(nproc)
+OVER=$((2 * CORES))
 rm -rf resultados-prueba
-if N=20000 ITERS=200 NLOCAL=5000 PROCS="2" OVERSUB=8 OUT=resultados-prueba PLOT=1 MPIRUN_FLAGS="$MPIRUN_FLAGS" \
+if N=20000 ITERS=200 NLOCAL=5000 PROCS="2" OVERSUB=$OVER OUT=resultados-prueba PLOT=1 MPIRUN_FLAGS="$MPIRUN_FLAGS" \
    timeout 60 ./escalado.sh > resultados-prueba.log 2>&1; then
     hdr="config,hilos,n,rep1,rep2,rep3,rep4,rep5,mediana_s,speedup,eficiencia"
     rows_f=$(tail -n +2 resultados-prueba/fuerte.csv | wc -l)
     rows_w=$(tail -n +2 resultados-prueba/debil.csv | wc -l)
     cols_ok=$(awk -F, 'NF != 11 { bad = 1 } END { print bad ? "no" : "yes" }' resultados-prueba/fuerte.csv resultados-prueba/debil.csv)
     if [ "$(head -1 resultados-prueba/fuerte.csv)" = "$hdr" ] && [ "$(head -1 resultados-prueba/debil.csv)" = "$hdr" ] \
-       && [ "$rows_f" = 3 ] && [ "$rows_w" = 3 ] && [ "$cols_ok" = yes ] && grep -q '^mpi_oversub,8,' resultados-prueba/fuerte.csv \
+       && [ "$rows_f" = 3 ] && [ "$rows_w" = 3 ] && [ "$cols_ok" = yes ] && grep -q "^mpi_oversub,$OVER," resultados-prueba/fuerte.csv \
        && grep -q '^mpi,2,20000,' resultados-prueba/fuerte.csv && grep -q '^mpi,2,10000,' resultados-prueba/debil.csv \
        && [ -s resultados-prueba/fuerte.png ] && [ -s resultados-prueba/debil.png ] && [ -s resultados-prueba/entorno.txt ]; then
-        report PASS "escalado.sh: CSV del protocolo (3 filas), oversub etiquetado, PNG"
+        report PASS "escalado.sh: CSV del protocolo (3 filas), oversub (p=$OVER) etiquetado, PNG"
     else
         report FAIL "escalado.sh: formato de salida" "filas fuerte=$rows_f debil=$rows_w cols_ok=$cols_ok"
     fi

@@ -125,16 +125,76 @@ n = 10⁶; S(4) < 1 para n = 1 000.
 
 `make run` (`escalado.sh` con N = 1 000 000, ITERS = 1 200, NLOCAL = 250 000; p = 1, 2, 4 y 8 sobre-suscrito):
 
-<!-- MED:escalado -->
+<!-- GEN:MED:escalado -->
+```
+$ make run
+== Entorno: 4 núcleos físicos (4 CPU lógicas); ITERS=1200; REPS=5 (+1 calentamiento); MPIRUN_FLAGS='--oversubscribe'
+== Escalabilidad fuerte: n=1000000
+config         p          n  mediana_s  speedup     efic
+seq            1    1000000   1.087526   1.0000   1.0000
+mpi            1    1000000   1.138031   0.9556   0.9556
+mpi            2    1000000   0.615347   1.7673   0.8837
+mpi            4    1000000   0.313223   3.4721   0.8680
+mpi_oversub    8    1000000   0.453003   2.4007   0.3001
+== Escalabilidad débil: n/p=250000
+config         p          n  mediana_s  S_escal efic_debil
+seq            1     250000   0.254483   1.0000   1.0000
+mpi            1     250000   0.253055   1.0056   1.0056
+mpi            2     500000   0.281000   1.8113   0.9056
+mpi            4    1000000   0.337665   3.0146   0.7537
+mpi_oversub    8    2000000   0.617223   3.2984   0.4123
+== Aviso: p=8 > 4 núcleos -> sobre-suscrito; etiquetado mpi_oversub, se reporta aparte.
+== CSV: resultados/fuerte.csv, resultados/debil.csv ; entorno: resultados/entorno.txt
+```
+
+CSV completos, `entorno.txt` y las dos gráficas: `practica-guiada/resultados-ejemplo/` (`cpu_ociosa_antes_de_medir: 98%`).
+
+Lectura contra la predicción: S(2) = **1.77** y S(4) = **3.47** (eficiencia 87 %) con n = 10⁶; el modelo decía
+3.99 para p = 4 y la predicción escrita era 3.5–4. El 13 % que falta no son los halos (serían ~1 µs por iteración
+contra ~220 µs de cómputo): es la espera en `Waitall` al proceso que llega tarde en cada iteración más el ancho de
+banda de memoria que los cuatro procesos comparten (cada uno recorre 4 MB por iteración). La fila `mpi,1` es 5 %
+más lenta que `seq` (Pausa 4). La fila `mpi_oversub,8` (0.30–0.54 s, S = 2.40) se reporta aparte (Pausa 5). En
+débil, la eficiencia débil es 0.91 con p = 2 y 0.75 con p = 4 aunque el cómputo por proceso no cambió: misma
+causa; con p = 8 sobre-suscrito, 0.41. Las repeticiones de p = 4 van de 0.288 a 0.364 s y las de `seq` de 1.018 a
+1.108 s: dispersión del 10–25 %, normal en una VM.
+
+Nota de honestidad: la VM de autoría es compartida y durante esta revisión otros procesos entraban y salían
+de la máquina; `make run` se repitió hasta obtener una corrida con medianas consistentes entre sí (`mpi,1` ≈ `seq`;
+la fila p = 4 de fuerte y la de débil, que son la misma configuración, difieren 8 %) y se lanzó con `nice -n -20`
+para que esos procesos no la desplazaran. En el laboratorio, con la máquina para ti solo, no hace falta nada de
+eso: basta cerrar lo demás. La corrida descartada de abajo ("variante que falla") muestra cómo se ve cuando no se
+hace.
+<!-- /GEN:MED:escalado -->
 
 Y el caso pequeño, `N=1000 ITERS=100000 NLOCAL=1000 OVERSUB="" PLOT=0 OUT=resultados-chico ./escalado.sh`:
 
-<!-- MED:chico -->
+<!-- GEN:MED:chico -->
+```
+== Entorno: 4 núcleos físicos (4 CPU lógicas); ITERS=100000; REPS=5 (+1 calentamiento); MPIRUN_FLAGS='--oversubscribe'
+== Escalabilidad fuerte: n=1000
+config         p          n  mediana_s  speedup     efic
+seq            1       1000   0.044894   1.0000   1.0000
+mpi            1       1000   0.055508   0.8088   0.8088
+mpi            2       1000   0.099218   0.4525   0.2262
+mpi            4       1000   0.119713   0.3750   0.0938
+== Escalabilidad débil: n/p=1000
+config         p          n  mediana_s  S_escal efic_debil
+seq            1       1000   0.043560   1.0000   1.0000
+mpi            1       1000   0.067574   0.6446   0.6446
+mpi            2       2000   0.133621   0.6520   0.3260
+mpi            4       4000   0.190368   0.9153   0.2288
+== CSV: resultados-chico/fuerte.csv, resultados-chico/debil.csv ; entorno: resultados-chico/entorno.txt
+```
+
+Con n = 1 000 (ITERS = 100 000 para que la secuencial dure ≥ 40 ms): S(2) = **0.45** y S(4) = **0.38**. Cuatro
+procesos tardan 2.7 veces **más** que uno, como predijo el modelo (razón cómputo/comunicación 0.3). Y aquí
+`mpi,1` es 24 % más lenta que `seq`: con n chico el costo constante por iteración (Pausa 4) ya no se diluye.
+<!-- /GEN:MED:chico -->
 
 **Pausa 4. La fila `mpi,1` es más lenta que `seq`. ¿Qué paga `jacobi_mpi` con un solo proceso que `jacobi_seq`
 no paga? ¿Es un costo constante o proporcional a n?**
 <details><summary>Respuesta</summary>
-Por iteración, aunque los vecinos sean `MPI_PROC_NULL`: dos `MPI_Irecv`, dos `MPI_Isend`, un `MPI_Waitall` y dos
+Por iteración, aunque los vecinos sean `MPI_PROC_NULL`: dos `MPI_Irecv`, dos `MPI_Isend`, un `MPI_Waitall` y tres
 lecturas de `MPI_Wtime` (los relojes de diagnóstico). Es un costo **por iteración, constante**, independiente de
 n: con n grande se diluye (unos cuantos por ciento); con n pequeño es comparable al cómputo. Por eso el protocolo
 exige comparar contra el mejor secuencial y no contra "la versión paralela con 1": la segunda ya trae la
@@ -172,8 +232,8 @@ cada corrida dure ≥ 0.1 s. "razón" es la que imprime `jacobi_mpi`; "S modelo"
 | 1 215 (n*) | 164 609 | 0.0879 | 0.2116 | **0.42** | 1.00 | 0.2 | 0.44 |
 | 2 430 (2n*) | 82 304 | 0.0951 | 0.1026 | **0.93** | 1.60 | 0.1 | 0.48 |
 | 3 646 (n_E) | 54 854 | 0.1328 | 0.1084 | **1.23** | 2.00 | 0.4 | 0.66 |
-| 8 000 | 25 000 | 0.2064 | 0.1683 | **1.23** | 2.86 | 0.7 | 1.03 |
-| 16 000 | 12 500 | 0.1382 | 0.0824 | **1.68** | 3.33 | 1.1 | 0.69 |
+| 8 000 | 25 000 | 0.2064 | 0.1683 | **1.23** | 2.75 | 0.7 | 1.03 |
+| 16 000 | 12 500 | 0.1382 | 0.0824 | **1.68** | 3.26 | 1.1 | 0.69 |
 
 El cruce por S = 1 medido está entre **2 400 y 3 600 puntos**: el doble o el triple del n* del modelo (1 215). El
 modelo acierta el orden de magnitud y la forma de la curva, no el valor al 10 %. Tres causas, todas visibles en la
@@ -196,31 +256,43 @@ en el cruce medido (n ≈ 2 400–3 600) el programa imprime 0.1–0.4: del mism
 
 ## Variante que falla: medir con otros programas corriendo
 
-Esta corrida es real. Se hizo con los mismos comandos, en la misma VM, pero mientras otros dos programas
-(uno con dos hilos al 190 % de CPU y otro con `mpirun`) usaban la máquina; `entorno.txt` registró una carga
-promedio de 6.8 en 4 núcleos:
+Esta corrida es real. Se hizo con `make run` en la misma VM mientras otros procesos ajenos (pruebas de otras
+prácticas: un programa con 4 hilos OpenMP y otro `mpirun -np 4`) entraban y salían de la máquina. `entorno.txt`
+decía `cpu_ociosa_antes_de_medir: 97%`: al **arrancar** la máquina estaba libre; la carga llegó durante la corrida.
 
 ```
+fuerte.csv (n = 1 000 000, ITERS = 1 200)
 config,hilos,n,rep1,rep2,rep3,rep4,rep5,mediana_s,speedup,eficiencia
-seq,1,1000000,0.963659,1.052614,1.108801,0.957342,0.983411,0.983411,1.0000,1.0000
-mpi,1,1000000,0.999390,1.041149,1.146598,1.101573,1.209166,1.101573,0.8927,0.8927
-mpi,2,1000000,0.916384,0.573902,0.956117,0.690142,0.722354,0.722354,1.3614,0.6807
-mpi,4,1000000,6.480421,5.326358,4.619175,3.032158,2.504227,4.619175,0.2129,0.0532
-mpi_oversub,8,1000000,1.585813,1.508665,1.567361,1.603715,1.648213,1.585813,0.6201,0.0775
+seq,1,1000000,1.068531,1.052539,1.101558,1.029708,1.034170,1.052539,1.0000,1.0000
+mpi,1,1000000,1.042300,1.081401,1.022241,1.172393,1.156167,1.081401,0.9733,0.9733
+mpi,2,1000000,0.777426,0.851828,0.682825,0.676233,0.645528,0.682825,1.5414,0.7707
+mpi,4,1000000,0.861274,0.858526,1.025848,0.993173,1.084306,0.993173,1.0598,0.2649
+mpi_oversub,8,1000000,0.301248,0.328901,0.349649,0.375873,0.335886,0.335886,3.1336,0.3917
+
+debil.csv (n/p = 250 000)
+config,hilos,n,rep1,rep2,rep3,rep4,rep5,mediana_s,speedup,eficiencia
+seq,1,250000,0.242591,0.219507,0.228745,0.207849,0.220701,0.220701,1.0000,1.0000
+mpi,1,250000,0.236081,0.239362,0.241370,0.242023,0.246810,0.241370,0.9144,0.9144
+mpi,2,500000,0.285265,0.273242,0.270412,0.245647,0.256922,0.270412,1.6323,0.8162
+mpi,4,1000000,2.172751,1.531020,2.880500,2.948674,0.323531,2.172751,0.4063,0.1016
+mpi_oversub,8,2000000,0.962409,0.941893,0.694207,0.820885,0.761961,0.820885,2.1509,0.2689
 ```
 
-Síntomas: con p = 4 las cinco repeticiones van de 2.5 s a 6.5 s (2.6×), el *speedup* es 0.21 y, absurdo, p = 8
-sobre-suscrito sale **más rápido** que p = 4. Diagnóstico: los 4 procesos necesitaban los 4 núcleos; dos de ellos
-los compartían con los programas ajenos. Cada vez que un proceso era desalojado, los otros tres lo esperaban en
-`MPI_Waitall` haciendo sondeo activo, es decir, quemando CPU sin avanzar. Con p = 8, Open MPI detecta la
-sobre-suscripción y hace que los procesos que esperan **cedan** el núcleo (`mpi_yield_when_idle`), lo que, en una
-máquina ya saturada, resulta menos destructivo. Nada de esto dice algo sobre Jacobi. La medición se descarta y
-se repite con la máquina libre: es el paso 1.5 del protocolo ("cierra lo demás"), y la razón por la que
-`escalado.sh` guarda la carga del sistema en `entorno.txt`.
+Síntomas: en fuerte, p = 4 no mejora nada sobre p = 1 (S = 1.06) y, absurdo, p = 8 sobre-suscrito sale **tres
+veces más rápido** que p = 4 (0.34 s contra 0.99 s). En débil, las cinco repeticiones de p = 4 van de 0.32 s a
+2.95 s (9×) cuando las de `seq` van de 0.21 a 0.24. Diagnóstico: los 4 procesos necesitaban los 4 núcleos; uno o
+dos de ellos los compartían con los programas ajenos. Cada vez que un proceso era desalojado, los otros tres lo
+esperaban en `MPI_Waitall` haciendo sondeo activo, es decir, quemando CPU sin avanzar. Con p = 8, Open MPI detecta
+la sobre-suscripción y hace que los procesos que esperan **cedan** el núcleo (`mpi_yield_when_idle`), lo que, en una
+máquina ya ocupada, resulta menos destructivo. Nada de esto dice algo sobre Jacobi. La medición se descarta y se
+repite con la máquina libre: es el paso 1.5 del protocolo ("cierra lo demás"), y la razón por la que `escalado.sh`
+mira la CPU ociosa antes de medir (y, con `WAIT_IDLE=60`, espera a que se libere antes de cada corrida). La
+corrida válida es la de `resultados-ejemplo/`, hecha después con la máquina libre.
 
 **Pausa 7. Si solo tuvieras esta tabla, ¿qué dato te alertaría primero de que algo está mal?**
 <details><summary>Respuesta</summary>
-La dispersión de `rep1…rep5` en la fila p = 4 (2.5–6.5 s) frente a la de `seq` (0.96–1.11 s). Una medición
-válida tiene repeticiones parecidas; cuando la mediana oculta un rango de 2.6×, el problema no es el programa,
-es el entorno. Por eso el CSV lleva las cinco repeticiones y no solo la mediana.
+La dispersión de `rep1…rep5` en la fila p = 4 de débil (0.32–2.95 s) frente a la de `seq` (0.21–0.24 s), y en
+fuerte el que p = 8 sobre-suscrito gane a p = 4 por 3×. Una medición válida tiene repeticiones parecidas; cuando
+la mediana oculta un rango de 9×, el problema no es el programa, es el entorno. Por eso el CSV lleva las cinco
+repeticiones y no solo la mediana.
 </details>

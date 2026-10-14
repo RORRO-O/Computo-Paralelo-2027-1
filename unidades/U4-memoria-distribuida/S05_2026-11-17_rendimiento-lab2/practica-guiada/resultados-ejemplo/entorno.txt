@@ -1,10 +1,10 @@
-fecha: 2026-10-14T13:32:53+00:00
+fecha: 2026-10-14T14:14:17+00:00
 cpu: Intel(R) Xeon(R) Processor @ 2.10GHz
 nucleos_fisicos: 4  (CPU lógicas: 4; hilos por núcleo: 1)
 compilador: gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
 mpi: mpirun (Open MPI) 4.1.6
 flags: -std=c11 -O2 -Wall -Wextra ; mpirun --oversubscribe
-cpu_ociosa_antes_de_medir: 97%  (debe ser >= 85 %)
-carga_promedio_1min_antes_de_medir: 2.39  (contexto; la sube también tu propio make test)
-wait_idle_s: 90
+cpu_ociosa_antes_de_medir: 98%  (debe ser >= 85 %)
+carga_promedio_1min_antes_de_medir: 4.88  (contexto; la sube también tu propio make test)
+wait_idle_s: 0
 fuerte: N=1000000 ITERS=1200 ; debil: NLOCAL=250000 ITERS=1200 ; PROCS='1 2 4' OVERSUB='8'

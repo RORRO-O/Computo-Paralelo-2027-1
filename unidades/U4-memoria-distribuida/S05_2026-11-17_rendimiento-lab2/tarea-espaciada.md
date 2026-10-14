@@ -23,9 +23,12 @@ si no lo tienes, usa `practica-guiada/resultados-ejemplo/fuerte.csv`).
 
 <details><summary>Clave del ejercicio 1 (autocalificación)</summary>
 
-1. Con `resultados-ejemplo/fuerte.csv` (n = 10⁶): <<KF>>. Si f crece con p hay **sobrecarga creciente**
-   (protocolo §3): no es una fracción secuencial fija, es espera en `Waitall` y ancho de banda de memoria
-   compartido entre procesos. Con tus datos los números cambian; lo que se califica es el cálculo y la lectura.
+1. Con `resultados-ejemplo/fuerte.csv` (n = 10⁶): <!-- GEN:KF -->
+S(2) = 1.77 → f(2) = (1/1.77 − 1/2)/(1 − 1/2) = **0.132**; S(4) = 3.47 → f(4) = (1/3.47 − 1/4)/(1 − 1/4) = **0.051**. No crece con p
+<!-- /GEN:KF -->: la eficiencia es casi la misma con 2 y con 4 (0.88 y 0.87), así que la pérdida no
+   aumenta con p; en esta corrida no hay evidencia de sobrecarga creciente. Si f **crece** con p (lo habitual con
+   más procesos o con n menor) hay **sobrecarga creciente** (protocolo §3): no es una fracción secuencial fija,
+   es espera en `Waitall` y ancho de banda de memoria compartido entre procesos. Con tus datos los números cambian; lo que se califica es el cálculo y la lectura.
 2. El modelo acierta el orden de magnitud y la forma: S(4) crece con n y se acerca a 4 con n = 10⁶; falla en el
    valor absoluto cerca de n* (predice el cruce en ~1 200 puntos; medido queda entre 2 000 y 4 000) porque
    (a) la "comunicación" real por iteración incluye la espera a que el vecino llegue (desbalance y *jitter*: el

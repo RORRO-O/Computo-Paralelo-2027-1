@@ -7,8 +7,9 @@
 #   N=1000000        puntos del problema fijo (fuerte)
 #   ITERS=1200       iteraciones de Jacobi (con N=1000000 la secuencial tarda ~1 s)
 #   NLOCAL=250000    puntos por proceso (débil); n = p * NLOCAL
-#   PROCS="1 2 4"    procesos dentro del número de núcleos
-#   OVERSUB=8        procesos sobre-suscritos (OVERSUB="" para omitir)
+#   PROCS="1 2 4"    procesos dentro del número de núcleos FÍSICOS; por defecto las potencias de 2
+#                    hasta ese número (en 4 núcleos: "1 2 4"; en 8: "1 2 4 8")
+#   OVERSUB=8        procesos sobre-suscritos; por defecto 2 × núcleos físicos (OVERSUB="" para omitir)
 #   OUT=resultados   carpeta de salida
 #   PLOT=1           0 para no graficar
 #   WAIT_IDLE=0      segundos máximos a esperar, antes de CADA corrida, a que la CPU esté >= 90 % ociosa
@@ -21,11 +22,18 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# Núcleos FÍSICOS (protocolo §2: se mide hasta el número de núcleos físicos; HT y sobre-suscripción
+# se reportan aparte). lscpu -p lista una línea por CPU lógica con su núcleo y su socket.
+CORES=$(lscpu -p=CORE,SOCKET 2>/dev/null | grep -v '^#' | sort -u | wc -l)
+[ "${CORES:-0}" -ge 1 ] || CORES=$(nproc)
+LOGICAL=$(nproc)
+default_procs() { local p=1 list=""; while [ "$p" -le "$CORES" ]; do list="$list $p"; p=$((p * 2)); done; echo "${list# }"; }
+
 N=${N:-1000000}
 ITERS=${ITERS:-1200}
 NLOCAL=${NLOCAL:-250000}
-PROCS=${PROCS:-"1 2 4"}
-OVERSUB=${OVERSUB-8}
+PROCS=${PROCS:-$(default_procs)}
+OVERSUB=${OVERSUB-$((2 * CORES))}
 OUT=${OUT:-resultados}
 PLOT=${PLOT:-1}
 WAIT_IDLE=${WAIT_IDLE:-0}
@@ -35,11 +43,6 @@ REPS=5
 if [ "$(id -u)" -eq 0 ]; then
     export OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 fi
-# Núcleos FÍSICOS (protocolo §2: se mide hasta el número de núcleos físicos; HT y sobre-suscripción
-# se reportan aparte). lscpu -p lista una línea por CPU lógica con su núcleo y su socket.
-CORES=$(lscpu -p=CORE,SOCKET 2>/dev/null | grep -v '^#' | sort -u | wc -l)
-[ "${CORES:-0}" -ge 1 ] || CORES=$(nproc)
-LOGICAL=$(nproc)
 mkdir -p "$OUT"
 make -s all
 
