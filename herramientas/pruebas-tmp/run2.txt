@@ -1,9 +1,0 @@
-make[1]: Entering directory '/home/user/Computo-Paralelo-2027-1/herramientas/pruebas-tmp/plantilla-mpi'
-mpirun --oversubscribe -np 2 ./programa_mpi.out 1000
-hola desde el proceso 0 de 2
-hola desde el proceso 1 de 2
-procesos=2
-n=1000
-resultado=3.141592736923
-tiempo_s=0.000013
-make[1]: Leaving directory '/home/user/Computo-Paralelo-2027-1/herramientas/pruebas-tmp/plantilla-mpi'

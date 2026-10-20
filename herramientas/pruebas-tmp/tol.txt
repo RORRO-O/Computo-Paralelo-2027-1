@@ -1,5 +1,0 @@
-PASS: secuencial corre e imprime resultado=3.141592736923 (n=1000)
-PASS: resultado paralelo == secuencial (n=1000, p=1)
-PASS: resultado paralelo == secuencial (n=1000, p=2)
-PASS: resultado paralelo == secuencial (n=1000, p=4)
-Resultado: 4 PASS, 0 FAIL

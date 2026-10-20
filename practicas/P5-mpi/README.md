@@ -93,6 +93,10 @@ make test-entrega PARTE_C=heat    # lo que corre el profesor al calificar (o PAR
 make clean
 ```
 
+Recién clonada, la carpeta da `make test` → `16 PASS, 0 FAIL, 18 PEND, 1 SKIP` (≈ 45 s): los `PEND` son los programas
+de las Partes B y C que todavía imprimen `TODO pendiente`; el `SKIP` es `graficar.py`, que necesita el CSV de una
+Parte C completa. Al terminar la práctica, `make test-entrega` debe dar `0 FAIL` y ningún `PEND`.
+
 - Si `mpirun` dice *not enough slots*, hace falta `--oversubscribe`: ya va en `MPIRUN_FLAGS` del `Makefile`. Con
   MPICH ese *flag* no existe: `make MPIRUN_FLAGS= test`. Sobre-suscribir no invalida las pruebas, pero sí las
   mediciones: la Parte D lo etiqueta (`mpi_oversub`).
@@ -278,7 +282,7 @@ Preguntas de la Parte B (van al reporte, 3–5 líneas en total):
 - La línea `tiempo del Scatterv de A (una vez…)`: con `m = n = 2000` e `iters = 1`, ¿qué fracción del total es?
   ¿Y con `iters = 200`? ¿Qué le dice eso a quien va a diseñar la V2 de su proyecto?
 
-**Verificación:** `make test-b` → `6 PASS, 0 FAIL` (compilación + cinco casos).
+**Verificación:** `make test-b` → `7 PASS, 0 FAIL` (compilación, la secuencial y cinco casos).
 
 ---
 
