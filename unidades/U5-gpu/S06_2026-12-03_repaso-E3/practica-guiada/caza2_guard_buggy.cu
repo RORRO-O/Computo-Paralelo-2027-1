@@ -100,6 +100,8 @@ int main(int argc, char **argv) {
     int ok = (wrong == 0 && altered == 0 && launch_err == cudaSuccess && exec_err == cudaSuccess);
     printf("verificacion=%s\n", ok ? "OK" : "FALLA");
 
+    CUDA_CHECK(cudaEventDestroy(t0));
+    CUDA_CHECK(cudaEventDestroy(t1));
     CUDA_CHECK(cudaFree(d_x));
     CUDA_CHECK(cudaFree(d_y));
     free(h_x);

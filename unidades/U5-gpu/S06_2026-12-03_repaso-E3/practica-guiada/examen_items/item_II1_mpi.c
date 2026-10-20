@@ -1,5 +1,5 @@
 /* item_II1_mpi.c — Examen de práctica U4–U5, sección II, ítem 1 (predecir la salida).
- * Se ejecuta con: mpirun --oversubscribe -np 4 ./item_II1_mpi   (y con -np 1 para el inciso c)
+ * Se ejecuta con: mpirun --oversubscribe -np 4 ./item_II1_mpi   (y con -np 1 para el inciso d)
  */
 #include <mpi.h>
 #include <stdio.h>

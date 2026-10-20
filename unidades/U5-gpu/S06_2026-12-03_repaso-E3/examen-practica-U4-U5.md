@@ -37,14 +37,14 @@ Una sola opción correcta. Encierra la letra.
   lado, así que debió colgarse también con `n = 100`.
 - **D.** Funciona porque son solo dos procesos; con cuatro se colgaría con cualquier `n`.
 
-**I.2** Jacobi 1D con MPI: por iteración, cada proceso actualiza `n/p` puntos (1 ns cada uno) e intercambia dos
-halos de 8 bytes (latencia α = 2 µs cada uno). Con `n = 4 000` y `p = 4` el programa tarda **más** que el
-secuencial. La explicación correcta es:
+**I.2** Jacobi 1D con MPI en una laptop de 4 núcleos: por iteración, cada proceso actualiza `n/p` puntos (1 ns cada
+uno) e intercambia dos halos de 8 bytes (latencia α = 2 µs cada uno). Con `n = 4 000` y `p = 4` el programa tarda
+**más** que el secuencial. La explicación correcta es:
 
 - **A.** El programa tiene un error: con más procesos siempre debe tardar menos.
 - **B.** Es sobre-suscripción: 4 procesos en 4 núcleos ya saturan la máquina.
 - **C.** La comunicación domina: 2α = 4 µs por iteración contra 1 µs de cómputo por proceso; el modelo
-  `T_p = (n/p)·t_c + 2α` predice `S < 1` por debajo de `n ≈ 5 300`.
+  `T_p = (n/p)·t_c + 2α` predice `T_4 = 5 µs` contra `T_1 = 4 µs`.
 - **D.** Se midió con `-O2`; con `-O0` el cómputo pesaría más y el *speedup* aparecería.
 
 **I.3** La hoja de datos de la Tesla T4 dice "2 560 núcleos CUDA". Lanzas `kernel<<<65536, 256>>>`
@@ -66,7 +66,8 @@ secuencial. La explicación correcta es:
 - **C.** Usa más hilos por bloque, y más hilos siempre es más rápido.
 - **D.** Las dos llamadas a `__syncthreads()` aceleran el *kernel* al ordenar los accesos.
 
-**I.5** Barrido de tamaño de bloque de un *kernel* *memory-bound* en una T4, medianas de 5: 32 → 1.60 ms ·
+**I.5** Barrido de tamaño de bloque de un *kernel* *memory-bound* en una T4 con `n = 2^24` elementos (un hilo por
+elemento), medianas de 5: 32 → 1.60 ms ·
 64 → 1.00 · 128 → 0.88 · 256 → 0.85 · 1024 → 0.90. ¿Qué explica **mejor** que 32 sea el peor y 1024 no sea el mejor?
 
 - **A.** El 0.90 es ruido: una corrida más y 1024 sería el mejor, porque más hilos por bloque es más rápido.
@@ -87,8 +88,8 @@ etapa en el anfitrión. ¿Funciona?
 
 ## II · Predecir la salida (13 puntos)
 
-**II.1 (7 puntos).** Se compila con `mpicc` y se ejecuta con `mpirun -np 4`. Escribe la salida completa (cuatro
-líneas, en cualquier orden) y contesta los incisos.
+**II.1 (7 puntos).** Se compila con `mpicc` y se ejecuta con `mpirun -np 4`. Escribe las cuatro líneas que imprime,
+di si su orden está garantizado y contesta los incisos.
 
 ```c
 int rank, size, value, total = 0, from_left = -1, max_root = 0;
@@ -105,9 +106,9 @@ printf("rango %d: value=%d total=%d from_left=%d max_root=%d\n", rank, value, to
 MPI_Finalize();
 ```
 
-(a) Las cuatro líneas (4 puntos: 1 por columna correcta en los cuatro rangos: `value`/`total`, `from_left`,
-`max_root`, y 1 por el orden "cualquiera"). (b) ¿Por qué `total` vale lo mismo en los cuatro rangos y `max_root`
-no? (1 punto). (c) Si la raíz del `MPI_Reduce` fuera el rango 3 en lugar del 0, ¿qué cambiaría? (1 punto).
+(a) Las cuatro líneas y su orden (4 puntos: 1 por columna correcta en los cuatro rangos: `value`/`total`,
+`from_left`, `max_root`, y 1 por lo que digas del orden). (b) ¿Por qué `total` vale lo mismo en los cuatro
+rangos y `max_root` no? (1 punto). (c) Si la raíz del `MPI_Reduce` fuera el rango 3 en lugar del 0, ¿qué cambiaría? (1 punto).
 (d) Salida con `mpirun -np 1` (1 punto).
 
 **II.2 (6 puntos).** `n = 10`, `data = {0,1,…,9}`, lanzamiento `reverse_in_block<<<3, 4>>>(d, n)`:
@@ -124,7 +125,8 @@ __global__ void reverse_in_block(int *data, int n) {
 }
 ```
 
-(a) Escribe el contenido final de `data` (4 puntos: 1 por bloque correcto, 1 por el bloque 2 completo).
+(a) Escribe el contenido final de `data` y justifica el bloque 2 en una línea (4 puntos: 1 por cada bloque
+correcto, 1 por la justificación).
 (b) ¿Por qué los elementos 8 y 9 no se invierten entre sí, y qué pasaría con ellos si la última guardia fuera solo
 `if (i < n)`? (2 puntos).
 
@@ -217,8 +219,8 @@ e intercambia dos halos de 8 bytes; cada mensaje cuesta `α = 2 µs` (el términ
 
 (i) *Speedup* contando solo el *kernel* (1 punto). (ii) *Speedup* contando las copias (2 puntos). (iii) Si el
 *kernel* se repite 100 iteraciones sobre los mismos datos (se copia una vez de subida y una de bajada) y la V1
-tarda 100 × 90 ms, ¿cuál es el *speedup* con copias? (1 punto). (iv) ¿Cuál de los números de (i) y (ii) va en tu
-reporte? (1 punto).
+tarda 100 × 90 ms, ¿cuál es el *speedup* con copias? (1 punto). (iv) ¿Qué va en tu reporte: (i), (ii) o
+ambos? Justifica en una línea (1 punto).
 
 ## VI · Diseño breve (6 puntos; ≤ 10 líneas en total)
 
@@ -242,7 +244,7 @@ bytes transferidos, cómputo por iteración, costo de comunicación) (4 puntos).
 | Sincronización y atómicas (U5 S03) | I.6 (2), III.2c (1) | III.2a–b (4) | | 7 |
 | Rendimiento en GPU: transferencias, bloque (U5 S04–S05) | I.5 (2) | V.b i–iii (4) | V.b iv (1) | 7 |
 | Diseño: elegir plataforma | | | VI (6) | 6 |
-| **Total** | **17 (28 %)** | **35 (58 %)** | **8 (13 %)** | **60** |
+| **Total** | **18 (30 %)** | **34 (57 %)** | **8 (13 %)** | **60** |
 
 Acumulativo de Unidades I–III integrado: eficiencia y umbral de escalabilidad (V.a), protocolo de medición (I.5,
 V.b), "más hilos siempre es más rápido" (I.2 A, I.5 A, idea 1), medición única (I.5 C, idea 5), opción OpenMP en VI:
@@ -259,8 +261,8 @@ V.b), "más hilos siempre es más rápido" (I.2 A, I.5 A, idea 1), medición ún
 | I.1 | **B** | `MPI_Send` solo promete que el búfer se puede reutilizar; el envío inmediato con mensajes chicos (≈ 4 KB en Open MPI local) es una cortesía, no una garantía. Un programa que depende de eso es inseguro | A: 17 ("siempre regresa de inmediato") · C: 17 ("siempre bloquea") · D: nueva 17b (confunde número de procesos con la condición) |
 | I.2 | **C** | Cómputo por proceso: `1 000 × 1 ns = 1 µs`; comunicación `2α = 4 µs`; `T_4 = 5 µs > T_1 = 4 µs`. Umbral: `n·1 ns > (n/4)·1 ns + 4 µs` → `n > 5 333` | A: 1 (más procesos siempre más rápido) · B: 20 (sobre-suscripción; 4 en 4 núcleos no lo es) · D: 5 (medir con `-O0`) |
 | I.3 | **B** | La unidad de ejecución es el *warp*; un SM de T4 tiene hasta 32 *warps* residentes y los 65 536 bloques entran en oleadas | A, C: 22 (hilo CUDA = núcleo de CPU) · D: 22 + límite real de 1 024 hilos **por bloque** |
-| I.4 | **B** | Lecturas de A: `n³` frente a `n³/16` (S02 §3); la compartida está uno o dos órdenes de magnitud más cerca que la global | A: 23 (global tan rápida como compartida) · C: 1 · D: nueva ("la barrera acelera"; sincroniza, cuesta) |
-| I.5 | **B** | Ocupación 50 % con bloques de 32 (16 bloques × 1 *warp*); de 64 en adelante 100 %; 1 024 no sube más y deja 16 384 bloques en vez de 65 536 | A: 1 + 5 · C: 26 (cualquier tamaño igual) · D: 27 (un lanzamiento inválido se ve en `cudaGetLastError`, no en el tiempo) |
+| I.4 | **B** | Lecturas de A: `n³` frente a `n³/16` (U5 S02, notas §3); la compartida está uno o dos órdenes de magnitud más cerca que la global | A: 23 (global tan rápida como compartida) · C: 1 · D: nueva ("la barrera acelera"; sincroniza, cuesta) |
+| I.5 | **B** | Ocupación 50 % con bloques de 32 (16 bloques × 1 *warp*); de 64 en adelante 100 %; 1 024 no sube más y, con `n = 2^24`, deja 16 384 bloques en vez de los 65 536 de 256 (cada SM aloja un solo bloque de 1 024 y no admite otro hasta que terminan sus 32 *warps*) | A: 1 + 5 · C: 26 (cualquier tamaño igual) · D: 27 (un lanzamiento inválido se ve en `cudaGetLastError`, no en el tiempo) |
 | I.6 | **B** | `__syncthreads()` es una barrera de **bloque**; los bloques pueden correr en cualquier orden y no todos a la vez | A: 25 (sincroniza toda la GPU) · C: 33/25 (`cudaDeviceSynchronize` es una llamada de anfitrión) · D: nueva ("los bloques corren en orden de índice") |
 
 ### II · Predecir la salida
@@ -327,9 +329,9 @@ no atómica"; (b) 2 por `atomicAdd` con la dirección correcta (1 si escriben `a
 
 **IV.a** (1) `local_n` en las cuatro posiciones (la cuenta es **por rango** y en elementos, no `n` ni bytes);
 (2) `MPI_Reduce`; (3) `MPI_DOUBLE, MPI_SUM`. Salida real con `-np 4` y con `-np 2`: `dot=36.000000`. Errores que
-valen 0 en el hueco: `n` o `n * sizeof(double)` en (1) (idea: cuenta total/bytes, S03 §2); `MPI_Gather` en (2)
-(junta valores, no los suma); `MPI_INT` en (3) (`local_dot` es `double`). `MPI_Allreduce` en (2) con 5 argumentos
-no compila con `0, MPI_COMM_WORLD`: 1 punto si lo advierten.
+valen 0 en el hueco: `n` o `n * sizeof(double)` en (1) (idea: cuenta total/bytes, U4 S03); `MPI_Gather` en (2)
+(junta valores, no los suma); `MPI_INT` en (3) (`local_dot` es `double`). `MPI_Allreduce` en (2) no cabe en la plantilla: lleva 6 argumentos y
+ninguna raíz, y la línea deja 7 (`…, 0, MPI_COMM_WORLD`), así que no compila; 1 punto si lo advierten y lo escriben bien.
 
 **IV.b** (1) `blockIdx.x * blockDim.x + threadIdx.x`; (2) `i < n`; (3) `(n + block - 1) / block`;
 (4) `cudaGetLastError`. Cero puntos en (1) por `threadIdx.x` solo; en (3) por `n / block` (deja 232 elementos sin

@@ -13,6 +13,7 @@
 #      múltiplo de TILE); su checksum debe coincidir con b_matmul_rect_cpu. Mientras TODO_LISTO sea False el programa
 #      imprime "TODO pendiente": esos casos salen PEND y no cuentan como FAIL en `make test`; en `make test-b`
 #      (STRICT_B=1) cuentan como FAIL hasta que corrijas TODO(1)–TODO(4). Un TODO mal corregido siempre es FAIL.
+#      Si el espejo ya tiene TODO_LISTO = True, el .cu debe tener #define TODO_LISTO 1 (si no, FAIL).
 #   5. Parte C: las referencias CPU dan los valores conocidos; si existen espejos src/c_*_numba.py se corren en
 #      CUDASIM sin argumentos y deben imprimir verificacion=OK (SKIP si no hay: el espejo de la Parte C es opcional).
 #   6. Parte D: graficar.py produce las tres PNG a partir de un CSV de prueba, y de resultados/*.csv si ya existen.
@@ -219,6 +220,11 @@ if want B; then
         if [ "$rc" -eq 0 ] && grep -q "verificacion=PASS" "$f" && close "$s" "$c" 1e-5; then ok "$label -> PASS, checksum $s igual a la CPU"
         else ko "$label (rc=$rc, checksum ${s:-?} vs CPU $c)"; tail -3 "$f"; fi
     done
+    # El .cu es lo que corre en la GPU y lo que se califica: si el espejo ya dice True, el .cu también debe decir 1.
+    if grep -q "^TODO_LISTO = True" src/b_matmul_rect_numba.py; then
+        if grep -q "^#define TODO_LISTO 1" src/b_matmul_rect.cu; then ok "b_matmul_rect.cu con TODO_LISTO 1, igual que su espejo"
+        else ko "b_matmul_rect.cu sigue con TODO_LISTO 0 aunque el espejo dice True: corrige TODO(1)-TODO(4) también en el .cu"; fi
+    fi
 fi
 
 # ---------- 5. Parte C: espejos Numba del equipo (opcionales) y casos extra de la solución ----------

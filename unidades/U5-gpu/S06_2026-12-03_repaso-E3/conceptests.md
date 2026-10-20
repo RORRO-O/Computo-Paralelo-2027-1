@@ -100,7 +100,7 @@ razona por *warp*).
 **Guion de discusión.** "Quien votó A: ¿qué garantiza CUDA sobre el orden de dos hilos del mismo *warp* que leen
 y escriben `s[]`? ¿Y si mañana Colab asigna otra GPU?" → "Quien votó C: si el hilo 5 no entra al `if` cuando
 `stride = 4`, ¿llega a la barrera? ¿Qué le pasa al hilo 0 que sí llegó?" → Ejecutar: tres corridas de
-`caza3_reduce_numba.py 1000` (460, 612, 892 en la autoría) y la solución (5500.0). Regla: **una barrera de bloque
+`caza3_reduce_numba.py 1000` (587, 785, 399 en la autoría; otros números en cada corrida) y la solución (5500.0). Regla: **una barrera de bloque
 entre cada nivel del árbol, fuera de cualquier rama; la correctitud se prueba comparando con la CPU en varias
 corridas, nunca con una corrida afortunada.**
 

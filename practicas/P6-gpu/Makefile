@@ -58,7 +58,7 @@ run: $(CU_BINS) $(C_BINS) $(TILED_BINS)
 	./$(SRC)/a_matmul_cpu 1000 $(TILE)
 	for t in 8 16 32; do for n in 512 1024 2048; do ./$(SRC)/a_matmul_tiled_t$$t $$n $(CSV); done; done
 	./$(SRC)/a_matmul_tiled_t16 1000 $(CSV)
-	./$(SRC)/b_matmul_rect 1000 600 700 $(CSV) || echo ">> Parte B: corrige TODO(1)-TODO(4) y pon TODO_LISTO en 1"
+	for d in "512 512 512" "1000 600 700" "300 2000 900"; do ./$(SRC)/b_matmul_rect $$d $(CSV) || { echo ">> Parte B: corrige TODO(1)-TODO(4) y pon TODO_LISTO en 1"; break; }; done
 	@echo ">> Parte C: corre tu programa a mano (p. ej. ./$(SRC)/c_mi_kernel ... $(CSV)) y después: make graficas"
 	$(PY) graficar.py $(CSV) -o resultados
 

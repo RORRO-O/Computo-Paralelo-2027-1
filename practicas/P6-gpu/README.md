@@ -414,7 +414,7 @@ matmul_rect_tiled TODO pendiente: corrige TODO(1)-TODO(4) y pon TODO_LISTO = Tru
 
 ```bash
 make test       # los dos casos de la Parte B salen como PEND mientras TODO_LISTO sea False (no cuentan como FAIL)
-make test-b     # estricto: FAIL hasta que TODO(1)-TODO(4) estén corregidos (32×32×32 y 20×40×12)
+make test-b     # estricto: FAIL hasta que TODO(1)-TODO(4) estén corregidos (32×32×32 y 20×40×12) y el .cu tenga TODO_LISTO 1
 ```
 
 Salidas **reales**. Antes de corregir, `make test`: `PEND  CUDASIM b_matmul_rect_numba 32 32 32 16 tiled: TODO(1)-TODO(4)
@@ -485,7 +485,7 @@ cuaderno).
 | 1024 | 256 | 130400 | 131424 | |
 | 1031 | 64 | 131432 | 132463 | `n` no múltiplo del bloque |
 | 1 | 32 | 0 | 1 | un solo elemento, `hist[0] = 1` |
-| 16777216 | 32…1024 | 2139095336 | 2155872552 | `bin_max=18 cuenta_max=65539`; CPU ≈ 24 ms (Xeon 2.1 GHz) |
+| 16777216 | 32…1024 | 2139095336 | 2155872552 | `bin_max=18 cuenta_max=65539`; CPU ≈ 14–24 ms (Xeon 2.1 GHz; varía entre corridas) |
 
 - **Esperado en T4** (`n = 2^24`, bloque 256): `histograma_shared` ≈ 0.2–0.4 ms; `histograma_global` ≈ 2–4 ms (la
   contención en 256 direcciones serializa); `reduccion_suma` ≈ 0.1–0.2 ms; H2D de 16 MB ≈ 3 ms (≈ 90 % del total).
@@ -633,7 +633,7 @@ entregues la explica en voz alta cualquier integrante; en el laboratorio se preg
 | `kernel ms ≈ 0.00` con `n = 2^24` y GB/s absurdos | ¿Sincronizaste antes de leer el tiempo? El lanzamiento es asíncrono (idea 33) |
 | `verificacion=FALLA` sin ningún error de CUDA, error ≈ `0.2·n` por elemento | ¿La malla cubre `n` (redondeo hacia arriba, `x` para columnas y `y` para filas)? ¿Se lanzó el *kernel* (`cudaGetLastError`)? |
 | La Parte B pasa con `32×32×32` y falla, o da "acceso fuera de rango", con `20×40×12` | ¿Qué dimensión usaste en cada lugar: filas, columnas, fases, guardia? ¿Probaste una forma con tres dimensiones distintas y no múltiplos de `TILE` (ideas 27 y 34)? |
-| Error máximo ≈ `1e+35`, `inf` o `nan` en la Parte B tras "simplificar" con `if (row >= M \|\| col >= N) return;` al inicio (salida real en el simulador: `1.33e+35`) | ¿Quién carga los ceros del mosaico que esos hilos debían traer? ¿Llegan todos a las dos barreras (ideas 32 y 34)? |
+| `FAIL` con un error máximo grande (de unidades hasta `inf` o `nan`) en la Parte B tras "simplificar" con `if (row >= M \|\| col >= N) return;` al inicio, y `PASS` con `32×32×32` (salida real en el simulador con `20×40×12`: `error maximo vs NumPy 4.59e+00 … verificacion=FAIL`; en la GPU el valor cambia porque se leen posiciones del mosaico que nadie escribió) | ¿Quién carga los ceros del mosaico que esos hilos debían traer? ¿Llegan todos a las dos barreras (ideas 32 y 34)? |
 | `FAIL` con `checksum` que **cambia entre corridas** y a veces `PASS` | ¿Hay una barrera de menos o varios hilos escribiendo la misma posición? ¿Cuántas veces lo corriste? Una vez bien no es evidencia (idea 7) |
 | El *kernel* "se cuelga" o `unspecified launch failure` | ¿Algún hilo hace `return` antes de un `__syncthreads()`? ¿Hay una barrera dentro de un `if`? |
 | `invalid configuration argument` | ¿Cuántos hilos tiene tu bloque? Máximo 1024 (`TILE = 64` → 4096; `block = 2048`) |

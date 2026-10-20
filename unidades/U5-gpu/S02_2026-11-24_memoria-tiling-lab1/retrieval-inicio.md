@@ -3,10 +3,11 @@
 # Recuperación de inicio · S02
 
 Individual, por escrito, sin apuntes ni dispositivos. 4 minutos. Al terminar se proyectan las respuestas y
-se cuentan manos por pregunta. Entrega también tu pre-laboratorio de la Práctica 6 en la caja de la entrada.
+se cuentan manos por pregunta. Tu pre-laboratorio de la Práctica 6 ya debe estar en el repositorio de tu equipo
+(`practicas/P6/prelab/<alias>.md`, antes de las 08:30); la pregunta 1 retoma su pregunta 1.
 
-**1. (S01, lunes 23 de noviembre)** Un *kernel* 1D procesa un arreglo de 1000 elementos con bloques de 256
-hilos. ¿Cuántos bloques lanzas y qué línea evita que los hilos sobrantes escriban fuera del arreglo?
+**1. (S01, lunes 23 de noviembre; la pregunta 1 de tu pre-lab con otro `n`)** Un *kernel* 1D procesa un
+arreglo de 1000 elementos con bloques de 256 hilos. ¿Cuántos bloques lanzas y qué línea evita que los hilos sobrantes escriban fuera del arreglo?
 
 **2. (S01)** Completa: un *warp* son ____ hilos que ejecutan ____________________. En el modelo SIMT, ¿qué
 tiene cada hilo de propio aunque comparta la instrucción?

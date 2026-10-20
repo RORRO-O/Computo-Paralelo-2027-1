@@ -34,8 +34,9 @@ ticket* 85–90. Recuperación y cierre no se recortan.
 - **Va hacia:** Práctica 6 (domingo 6 de diciembre, 23:59) · entrega final del proyecto (lunes 7 de diciembre, 10:30,
   sesión C1 de ensayo de defensa) · Examen 3 (martes 8 de diciembre, 08:30–10:00) · defensa oral (jueves 10 de
   diciembre, 10:30).
-- **Ideas erróneas que ataca (Anexo A):** 16–27 completas (una por ítem del examen de práctica: ver su tabla de
-  especificaciones) y 1, 5 (ítems I.2, I.5, V.a; recuperación 9 y 10). Las tres que concentran la sesión: 18
+- **Ideas erróneas que ataca (Anexo A):** 16–27 completas (cada una en un ítem o distractor del examen de práctica,
+  cuya clave cita el número, o en CT1–CT3 y los cazadores: la 18 solo en CT1, `caza1` y la recuperación 2) y 1, 5
+  (ítems I.2, I.5, V.a; recuperación 9 y 10). Las tres que concentran la sesión: 18
   (CT1, cazador 1, III.1/I.1), 34/27 (CT2, cazador 2, II.2/IV.b) y 25/7 (CT3, cazador 3, I.6/III.2). Cada una
   aparece en un distractor, en un paso de la práctica guiada y en el *exit ticket* o la recuperación.
 - **Nivel de andamiaje:** última sesión de la unidad → ejemplo resuelto **por completar** (huecos en la tabla de
@@ -112,8 +113,8 @@ Modificar en su laptop con `make cazar` (lo que no termine va a la tarea).
 | Ítem fallado | ConcepTest | Qué se ejecuta (salida real en `practica-guiada/README.md`, sección R) | Pregunta de Investigar | Regla general |
 |---|---|---|---|---|
 | III.1, I.1 o IV.a (colectivas) | CT1 | `make run-mpi` → `codigo: 124`; `make run-mpi NP=1` → `media=3.497000`; después `make run-examen` para ver III.1 con y sin error | I1: "¿qué llamada hace el rango 1 y qué espera? ¿por qué la raíz sí sale del `Bcast`?" | Toda colectiva la llaman todos los procesos del comunicador; el resultado de `Reduce`/`Gather` solo existe en la raíz |
-| II.2 o IV.b (índices, guardia) | CT2 | `NUMBA_ENABLE_CUDASIM=1 python3 caza2_guard_numba.py 1000 256` → 24 centinelas, `FALLA`; `1024 256` → `OK`; en Colab, `./item_II2_reverse` → `3 2 1 0 7 6 5 4 8 9` | I2: "hilos 231, 232 y 255 del bloque 3: ¿cuál es el primer `i` que no debe escribir? ¿sobre qué memoria escribiría en tu V3?" | `grid = ⌈n/block⌉` y `if (i < n)` van juntos; "¿quién cargó `s[j]`?" antes de leer memoria compartida |
-| I.6 o III.2 (sincronización) | CT3 | tres corridas de `caza3_reduce_numba.py 1000` → 460, 612, 892 (cambia); en Colab `./caza3_reduce_buggy 1000 32` repetido: a veces `5500.0` | I3: "si el hilo 0 lee `s[2]` antes de que el hilo 2 sume, ¿qué lee? ¿puede dar más de 36?" | Una barrera por nivel, fuera del `if`; la carrera se prueba con varias corridas y una referencia, no con una corrida afortunada |
+| II.2 o IV.b (índices, guardia) | CT2 | `NUMBA_ENABLE_CUDASIM=1 python3 caza2_guard_numba.py 1000 256` → 24 centinelas, `FALLA`; `1024 256` → `OK`; en Colab, `./item_II2_reverse` → `3 2 1 0 7 6 5 4 8 9` (real en CUDASIM, esperada en GPU) | I2: "hilos 231, 232 y 255 del bloque 3: ¿cuál es el primer `i` que no debe escribir? ¿sobre qué memoria escribiría en tu V3?" | `grid = ⌈n/block⌉` y `if (i < n)` van juntos; "¿quién cargó `s[j]`?" antes de leer memoria compartida |
+| I.6 o III.2 (sincronización) | CT3 | tres corridas de `caza3_reduce_numba.py 1000` → 587, 785, 399 en la autoría (cambia en cada corrida); en Colab `./caza3_reduce_buggy 1000 32` repetido: a veces `5500.0` (esperada; no ejecutada en la autoría) | I3: "si el hilo 0 lee `s[2]` antes de que el hilo 2 sume, ¿qué lee? ¿puede dar más de 36?" | Una barrera por nivel, fuera del `if`; la carrera se prueba con varias corridas y una referencia, no con una corrida afortunada |
 | V.b (transferencias; sin cazador) | — (voto directo del ítem) | Pizarrón: `90/1.5 = 60×`; `90/37.5 = 2.4×`; 100 iteraciones: `9000/186 ≈ 48×` | "¿Cuántas veces cruza tu arreglo el PCIe en tu V3? ¿Cuántas necesita?" | Se reportan los dos tiempos; lo que gana el usuario es el total; copia una vez, calcula muchas |
 
 Si los tres ítems fallados son los tres primeros renglones, el bloque es exactamente CT1 → CT2 → CT3. Si uno es
@@ -174,7 +175,8 @@ ejercicio 3a de la tarea".
    B alternadas por fila; 80 minutos efectivos más 10 de margen; sin dispositivos; hoja de calibración aparte con
    dos casillas (al recibir y al entregar), como hoy; hoja de fórmulas solo si el examen lo indica (no cuenten con
    ella). Lugar: salón 3208 o LS4 con los equipos apagados; se confirma el lunes 7. Calificación y clave a más
-   tardar el martes 15 de diciembre; análisis de los tres ítems peor contestados el lunes 14.
+   tardar el martes 15 de diciembre; análisis de los tres ítems peor contestados el lunes 14 (con la opción (a) de
+   defensa, que ocupa el lunes 14, la clave se publica por escrito ese día y el análisis pasa al jueves 17).
 4. **Defensa oral, jueves 10 de diciembre, 10:30.** El profesor anuncia la opción elegida (`logistica-defensa.md`
    §3) con una de estas tres frases y la publica hoy en un *issue* del repositorio del curso:
    - (a) "Formato completo: 12 min + 2 preguntas por integrante; 4 equipos el jueves 10, 4 el lunes 14 y 4 el

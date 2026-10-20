@@ -63,6 +63,12 @@ nvcc_all() {
     echo $rc > "$OUT/nvcc_$arch.rc"
 }
 
+# kernel_body <archivo.cu> <nombre>: imprime el cuerpo del kernel (de __global__ a la primera '}' en columna 0), sin comentarios.
+kernel_body() {
+    awk -v k="$2" '$0 ~ "__global__ void " k "\\(" {f = 1} f {print} f && /^}/ {exit}' "$1" \
+        | sed -e 's://.*$::' -e 's:/\*.*\*/::g'
+}
+
 # mpi_run <np> <timeout> <bin> [args]: ejecuta y deja la salida en $OUT/last.txt; regresa el código de salida.
 mpi_run() {
     local np=$1 to=$2; shift 2
@@ -85,7 +91,7 @@ if [ "$MODE" = "cazar" ]; then
         if mpi_run 3 "$TIMEOUT" "$OUT/caza1" 10007 && grep -q "media=3.499400" "$OUT/last.txt"; then
             ok "caza1 con 3 procesos y n=10007 (residuo) da media=3.499400"
         else
-            c1=0; ko "caza1 con 3 procesos y n=10007" "$(tail -1 "$OUT/last.txt")"
+            rc=$?; c1=0; ko "caza1 con 3 procesos y n=10007" "$( [ $rc -eq 124 ] && echo 'sigue interbloqueado' || tail -1 "$OUT/last.txt")"
         fi
         caught=$((caught + c1))
     else
@@ -101,7 +107,6 @@ if [ "$MODE" = "cazar" ]; then
             c2=0; ko "caza2_guard_numba.py $1 $2 en CUDASIM" "$(grep -E 'centinelas|Error' "$OUT/last.txt" | tail -1)"
         fi
     done
-    caught=$((caught + c2))
     # 3. CUDA: reducción (dos veces: una carrera puede salir bien por casualidad)
     c3=1
     for cfg in "1000 256" "1000 256" "1000 64"; do
@@ -112,8 +117,19 @@ if [ "$MODE" = "cazar" ]; then
             c3=0; ko "caza3_reduce_numba.py $1 $2 en CUDASIM" "$(grep -E 'suma_gpu|Error' "$OUT/last.txt" | tail -1)"
         fi
     done
-    caught=$((caught + c3))
-    # 4. Los .cu corregidos deben seguir compilando (la verificación de su lógica es el espejo Numba o Colab).
+    # 4. Los .cu: misma corrección que el espejo (revisión estática del kernel; su lógica se verifica con el espejo
+    #    Numba o en Colab) y siguen compilando. Así, corregir solo el espejo no cuenta como bicho cazado.
+    if kernel_body caza2_guard_buggy.cu axpb | grep -Eq 'i[[:space:]]*<[[:space:]]*n|i[[:space:]]*>=[[:space:]]*n'; then
+        ok "caza2_guard_buggy.cu: el kernel axpb tiene guardia de rango (igual que el espejo)"
+    else
+        c2=0; ko "caza2_guard_buggy.cu: el kernel axpb no tiene guardia" "¿corregiste solo el espejo Numba?"
+    fi
+    if [ "$(kernel_body caza3_reduce_buggy.cu block_sum | grep -c '__syncthreads[[:space:]]*()')" -ge 2 ]; then
+        ok "caza3_reduce_buggy.cu: el kernel block_sum tiene barrera en el ciclo del árbol (igual que el espejo)"
+    else
+        c3=0; ko "caza3_reduce_buggy.cu: el kernel block_sum no tiene barrera en el ciclo" "¿corregiste solo el espejo Numba?"
+    fi
+    caught=$((caught + c2 + c3))
     if has_nvcc; then
         if "$NVCC" -c -arch=sm_75 caza2_guard_buggy.cu -o "$OUT/c2.o" >"$OUT/nvcc.log" 2>&1 \
            && "$NVCC" -c -arch=sm_75 caza3_reduce_buggy.cu -o "$OUT/c3.o" >>"$OUT/nvcc.log" 2>&1; then
@@ -243,9 +259,22 @@ for needle in ("!nvidia-smi", "%%writefile caza2_guard_buggy.cu", "%%writefile c
                "./item_II2_reverse", "./item_III2_hist 1048576",
                "NUMBA_ENABLE_CUDASIM=1", "t_kernel_ms", "resultados_S06_", "csv"):
     assert needle in src, needle
-print("notebook OK:", len(nb.cells), "celdas")
+# Cada celda %%writefile reproduce exactamente el archivo del repositorio (mismo nombre en ., examen_items/).
+import os
+n_files = 0
+for c in nb.cells:
+    if c.cell_type == "code" and c.source.startswith("%%writefile "):
+        head, _, body = c.source.partition("\n")
+        name = head.split()[-1]
+        path = next((d + name for d in ("", "examen_items/") if os.path.exists(d + name)), None)
+        assert path is not None, "sin archivo fuente: " + name
+        disk = open(path, encoding="utf-8").read()
+        assert body == disk, "la celda %%writefile " + name + " no coincide con " + path + " (make notebook)"
+        n_files += 1
+assert n_files >= 12, n_files
+print("notebook OK:", len(nb.cells), "celdas;", n_files, "celdas %%writefile idénticas a sus archivos")
 PYEOF
-if [ $? -eq 0 ]; then ok "notebook_colab.ipynb válido (nbformat) con las celdas obligatorias"; else cat "$OUT/nb.log"; ko "notebook_colab.ipynb"; fi
+if [ $? -eq 0 ]; then ok "notebook_colab.ipynb válido (nbformat), celdas obligatorias y %%writefile idénticas a los archivos"; else cat "$OUT/nb.log"; ko "notebook_colab.ipynb"; fi
 
 # A (cierre). Resultado de las compilaciones nvcc lanzadas al inicio.
 if has_nvcc; then

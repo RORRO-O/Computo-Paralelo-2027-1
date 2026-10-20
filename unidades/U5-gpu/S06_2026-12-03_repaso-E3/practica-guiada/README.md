@@ -87,7 +87,8 @@ imprimen). Contesta antes de correr nada:
   centinelas. Sin error de CUDA: esa memoria está reservada (`cap = 1024`).
 - **P4.** Con `n = 1024` no sobra ningún hilo: `verificacion=OK`. El error sigue en el código; el tamaño lo enmascara.
 - **P5.** Menor (en la práctica, mucho menor): los hilos leen `s[tid + stride]` antes de que su dueño termine de
-  sumar el nivel anterior y se pierden sumandos. En CUDASIM da entre ~10 % y ~20 % del valor.
+  sumar el nivel anterior y se pierden sumandos. En CUDASIM, en la autoría, dio entre ≈ 5 % y ≈ 20 % del valor
+  (de 272 a 946 en catorce corridas con bloque 256).
 - **P6.** No: cambia en cada corrida (carrera). En la GPU a veces sale 5500.0.
 - **P7.** En la GPU con bloques de 32 "suele" salir bien más seguido (los 32 hilos de un *warp* avanzan casi en
   bloque), pero no está garantizado desde Volta (planificación independiente de hilos): sigue siendo
@@ -121,15 +122,20 @@ verificacion=FALLA                                        <- código de salida 2
 $ NUMBA_ENABLE_CUDASIM=1 python3 caza2_guard_numba.py 1024 256
 caza2: n=1024 block=256 grid=4 hilos_lanzados=1024 sobrantes=0 modo=CUDASIM
 checksum=7158.0 elementos_incorrectos=0 centinelas_alterados=0 (de 0)
+t_kernel_ms=178.6199 (mediana de 1, solo kernel)
 verificacion=OK                                           <- el mismo error, enmascarado por el tamaño
 
-$ NUMBA_ENABLE_CUDASIM=1 python3 caza3_reduce_numba.py 1000      (tres corridas)
-parciales_gpu=92.0,88.0,170.0,110.0     suma_gpu=460.0 suma_cpu=5500.0   verificacion=FALLA
-parciales_gpu=301.0,223.0,42.0,46.0     suma_gpu=612.0 suma_cpu=5500.0   verificacion=FALLA
-parciales_gpu=526.0,144.0,176.0,46.0    suma_gpu=892.0 suma_cpu=5500.0   verificacion=FALLA
+$ for i in 1 2 3; do NUMBA_ENABLE_CUDASIM=1 python3 caza3_reduce_numba.py 1000 | grep -E 'parciales|suma_gpu'; done
+parciales_gpu=144.0,137.0,170.0,136.0
+suma_gpu=587.0 suma_cpu=5500.0
+parciales_gpu=451.0,87.0,81.0,166.0
+suma_gpu=785.0 suma_cpu=5500.0
+parciales_gpu=200.0,68.0,66.0,65.0
+suma_gpu=399.0 suma_cpu=5500.0                            <- tus números serán otros: cambian en cada corrida
 $ NUMBA_ENABLE_CUDASIM=1 python3 caza3_reduce_numba.py 1000 32
 caza3: n=1000 block=32 grid=32 modo=CUDASIM
-suma_gpu=2380.0 suma_cpu=5500.0
+suma_gpu=2034.0 suma_cpu=5500.0
+t_kernel_ms=1082.1603 (mediana de 1, solo kernel)
 verificacion=FALLA
 ```
 
@@ -150,7 +156,7 @@ bloque 32, `OK` más seguido. Lo que **sí** coincide exactamente entre CUDASIM 
 | 1 | `MPI_Recv(…, 0, 0, …)` | — | | |
 | 3 | | | | |
 
-¿Por qué la raíz **sí** sale del `Bcast`? (pista: S02 §4, mensaje chico, envío inmediato). ¿Qué pasaría si `n`
+¿Por qué la raíz **sí** sale del `Bcast`? (pista: U4 S02, notas §4, mensaje chico, envío inmediato). ¿Qué pasaría si `n`
 fuera un arreglo de 1 MiB en lugar de un `int`?
 
 **I2 (caza2).** Con `n = 1000`, `block = 256`: llena la tabla para los hilos 231, 232 y 255 del bloque 3.
@@ -175,7 +181,7 @@ puede dar más que 36 o solo menos? ¿Por qué `parciales_gpu` cambia aunque el 
 
 - **I1.** Rango 1: `MPI_Recv(&n, 1, MPI_INT, 0, 0, …)`, se empareja con nada (una colectiva no genera mensajes
   punto a punto visibles), se queda ahí. Rango 3: igual. La raíz sale del `Bcast` porque Open MPI copia el `int` a
-  un búfer interno (envío inmediato, S02 §4) y no necesita que nadie "reciba"; con un mensaje de 1 MiB la raíz
+  un búfer interno (envío inmediato, U4 S02, notas §4) y no necesita que nadie "reciba"; con un mensaje de 1 MiB la raíz
   también se quedaría dentro del `Bcast`. En ambos casos: cuelgue, sin mensaje.
 - **I2.** Hilo 231 → `i = 999`, escribe `y[999]` (válido). Hilo 232 → `i = 1000`: el primero que no debe escribir.
   Hilo 255 → `i = 1023`. Sin centinelas, `y[1000…1023]` es el siguiente arreglo de `cudaMalloc` o memoria fuera de
@@ -216,18 +222,21 @@ PASS  caza2_guard_numba.py 37 8 en CUDASIM: verificacion=OK
 PASS  caza3_reduce_numba.py 1000 256 en CUDASIM: verificacion=OK
 PASS  caza3_reduce_numba.py 1000 256 en CUDASIM: verificacion=OK
 PASS  caza3_reduce_numba.py 1000 64 en CUDASIM: verificacion=OK
+PASS  caza2_guard_buggy.cu: el kernel axpb tiene guardia de rango (igual que el espejo)
+PASS  caza3_reduce_buggy.cu: el kernel block_sum tiene barrera en el ciclo del árbol (igual que el espejo)
 PASS  caza2_guard_buggy.cu y caza3_reduce_buggy.cu compilan con nvcc -c
----- bichos cazados: 3/3   (9 PASS, 0 FAIL, 0 SKIP)
+---- bichos cazados: 3/3   (11 PASS, 0 FAIL, 0 SKIP)
 ```
 
-Y mientras no corrijas nada (salida real del material tal como se entrega): `bichos cazados: 0/3 (2 PASS, 7 FAIL)`,
-con la pista `sigue interbloqueado: ¿quién llama a MPI_Bcast?` en `caza1`.
+Y mientras no corrijas nada (salida real del material tal como se entrega): `bichos cazados: 0/3 (2 PASS, 9 FAIL)`,
+con la pista `sigue interbloqueado: ¿quién llama a MPI_Bcast?` en `caza1`. Si corriges solo el espejo Numba, la
+revisión del `.cu` falla con `¿corregiste solo el espejo Numba?` y ese bicho no cuenta.
 
 Después de corregir, escribe en el comentario de cabecera de cada archivo **la regla general**, no el cambio:
 "todas las colectivas las llaman todos los procesos del comunicador", "`grid = ceil(n/block)` y guardia van juntos",
 "una barrera entre cada nivel del árbol, fuera de cualquier `if`".
 
-## M · Crear (tarea; 15 min)
+## C · Crear (tarea, ejercicio 1c; 10 min con `caza2` como plantilla)
 
 Escribe tu propio cazador: `caza4_<tema>_buggy.cu` **y** `caza4_<tema>_numba.py` (≤ 60 líneas cada uno), con
 **uno** de estos errores de la Unidad V que no tienen cazador en esta carpeta:

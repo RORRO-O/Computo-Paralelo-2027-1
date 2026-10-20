@@ -41,7 +41,8 @@ Crear; 3 → *exit ticket* Q1(a–b), CT2, tabla de rastreo I1; 4 → *exit tick
 - Esta carpeta completa. Compilada la noche anterior en la máquina del profesor: `make test` en
   `practica-guiada/` (≈ 30 s, sin GPU) y el notebook ejecutado una vez en Colab para tener la tabla de
   tiempos del día (la GPU asignada cambia).
-- Proyector, cronómetro visible, tarjetas con números de lista, caja para los pre-lab en la entrada.
+- Proyector, cronómetro visible, tarjetas con números de lista, lista de equipos para registrar el pre-lab
+  (vive en el repositorio de cada equipo, `practicas/P6/prelab/`).
 - Cada pareja: una laptop con cuenta de Colab/Kaggle (de la Práctica 1) y el repositorio clonado.
 - `practicas/P6-gpu/README.md` y su rúbrica impresa (para las mini-defensas). Si el README no está en el
   repositorio la víspera, hoy se aplica la alternativa del bloque 50–80 (Modificar + Crear de la práctica guiada).
@@ -49,9 +50,10 @@ Crear; 3 → *exit ticket* Q1(a–b), CT2, tabla de rastreo I1; 4 → *exit tick
 
 ## Guion minuto a minuto
 
-### 0–5 · Recuperación (y recogida del pre-lab)
+### 0–5 · Recuperación (y registro del pre-lab)
 
-Proyectar `retrieval-inicio.md`. Los pre-lab van a la caja al entrar; no se recibe después del minuto 5. El
+Proyectar `retrieval-inicio.md`. El pre-lab está en el repositorio de cada equipo (`practicas/P6/prelab/<alias>.md`,
+antes de las 08:30; `03-plantilla-practica.md` §1); Q1 retoma su pregunta 1 y el `git log` se revisa al cerrar. El
 pre-lab incluye la comprobación de que se obtiene GPU en Colab y en Kaggle (07 §B): anotar quién reportó que
 no la obtuvo, para emparejarlo en el minuto 30 con un equipo que sí la tenga.
 Al minuto 4, respuestas; manos por pregunta; anotar el conteo de Q1 y Q5.
@@ -128,17 +130,19 @@ Lista de errores esperados y la pregunta que se hace ante cada uno:
 
 Enunciado: `practicas/P6-gpu/README.md` (publicado el lunes 23 de noviembre). Flujo del Lab 1:
 
-- **Parte A (guiada, 50–62).** Suma de vectores y SAXPY completos: compilar, ejecutar con
+- **Parte A (guiada, 50–67).** Suma de vectores y SAXPY completos (50–62): compilar, ejecutar con
   `n ∈ {10⁵, 10⁶, 10⁷}`, medir con `cudaEvent` el *kernel* solo y el total con copias H2D/D2H, llenar la tabla
-  de la Parte A y escribir la predicción del pre-lab al lado. Verificación automática con `make test`.
-- **Parte B (semi-guiada, 62–80).** Multiplicación por mosaicos: carga cooperativa con guardas de borde,
-  las dos barreras y la guardia de escritura. Es la misma estructura que rastrearon en I1; se les dice así.
-  Se adopta la forma que publique `practicas/P6-gpu/README.md`: si viene con `TODO(n)`, el criterio es que
-  `make test` pase con `n` múltiplo y no múltiplo de `TILE`; si viene como código completo para leer y
-  predecir (07 §B: un constructo nuevo no va como `TODO` el mismo día del Lab 1), el criterio es la tabla
-  de predicción (lecturas, fases, bloques, columnas sobrantes) llena y contrastada con la salida del programa.
-  Lo que no quede de la Parte B al minuto 80 se termina en casa antes del Lab 2 (martes 1 de diciembre); el
-  criterio de verificación no cambia. En 18 min lo realista es llegar a la carga cooperativa y la primera barrera.
+  A.3 y escribir la predicción del pre-lab al lado. Después (62–67), el *kernel* por mosaicos **completo**
+  (`src/a_matmul_tiled.cu`, el mismo que rastrearon en I1; se les dice así): llenar la tabla de predicción A.7
+  (lecturas, fases, bloques, hilos que cargan ceros, qué protege cada barrera) y contrastarla con
+  `a_matmul_cpu 1000 16`. Es código completo para leer y predecir (07 §B: el constructo nuevo no va como `TODO`
+  el mismo día). Verificación automática con `make test`.
+- **Parte B (semi-guiada, 67–80).** Variante rectangular `C = A(M×K)·B(K×N)` (`src/b_matmul_rect.cu` y su
+  espejo): memoria compartida, barreras y ciclo de productos vienen escritos; `TODO(1)`–`TODO(4)` son índices,
+  dimensiones y guardias (constructos de la S01). Criterio: `make test-b` en verde con `32×32×32` **y**
+  `20×40×12`. El código sin corregir pasa la cuadrada y falla la rectangular (ideas 27 y 34): ese contraste es
+  la pregunta de la mini-defensa. Lo que no quede al minuto 80 se termina en casa antes del Lab 2 (martes 1 de
+  diciembre); el criterio no cambia. En 13 min lo realista es corregir `TODO(1)` y `TODO(2)`.
 
 El profesor circula con la rúbrica. **Mini-defensas** (02 §2.1): 2 min por equipo, al azar con tarjetas; una
 pregunta por integrante sobre el código que tengan en pantalla ("¿qué hace esta línea?"); la segunda ("¿qué

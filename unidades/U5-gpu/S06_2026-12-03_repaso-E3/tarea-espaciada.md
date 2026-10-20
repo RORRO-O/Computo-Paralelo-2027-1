@@ -1,6 +1,6 @@
 > **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Unidad V · Sesión S06 · jueves 3 de diciembre de 2026 · 10:30–12:00 · Salón 3208
 
-# Tarea espaciada · S06 (30 minutos; es el estudio para el Examen 3, no trabajo adicional)
+# Tarea espaciada · S06 (40 minutos; es el estudio para el Examen 3, no trabajo adicional)
 
 **Entrega.** Un archivo `tareas/U5-S06.md` en tu repositorio del curso (el mismo de las tareas anteriores), más
 `caza4_<tema>_buggy.cu` y `caza4_<tema>_numba.py` si hiciste el ejercicio 1c, antes del **lunes 7 de diciembre de
@@ -20,12 +20,12 @@ IA: verde para que te explique una colectiva o un mensaje de `nvcc`; amarillo (d
 `caza4` y te diga si el síntoma es reproducible; rojo para que corrija los cazadores por ti o te resuelva el
 examen de práctica.
 
-## 1. Del tema (15 min) · Terminar la caza y elegir con justificación
+## 1. Del tema (20 min) · Terminar la caza y elegir con justificación
 
 **a) Elección justificada (5 min).** Para cada caso elige **una** de tres técnicas vistas en sesiones distintas de la
 Unidad V: (1) una `atomicAdd` por hilo sobre memoria global (S03); (2) reducción en árbol en memoria compartida con
 segunda etapa en el anfitrión (S03); (3) acumulador privado por bloque en memoria compartida y un volcado atómico
-por bloque (S03, fase Crear). Escribe la letra y **un número** que la justifique (cuántas atómicas globales, cuántas
+por bloque (S03, fase Crear). Escribe el número de la técnica y **un dato numérico** que la justifique (cuántas atómicas globales, cuántas
 barreras, cuántos bytes bajan al anfitrión).
 
 - (i) Suma de `2^24` `float` en una T4.
@@ -35,7 +35,7 @@ barreras, cuántos bytes bajan al anfitrión).
 **b) Modificar (5 min).** Si `make cazar` no dice `bichos cazados: 3/3`, termina las correcciones en los tres
 archivos **y** en los espejos Numba. Pega la última línea de `make cazar` en `tareas/U5-S06.md`.
 
-**c) Crear (5 min para la ficha; el programa entra en los 15 si ya tienes la plantilla de caza2 a la mano).**
+**c) Crear (10 min: copia `caza2_guard_buggy.cu` y su espejo como plantilla, cambia el cálculo y escribe la ficha).**
 Escribe `caza4_<tema>_buggy.cu` y su espejo según `practica-guiada/README.md`, sección "Crear" (temas: `tiempo`,
 `copias`, `return`, `igualdad`), con la ficha sellada. Tu pareja lo caza. Si no coincidieron fuera de clase, cázalo
 tú mismo y dilo en el archivo.
@@ -50,7 +50,7 @@ sobre 16 direcciones; (2) no aplica directamente (no es una suma escalar). (iii)
 <code>atomicMax</code> si los datos son enteros, o (2) si son <code>float</code>: con 1 000 valores el costo es
 despreciable y manda la simplicidad; lanzar un árbol de dos etapas para 1 000 datos una sola vez no se amortiza;
 copiar 4 KB y hacerlo en la CPU también vale si lo justificas con el costo de la copia (≈ 10 µs de latencia).
-1b: la línea esperada es <code>---- bichos cazados: 3/3 (9 PASS, 0 FAIL, 0 SKIP)</code>. 1c: el criterio de "listo"
+1b: la línea esperada es <code>---- bichos cazados: 3/3 (11 PASS, 0 FAIL, 0 SKIP)</code>. 1c: el criterio de "listo"
 está en el README; el error más fácil de reproducir en CUDASIM es <code>igualdad</code>; <code>tiempo</code> y
 <code>copias</code> solo se ven en la GPU, y el encabezado debe decirlo.
 </details>
@@ -69,7 +69,8 @@ suma al final" para arreglarlo, y di en una línea por qué las otras dos que de
 
 <details><summary>Respuesta</summary>
 (a) <code>T(1)</code> es la V1 (0.052 s): <code>S(2) = 0.55</code>, <code>E(2) = 0.27</code>; <code>S(4) = 0.43</code>,
-<code>E(4) = 0.11</code>. <code>f(2) = (1/0.55 − 1/2)/(1/2) = 2.64</code>; <code>f(4) = (1/0.43 − 1/4)/(3/4) = 2.77</code>.
+<code>E(4) = 0.11</code>. <code>f(2) = (0.095/0.052 − 1/2)/(1/2) ≈ 2.65</code>; <code>f(4) = (0.120/0.052 − 1/4)/(3/4) ≈ 2.74</code>
+(con <code>S</code> redondeado a dos cifras sale 2.64 y 2.77: se aceptan).
 Una <code>f</code> mayor que 1 y creciente dice que el tiempo paralelo <strong>crece</strong> con los hilos: la
 sincronización domina (16 bins, 16 millones de secciones críticas). (b) <strong>Arreglo privado por hilo</strong> (o
 <code>reduction(+:hist[:16])</code>, que es lo mismo escrito por el compilador): 16 millones de incrementos sin
@@ -79,7 +80,10 @@ sigue serializando sobre 16 direcciones y, con 16 bins contiguos, mete falso com
 aquí) y un volcado al final. El patrón es el mismo en OpenMP, MPI (<code>Reduce</code> de arreglos) y CUDA.
 </details>
 
-## 3. Preparación para el lunes 7 de diciembre (7 min) · Entrega final y Examen 3
+## 3. Preparación para el lunes 7 de diciembre (12 min) · Entrega final y Examen 3
+
+Los 12 minutos son del inciso c (individual). Los incisos a y b son trabajo de equipo que la entrega final y el
+ensayo de defensa ya exigen; no cuentan en los 40 minutos de esta tarea.
 
 **a) Entrega final (equipo).** Clona tu repositorio en una carpeta nueva y corre
 `bash proyecto/entrega-final/scripts/verificar_entrega.sh /ruta/al/clon` (desde el repositorio del curso). Pega el

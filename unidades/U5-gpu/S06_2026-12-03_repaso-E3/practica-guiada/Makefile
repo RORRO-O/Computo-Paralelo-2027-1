@@ -17,7 +17,10 @@
 
 NVCC   ?= nvcc
 ARCH   ?= sm_75
-CC     ?= gcc
+# CC tiene valor por omisión en make (cc): ?= no lo cambiaría. Se fija gcc salvo que venga del entorno o de la línea.
+ifeq ($(origin CC),default)
+CC     := gcc
+endif
 MPICC  ?= mpicc
 CFLAGS ?= -std=c11 -O2 -Wall -Wextra
 PY     ?= python3

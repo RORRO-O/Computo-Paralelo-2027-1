@@ -168,8 +168,8 @@ Preguntas:
    fuera de los 1665 floats. Ojo: un hilo sobrante con `c ≥ ancho` pero `r < alto` escribe **dentro** del arreglo, en
    la fila siguiente (`idx = r · ancho + c`); por eso el error puede no producir ningún acceso ilegal.
 2. Es comportamiento indefinido. Los hilos con `c ≥ ancho` compiten con los legítimos por celdas de la fila siguiente:
-   según cuál escriba al último sale FAIL sin ningún error de CUDA o "sale bien" (una simulación secuencial de 37 × 45
-   da `max |diff| = 43.75` recorriendo los hilos en un orden y `0` en el orden inverso). Si una escritura con `r ≥ alto`
+   según cuál escriba al último sale FAIL sin ningún error de CUDA o "sale bien", y el orden de los hilos no está
+   definido (puede cambiar de una corrida a otra). Si una escritura con `r ≥ alto`
    cae fuera de la memoria reservada, aparece `illegal memory access`. Ninguna de las tres demuestra corrección.
 3. Si un solo arreglo fuera entrada y salida, un hilo podría leer un vecino que otro hilo ya actualizó en el mismo paso:
    carrera de datos y resultado que depende del orden de ejecución. Con dos búferes no hay escrituras sobre lo que se lee.

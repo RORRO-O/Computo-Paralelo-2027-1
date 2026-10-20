@@ -97,6 +97,8 @@ int main(int argc, char **argv) {
     printf("t_kernel_ms=%.4f (mediana de 5, solo kernel)\n", times[2]);
     printf("verificacion=%s\n", ok ? "OK" : "FALLA");
 
+    CUDA_CHECK(cudaEventDestroy(t0));
+    CUDA_CHECK(cudaEventDestroy(t1));
     CUDA_CHECK(cudaFree(d_x));
     CUDA_CHECK(cudaFree(d_partial));
     free(h_x);

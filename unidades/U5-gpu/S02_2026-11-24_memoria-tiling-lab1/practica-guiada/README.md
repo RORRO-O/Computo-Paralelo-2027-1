@@ -252,9 +252,9 @@ El `+1` en `tile[TILE][TILE + 1]` evita conflictos de banco en la memoria compar
 ## Después de PRIMM: Práctica 6 · Laboratorio 1 (50 min)
 
 El resto de la sesión es la Práctica 6 (`practicas/P6-gpu/README.md`, publicada el lunes 23 de
-noviembre): Parte A (suma de vectores y SAXPY con medición del *kernel* con y sin transferencias) y
-Parte B (multiplicación de matrices por mosaicos con `TODO(n)`: la misma estructura que acabas de
-rastrear). Lo que anotaste en I2 y I3 es lo que te van a preguntar en la mini-defensa. Fecha límite de la
+noviembre): Parte A (suma de vectores y SAXPY con medición del *kernel* con y sin transferencias, y el
+*kernel* por mosaicos que acabas de rastrear, completo en `a_matmul_tiled.cu`, con su tabla de predicción
+A.7) y Parte B (la variante con matrices rectangulares, con `TODO(n)` en índices, dimensiones y guardias). Lo que anotaste en I2 y I3 es lo que te van a preguntar en la mini-defensa. Fecha límite de la
 Práctica 6: domingo 6 de diciembre, 23:59 (15 % del 3er parcial).
 
 ## Errores frecuentes

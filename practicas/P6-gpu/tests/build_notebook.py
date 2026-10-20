@@ -110,7 +110,7 @@ if os.path.exists("resultados_P6.csv"):
 !./a_vectores bloque 16777216 resultados_P6.csv
 """),
     md("## 5 · Parte A.6–A.8 · Multiplicación de matrices: ingenua vs. por mosaicos (código completo)\n\n"
-       "Es el *kernel* que rastreaste en la S02. **Antes de ejecutar llena la tabla A.6 del README** (lecturas, fases, bloques, hilos "
+       "Es el *kernel* que rastreaste en la S02. **Antes de ejecutar llena la tabla A.7 del README** (lecturas, fases, bloques, hilos "
        "que cargan ceros). Criterio: `OK` en las dos versiones con `n = 512`, `1024` **y** `1000` (no múltiplo de 16). "
        "`a_matmul_cpu` imprime el modelo de lecturas a memoria global."),
     code("!./a_matmul_cpu 1000 16\n!./a_matmul_tiled_t16 512 resultados_P6.csv\n!./a_matmul_tiled_t16 1000 resultados_P6.csv\n!./a_matmul_tiled_t16 1024 resultados_P6.csv"),
@@ -179,8 +179,9 @@ for png in ("tiempo_vs_bloque.png", "speedup_vs_n.png", "transferencias.png"):
     md("## 9 · Guardar resultados (CSV, PNG y entorno)\n\nSe agrega la fecha, se guarda `entorno.txt` con la GPU y la CPU de esta sesión y se descarga todo. "
        "Súbelo a `practicas/P6/resultados/` del repositorio de tu equipo. En Kaggle los archivos quedan en `/kaggle/working/` (panel *Output*)."),
     code("""
-import datetime, shutil, subprocess
+import datetime, os, shutil, subprocess
 import pandas as pd
+os.makedirs("resultados", exist_ok=True)  # por si no corriste la sección 8
 hoy = datetime.date.today().isoformat()
 df = pd.read_csv("resultados_P6.csv")
 df["fecha"] = hoy

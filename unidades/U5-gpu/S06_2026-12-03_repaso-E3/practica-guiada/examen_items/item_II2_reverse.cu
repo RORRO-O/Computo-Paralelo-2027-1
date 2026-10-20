@@ -3,7 +3,17 @@
  * Sin GPU: NUMBA_ENABLE_CUDASIM=1 python3 item_II2_reverse_numba.py
  */
 #include <cstdio>
+#include <cstdlib>
 #include <cuda_runtime.h>
+
+#define CUDA_CHECK(call)                                                                   \
+    do {                                                                                   \
+        cudaError_t e_ = (call);                                                           \
+        if (e_ != cudaSuccess) {                                                           \
+            fprintf(stderr, "error CUDA en %s:%d: %s\n", __FILE__, __LINE__, cudaGetErrorString(e_)); \
+            exit(1);                                                                       \
+        }                                                                                  \
+    } while (0)
 
 __global__ void reverse_in_block(int *data, int n) {
     __shared__ int s[4];
@@ -20,12 +30,13 @@ int main(void) {
     int h[n];
     for (int i = 0; i < n; i++) h[i] = i;
     int *d;
-    cudaMalloc(&d, n * sizeof(int));
-    cudaMemcpy(d, h, n * sizeof(int), cudaMemcpyHostToDevice);
+    CUDA_CHECK(cudaMalloc(&d, n * sizeof(int)));
+    CUDA_CHECK(cudaMemcpy(d, h, n * sizeof(int), cudaMemcpyHostToDevice));
     reverse_in_block<<<3, 4>>>(d, n);
-    cudaDeviceSynchronize();
-    cudaMemcpy(h, d, n * sizeof(int), cudaMemcpyDeviceToHost);
+    CUDA_CHECK(cudaGetLastError());                  /* lanzamiento válido */
+    CUDA_CHECK(cudaDeviceSynchronize());             /* ejecución sin error */
+    CUDA_CHECK(cudaMemcpy(h, d, n * sizeof(int), cudaMemcpyDeviceToHost));
     for (int i = 0; i < n; i++) printf("%d%s", h[i], i < n - 1 ? " " : "\n");
-    cudaFree(d);
+    CUDA_CHECK(cudaFree(d));
     return 0;
 }

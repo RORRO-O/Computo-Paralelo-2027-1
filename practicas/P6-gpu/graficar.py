@@ -255,9 +255,9 @@ def print_summary(rows, styles):
     for kernel in styles:
         sub = threshold_rows(rows, kernel)
         if sub:
-            fmt = lambda v: f"n >= {v}" if v else "no cruza en el rango medido"
-            print(f"- {kernel}: la GPU gana solo kernel desde {fmt(first_crossing(sub, 'speedup_kernel'))}; "
-                  f"con copias desde {fmt(first_crossing(sub, 'speedup_total'))}")
+            fmt = lambda v: f"desde n >= {v}" if v else "no cruza en el rango medido"
+            print(f"- {kernel}: solo kernel, la GPU gana {fmt(first_crossing(sub, 'speedup_kernel'))}; "
+                  f"con copias, {fmt(first_crossing(sub, 'speedup_total'))}")
     for r in largest_rows(rows, styles):
         copies = 100.0 * (r["t_h2d_ms"] + r["t_d2h_ms"]) / r["t_total_ms"]
         print(f"- {r['kernel']} (n={r['n']}, bloque {r['block']}): copias = {copies:.0f} % del total; "

@@ -10,7 +10,8 @@
 
 NVCC   ?= nvcc
 ARCH   ?= sm_75
-CC     ?= gcc
+# CC con "=" (no "?="): make ya trae CC=cc por defecto. Se cambia con `make CC=...`.
+CC     = gcc
 CFLAGS ?= -std=c11 -O2 -Wall -Wextra
 PY     ?= python3
 

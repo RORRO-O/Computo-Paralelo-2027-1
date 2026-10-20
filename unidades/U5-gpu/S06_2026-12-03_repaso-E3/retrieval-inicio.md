@@ -25,22 +25,24 @@ vez, fuera de <code>if (rank == 0)</code>. Si solo la llama la raíz, los demás
 <code>n</code> equivocado, sin mensaje de error (idea errónea 18).
 </details>
 
-**3.** Dos procesos ejecutan cada uno `MPI_Send` al otro y después `MPI_Recv` del otro. El programa es:
-(a) correcto · (b) incorrecto aunque a veces termine · (c) correcto solo con mensajes grandes.
+**3.** Después de `MPI_Isend(buf, n, MPI_DOUBLE, 1, 0, MPI_COMM_WORLD, &req)`, ¿desde cuándo puedes volver a
+escribir en `buf`? (a) en la línea siguiente · (b) cuando regrese `MPI_Wait(&req, …)` · (c) cuando el rango 1 llame a
+`MPI_Recv` · (d) nunca: `buf` queda reservado.
 
 <details><summary>Respuesta</summary>
-<strong>(b)</strong>. Termina solo si <code>MPI_Send</code> copia a un búfer interno (mensaje chico, ≈ &lt; 4 KB en
-Open MPI local); con mensajes grandes los dos esperan al <code>Recv</code> del otro. Un programa seguro termina
-aunque todos los <code>Send</code> bloqueen: <code>MPI_Sendrecv</code>, orden por paridad o <code>Isend/Irecv +
-Wait</code> (idea errónea 17).
+<strong>(b)</strong>. <code>MPI_Isend</code> solo <em>inicia</em> el envío; hasta que <code>MPI_Wait</code> (o un
+<code>MPI_Test</code> que dé completo) termina la operación, el búfer es de MPI. Escribir antes puede mandar datos
+mezclados, sin ningún error. (c) no sirve: el emisor no puede saber cuándo llama el otro a <code>Recv</code>; la
+espera es local (idea errónea 17: "regresar" no es "terminar"; halos de U4 S04).
 </details>
 
-**4.** Cuatro procesos; `total = 0` en todos; `MPI_Reduce(&x, &total, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD)`.
-Después de la llamada, ¿qué vale `total` en el rango 2?
+**4.** Jacobi 1D con 4 procesos en línea (los extremos no son periódicos): por cada frontera entre dos procesos
+vecinos se manda un valor de halo en cada dirección. ¿Cuántos mensajes de halo hay por iteración en total?
 
 <details><summary>Respuesta</summary>
-<strong>0</strong>: <code>MPI_Reduce</code> deja el resultado solo en la raíz y no toca el búfer de los demás. Si todos
-lo necesitan, <code>MPI_Allreduce</code> (idea errónea 16; es el ítem III.1 del examen de práctica).
+<strong>6</strong> = 2(p − 1): 3 fronteras × 2 direcciones. Los rangos 0 y 3 mandan uno cada uno; los rangos 1 y 2,
+dos. Cada mensaje cuesta al menos α aunque lleve un solo <code>double</code> (idea errónea 21); por eso el proceso
+interior paga <code>2α</code> por iteración en el modelo <code>T_p = (n/p)·t_c + 2α</code>.
 </details>
 
 ## CUDA (Unidad V)
@@ -68,12 +70,13 @@ dos, etiquetados (idea errónea 24).
 ociosos (los detiene la guardia <code>if (i &lt; n)</code>). Con <code>n / block = 3</code> faltarían 232 elementos.
 </details>
 
-**8.** `__syncthreads()` sincroniza: (a) todos los hilos de la GPU · (b) los hilos de un bloque · (c) los 32 hilos
-de un *warp* · (d) el anfitrión con el dispositivo.
+**8.** Un *kernel* declara `__shared__ float s[256];` y se lanza con `<<<4, 256>>>`. ¿Cuántas copias de `s` existen
+durante la ejecución?
 
 <details><summary>Respuesta</summary>
-<strong>(b)</strong>. Entre bloques solo se sincroniza al terminar el <em>kernel</em> (segunda etapa en el anfitrión o
-en otro <em>kernel</em>); (d) es <code>cudaDeviceSynchronize()</code> (idea errónea 25).
+<strong>4</strong>, una por bloque: los 256 hilos de un bloque comparten la suya y ningún bloque ve la de otro. Por
+eso la memoria compartida y <code>__syncthreads()</code> son de <strong>bloque</strong>; entre bloques solo se
+sincroniza al terminar el <em>kernel</em> (idea errónea 25).
 </details>
 
 ## OpenMP y métricas (Unidades I–III)
@@ -97,7 +100,8 @@ errónea 5).
 </details>
 
 **Para el profesor.** Anotar el conteo de manos por pregunta en la tabla de `plan-sesion.md` (bloque 0–10). Las
-preguntas se corresponden con secciones del examen de práctica: 1 y 9–10 → V; 2 y 4 → III.1 y IV.a; 3 → I.1; 5 y 7 →
-II.2 y IV.b; 6 → V.b; 8 → I.6. Un ítem con menos de 60 % de aciertos se suma a los candidatos del bloque 60–72
+preguntas tocan los temas del examen de práctica sin repetir sus ítems (las respuestas se muestran dos minutos antes de
+que empiece): 1 y 4 → I.2 y V.a; 2 → III.1, IV.a y CT1; 3 → I.1; 5 y 7 → II.2 y IV.b; 6 → V.b; 8 → I.6, II.2 y CT3;
+9–10 → I.5 y V. Un ítem con menos de 60 % de aciertos se suma a los candidatos del bloque 60–72
 ("los tres ítems peor contestados") aunque el examen no lo confirme, y se repite con pista en la recuperación del
 lunes 7 de diciembre.
