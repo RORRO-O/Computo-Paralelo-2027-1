@@ -8,8 +8,8 @@ cuenta a mano alzada quién acertó cada una.
 1. **(S03, jueves 26 de noviembre)** En la reducción en árbol dentro de un bloque hay un `__syncthreads()` en cada
    nivel. ¿Qué garantiza esa barrera y qué **no** sincroniza?
 
-2. **(S03)** En el histograma, la primera versión hacía `atomicAdd` directo sobre los 256 contadores en memoria
-   global desde todos los hilos. ¿Por qué era lenta y cuál fue el arreglo?
+2. **(S03)** En el histograma, la primera versión hacía `atomicAdd` directo sobre los 16 contadores en memoria
+   global desde todos los hilos. ¿Por qué era lenta y cuál fue el arreglo? (una línea)
 
 3. **(Unidad I)** Un programa tarda 20 s en su mejor versión secuencial y 5 s con 8 hilos. Calcula el *speedup*
    y la eficiencia.
@@ -17,8 +17,9 @@ cuenta a mano alzada quién acertó cada una.
 4. **(Unidad IV, S05 del martes 17 de noviembre)** Con el modelo `T = latencia + tamaño / ancho_de_banda`:
    ¿cuánto tarda mover 64 MB si la latencia es 10 µs y el ancho de banda 4 GB/s? ¿Qué término domina?
 
-5. **(Tema de hoy)** Un kernel tarda 1 ms. Copiar sus datos a la GPU y traer el resultado tarda 48 ms. La CPU
-   hace el mismo cálculo en 20 ms. ¿Quién gana si los datos empiezan en la CPU? ¿Y si ya estaban en la GPU?
+5. **(Tema de hoy, conjetura)** Un kernel tarda 1 ms. Copiar sus datos a la GPU y traer el resultado tarda 48 ms.
+   La CPU hace el mismo cálculo en 20 ms. ¿Quién crees que gana si los datos empiezan en la CPU? ¿Y si ya estaban
+   en la GPU? ("No sé" es una respuesta válida y no cuenta en contra.)
 
 <details>
 <summary>Respuestas</summary>
@@ -27,7 +28,7 @@ cuenta a mano alzada quién acertó cada una.
    de que cualquiera lea en el nivel `s/2`. No sincroniza hilos de **otros bloques** ni "toda la GPU"
    (idea errónea 25); entre bloques se sincroniza al terminar el kernel (o con una segunda pasada).
 
-2. Miles de hilos hacían atómicas sobre las **mismas** 256 direcciones de memoria global: las operaciones se
+2. Miles de hilos hacían atómicas sobre las **mismas** 16 direcciones de memoria global: las operaciones se
    serializan y el tiempo crece con la contención. Arreglo: histograma parcial por bloque en memoria
    compartida (atómicas baratas y repartidas), y al final una sola `atomicAdd` por bin y por bloque a la global.
 

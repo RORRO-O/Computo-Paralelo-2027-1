@@ -6,7 +6,8 @@
 #   compilación con -std=c11 -O2 -Wall -Wextra sin warnings;
 #   A: hello (p líneas y Gather ordenado); estadísticos MPI contra a2_stats_seq con tolerancia (p = 1..4,
 #      n no múltiplo de p -> Scatterv; n múltiplo -> Scatter; Scatter FORZADO con residuo debe detectarse);
-#   B: matriz-vector MPI contra b_matvec_seq (p = 1..4, filas no múltiplo de p, un rango sin filas);
+#   B: reparto de filas (TODO(1) solo: "filas por rango" con p = 3 y 4) y matriz-vector MPI contra
+#      b_matvec_seq (p = 1..4, filas no múltiplo de p, un rango sin filas);
 #   C: calor 1D MPI contra c_heat_seq (pasos fijos, convergencia por tol, check_every > 1, una celda por
 #      rango, n < p rechazado) y/o primos MPI contra c_primes_seq (cíclico y bloques);
 #   D: ping-pong (alpha, beta > 0), escalado.sh en pequeño (CSV del protocolo, oversub etiquetado, PNG),
@@ -82,10 +83,10 @@ if want A; then
     done
     run_mpi 4 ./$S/a2_stats_mpi 100000 auto 2
     if [ $rc -eq 0 ] && [ "$(field "$LAST" 5)" = scatter ] && [ "$(field "$LAST" 11)" = OK ]; then
-        ok "a2_stats_mpi -np 4 n=100000: n %% p = 0 usa Scatter y verifica OK"; else ko "a2_stats_mpi -np 4 n=100000 (Scatter)"; fi
+        ok "a2_stats_mpi -np 4 n=100000: n % p = 0 usa Scatter y verifica OK"; else ko "a2_stats_mpi -np 4 n=100000 (Scatter)"; fi
     run_mpi 4 ./$S/a2_stats_mpi 100003 scatter 2
     if [ $rc -ne 0 ] && [ "$(field "$LAST" 11)" = FALLA ] && grep -q "ADVERTENCIA" "$LAST"; then
-        ok "a2_stats_mpi -np 4 n=100003 Scatter FORZADO: detecta la perdida de n %% p elementos"
+        ok "a2_stats_mpi -np 4 n=100003 Scatter FORZADO: detecta la perdida de n % p elementos"
     else ko "a2_stats_mpi Scatter forzado con residuo" "debia fallar la verificacion: $(grep RESULT "$LAST")"; fi
     if [ "$EXTRA" = 1 ]; then
         run_mpi 5 ./$S/a2_stats_mpi 7 auto 2
@@ -107,9 +108,20 @@ check_matvec() { # nombre np m n iters
         ok "$name" "checksum=$cs"
     else ko "$name" "$(grep -E 'verificacion|RESULT|TODO|rror' "$LAST" | tail -2)"; fi
 }
+# TODO(1) por separado: la línea "filas por rango" sale en cuanto el reparto está hecho, aunque falten 2–5
+check_rows() { # nombre np m esperado
+    local name=$1 np=$2 m=$3 want=$4
+    run_mpi "$np" ./$S/b_matvec_mpi "$m" 203 3 1
+    if [ $rc -eq 0 ] && grep -q "filas por rango: $want\$" "$LAST"; then ok "$name" "filas por rango: $want"
+    elif grep -q "filas por rango:" "$LAST"; then ko "$name" "$(grep -o 'filas por rango:.*' "$LAST") (se esperaba $want)"
+    elif pending "$LAST"; then pd "$name"
+    else ko "$name" "$(tail -2 "$LAST")"; fi
+}
 if want B; then
     run_seq ./$S/b_matvec_seq 301 203 3 2
     if [ $rc -eq 0 ] && [ -n "$(field "$LAST" 7)" ]; then ok "b_matvec_seq m=301 n=203 iters=3" "checksum=$(field "$LAST" 7)"; else ko "b_matvec_seq"; fi
+    check_rows "b_matvec_mpi -np 3 m=301: reparto con residuo (TODO 1)" 3 301 "101 100 100"
+    check_rows "b_matvec_mpi -np 4 m=301: reparto con residuo (TODO 1)" 4 301 "76 75 75 75"
     for p in 1 2 3 4; do check_matvec "b_matvec_mpi -np $p m=301 n=203 (filas 301 % $p) == secuencial" $p 301 203 3; done
     check_matvec "b_matvec_mpi -np 4 m=3 n=50: un rango sin filas (cuenta 0)" 4 3 50 2
     if [ "$EXTRA" = 1 ]; then
@@ -187,13 +199,16 @@ if want D; then
         ok "d_pingpong -np 2 (factor 0.05): alpha y beta medidos" "$(grep '^RESULT' "$LAST")"
     else ko "d_pingpong" "$(tail -2 "$LAST")"; fi
     rm -rf "$OUT/esc"; esc_ok=0
-    if PROG=heat N=20000 ITERS=50 NLOCAL=5000 PROCS="2" OVERSUB=8 OUT="$OUT/esc" PLOT=1 MPIRUN_FLAGS="$MPIRUN_FLAGS" \
+    # p sobre-suscrito = 2 x núcleos físicos (como escalado.sh): en 4 núcleos, 8
+    cores=$(lscpu -p=CORE,SOCKET 2>/dev/null | grep -v '^#' | sort -u | wc -l); [ "${cores:-0}" -ge 1 ] || cores=$(nproc)
+    OV=$((2 * cores))
+    if PROG=heat N=20000 ITERS=50 NLOCAL=5000 PROCS="2" OVERSUB=$OV OUT="$OUT/esc" PLOT=1 MPIRUN_FLAGS="$MPIRUN_FLAGS" \
        timeout -k 2 "$TO" ./escalado.sh > "$OUT/escalado.log" 2>&1; then
         hdr="config,hilos,n,rep1,rep2,rep3,rep4,rep5,mediana_s,speedup,eficiencia"
         if [ "$(head -1 "$OUT/esc/fuerte.csv")" = "$hdr" ] && [ "$(head -1 "$OUT/esc/debil.csv")" = "$hdr" ] \
            && [ "$(tail -n +2 "$OUT/esc/fuerte.csv" | wc -l)" = 3 ] && [ "$(tail -n +2 "$OUT/esc/debil.csv" | wc -l)" = 3 ] \
            && awk -F, 'NF != 11 { bad = 1 } END { exit bad }' "$OUT/esc/fuerte.csv" "$OUT/esc/debil.csv" \
-           && grep -q '^mpi_oversub,8,20000,' "$OUT/esc/fuerte.csv" && grep -q '^mpi,2,20000,' "$OUT/esc/fuerte.csv" \
+           && grep -q "^mpi_oversub,$OV,20000," "$OUT/esc/fuerte.csv" && grep -q '^mpi,2,20000,' "$OUT/esc/fuerte.csv" \
            && grep -q '^mpi,2,10000,' "$OUT/esc/debil.csv" && grep -q '^seq,1,5000,' "$OUT/esc/debil.csv" \
            && [ -s "$OUT/esc/fuerte.png" ] && [ -s "$OUT/esc/debil.png" ] && grep -q nucleos_fisicos "$OUT/esc/entorno.txt"; then
             ok "escalado.sh (pequeno): CSV del protocolo, oversub etiquetado, PNG, entorno.txt"; esc_ok=1

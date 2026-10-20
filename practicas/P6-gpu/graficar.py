@@ -7,10 +7,12 @@ Uso:
 Lee uno o varios CSV (se concatenan), y escribe en la carpeta de salida (por defecto la del primer CSV):
     tiempo_vs_bloque.png   tiempo del kernel vs. hilos por bloque (filas con experimento = "bloque"), un panel
                            por kernel; marca el mejor bloque y muestra el total con copias en línea discontinua
-    speedup_vs_n.png       speedup vs. n (filas "umbral", o cualquier kernel con >= 3 tamaños al mismo bloque):
+    speedup_vs_n.png       speedup vs. n (filas "umbral"; si el CSV no trae ninguna, un kernel con >= 3 tamaños al
+                           mismo bloque):
                            solo kernel (continua) y con copias (discontinua); la línea S = 1 es el empate con la CPU.
                            Si el CSV trae la columna opcional t_omp4_ms (V2 OpenMP con 4 hilos), agrega esa curva
-    transferencias.png     para el n más grande de cada kernel: barras H2D / kernel / D2H en ms con su porcentaje
+    transferencias.png     para el n más grande de cada kernel: qué porcentaje del total es H2D / kernel / D2H, y
+                           el total en ms al final de cada barra
 Imprime además la tabla en Markdown (para pegar en REPORTE.md) y un resumen: mejor bloque por kernel, primer n
 con speedup > 1 sin y con copias, y porcentaje de copias. El título dice si los datos son medidos (origen=gpu,
 con el modelo de GPU) o ilustrativos/de prueba. Solo usa la biblioteca estándar + matplotlib.
@@ -52,21 +54,22 @@ def read_rows(paths):
 
 
 def style_map(rows):
-    """Color y marcador por kernel, en orden de primera aparición: el color sigue a la entidad, no a su rango."""
+    """Color y marcador por kernel, en orden de primera aparición: el color sigue a la entidad, no a su rango.
+    Con más de 8 kernels (Partes A, B y C juntas) los colores se repiten solo a partir del noveno; en
+    tiempo_vs_bloque.png cada kernel tiene su propio panel y en speedup_vs_n.png solo entran los del barrido "umbral",
+    así que nunca se confunden dos series en la misma gráfica. Ningún kernel se omite."""
     kernels = []
     for r in rows:
         if r["kernel"] not in kernels:
             kernels.append(r["kernel"])
-    if len(kernels) > len(PALETTE):
-        print(f"aviso: {len(kernels)} kernels; solo se grafican los primeros {len(PALETTE)}")
-    return {k: (PALETTE[i % len(PALETTE)], MARKERS[i % len(MARKERS)]) for i, k in enumerate(kernels[:len(PALETTE)])}
+    return {k: (PALETTE[i % len(PALETTE)], MARKERS[i % len(MARKERS)]) for i, k in enumerate(kernels)}
 
 
 def source_note(rows):
     origins = {r["origen"] for r in rows}
     if origins == {"gpu"}:
         return "medido en " + ", ".join(sorted({r["dispositivo"] for r in rows}))
-    return "DATOS " + "/".join(sorted(o.upper() for o in origins)) + " (no medidos)"
+    return "DATOS NO MEDIDOS (origen: " + ", ".join(sorted(origins)) + ")"
 
 
 def tidy(ax):
@@ -87,8 +90,13 @@ def plot_block_sweep(rows, out_path, styles, note):
         print("Sin filas con experimento=bloque: no se genera tiempo_vs_bloque.png")
         return
     kernels = [k for k in styles if any(r["kernel"] == k for r in rows)]
-    fig, axes = plt.subplots(1, len(kernels), figsize=(4.6 * len(kernels), 4.2), squeeze=False)
-    for ax, kernel in zip(axes[0], kernels):
+    ncols = min(3, len(kernels))  # paneles en filas de 3: legibles en el reporte y en pantalla
+    nrows = (len(kernels) + ncols - 1) // ncols
+    fig, axes = plt.subplots(nrows, ncols, figsize=(4.6 * ncols, 3.9 * nrows + 0.4), squeeze=False)
+    flat = [ax for row_axes in axes for ax in row_axes]
+    for ax in flat[len(kernels):]:
+        ax.set_visible(False)  # huecos de la última fila
+    for ax, kernel in zip(flat, kernels):
         sub = [r for r in rows if r["kernel"] == kernel]
         n_big = max(r["n"] for r in sub)  # si hay varios n, se grafica el mayor (el del protocolo)
         pts = sorted((r["block"], r["t_kernel_ms"], r["t_total_ms"]) for r in sub if r["n"] == n_big)
@@ -117,10 +125,13 @@ def plot_block_sweep(rows, out_path, styles, note):
 
 
 def threshold_rows(rows, kernel):
-    """Filas 'umbral' del kernel; si no hay, las del bloque más frecuente cuando hay >= 3 tamaños distintos."""
+    """Filas 'umbral' del kernel. Solo si el CSV no trae ningún barrido 'umbral' (p. ej. un CSV con tu Parte C sola),
+    se usan las del bloque más frecuente cuando hay >= 3 tamaños distintos: así no se mezclan en el mismo eje un n que
+    es el lado de una matriz con un n que es número de elementos. Las filas 'uno' (configuraciones sueltas, como las
+    formas rectangulares de la Parte B) nunca forman un barrido."""
     sub = [r for r in rows if r["kernel"] == kernel and r["experimento"] == "umbral"]
-    if not sub:
-        cand = [r for r in rows if r["kernel"] == kernel]
+    if not sub and not any(r["experimento"] == "umbral" for r in rows):
+        cand = [r for r in rows if r["kernel"] == kernel and r["experimento"] != "uno"]
         if not cand:
             return []
         blocks = {}
@@ -179,30 +190,34 @@ def largest_rows(rows, styles):
 
 
 def plot_transfers(rows, out_path, styles, note):
+    """Una barra por kernel (su n mayor): qué fracción del tiempo total es H2D, kernel y D2H. Se grafican
+    proporciones porque los totales de distintos kernels difieren en órdenes de magnitud; el total va en ms al final."""
     rows = largest_rows(rows, styles)
     if not rows:
         return
-    fig, ax = plt.subplots(figsize=(7.4, 1.0 + 0.7 * len(rows)))
+    fig, ax = plt.subplots(figsize=(7.8, 1.2 + 0.62 * len(rows)))
     labels = [f"{r['kernel']}\nn = {fmt_n(r['n'])}, bloque {r['block']}" for r in rows]
     parts = (("t_h2d_ms", "H2D", "#8a8984"), ("t_kernel_ms", "kernel", "#2a78d6"), ("t_d2h_ms", "D2H", "#c3c2b7"))
     left = [0.0] * len(rows)
     for key, name, color in parts:
-        vals = [r[key] for r in rows]
-        ax.barh(labels, vals, left=left, color=color, label=name, height=0.55, edgecolor="white", linewidth=2)
-        for i, r in enumerate(rows):
-            pct = 100.0 * r[key] / r["t_total_ms"]
-            if pct >= 8:
-                ax.text(left[i] + vals[i] / 2, i, f"{name} {pct:.0f} %", ha="center", va="center", fontsize=8,
+        pcts = [100.0 * r[key] / r["t_total_ms"] for r in rows]
+        ax.barh(labels, pcts, left=left, color=color, label=name, height=0.6, edgecolor="white", linewidth=1.5)
+        for i, pct in enumerate(pcts):
+            if pct >= 12:  # solo se rotula el tramo que tiene espacio; el resto se lee en la tabla impresa
+                ax.text(left[i] + pct / 2, i, f"{pct:.0f} %", ha="center", va="center", fontsize=8,
                         color="white" if key == "t_kernel_ms" else INK)
-        left = [a + b for a, b in zip(left, vals)]
+        left = [a + b for a, b in zip(left, pcts)]
     for i, r in enumerate(rows):
-        ax.text(left[i], i, f"  {r['t_total_ms']:.2f} ms", va="center", fontsize=8, color=MUTED)
-    ax.set_xlabel("ms (mediana de 5)")
+        ax.text(101.5, i, f"{r['t_total_ms']:.2f} ms", va="center", fontsize=8, color=MUTED)
+    ax.set_xlim(0, 118)
+    ax.set_xticks([0, 25, 50, 75, 100])
+    ax.set_xlabel("% del tiempo total con copias (mediana de 5); a la derecha, el total en ms")
     ax.set_title(f"¿Cuánto pesan las copias? · {note}", fontsize=11, color=INK)
-    ax.legend(frameon=False, fontsize=8, ncol=3, loc="lower right")
+    ax.legend(frameon=False, fontsize=8, ncol=3, loc="upper center", bbox_to_anchor=(0.43, -0.12 - 0.3 / len(rows)))
     ax.invert_yaxis()
     tidy(ax)
     ax.grid(axis="y", visible=False)
+    ax.grid(axis="x", color=GRID, linewidth=0.8)
     fig.tight_layout()
     fig.savefig(out_path, dpi=130)
     plt.close(fig)

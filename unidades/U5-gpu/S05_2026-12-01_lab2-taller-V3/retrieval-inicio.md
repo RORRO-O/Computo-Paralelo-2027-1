@@ -15,18 +15,17 @@ los dos exige la Parte D?
 Sin transferencias: 120 / 2 = 60×. Con transferencias: 120 / (30 + 2 + 30) = 120 / 62 ≈ 1.9×. La Parte D (y el protocolo del curso) exige <strong>ambos</strong>, en la misma tabla. El segundo es el que ve el usuario del programa.
 </details>
 
-**2.** (S04) En este fragmento el tiempo medido sale de 15 µs para 100 lanzamientos de un *kernel* que trabaja sobre
-4 MB. ¿Qué falta y qué se midió en realidad?
+**2.** (S04) En este fragmento el tiempo medido sale de 0.3 ms para 100 lanzamientos de un *kernel* que lee y escribe
+8 MB en cada uno (serían 2.7 TB/s; una T4 da 320 GB/s). ¿Qué línea falta y qué se midió en realidad?
 
 ```c
-cudaEventRecord(start);
+double t0 = now_s();                       /* reloj de CPU */
 for (int it = 0; it < 100; it++) kernel<<<grid, block>>>(d_a, d_b, n);
-cudaEventRecord(stop);
-cudaEventElapsedTime(&ms, start, stop);
+double ms = (now_s() - t0) * 1e3;
 ```
 
 <details><summary>Respuesta</summary>
-Falta <code>cudaEventSynchronize(stop)</code> antes de <code>cudaEventElapsedTime</code> (que además regresa un error si el evento no se ha completado). Los lanzamientos son asíncronos: se midió el tiempo de <em>encolar</em> 100 lanzamientos, no de ejecutarlos. Falta también la corrida de calentamiento y las 5 repeticiones.
+Falta <code>cudaDeviceSynchronize()</code> antes de la segunda lectura del reloj. Los lanzamientos son asíncronos: se midió el tiempo de <em>encolar</em> 100 lanzamientos, no de ejecutarlos. (Con eventos el equivalente es <code>cudaEventSynchronize(stop)</code>; sin ella, <code>cudaEventElapsedTime</code> regresa <code>cudaErrorNotReady</code>.) Faltan también el calentamiento y las 5 repeticiones.
 </details>
 
 **3.** (Unidad I · Amdahl) En la V2 de tu proyecto, la lectura de datos y la escritura de resultados ocupan el 10 %
@@ -38,14 +37,13 @@ S_max = 1 / f_secuencial = 1 / 0.10 = 10×. Por eso la V3 se juzga por el tiempo
 </details>
 
 **4.** (Unidad IV · modelo de costo) Con latencia de 50 µs y ancho de banda de 1 GB/s, ¿cuánto cuesta enviar 1000
-mensajes de 8 bytes frente a 1 mensaje de 8 000 bytes? ¿Qué término domina en cada caso y qué tiene que ver con
-hacer `cudaMemcpy` dentro de un ciclo?
+mensajes de 8 bytes frente a 1 mensaje de 8 000 bytes?
 
 <details><summary>Respuesta</summary>
-1000 mensajes: 1000 × (50 µs + 8 B / 1 GB/s) ≈ 1000 × 50.008 µs ≈ 50 ms; domina la latencia. 1 mensaje: 50 µs + 8 µs = 58 µs; dominan casi por igual. Muchas transferencias pequeñas pagan la latencia muchas veces; en GPU, una <code>cudaMemcpy</code> por iteración paga la latencia de PCIe (≈ 10 µs) <em>y</em> vuelve a mover todos los datos en cada paso. Se sube una vez y se baja una vez.
+1000 mensajes: 1000 × (50 µs + 8 B / 1 GB/s) ≈ 1000 × 50.008 µs ≈ 50 ms; domina la latencia, pagada 1000 veces. 1 mensaje: 50 µs + 8 µs = 58 µs; todavía domina la latencia (50 de 58 µs), pero se paga una sola vez: ≈ 860 veces menos tiempo para los mismos bytes. Muchas transferencias pequeñas pagan la latencia muchas veces; en GPU, una <code>cudaMemcpy</code> por iteración paga la latencia de PCIe (≈ 10 µs) <em>y</em> vuelve a mover todos los datos en cada paso. Se sube una vez y se baja una vez.
 </details>
 
-**5.** (Anticipa el tema) Una malla de 6 filas × 8 columnas se guarda en un arreglo 1D por filas. ¿Qué índice tiene la
+**5.** (Anticipa el tema; conjetura: "no sé" es válida y no cuenta) Una malla de 6 filas × 8 columnas se guarda en un arreglo 1D por filas. ¿Qué índice tiene la
 celda (fila 2, col 3)? Si un *kernel* 2D usa bloques de 4 × 4 y `threadIdx.x` recorre columnas, ¿qué `blockIdx` y
 `threadIdx` la procesan?
 

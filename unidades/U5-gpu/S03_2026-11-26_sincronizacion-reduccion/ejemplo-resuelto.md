@@ -132,7 +132,7 @@ $ ./ejemplo 1048576
 n=1048576 block=256 grid=4096 suma=1520442.024994 referencia=1520442.012500 err_rel=8.22e-09 verificacion=OK
 ```
 
-Con `reduce_sum.cu` completo, además: `atomic` `kernel_mediana_ms ≈ 1–10` (un millón de atómicas serializadas sobre
+Con `reduce_sum.cu` completo, además: `atomic` `kernel_mediana_ms ≈ 0.5–10` (un millón de atómicas serializadas sobre
 una dirección) y `suma` distinta en cada corrida; `tree_nodiv` `≈ 0.02–0.05 ms` con `etapa2_cpu_ms ≈ 0.02–0.05`: la
 copia de 16 KB cuesta tanto como el *kernel*. Lo que **debe** coincidir con la salida real de arriba: `grid`,
 `atomicas_globales`, la `suma` de los árboles (`1520442.024994`) y `parciales_bit_a_bit…=si`.
@@ -171,8 +171,8 @@ Qué hilos están activos en cada nivel. Con <code>tid % (2·stride) == 0</code>
 múltiplos de 4, etc.: en <strong>cada</strong> <em>warp</em> quedan 16, 8, 4, 2, 1 carriles activos y el <em>warp</em>
 ejecuta la instrucción con el resto apagado (divergencia): 47 pasos de <em>warp</em> por bloque de 256. Con
 <code>tid &lt; stride</code> trabajan los hilos 0..127, luego 0..63, …: <em>warps</em> <strong>completos</strong>
-activos o completos apagados hasta <code>stride = 16</code>; solo el <em>warp</em> 0 diverge en los últimos cinco
-niveles: 12 pasos de <em>warp</em>. Mismas 255 sumas, cuatro veces menos instrucciones. Con <code>n = 2^20</code> la
+activos o completos apagados mientras <code>stride ≥ 32</code>; solo el <em>warp</em> 0 diverge en los últimos cinco
+niveles (<code>stride = 16, 8, 4, 2, 1</code>): 12 pasos de <em>warp</em>. Mismas 255 sumas, cuatro veces menos instrucciones. Con <code>n = 2^20</code> la
 diferencia de tiempo es modesta porque domina la lectura de 4 MB desde memoria global.
 </details>
 
@@ -242,7 +242,8 @@ float_orden_permutado =27075950.000000  err_rel=1.13e-01  FUERA
 float_arbol_nodiv     =24326970.399994  err_rel=8.22e-09  dentro_de_tolerancia
 ```
 
-Un acumulador `float` que llega a `16 777 216 = 2^24` ya no cambia al sumarle `1.0`. Esperado en la GPU: `atomic`
+Un acumulador `float` que llega a `16 777 216 = 2^24` ya no cambia al sumarle `1.0`, y sumarle `1.1`–`1.9` lo
+redondea a `+2` (el espaciado ahí es 2): por eso el resultado se pasa de la referencia. Esperado en la GPU: `atomic`
 marca `FALLA` con 10 % de error; los árboles, `OK`. La atómica ingenua no solo es lenta: con `n` grande es
 incorrecta.
 

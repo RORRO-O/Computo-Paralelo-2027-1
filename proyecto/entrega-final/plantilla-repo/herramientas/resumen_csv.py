@@ -9,14 +9,17 @@ Uso:
 
 Qué hace:
     1. Lee el CSV con la cabecera del protocolo (config,hilos,n,rep1..repK,mediana_s,speedup,eficiencia).
+       También acepta el formato de proyecto/plantillas/run_all.sh (columnas extra min_s,max_s; etiquetas
+       V1, V2, V3 = GPU con transferencias, V3-kernel = sin transferencias; hilos=gpu): las etiquetas se
+       normalizan a v1, v2, v3_total y v3_kernel.
     2. NO confía en las columnas calculadas: recalcula mediana, mínimo, máximo, speedup S(p)=T1/T(p),
        eficiencia E(p)=S/p y fracción secuencial de Karp–Flatt f=(1/S-1/p)/(1-1/p) a partir de las
        repeticiones. T1 es la fila `config=v1` (el mejor secuencial), no la V2 con un hilo.
     3. Si se pasa --v3, agrega las filas de GPU (config v3_kernel y v3_total) con su speedup
        respecto a la V1 medida EN LA MISMA MÁQUINA (el CSV de V3 debe traer su propia fila v1).
     4. Imprime una tabla Markdown lista para pegar en el reporte (y la guarda con --md).
-    5. Con --png dibuja speedup vs hilos con la línea ideal S=p y, si hay V3, líneas horizontales
-       con el speedup de GPU con y sin transferencias.
+    5. Con --png dibuja speedup vs hilos con la línea ideal S=p y barras mín–máx; si hay V3, agrega un
+       segundo panel con el speedup de GPU con y sin transferencias (barras).
 Código de salida: 0 si todo bien; 1 si falta la fila v1, hay menos de 5 repeticiones o una
     fila no es numérica (eso es un error del CSV, no de este script).
 Ejemplo:
@@ -27,13 +30,29 @@ import csv
 import statistics
 import sys
 
+# Etiquetas de proyecto/plantillas/run_all.sh -> etiquetas de esta plantilla.
+ALIAS = {"v3": "v3_total", "v3-kernel": "v3_kernel", "v3-total": "v3_total"}
+
+
+def normalizar_config(texto):
+    c = texto.strip().lower()
+    return ALIAS.get(c, c)
+
+
+def leer_hilos(texto):
+    """Hilos como entero; las filas de GPU (gpu, NA, vacío) valen 0."""
+    t = (texto or "").strip().lower()
+    if t in ("", "gpu", "na", "nan"):
+        return 0
+    return int(float(t))
+
 
 def leer_csv(ruta):
     """Devuelve (filas, k) donde filas es una lista de dict y k el número de repeticiones."""
     with open(ruta, newline="", encoding="utf-8") as f:
         lector = csv.DictReader(f)
         columnas = lector.fieldnames or []
-        reps = [c for c in columnas if c.startswith("rep")]
+        reps = [c for c in columnas if c.startswith("rep") and c[3:].isdigit()]
         obligatorias = {"config", "hilos", "n"}
         if not obligatorias.issubset(columnas):
             sys.exit(f"error: {ruta} no tiene las columnas {sorted(obligatorias)}; cabecera: {columnas}")
@@ -46,8 +65,8 @@ def leer_csv(ruta):
                 if len(tiempos) < 5:
                     sys.exit(f"error: {ruta} línea {num}: menos de 5 repeticiones con valor")
                 filas.append({
-                    "config": fila["config"].strip(),
-                    "hilos": int(float(fila["hilos"])),
+                    "config": normalizar_config(fila["config"]),
+                    "hilos": leer_hilos(fila["hilos"]),
                     "n": int(float(fila["n"])),
                     "tiempos": tiempos,
                 })
@@ -135,24 +154,38 @@ def graficar(filas_cpu, filas_gpu, ruta_png, titulo):
     err_lo = [f["speedup"] - t1 / f["max"] for f in v2]
     err_hi = [t1 / f["min"] - f["speedup"] for f in v2]
 
-    fig, ax = plt.subplots(figsize=(6.4, 4.2), dpi=150)
+    gpu = [f for f in filas_gpu if f["config"] in ("v3_kernel", "v3_total")]
+    if gpu:
+        # Dos paneles: la escala de la GPU aplastaría la curva de V2 si compartieran eje.
+        fig, (ax, ax_gpu) = plt.subplots(1, 2, figsize=(10.0, 4.2), dpi=150,
+                                         gridspec_kw={"width_ratios": [3, 2]})
+    else:
+        fig, ax = plt.subplots(figsize=(6.4, 4.2), dpi=150)
     p_max = max(hilos) if hilos else 1
     ax.plot([1, p_max], [1, p_max], linestyle="--", linewidth=1, color="#888888", label="Ideal S = p")
     if v2:
         ax.errorbar(hilos, sp, yerr=[err_lo, err_hi], marker="o", linewidth=1.5, capsize=3,
                     color="#1f5fbf", label="V2 OpenMP (mediana; barras: mín–máx)")
-    colores = {"v3_kernel": "#b8471b", "v3_total": "#2a8a4a"}
-    etiquetas = {"v3_kernel": "V3 GPU sin transferencias", "v3_total": "V3 GPU con transferencias"}
-    for f in filas_gpu:
-        if f["config"] in colores:
-            ax.axhline(f["speedup"], linestyle=":", linewidth=1.5, color=colores[f["config"]],
-                       label=f"{etiquetas[f['config']]} (S = {f['speedup']:.1f})")
     ax.set_xlabel("Hilos (p)")
     ax.set_ylabel("Speedup S(p) = T(1) / T(p)")
     ax.set_title(titulo)
     ax.set_xticks(hilos if hilos else [1])
     ax.grid(True, linewidth=0.4, alpha=0.5)
     ax.legend(fontsize=8, loc="upper left")
+    if gpu:
+        etiquetas = {"v3_kernel": "V3 sin\ntransferencias", "v3_total": "V3 con\ntransferencias"}
+        colores = {"v3_kernel": "#b8471b", "v3_total": "#2a8a4a"}
+        orden = sorted(gpu, key=lambda f: f["config"], reverse=True)  # v3_total, v3_kernel
+        nombres = [etiquetas[f["config"]] for f in orden]
+        valores = [f["speedup"] for f in orden]
+        barras = ax_gpu.bar(nombres, valores, color=[colores[f["config"]] for f in orden], width=0.55)
+        for barra, valor in zip(barras, valores):
+            ax_gpu.annotate(f"{valor:.1f}", (barra.get_x() + barra.get_width() / 2, valor),
+                            ha="center", va="bottom", fontsize=8, xytext=(0, 2), textcoords="offset points")
+        ax_gpu.set_ylabel("Speedup vs V1 de la misma máquina")
+        ax_gpu.set_title("V3 GPU (mediana)")
+        ax_gpu.grid(True, axis="y", linewidth=0.4, alpha=0.5)
+        ax_gpu.set_ylim(0, max(valores) * 1.15 if valores else 1)
     fig.tight_layout()
     fig.savefig(ruta_png)
     plt.close(fig)
@@ -168,6 +201,8 @@ def main():
     args = ap.parse_args()
 
     filas_cpu, _ = leer_csv(args.csv)
+    # Las filas de GPU van en su propia tabla (--v3), con la V1 de su misma máquina.
+    filas_cpu = [f for f in filas_cpu if not f["config"].startswith("v3")]
     t1_cpu = statistics.median(fila_v1(filas_cpu, args.csv)["tiempos"])
     resumir(filas_cpu, t1_cpu)
 

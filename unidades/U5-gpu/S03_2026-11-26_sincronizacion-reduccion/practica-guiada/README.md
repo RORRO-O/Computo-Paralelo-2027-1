@@ -66,7 +66,7 @@ Lee los tres *kernels* de `reduce_sum.cu` (están comentados) y contesta:
 | P2 | ¿Las tres versiones imprimirán exactamente la misma `suma`? ¿Cuál se acercará más a `referencia_cpu_double`? ¿Alguna puede cambiar entre dos ejecuciones idénticas? | | |
 | P3 | Si se quita el `__syncthreads()` de dentro del ciclo del árbol (`-DSIN_SYNC`) con `block = 256`: ¿resultado incorrecto, correcto, o "a veces"? ¿Y con `block = 32`? | | |
 | P4 | Con `block = 256`, ¿cuántos niveles tiene el árbol? En `tree_div`, en el nivel `stride = 1`, ¿cuántos hilos están activos y en cuántos *warps* están repartidos? En `tree_nodiv`, en el nivel `stride = 128`, ¿cuántos hilos activos y en cuántos *warps*? | | |
-| P5 | `n = 1000`, `block = 256`: 4 bloques; en el último, 232 hilos tienen `i ≥ n`. ¿Qué escriben en `s[tid]`? ¿Altera la suma? ¿Qué pasaría si **no** escribieran nada? | | |
+| P5 | `n = 1000`, `block = 256`: 4 bloques; en el último solo 232 hilos tienen dato y los otros 24 tienen `i ≥ n`. ¿Qué escriben esos 24 en `s[tid]`? ¿Altera la suma? ¿Qué pasaría si **no** escribieran nada? | | |
 | P6 | Ordena las tres versiones de la más lenta a la más rápida en una T4 con `n = 2^20`, y estima por cuánto (×2, ×10, ×100). | | |
 
 <details><summary>Respuestas (ábrelas solo después de ejecutar)</summary>
@@ -76,8 +76,10 @@ Lee los tres *kernels* de `reduce_sum.cu` (están comentados) y contesta:
   `atomic` hace 256 veces más atómicas que la de árbol, todas sobre **la misma dirección**.
 - **P2.** No. Los árboles suman por pares (error de redondeo ~`1e-8` relativo); la atómica acumula un millón de
   sumas en un solo `float` en orden arbitrario (~`1e-6`) y **puede cambiar entre ejecuciones**. Los dos árboles
-  tampoco coinciden entre sí bit a bit: emparejan los sumandos de distinta forma. Los parciales de cada árbol sí
-  coinciden bit a bit con la emulación en CPU del mismo orden.
+  emparejan los sumandos de distinta forma: con `n = 1000` dan `1457.600037` y `1457.600006`; con `2^20` sus
+  parciales difieren en 1638 de los 4096 bloques, aunque con estos datos la suma total en `double` coincide en los
+  seis decimales impresos (`1520442.024994`): es casualidad de los datos, no una garantía. Los parciales de cada
+  árbol sí coinciden bit a bit con la emulación en CPU del mismo orden.
 - **P3.** Con 256 hilos (8 *warps*) el resultado es casi siempre incorrecto y cambia entre corridas: un *warp*
   puede leer `s[tid + stride]` antes de que otro *warp* lo haya escrito. Con 32 hilos (un *warp*) "suele salir
   bien" porque el *warp* avanza casi en bloque, pero desde Volta (T4 incluida) los hilos de un *warp* pueden
@@ -87,7 +89,7 @@ Lee los tres *kernels* de `reduce_sum.cu` (están comentados) y contesta:
   los warps 0–3 completos**; los *warps* 4–7 no ejecutan la suma.
 - **P5.** Escriben `0.0f`, el neutro de la suma: no altera nada. Si no escribieran nada, `s[tid]` tendría basura de
   un bloque anterior y el árbol la sumaría; el resultado sería incorrecto sin ningún error de CUDA.
-- **P6.** Esperado: `atomic` (≈ 1–10 ms: un millón de atómicas serializadas sobre una dirección) ≫ `tree_div` ≥
+- **P6.** Esperado: `atomic` (≈ 0.5–10 ms: un millón de atómicas serializadas sobre una dirección) ≫ `tree_div` ≥
   `tree_nodiv` (≈ 0.02–0.06 ms). Entre los dos árboles la diferencia es pequeña con este `n` (la lectura de 4 MB
   desde memoria global domina); entre atómica y árbol, uno o dos órdenes de magnitud. Los números exactos dependen
   de la GPU asignada.
@@ -124,8 +126,9 @@ version=tree_nodiv etapa2=cpu    atomicas_globales=0        tiempo_simulador_ms=
    suma=1457.600006 err_rel=3.93e-09 verificacion=OK parciales_bit_a_bit_igual_a_emulacion_cpu=si
 ```
 
-Fíjate: cuatro órdenes de suma, cuatro resultados distintos, todos "correctos" con tolerancia. El mismo dato
-sumado en otro orden (`float_orden_permutado`) se aleja 2.7 unidades de la referencia.
+Fíjate: la referencia en `double` y tres resultados en `float` distintos de ella (secuencial, permutado y árbol; los
+dos árboles coinciden aquí en la suma total, no en los parciales: ver P2), todos "correctos" con tolerancia. El mismo
+dato sumado en otro orden (`float_orden_permutado`) se aleja 2.7 unidades de la referencia.
 
 Salida **esperada** en la GPU (no ejecutada en el entorno de autoría; tiempos como órdenes de magnitud para una T4 de
 Colab; cambian con la GPU asignada):
@@ -134,7 +137,7 @@ Colab; cambian con la GPU asignada):
 $ ./reduce_sum all 1048576 256 cpu
 reduce_sum (CUDA C): n=1048576 block=256 grid=4096 gpu="Tesla T4" (SMs=40, cc 7.5, warp=32)
 referencia_cpu_double=1520442.012500  tolerancia_relativa=1e-04
-version=atomic     etapa2=-      atomicas_globales=1048576  kernel_mediana_ms≈1–10 (…)
+version=atomic     etapa2=-      atomicas_globales=1048576  kernel_mediana_ms≈0.5–10 (…)
    suma=15204xx.xxxxxx err_rel≈1e-6 verificacion=OK            <- el valor cambia entre corridas
 version=tree_div   etapa2=cpu    atomicas_globales=0        kernel_mediana_ms≈0.03–0.06 (…) etapa2_cpu_ms≈0.02–0.05
    suma=1520442.024994 err_rel=8.22e-09 verificacion=OK parciales_bit_a_bit_igual_a_emulacion_cpu=si
@@ -227,8 +230,8 @@ compartida aunque el resultado haya salido bien.
 **I4. `n` y `block` que no son potencias de 2.**
 
 ```bash
-./reduce_sum all 1000003 256                    # GPU; en laptop: python3 reduce_sum_numba.py all 1003 256
-./reduce_sum tree_nodiv 1048576 96              # GPU; en laptop: python3 reduce_sum_numba.py tree_nodiv 1000 96
+./reduce_sum all 1000003 256                    # GPU; en laptop: NUMBA_ENABLE_CUDASIM=1 python3 reduce_sum_numba.py all 1003 256
+./reduce_sum tree_nodiv 1048576 96              # GPU; en laptop: NUMBA_ENABLE_CUDASIM=1 python3 reduce_sum_numba.py tree_nodiv 1000 96
 ```
 
 Salida real (CUDASIM) del segundo:
@@ -250,6 +253,8 @@ quedan tres parciales `s[0], s[1], s[2]` de 32 elementos cada uno; con `stride =
 (un tercio de los datos) nunca se suma: `974.6 ≈ 2/3 · 1457.6`. No hay error de CUDA: el programa es "válido" y
 está mal (idea errónea 27). La emulación en CPU repite el mismo algoritmo, así que coincide bit a bit: esa
 comparación detecta diferencias de orden, no errores de algoritmo; para eso está la referencia en `double`.
+El experimento es con `tree_nodiv`: con `block = 96`, `tree_div` leería `s[96]`, fuera del bloque (en el simulador,
+`IndexError`), así que los programas lo omiten con un aviso.
 </details>
 
 **I5. ¿Cuánto cuesta la etapa 2 en la CPU?** Compara, en tu salida de GPU, `etapa2_cpu_ms` (copia D2H de 16 KB +
@@ -269,7 +274,8 @@ float_arbol_div       =24326970.399994  err_rel=8.22e-09  dentro_de_tolerancia
 ```
 
 Un acumulador `float` que llega a `16 777 216 = 2^24` ya no cambia al sumarle `1.0` (el espaciado entre `float`
-consecutivos ahí es 2). Esperado en GPU: la versión `atomic` marca `FALLA` con error del 10 %; los árboles, `OK`.
+consecutivos ahí es 2), y sumarle `1.1`–`1.9` lo redondea a `+2`: por eso se **pasa** (`26.8 M` contra `24.3 M`), no se
+queda corto. Esperado en GPU: la versión `atomic` marca `FALLA` con error del 10 %; los árboles, `OK`.
 La versión atómica ingenua no solo es lenta: para `n` grande es **incorrecta** en `float`.
 
 ## M · Modificar (8 min + lo que falte en casa) · reducción `max`
@@ -286,7 +292,7 @@ Crea `reduce_max.cu` y/o `reduce_max_numba.py` a partir de la versión `tree_nod
   llaman `reduce_max.cu` / `reduce_max_numba.py`, `make test` los detecta y los revisa.
 - Pregunta para la bitácora: ¿por qué aquí la verificación puede ser **exacta** (`==`) y en la suma no?
 
-## M · Crear (10 min, transferencia) · histograma con atómicas en memoria compartida
+## C · Crear (10 min, transferencia) · histograma con atómicas en memoria compartida
 
 `histogram.cu` ya trae la versión `global`: cada hilo hace `atomicAdd(&hist[v[i]], 1)` sobre 16 contadores en
 memoria global. El 30 % de los datos cae en el bin 0, así que ~300 000 hilos compiten por **una** dirección. Completa

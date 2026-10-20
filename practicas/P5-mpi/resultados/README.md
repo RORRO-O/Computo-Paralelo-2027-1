@@ -10,10 +10,10 @@ Parte D. Todo lo que hay aquí debe poder regenerarse con un comando; nada se ed
 | Archivo | Lo produce | Contenido |
 |---|---|---|
 | `entorno.txt` | `./escalado.sh` (o `make run-d`) | Fecha, CPU, núcleos **físicos** y lógicos, RAM, compilador, MPI, banderas, `cpu_ociosa_antes_de_medir`, carga promedio, tamaños usados. Sin esto la Parte D no cuenta (protocolo §1.4) |
-| `fuerte.csv` | `./escalado.sh` | Escalabilidad **fuerte**: tamaño fijo, p = 1, 2, 4 (+ 8 sobre-suscrito). `speedup = T_seq / T(p)`, `eficiencia = speedup / p` |
+| `fuerte.csv` | `./escalado.sh` | Escalabilidad **fuerte**: tamaño fijo, p = 1, 2, 4, … hasta los núcleos físicos (+ 2 × núcleos sobre-suscrito: 8 en 4 núcleos). `speedup = T_seq / T(p)`, `eficiencia = speedup / p` |
 | `debil.csv` | `./escalado.sh` | Escalabilidad **débil**: tamaño por proceso fijo, n = p × NLOCAL. Aquí `eficiencia` es la **eficiencia débil** `T_seq(n_local) / T(p, p·n_local)` y `speedup` es el *speedup* escalado `p × eficiencia` |
 | `pingpong.txt` | `make pingpong > resultados/pingpong.txt` | Tabla de latencia y ancho de banda por tamaño, α y β, línea `RESULT,d_pingpong,...`. **Misma máquina** que los CSV |
-| `fuerte.png`, `debil.png` | `graficar.py` (lo llama `escalado.sh`; vuelve a dibujar con `make graficas`) | *Speedup* vs p con la línea ideal `S = p` y, con `--modelo α β t_c`, la curva del modelo; eficiencia débil vs p con `E = 1`. El punto p = 8 va hueco y anotado "p > núcleos" |
+| `fuerte.png`, `debil.png` | `graficar.py` (lo llama `escalado.sh`; vuelve a dibujar con `make graficas`) | *Speedup* vs p con la línea ideal `S = p` y, con `--modelo α β t_c`, la curva del modelo; eficiencia débil vs p con `E = 1`. El punto sobre-suscrito va hueco y anotado "p > núcleos" |
 
 Formato de los CSV (el del protocolo, `herramientas/protocolo-medicion.md` §4; la columna se llama `hilos` por el
 formato fijo, en MPI son procesos):
@@ -38,10 +38,11 @@ mpi_oversub,8,1000000,...
 ## Cómo se generan
 
 ```bash
-make run-d                                    # calor 1D: N=1000000 ITERS=1200; débil NLOCAL=250000; p = 1 2 4 + 8; luego el ping-pong
+make run-d                                    # calor 1D: N=1000000 ITERS=1200; débil NLOCAL=250000; p = 1 2 4 + 8 (en 4 núcleos); luego el ping-pong
 make pingpong > resultados/pingpong.txt       # guarda el ping-pong (make run-d lo imprime pero no lo guarda)
-PROG=matvec ./escalado.sh                     # opcional: lo mismo para la Parte B (M filas; débil MLOCAL filas por proceso)
-PROG=primes MODO=ciclico ./escalado.sh        # si tu Parte C es la alternativa de primos
+PROG=matvec OUT=resultados/matvec ./escalado.sh   # Parte B (M = 2000, 400 productos): cierra la predicción del pre-lab
+PROG=primes MODO=ciclico ./escalado.sh        # si tu Parte C es la alternativa de primos ([2, 6 000 000])
+PROG=primes MODO=bloques OUT=resultados/bloques ./escalado.sh   # ...y el reparto por bloques, para comparar
 python3 graficar.py resultados/fuerte.csv resultados/debil.csv resultados --modelo <alpha_us> <beta_gbps> <tc_ns>
 ```
 

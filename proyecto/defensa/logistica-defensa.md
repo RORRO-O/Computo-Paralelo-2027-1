@@ -1,6 +1,6 @@
 # Logística de la defensa oral
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026 · 10:30–12:00 · Salón 3208 · reservas: lunes 14 de diciembre 10:30–12:00 y martes 15 de diciembre 08:30–10:00 · para el profesor (los equipos leen §3, §4, §8 y §9) · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026 · 10:30–12:00 · Salón 3208 · reservas: lunes 14 de diciembre 10:30–12:00 y martes 15 de diciembre 08:30–10:00 · para el profesor (los equipos leen §3, §4, §8 y §9) · versión 1.1 · 20 de octubre de 2026
 
 ## 1. En una tabla
 
@@ -14,6 +14,7 @@
 | Decisión pendiente | El formato y las sesiones (§3). La toma el profesor y la anuncia **a más tardar el jueves 3 de diciembre** (U5·S06), de preferencia desde el lunes 23 de noviembre (H2), como pide `docs/metodo/04-evaluacion.md` §3.2 |
 | Orden | Sorteo con semilla publicada, ejecutado en clase el lunes 7 de diciembre (§4) |
 | Plan B de la demo | Video de ≤ 3 min grabado antes (§8) |
+| Sesión de pendientes | Martes 15 de diciembre 08:30 (ausencias justificadas, demo repetida por falla de la sala, V3 pendiente por cuota). Con la opción (a), que usa ese martes para defensas, pasa al jueves 17 de diciembre 10:30 |
 
 ## 2. El problema de tiempo, con números
 
@@ -26,9 +27,9 @@ Con preguntas y cambios (modelo que usa `scripts/sortear_orden.py`; equipos de 3
 
 | Formato | Exposición | Preguntas individuales | Cambio | Por equipo | 12 equipos | Sesiones de 80 min útiles | Cómo quedan |
 |---|---|---|---|---|---|---|---|
-| **Completo** (`guion-defensa.md`) | 12:00 | 2 por integrante × 40 s = 4:00 (2:40 con 2 integrantes) | 1:00 | 17:00 | **≈ 203 min** | 2.5 → **3** | 4 + 4 + 4 (68 min usados por sesión, sobran 12) |
+| **Completo** (`guion-defensa.md`) | 12:00 | 2 por integrante × 40 s = 4:00 (2:40 con 2 integrantes) | 1:00 | 17:00 | **≈ 203 min** | 2.5 → **3** | 4 + 4 + 4 (68, 68 y 66.7 min usados; sobran 12–13 por sesión) |
 | **Corto** (opción b) | 7:00 | 3:00 por equipo (2 por integrante, 30 s) | 1:00 | 11:00 | **132 min** | 1.65 → **2** | 6 + 6 (66 min por sesión, sobran 14) |
-| **Mixto** (opción c, `04-evaluacion.md` §3.2) | 2:00 de demo (la exposición va en video) | 1 por integrante (+ rescate), ≈ 4:00 con margen | 0:30 (una sola máquina) | 6:30 | **78 min** | 0.98 → **1** | 12 en el jueves 10 (sobran 3 min en total) |
+| **Mixto** (opción c, `04-evaluacion.md` §3.2) | 2:00 de demo (la exposición va en video) | 1 min por integrante (pregunta y posible rescate) + 1 min de margen = 4:00 (3:00 con 2 integrantes) | 0:30 (una sola máquina) | 6:30 | **77 min** (11 × 6:30 + 5:30) | 0.96 → **1** | 12 en el jueves 10 (sobran 3 min en total) |
 
 Lectura: **ningún formato con 12 equipos cabe en una sola sesión salvo el mixto, y ese cabe sin holgura.** El
 formato corto tampoco cabe en una sesión (132 > 80): solo cabría con ≤ 7 equipos. Si el número real de equipos es
@@ -36,11 +37,11 @@ distinto, el *script* recalcula (§4).
 
 ## 3. Opciones
 
-Las dos opciones que pide el proyecto (`proyecto/entrega-final/faq-entrega.md` §10) se desarrollan completas; la
-tercera está en `proyecto/README.md` §3 y `docs/metodo/04-evaluacion.md` §3.2 (que la recomienda) y se incluye para
-que la comparación sea con los mismos números. **La decisión es del profesor.**
+Son las tres de `proyecto/README.md` §3 y `proyecto/entrega-final/faq-entrega.md` §10, con los números de §2. Las opciones
+(a) y (b) conservan la exposición en vivo; la (c) es la que recomienda `docs/metodo/04-evaluacion.md` §3.2. **La decisión es
+del profesor.**
 
-### Opción (a) · Formato completo en dos sesiones (jueves 10 + lunes 14) y, si hacen falta, martes 15
+### Opción (a) · Formato completo usando también la reserva del lunes 14 (y la del martes 15 con más de 8 equipos)
 
 | | |
 |---|---|
@@ -61,7 +62,7 @@ que la comparación sea con los mismos números. **La decisión es del profesor.
 
 | | |
 |---|---|
-| Cómo queda | Exposición de ≤ 8 min en video (no listado o privado) enlazado en el repositorio antes del lunes 7 de diciembre 10:30, calificada con D1 y D2 de la rúbrica; en clase, por equipo: 2 min de demo + 1 pregunta individual por integrante (la segunda solo como rescate) ≈ 6 min + 0.5 de cambio con una sola máquina. 12 × 6.5 = **78 min: cabe en el jueves 10 con 3 min de holgura total** |
+| Cómo queda | Exposición de ≤ 8 min en video (no listado o privado) enlazado en el repositorio antes del lunes 7 de diciembre 10:30, calificada con D1 y D2 de la rúbrica; en clase, por equipo: 2 min de demo + 1 pregunta individual por integrante (la segunda solo como rescate) + 1 min de margen ≈ 6 min + 0.5 de cambio con una sola máquina. 11 equipos de 3 × 6.5 + 1 de 2 × 5.5 = **77 min: cabe en el jueves 10 con 3 min de holgura total** |
 | A favor | Una sola sesión; lunes 14 y martes 15 conservan su uso previsto; el profesor revisa los videos con los CSV abiertos y a su ritmo (verificación de números más rigurosa que en vivo); condiciones idénticas para todos |
 | En contra | La exposición no es en vivo: no hay preguntas sobre el diseño ni sobre el análisis en el momento, y D2 ("análisis honesto") se evalúa sobre un material editado; una sola pregunta por integrante da menos evidencia individual; 3 min de holgura: cualquier tropiezo manda equipos al martes 15; el video se debe en la misma hora que la entrega final (más carga en el fin de semana del 5–6 de diciembre, que `04-evaluacion.md` §5 quiere descargar), salvo que la opción se anuncie el 23 de noviembre; el formato del calendario ("12 min + demo + preguntas") y el guion que los equipos ya conocen cambian |
 
@@ -140,7 +141,7 @@ curso con el visto bueno de ambos) antes de las 20:00 del miércoles 9 de diciem
 | 10:30–10:35 | Apertura: lista; se proyecta `orden-defensa.md`; se leen las tres reglas (zona sin IA: teléfonos guardados y solo la laptop de la demo encendida; cronómetro visible, corte a los 12:00; plan B a los 60 s de falla); el primer equipo ya está conectado al proyector | Profesor |
 | Por equipo | Exposición (12:00 o 7:00) con la hoja de registro de `rubrica-defensa.md` §6 en mano; al minuto 10 (o 5:30) el profesor nombra quién teclea la demo; preguntas individuales: pregunta 1 de línea sobre la parte firmada, pregunta 2 del tema sorteado (o rescate si la 1 falló); quien pida responder por escrito recibe la hoja y escribe en una mesa aparte (5 min) mientras continúa la sesión | Profesor evalúa; un integrante del **equipo siguiente** lleva el cronómetro visible (reloj del salón o cronómetro del profesor proyectado en una esquina) |
 | Cambio (1:00) | El equipo que termina desconecta; el siguiente, que ya tenía su laptop lista en la mesa lateral con el clon compilado, conecta y muestra `git describe` | Equipos |
-| 11:55–12:00 | Cierre: fecha de la retroalimentación escrita (jueves 17 de diciembre a más tardar), casos pendientes para el martes 15 de diciembre 08:30, entrega de hojas de respuesta escrita | Profesor |
+| 11:55–12:00 | Cierre: fecha de la retroalimentación escrita (jueves 17 de diciembre a más tardar), casos pendientes para la sesión de pendientes (§1), entrega de hojas de respuesta escrita | Profesor |
 
 Reglas durante la sesión:
 
@@ -168,10 +169,16 @@ Reglas durante la sesión:
 - [ ] Cronómetro visible (reloj grande o ventana de cronómetro proyectada en una esquina).
 - [ ] Archivo `registro-defensa.csv` vacío con el encabezado de §7, para capturar al terminar cada sesión.
 
-## 7. Registro de calificaciones por integrante
+## 7. Hoja de registro por integrante y cálculo
 
-Durante la sesión se llena la hoja impresa de `rubrica-defensa.md` §6. Al terminar cada sesión se captura un CSV con una
-fila por integrante y se calcula con el *script*:
+**En la sesión.** El profesor llena a mano la hoja de `rubrica-defensa.md` §6, una por equipo, con **una fila por
+integrante**: usuario de GitHub (nunca el nombre), pregunta 1 (archivo:línea de la parte firmada) y su nivel; pregunta 2
+(tema sorteado e ID del banco, o archivo:línea si fue rescate) y su nivel; si hubo reformulación o respuesta por escrito.
+Las hojas llenas y el CSV contienen calificaciones con usuarios de GitHub: se guardan en `docente/` (está en `.gitignore`)
+o fuera del repositorio, nunca en `proyecto/` (`docs/CONVENCIONES.md` §5).
+
+**Al terminar cada sesión.** Se captura `docente/proyecto/registro-defensa.csv`, una fila por integrante, con este
+encabezado (el archivo de ejemplo es `scripts/ejemplo/registro-defensa.csv`):
 
 ```
 equipo,integrante,D1,D2,D3,P1,P2,h2,repo,reporte
@@ -183,21 +190,25 @@ equipo,integrante,D1,D2,D3,P1,P2,h2,repo,reporte
 |---|---|
 | `equipo` | Número del repositorio `cp-6bm1-equipoNN` |
 | `integrante` | Usuario de GitHub (nunca el nombre) |
-| `D1`, `D2`, `D3` | Nivel del **equipo** en cada criterio: `E` Ejemplar, `C` Competente, `D` En desarrollo, `I` Insuficiente, `A` ausente |
-| `P1` | Nivel de la pregunta 1 (línea de la parte firmada); `A` si no respondió o faltó |
+| `D1`, `D2`, `D3` | Nivel del **equipo** en cada criterio: `E` Ejemplar, `C` Competente, `D` En desarrollo, `I` Insuficiente, `A` ausente. Iguales en todas las filas del equipo (el *script* lo verifica) |
+| `P1` | Nivel de la pregunta 1 (línea de la parte firmada). Una pregunta sin respuesta es `I`. `A` solo si el integrante faltó, y entonces `P2` también es `A` |
 | `P2` | Nivel de la pregunta 2: de tema si `P1` ≥ `D`; de **rescate** (otra línea) si `P1` = `I`; `-` si no se hizo (opción c sin rescate) |
 | `h2`, `repo`, `reporte` | Puntos ya calificados de H2 (/15), repositorio (/40, con C6 ya asignado por integrante) y reporte (/30). Se dejan vacíos si todavía no están: el *script* calcula entonces solo la defensa |
 
 ```bash
 cd proyecto/defensa/scripts
-python3 calificar_defensa.py registro-defensa.csv --salida calificaciones-defensa.csv
+python3 calificar_defensa.py ../../../docente/proyecto/registro-defensa.csv \
+    --salida ../../../docente/proyecto/calificaciones-defensa.csv
 ```
 
 El *script* aplica `rubrica-defensa.md` §2–§4: D4 = 30 × promedio de las dos respuestas (o de la única, en la opción c);
-defensa = rúbrica × 0.15; factor de ajuste por la prueba de propiedad (1.00 / 0.90 / 0.80); proyecto individual =
-(H2 + repositorio + reporte + defensa) × factor, con el tope de `04-evaluacion.md` §3.2: **nunca más de 20 puntos por
-debajo de la referencia del equipo** (la columna `tope_aplicado` dice cuándo actuó). Salida de ejemplo:
-`make run` en `scripts/` produce `salida/calificaciones.csv` a partir de `ejemplo/registro-defensa.csv`.
+defensa = rúbrica × 0.15; **−10 % por cada respuesta en Insuficiente**, también la de rescate, hasta dos (factor 1.00 /
+0.90 / 0.80; §4.1); proyecto individual = (H2 + repositorio + reporte + defensa) × factor, con el tope de §4.1: **nunca más
+de 20 puntos por debajo de la referencia del equipo** (la columna `tope_aplicado` dice cuándo actuó). La columna
+`c6_insuficiente` marca a quien falló la pregunta 1 y la de rescate: a esa persona le corresponde C6 Insuficiente en
+`proyecto/entrega-final/rubrica-codigo.md` antes de capturar `repo` (el *script* no cambia `repo`). Termina con código 1 y
+dice fila y columna si el CSV tiene un nivel o un número inválido. Ejemplo sin datos reales: `make run` en `scripts/`
+produce `salida/calificaciones.csv` a partir de `ejemplo/registro-defensa.csv`; la tabla de §4.1 de la rúbrica sale de ahí.
 
 ## 8. Plan B si falla la demo: video de ≤ 3 minutos
 
@@ -208,7 +219,7 @@ debajo de la referencia del equipo** (la columna `tope_aplicado` dice cuándo ac
 | Cuándo se graba | Después de crear la etiqueta (lunes 7 de diciembre) y antes del **miércoles 9 de diciembre, 20:00** |
 | Dónde está | (1) archivo `.mp4` **en la laptop de la demo** y en una USB; (2) enlace (no listado o privado, visible para el profesor) en un *issue* del repositorio del equipo titulado "Video plan B de la defensa". El árbol del repositorio no se modifica: la etiqueta `entrega-final` sigue siendo lo que se califica |
 | Cómo se califica | D3 máximo En desarrollo si el video muestra los cuatro elementos; Insuficiente si no los muestra o no hay video (`rubrica-defensa.md` §4.2). Las preguntas individuales se hacen igual, con el repositorio en pantalla |
-| Falla de la sala | Si falla el proyector, la corriente o la máquina del salón, no se usa el video: la demo se repite al final de la sesión o el martes 15 de diciembre 08:30, sin penalización |
+| Falla de la sala | Si falla el proyector, la corriente o la máquina del salón, no se usa el video: la demo se repite al final de la sesión o en la sesión de pendientes (§1), sin penalización |
 
 En la opción (c) el video de exposición (≤ 8 min) es otro archivo y tiene otra función; el plan B de la demo sigue siendo
 este video de ≤ 3 min.
@@ -217,9 +228,9 @@ este video de ≤ 3 min.
 
 | Caso | Qué se hace |
 |---|---|
-| Integrante ausente con justificante institucional | Sus 2 preguntas se hacen el martes 15 de diciembre 08:30, sin tope. D1–D3 son los del equipo |
-| Integrante ausente sin justificante | D4 = 0. Si pide responder el martes 15, D4 con tope de 80 % (regla de 72 h). Sin factor de ajuste: no hubo respuesta que mostrara desconocimiento |
-| Equipo completo ausente | Con justificante: defensa el martes 15 de diciembre 08:30. Sin justificante: 0 en los 15 puntos |
+| Integrante ausente con justificante institucional | Sus 2 preguntas se hacen en la sesión de pendientes: martes 15 de diciembre 08:30 (jueves 17 de diciembre 10:30 si el martes 15 se usa para defensas, opción a), sin tope. D1–D3 son los del equipo |
+| Integrante ausente sin justificante | D4 = 0 (`P1` y `P2` = `A`). Si pide responder en la sesión de pendientes, D4 con tope de 80 % (misma regla que la recepción de hitos, `proyecto/README.md` §5). Sin factor de ajuste: no hubo respuesta que mostrara desconocimiento |
+| Equipo completo ausente | Con justificante: defensa en la sesión de pendientes (martes 15 de diciembre 08:30, o jueves 17 con la opción a). Sin justificante: 0 en los 15 puntos |
 | Equipo de 2 integrantes | Mismo formato; las preguntas duran 2:40 en vez de 4:00 (el *script* lo contempla con `equipos.csv`) |
 | Integrante que se retiró del equipo (avisado por escrito, `proyecto/README.md` §5) | No defiende; su calificación la decide el historial de *commits* según lo renegociado |
 | Repositorio con etiqueta tardía (después del lunes 7 de diciembre 10:30) | Se defiende lo que haya en la etiqueta a las 10:30 del jueves 10 de diciembre; aplica el tope de 80 % de la entrega tardía en repositorio y reporte, no en la defensa |
@@ -232,10 +243,10 @@ este video de ≤ 3 min.
 
 1. Capturar el CSV de cada sesión el mismo día y correr `calificar_defensa.py`.
 2. Retroalimentación escrita por equipo (3 líneas: lo mejor, lo que faltó, qué habría cambiado la calificación) y una
-   línea por integrante, publicada a más tardar el **jueves 17 de diciembre** (≤ 7 días tanto para el jueves 10 como
-   para el lunes 14) en el *issue* de retroalimentación del repositorio del equipo, junto con las hojas de las rúbricas
+   línea por integrante, publicada a más tardar el **jueves 17 de diciembre** (≤ 7 días para el jueves 10, el lunes 14 y
+   el martes 15) en el *issue* de retroalimentación del repositorio del equipo, junto con las hojas de las rúbricas
    de repositorio y reporte.
 3. Calificación individual del proyecto (100 puntos) con el factor y el tope de §7; se publica con las calificaciones
    preliminares del 3.er parcial (lunes 14 de diciembre si la defensa cabe en una sesión; jueves 17 en otro caso).
-4. Casos del martes 15 de diciembre 08:30 (justificantes, repeticiones por falla de la sala, V3 pendiente) se cierran
+4. Casos de la sesión de pendientes (§1: justificantes, repeticiones por falla de la sala, V3 pendiente) se cierran
    ese día y se incorporan antes del jueves 17 de diciembre.

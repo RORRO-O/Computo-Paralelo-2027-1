@@ -18,7 +18,7 @@ int main(int argc, char **argv)
     MPI_Init(&argc, &argv);
 
     int rank, size, name_len;
-    char host[MPI_MAX_PROCESSOR_NAME];
+    char host[MPI_MAX_PROCESSOR_NAME] = { 0 }; /* en ceros: viaja completo en el Gather, sin bytes basura */
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Get_processor_name(host, &name_len);

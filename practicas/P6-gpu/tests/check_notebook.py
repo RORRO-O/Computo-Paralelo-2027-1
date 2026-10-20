@@ -12,8 +12,9 @@ NB = ROOT / "notebook_colab.ipynb"
 GRAFICAR = ROOT / "graficar.py"
 if not GRAFICAR.exists():
     GRAFICAR = ROOT.parents[2] / "practicas" / "P6-gpu" / "graficar.py"
-REQUIRED = ["nvidia-smi", "nvcc -O2 -arch=sm_75", "%%writefile a_vectores.cu", "%%writefile b_matmul_tiled.cu",
-            "./a_vectores uno", "./a_vectores umbral", "./a_vectores bloque", "./b_matmul_tiled_t", "./c_histograma_cpu",
+REQUIRED = ["nvidia-smi", "nvcc -O2 -arch=sm_75", "%%writefile a_vectores.cu", "%%writefile a_matmul_tiled.cu",
+            "%%writefile b_matmul_rect.cu", "./a_vectores uno", "./a_vectores umbral", "./a_vectores bloque",
+            "./a_matmul_tiled_t", "./b_matmul_rect ", "b_matmul_rect_numba.py 20 40 12 16", "./c_histograma_cpu",
             "./c_jacobi_cpu", "graficar.py resultados_P6.csv", "to_csv", "entorno.txt"]
 
 errors = []
@@ -43,8 +44,12 @@ for cell in nb.cells:
     if body != src.read_text(encoding="utf-8").rstrip("\n"):
         errors.append(f"%%writefile {name}: desincronizado con el fuente (corre `make notebook`)")
     n_writefile += 1
-if n_writefile < 9:
-    errors.append(f"solo {n_writefile} celdas %%writefile (se esperan >= 9)")
+# Todo fuente de src/ debe tener su celda %%writefile (así el notebook reproduce exactamente el repositorio).
+written = {c.source.partition("\n")[0].split(maxsplit=1)[1].strip() for c in nb.cells
+           if c.cell_type == "code" and c.source.startswith("%%writefile ")}
+for src in sorted(p.name for p in (ROOT / "src").iterdir() if p.suffix in (".cu", ".cuh", ".c", ".py")):
+    if src not in written:
+        errors.append(f"falta la celda %%writefile {src}")
 
 if errors:
     print("\n".join("ERROR  " + e for e in errors))

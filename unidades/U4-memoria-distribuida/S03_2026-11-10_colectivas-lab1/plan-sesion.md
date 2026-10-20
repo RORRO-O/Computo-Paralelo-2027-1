@@ -95,8 +95,8 @@ uno, o todos a todos, con una sola línea. El error más frecuente del *exit tic
 que si el programa funcionó con mensajes chicos está bien]. Hoy ese mismo límite de 4 096 bytes decide si un
 error de hoy se ve como cuelgue o como basura silenciosa."
 
-Proyectar los cuatro objetivos. Vínculo con la práctica y el proyecto: "La Parte A de la Práctica 5 es el programa
-de hoy; la Parte D va a medir exactamente lo que vamos a leer en el punto de control: cuánto cuesta repartir los datos.
+Proyectar los cuatro objetivos. Vínculo con la práctica y el proyecto: "La Parte A de la Práctica 5 usa las colectivas
+de hoy sobre un arreglo y la Parte B es el matriz-vector de hoy con filas desiguales; la Parte D va a medir exactamente lo que vamos a leer en el punto de control: cuánto cuesta repartir los datos.
 En la V2 del proyecto la pregunta es la misma con hilos: ¿cuánto trabajo hay por cada dato que se mueve?"
 
 ### 8–30 · Mini-lección: colectivas y la regla de oro (ejemplo resuelto corto + ConcepTest 1 + variante que falla)
@@ -159,18 +159,18 @@ respuesta:
 
 Enunciado: `practicas/P5-mpi/README.md` (publicado el jueves 5 de noviembre). Flujo del Lab 1:
 
-- **Parte A (guiada, 50–62).** Código **completo** del producto matriz-vector distribuido con colectivas: cada
-  equipo lo compila, lo corre con `-np 1, 2, 4`, llena la tabla de predicción/rastreo del enunciado (qué filas
-  recibe cada rango, qué colectiva mueve qué dato, cuántos bytes) y lo verifica con `make test`. Es el mismo
-  programa que acaban de rastrear en la práctica guiada; se les dice así. Las colectivas entran aquí como código
-  para leer y predecir (03 §1, 07 §B), no como `TODO`.
-- **Parte B (semi-guiada, 62–78).** Los `TODO(n)` del enunciado, con criterio de verificación por `TODO`
-  (`make test`). Por regla del método (03 §1), hoy los `TODO` completan piezas que ya dominan alrededor de las
-  colectivas ya escritas: el reparto con residuo de S01 para `n` no múltiplo de `p` (cuentas y desplazamientos de
-  `Scatterv`/`Gatherv`), el cronómetro con `MPI_Barrier` + `MPI_Wtime` y el `Reduce` con `MPI_MAX` del tiempo
-  como en `matvec_collectives.c`, y la comparación contra la secuencial. Se adopta la forma que publique el
-  README: si un `TODO` pidiera escribir una colectiva desde cero, el profesor la resuelve en vivo antes de
-  soltarla (02 §2.1) y lo anota en "Notas post-sesión" como incoherencia a corregir.
+- **Parte A (guiada, 50–62).** Código **completo** para leer, predecir y verificar: `a1_hello_rank` (`Gather` de
+  rangos) y `a2_stats_mpi` (estadísticos de un arreglo con `Scatter`/`Scatterv` según `n % p`, `Reduce`, `Bcast` y
+  `Allreduce`). Cada equipo llena la tabla de predicción P1–P6 y la de rastreo del enunciado (quién tiene el dato
+  antes y después de cada colectiva, cuántos bytes viajan) y lo verifica con `make test-a`. Son las colectivas que
+  acaban de rastrear en la práctica guiada, sobre un arreglo; se les dice así. Entran aquí como código para leer y
+  predecir (03 §1, 07 §B), no como `TODO`.
+- **Parte B (semi-guiada, 62–78).** El producto matriz-vector por filas. Hoy solo el `TODO(1)`: cuentas y
+  desplazamientos del reparto con residuo de S01 (en filas y en elementos), que se verifica solo con los dos casos
+  `reparto con residuo (TODO 1)` de `bash tests/run_tests.sh b` (`4 PASS, 0 FAIL, 5 PEND` al minuto 78). Los
+  `TODO(2)`–`(5)` (`Scatterv`, `Bcast`, `Gatherv` y el `Reduce(MAX)` del tiempo) se escriben en casa: una colectiva
+  no se pide como `TODO` en la sesión en que aparece (03 §1). Quien termina el `TODO(1)` antes regresa a M1–M3 de
+  la Parte A.
 
 Si la Práctica 5 aún no estuviera publicada al llegar la sesión, el bloque se cubre con M2, M3, la fase Crear y
 la sección "Medición" de la práctica guiada (`./medir.sh` con `n = 4096`, 40 productos, `-np 1, 2, 4`), que
@@ -197,9 +197,9 @@ Errores de entorno frecuentes en este bloque y la pregunta que se hace:
 
 ### 78–85 · Punto de control y ConcepTest 2
 
-**78–83.** Cinco equipos al azar (tarjetas) muestran en 1 minuto la salida de `make test` de la Parte B (o, si no llegaron,
-el `PASS` de `matvec_allgather` de la práctica guiada) y dicen qué colectiva usaron para qué dato. Los demás
-anotan su propia salida (`PASS`/`FAIL`/`SKIP`) en la cabecera del *exit ticket* (02 §2.1). Mostrar sin nombres
+**78–83.** Cinco equipos al azar (tarjetas) muestran en 1 minuto la salida de `bash tests/run_tests.sh b` (o, si no
+llegaron, el `PASS` de `matvec_allgather` de la práctica guiada) y dicen qué colectiva de la Parte A mueve qué dato.
+Los demás anotan su propia salida (`PASS`/`FAIL`/`PEND`) en la cabecera del *exit ticket* (02 §2.1). Mostrar sin nombres
 dos hallazgos de la ronda (los más probables: #1/#2 y #11/#12 de la lista).
 
 **83–85 · ConcepTest 2** (`conceptests.md`, desglose de tiempos con un producto): **voto único** (proyectado
@@ -319,7 +319,7 @@ son 69840, 133776, 218448 y 323856. `make test`: `PASS norma_allreduce -np 4 n=8
 |---|---|---|
 | 1 (elegir y escribir la colectiva) | *Exit ticket* P2 (`Allreduce` + `MPI_MAX`, sin `root`, fuera de `if`); Crear con `make test` en `PASS`; ConcepTest 3 si se usó | > 30 % en "mal" en P2 (`Bcast`/`Gather`/`Send` o dentro de `if`) |
 | 2 (todos la llaman; dos síntomas) | Revoto del ConcepTest 1; P6–P7 comparadas con lo observado; *exit ticket* P1 | Revoto CT1 < 70 % o > 30 % en "mal" en P1 |
-| 3 (rastrear el reparto y verificar) | Tabla I1 llena para `-np 4` y `-np 2`; M1 en `PASS`; punto de control con `make test` de la Parte B | Más de un tercio de los equipos sin M1 en `PASS` al minuto 50 |
+| 3 (rastrear el reparto y verificar) | Tabla I1 llena para `-np 4` y `-np 2`; M1 en `PASS`; punto de control con `tests/run_tests.sh b` (reparto de la Parte B) | Más de un tercio de los equipos sin M1 en `PASS` al minuto 50 |
 | 4 (leer el desglose de tiempos) | ConcepTest 2 (voto único); tabla de medición propia si la hicieron; tarea 2 el jueves | CT2 < 60 % en el voto único |
 
 Datos que se registran hoy en `herramientas/seguimiento-grupo.csv`: % aciertos de la recuperación 2 y 4, conteo
@@ -328,7 +328,7 @@ del pre-lab (sí/no por número de lista).
 
 Registro del punto de control (llenar en clase):
 
-| Equipo | `make test` Parte B (PASS/FAIL/SKIP) | Dice qué colectiva mueve qué dato | M1 en PASS | Mini-defensa: quién no explicó su línea |
+| Equipo | Parte B, `tests/run_tests.sh b` (PASS/FAIL/PEND) | Dice qué colectiva mueve qué dato | M1 en PASS | Mini-defensa: quién no explicó su línea |
 |---|---|---|---|---|
 | | | | | |
 

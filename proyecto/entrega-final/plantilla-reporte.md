@@ -1,12 +1,12 @@
 # Plantilla del reporte final (PDF, 8–12 páginas)
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Entrega final · lunes 7 de diciembre de 2026, 10:30 · 30 puntos (`rubrica-reporte.md`) · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Entrega final · lunes 7 de diciembre de 2026, 10:30 · 30 puntos (`rubrica-reporte.md`) · versión 1.1 · 20 de octubre de 2026
 
 ## 1. Reglas de formato
 
 | Regla | Valor |
 |---|---|
-| Extensión | **8 a 12 páginas en total**, portada y referencias incluidas. Sin anexos. Más de 12: se leen solo las primeras 12 (R1 Insuficiente) |
+| Extensión | **8 a 12 páginas en total**, portada y referencias incluidas. Sin anexos. Más de 12: se leen solo las primeras 12; R1 baja a En desarrollo con 7 o 13 páginas y a Insuficiente con menos de 7 o más de 13 |
 | Archivo | `reporte/reporte.pdf` en el repositorio. Fuente (Markdown, LaTeX, Word) opcional, junto al PDF |
 | Tipografía y página | 11 pt, interlineado sencillo, márgenes de 2.5 cm, carta. Columnas: una |
 | Secciones | Las 13 de abajo, **en este orden y con estos títulos**. Se pueden agregar subsecciones; no se quitan secciones |
@@ -18,7 +18,7 @@
 
 ## 2. Qué va y qué no va en cada sección
 
-La columna "Extensión" suma 9–12 páginas; es una guía, no un requisito por sección. La columna "Rúbrica" dice qué criterio
+La columna "Extensión" suma entre 9¼ y 11 páginas; es una guía, no un requisito por sección. La columna "Rúbrica" dice qué criterio
 de `rubrica-reporte.md` la califica.
 
 | # | Sección (título obligatorio) | Qué va | Qué NO va | De dónde sale | Extensión | Rúbrica |
@@ -30,12 +30,12 @@ de `rubrica-reporte.md` la califica.
 | 4 | **V1: versión secuencial y línea base** | Estructura del programa; **perfilado**: qué fracción del tiempo va a qué parte y con qué se midió (`gprof`, `perf`, cronómetros por sección); fracción secuencial que se deriva (lo que no se va a paralelizar); tamaño por defecto y por qué `T(1)` ≥ 1 s | El código completo; "se implementó en C" sin más | `v1/main.c`, bitácora | ¾ p. | R3 |
 | 5 | **V2: memoria compartida (OpenMP)** | Qué región se paraleliza y por qué esa; alcance de variables; `schedule` y su razón (medición o carácter de las iteraciones); reducciones y sincronización; cómo se verificó que no hay carreras (ThreadSanitizer, razonamiento); fragmento clave comentado | Listado completo, explicación de qué es OpenMP, capturas de terminal | `v2/main.c`, bitácora | ¾–1 p. | R3 |
 | 6 | **V3: GPU** | Tecnología (CUDA C, Numba CUDA o CuPy) y por qué; mapeo hilo→dato; tamaño de bloque y la comparación que lo justifica; memoria (global, compartida, coalescencia: qué se hizo o por qué no aplica); transferencias (cuándo suben y bajan los datos); comprobación de errores; fragmento del *kernel*; cómo se verificó contra V1 **en la misma sesión** | Explicar la arquitectura de la GPU en general; omitir qué GPU se usó | `v3/kernel.cu` (o `.py`), *notebook* | ¾–1 p. | R3 |
-| 7 | **Metodología de medición** | Hardware de CPU (modelo, núcleos físicos/lógicos, RAM, SO) y GPU (modelo, memoria, driver, **fecha**); compiladores, versiones y banderas; protocolo: calentamiento, repeticiones, mediana con mín/máx, qué región se cronometra, reloj; `n`, semilla, lista de hilos; comandos exactos que reproducen cada tabla; **predicción previa** citada de la bitácora con fecha | "Se midió varias veces en una laptop"; promedios; medir con `-O0` | `resultados/entorno.txt`, `entorno_gpu.txt`, README §3 | ¾ p. | R4 |
+| 7 | **Metodología de medición** | Hardware de CPU (modelo, núcleos físicos/lógicos, RAM, SO) y GPU (modelo, memoria, driver, **fecha**); compiladores, versiones y banderas; protocolo: calentamiento, repeticiones, mediana con mín/máx, qué región se cronometra, reloj; `n`, semilla, lista de hilos; comandos exactos que reproducen cada tabla; **predicción previa** citada de la bitácora con fecha | "Se midió varias veces en una laptop"; promedios; medir con `-O0` | `resultados/entorno.txt`, `entorno_gpu.txt`, README §2–§3 | ¾ p. | R4 |
 | 8 | **Resultados** | **Tabla 1**: V1 y V2 por hilos (mediana, mín, máx, *speedup*, eficiencia, Karp–Flatt). **Tabla 2**: V3 sin y con transferencias (mediana, mín, máx, *speedup* contra la V1 de la misma máquina). **Figura 1**: *speedup* vs hilos con línea ideal `S = p` y barras mín–máx. Opcional: Figura 2 eficiencia vs hilos; Tabla 3 tamaño de bloque. Cada tabla declara `n` y semilla | Interpretación (va en 9); gráficas sin línea ideal ni unidades; números que no están en los CSV; capturas de terminal como evidencia | `resultados/tabla.md`, `speedup.png`, `mediciones*.csv` | 1–1½ p. | R5 |
 | 9 | **Análisis** | Amdahl con la fracción secuencial **medida** en la sección 4: *speedup* máximo teórico vs obtenido. Karp–Flatt: tendencia de `f` con `p` y qué sobrecarga la explica. Memoria vs cómputo: intensidad aritmética estimada (operaciones por byte) o experimento; dónde y por qué deja de escalar V2 (ancho de banda, sincronización, falso compartido, núcleos lógicos). V3: porcentaje del tiempo total que son transferencias; a partir de qué `n` conviene la GPU; qué limita el *kernel*. Predicción vs resultado: diferencia y causa. Superlineal: explicado si ocurrió | Repetir las tablas en prosa; "más hilos fue más rápido"; culpar a "la laptop" sin dato | Tablas 1–2, sección 4, bitácora | 1–1½ p. | R6 |
 | 10 | **Qué falló y qué aprendimos (bitácora)** | 3–5 entradas elegidas de `bitacora.md`: qué falló, cómo se detectó, causa, cambio, aprendizaje; al menos una medición descartada; **qué no entendemos todavía** (se lee en la defensa) | Lista de errores de compilación triviales; "todo salió bien" | `bitacora.md` | ½–¾ p. | R7 |
 | 11 | **Reparto de trabajo** | Tabla integrante → archivos y secciones → porcentaje acordado; coincidencia con `git shortlog -sn` (pegar la salida) y explicación si no coincide | Porcentajes iguales por costumbre si el historial dice otra cosa | README §6, `git shortlog` | ¼ p. | R7 |
-| 12 | **Declaración de uso de IA** | Las cuatro líneas de `docs/metodo/05-politica-ia.md`: herramientas; para qué (verde/amarillo); qué fragmentos vinieron de la IA (archivo y líneas) y cómo se verificaron; **qué nos dijo la IA que resultó estar mal** (ejemplo concreto) | "No usamos IA" sin más si el historial o el estilo dicen lo contrario; omitir la última línea | README §7 | ¼ p. | R7 |
+| 12 | **Declaración de uso de IA** | Las cuatro líneas de `docs/metodo/05-politica-ia.md`: herramientas; para qué (verde/amarillo); qué fragmentos vinieron de la IA (archivo y líneas) y cómo se verificaron; **qué nos dijo la IA que resultó estar mal** (ejemplo concreto) | "No usamos IA" sin más si el historial o el estilo dicen lo contrario; omitir la última línea | README §7 o `declaracion-ia.md` (sección "Entrega final") | ¼ p. | R7 |
 | 13 | **Referencias** | Documentación oficial citada en el texto: especificación de OpenMP, guía de programación de CUDA, documentación de Numba/CuPy si aplica, fuente de los datos, material del curso que se usó (protocolo de medición). Formato libre pero consistente | Blogs y videos como única fuente; referencias que no se citan | — | ¼ p. | R7 |
 
 ## 3. Esqueleto para copiar

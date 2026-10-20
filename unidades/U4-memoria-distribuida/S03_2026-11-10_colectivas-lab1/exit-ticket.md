@@ -34,7 +34,7 @@ Opcional: ¿qué te quedó menos claro de hoy? (una frase)
 
 ## Punto de control (solo si tu equipo no pasó al frente)
 
-Salida de `make test` de la Parte B de la Práctica 5 en tu equipo al minuto 78 (inicio del punto de control): ____ PASS, ____ FAIL, ____ SKIP.
+Salida de `bash tests/run_tests.sh b` (Parte B de la Práctica 5) en tu equipo al minuto 78 (inicio del punto de control): ____ PASS, ____ FAIL, ____ PEND.
 
 ---
 

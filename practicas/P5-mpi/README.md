@@ -27,7 +27,8 @@ Documentos de esta carpeta: este enunciado · `entrega.md` (qué, cómo, cuándo
 3. **Diseñar** una simulación por descomposición de dominio (calor 1D) con celdas fantasma, comunicación no bloqueante
    (`MPI_Isend`/`MPI_Irecv`/`MPI_Waitall`) y una decisión de paro global con `MPI_Allreduce`, verificada contra la
    versión secuencial (crear).
-4. **Medir** escalabilidad fuerte y débil con el protocolo del curso (1, 2, 4 procesos y 8 sobre-suscrito, declarado),
+4. **Medir** escalabilidad fuerte y débil con el protocolo del curso (1, 2, 4 procesos, hasta tus núcleos físicos, y
+   2 × núcleos sobre-suscrito, declarado: 8 en una laptop de 4 núcleos),
    **producir** el CSV y las gráficas, y **explicar** dónde deja de escalar con el modelo `T_com = α + m/β` alimentado
    con tu propio *ping-pong* (analizar / evaluar).
 5. **Explicar** una decisión de diseño con un dato medido (p. ej., solapar cómputo y comunicación, o cada cuántos
@@ -55,7 +56,7 @@ rango, reparto por bloques con residuo), `S02_2026-11-09_punto-a-punto/notas-est
    Nombra dos formas de hacerlo seguro.
 
 **Predicción (se compara en la Parte D; se copia tal cual en el reporte).** "Para el producto matriz-vector de la
-Parte B (`m = n = 2000`, 200 productos, una sola distribución de la matriz) espero con 4 procesos un *speedup* de
+Parte B (`m = n = 2000`, 400 productos, una sola distribución de la matriz) espero con 4 procesos un *speedup* de
 ___ porque ___." Piensa en qué viaja una vez (la matriz: 32 MB) y qué viaja en cada producto (el vector `x` y el
 resultado `y`: 16 KB cada uno), y en cuántas operaciones hace cada rango por producto.
 
@@ -80,7 +81,7 @@ resultado `y`: 16 KB cada uno), y en cuántas operaciones hace cada rango por pr
 | `a2_stats_seq.c`, `a2_stats_mpi.c` | A | completo | Suma, máximo, promedio y varianza de `n` datos: secuencial y repartido con `Scatter`/`Scatterv` + `Reduce` + `Bcast` + `Allreduce`; verificación contra la secuencial |
 | `b_matvec_seq.c`, `b_matvec_mpi.c` | B | **`TODO(1)`–`TODO(5)`** | `y = A·x` por filas: `Scatterv` de filas, `Bcast` de `x`, `Gatherv` de `y`, cronómetro con `Reduce(MAX)`; verificación con tolerancia |
 | `c_heat_common.h`, `c_heat_seq.c`, `c_heat_mpi.c` | C | **esqueleto** | Calor 1D: problema, condición inicial y verificación compartidos; la secuencial completa; en la MPI escribes `heat_solve_mpi` |
-| `c_primes_seq.c`, `c_primes_mpi.c` | C (alternativa) | **esqueleto** | Conteo de primos en `[a, b]`: la secuencial completa; en la MPI escribes `count_primes_mpi` (cíclico y bloques) |
+| `c_primes_seq.c`, `c_primes_mpi.c` | C (alternativa) | **esqueleto** | Conteo de primos en `[a, b]`: la secuencial completa; en la MPI escribes `count_primes_local` (reparto cíclico y por bloques) y `combine_counts` |
 | `d_pingpong.c` | D | completo | Latencia α y ancho de banda β entre dos procesos; ajuste a `T_com = α + m/β` |
 | `../escalado.sh`, `../graficar.py`, `../modelo.py` | D | completos | Escalabilidad fuerte y débil (CSV del protocolo + PNG); modelo de costo (n*, n_E) |
 
@@ -93,7 +94,7 @@ make test-entrega PARTE_C=heat    # lo que corre el profesor al calificar (o PAR
 make clean
 ```
 
-Recién clonada, la carpeta da `make test` → `16 PASS, 0 FAIL, 18 PEND, 1 SKIP` (≈ 45 s): los `PEND` son los programas
+Recién clonada, la carpeta da `make test` → `16 PASS, 0 FAIL, 20 PEND, 1 SKIP` (≈ 25–45 s): los `PEND` son los programas
 de las Partes B y C que todavía imprimen `TODO pendiente`; el `SKIP` es `graficar.py`, que necesita el CSV de una
 Parte C completa. Al terminar la práctica, `make test-entrega` debe dar `0 FAIL` y ningún `PEND`.
 
@@ -183,11 +184,13 @@ La secuencial imprime `suma=-3.116826238466e+01`: difiere de la distribuida en l
 `…466`): mismo conjunto de números, otro orden de suma, otro redondeo (idea errónea 10). Por eso `make test` compara
 con tolerancia relativa `1e-9`.
 
-Scatter forzado con residuo (termina, pero **mal**, y el programa lo detecta):
+Scatter forzado con residuo (termina, pero **mal**, y el programa lo detecta; extracto sin las líneas de tiempo, y
+`mpirun` añade por la salida de error un aviso de que un proceso terminó con código distinto de 0):
 
 ```
 a2_stats_mpi: n=100003 p=4 reparto=scatter (n % p = 3; elementos por rango: 25000 x 4) reps=2
 ADVERTENCIA: Scatter forzado con n % p = 3: solo viajaron 100000 de 100003 elementos; los ultimos 3 no se contaron
+global: suma=-3.111863834752e+01 max=9.999935195177e-01 promedio=-3.111770481637e-04 varianza=3.337252622144e-01
 verificacion (rango 0 recorre el arreglo completo): FALLA; dif. rel. suma=1.6e-03; max igual; dif. rel. varianza=3.3e-05
 codigo 1
 ```
@@ -232,7 +235,7 @@ con `-np 1, 3, 4`.
 
 ---
 
-## Parte B · Semi-guiada: producto matriz-vector distribuido por filas (Laboratorio 1, minutos 62–80; se termina en casa)
+## Parte B · Semi-guiada: producto matriz-vector distribuido por filas (Laboratorio 1, minutos 62–78: TODO(1); en casa: TODO(2)–(5))
 
 `y = A·x` con `A` de `m × n` guardada por filas. El rango 0 tiene `A` y `x`. Cada rango recibe un bloque de filas
 contiguas (reparto con residuo), calcula su bloque de `y`, y la raíz lo reúne. El producto se repite `iters` veces
@@ -241,20 +244,26 @@ producto. Es el programa de `S03/ejemplo-resuelto.md` con tres diferencias: fila
 matriz rectangular y verificación con tolerancia.
 
 Abre `src/b_matvec_mpi.c`. La secuencial `src/b_matvec_seq.c` está completa y es la referencia. Hay cinco `TODO`,
-con pistas que van de más a menos, y una máscara `todo_pending` al inicio del archivo: mientras tenga banderas, el
-programa imprime `TODO pendiente: TODO(1) TODO(2) …` y termina sin calcular nada (`make test` lo reporta
-como `PEND`; `make test-b` lo cuenta como `FAIL`). **Al terminar cada TODO, quita su bandera de la máscara.** Si la
-quitas sin resolverlo, la verificación dice `FALLA`: eso sí es `FAIL`.
+con pistas que van de más a menos, y una máscara `todo_pending` al inicio del archivo. **Al terminar cada TODO, quita
+su bandera de la máscara.** Con `TODO(1)` pendiente, el programa imprime `TODO pendiente: TODO(1) …` y termina; sin
+`TODO(1)` pero con alguno de los otros, imprime la línea `filas por rango: …` (el criterio del `TODO(1)`) y luego
+`TODO pendiente: …`; con la máscara en `0u` corre y verifica todo. `make test` reporta como `PEND` lo que depende de
+un `TODO` pendiente; `make test-b` lo cuenta como `FAIL`. Si quitas una bandera sin resolver su `TODO`, su criterio
+falla: eso sí es `FAIL`.
 
 | TODO | Qué completas | Pista | Criterio de verificación |
 |---|---|---|---|
-| **1** | Cuentas y desplazamientos del reparto por filas: `row_counts`, `row_displs` (en filas) y `elem_counts`, `elem_displs` (en elementos = filas × `n`) | Es `block_partition(m, size, k, &c, &f)` de `common.h` en un ciclo sobre `k`; la fórmula está en el comentario | `mpirun -np 3 ./src/b_matvec_mpi 301 203 3` imprime `filas por rango: 101 100 100`; con `-np 4`, `76 75 75 75` |
+| **1** | Cuentas y desplazamientos del reparto por filas: `row_counts`, `row_displs` (en filas) y `elem_counts`, `elem_displs` (en elementos = filas × `n`) | Es `block_partition(m, size, k, &c, &f)` de `common.h` en un ciclo sobre `k`; la fórmula está en el comentario | `mpirun -np 3 ./src/b_matvec_mpi 301 203 3` imprime `filas por rango: 101 100 100`; con `-np 4`, `76 75 75 75` (los dos casos `reparto con residuo (TODO 1)` de `make test-b`; pasan aunque falten los demás `TODO`) |
 | **2** | `MPI_Scatterv` de las filas de `A` a `A_local` | La firma completa y el papel de cada argumento están en el comentario; las cuentas van en **elementos** | Con `--trace`, `A_local[0]` de cada rango es el primer elemento de su primera fila global (rango 1 con `-np 3`: `A[101·203]`) |
 | **3** | `MPI_Bcast` de `x` en cada producto | Una línea. La llaman todos | Con `--trace`, `x[0]=0.666100` en **todos** los rangos |
 | **4** | `MPI_Gatherv` de `y_local` en `y` (raíz) | Es el inverso del TODO(2), con cuentas en **filas**. Sin firma: la viste en `matvec_scatterv.c` (S03, M3) y está en el estándar | `verificacion contra y secuencial (rango 0): OK` y el mismo `checksum` que `./src/b_matvec_seq 301 203 3` |
-| **5** | El tiempo de la corrida es el del rango más lento: `slowest` y `slowest_dist` deben ser el máximo entre rangos | Una colectiva con una operación. Ya la usaste hoy para el tiempo | El tiempo que reporta `-np 4` no es el del rango 0 (compruébalo imprimiendo `elapsed` por rango con `--trace`) |
+| **5** | El tiempo de la corrida es el del rango más lento: `slowest` y `slowest_dist` deben ser el máximo entre rangos | Una colectiva con una operación. La leíste completa en la Parte A (`a2_stats_mpi.c`, tiempo del rango más lento) | El tiempo que reporta `-np 4` no es el del rango 0 (compruébalo imprimiendo `elapsed` por rango con `--trace`) |
 
-En clase: TODO(1)–(3) y `make test-b` al minuto 80 (anota `PASS/FAIL` en la cabecera del *exit ticket*). En casa: TODO(4)–(5).
+**En clase (minutos 62–78): solo el `TODO(1)`**, que es el reparto con residuo de S01 y no usa nada nuevo. Al minuto 78
+corre `bash tests/run_tests.sh b` (sin modo estricto) y anota la línea final en la cabecera del *exit ticket*; con el
+`TODO(1)` bien: `4 PASS, 0 FAIL, 5 PEND`. Si terminas antes, regresa a M1–M3 de la Parte A. **En casa: `TODO(2)`–`(5)`**,
+las colectivas que hoy leíste completas en la Parte A y en el ejemplo resuelto de S03. Por regla del curso, una
+construcción nueva no se pide como `TODO` en la misma sesión en que aparece (`docs/metodo/03-plantilla-practica.md`, Parte A).
 
 Salida real de la solución de referencia:
 
@@ -266,14 +275,22 @@ b_matvec_mpi: m=301 n=203 p=3 iters=3 reps=3; filas por rango: 101 100 100
 checksum=-5.717465116246e+01 y[0]=-3.442092077168e+00 y[m-1]=-7.286957186063e+00
 verificacion contra y secuencial (rango 0): OK; max |dif| = 0.0e+00
 $ mpirun -np 4 ./src/b_matvec_mpi 3 50 2 --trace
-[rango 3] filas globales 3..2 (0 filas, 0 elementos de A); A_local[0]=0.000000 x[0]=0.666100
-...
 b_matvec_mpi: m=3 n=50 p=4 iters=2 reps=3; filas por rango: 1 1 1 0
+[rango 3] filas globales 3..2 (0 filas, 0 elementos de A); A_local[0]=0.000000 x[0]=0.666100
+[rango 0] filas globales 0..0 (1 filas, 50 elementos de A); A_local[0]=0.015921 x[0]=0.666100
+...
 verificacion contra y secuencial (rango 0): OK; max |dif| = 0.0e+00
 ```
 
 Aquí `max |dif| = 0`: cada `y[i]` lo calcula un solo rango con el mismo ciclo que la secuencial, así que el
 redondeo es idéntico. La tolerancia (`1e-12`) sigue ahí porque el estándar no obliga a que sea así.
+
+Con solo el `TODO(1)` resuelto (lo que se espera al minuto 78), la segunda corrida termina así:
+
+```
+b_matvec_mpi: m=301 n=203 p=3 iters=3 reps=3; filas por rango: 101 100 100
+TODO pendiente: TODO(2) TODO(3) TODO(4) TODO(5) (quita cada bandera de todo_pending al terminarlo)
+```
 
 Preguntas de la Parte B (van al reporte, 3–5 líneas en total):
 
@@ -282,7 +299,7 @@ Preguntas de la Parte B (van al reporte, 3–5 líneas en total):
 - La línea `tiempo del Scatterv de A (una vez…)`: con `m = n = 2000` e `iters = 1`, ¿qué fracción del total es?
   ¿Y con `iters = 200`? ¿Qué le dice eso a quien va a diseñar la V2 de su proyecto?
 
-**Verificación:** `make test-b` → `7 PASS, 0 FAIL` (compilación, la secuencial y cinco casos).
+**Verificación:** `make test-b` → `9 PASS, 0 FAIL` (compilación, la secuencial, los dos de reparto y cinco casos).
 
 ---
 
@@ -336,8 +353,10 @@ contrato está en el comentario) y lo que necesites alrededor. No se da la estru
 5. Verificación contra la secuencial: `--verify` en verde y `make test-c` en verde con `p = 1, 2, 3, 4`, `n % p ≠ 0`,
    `check_every > 1` y `n = p`.
 6. Decisión de diseño que debes **medir y reportar** (rúbrica, criterio 2): ¿qué celdas puedes calcular **antes** del
-   `Waitall`? Reporta la línea `por paso: computo=…, comunicacion=…` (o tu equivalente) con y sin ese solape, y
-   también con `check_every = 1` y `10`.
+   `Waitall`? Reporta la línea `por paso: computo=…, comunicacion=…` con y sin ese solape, y también con
+   `check_every = 1` y `10`. El `main` ya trae lo necesario: `--sin-solape` pone `use_overlap = 0` (tu diseño decide
+   qué hace con eso; las pruebas pasan esa bandera y solo exigen el mismo resultado), y si acumulas en `t_comm_acc` y
+   `t_comp_acc` los segundos de comunicación y de cómputo de tu rango, `main` imprime esa línea.
 
 **Casos de prueba** (`make test-c`): `n = 1003`, 500 pasos, `p = 1..4` · `n = 31`, `tol = 1e-6` (paro por tolerancia:
 4702 pasos) con `p = 3` · lo mismo con `check_every = 7` (4704 pasos) y `p = 4` · `n = 4`, `p = 4` (una celda por rango)
@@ -380,34 +399,41 @@ recorren hasta `sqrt(k)`, y `sqrt(k)` crece con `k`. Por eso un reparto por bloq
 (`[2, 100000]` → 9592; `[1, 1]` → 0; `[2, 2]` → 1; `[0, 10]` → 4), más la línea de desbalance (tiempo del rango más
 lento entre el más rápido).
 
-**Lo que escribes tú:** `count_primes_mpi` (contrato en el comentario): reparto de los candidatos impares entre los
-rangos, cíclico o por bloques según el argumento, y combinación del conteo. **Restricciones:** el conteo se combina con
-una colectiva (no con `Send`/`Recv`); el modo `ciclico` reparte **trabajo**, no enteros: con `p` par, `k = a + rank + j·p`
-le da a la mitad de los rangos puros pares (trabajo nulo) y el cociente lento/rápido se dispara aunque el conteo salga
-bien (revísalo con `--trace`); el modo `bloques` debe existir para **mostrar** el desbalance; el cociente lento/rápido
-del cíclico debe ser ≤ 1.2 con `[2, 3 000 000]` y `p = 4`. Reporta ambos modos con los tiempos por rango.
+**Lo que escribes tú** (contrato en el comentario): `count_primes_local`, el reparto de los candidatos impares entre
+los rangos, cíclico o por bloques según el argumento, y el conteo de los tuyos (sin comunicación); y `combine_counts`,
+la combinación del conteo. `main` cronometra `count_primes_local` **sola**: así el tiempo de cada rango mide su trabajo
+y no la espera en la colectiva (si cronometraras también la combinación, el rango que espera al más lento parecería
+igual de lento y el desbalance se escondería). **Restricciones:** el conteo se combina con una colectiva (no con
+`Send`/`Recv`); el modo `ciclico` reparte **trabajo**, no enteros: con `p` par, `k = a + rank + j·p` le da a la mitad
+de los rangos puros pares (trabajo nulo) y el cociente lento/rápido se dispara aunque el conteo salga bien (revísalo
+con `--trace`); el modo `bloques` debe existir para **mostrar** el desbalance; el cociente lento/rápido del cíclico
+(mediana de 5 repeticiones, con la máquina ociosa) debe ser ≤ 1.2 con `[2, 3 000 000]` y `p = 4`. Reporta ambos
+modos con los tiempos por rango.
 
-Corrida real de la solución de referencia con `[2, 100000]` y `-np 4`:
+Corrida real de la solución de referencia con `[2, 3 000 000]`, 5 repeticiones y `-np 4` (extracto; las líneas
+`[rango k]` son de la primera repetición y salen en cualquier orden):
 
 ```
-$ mpirun -np 4 ./src/c_primes_mpi 2 100000 ciclico 1 --trace
-[rango 3] reparto=ciclico: 12499 candidatos impares, 2384 primos, 0.0011 s
-[rango 2] reparto=ciclico: 12500 candidatos impares, 2399 primos, 0.0011 s
-[rango 1] reparto=ciclico: 12500 candidatos impares, 2399 primos, 0.0011 s
-[rango 0] reparto=ciclico: 12500 candidatos impares, 2410 primos, 0.0011 s
-primos=9592
-desbalance (ultima repeticion): rango mas lento 0.0011 s, mas rapido 0.0011 s, cociente 1.03
-$ mpirun -np 4 ./src/c_primes_mpi 2 100000 bloques 1 --trace
-[rango 3] reparto=bloques: 12499 candidatos impares, 2199 primos, 0.0014 s
-[rango 2] reparto=bloques: 12500 candidatos impares, 2260 primos, 0.0013 s
-[rango 1] reparto=bloques: 12500 candidatos impares, 2371 primos, 0.0010 s
-[rango 0] reparto=bloques: 12500 candidatos impares, 2762 primos, 0.0006 s
-primos=9592
-desbalance (ultima repeticion): rango mas lento 0.0014 s, mas rapido 0.0006 s, cociente 2.19
+$ mpirun -np 4 ./src/c_primes_mpi 2 3000000 ciclico 5 --trace
+[rango 0] reparto=ciclico: 375000 candidatos impares, 54259 primos, 0.1294 s
+[rango 1] reparto=ciclico: 375000 candidatos impares, 54212 primos, 0.1161 s
+[rango 2] reparto=ciclico: 375000 candidatos impares, 54274 primos, 0.1292 s
+[rango 3] reparto=ciclico: 374999 candidatos impares, 54071 primos, 0.1302 s
+primos=216816
+desbalance: cociente lento/rapido = 1.09 (mediana de 5 repeticiones; ultima: rango mas lento 0.1288 s, mas rapido 0.1197 s)
+$ mpirun -np 4 ./src/c_primes_mpi 2 3000000 bloques 5 --trace
+[rango 2] reparto=bloques: 375000 candidatos impares, 51926 primos, 0.1482 s
+[rango 3] reparto=bloques: 374999 candidatos impares, 50735 primos, 0.1707 s
+[rango 0] reparto=bloques: 375000 candidatos impares, 60238 primos, 0.0760 s
+[rango 1] reparto=bloques: 375000 candidatos impares, 53917 primos, 0.0991 s
+primos=216816
+desbalance: cociente lento/rapido = 2.25 (mediana de 5 repeticiones; ultima: rango mas lento 0.1689 s, mas rapido 0.0583 s)
 ```
 
-Con bloques, el rango 3 (los candidatos más altos) tarda 2.2× lo que el rango 0 aunque tenga **menos** primos: cada
-primo alto cuesta más divisiones. Con `[2, 3 000 000]` el cociente de bloques sube y el del cíclico se queda en ≈ 1.
+Con bloques, el rango 3 (los candidatos más altos) tarda 2.2× lo que el rango 0 aunque tenga **menos** primos (50 735
+contra 60 238): cada primo alto cuesta más divisiones. En la misma máquina, con 10 % de la CPU ocupada por otro
+programa, el cociente del cíclico llegó a 1.34: mide con la máquina vacía y declara `entorno.txt`. Con `[2, 100 000]`
+(el intervalo de las pruebas) cada rango tarda ≈ 1 ms y el cociente es casi puro ruido.
 
 **Casos de prueba** (`make test-c PARTE_C=primes`): `[2, 100000]` con `p = 1, 3, 4` cíclico y `p = 4` bloques; `[1, 1]`.
 El profesor agrega `[2, 2]`, `[0, 10]` y un intervalo alto `[999900, 1000100]`.
@@ -449,10 +475,12 @@ de ___ porque ___" (la trajiste de la tarea de S04). "La configuración que creo
 
 3. `t_c` de tu secuencial: la línea `t_c=… ns por celda-paso` de `./src/c_heat_seq` con el `n` grande.
 4. Escalabilidad: `make run-d` corre `escalado.sh` con calor 1D (`N=1000000`, `ITERS=1200`, débil `NLOCAL=250000`,
-   `p = 1, 2, 4` y `8` sobre-suscrito) y escribe `resultados/fuerte.csv`, `debil.csv`, `entorno.txt`, `fuerte.png`,
-   `debil.png`. Ajusta `ITERS` para que la fila `seq` de `fuerte.csv` tenga `mediana_s ≥ 1 s`. Luego la Parte B:
-   `PROG=matvec OUT=resultados-matvec ./escalado.sh` (fuerte con `M=2000`; la débil por filas es opcional). Si tu
-   Parte C es primos: `PROG=primes MODO=ciclico ./escalado.sh` (y repite con `MODO=bloques` a otra carpeta).
+   `p` = 1, 2, 4, … hasta tus núcleos físicos y 2 × núcleos sobre-suscrito: en 4 núcleos, 1, 2, 4 y 8) y escribe
+   `resultados/fuerte.csv`, `debil.csv`, `entorno.txt`, `fuerte.png`, `debil.png`. Ajusta `ITERS` para que la fila
+   `seq` de `fuerte.csv` tenga `mediana_s ≥ 1 s`. Luego la Parte B: `PROG=matvec OUT=resultados/matvec ./escalado.sh`
+   (fuerte con `M = 2000` y 400 productos, los de tu predicción; la débil por filas es opcional). Si tu Parte C es
+   primos: `PROG=primes MODO=ciclico ./escalado.sh` (intervalo `[2, 6 000 000]`, para que la secuencial pase de 1 s) y
+   repite con `MODO=bloques OUT=resultados/bloques`.
 5. Modelo de costo con **tus** α, β y `t_c`:
    `python3 modelo.py --alpha-us <α> --beta-gbps <β> --tc-ns <t_c> --p 4 --n 1000000 --tabla` da `T_com`, n*
    (punto de equilibrio, `S = 1`) y n_E(50 %). Verifica n* con una corrida cerca de él
@@ -463,11 +491,35 @@ de ___ porque ___" (la trajiste de la tarea de S04). "La configuración que creo
 Corrida real de `escalado.sh` en la máquina de autoría (calor 1D; los números de tu máquina serán otros, el patrón no):
 
 ```
-<!-- SALIDA-ESCALADO -->
+== calor 1D: N=1000000 ITERS=1200 CHECK_EVERY=1; debil NLOCAL=250000
+== Entorno: 4 núcleos físicos (4 CPU lógicas); REPS=5 (+1 calentamiento); MPIRUN_FLAGS='--oversubscribe'; CPU ociosa 97%
+== Escalabilidad fuerte: tamaño=1000000
+config         p          n  mediana_s  speedup     efic
+seq            1    1000000   2.204741   1.0000   1.0000
+mpi            1    1000000   2.306160   0.9560   0.9560
+mpi            2    1000000   1.232864   1.7883   0.8942
+mpi            4    1000000   0.691546   3.1881   0.7970
+mpi_oversub    8    1000000   1.370297   1.6090   0.2011
+== Escalabilidad débil: tamaño por proceso=250000
+config         p          n  mediana_s  S_escal efic_debil
+seq            1     250000   0.503179   1.0000   1.0000
+mpi            1     250000   0.526286   0.9561   0.9561
+mpi            2     500000   0.658057   1.5293   0.7646
+mpi            4    1000000   0.662982   3.0359   0.7590
+mpi_oversub    8    2000000   1.840475   2.1872   0.2734
+== Aviso: p=8 > 4 núcleos -> sobre-suscrito; etiquetado mpi_oversub, se reporta aparte.
 ```
 
+(Corrida del 14 de octubre de 2026 con `WAIT_IDLE=240`; después imprime las rutas de los CSV y las dos tablas en
+Markdown.) Lo que hay que ver: con `p = 4` la eficiencia fuerte (0.80) no cae de 50 %; la fila `seq` y la `mpi,1`
+difieren en ≈ 5 % (el costo del arnés MPI con un proceso); con 8 procesos en 4 núcleos el tiempo **sube** (1.37 s
+contra 0.69 s) y la variación entre repeticiones se dispara (0.98–1.70 s): es la fila que va aparte. En la débil, la
+eficiencia baja de 0.96 a 0.76 entre 1 y 2 procesos y luego se sostiene hasta 4. En otra corrida de la misma máquina
+con carga ajena (82 % de CPU ociosa, `ITERS=500`), `mpi,4` fuerte tardó 6.9 s contra 0.9 s de la secuencial
+(eficiencia 0.03): por eso `entorno.txt` es obligatorio.
+
 **Tabla obligatoria** (las dos, fuerte y débil; la imprime `graficar.py`): tamaño, procesos, mediana, mín, máx,
-*speedup* (o *speedup* escalado), eficiencia (o eficiencia débil). La fila `mpi_oversub,8` va en la tabla y **fuera**
+*speedup* (o *speedup* escalado), eficiencia (o eficiencia débil). La fila `mpi_oversub` (2 × núcleos: `mpi_oversub,8` en 4 núcleos) va en la tabla y **fuera**
 de la curva. **Gráficas obligatorias:** `fuerte.png` (con la línea ideal y la curva del modelo) y `debil.png`.
 
 **Tres preguntas de interpretación** (van al reporte, con un dato cada una):
@@ -527,7 +579,7 @@ afecta el criterio 5 **del integrante**, no del equipo.
 
 | Verde (úsala) | Amarillo (úsala y decláralo) | Rojo (no) |
 |---|---|---|
-| Que te explique la firma de `MPI_Scatterv`, `MPI_Gatherv`, `MPI_Waitall` o qué significa un mensaje de `mpirun` (*not enough slots*, *run as root*, `MPI_ERR_TRUNCATE`) | Un fragmento de ≤ 10 líneas (p. ej., el ciclo de cuentas y desplazamientos del TODO(1), o la llamada a `MPI_Scatterv` con sus argumentos) que **reescribes** y explicas en el reporte con archivo y líneas | Pedir `heat_solve_mpi` o `count_primes_mpi` completas, o la Parte B entera: **ninguna** sección de esta práctica autoriza fragmentos de más de 10 líneas ni funciones completas |
+| Que te explique la firma de `MPI_Scatterv`, `MPI_Gatherv`, `MPI_Waitall` o qué significa un mensaje de `mpirun` (*not enough slots*, *run as root*, `MPI_ERR_TRUNCATE`) | Un fragmento de ≤ 10 líneas (p. ej., el ciclo de cuentas y desplazamientos del TODO(1), o la llamada a `MPI_Scatterv` con sus argumentos) que **reescribes** y explicas en el reporte con archivo y líneas | Pedir `heat_solve_mpi` o `count_primes_local` completas, o la Parte B entera: **ninguna** sección de esta práctica autoriza fragmentos de más de 10 líneas ni funciones completas |
 | Que critique tu diseño de la Parte C con preguntas ("¿qué celdas dependen del halo?") | Que te sugiera casos de prueba (tú los implementas y verificas) | Inventar, completar o "suavizar" mediciones; generar la interpretación sin tus datos |
 | Que te explique el modelo `α + m/β` o la diferencia entre escalabilidad fuerte y débil con otras palabras | Generar las gráficas a partir de **tus** CSV si no usas `graficar.py` | Usarla en la mini-defensa, en la recuperación de inicio o en el examen |
 

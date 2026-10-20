@@ -7,9 +7,9 @@ En el repositorio del curso esta carpeta solo tiene este archivo. En el reposito
 
 | Archivo | Quién lo produce | Para qué |
 |---|---|---|
-| `resultados_P6_<AAAA-MM-DD>.csv` (uno por sesión de medición) | La celda 8 del `notebook_colab.ipynb` (la fecha la agrega sola) | Tabla de la Parte D; lo lee `graficar.py` |
+| `resultados_P6_<AAAA-MM-DD>.csv` (uno por sesión de medición) | La sección 9 del `notebook_colab.ipynb` (la fecha la agrega sola) | Tabla de la Parte D; lo lee `graficar.py` |
 | `tiempo_vs_bloque.png`, `speedup_vs_n.png`, `transferencias.png` | `python3 graficar.py resultados/resultados_P6_*.csv -o resultados` (o `make graficas`) | Las gráficas de `REPORTE.md` |
-| `entorno.txt` | La misma celda 8: `nvidia-smi` (modelo de GPU, controlador, memoria), `nvcc --version`, CPU de la máquina y fecha | Sin modelo de GPU y fecha la medición no cuenta (`herramientas/protocolo-medicion.md` §1.4 y §5) |
+| `entorno.txt` | La misma sección 9: `nvidia-smi` (modelo de GPU, controlador, memoria), `nvcc --version`, CPU de la máquina y fecha | Sin modelo de GPU y fecha la medición no cuenta (`herramientas/protocolo-medicion.md` §1.4 y §5) |
 | `hist_cpu.txt` (opción 1 de la Parte C) | `./c_histograma_cpu <n> --volcar hist_cpu.txt` | Las 256 cuentas de referencia para comparar tu histograma completo |
 | `tarea-S04.md` (una por integrante) | Tarea espaciada de la S04 (lunes 30 de noviembre) | Pre-mortem y primera fila de la tabla; el profesor la usa en las mini-defensas del Lab 2 |
 | Captura fechada del aviso de cuota (solo si aplica) | Tú, si Colab **y** Kaggle niegan GPU en las 48 h previas a la entrega | Evidencia para entregar la medición como "pendiente" sin penalización (`docs/metodo/04-evaluacion.md` §5) |
@@ -26,9 +26,9 @@ experimento,kernel,n,block,grid,ocupacion_pct,memoria,t_h2d_ms,t_kernel_ms,t_d2h
 
 | Columna | Significado |
 |---|---|
-| `experimento` | `uno` (una configuración), `umbral` (barrido de `n` con bloque fijo) o `bloque` (barrido de bloque con `n` fijo). La Parte C usa `bloque` |
-| `kernel` | Nombre del *kernel*: `vector_add`, `saxpy`, `matmul_naive`, `matmul_tiled`, y el de tu Parte C (p. ej. `histograma_shared`, `jacobi_2d`) |
-| `n` | Elementos del problema (en matrices, `n` es el lado; en Jacobi, `alto·ancho`) |
+| `experimento` | `uno` (una configuración), `umbral` (barrido de `n` con bloque fijo) o `bloque` (barrido de bloque con `n` fijo). La multiplicación de la Parte A y la Parte C usan `bloque`; la Parte B, `uno`. Si mides tu *kernel* de la Parte C con varios `n` y bloque fijo, usa `umbral`: así entra en `speedup_vs_n.png` |
+| `kernel` | Nombre del *kernel*: `vector_add`, `saxpy`, `matmul_naive`, `matmul_tiled` (Parte A), `matmul_rect_naive`, `matmul_rect_tiled` (Parte B), y el de tu Parte C (p. ej. `histograma_shared`, `jacobi_2d`) |
+| `n` | Elementos del problema (en matrices cuadradas, `n` es el lado; en las rectangulares de la Parte B, `M·N`, los elementos de `C`; en Jacobi, `alto·ancho`) |
 | `block`, `grid` | Hilos por bloque (en 2D, `bx·by`) y bloques totales lanzados |
 | `ocupacion_pct` | Ocupación teórica que `cudaOccupancyMaxActiveBlocksPerMultiprocessor` da para ese bloque (`occupancy_pct` de `common.cuh`) |
 | `memoria` | `pageable` (`malloc`) o `pinned` (`cudaMallocHost`; extensión opcional) |

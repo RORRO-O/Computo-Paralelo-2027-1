@@ -80,7 +80,8 @@ def main():
             if name == "vector_add":
                 def launch(): vector_add_kernel[grid, block](d_a, d_b, d_c, n)
             else:
-                def launch(): saxpy_kernel[grid, block](ALPHA, d_a, d_b, d_c, n)
+                # alpha como float32, igual que en el .cu (un float de Python haría la cuenta en doble precisión)
+                def launch(): saxpy_kernel[grid, block](np.float32(ALPHA), d_a, d_b, d_c, n)
             d_c.copy_to_device(np.zeros(n, dtype=np.float32))  # borra el resultado anterior
             launch()
             cuda.synchronize()

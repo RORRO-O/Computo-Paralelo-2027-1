@@ -4,10 +4,13 @@
 
 **Entrega:** antes de mañana, martes 1 de diciembre de 2026, 08:30, en la carpeta `practicas/P6/resultados/`
 del repositorio de tu equipo (un archivo `tarea-S04.md` por integrante, con tu nombre de usuario de Git, más el
-CSV y las PNG si los generaste). **Qué cuenta:** no tiene ponderación propia en el 3er parcial (ver
-`planeacion/mapa-evaluacion.md`); es la entrada directa de la Parte D de la Práctica 6 (15 % del parcial, vence
-el domingo 6 de diciembre a las 23:59) y de la medición de la V3 del proyecto (entrega final el lunes 7 de
-diciembre a las 10:30). En el Lab 2 de mañana el profesor la usa para las mini-defensas.
+CSV y las PNG si los generaste). **Qué cuenta: Esta tarea no tiene peso propio; el examen de práctica del jueves
+3 de diciembre y el 10–20 % acumulativo del Examen 3 toman ítems de aquí.** Se autocalifica con la clave en
+`<details>` al inicio de la S05 (martes 1 de diciembre, 08:30, Lab LS4; 2 minutos después de la recuperación); el
+profesor registra la entrega, no el acierto, y revisa 3 al azar por parcial. Además es la entrada directa de la
+Parte D de la Práctica 6 (15 % del 3er parcial, vence el domingo 6 de diciembre a las 23:59) y de la medición de la
+V3 del proyecto (entrega final el lunes 7 de diciembre a las 10:30). En el Lab 2 el profesor la usa para las
+mini-defensas. Si en clase se recortó la Transferencia, el *Crear* de la práctica guiada es tu ejercicio 3b.
 
 ## 1. Del tema de hoy (≈ 15 min) · ¿Memoria o cómputo?
 
@@ -48,7 +51,8 @@ c) **Pre-mortem (escríbelo antes de medir):** "Con `n = ___`, espero `S_kernel 
 
 - 1a) En una T4 típica: ≈ 200–240 GB/s (65–75 % del teórico) y ≈ 35–40 GFLOP/s (≈ 0.5 % del pico): saxpy está
   pegado al techo de memoria y lejísimos del de cómputo.
-- 1b) Suma de vectores 0.083; saxpy 0.17; *stencil* 1D de 3 puntos sin memoria compartida ≈ 0.4; histograma
+- 1b) Suma de vectores 0.083; saxpy 0.17; *stencil* 1D de 3 puntos con pesos ≈ 0.3 si cada hilo lee sus 3 vecinos de la
+  global (5 FLOP / 16 B) y ≈ 0.6 si los vecinos se reúsan desde caché o compartida (5 FLOP / 8 B); histograma
   ≈ 0 FLOP útiles por byte (lo que manda son las atómicas); matmul con mosaicos de 32 ≈ 8; todos *memory-bound*
   en T4 salvo matmul grande con mosaicos y reúso en registros.
 - 2a) 2 doubles: 2 µs + 16 B / 10 GB/s ≈ 2.0 µs (domina la latencia). 10^6 doubles: 2 µs + 8 MB / 10 GB/s ≈

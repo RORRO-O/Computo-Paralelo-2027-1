@@ -383,3 +383,58 @@ Cada entrada: **la idea errónea** → la idea correcta → dónde se trabaja.
     `cudaDeviceSynchronize` o eventos, el tiempo medido es ≈ 0 y los errores aparecen después. → U5 S01, S04.
 34. **"No hace falta comprobar `idx < n`."** → La malla casi siempre excede `n`; sin guarda hay accesos fuera de
     rango que "a veces funcionan". → U5 S01–S02.
+
+### Variantes de la idea 13 (20 de octubre de 2026; distractores de U3 S09; no se renumera)
+
+- **13b. "Con un solo hilo, `task` es una llamada directa: se ejecuta en el acto y comparte las variables."** →
+  Las reglas de datos son las mismas con 1 hilo: lo no compartido entra como `firstprivate`. Que la tarea se
+  difiera o no lo decide la implementación; el código no puede suponer ni lo uno ni lo otro. → U3 S09 (CT1-D, CT3-D).
+- **13c. "Solo el hilo del `single` crea tareas."** → Las tareas crean tareas: en una recursión, cada hija
+  grande crea las suyas desde el hilo que la tomó. → U3 S09 (CT2-C).
+- **13d. "`taskwait` es una barrera de hilos: solo espera si las tareas las tomaron otros hilos."** → Es una
+  espera de **tareas** (las hijas directas), sin importar qué hilo las ejecute. → U3 S09 (CT3-C).
+
+### Variantes de las ideas 2, 4 y 14 (22 de octubre de 2026; distractores de U3 S10; no se renumera)
+
+- **2b. "El *speedup* de la sección paralela es el *speedup* del programa."** → El usuario ve el tiempo total;
+  se perfila por secciones y se reporta el total (el de la sección, aparte, si ayuda a explicar). → U3 S10 (CT1-A).
+- **4b. "Una `f` de Karp–Flatt negativa demuestra que el programa no tiene parte secuencial."** → Solo dice que
+  `S > p` (caché o ruido) y que el modelo de Amdahl no describe esos datos; no demuestra nada del código. → U3 S10 (CT3-D).
+- **14b. "Si varios hilos escriben en el mismo arreglo hay carrera, aunque cada uno use su propia casilla."** →
+  Posiciones distintas no son carrera; el costo viene de compartir la **línea de caché** (falso compartido) y
+  `atomic` lo empeora. → U3 S10 (CT2-A).
+
+### Variantes de las ideas 7, 10, 11 y 30 (29 de octubre de 2026; distractores de U3 S07 y S13; no se renumera)
+
+- **7d. "Cada hilo procesa índices `i` distintos, así que nunca escriben la misma posición."** → El índice del
+  ciclo es distinto por hilo; la posición escrita (`hist[bin]`, `best`, `max_val`) puede ser la misma. → U3 S07
+  (CT2-C), S13 (recuperación 3, examen de práctica I.2-D).
+- **10b. "`reduction` combina variables que van juntas (el máximo y su posición)."** → Combina cada variable por
+  separado con su operador; `reduction(max:best_i)` da el índice más grande, no el del máximo. Para pares se
+  usa local por hilo + una combinación protegida (o una reducción declarada). → U3 S13 (examen de práctica I.2-C).
+- **11b. "El reparto (`schedule`) solo afecta la correctitud, no el tiempo."** → El reparto decide cuánto
+  trabaja el hilo más lento y cuánto cuesta pedir trabajo; es lo que fija el tiempo del ciclo. → U3 S08, S13
+  (examen de práctica I.3-C, recuperación 4-D).
+- **30b. "Una recurrencia se arregla con `reduction`."** → `reduction` combina copias independientes al final;
+  no transmite el valor de la iteración `i−1` a la `i`. Se cambia el algoritmo (*scan* en dos fases). → U3 S11,
+  S13 (CT3-C).
+- **30c. "`ordered` corrige la dependencia sin costo."** → Es correcto, pero obliga a ejecutar en orden de
+  iteración: serializa el ciclo y queda más lento que el secuencial. → U3 S13 (CT3-D, examen de práctica III.2-b).
+
+### Variantes de las ideas 7, 8, 10 y 25 (20 de octubre de 2026; distractores de U5 S03; no se renumera)
+
+- **7e. "Si el resultado cambia entre corridas, hay una condición de carrera."** → La variación puede ser solo
+  **orden**: una `atomicAdd` de `float` suma en orden arbitrario y es correcta. La carrera se demuestra razonando
+  sobre los accesos (o con `compute-sanitizer --tool racecheck`), no por la variación. → U5 S03 (CT2-C).
+- **8b. "Las atómicas son gratis: son una instrucción de *hardware*."** → Son correctas, no gratis: `n` atómicas
+  sobre una dirección se serializan (contención). Se reduce primero dentro del bloque y se hace una atómica por
+  bloque. → U5 S03 (CT3-C).
+- **10c. "La referencia correcta es la suma secuencial en `float`, porque la GPU también suma en `float`."** → La
+  referencia debe ser **más** precisa que lo que se verifica (`double`); con `2^24` elementos el acumulador `float`
+  secuencial se equivoca 10 %. → U5 S03 (CT2-D).
+- **25b. "Si toda la malla cabe a la vez en la GPU, `__syncthreads()` sincroniza todos los bloques."** →
+  Simultáneo no es sincronizado: aunque todos los bloques estén residentes, nada ordena los *warps* de bloques
+  distintos; entre bloques solo sincroniza el fin del *kernel*. → U5 S03 (CT1-D).
+- **25c. "Dentro de un *kernel* se puede llamar a `cudaDeviceSynchronize()` para esperar a los demás bloques."** →
+  Es una función de anfitrión: con `nvcc` 12 no compila en código de dispositivo, y en el paralelismo dinámico
+  antiguo solo esperaba a los *kernels* hijos, nunca a otros bloques. → U5 S03 (CT1-C).

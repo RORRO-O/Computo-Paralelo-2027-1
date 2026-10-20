@@ -2,7 +2,7 @@
 
 # Plan de porte V2 → V3 (plantilla por equipo)
 
-Copia este archivo a la raíz de la carpeta `V3/` de tu repositorio y llénalo durante el taller. Las secciones
+Copia este archivo a la carpeta `v3/` de tu repositorio (estructura de `proyecto/entrega-final/plantilla-repo/`) y llénalo durante el taller. Las secciones
 1–5 se llenan en clase; 6–9 se terminan antes del jueves 3 de diciembre. El plan no se califica por separado:
 es la base de la sección "V3" del reporte final (lunes 7 de diciembre, 10:30) y de las preguntas individuales de
 la defensa (jueves 10 de diciembre). Rúbricas: `proyecto/entrega-final/` y `proyecto/defensa/`.
@@ -89,14 +89,15 @@ Si hay dos búferes (lectura/escritura), ¿intercambias punteros o copias? _____
 
 ## 7. Medición (protocolo del curso, `herramientas/protocolo-medicion.md`)
 
-Tabla mínima para el reporte. T(1) es la **V1** (mejor secuencial), no la V2 con un hilo.
+Tabla mínima para el reporte. T(1) es la **V1** (mejor secuencial), no la V2 con un hilo, y dura **≥ 1 s** con el
+tamaño que reportas (rúbrica de código, criterio C4).
 
-| Config | Tamaño | Mediana de 5 (s) | *Speedup* vs. V1 |
-|---|---|---|---|
-| V1 (CPU, 1 hilo) | | | 1.00 |
-| V2 (OpenMP, p = ___) | | | |
-| V3 solo *kernels* (sin transferencias) | | | |
-| V3 con transferencias H2D/D2H | | | |
+| Config | Tamaño | Mediana de 5 (s) | Mín – máx (s) | *Speedup* vs. V1 |
+|---|---|---|---|---|
+| V1 (CPU, 1 hilo) | | | | 1.00 |
+| V2 (OpenMP, p = ___) | | | | |
+| V3 solo *kernels* (sin transferencias) | | | | |
+| V3 con transferencias H2D/D2H | | | | |
 
 Barrido de bloque: configuraciones que vas a probar (al menos 3, múltiplos de 32): ______________________
 
@@ -108,12 +109,12 @@ Pre-mortem (antes de medir): "Esperamos un *speedup* con transferencias de ___ p
 
 Marca una: [ ] CUDA C (`nvcc`) [ ] Numba CUDA (`@cuda.jit`) [ ] CuPy con `RawKernel` o `ElementwiseKernel` propio
 
-| Cuenta como V3 | No cuenta como V3 |
-|---|---|
-| Un *kernel* escrito por el equipo que resuelve el ciclo caliente de la V2 | Llamar a una biblioteca que ya hace todo (`cupy.matmul`, `cv2.cuda`, `torch`) sin un *kernel* propio |
-| Verificación contra la V1 con tolerancia declarada | Una V3 que no se verifica contra la V1 (o que "se parece") |
-| Tabla con y sin transferencias, mediana de 5, GPU declarada | Un solo tiempo, o solo el tiempo del *kernel* |
-| Explicar en la defensa qué hace cada línea del *kernel* | Código que ningún integrante puede explicar |
+| Cuenta como V3 | No cuenta como V3 completa | Dónde lo penaliza la rúbrica |
+|---|---|---|
+| Un *kernel* escrito por el equipo que resuelve el ciclo caliente de la V2 | Llamar a una biblioteca que ya hace todo (`cupy.matmul`, `cv2.cuda`, `torch`) sin un *kernel* propio | C3 queda en "En desarrollo" como máximo (`rubrica-codigo.md`, `faq-entrega.md` §2) |
+| Verificación contra la V1 con tolerancia declarada | Una V3 que no se verifica contra la V1 (o que "se parece") | C1: "no se verificó contra V1 en la misma sesión (solo dio parecido)" es En desarrollo; resultados distintos de V1 sin explicación, Insuficiente |
+| Tabla con y sin transferencias, mediana de 5, GPU declarada | Un solo tiempo, o solo el tiempo del *kernel* | C4: "GPU solo con o solo sin transferencias" es En desarrollo |
+| Explicar en la defensa qué hace cada línea del *kernel* | Código que ningún integrante puede explicar | Prueba de propiedad (`docs/metodo/05-politica-ia.md`) y rúbrica de la defensa |
 
 Está permitido usar bibliotecas **alrededor** del *kernel* (p. ej., `cupy.asarray` para subir datos, `numpy` para
 la V1). Lo que debe ser propio es el *kernel* del ciclo caliente.

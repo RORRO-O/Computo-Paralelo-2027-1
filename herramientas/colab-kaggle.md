@@ -1,12 +1,14 @@
 # Guía paso a paso: CUDA en Google Colab y en Kaggle
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Unidad V · Herramienta para la Práctica 6 y la V3 del proyecto · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Unidad V · Herramienta para la Práctica 6 y la V3 del proyecto · versión 1.1 · 20 de octubre de 2026
 
 La GPU del curso vive en la nube para que nadie dependa de su laptop (`01-marco-pedagogico.md`, P10). Esta
 guía te lleva de cero a un CSV del protocolo medido en GPU. Las "capturas" van descritas en texto para que
 puedas seguirlas aunque la interfaz cambie de idioma o de color; los nombres de menú se dan en español y en
-inglés. Las salidas marcadas como *salida esperada* se obtuvieron en una sesión de Colab con T4; los números de
-tiempo cambian con la GPU y con la fecha.
+inglés. Las salidas marcadas como *salida esperada* muestran el formato con una T4: no se obtuvieron en el entorno
+donde se escribió esta guía (sin GPU; ahí solo se verificó `nvcc -c -arch=sm_75`). Los valores que no dependen
+del hardware (`n`, `bloque`, `checksum`, `ok`) son los que debes obtener; versiones y tiempos cambian con la GPU,
+la imagen de la plataforma y la fecha.
 
 ## 0. Fechas que dependen de esta guía
 
@@ -54,7 +56,7 @@ tiempo cambian con la GPU y con la fecha.
 3. La sesión con GPU arranca al ejecutar la primera celda. El mismo panel muestra la cuota restante
    ("GPU quota: … hrs remaining this week").
 
-> **Captura 3 (descrida).** Panel lateral derecho del cuaderno de Kaggle, pestaña con el icono de engrane.
+> **Captura 3 (descrita).** Panel lateral derecho del cuaderno de Kaggle, pestaña con el icono de engrane.
 > Secciones: "Session options" con los campos "Accelerator: GPU T4 x2" (desplegable), "Language: Python",
 > "Persistence", "Environment", "Internet: Off". Debajo, una barra con el texto "GPU: 29h 40m / 30h" que indica
 > la cuota semanal restante.
@@ -63,16 +65,20 @@ tiempo cambian con la GPU y con la fecha.
 
 La GPU que te asignan **cambia entre sesiones** (T4, a veces otra en Kaggle: P100). Por eso el protocolo pide
 anotar modelo y fecha (`protocolo-medicion.md` §1.4). Ejecuta esta celda al inicio de **cada** sesión de medición
-y guarda su salida:
+y guarda su salida (`%%bash` en la primera línea hace que toda la celda corra en el intérprete de comandos; en
+Kaggle cambia `Colab` por `Kaggle`):
 
 ```bash
-!mkdir -p resultados
-!{ date -u '+fecha_utc: %Y-%m-%d %H:%M'; echo "plataforma: Colab"; \
-   nvidia-smi --query-gpu=name,driver_version,memory.total,compute_cap --format=csv; \
-   nvcc --version | tail -n 2; } | tee resultados/entorno_gpu.txt
+%%bash
+mkdir -p resultados
+{ date -u '+fecha_utc: %Y-%m-%d %H:%M'
+  echo "plataforma: Colab"
+  nvidia-smi --query-gpu=name,driver_version,memory.total,compute_cap --format=csv
+  nvcc --version | tail -n 2
+} | tee resultados/entorno_gpu.txt
 ```
 
-*Salida esperada (Colab, T4):*
+*Salida esperada (formato con una T4; versiones ilustrativas):*
 
 ```
 fecha_utc: 2026-11-30 16:05
@@ -133,13 +139,13 @@ cópialo de vuelta y haz *commit* desde tu laptop.
 `-O2` es obligatorio (protocolo §1.1); `-Xcompiler -Wall,-Wextra` pasa las banderas del curso al compilador del
 código de anfitrión. Sin *warnings*. Ajusta `-arch` según la tabla de §3.
 
-*Salida esperada (T4; los tiempos varían):*
+*Salida esperada (T4; `checksum` y `ok` deben coincidir exactamente; los tiempos son ilustrativos):*
 
 ```
 gpu=Tesla T4
 n=50000000
 bloque=256
-checksum=350000000.0
+checksum=349999997.0
 ok=1
 tiempo_kernel_s=0.004731
 tiempo_s=0.118902
@@ -157,7 +163,7 @@ de Colab**, no contra tu laptop (`proyecto/medicion-en-el-proyecto.md` §1). Pri
 filas de GPU:
 
 ```bash
-!cp <ruta>/herramientas/medir.sh . && chmod +x medir.sh
+!cp <ruta>/herramientas/medir.sh <ruta>/herramientas/graficar_speedup.py . && chmod +x medir.sh
 !gcc -std=c11 -O2 -Wall -Wextra v1.c -o v1            # tu V1 o la versión CPU de la práctica
 !./medir.sh -c secuencial-colab -t 1   -n 50000000 -o resultados/mediciones_gpu.csv -- ./v1
 !./medir.sh -c V3        -t gpu -n 50000000 -o resultados/mediciones_gpu.csv -- ./ejemplo_gpu
@@ -167,9 +173,14 @@ filas de GPU:
 
 Cada llamada hace 1 calentamiento + 5 repeticiones y agrega una fila
 `config,hilos,n,rep1..rep5,mediana_s,speedup,eficiencia`; el *speedup* de las filas `V3` y `V3-kernel` se calcula
-contra la fila `secuencial-colab` con el mismo `n`. Si tu CSV de laptop usa el formato de
-`proyecto/plantillas/run_all.sh` (con `min_s,max_s`), ese script también produce las filas `V3` y `V3-kernel`
-(lee `TIEMPO_KERNEL_S`/`tiempo_kernel_s=`): usa uno u otro, no mezcles archivos con distinto encabezado.
+contra la fila `secuencial-colab` con el mismo `n`. `graficar_speedup.py` pone las filas `gpu` en la tabla
+Markdown que imprime (con y sin transferencias, lado a lado) y avisa que no entran en `speedup.png`: esa gráfica
+solo dibuja filas con hilos numéricos. La gráfica de barras con V1, V2 y V3 la hace
+`proyecto/plantillas/graficar_proyecto.py` (`comparacion.png`); en P6, el `graficar.py` de la práctica.
+
+Si tu CSV de laptop usa el formato de `proyecto/plantillas/run_all.sh` (con `min_s,max_s`), ese script también
+produce las filas `V3` y `V3-kernel` (lee `TIEMPO_KERNEL_S`/`tiempo_kernel_s=`): usa uno u otro, no mezcles
+archivos con distinto encabezado.
 
 Reglas que aplican igual en la nube (protocolo §2 y §5):
 
@@ -287,14 +298,16 @@ n = int(sys.argv[1]) if len(sys.argv) > 1 else 50_000_000
 a = (np.arange(n) % 7).astype(np.float32); b = (2 * (np.arange(n) % 5)).astype(np.float32)
 bloque = 256; bloques = (n + bloque - 1) // bloque
 
-t0 = time.perf_counter()                       # con transferencias
 d_a = cuda.to_device(a); d_b = cuda.to_device(b); d_c = cuda.device_array_like(a)
+suma[bloques, bloque](d_a, d_b, d_c); cuda.synchronize()   # calentamiento: compila el kernel (JIT); no se cuenta
+
+t0 = time.perf_counter()                       # con transferencias: H2D + kernel + D2H
+d_a = cuda.to_device(a); d_b = cuda.to_device(b)
 suma[bloques, bloque](d_a, d_b, d_c); cuda.synchronize()
 c = d_c.copy_to_host()
 t_total = time.perf_counter() - t0
 
-suma[bloques, bloque](d_a, d_b, d_c); cuda.synchronize()   # calentamiento del kernel ya compilado
-t0 = time.perf_counter()                       # sin transferencias
+t0 = time.perf_counter()                       # sin transferencias: solo el kernel
 suma[bloques, bloque](d_a, d_b, d_c); cuda.synchronize()
 t_kernel = time.perf_counter() - t0
 
@@ -302,8 +315,38 @@ print(f"n={n}\nchecksum={c.sum(dtype=np.float64):.1f}\ntiempo_kernel_s={t_kernel
 ```
 
 Se mide con `./medir.sh -c V3 -t gpu -n 50000000 -o ... -- python3 v3_numba.py` y
-`--clave tiempo_kernel_s` para la fila sin transferencias. La primera llamada a un *kernel* de Numba incluye la
-compilación JIT: por eso el calentamiento no se cuenta. Para `make test` sin GPU: `NUMBA_ENABLE_CUDASIM=1`.
+`--clave tiempo_kernel_s` para la fila sin transferencias. Cada repetición de `medir.sh` es un proceso nuevo y
+la primera llamada a un *kernel* de Numba compila (JIT): por eso el programa se calienta a sí mismo antes de
+abrir el cronómetro, además del calentamiento de `medir.sh`. Para `make test` sin GPU: `NUMBA_ENABLE_CUDASIM=1`
+(con `n` pequeño: el simulador es lento).
+
+Con **CuPy** el esquema es el mismo; copias con `cp.asarray`/`cp.asnumpy` y sincronización explícita:
+
+```python
+import sys, time
+import numpy as np
+import cupy as cp
+
+n = int(sys.argv[1]) if len(sys.argv) > 1 else 50_000_000
+a = (np.arange(n) % 7).astype(np.float32); b = (2 * (np.arange(n) % 5)).astype(np.float32)
+
+d_a = cp.asarray(a); d_b = cp.asarray(b)
+d_c = d_a + d_b; cp.cuda.Device().synchronize()            # calentamiento: carga y compila; no se cuenta
+
+t0 = time.perf_counter()                       # con transferencias
+d_a = cp.asarray(a); d_b = cp.asarray(b)
+d_c = d_a + d_b
+c = cp.asnumpy(d_c)                            # asnumpy espera a que termine la GPU
+t_total = time.perf_counter() - t0
+
+t0 = time.perf_counter()                       # sin transferencias
+d_c = d_a + d_b; cp.cuda.Device().synchronize()
+t_kernel = time.perf_counter() - t0
+
+print(f"n={n}\nchecksum={c.sum(dtype=np.float64):.1f}\ntiempo_kernel_s={t_kernel:.6f}\ntiempo_s={t_total:.6f}")
+```
+
+CuPy no tiene simulador: para `make test` sin GPU compara contra la versión NumPy equivalente (§9).
 
 ## 12. Errores frecuentes
 

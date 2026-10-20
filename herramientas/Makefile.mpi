@@ -14,8 +14,10 @@
 # en una laptop con núcleos suficientes puede ir vacío: make MPIRUN_FLAGS= run. El Makefile no depende de ser
 # root; si lo eres (contenedor), exporta OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 (medir.sh y
 # plantilla-run_tests.sh lo hacen solos).
+# `make test` espera tests/run_tests.sh y `make medir`/`make grafica` esperan medir.sh y graficar_speedup.py junto
+# a este Makefile (o MEDIR=/GRAFICAR= con su ruta).
 # Ejemplo ejecutable (desde herramientas/):
-#   make -f Makefile.mpi SRC=ejemplo_mpi.c SRC_SEQ=ejemplo_cronometro.c BIN=mpi.out MPIRUN_FLAGS=--oversubscribe run
+#   make -f Makefile.mpi SRC=ejemplo_mpi.c SRC_SEQ=ejemplo_cronometro.c BIN=mpi.out MPIRUN_FLAGS=--oversubscribe N=1000 run
 
 # ---------- Ajusta aquí ----------
 SRC      ?= main_mpi.c             # fuente(s) de la versión MPI

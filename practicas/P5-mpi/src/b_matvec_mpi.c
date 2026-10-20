@@ -14,16 +14,21 @@
  *
  * ===== Cómo funcionan los TODO =====
  * Hay cinco: TODO(1) reparto con residuo, TODO(2) Scatterv, TODO(3) Bcast, TODO(4) Gatherv, TODO(5) Reduce
- * del tiempo. Mientras la máscara `todo_pending` tenga alguno, el programa imprime "TODO pendiente: ..." y
- * termina sin calcular nada; tests/run_tests.sh lo reporta como PEND (FAIL en `make test-b`).
- * Al terminar cada TODO, quita su bandera de la máscara (línea marcada abajo). Un TODO quitado de la
- * máscara pero mal resuelto hace que la verificación diga FALLA: eso es FAIL.
- * Criterio de verificación de cada TODO: `make test-b` (o `mpirun -np 3 ./src/b_matvec_mpi 301 203 3 --trace`):
- *   TODO(1) -> la línea "filas por rango:" dice 101 100 100 con -np 3 y 76 75 75 75 con -np 4
- *   TODO(2) -> con --trace, A_local[0] de cada rango coincide con el primer elemento de su primera fila global
+ * del tiempo. La máscara `todo_pending` dice cuáles faltan; al terminar cada uno, quita su bandera.
+ *   - Con TODO(1) pendiente, el programa imprime "TODO pendiente: ..." y termina sin calcular nada.
+ *   - Sin TODO(1) pero con alguno de 2–5 pendiente, imprime la línea "filas por rango: ..." (así verificas
+ *     TODO(1) solo, en el Laboratorio 1) y después "TODO pendiente: ..." y termina.
+ *   - Con la máscara en 0u corre todo y verifica contra la secuencial.
+ * tests/run_tests.sh reporta como PEND lo que depende de un TODO pendiente (FAIL en `make test-b`). Un TODO
+ * quitado de la máscara pero mal resuelto hace que su criterio falle: eso es FAIL.
+ * Criterio de verificación de cada TODO (`make test-b`, o a mano con los comandos):
+ *   TODO(1) -> `mpirun -np 3 ./src/b_matvec_mpi 301 203 3` dice "filas por rango: 101 100 100"; con -np 4,
+ *              "76 75 75 75" (los dos primeros casos de la Parte B en make test-b)
+ *   TODO(2) -> con --trace, A_local[0] de cada rango es el primer elemento de su primera fila global
  *   TODO(3) -> con --trace, x[0] vale lo mismo en todos los rangos (0.666100 con los datos por defecto)
  *   TODO(4) -> "verificacion ... OK" y el mismo checksum que ./src/b_matvec_seq 301 203 3
- *   TODO(5) -> el tiempo reportado no baja al subir p de 1 a 4 con m=3 (es el del más lento, no el de la raíz)
+ *   TODO(5) -> el tiempo reportado es el del rango más lento, no el de la raíz (imprime `elapsed` por rango
+ *              con --trace y compáralo con la mediana que reporta el rango 0)
  */
 #include <mpi.h>
 #include "common.h"
@@ -35,6 +40,16 @@
 #define TODO_5 16u
 /* Máscara de TODO pendientes. Quita cada bandera cuando completes su TODO. Al final debe quedar 0u. */
 static const unsigned todo_pending = TODO_1 | TODO_2 | TODO_3 | TODO_4 | TODO_5;
+
+/* Imprime (en el rango 0) qué TODO faltan. */
+static void report_pending(int rank)
+{
+    if (rank != 0) return;
+    printf("TODO pendiente:");
+    for (int k = 0; k < 5; k++)
+        if (todo_pending & (1u << k)) printf(" TODO(%d)", k + 1);
+    printf(" (quita cada bandera de todo_pending al terminarlo)\n");
+}
 
 /* Igual que en b_matvec_seq.c: el mismo orden de suma en j da el mismo redondeo. */
 static void matvec_rows(const double *A, const double *x, double *y, long long rows, long long n)
@@ -64,17 +79,6 @@ int main(int argc, char **argv)
         MPI_Finalize();
         return 1;
     }
-    if (todo_pending) {
-        if (rank == 0) {
-            printf("TODO pendiente:");
-            for (int k = 0; k < 5; k++)
-                if (todo_pending & (1u << k)) printf(" TODO(%d)", k + 1);
-            printf(" (quita cada bandera de todo_pending al terminarlo)\n");
-        }
-        MPI_Finalize();
-        return 0;
-    }
-
     /* ---------- Reparto de filas: cuentas y desplazamientos de TODOS los rangos ----------
      * row_counts[k]/row_displs[k]: filas que recibe el rango k y en qué fila global empiezan.
      * elem_counts[k]/elem_displs[k]: lo mismo en ELEMENTOS de A (× n), que es lo que Scatterv reparte.
@@ -87,6 +91,24 @@ int main(int argc, char **argv)
      * (es exactamente block_partition(m, size, k, &c, &f) de common.h). Elementos: c * n y f * n.
      * Pista: un ciclo de k = 0..size-1 con dos variables long long y cuatro asignaciones con (int). */
 
+    if (todo_pending & TODO_1) {
+        report_pending(rank);
+        free(row_counts); free(row_displs); free(elem_counts); free(elem_displs);
+        MPI_Finalize();
+        return 0;
+    }
+    if (rank == 0) { /* criterio del TODO(1): lo imprime en cuanto el reparto está hecho */
+        printf("b_matvec_mpi: m=%lld n=%lld p=%d iters=%lld reps=%d; filas por rango:", m, n, size, iters, reps);
+        for (int k = 0; k < size; k++) printf(" %d", row_counts[k]);
+        printf("\n");
+    }
+    if (todo_pending) { /* TODO(1) listo; faltan otros: se detiene aquí, igual en todos los rangos */
+        report_pending(rank);
+        free(row_counts); free(row_displs); free(elem_counts); free(elem_displs);
+        MPI_Finalize();
+        return 0;
+    }
+
     long long my_rows = row_counts[rank], my_first = row_displs[rank];
 
     /* ---------- Memoria: A, y, y_ref solo en la raíz; x, A_local, y_local en todos ---------- */
@@ -96,6 +118,7 @@ int main(int argc, char **argv)
     if (rank == 0) {
         A = p5_alloc(m * n);
         y = p5_alloc(m);
+        memset(y, 0, (size_t)m * sizeof(double)); /* una fila que nadie reúne se queda en 0 (error común 2) */
         y_ref = p5_alloc(m);
         for (long long i = 0; i < m * n; i++) A[i] = p5_value(i);
         for (long long j = 0; j < n; j++) x[j] = p5_value(-(j + 1));
@@ -150,9 +173,6 @@ int main(int argc, char **argv)
             if (!p5_close(y[i], y_ref[i], 1e-12)) ok = 0;
         }
         p5_stats st = p5_time_stats(t_total, reps), si = p5_time_stats(t_iters, reps);
-        printf("b_matvec_mpi: m=%lld n=%lld p=%d iters=%lld reps=%d; filas por rango:", m, n, size, iters, reps);
-        for (int k = 0; k < size; k++) printf(" %d", row_counts[k]);
-        printf("\n");
         printf("checksum=%.12e y[0]=%.12e y[m-1]=%.12e\n", checksum, y[0], y[m - 1]);
         printf("verificacion contra y secuencial (rango 0): %s; max |dif| = %.1e\n", ok ? "OK" : "FALLA", max_diff);
         printf("tiempo del Scatterv de A (una vez, max entre rangos): %.6f s de %.6f s totales (%.1f %%)\n",

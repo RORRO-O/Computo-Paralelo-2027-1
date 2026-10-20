@@ -1,6 +1,6 @@
 # Rúbrica del reporte final (PDF) · 30 puntos
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Entrega final · lunes 7 de diciembre de 2026, 10:30 · 30 de los 100 puntos del proyecto · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Entrega final · lunes 7 de diciembre de 2026, 10:30 · 30 de los 100 puntos del proyecto · versión 1.1 · 20 de octubre de 2026
 
 ## 1. Cómo se aplica
 
@@ -16,7 +16,7 @@
 
 | # | Criterio | Secciones de la plantilla | Puntos | Ejemplar | Competente | En desarrollo | Insuficiente |
 |---|---|---|---:|---:|---:|---:|---:|
-| R1 | Estructura, extensión y resumen | Portada, 1, 13 | 3 | 3.0 | 2.4 | 1.65 | 0.6 |
+| R1 | Estructura, extensión y resumen | Portada, 1 y orden de todas | 3 | 3.0 | 2.4 | 1.65 | 0.6 |
 | R2 | Problema, datos y diseño por el método de Foster | 2, 3 | 5 | 5.0 | 4.0 | 2.75 | 1.0 |
 | R3 | Descripción de V1, V2 y V3 | 4, 5, 6 | 5 | 5.0 | 4.0 | 2.75 | 1.0 |
 | R4 | Metodología de medición | 7 | 4 | 4.0 | 3.2 | 2.2 | 0.8 |
@@ -33,8 +33,8 @@
 |---|---|
 | **Ejemplar (3.0)** | Las 13 secciones de la plantilla, en orden. Entre 8 y 12 páginas en total (portada y referencias incluidas, sin anexos). Resumen de ≤ 10 líneas que contiene: el problema en una frase, `n`, hardware (CPU y GPU), el mejor *speedup* de V2 con su número de hilos, el *speedup* de V3 con y sin transferencias, y una frase sobre qué lo limita. Figuras y tablas numeradas, con pie que dice qué comando y qué archivo las generan. |
 | **Competente (2.4)** | Estructura completa; el resumen trae los números pero omite la limitante o el hardware; o algún pie de figura sin comando. |
-| **En desarrollo (1.65)** | Falta una sección o el orden cambia; resumen sin *speedup*; o extensión fuera del rango por hasta una página. |
-| **Insuficiente (0.6)** | Faltan dos o más secciones; menos de 7 o más de 13 páginas (el profesor lee solo las primeras 12); o no hay resumen. |
+| **En desarrollo (1.65)** | Falta una sección o el orden cambia; resumen sin *speedup*; o extensión fuera del rango por una página (7 o 13 páginas). |
+| **Insuficiente (0.6)** | Faltan dos o más secciones; menos de 7 o más de 13 páginas; o no hay resumen. |
 
 ### R2 · Problema, datos y diseño por el método de Foster (5 puntos)
 
@@ -95,9 +95,9 @@
 | Situación | Efecto |
 |---|---|
 | PDF entregado después del lunes 7 de diciembre 10:30 y hasta el jueves 10 de diciembre 10:30 | Máximo 80 % de los 30 puntos |
-| Más de 12 páginas | R1 Insuficiente; se califica solo lo que está en las primeras 12 páginas |
+| Más de 12 páginas | Se califica solo lo que está en las primeras 12 páginas (R2–R7); R1 queda En desarrollo con 13 páginas e Insuficiente con 14 o más |
 | Tablas o gráficas que no coinciden con `resultados/*.csv` | R5 Insuficiente; también afecta C4 de la rúbrica de código |
-| Texto generado por IA sin revisar (contradicciones con el código, afirmaciones sobre hardware que no se usó, citas inexistentes) | R-criterio afectado Insuficiente y preguntas dirigidas en la defensa |
+| Texto generado por IA sin revisar (contradicciones con el código, afirmaciones sobre hardware que no se usó, citas inexistentes) | El criterio R afectado queda Insuficiente y hay preguntas dirigidas en la defensa |
 | Reporte que describe un código distinto del repositorio | R3 Insuficiente y C5 Insuficiente |
 
 ## 5. Hoja de calificación (la llena el profesor; una por equipo)

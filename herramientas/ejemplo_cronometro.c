@@ -12,17 +12,18 @@
  *                  además una corrida de calentamiento que no se cuenta. Con reps = 1 no hay calentamiento
  *                  interno: medir.sh ya lo hace ejecutando el programa una vez más.
  *     archivo.csv  si se da, agrega una fila del protocolo (config "ejemplo") al CSV; crea el encabezado
- *                  si el archivo no existe.
+ *                  si el archivo no existe (la carpeta debe existir).
  *     t1_s         tiempo de la mejor versión secuencial, para calcular speedup y eficiencia en la fila;
  *                  si se omite, esas columnas quedan en NA.
  *
  * Salida (clave=valor, una por línea): n=, hilos=, reps=, resultado=, tiempo_s= (mediana de las reps),
  * y con reps >= 2 también tiempo_min_s= y tiempo_max_s=. Código de salida 0; 2 si los argumentos no sirven.
  *
- * Ejemplos ejecutables (después de `make`):
- *   ./ejemplo_cronometro.out                              # una corrida con el tamaño por defecto
- *   OMP_NUM_THREADS=4 ./ejemplo_cronometro.out 100000000 5 pruebas.csv 0.95
- *   ./medir.sh -c openmp -t "1 2 4" -n 100000000 -o mediciones.csv -- ./ejemplo_cronometro.out
+ * Ejemplos ejecutables (desde herramientas/, después de `make`; resultados/ la borra `make clean`):
+ *   ./ejemplo_cronometro.out                                   # una corrida con el tamaño por defecto
+ *   T1=$(./ejemplo_cronometro_seq.out 100000000 5 | sed -n 's/^tiempo_s=//p')    # mediana de la secuencial
+ *   mkdir -p resultados && OMP_NUM_THREADS=4 ./ejemplo_cronometro.out 100000000 5 resultados/cron.csv "$T1"
+ *   ./medir.sh -c openmp -t "1 2 4" -n 100000000 -- ./ejemplo_cronometro.out   # protocolo completo: medir.sh
  */
 #include "cronometro.h" /* primero: define _POSIX_C_SOURCE para clock_gettime sin -fopenmp */
 

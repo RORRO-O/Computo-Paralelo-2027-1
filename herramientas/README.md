@@ -1,61 +1,89 @@
 # Herramientas del curso
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · `herramientas/` · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · `herramientas/` · versión 1.1 · 20 de octubre de 2026
 
-Scripts, cabeceras y plantillas que usan todas las prácticas (P4–P6), los hitos del proyecto (H1, H2) y la
-entrega final. Todo está probado: `make test` en esta carpeta ejecuta las pruebas de cada herramienta (OpenMP,
-MPI, gráficas y plantillas) y termina con código 0 solo si todo pasa. Cada script trae su uso en la cabecera
-(`./medir.sh -h`, `python3 graficar_speedup.py -h`, las primeras líneas de los `.h`, `.c` y `Makefile.*`).
+Scripts, cabeceras y plantillas que usan las prácticas (P4–P6), los hitos del proyecto (H1, H2) y la entrega
+final, más la hoja de seguimiento del profesor. Cada script trae su uso en la cabecera (`./medir.sh -h`,
+`python3 graficar_speedup.py -h`, `python3 seguimiento.py -h`, las primeras líneas de los `.h`, `.c` y
+`Makefile.*`). `make test` ejecuta todos los comandos de la tabla de abajo y las pruebas de cada herramienta, y
+termina con código 0 solo si todo pasa.
+
+Antes de los ejemplos, desde `herramientas/`:
+
+```bash
+make            # ejemplo_cronometro.out (OpenMP), ejemplo_cronometro_seq.out y, si hay mpicc, ejemplo_mpi.out
+export OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1   # solo si corres MPI como root (contenedores)
+```
+
+Los ejemplos escriben en `resultados/` y dejan binarios `*.out`; `make clean` borra ambos.
 
 ## Índice
 
-| Archivo | Para qué (una línea) | Comando de ejemplo (desde `herramientas/`, tras `make`) |
+| Archivo | Para qué | Comando de ejemplo (desde `herramientas/`, tras `make`) |
 |---|---|---|
 | `protocolo-medicion.md` | El protocolo que toda medición del curso sigue: calentamiento, ≥ 5 repeticiones, mediana, T(1) secuencial, columnas del CSV | (lectura) |
-| `medir.sh` | Corre un programa con una lista de hilos (OpenMP), procesos (`--mpi`) o en GPU (`-t gpu`), 1 calentamiento + R repeticiones, lee `tiempo_s=` y escribe el CSV del protocolo y `entorno.txt` | `./medir.sh -c openmp -t "1 2 4 8" -n 100000000 -o resultados/m.csv -- ./ejemplo_cronometro.out` |
-| `cronometro.h` | Cabecera C (`static inline`): `cron_ahora()` (omp_get_wtime o clock_gettime), `cron_mediana()`, `cron_imprimir_tiempo()`, `cron_csv_fila()` | `#include "cronometro.h"` (primero) y compilar con `-std=c11 -O2 -Wall -Wextra [-fopenmp]` |
-| `ejemplo_cronometro.c` | Ejemplo de uso de `cronometro.h` (pi por rectángulos; OpenMP o secuencial según se compile) | `OMP_NUM_THREADS=4 ./ejemplo_cronometro.out 100000000 5 pruebas.csv 0.95` |
-| `ejemplo_mpi.c` | "Hola MPI" medible con `MPI_Wtime` para probar `medir.sh --mpi` y `Makefile.mpi` | `MPIRUN_FLAGS=--oversubscribe ./medir.sh --mpi -c mpi -t "1 2 4" -n 100000000 -o m.csv -- ./ejemplo_mpi.out` |
-| `ejemplo_gpu.cu` | Suma de vectores en CUDA C con tiempo con y sin transferencias; salida `clave=valor` que lee `medir.sh` | `nvcc -O2 -arch=sm_75 ejemplo_gpu.cu -o ejemplo_gpu && ./ejemplo_gpu 50000000` (en Colab; aquí solo `nvcc -c`) |
+| `medir.sh` | Corre un programa con una lista de hilos: 1 calentamiento + R repeticiones, lee la línea `tiempo_s=<valor>`, agrega filas al CSV del protocolo y escribe `entorno.txt` | `./medir.sh -c openmp -t "1 2 4" -n 20000000 -- ./ejemplo_cronometro.out` |
+| `medir.sh --mpi` | Lo mismo con procesos: `mpirun $MPIRUN_FLAGS -np P` | `MPIRUN_FLAGS=--oversubscribe ./medir.sh --mpi -c mpi -t "1 2 4" -n 20000000 -- ./ejemplo_mpi.out` |
 | `graficar_speedup.py` | Lee el CSV del protocolo (cualquier número de `rep`) y genera `speedup.png` (con la ideal S = p) y `eficiencia.png`; imprime la tabla Markdown con Karp–Flatt | `python3 graficar_speedup.py ejemplo_resultados.csv --titulo "pi por rectángulos" --salida resultados` |
-| `ejemplo_resultados.csv` | CSV real con el formato del protocolo (secuencial, openmp 1–8, mpi 1–4) para probar las gráficas; su entorno está en `ejemplo_entorno.txt` | `python3 graficar_speedup.py ejemplo_resultados.csv` |
-| `Makefile.openmp` | Plantilla de `Makefile` para C + OpenMP con `all`/`run`/`test`/`medir`/`grafica`/`clean` y las banderas de las convenciones; compila también la referencia secuencial | `cp Makefile.openmp ../mi-carpeta/Makefile` y editar la sección "Ajusta aquí" |
-| `Makefile.mpi` | Lo mismo para C + MPI (`mpicc`, `mpirun -np` con `$(MPIRUN_FLAGS)`) | `make -f Makefile.mpi SRC=ejemplo_mpi.c SRC_SEQ=ejemplo_cronometro.c BIN=mpi.out run` |
-| `plantilla-run_tests.sh` | Esqueleto de `tests/run_tests.sh`: compara la versión paralela contra la secuencial con tolerancia (awk o python3), PASS/FAIL por caso, código 0 solo si todo pasa | `PROGRAMA_SEQ=./ejemplo_cronometro_seq.out PROGRAMA_PAR=./ejemplo_cronometro.out ./plantilla-run_tests.sh` |
-| `plantilla-reporte-practica.md` | `REPORTE.md` de ≤ 3 páginas con las secciones de `03-plantilla-practica.md` y lista de cotejo contra la rúbrica | copiar a `practicas/Pn/REPORTE.md` y llenar |
-| `colab-kaggle.md` | Guía paso a paso para la GPU en Colab y Kaggle: activar, `nvidia-smi`, `%%writefile`, `nvcc -arch`, medir con `medir.sh`, guardar el CSV, cuotas, qué hacer sin GPU, cómo documentar la GPU | (lectura; Práctica 6 y V3) |
-| `seguimiento-grupo.csv` + `seguimiento-grupo.md` | Hoja del profesor con los indicadores de `01-marco-pedagogico.md` §5 y cómo llenarla en 5 minutos | `grep ALERTA seguimiento-grupo.csv` |
-| `Makefile`, `tests/run_tests.sh` | Compilan los ejemplos y prueban todas las herramientas de esta carpeta | `make && make test` |
+| `cronometro.h` | Cabecera C (`static inline`): `cron_ahora()` (`omp_get_wtime` con `-fopenmp`, `clock_gettime` sin él), `cron_mediana()`, `cron_imprimir_tiempo()`, `cron_csv_fila()` | `OMP_NUM_THREADS=2 ./ejemplo_cronometro.out 20000000 5` |
+| `ejemplo_cronometro.c` | Uso de `cronometro.h` (pi por rectángulos); la misma fuente es la versión OpenMP y, sin `-fopenmp`, la referencia secuencial | `./ejemplo_cronometro_seq.out 20000000` |
+| `ejemplo_mpi.c` | Pi con MPI medible con `MPI_Wtime` (máximo entre procesos); prueba `medir.sh --mpi` y `Makefile.mpi` | `mpirun --oversubscribe -np 4 ./ejemplo_mpi.out 20000000` |
+| `ejemplo_gpu.cu` | Suma de vectores en CUDA C con tiempo con y sin transferencias (`tiempo_s=`, `tiempo_kernel_s=`); se ejecuta en Colab o Kaggle (`colab-kaggle.md` §4–§6); aquí solo se compila | `nvcc -c -arch=sm_75 ejemplo_gpu.cu -o ejemplo_gpu.o` |
+| `ejemplo_resultados.csv`, `ejemplo_entorno.txt` | Mediciones reales con el formato del protocolo (secuencial, OpenMP 1–8, MPI 1–4) y su entorno; ver la sección de abajo | `grep corrida ejemplo_entorno.txt` |
+| `Makefile.openmp` | Plantilla comentada de `Makefile` para C + OpenMP: `all`, `run`, `test`, `medir`, `grafica`, `clean`, banderas de las convenciones y referencia secuencial | `make -f Makefile.openmp SRC=ejemplo_cronometro.c BIN=ej.out N=1000 run` |
+| `Makefile.mpi` | Lo mismo para C + MPI (`mpicc`, `mpirun -np` con `$(MPIRUN_FLAGS)`) | `make -f Makefile.mpi SRC=ejemplo_mpi.c SRC_SEQ=ejemplo_cronometro.c BIN=mpi.out MPIRUN_FLAGS=--oversubscribe N=1000 run` |
+| `plantilla-run_tests.sh` | Esqueleto de `tests/run_tests.sh`: paralelo contra secuencial con tolerancia, PASS/FAIL por caso, código 0 solo si todo pasa, OpenMP o MPI | `PROGRAMA_SEQ=./ejemplo_cronometro_seq.out PROGRAMA_PAR=./ejemplo_cronometro.out ./plantilla-run_tests.sh` |
+| `plantilla-reporte-practica.md` | `REPORTE.md` de ≤ 3 páginas con las secciones de `03-plantilla-practica.md` y la lista de cotejo contra la rúbrica | (plantilla: se copia a `practicas/Pn/REPORTE.md` del repositorio del equipo) |
+| `colab-kaggle.md` | Guía paso a paso de la GPU en Colab y Kaggle: activar, `nvidia-smi`, `%%writefile`, `nvcc -arch`, medir con `medir.sh`, guardar el CSV, cuotas, qué hacer sin GPU, Numba y CuPy | (lectura; Práctica 6 y V3) |
+| `seguimiento-grupo.csv`, `seguimiento-grupo.md` | Plantilla vacía de la hoja del profesor con los indicadores de `01-marco-pedagogico.md` §5 y cómo llenarla en 5 minutos; la copia llena vive en `docente/` | (plantilla: `cp seguimiento-grupo.csv ../docente/`) |
+| `seguimiento.py` | Lee la hoja llena, calcula los seis indicadores y marca cada umbral cruzado con `ALERTA`; solo imprime agregados | `python3 seguimiento.py seguimiento-grupo.csv` |
+| `Makefile`, `tests/run_tests.sh` | Compilan los ejemplos y prueban todas las herramientas de esta carpeta | `make test` |
 
-## Flujo típico en una práctica o en el proyecto
+## Flujo típico en una carpeta nueva
+
+Las prácticas y la plantilla del proyecto (`proyecto/entrega-final/plantilla-repo/`) ya traen su `Makefile` y sus
+pruebas. Estas plantillas son para lo que no las trae: un experimento propio, la extensión opcional de una
+práctica o una V2 que no parte de la plantilla del proyecto. Desde la raíz del repositorio del equipo, con una
+copia de esta carpeta en `herramientas/`:
 
 ```bash
-cp herramientas/Makefile.openmp practicas/P4/Makefile          # 1. Makefile con las banderas del curso
-cp herramientas/plantilla-run_tests.sh practicas/P4/tests/run_tests.sh
-cp herramientas/medir.sh herramientas/graficar_speedup.py practicas/P4/
-cd practicas/P4 && make && make test                           # 2. correcto antes que rápido
-make medir N=200000000 HILOS="1 2 4 8"                         # 3. protocolo: secuencial (T1) y OpenMP
-make grafica                                                   # 4. speedup.png, eficiencia.png y tabla Markdown
+mkdir -p mi-experimento/tests && cd mi-experimento
+cp ../herramientas/Makefile.openmp Makefile                     # 1. banderas del curso; edita "Ajusta aquí"
+cp ../herramientas/plantilla-run_tests.sh tests/run_tests.sh
+cp ../herramientas/medir.sh ../herramientas/graficar_speedup.py ../herramientas/cronometro.h .
+# main.c imprime resultado=<valor> y tiempo_s=<segundos> (cronometro.h) y acepta n como último argumento
+make && make test                                               # 2. correcto antes que rápido
+make medir N=800000000 HILOS="1 2 4 8"                          # 3. protocolo: secuencial (T1) y luego OpenMP
+make grafica                                                    # 4. speedup.png, eficiencia.png y tabla Markdown
 ```
 
-El programa medido solo tiene que imprimir `tiempo_s=<segundos>` de la región de interés (y aceptar `n` como
-último argumento). `cronometro.h` lo hace en una línea; la convención completa está en la cabecera de `medir.sh`.
+`make medir` agrega filas a `resultados/mediciones.csv`: si lo repites, borra antes el CSV o usa `CSV=` con otro
+nombre, para no mezclar corridas. El tamaño `N` se elige para que la versión secuencial tarde ≥ 1 s
+(protocolo §2).
 
 ## Relación con las plantillas del proyecto
 
-`proyecto/plantillas/run_all.sh` es la variante de `medir.sh` ajustada a las etiquetas del proyecto (`V1`, `V2`,
-`V3`, filas `-kernel` automáticas, columnas extra `min_s,max_s`); `proyecto/plantillas/graficar_proyecto.py`
-añade la gráfica de comparación entre versiones. Los CSV de ambos flujos se leen con `graficar_speedup.py`
-(tolera las columnas extra). No mezcles en un mismo archivo filas con distinto encabezado.
+`proyecto/plantillas/run_all.sh` es la variante de `medir.sh` ajustada al proyecto (etiquetas `V1`, `V2`, `V3`,
+filas `-kernel` automáticas, columnas extra `min_s,max_s`); en el repositorio del equipo se copia como
+`herramientas/medir_proyecto.sh`. `proyecto/plantillas/graficar_proyecto.py` añade la gráfica de comparación entre
+versiones. `graficar_speedup.py` lee los CSV de ambos flujos (tolera las columnas extra). No mezcles en un mismo
+archivo filas con distinto encabezado.
 
 ## Sobre `ejemplo_resultados.csv`
 
-Son mediciones reales hechas el 14 de octubre de 2026 en el contenedor donde se generó este material (4 vCPU
-Intel Xeon 2.80 GHz compartidas, 16 GB; detalle en `ejemplo_entorno.txt`), con `n = 8·10⁸` rectángulos
-(T(1) = 1.13 s). Sirven para probar el formato y las gráficas, y también para discutir: la eficiencia de OpenMP cae
-por debajo de 50 % a partir de 8 hilos en 4 núcleos (sobre-suscripción) y MPI escala peor que OpenMP en este
-problema porque el reparto por procesos paga la creación de procesos y la reducción. No son valores de
-referencia para ninguna práctica: cada equipo mide en su máquina y la declara.
+Son las mediciones que producen los ejemplos de la cabecera de `medir.sh`, corridos el 20 de octubre de 2026 en
+el contenedor donde se verificó este material (4 vCPU Intel Xeon a 2.10 GHz, 1 hilo por núcleo, 16 GB; las
+líneas `corrida:` de `ejemplo_entorno.txt` dicen qué se corrió). `n = 8·10⁸` rectángulos, T(1) = 1.07 s. Sirven
+para probar el formato y las gráficas, y para discutir tres cosas con datos:
+
+- **Hasta 4 hilos o procesos** OpenMP y MPI escalan parecido (E(4) = 0.91 y 0.88): el problema reparte trabajo
+  independiente y la única comunicación es una reducción al final.
+- **Con 8 hilos en 4 núcleos** la eficiencia cae a 0.47: el *speedup* casi no pasa de 3.65 a 3.72 porque no hay
+  más núcleos (sobre-suscripción; `medir.sh` avisa y el protocolo pide declararla).
+- **f de Karp–Flatt negativa** en OpenMP con 2 hilos (−0.003): S(2) = 2.006 está dentro del ruido de la mediana;
+  no es *speedup* superlineal que haya que explicar.
+
+No son valores de referencia para ninguna práctica: cada equipo mide en su máquina y la declara.
 
 ## Pruebas
 
@@ -63,8 +91,27 @@ referencia para ninguna práctica: cada equipo mide en su máquina y la declara.
 cd herramientas && make clean && make && make test
 ```
 
-Cubre: `cronometro.h` (reloj OpenMP y `clock_gettime`, mediana, fila CSV), `medir.sh` (OpenMP, `--mpi`, `-t gpu`,
-`--clave`, `--t1`, códigos de salida 2/3/4), `graficar_speedup.py` (CSV de 5 y de 3 repeticiones, columnas extra,
-filas `gpu`, recálculo desde T(1)), `plantilla-run_tests.sh` (OpenMP y MPI, detección de diferencias),
-`Makefile.openmp` y `Makefile.mpi` en una carpeta temporal, y `nvcc -c -arch=sm_75` de `ejemplo_gpu.cu`. Las
-pruebas de MPI y de CUDA se omiten con aviso si no hay `mpirun` o `nvcc`.
+`tests/run_tests.sh` trabaja en una carpeta temporal fuera del repositorio (la borra si todo pasa; si algo falla,
+imprime su ruta). Cubre:
+
+- `cronometro.h`: reloj OpenMP y `clock_gettime`, mediana, mín y máx, fila CSV, y el `#error` si se incluye después
+  de `<stdio.h>` sin `-fopenmp`.
+- `medir.sh`: modos OpenMP, `--mpi` y `-t gpu`; `--clave`, `--t1`, `n` leído de la salida; mediana; líneas
+  `corrida:` de `entorno.txt`; avisos de línea base y sobre-suscripción; códigos de salida 2, 3 y 4; y los
+  ejemplos de su cabecera con `n` pequeño.
+- `graficar_speedup.py`: CSV de 5 y de 3 repeticiones, columnas extra, filas `gpu`, recálculo desde T(1), `-h` y
+  rechazo de un CSV sin `mediana_s`.
+- `plantilla-run_tests.sh`: OpenMP y MPI, detección de una diferencia mayor que la tolerancia, aviso de
+  `TODO pendiente`.
+- `Makefile.openmp` y `Makefile.mpi` en una carpeta nueva: compilan sin *warnings*, `run`, `test`, `medir`,
+  `grafica`, `clean`.
+- `seguimiento.py`: plantilla vacía, los seis indicadores con sus umbrales, `--alertas`, las filas de ejemplo de
+  `seguimiento-grupo.md` y rechazo de un encabezado ajeno.
+- `colab-kaggle.md`: los fragmentos de Python compilan; el de Numba corre con `NUMBA_ENABLE_CUDASIM=1` si numba
+  está instalado; el `checksum` de la salida esperada coincide con el cálculo; `nvcc -c -arch=sm_75` de
+  `ejemplo_gpu.cu` si hay `nvcc`.
+- `plantilla-reporte-practica.md`: tiene las secciones de `03-plantilla-practica.md` y los pesos de su lista de
+  cotejo suman 100. Todos los `.md` llevan el encabezado de metadatos.
+- Cada comando de la tabla del índice, tal cual, en una copia de esta carpeta.
+
+Las pruebas de MPI, CUDA y Numba se omiten con aviso si falta `mpirun`, `nvcc` o numba.

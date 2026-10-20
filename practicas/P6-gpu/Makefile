@@ -4,7 +4,7 @@
 #   make run        REQUIERE GPU (Colab/Kaggle): compila con nvcc -O2 -arch=sm_75, corre Partes A y B, grafica
 #   make test       verificación sin GPU (tests/run_tests.sh): compilación, referencias CPU, espejos Numba en
 #                   CUDASIM, graficar.py, notebook. Los TODO pendientes de la Parte B se reportan como PEND.
-#   make test-b     solo Parte B y estricta: falla hasta que TODO(1)–TODO(4) estén completos y correctos
+#   make test-b     solo Parte B y estricta: falla hasta que TODO(1)–TODO(4) estén corregidos (y pasen 20×40×12)
 #   make sim        corre los espejos Numba bajo NUMBA_ENABLE_CUDASIM=1 (sin GPU; solo correctitud)
 #   make notebook   regenera notebook_colab.ipynb con nbformat a partir de src/ (hazlo tras editar un fuente)
 #   make graficas   python3 graficar.py sobre resultados/*.csv (los CSV que bajaste de Colab/Kaggle)
@@ -27,7 +27,7 @@ CU_OBJS := $(CU_SRCS:.cu=.o)
 CU_BINS := $(CU_SRCS:.cu=)
 C_SRCS  := $(wildcard $(SRC)/*_cpu.c)
 C_BINS  := $(C_SRCS:.c=)
-TILED_BINS := $(SRC)/b_matmul_tiled_t8 $(SRC)/b_matmul_tiled_t16 $(SRC)/b_matmul_tiled_t32
+TILED_BINS := $(SRC)/a_matmul_tiled_t8 $(SRC)/a_matmul_tiled_t16 $(SRC)/a_matmul_tiled_t32
 
 .PHONY: all run test test-b sim notebook graficas clean
 
@@ -45,7 +45,7 @@ $(SRC)/%_cpu: $(SRC)/%_cpu.c
 $(SRC)/%: $(SRC)/%.cu $(SRC)/common.cuh
 	$(NVCC) -O2 -arch=$(ARCH) -DTILE=$(TILE) $< -o $@
 
-$(SRC)/b_matmul_tiled_t%: $(SRC)/b_matmul_tiled.cu $(SRC)/common.cuh
+$(SRC)/a_matmul_tiled_t%: $(SRC)/a_matmul_tiled.cu $(SRC)/common.cuh
 	$(NVCC) -O2 -arch=$(ARCH) -DTILE=$* $< -o $@
 
 run: $(CU_BINS) $(C_BINS) $(TILED_BINS)
@@ -55,9 +55,10 @@ run: $(CU_BINS) $(C_BINS) $(TILED_BINS)
 	./$(SRC)/a_vectores uno 1000 $(BLOCK)
 	./$(SRC)/a_vectores umbral $(BLOCK) $(CSV)
 	./$(SRC)/a_vectores bloque $(N) $(CSV)
-	./$(SRC)/b_matmul_cpu 512 $(TILE)
-	for t in 8 16 32; do for n in 512 1024; do ./$(SRC)/b_matmul_tiled_t$$t $$n $(CSV) || true; done; done
-	./$(SRC)/b_matmul_tiled 1000 $(CSV) || true
+	./$(SRC)/a_matmul_cpu 1000 $(TILE)
+	for t in 8 16 32; do for n in 512 1024 2048; do ./$(SRC)/a_matmul_tiled_t$$t $$n $(CSV); done; done
+	./$(SRC)/a_matmul_tiled_t16 1000 $(CSV)
+	./$(SRC)/b_matmul_rect 1000 600 700 $(CSV) || echo ">> Parte B: corrige TODO(1)-TODO(4) y pon TODO_LISTO en 1"
 	@echo ">> Parte C: corre tu programa a mano (p. ej. ./$(SRC)/c_mi_kernel ... $(CSV)) y después: make graficas"
 	$(PY) graficar.py $(CSV) -o resultados
 
@@ -69,8 +70,10 @@ test-b:
 
 sim:
 	NUMBA_ENABLE_CUDASIM=1 $(PY) $(SRC)/a_vectores_numba.py 1000 256
-	NUMBA_ENABLE_CUDASIM=1 $(PY) $(SRC)/b_matmul_numba.py 32 16 || true
-	NUMBA_ENABLE_CUDASIM=1 $(PY) $(SRC)/b_matmul_numba.py 20 16 || true
+	NUMBA_ENABLE_CUDASIM=1 $(PY) $(SRC)/a_matmul_numba.py 32 16
+	NUMBA_ENABLE_CUDASIM=1 $(PY) $(SRC)/a_matmul_numba.py 20 16
+	NUMBA_ENABLE_CUDASIM=1 $(PY) $(SRC)/b_matmul_rect_numba.py 32 32 32 16 || true
+	NUMBA_ENABLE_CUDASIM=1 $(PY) $(SRC)/b_matmul_rect_numba.py 20 40 12 16 || true
 
 notebook:
 	$(PY) tests/build_notebook.py

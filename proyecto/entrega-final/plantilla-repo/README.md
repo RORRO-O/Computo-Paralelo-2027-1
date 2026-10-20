@@ -13,6 +13,7 @@
   archivo, cómo obtenerlo o regenerarlo: «comando o URL + suma SHA-256».
 - **Salida y cómo se verifica que es correcta:** «checksum / comparación con V1 / solución conocida; tolerancia».
 - **Semillas:** V1, V2 y V3 usan la misma semilla «12345» para el mismo `n`; las pruebas usan «…».
+- **Tamaño declarado:** `n` = «…» (T(1) = «…» s en la CPU de `resultados/entorno.txt`); tamaño de prueba: «…».
 - **Por qué es paralelizable (3 líneas):** «…»
 
 ## 2. Cómo compilar y correr (sin leer nada más)
@@ -21,12 +22,15 @@
 git clone «https://github.com/.../cp-6bm1-equipoNN» && cd cp-6bm1-equipoNN
 make                 # V1 y V2; verifica que V3 compila si hay nvcc
 make test            # pruebas: código 0 si todo pasa
-./run_all.sh --rapido   # flujo completo en ~1 min (NO son las mediciones del reporte)
-./run_all.sh            # mediciones del reporte (≈ «N» min en «CPU usada»)
+./run_all.sh --rapido   # flujo completo en segundos; escribe en resultados/rapido/ (no son las mediciones del reporte)
+./run_all.sh            # mediciones del reporte en resultados/ (≈ «N» min en «CPU usada»)
 ```
 
 Requisitos: gcc ≥ «13» con OpenMP, make, bash, python3 con numpy y matplotlib (solo para la gráfica).
 V3: Google Colab o Kaggle con GPU; ver §4.
+
+Versiones con las que se midió (las repiten `resultados/entorno.txt` y `resultados/entorno_gpu.txt`):
+gcc «…», nvcc «…» (Colab), python3 «…», numpy «…», matplotlib «…»«, numba/cupy …».
 
 Cada programa acepta `[n] [semilla] [hilos]` e imprime `clave=valor`:
 
@@ -43,6 +47,8 @@ Cada programa acepta `[n] [semilla] [hilos]` e imprime `clave=valor`:
 | Figura 1 (speedup vs hilos) | ídem | `resultados/speedup.png` |
 | Tabla 2 (V3 con y sin transferencias) | `v3/notebook_colab.ipynb`, celdas 1–5 en Colab | `resultados/mediciones_v3.csv`, `resultados/entorno_gpu.txt` |
 | «otra figura» | «comando» | «archivo» |
+
+La tabla 1 se pega desde `resultados/tabla.md`; cada número del PDF está en `resultados/*.csv`.
 
 Hardware de las mediciones de CPU: ver `resultados/entorno.txt` (lo escribe `run_all.sh`).
 Hardware de la GPU y fecha: ver `resultados/entorno_gpu.txt` (lo escribe la celda 1 del notebook).
@@ -66,8 +72,9 @@ v3/                     V3 GPU (kernel.cu o main_gpu.py, Makefile, notebook_cola
 tests/run_tests.sh      pruebas: V2 y V3 contra V1 con tolerancia; casos borde; casos del equipo
 herramientas/           resumen_csv.py (tabla + gráfica), generar_notebook_v3.py
 resultados/             mediciones.csv, mediciones_v3.csv, entorno.txt, entorno_gpu.txt, *.png, tabla.md
+resultados/rapido/      salida de ./run_all.sh --rapido (ignorada por git)
 reporte/reporte.pdf     reporte final (8–12 páginas; proyecto/entrega-final/plantilla-reporte.md)
-bitacora.md             qué falló, cómo se detectó, qué se cambió (fechado)
+bitacora.md             errores, mediciones descartadas, predicciones vs. resultados (fechado AAAA-MM-DD)
 run_all.sh              reproduce todo lo medible en CPU
 ```
 

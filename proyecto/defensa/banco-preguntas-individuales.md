@@ -1,6 +1,6 @@
 # Banco de preguntas individuales para la defensa
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026 (y lunes 14 de diciembre si aplica la opción a de `logistica-defensa.md`) · Público: sirve para preparar la defensa · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026 · 10:30–12:00 · Salón 3208 (y las reservas del lunes 14 y martes 15 de diciembre si aplica la opción a o b de `logistica-defensa.md` §3) · Público: sirve para preparar la defensa · versión 1.1 · 20 de octubre de 2026
 
 ## 1. Cómo se usa
 
@@ -19,6 +19,11 @@ entiendes tu repositorio. Cada integrante responde **dos preguntas** sin ayuda (
 - **Pregunta 2 · de tema.** Del tema sorteado para tu posición en el equipo (§3 a §8), elegida por el profesor sobre
   **tu** proyecto. Los temas se sortean con la misma semilla que el orden (`logistica-defensa.md` §4) para que en cada
   equipo salgan temas distintos.
+- **Rescate.** Si la pregunta 1 queda en Insuficiente, la pregunta 2 no es de tema: es otra pregunta de línea (L1–L3)
+  sobre otra parte de lo que firmaste (`docs/metodo/05-politica-ia.md`). Las dos respuestas cuentan para D4 y para el
+  ajuste de `rubrica-defensa.md` §4.1; para C6 cuenta la mejor de las dos.
+- **Por escrito.** Puedes pedir, sin dar razones, responder las dos por escrito en el momento (5 min, papel, sin
+  dispositivos). Vale igual.
 
 Prepárate respondiendo **en voz alta, sin notas y con el repositorio abierto** todas las preguntas de todos los temas.
 Pide a tus compañeros que te hagan las de línea sobre archivos que no escribiste: la prueba de propiedad aplica a
@@ -36,9 +41,9 @@ Resumen: 50 preguntas de tema + 3 patrones de línea.
 | Método de Foster | F1–F8 | 2 | 4 | 2 | 8 |
 | OpenMP (V2) | O1–O10 | 4 | 5 | 1 | 10 |
 | Medición y rendimiento | M1–M10 | 4 | 5 | 1 | 10 |
-| MPI (transferencia desde la Unidad IV) | P1–P6 | 2 | 3 | 1 | 6 |
+| MPI (transferencia desde la Unidad IV) | MP1–MP6 | 2 | 3 | 1 | 6 |
 | CUDA / GPU (V3) | G1–G10 | 3 | 5 | 2 | 10 |
-| Decisiones del equipo | D1–D6 | 1 | 4 | 1 | 6 |
+| Decisiones del equipo | DE1–DE6 | 1 | 4 | 1 | 6 |
 | **Total** | | 16 | 26 | 8 | **50** |
 
 ## 2. Qué cuenta como desconocimiento (resumen)
@@ -92,19 +97,19 @@ responder; consultar teléfono, notas o a un compañero. Decir "no lo sé, pero 
 | M9 | N2 | ¿Qué *speedup* **predijeron antes de medir** (bitácora, fecha) y qué obtuvieron? ¿Qué explica la diferencia? | Cita la predicción con fecha y su razón (fracción secuencial de H1), el número obtenido, y una causa de la diferencia ligada a `f` o al experimento | No hay predicción previa o no sabe cuál fue; explica la diferencia con generalidades |
 | M10 | N1 | ¿Por qué el protocolo exige `T(1) ≥ 1 s`? ¿Cuánto tarda tu V1 con el `n` declarado? | Con milisegundos se mide la sobrecarga (crear hilos, lanzar *kernel*) y no el trabajo; resolución del reloj; da su `T(1)` y su `n` | No conoce su `T(1)`; cree que cualquier tamaño sirve |
 
-## 6. MPI · transferencia desde la Unidad IV (P)
+## 6. MPI · transferencia desde la Unidad IV (MP)
 
 El proyecto no tiene versión MPI; estas preguntas evalúan si puedes razonar tu problema en memoria distribuida con lo que
 se vio en la Unidad IV y en la Práctica 5.
 
 | ID | Nivel | Pregunta | Una buena respuesta contiene | Señal de Insuficiente |
 |---|---|---|---|---|
-| P1 | N1 | Si V2 fuera con **MPI** en lugar de OpenMP, ¿qué cambia en cómo comparten datos los trabajadores? | Cada proceso tiene su memoria; todo intercambio es un mensaje (idea errónea 16); habría que repartir los datos al inicio (`Scatter`/`Bcast`) y juntar al final (`Gather`/`Reduce`); el costo de comunicación aparece explícito | Cree que los procesos comparten los arreglos; no distingue proceso de hilo |
-| P2 | N2 | ¿Qué **colectiva** usarías para la parte que en V2 resolviste con `reduction`, y **quién** la llama? | `MPI_Reduce` (o `Allreduce` si todos necesitan el resultado); la llaman **todos** los procesos del comunicador (idea errónea 18); el raíz recibe; mismo tipo y operación en todos | Cree que solo el raíz la llama; no sabe qué colectiva corresponde a una suma |
-| P3 | N2 | ¿Qué datos tendrían que **viajar entre procesos** en cada iteración de tu problema y de qué tamaño? Estima el costo con latencia + tamaño/ancho de banda | Identifica fronteras/halos o que no hay intercambio por iteración; tamaño en bytes en función de `n` y `p`; modelo `t = α + m/β`; compara con el cómputo por iteración para decir si la comunicación dominaría (idea errónea 21) | No sabe qué datos necesita un proceso de otro; dice que "la comunicación es gratis" |
-| P4 | N3 | ¿Tu problema escalaría mejor en **escalabilidad fuerte o débil** con MPI? ¿Por qué? | Define ambas (idea errónea 6); si el volumen de comunicación por proceso crece despacio con `p` y el tamaño por proceso se mantiene, la débil se sostiene; la fuerte la limitan la fracción secuencial y la comunicación relativa creciente; lo aplica a su patrón | No distingue fuerte de débil; responde sin referirse a su patrón de comunicación |
-| P5 | N2 | Si dos procesos intercambian fronteras con `MPI_Send` seguido de `MPI_Recv` **en el mismo orden** en ambos, ¿qué puede pasar y cómo lo evitarías? | Interbloqueo posible según el tamaño y el *buffering* (idea errónea 17); se evita con `MPI_Sendrecv`, con `Isend`/`Irecv` + `Wait`, o alternando el orden por paridad del rango | Cree que `Send` siempre regresa de inmediato o siempre bloquea; no conoce ninguna solución |
-| P6 | N1 | ¿Qué significa **SPMD** y en qué se diferencia del modelo de tu V2? | Un solo programa, cada proceso con su rango decide qué hace (`if (rank == 0)`); en OpenMP el modelo es *fork-join* dentro de un proceso con memoria compartida; en MPI no hay regiones paralelas, todo el programa es paralelo desde `MPI_Init` | No sabe qué es un rango; confunde SPMD con "varios programas distintos" |
+| MP1 | N1 | Si V2 fuera con **MPI** en lugar de OpenMP, ¿qué cambia en cómo comparten datos los trabajadores? | Cada proceso tiene su memoria; todo intercambio es un mensaje (idea errónea 16); habría que repartir los datos al inicio (`Scatter`/`Bcast`) y juntar al final (`Gather`/`Reduce`); el costo de comunicación aparece explícito | Cree que los procesos comparten los arreglos; no distingue proceso de hilo |
+| MP2 | N2 | ¿Qué **colectiva** usarías para la parte que en V2 resolviste con `reduction`, y **quién** la llama? | `MPI_Reduce` (o `Allreduce` si todos necesitan el resultado); la llaman **todos** los procesos del comunicador (idea errónea 18); el raíz recibe; mismo tipo y operación en todos | Cree que solo el raíz la llama; no sabe qué colectiva corresponde a una suma |
+| MP3 | N2 | ¿Qué datos tendrían que **viajar entre procesos** en cada iteración de tu problema y de qué tamaño? Estima el costo con latencia + tamaño/ancho de banda | Identifica fronteras/halos o que no hay intercambio por iteración; tamaño en bytes en función de `n` y `p`; modelo `t = α + m/β`; compara con el cómputo por iteración para decir si la comunicación dominaría (idea errónea 21) | No sabe qué datos necesita un proceso de otro; dice que "la comunicación es gratis" |
+| MP4 | N3 | ¿Tu problema escalaría mejor en **escalabilidad fuerte o débil** con MPI? ¿Por qué? | Define ambas (idea errónea 6); si el volumen de comunicación por proceso crece despacio con `p` y el tamaño por proceso se mantiene, la débil se sostiene; la fuerte la limitan la fracción secuencial y la comunicación relativa creciente; lo aplica a su patrón | No distingue fuerte de débil; responde sin referirse a su patrón de comunicación |
+| MP5 | N2 | Si dos procesos intercambian fronteras con `MPI_Send` seguido de `MPI_Recv` **en el mismo orden** en ambos, ¿qué puede pasar y cómo lo evitarías? | Interbloqueo posible según el tamaño y el *buffering* (idea errónea 17); se evita con `MPI_Sendrecv`, con `Isend`/`Irecv` + `Wait`, o alternando el orden por paridad del rango | Cree que `Send` siempre regresa de inmediato o siempre bloquea; no conoce ninguna solución |
+| MP6 | N1 | ¿Qué significa **SPMD** y en qué se diferencia del modelo de tu V2? | Un solo programa, cada proceso con su rango decide qué hace (`if (rank == 0)`); en OpenMP el modelo es *fork-join* dentro de un proceso con memoria compartida; en MPI no hay regiones paralelas, todo el programa es paralelo desde `MPI_Init` | No sabe qué es un rango; confunde SPMD con "varios programas distintos" |
 
 ## 7. CUDA / GPU (G)
 
@@ -121,16 +126,16 @@ se vio en la Unidad IV y en la Práctica 5.
 | G9 | N2 | ¿Qué mides con `cudaEvent` y por qué no basta el reloj del anfitrión sin sincronizar? | El lanzamiento del *kernel* es asíncrono; sin `cudaDeviceSynchronize` o eventos el reloj del anfitrión mide solo el lanzamiento; dos mediciones: solo *kernel* y total con copias; los eventos se registran en el *stream* | Mide con el reloj del anfitrión sin sincronizar y no lo nota; no sabe que el lanzamiento no bloquea |
 | G10 | N3 | ¿Usarías **memoria compartida** en tu *kernel*? ¿Para qué datos y qué ganarías? | Datos que varios hilos del bloque reutilizan (vecinos de un *stencil*, mosaicos de una matriz, parciales de una reducción); reduce tráfico a memoria global (uno a dos órdenes de magnitud más lenta, idea errónea 23); o "no aplica" porque cada dato se lee una vez, con esa razón | No sabe la diferencia entre memoria global y compartida; propone usarla sin decir para qué dato |
 
-## 8. Decisiones del equipo (D)
+## 8. Decisiones del equipo (DE)
 
 | ID | Nivel | Pregunta | Una buena respuesta contiene | Señal de Insuficiente |
 |---|---|---|---|---|
-| D1 | N2 | Abre un *commit* **tuyo** de las últimas dos semanas y explica qué cambió y por qué | Localiza el *commit* (`git log --author`), describe el cambio en términos del problema o de la medición, lo liga a una entrada de bitácora o a una decisión | No encuentra ningún *commit* propio reciente; describe un cambio que el *diff* no muestra |
-| D2 | N2 | Elige una entrada de la bitácora que escribiste tú: ¿cómo detectaron la falla y qué **prueba agregaron** para que no vuelva? | Herramienta o prueba de detección, causa raíz, cambio, y el caso de prueba o la verificación que se agregó a `tests/run_tests.sh` o al flujo de medición | "Salió mal y lo arreglamos"; no hay prueba agregada y no sabe por qué |
-| D3 | N1 | ¿Qué les dijo la IA que **resultó estar mal** y cómo lo descubrieron? | Ejemplo concreto (una cláusula, una afirmación de rendimiento, un tamaño de bloque, una "optimización") y el método de verificación: compilar con `-Wall -Wextra`, medir con el protocolo, contrastar con la especificación o la guía oficial | "Nunca se equivocó" o no recuerda ningún caso; no verificaron nada |
-| D4 | N3 | Si empezaran hoy, ¿qué harían distinto? Nombra **una decisión** y el dato que la cambiaría | Decisión concreta (partición, tamaño declarado, tecnología de V3, orden de trabajo) y el número o experimento que la motivaría | Generalidades ("organizarnos mejor"); ninguna decisión técnica |
-| D5 | N2 | ¿Por qué eligieron **CUDA C / Numba CUDA / CuPy** y qué perdieron con esa elección? | Razones (lo que pueden explicar línea por línea, herramientas, tiempo) y el costo (control sobre memoria, visibilidad del *kernel*, depuración, rendimiento) con un ejemplo de su V3 | No sabe por qué; cree que no hay diferencia; no puede explicar qué corre en la GPU en su V3 |
-| D6 | N2 | De su lista "qué no entendemos todavía", elige una pregunta y di qué **experimento** la respondería | Pregunta concreta de la lista, el experimento con qué se varía, qué se mide, qué resultado esperarían en cada hipótesis | No conoce la lista; propone "investigar más" sin experimento |
+| DE1 | N2 | Abre un *commit* **tuyo** de las últimas dos semanas y explica qué cambió y por qué | Localiza el *commit* (`git log --author`), describe el cambio en términos del problema o de la medición, lo liga a una entrada de bitácora o a una decisión | No encuentra ningún *commit* propio reciente; describe un cambio que el *diff* no muestra |
+| DE2 | N2 | Elige una entrada de la bitácora que escribiste tú: ¿cómo detectaron la falla y qué **prueba agregaron** para que no vuelva? | Herramienta o prueba de detección, causa raíz, cambio, y el caso de prueba o la verificación que se agregó a `tests/run_tests.sh` o al flujo de medición | "Salió mal y lo arreglamos"; no hay prueba agregada y no sabe por qué |
+| DE3 | N1 | ¿Qué les dijo la IA que **resultó estar mal** y cómo lo descubrieron? | Ejemplo concreto (una cláusula, una afirmación de rendimiento, un tamaño de bloque, una "optimización") y el método de verificación: compilar con `-Wall -Wextra`, medir con el protocolo, contrastar con la especificación o la guía oficial | "Nunca se equivocó" o no recuerda ningún caso; no verificaron nada |
+| DE4 | N3 | Si empezaran hoy, ¿qué harían distinto? Nombra **una decisión** y el dato que la cambiaría | Decisión concreta (partición, tamaño declarado, tecnología de V3, orden de trabajo) y el número o experimento que la motivaría | Generalidades ("organizarnos mejor"); ninguna decisión técnica |
+| DE5 | N2 | ¿Por qué eligieron **CUDA C / Numba CUDA / CuPy** y qué perdieron con esa elección? | Razones (lo que pueden explicar línea por línea, herramientas, tiempo) y el costo (control sobre memoria, visibilidad del *kernel*, depuración, rendimiento) con un ejemplo de su V3 | No sabe por qué; cree que no hay diferencia; no puede explicar qué corre en la GPU en su V3 |
+| DE6 | N2 | De su lista "qué no entendemos todavía", elige una pregunta y di qué **experimento** la respondería | Pregunta concreta de la lista, el experimento con qué se varía, qué se mide, qué resultado esperarían en cada hipótesis | No conoce la lista; propone "investigar más" sin experimento |
 
 ## 9. Cómo prepararte (equipo, semana del 7 al 10 de diciembre)
 

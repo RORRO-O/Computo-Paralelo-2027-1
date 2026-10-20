@@ -2,12 +2,13 @@
 
 # ConcepTests S05
 
-Secuencia fija: voto individual (1 min) → discusión en parejas (2 min) → revoto → explicación (2 min). Si el primer
-voto supera 80 % de aciertos se salta la discusión; si queda bajo 30 % se reexplica antes de discutir. En esta
-sesión de laboratorio se aplican dos (CT1 en el minuto 10, CT2 en el 52); CT3 es de reserva para la puesta en
+Secuencia fija: voto individual (1 min) → discusión en parejas (2 min) → revoto → explicación (1–2 min). La discusión
+y el revoto ocurren solo si el primer voto queda entre 30 % y 80 % de aciertos; fuera de ese rango se pasa directo a
+la explicación (02 §1, 07 §A.7). Cada ConcepTest cabe en 5 min. En esta
+sesión de laboratorio se aplican dos (CT1 en el minuto 8, CT2 en el 50); CT3 es de reserva para la puesta en
 común del taller si sobra tiempo o para la S06.
 
-## CT1 · ¿Qué le falta a esta medición? (minuto 10, antes del trabajo en la Parte D)
+## CT1 · ¿Qué le falta a esta medición? (minuto 8, antes del trabajo en la Parte D)
 
 Un equipo reporta la V3 de su proyecto así: "`cudaEventRecord` antes y después del lanzamiento del *kernel*, una
 corrida, 4 ms; la V1 tarda 400 ms; *speedup* = 100×". ¿Qué le falta para que la medición sea válida según el
@@ -29,9 +30,10 @@ confunde sincronización de bloque con sincronización anfitrión–dispositivo.
 
 Guion de discusión: "Pregúntale a tu pareja: ¿cuánto tarda copiar la entrada de su proyecto a la GPU? Si no lo
 sabe, ¿cómo puede afirmar 100×?". Tras el revoto: la regla es **dos tiempos, cinco repeticiones, mediana, T(1) = V1
-con `-O2`**. Mostrar la fila `copiar_cada_iter=1` de la práctica guiada: mismo *kernel*, *speedup* de ~30× a ~1×.
+con `-O2`**. Mostrar (1 min, notebook ya ejecutado) las filas `16x16 copiar_cada_iter=0` y `copiar_cada_iter=1`: mismo
+*kernel*, misma verificación PASS, *speedup* con transferencias de varias decenas a ≈ 1×.
 
-## CT2 · El *kernel* no dio error (minuto 52, apertura del taller V3)
+## CT2 · El *kernel* no dio error (minuto 50, apertura del taller V3)
 
 Después de lanzar el *kernel* de la V3, `cudaGetLastError()` y `cudaDeviceSynchronize()` regresan `cudaSuccess`.
 ¿Qué puedes concluir?
@@ -44,14 +46,16 @@ Después de lanzar el *kernel* de la V3, `cudaGetLastError()` y `cudaDeviceSynch
 | Distractor | Origen |
 |---|---|
 | A | Idea 27: "si el *kernel* no da error, el resultado es correcto" |
-| C | Variante de la 27: un acceso fuera de rango que cae en memoria asignada (p. ej., el otro búfer) no se detecta; es comportamiento indefinido |
+| C | Variante de la 27 e idea 34 (accesos fuera de rango que "a veces funcionan"): un acceso fuera de rango que cae en memoria asignada (p. ej., el otro búfer) no se detecta; es comportamiento indefinido |
 | D | Idea 22: "un hilo de CUDA equivale a un núcleo de CPU"; además ignora que los hilos comparten memoria global |
 
 Acierto esperado en el primer voto: ~50 %. C es el distractor fuerte: suena técnico y a veces es cierto.
 
 Guion de discusión: "Convence a tu pareja con un ejemplo concreto de un error que `cudaSuccess` no atrapa" (índice
 dentro del arreglo pero equivocado; guardia que descarta celdas válidas; búfer que nunca se copió). Tras el revoto:
-el experimento `-DSIN_GUARDIA` de la práctica guiada muestra las tres salidas posibles. Regla: **verificar contra la V1
+el experimento `-DSIN_GUARDIA` de la práctica guiada lo ilustra: los hilos sobrantes con `c ≥ ancho` escriben
+**dentro** del arreglo (en la fila siguiente), así que puede salir FAIL sin ningún error, `illegal memory access` o
+"bien" según el orden de los hilos. Regla: **verificar contra la V1
 es parte del *kernel*, no un extra**.
 
 ## CT3 · Hilos lanzados vs. hilos que trabajan (reserva)
@@ -67,8 +71,8 @@ cuántos escriben una celda?
 | Distractor | Origen |
 |---|---|
 | A | Idea 22 (modelo de "tantos hilos como trabajo", como en OpenMP): los bloques son de tamaño fijo |
-| C | Nueva idea errónea (proponer para el Anexo A): "sin guardia no pasa nada; los hilos extra hacen trabajo inofensivo". En realidad escriben fuera del arreglo |
-| D | Nueva idea errónea (proponer para el Anexo A): "la GPU ajusta el tamaño del último bloque" |
+| C | Idea 34: "no hace falta comprobar `idx < n`" (los hilos extra harían trabajo inofensivo). En realidad escriben fuera del arreglo o, con `c ≥ ancho`, en celdas ajenas de la fila siguiente |
+| D | Idea 34, variante: "la GPU recorta el último bloque, por eso no hace falta la guardia". Los bloques son de tamaño fijo; la malla casi siempre excede el trabajo |
 
 Acierto esperado en el primer voto: ~45 %. Quien calculó `37·45/256 = 6.5 → 7` bloques confundió el mapeo 1D con el 2D.
 

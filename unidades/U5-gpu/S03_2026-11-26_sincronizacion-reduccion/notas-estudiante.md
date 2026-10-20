@@ -26,9 +26,10 @@ dirección), no solo con el número de atómicas. Es el `atomic` de OpenMP (S07)
 memoria más lejos; las atómicas sobre memoria **compartida** son mucho más baratas y compiten solo dentro del bloque.
 
 En CUDA C hay `atomicAdd` para enteros, `float` y `double` (desde `sm_60`); `atomicMax`/`atomicMin` solo para
-enteros; `atomicCAS` para construir el resto. En Numba: `cuda.atomic.add`, `cuda.atomic.max`, etc. Consecuencias: un
-`atomicAdd` de `float` suma en orden arbitrario, así que el resultado puede cambiar entre corridas (es orden, no
-carrera); y para un máximo de `float` no hay atómica directa: se usa el árbol.
+enteros; `atomicCAS` para construir el resto. En Numba: `cuda.atomic.add`, `cuda.atomic.max`, etc. (`cuda.atomic.max`
+sí acepta `float32`: Numba lo construye con `atomicCAS`). Consecuencias: un `atomicAdd` de `float` suma en orden
+arbitrario, así que el resultado puede cambiar entre corridas (es orden, no carrera); y en CUDA C, para un máximo de
+`float` no hay atómica directa: se usa el árbol.
 
 ## 3. Reducción en árbol: tres versiones y una segunda etapa
 
@@ -70,10 +71,11 @@ racecheck`, que reporta carreras sobre compartida aunque el número haya salido 
 
 ## 6. Verificar contra la CPU: con tolerancia o exacto
 
-En `float` el orden de las sumas cambia el redondeo: cuatro órdenes del mismo arreglo dan cuatro números, todos
-"correctos" (idea errónea 10). Por eso se compara contra una referencia en **mayor precisión** (`double`) con una
+En `float` el orden de las sumas cambia el redondeo: el mismo arreglo sumado en distinto orden da números distintos,
+todos "correctos" (idea errónea 10). Por eso se compara contra una referencia en **mayor precisión** (`double`) con una
 **tolerancia relativa declarada** (`1e-4` en la práctica), y no contra la suma secuencial en `float`: con `2^24`
-elementos el acumulador `float` se equivoca 10 % (a `16 777 216` sumarle `1.0` no cambia el valor) y la versión
+elementos el acumulador `float` se equivoca 10 % (a `16 777 216` sumarle `1.0` no cambia el valor y sumarle `1.1`–`1.9`
+suma `2`: se pasa) y la versión
 `atomic` **falla** aunque cada atómica sea correcta. Con enteros (histograma, conteos) o cuando el resultado es uno de
 los datos (máximo), la comparación es **exacta**.
 
@@ -105,7 +107,7 @@ __global__ void reduce_tree_nodiv(const float *x, float *partial, int n) {
 
 Salida real sin GPU (simulador de Numba, `n = 1000`, bloque 256): `atomic 1457.599976`, `tree_div 1457.600037`,
 `tree_nodiv 1457.600006`, referencia `1457.600012`, las tres `OK`; sin la barrera (B), tres corridas: `227.6`,
-`119.3`, `188.9`, todas `FALLA`. Esperado en una T4 con `2^20`: `atomic` ≈ 1–10 ms; árboles ≈ 0.02–0.06 ms; etapa 2
+`119.3`, `188.9`, todas `FALLA`. Esperado en una T4 con `2^20`: `atomic` ≈ 0.5–10 ms; árboles ≈ 0.02–0.06 ms; etapa 2
 en CPU ≈ 0.02–0.05 ms (la copia de 16 KB cuesta tanto como el *kernel*).
 
 ## 9. Errores frecuentes
@@ -114,7 +116,7 @@ en CPU ≈ 0.02–0.05 ms (la copia de 16 KB cuesta tanto como el *kernel*).
 |---|---|---|
 | Suma menor que la referencia y distinta en cada corrida | Falta la barrera entre niveles (carrera en compartida) | Una `__syncthreads()` tras cada nivel; corre varias veces con `block = 256` |
 | Se cuelga o da basura con `n` no múltiplo del bloque | `return` de los sobrantes antes de la barrera, o barrera dentro del `if` | Barrera fuera de todo `if`; los sobrantes cargan el neutro |
-| `FALLA` sin error de CUDA, error del 33 % | `blockDim.x` no es potencia de 2 | Usa potencias de 2 (o un ciclo de paso de malla previo) |
+| `FALLA` sin error de CUDA, error del 33 % | `blockDim.x` no es potencia de 2 | Usa potencias de 2 (o un primer nivel que pliegue el bloque a la potencia de 2 inferior `p`: `s[tid] += s[tid + p]` si `tid + p < blockDim.x`) |
 | `atomic` `FALLA` con `n = 2^24`; los árboles `OK` | Acumulador `float` saturado | Referencia en `double`; acumula por partes |
 | Histograma en compartida con total menor que `n` "a veces" | Falta la segunda barrera antes del volcado | Dos barreras: tras los ceros y tras el conteo |
 | La suma global vale lo de un solo bloque | El bloque 0 "remata" leyendo parciales ajenos tras `__syncthreads()` | La barrera no cubre otros bloques (idea 25): etapa 2 fuera del *kernel* o con atómicas |

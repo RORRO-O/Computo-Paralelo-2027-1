@@ -4,8 +4,8 @@
 # Cómo usarla:  cp herramientas/Makefile.openmp <tu-carpeta>/Makefile  y ajusta la sección "Ajusta aquí".
 # Objetivos (docs/CONVENCIONES.md §3 exige los cuatro primeros):
 #   make          compila $(BIN) con OpenMP y $(BIN_SEQ): la MISMA fuente sin -fopenmp, que es la referencia
-#                 secuencial de las pruebas (los #pragma omp se ignoran). Si tu referencia es otro archivo,
-#                 cambia SRC_SEQ.
+#                 secuencial de las pruebas (los #pragma omp se ignoran; protege con #ifdef _OPENMP las llamadas
+#                 omp_*). Si tu referencia es otro archivo, cambia SRC_SEQ.
 #   make run      ejecuta $(BIN) con N y THREADS (OMP_NUM_THREADS)
 #   make test     ejecuta tests/run_tests.sh (copia de herramientas/plantilla-run_tests.sh) con las variables
 #                 de abajo; termina con código 0 solo si todo pasa
@@ -13,13 +13,15 @@
 #   make grafica  genera speedup.png y eficiencia.png a partir de $(CSV)
 #   make clean    borra binarios y objetos
 # Banderas de las convenciones: -std=c11 -O2 -Wall -Wextra -fopenmp. Sin warnings o no se entrega.
-# Ejemplo ejecutable (desde herramientas/):  make -f Makefile.openmp SRC=ejemplo_cronometro.c BIN=ej.out run
+# `make test` espera tests/run_tests.sh y `make medir`/`make grafica` esperan medir.sh y graficar_speedup.py junto
+# a este Makefile (o MEDIR=/GRAFICAR= con su ruta).
+# Ejemplo ejecutable (desde herramientas/):  make -f Makefile.openmp SRC=ejemplo_cronometro.c BIN=ej.out N=1000 run
 
 # ---------- Ajusta aquí ----------
 SRC      ?= main.c                 # fuente(s) de la versión OpenMP
 SRC_SEQ  ?= $(SRC)                 # fuente(s) de la referencia secuencial (por defecto la misma, sin -fopenmp)
 BIN      ?= programa               # ejecutable OpenMP
-BIN_SEQ  ?= $(BIN)_seq             # ejecutable secuencial de referencia
+BIN_SEQ  ?= $(basename $(BIN))_seq$(suffix $(BIN))  # referencia secuencial: programa_seq, ej_seq.out
 N        ?= 20000000               # tamaño por defecto para `make run` y `make medir` (T1 >= 1 s al medir)
 THREADS  ?= 4                      # hilos para `make run`
 HILOS    ?= 1 2 4 8                # lista para `make medir` (hasta núcleos físicos + 1)

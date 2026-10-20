@@ -12,6 +12,10 @@ Dos piezas, en este orden:
 
 Trabajo en parejas o en equipo de proyecto. Roles conductor/navegante; cambio a los 10 minutos.
 
+**Qué se hace en clase y qué en casa.** En la S05 (minutos 58–68): Fase 1, Fase 2 y la tabla de 3.1. Las preguntas
+de 3.1, 3.2 y 3.3 se terminan en casa (no se entregan; claves en `<details>`); Modificar (`TODO(1)`) es el ejercicio 1
+de `tarea-espaciada.md`; Crear es la sección 4 de `plan-V3.md`, que se empieza en el taller (minutos 68–79).
+
 ## Qué hay en esta carpeta
 
 | Archivo | Qué es |
@@ -31,7 +35,7 @@ Trabajo en parejas o en equipo de proyecto. Roles conductor/navegante; cambio a 
 
 ```bash
 make            # nvcc -c del .cu (si hay nvcc) y gcc de la referencia CPU
-make test       # ~30 s: compila, corre CPU y CUDASIM, compara checksums
+make test       # ≈ 10 s: compila, corre CPU y CUDASIM, compara checksums
 NUMBA_ENABLE_CUDASIM=1 python3 flatten_map_numba.py 10 8 3 16 16 2d 0 3 5
 ```
 
@@ -109,12 +113,24 @@ En la GPU el programa imprime además el modelo (`GPU: Tesla T4`), los tiempos y
 Compara con P1–P5. Si fallaste P2, revisa: `threadIdx.x` recorre **columnas**, `threadIdx.y` recorre **filas**; el
 par se imprime como (x, y) = (5, 3), no (3, 5).
 
+<details><summary>Clave de Predecir (ábrela después de comparar con la salida)</summary>
+
+- **P1.** `3 · 8 + 5 = 29`.
+- **P2.** `blockIdx = (0,0)`, `threadIdx = (5,3)`: x = columna 5, y = fila 3.
+- **P3.** `ceil(8/16) × ceil(10/16) = 1 × 1` bloque de 256 hilos; 80 celdas, **176** hilos sin celda (68.8 %).
+- **P4.** `blockIdx.x = 29 / 256 = 0`, `threadIdx.x = 29 % 256 = 29`.
+- **P5.** `PASS (max |diff| = 0.000e+00 ...)`. Sí puede estar mal: un PASS en una forma de malla no demuestra
+  corrección en otras (por eso se prueba también un tamaño no múltiplo del bloque y uno grande), y PASS no dice nada
+  del tiempo: copiar en cada iteración también da PASS (`copiar_cada_iter=1`).
+- **Celda (0,0):** el hilo `threadIdx = (0,0)` del bloque `(0,0)`. Es frontera: copia `in[0]` en `out[0]` y no lee vecinos.
+</details>
+
 ## Fase 3 · Investigar
 
 ### 3.1 Dimensiones que no son múltiplos del bloque
 
-Llena la tabla **antes** de correr; luego verifica con `20 19 2 16 16 2d` (CUDASIM, 4 s) y con `37 45 3 16 16 2d`
-(Colab; en CUDASIM tarda ~15 s).
+Llena la tabla **antes** de correr; luego verifica con `20 19 2 16 16 2d` (CUDASIM, ≈ 2 s) y con `37 45 3 16 16 2d`
+(Colab, o CUDASIM en ≈ 3 s).
 
 | Malla | Bloque | Bloques en x | Bloques en y | Hilos lanzados | Celdas | Hilos ociosos |
 |---|---|---|---|---|---|---|
@@ -136,6 +152,30 @@ Preguntas:
    **las tres** son posibles y por qué ninguna es aceptable (es comportamiento indefinido).
 3. ¿Por qué el programa lee siempre de `in` y escribe siempre en `out`, y luego intercambia punteros? ¿Qué pasaría
    si un solo arreglo hiciera de entrada y salida? Conéctalo con las condiciones de carrera de la Unidad III.
+4. La malla de 1024 × 1024 lanza 1 048 576 hilos y una T4 tiene 2560 núcleos CUDA en 40 SMs. ¿Es un error lanzar
+   400 veces más hilos que núcleos? ¿Cuántos *warps* son? (Idea errónea 22: "un hilo de CUDA es un núcleo".)
+
+<details><summary>Clave de 3.1 (ábrela después de llenar la tabla)</summary>
+
+| Malla | Bloque | Bloques en x | Bloques en y | Hilos lanzados | Celdas | Hilos ociosos |
+|---|---|---|---|---|---|---|
+| 20 × 19 | 16 × 16 | 2 | 2 | 1 024 | 380 | 644 |
+| 37 × 45 | 16 × 16 | 3 | 3 | 2 304 | 1665 | 639 |
+| 1000 × 1000 | 16 × 16 | 63 | 63 | 1 016 064 | 1 000 000 | 16 064 |
+| 1024 × 1024 | 32 × 8 | 32 | 128 | 1 048 576 | 1 048 576 | 0 |
+
+1. `if (r >= height || c >= width) return;`. El hilo (15, 15) del bloque (2, 2): `c = r = 47`, `idx = 47 · 45 + 47 = 2162`,
+   fuera de los 1665 floats. Ojo: un hilo sobrante con `c ≥ ancho` pero `r < alto` escribe **dentro** del arreglo, en
+   la fila siguiente (`idx = r · ancho + c`); por eso el error puede no producir ningún acceso ilegal.
+2. Es comportamiento indefinido. Los hilos con `c ≥ ancho` compiten con los legítimos por celdas de la fila siguiente:
+   según cuál escriba al último sale FAIL sin ningún error de CUDA o "sale bien" (una simulación secuencial de 37 × 45
+   da `max |diff| = 43.75` recorriendo los hilos en un orden y `0` en el orden inverso). Si una escritura con `r ≥ alto`
+   cae fuera de la memoria reservada, aparece `illegal memory access`. Ninguna de las tres demuestra corrección.
+3. Si un solo arreglo fuera entrada y salida, un hilo podría leer un vecino que otro hilo ya actualizó en el mismo paso:
+   carrera de datos y resultado que depende del orden de ejecución. Con dos búferes no hay escrituras sobre lo que se lee.
+4. No es un error: son 32 768 *warps* de 32 hilos ligeros. Cada SM alterna entre sus *warps* residentes para ocultar la
+   latencia de memoria; hace falta **más** hilos que núcleos, no uno por núcleo.
+</details>
 
 ### 3.2 Tabla de rastreo del bloque (0, 0) con ancho 8
 
@@ -147,13 +187,25 @@ Preguntas:
 | 5 | 3 | | | | |
 | 9 | 2 | | | | ¿existe esa columna en una malla de ancho 8? |
 
+<details><summary>Clave de 3.2</summary>
+
+| `threadIdx.x` | `threadIdx.y` | col | fila | idx | ¿interior o frontera? |
+|---|---|---|---|---|---|
+| 0 | 0 | 0 | 0 | 0 | frontera (fila 0 y col 0) |
+| 7 | 0 | 7 | 0 | 7 | frontera (fila 0 y col 7 = ancho − 1) |
+| 1 | 1 | 1 | 1 | 9 | interior |
+| 5 | 3 | 5 | 3 | 29 | interior |
+| 9 | 2 | 9 | 2 | — | no existe: col 9 ≥ ancho 8, la guardia lo descarta. Sin guardia calcularía `idx = 2 · 8 + 9 = 25`, que es la celda (3, 1): escribiría en una celda ajena **dentro** del arreglo |
+</details>
+
 ### 3.3 Medición (Colab, celda "Medir")
 
 El programa hace 1 calentamiento + 5 repeticiones y reporta la mediana de dos tiempos: solo *kernels*
 (`cudaEventRecord` antes y después del ciclo de iteraciones) y total (H2D + *kernels* + D2H).
 
-1. En `run_once`, ¿por qué hay un `cudaEventSynchronize(e_k1)` antes de `cudaEventElapsedTime`? ¿Qué
-   medirías sin él?
+1. En `run_once`, ¿por qué hay un `cudaEventSynchronize(e_k1)` antes de `cudaEventElapsedTime`? ¿Qué pasaría
+   sin él? (Pista de la S04: ¿quién estampa la marca de `e_k1`, la CPU o la GPU, y cuándo?) ¿Y si en lugar de
+   eventos usaras un reloj de CPU sin `cudaDeviceSynchronize()`?
 2. ¿Por qué el `speedup con transferencias` es siempre menor que el `speedup sin transferencias`? ¿Cuál de los
    dos va en tu reporte de la V3? (Respuesta corta: los dos, con la tabla del protocolo.)
 3. La fila `copiar_cada_iter=1` sube y baja la malla **en cada iteración**. Predice antes de ver el número: ¿el
@@ -161,10 +213,23 @@ El programa hace 1 calentamiento + 5 repeticiones y reporta la mediana de dos ti
 4. El barrido de bloque (32×1, 8×8, 16×16, 32×8, 32×32, 64×16): ¿cuál es más lento y por qué? Pista de la S02:
    ¿cuántos floats contiguos lee un *warp* en cada configuración?
 
-Órdenes de magnitud esperados en una T4 para 1024 × 1024 × 100 iteraciones (no ejecutados aquí; dependen de la
-GPU asignada): solo *kernels* ≈ 5–15 ms; con transferencias ≈ 8–20 ms; copiando en cada iteración ≈ 150–400 ms.
-La referencia CPU tardó 0.20 s (mediana de 5; mín 0.14, máx 0.23) en la máquina de autoría (4 núcleos, gcc 13,
-`-O2`); en la CPU de Colab suele estar entre 0.3 y 0.6 s.
+<details><summary>Clave de 3.3 (respuestas de razonamiento; los números son los de tu corrida)</summary>
+
+1. La GPU estampa `e_k1` cuando termina el último *kernel*; la CPU llega antes a `cudaEventElapsedTime` porque los
+   lanzamientos son asíncronos. Sin `cudaEventSynchronize`, la llamada regresa `cudaErrorNotReady` (aquí `CUDA_CHECK`
+   aborta). Con un reloj de CPU sin `cudaDeviceSynchronize()` se mediría el **encolado** de 100 lanzamientos.
+2. Porque `t_total = t_H2D + t_kernel + t_D2H ≥ t_kernel`. En el reporte van **los dos**.
+3. Se espera entre ×10 y ×100 respecto a `t_total` con una sola subida: 100 subidas y 100 bajadas de 4 MB (800 MB a
+   3–6 GB/s ≈ 0.13–0.27 s) contra ≈ 5–15 ms.
+4. Lo esperado: los más lentos son `8×8` (un *warp* cubre 4 filas × 8 columnas: segmentos de 32 B) y `32×1` (bloques
+   de un solo *warp*: el límite de bloques residentes por SM deja la ocupación en 50 %, S04). `16×16`, `32×8` y `32×32`
+   quedan cerca entre sí. Si tu tabla dice otra cosa, gana tu tabla: explícala.
+</details>
+
+Órdenes de magnitud **esperados** en una T4 para 1024 × 1024 × 100 iteraciones (no ejecutados aquí; dependen de la
+GPU asignada): solo *kernels* ≈ 3–10 ms; con transferencias ≈ 5–15 ms; copiando en cada iteración ≈ 150–400 ms.
+La referencia CPU tardó 0.088 s (real: mediana de 5; mín 0.084, máx 0.099) en la máquina de revisión (4 núcleos,
+gcc 13, `-O2`); en la CPU de Colab (2 vCPU, otro compilador) se espera entre 0.1 y 0.4 s: mídela ahí, no la copies.
 
 ## Fase 4 · Modificar: mapeo 1D
 

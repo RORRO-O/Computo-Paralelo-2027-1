@@ -1,6 +1,6 @@
 # Rúbrica del repositorio (código V1·V2·V3) · 40 puntos
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Entrega final · lunes 7 de diciembre de 2026, 10:30 · 40 de los 100 puntos del proyecto · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Entrega final · lunes 7 de diciembre de 2026, 10:30 · 40 de los 100 puntos del proyecto · versión 1.1 · 20 de octubre de 2026
 
 ## 1. Cómo se aplica
 
@@ -10,7 +10,9 @@
    ausente vale 0.
 3. Los niveles valen 100 % · 80 % · 55 % · 20 % del peso del criterio (misma escala que las prácticas,
    `docs/metodo/03-plantilla-practica.md` §2).
-4. La defensa oral del jueves 10 de diciembre (rúbrica aparte, 15 puntos) aplica la prueba de propiedad; su resultado también
+4. C1–C5 son del equipo. **C6 se asigna por integrante** (`proyecto/README.md` §6): cada persona recibe el nivel más bajo
+   que alcance cualquiera de sus dos evidencias, su historial de *commits* y la bitácora del equipo (que es común).
+5. La defensa oral del jueves 10 de diciembre (rúbrica aparte, 15 puntos) aplica la prueba de propiedad; su resultado también
    modifica el criterio C6 **del integrante** que no pueda explicar su código (ver §4).
 
 ## 2. Pesos
@@ -22,7 +24,7 @@
 | C3 | Diseño paralelo de V3 (GPU) | 6 | 6.0 | 4.8 | 3.3 | 1.2 |
 | C4 | Medición conforme al protocolo | 8 | 8.0 | 6.4 | 4.4 | 1.6 |
 | C5 | Calidad y reproducibilidad del repositorio | 6 | 6.0 | 4.8 | 3.3 | 1.2 |
-| C6 | Proceso: historial de *commits* de todos y bitácora | 4 | 4.0 | 3.2 | 2.2 | 0.8 |
+| C6 | Proceso: historial de *commits* del integrante y bitácora (por integrante) | 4 | 4.0 | 3.2 | 2.2 | 0.8 |
 | | **Total** | **40** | 40.0 | 32.0 | 22.0 | 8.0 |
 
 ## 3. Niveles por criterio (evidencia observable)
@@ -50,7 +52,7 @@
 | Nivel | Evidencia |
 |---|---|
 | **Ejemplar (6.0)** | *Kernel* propio (CUDA C, Numba `@cuda.jit`, o CuPy `RawKernel`/`ElementwiseKernel`) con mapeo hilo→dato explícito y guarda de límites. Tamaño de bloque múltiplo de 32, justificado con al menos una comparación medida (p. ej. 128 vs 256 vs 512) en el CSV o la bitácora. Los datos suben al dispositivo una vez; no hay copias dentro del ciclo caliente, o se explica por qué no se pudo evitar. Se revisa `cudaGetLastError` (o la excepción equivalente) y se sincroniza antes de leer resultados. Memoria compartida y acceso coalescido se consideraron y la decisión está escrita, aunque sea "no aplica porque…". |
-| **Competente (4.8)** | *Kernel* propio correcto con lanzamiento razonable; tamaño de bloque fijo sin comparar; transferencias correctas pero no minimizadas; comprobación de errores presente. |
+| **Competente (4.8)** | *Kernel* propio correcto, con bloque múltiplo de 32 y malla que cubre `n` con guarda de límites; tamaño de bloque fijo sin comparar; transferencias correctas pero no minimizadas; comprobación de errores presente. |
 | **En desarrollo (3.3)** | V3 correcta pero construida solo con llamadas de biblioteca (`cupy.sum`, `cupy.dot`, `numpy`-sobre-GPU) sin *kernel* propio ni explicación de qué *kernel* corre debajo; o copia datos en cada iteración sin advertirlo; o sin verificación de errores. |
 | **Insuficiente (1.2)** | V3 no corre, no coincide con V1, o es la V2 ejecutada en Colab sin usar la GPU. |
 
@@ -58,7 +60,7 @@
 
 | Nivel | Evidencia |
 |---|---|
-| **Ejemplar (8.0)** | `resultados/entorno.txt` y `entorno_gpu.txt` completos (CPU con núcleos físicos y lógicos, RAM, SO, compilador y banderas; GPU con modelo, driver y **fecha**). Compilación con `-O2`. Una ejecución de calentamiento y ≥ 5 repeticiones por configuración; se reporta la mediana con mínimo y máximo. `T(1)` ≥ 1 s. `T(1)` es la V1 (mejor secuencial); si además se reporta V2 con 1 hilo, se dice. Hilos 1, 2, 4, … hasta los núcleos físicos y uno más allá, declarado. GPU con **y** sin transferencias. Los CSV tienen la cabecera del protocolo y los generan `run_all.sh` y el *notebook*, no un editor. La predicción de *speedup* se escribió **antes** de medir (bitácora) y se compara. |
+| **Ejemplar (8.0)** | `resultados/entorno.txt` y `entorno_gpu.txt` completos (CPU con núcleos físicos y lógicos, RAM, SO, compilador y banderas; GPU con modelo, driver y **fecha**). Compilación con `-O2`. Una ejecución de calentamiento y ≥ 5 repeticiones por configuración; se reporta la mediana con mínimo y máximo. `T(1)` ≥ 1 s. `T(1)` es la V1 (mejor secuencial); si además se reporta V2 con 1 hilo, se dice. Hilos 1, 2, 4, … hasta los núcleos físicos y uno más allá, declarado. GPU con **y** sin transferencias. Los CSV tienen la cabecera del protocolo y los generan `run_all.sh`, `herramientas/medir_proyecto.sh` y el *notebook*, no un editor. La predicción de *speedup* se escribió **antes** de medir (bitácora) y se compara. |
 | **Competente (6.4)** | Protocolo completo con una omisión menor: falta mín/máx, o la configuración "uno más allá", o la predicción previa, o un dato del entorno (p. ej. RAM o fecha de la GPU). |
 | **En desarrollo (4.4)** | Menos de 5 repeticiones; promedio en lugar de mediana con picos evidentes; sin calentamiento; `T(1)` < 1 s; GPU solo con o solo sin transferencias; o CSV editado a mano (formato distinto del que produce el flujo). |
 | **Insuficiente (1.6)** | Sin mediciones reproducibles; `-O0`; tamaño cambiado entre configuraciones sin declararlo; *speedup* calculado contra la V2 con un hilo sin decirlo; o sin hardware. |
@@ -72,14 +74,17 @@
 | **En desarrollo (3.3)** | Reproduce solo tras editar rutas o el `Makefile`; o falta `run_all.sh` y hay que correr comandos a mano; o el *notebook* está sin salidas; o hay binarios versionados. |
 | **Insuficiente (1.2)** | No compila en la máquina del profesor dentro de los 10 minutos, o el repositorio no corresponde al código que describe el reporte. |
 
-### C6 · Proceso: historial de *commits* de todos y bitácora (4 puntos)
+### C6 · Proceso: historial de *commits* del integrante y bitácora (4 puntos, por integrante)
+
+Evidencia del historial: `git log --author=<usuario> --format='%ad %s' --date=short entrega-final` y `git shortlog -sn
+entrega-final`. El verificador imprime, por correo de autor, cuántos *commits* y en cuántas semanas distintas.
 
 | Nivel | Evidencia |
 |---|---|
-| **Ejemplar (4.0)** | `git shortlog -sn` muestra *commits* de **todos** los integrantes repartidos a lo largo del semestre (no un volcado el último día), con mensajes en español, en infinitivo, que describen el cambio. `bitacora.md` con ≥ 5 entradas fechadas y completas (qué falló, cómo se detectó, causa, qué se cambió, qué se aprendió), al menos una medición descartada con su razón y al menos una predicción comparada con el resultado. La sección "qué no entendemos todavía" está escrita. |
-| **Competente (3.2)** | *Commits* de todos pero concentrados en pocos días; bitácora con ≥ 3 entradas completas. |
-| **En desarrollo (2.2)** | Un integrante con participación marginal en el historial sin explicación en el README; o bitácora con entradas genéricas ("no funcionaba, lo arreglamos"). |
-| **Insuficiente (0.8)** | Historial de una sola persona; bitácora ausente; o evidencia de código que el equipo no puede explicar (prueba de propiedad). |
+| **Ejemplar (4.0)** | El integrante tiene ≥ 3 *commits* con cambios de código (no solo README o formato) en ≥ 3 semanas distintas entre H1 y la entrega, con mensajes en español, en infinitivo, que describen el cambio; lo que el reparto del README §6 le atribuye coincide con sus *commits*. La bitácora del equipo tiene ≥ 5 entradas de errores fechadas y completas (qué falló, cómo se detectó, causa, qué se cambió, qué se aprendió), ≥ 1 medición descartada con su razón y ≥ 1 predicción comparada con el resultado; "qué no entendemos todavía" está escrito. |
+| **Competente (3.2)** | El integrante tiene ≥ 3 *commits* con cambios de código, pero concentrados en ≤ 2 semanas; o la bitácora tiene 3–4 entradas completas, o le falta la medición descartada o la predicción. |
+| **En desarrollo (2.2)** | El integrante tiene < 3 *commits* con cambios de código y el reparto del README explica por qué (p. ej. sus *commits* son de mediciones o del reporte); o sus mensajes no describen el cambio ("cambios", "final"); o la bitácora tiene menos de 3 entradas o entradas genéricas ("no funcionaba, lo arreglamos"). |
+| **Insuficiente (0.8)** | Participación marginal **sin** explicación en el reparto (sin *commits* propios, o un solo volcado de archivos el último día); bitácora ausente; o el integrante no puede explicar en la defensa una línea que el equipo entregó (prueba de propiedad, `docs/metodo/05-politica-ia.md`). |
 
 ## 4. Reglas que modifican la calificación
 
@@ -105,7 +110,7 @@
 | C3 Diseño V3 | | /6 | |
 | C4 Medición | | /8 | |
 | C5 Reproducibilidad | | /6 | |
-| C6 Proceso (por integrante si difiere) | | /4 | |
+| C6 Proceso (por integrante: `usuario` → nivel) | | /4 | |
 | **Total** | | **/40** | |
 | Ajustes de §4 | | | |
 | Retroalimentación (3 líneas: lo mejor, lo que falta, qué revisar para la defensa) | | | |

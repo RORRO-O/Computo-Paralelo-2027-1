@@ -1,13 +1,15 @@
 # Plantilla de `REPORTE.md` para prácticas (P4, P5, P6)
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Plantilla que el equipo llena · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Plantilla que el equipo llena · versión 1.1 · 20 de octubre de 2026
 
 Copia desde la línea `---` hasta el final a `practicas/Pn/REPORTE.md` en el repositorio de tu equipo y llena
 cada sección. Borra las instrucciones en cursiva. Límite: **3 páginas** (≈ 1,300 palabras más la tabla y dos
 gráficas); los límites por sección están pensados para que quepa. Las secciones son las que exige
 `docs/metodo/03-plantilla-practica.md` ("Entregables y formato"): decisiones, tabla, gráfica, interpretación,
 reflexión, bitácora de errores, declaración de uso de IA y reparto de trabajo; se añade "qué no entendemos
-todavía" porque es la pregunta fija de las rondas del profesor.
+todavía" porque es la pregunta fija de las rondas del profesor. Este es el orden que piden P5 y P6. Si el
+`entrega.md` de tu práctica fija otro orden o secciones propias (P4 pide el reparto primero y una sección por
+parte), manda el de la práctica.
 
 Fechas límite (de `planeacion/mapa-evaluacion.md`): P4 domingo 1 de noviembre 23:59 · P5 domingo 22 de noviembre
 23:59 · P6 domingo 6 de diciembre 23:59. Entrega tardía ≤ 72 h: máximo 80 %.
@@ -58,6 +60,11 @@ físicos + 1). Pega la tabla Markdown que imprime `python3 graficar_speedup.py r
 completo va en `resultados/mediciones.csv` con las columnas del protocolo.*
 
 Tamaño del problema n = ___; línea base T(1) = ___ s (versión secuencial, no la paralela con un hilo).
+
+*P5: dos tablas, escalabilidad fuerte (n fijo, p crece) y débil (n/p fijo; eficiencia débil T(1, n) / T(p, p·n)),
+con procesos en lugar de hilos. P6: por cada configuración de GPU, el tiempo con transferencias y sin ellas, con
+las columnas del CSV de la práctica (`practicas/P6-gpu/resultados/README.md`), y la línea base medida en la misma
+máquina de Colab o Kaggle.*
 
 | Config | Hilos | Mediana (s) | Mín (s) | Máx (s) | Speedup | Eficiencia | f Karp–Flatt |
 |---|---|---|---|---|---|---|---|
@@ -122,9 +129,10 @@ sobre el enunciado. Si no hay ninguna, escriban qué verificaron para estar segu
 ## 10. Reparto de trabajo
 
 *Debe coincidir con el historial de `git log --author`. Cada integrante necesita ≥ 3 *commits* con cambios de
-código (rúbrica, criterio "Proceso e integridad"). Si alguien tiene menos, explíquenlo aquí.*
+código (rúbrica, criterio "Proceso e integridad"). Si alguien tiene menos, explíquenlo aquí. En la mini-defensa
+se pregunta a cada quien sobre lo que firmó (`docs/metodo/05-politica-ia.md`, "Prueba de propiedad").*
 
-| Integrante (alias) | Qué hizo (archivos o partes) | *Commits* con código | Pregunta individual que respondió en el Laboratorio 2 |
+| Integrante (alias) | Qué firmó (archivo y funciones o líneas) | *Commits* con código | Pregunta individual que respondió en el Laboratorio 2 |
 |---|---|---|---|
 | | | | |
 | | | | |
@@ -156,5 +164,5 @@ cada práctica está en `practicas/Pn/rubrica.md`; los pesos pueden variar, la s
 | Diseño paralelo (20) | Cada decisión de la sección 2 tiene alternativa descartada y dato; no hay sincronización dentro del ciclo interno sin justificar | |
 | Medición (20) | CSV con ≥ 5 repeticiones por fila, mediana, lista de hilos del protocolo y T(1) de la versión secuencial; `entorno.txt`; dos gráficas con ejes rotulados; la sección 6 señala dónde E cae de 50 % y por qué, con un número | |
 | Interpretación y reflexión (20) | Las tres preguntas de la sección 6 responden con datos; comparan con la predicción; una reflexión por integrante | |
-| Proceso e integridad (15) | ≥ 3 *commits* de código por integrante; bitácora con ≥ 3 entradas; declaración de IA con las cuatro líneas; cada integrante puede explicar cualquier línea del código en voz alta | |
-| Formato | ≤ 3 páginas; sin nombres completos ni correos; rutas relativas; el PDF o Markdown se lee en GitHub sin imágenes rotas | |
+| Proceso e integridad (15) | ≥ 3 *commits* de código por integrante; bitácora con ≥ 3 entradas; declaración de IA con las cuatro líneas; cada integrante explica en voz alta cualquier línea de lo que firmó y qué hace cada función del resto (prueba de propiedad, `05`) | |
+| Formato (requisito, sin peso) | ≤ 3 páginas; sin nombres completos ni correos; rutas relativas; el Markdown se lee en GitHub sin imágenes rotas | |

@@ -12,6 +12,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
+#include <cstring>
 #include <cuda_runtime.h>
 
 #define CUDA_CHECK(call)                                                          \
@@ -110,6 +111,15 @@ static double measure_ms(const Config *c, int use_streams)
     return t[N_REPS / 2];
 }
 
+// Borra la salida en el anfitrión y en el dispositivo antes de cada versión: así la verificación de B y de C no
+// puede aprobar por accidente el resultado que dejó la versión anterior en los mismos búferes.
+static void clear_outputs(float *h_out, float *d_out, size_t bytes)
+{
+    memset(h_out, 0, bytes);
+    CUDA_CHECK(cudaMemset(d_out, 0, bytes));
+    CUDA_CHECK(cudaDeviceSynchronize());
+}
+
 static int verify(const float *out, const float *x, const float *y, float alpha, int n)
 {
     double max_err = 0.0;
@@ -163,12 +173,15 @@ int main(int argc, char **argv)
     Config b = {n, n_streams, alpha, pn_x, pn_y, pn_out, d_x, d_y, d_out, streams};
 
     printf("A. paginable, síncrona\n");
+    clear_outputs(pg_out, d_out, bytes);
     double t_a = measure_ms(&a, 0);
     int ok_a = verify(pg_out, pg_x, pg_y, alpha, n);
     printf("B. pinned (cudaMallocHost), síncrona\n");
+    clear_outputs(pn_out, d_out, bytes);
     double t_b = measure_ms(&b, 0);
     int ok_b = verify(pn_out, pn_x, pn_y, alpha, n);
     printf("C. pinned + %d streams, asíncrona\n", n_streams);
+    clear_outputs(pn_out, d_out, bytes);
     double t_c = measure_ms(&b, 1);
     int ok_c = verify(pn_out, pn_x, pn_y, alpha, n);
 

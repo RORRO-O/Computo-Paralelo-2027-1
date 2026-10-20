@@ -34,7 +34,8 @@ lanzó tarda 0 ms y da "resultados" que son basura.
 | PCIe 3.0 x16 con memoria fija (`cudaMallocHost`) | ≈ 10–12 GB/s | ≈ 16–20 ms |
 
 Copiar un byte por PCIe cuesta **20–80 veces** más (según sea *pinned* o paginable) que leerlo desde la memoria de la GPU. Para un kernel que usa
-cada byte una sola vez (saxpy, suma de vectores), las copias son > 95 % del total con cualquier `n`. Por eso el
+cada byte una sola vez (saxpy, suma de vectores), las copias son ≈ 90 % del total con `n` pequeño (ahí pesa su
+latencia fija) y > 95 % con `n` grande. Por eso el
 protocolo del curso exige reportar **con y sin copias** y por eso la pregunta correcta no es "¿es rápida la GPU?"
 sino "¿dónde viven los datos y cuántos kernels corren sobre ellos antes de volver a la CPU?".
 
@@ -44,7 +45,8 @@ Lanzar un kernel cuesta ≈ 5–10 µs aunque no haga nada. Con `n = 1024`, la C
 pierde aunque no cuentes copias. El cruce **solo kernel** aparece alrededor de `n ≈ 2^12–2^16` (cuando el
 trabajo supera el costo de lanzar). El cruce **con copias** para saxpy con memoria paginable **no aparece en
 ningún `n`** en una T4 de Colab (la CPU lee su propia memoria más rápido de lo que PCIe la copia); con memoria
-*pinned* apenas aparece (≈ 1–2×) a partir de `n ≈ 2^22`. Medir ambos cruces es parte de la práctica guiada.
+*pinned* el *speedup* con copias se queda cerca de 1 y, si cruza, lo hace solo en los `n` más grandes (`2^24` o
+más) y por poco: depende de la CPU que te toque. Medir ambos cruces es parte de la práctica guiada.
 
 ## 4. Tamaño de bloque y ocupación
 
@@ -54,7 +56,7 @@ ningún `n`** en una T4 de Colab (la CPU lee su propia memoria más rápido de l
   cosas: bloques residentes por SM (16 en T4), hilos por SM (1024 en T4), registros (65 536 por SM) y memoria
   compartida por bloque. `cudaOccupancyMaxActiveBlocksPerMultiprocessor` la calcula; `bench_gpu` la imprime.
 - Bloque de 32 en T4: 16 bloques × 1 warp = 16 de 32 warps → **50 %**; el kernel *memory-bound* tiene la mitad de
-  warps para ocultar la latencia de memoria y tarda ≈ 1.5–1.8× más. De 64 en adelante: 100 %.
+  warps para ocultar la latencia de memoria y tarda ≈ 1.5–2× más. De 64 en adelante: 100 %.
 - **1024 no siempre es mejor**: la ocupación ya no sube; quedan menos bloques para balancear el final; cada hilo
   queda limitado a 64 registros (si el kernel usa más, el lanzamiento falla con *too many resources requested
   for launch*); y con `n` pequeño hay menos bloques que SMs (con `n = 4096` y bloque de 1024 solo trabajan 4 de

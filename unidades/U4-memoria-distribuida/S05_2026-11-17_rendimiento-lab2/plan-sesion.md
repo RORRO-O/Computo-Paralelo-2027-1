@@ -134,11 +134,12 @@ roles conductor/navegante y el cambio a los 15 min.
   **medida** sí crece con n (64 µs ≫ 2α) porque `Waitall` espera al vecino más lento; el modelo solo cuenta los
   mensajes.
 
-**48–68 · Modificar = aplicar a la Parte D de la P5 (20 min).** Cada equipo copia `escalado.sh` a su repositorio
-de P5 y lo adapta a su programa (cambiar los nombres de los binarios y los argumentos; conservar el encabezado
-del CSV y las 5 repeticiones). Corren fuerte y débil con **sus** tamaños (T(1) ≥ 1 s). Mientras tanto, el
-profesor circula con la rúbrica y hace las **mini-defensas**: 2 min por equipo, **dos preguntas a cada
-integrante** sobre su propio código de P5 ("¿qué hace esta línea?", "¿qué pasa si la quito?"); candidatas: la
+**48–68 · Modificar = aplicar a la Parte D de la P5 (20 min).** Cada equipo abre el `escalado.sh` de su P5, que ya
+viene adaptado a sus programas (`PROG=heat|matvec|primes`), y lo compara con el de la guiada: mismo encabezado del
+CSV, mismas 5 repeticiones, misma etiqueta `mpi_oversub`. Corren fuerte y débil con **sus** tamaños (T(1) ≥ 1 s). Mientras tanto, el
+profesor circula con la rúbrica y hace las **mini-defensas**: 2 min por equipo, **una pregunta a cada
+integrante** sobre su propio código de P5 ("¿qué hace esta línea?"; la segunda, "¿qué pasa si la quito?", solo si
+la primera falla, y cuenta la mejor de las dos); candidatas: la
 `MPI_Barrier` antes de `MPI_Wtime`, el `MPI_Waitall`, el `MPI_Reduce` con `MPI_MAX` del tiempo, el reparto con
 residuo. Se anota en la rúbrica impresa quién no pudo explicar su código (criterio "Proceso e integridad").
 Cambio de roles conductor/navegante al minuto 55.

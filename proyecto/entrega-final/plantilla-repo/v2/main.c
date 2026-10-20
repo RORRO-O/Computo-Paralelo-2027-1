@@ -71,19 +71,21 @@ int main(int argc, char **argv) {
 
     int used_threads = 1;
 
+    /* Calentamiento del equipo de hilos, FUERA del cronómetro: la primera región paralela
+     * crea los hilos (protocolo §2, "calentamiento"). De paso se lee cuántos hay. */
+#pragma omp parallel default(none) shared(used_threads)
+    {
+#pragma omp single
+        used_threads = omp_get_num_threads();
+    }
+
     /* ---- región de interés: empieza el cronómetro ---- */
     double t0 = omp_get_wtime();
     /* PLANTILLA: aquí va tu cómputo paralelo. schedule(static) porque las iteraciones
      * del marcador de posición son uniformes; cámbialo si las tuyas no lo son y dilo. */
-#pragma omp parallel default(none) shared(in, out, n, used_threads)
-    {
-#pragma omp single
-        used_threads = omp_get_num_threads();
-
-#pragma omp for schedule(static)
-        for (size_t i = 0; i < n; ++i) {
-            out[i] = elemento(in[i], ITER_DEFAULT);
-        }
+#pragma omp parallel for default(none) shared(in, out, n) schedule(static)
+    for (size_t i = 0; i < n; ++i) {
+        out[i] = elemento(in[i], ITER_DEFAULT);
     }
     double t1 = omp_get_wtime();
     /* ---- región de interés: termina el cronómetro ---- */

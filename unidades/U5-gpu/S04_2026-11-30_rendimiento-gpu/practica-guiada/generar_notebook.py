@@ -135,6 +135,8 @@ except ImportError:
     print("Fuera de Colab: el archivo queda en el directorio de trabajo")"""),
 ]
 
+for i, cell in enumerate(cells):
+    cell.id = f"s04-celda-{i:02d}"  # ids fijos: regenerar el notebook no produce diferencias espurias en git
 nb = new_notebook(cells=cells)
 nb.metadata = {
     "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},

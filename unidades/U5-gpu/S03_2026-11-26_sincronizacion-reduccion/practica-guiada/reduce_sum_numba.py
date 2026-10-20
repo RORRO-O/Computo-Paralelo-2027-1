@@ -168,7 +168,15 @@ def main():
         sys.exit("uso: reduce_sum_numba.py [version] [n>0] [block 1..1024] [--etapa2 cpu|atomic] [--sin-sync]")
     if CUDASIM and n > 20000:
         print("aviso: CUDASIM con n > 20000 puede tardar varios minutos", file=sys.stderr)
-    if args.version != "atomic" and (block & (block - 1)) != 0:
+    pow2 = (block & (block - 1)) == 0
+    if args.version in ("all", "tree_div") and not pow2:
+        # tree_div leería s[tid + stride] fuera del arreglo compartido (p. ej., s[96] con block = 96).
+        # El experimento de block no potencia de 2 se hace con tree_nodiv.
+        print(f"aviso: tree_div con block={block} leería fuera del bloque; se omite (usa tree_nodiv)",
+              file=sys.stderr)
+        if args.version == "tree_div":
+            sys.exit(1)
+    if args.version in ("all", "tree_nodiv") and not pow2:
         print(f"aviso: el árbol supone block potencia de 2; con block={block} se pierden sumandos "
               "(experimento de la fase Investigar)", file=sys.stderr)
 
@@ -190,7 +198,7 @@ def main():
     todo = []
     if args.version in ("all", "atomic"):
         todo.append(("atomic", reduce_atomic))
-    if args.version in ("all", "tree_div"):
+    if args.version in ("all", "tree_div") and pow2:
         todo.append(("tree_div", tree_div))
     if args.version in ("all", "tree_nodiv"):
         todo.append(("tree_nodiv", tree_nodiv))

@@ -3,7 +3,8 @@
 # Ejemplo resuelto · Cuatro formas de medir el mismo kernel
 
 Código completo: `practica-guiada/medir_eventos.cu`. Aquí se recorre paso a paso con pausas de autoexplicación:
-intenta responder cada una antes de abrir la respuesta.
+intenta responder cada una antes de abrir la respuesta. Es un **ejemplo por completar**: en el código de las
+cuatro formas faltan tres líneas (huecos **A**, **B** y **C**); escríbelas antes de seguir leyendo.
 
 ## Problema
 
@@ -48,7 +49,8 @@ La primera llamada a la API de CUDA crea el contexto del dispositivo (carga el d
 inicializa la GPU). Tarda decenas o cientos de milisegundos y ocurre **una vez por proceso**. Si no la separas,
 la primera medición que hagas la incluye y parece que el primer kernel tardó 200 ms. `cudaFree(0)` es la forma
 idiomática de pagar ese costo a propósito y fuera del cronómetro. Lo mismo hace el calentamiento con el primer
-lanzamiento (carga del módulo, cachés frías): es la regla 2.1 del protocolo del curso.
+lanzamiento (carga del módulo, cachés frías): es la fila "Calentamiento" del §2 del protocolo del curso
+(`herramientas/protocolo-medicion.md`).
 </details>
 
 Las cuatro formas, dentro del ciclo de repeticiones:
@@ -60,10 +62,10 @@ saxpy_kernel<<<grid, BLOCK_SIZE>>>(alpha, d_x, d_y, n);
 t_nosync[r] = (cpu_seconds() - t) * 1e3;
 CUDA_CHECK(cudaDeviceSynchronize());        // fuera del cronómetro: por eso la medición miente
 
-// Forma 2: cronómetro de CPU + cudaDeviceSynchronize
+// Forma 2: cronómetro de CPU + sincronización
 t = cpu_seconds();
 saxpy_kernel<<<grid, BLOCK_SIZE>>>(alpha, d_x, d_y, n);
-CUDA_CHECK(cudaDeviceSynchronize());
+/* HUECO A: una línea para que t_sync mida el kernel completo */
 t_sync[r] = (cpu_seconds() - t) * 1e3;
 
 // Forma 3: eventos alrededor del kernel
@@ -75,16 +77,26 @@ CUDA_CHECK(cudaEventElapsedTime(&ms, ev_start, ev_stop));
 t_event[r] = ms;
 
 // Forma 4: eventos alrededor de H2D + kernel + D2H
-CUDA_CHECK(cudaEventRecord(ev_start, 0));
+/* HUECO B: la marca de inicio de esta forma */
 CUDA_CHECK(cudaMemcpy(d_x, h_x, bytes, cudaMemcpyHostToDevice));
 CUDA_CHECK(cudaMemcpy(d_y, h_y, bytes, cudaMemcpyHostToDevice));
 saxpy_kernel<<<grid, BLOCK_SIZE>>>(alpha, d_x, d_y, n);
-CUDA_CHECK(cudaMemcpy(h_out, d_y, bytes, cudaMemcpyDeviceToHost));
+/* HUECO C: lo que falta para que la forma 4 sea "lo que paga quien tiene los datos en la CPU" */
 CUDA_CHECK(cudaEventRecord(ev_stop, 0));
 CUDA_CHECK(cudaEventSynchronize(ev_stop));
 CUDA_CHECK(cudaEventElapsedTime(&ms, ev_start, ev_stop));
 t_total[r] = ms;
 ```
+
+<details><summary>Huecos A, B y C</summary>
+
+- **A:** `CUDA_CHECK(cudaDeviceSynchronize());` — sin ella la forma 2 sería idéntica a la forma 1.
+- **B:** `CUDA_CHECK(cudaEventRecord(ev_start, 0));` **antes** de la primera copia H2D. Si la pones después de
+  las copias, la forma 4 vuelve a medir solo el kernel (idea errónea 24).
+- **C:** `CUDA_CHECK(cudaMemcpy(h_out, d_y, bytes, cudaMemcpyDeviceToHost));` antes de `ev_stop`. Sin la D2H
+  el resultado no llega a la CPU: la verificación fallaría y el tiempo omitiría un tercio de las copias.
+
+</details>
 
 **Pausa 2.** La forma 1 da ≈ 0.01 ms y la forma 2 ≈ 1 ms para el **mismo** kernel. ¿Qué midió la forma 1?
 
@@ -132,8 +144,10 @@ cuando los datos empiezan y terminan en la CPU (para saxpy aislado: no). Omitir 
 
 **Salida real en el entorno de autoría (sin GPU):** `nvcc -c -arch=sm_75 medir_eventos.cu` y
 `nvcc -c -arch=sm_60 medir_eventos.cu` compilan sin errores ni *warnings* (es lo que verifica `make test`).
-La versión de CPU equivalente (`bench_cpu`, `gcc -O2`, 4 núcleos) da para `n = 2^24`:
-`saxpy 18.3 ms (11.0 GB/s)`, que es la escala del renglón "CPU" contra el que se calcula el *speedup*.
+La versión de CPU equivalente (`bench_cpu`, `gcc -O2`, un hilo, Xeon a 2.1 GHz) da para `n = 2^24`:
+`saxpy 18.7–21.1 ms (≈ 10 GB/s)` en tres corridas, que es la escala del renglón "CPU" contra el que se calcula
+el *speedup*. El error máximo de la última línea se calculó en el entorno de autoría con los mismos datos
+(`2·x + 1` redondeado a `float` contra el valor en `double`): es medio ulp de un número entre 2 y 3.
 
 **Salida esperada en una T4 de Colab (no ejecutada en el entorno de autoría; los valores dependen de la GPU y del día):**
 
@@ -150,12 +164,13 @@ Forma de medir                                 mediana ms        min        max
 
 Copias = ≈ 97–98 % del total (total ≈ 50 ms, kernel ≈ 0.9 ms)
 Ancho de banda efectivo del kernel: ≈ 200–230 GB/s (201326592 bytes leídos+escritos)
-Verificación contra CPU: OK (error máximo 0.00e+00)
+Verificación contra CPU: OK (error máximo 1.19e-07)
 ```
 
 Lectura: 201 MB en ≈ 0.9 ms son ≈ 220 GB/s, 65–70 % de los 320 GB/s teóricos; el kernel está limitado por
-memoria y ya está cerca del techo. Las copias (≈ 190 MB por PCIe a ≈ 4 GB/s) son el 98 %. Con la CPU en
-≈ 18–40 ms: *speedup* solo kernel ≈ 20–40×; *speedup* con copias ≈ 0.3–0.6 (**la CPU gana**).
+memoria y ya está cerca del techo. Las copias (los mismos ≈ 200 MB: dos vectores de ida y uno de vuelta, por
+PCIe a ≈ 4 GB/s) son el 98 %. Con la CPU en ≈ 18–40 ms: *speedup* solo kernel ≈ 20–40×; *speedup* con copias
+≈ 0.3–0.8 (**la CPU gana**).
 
 ## Variante que falla (a propósito)
 
@@ -165,9 +180,10 @@ Lanza el kernel con 2048 hilos por bloque (más del máximo, 1024) y **no** revi
 saxpy_kernel<<<grid, 2048>>>(alpha, d_x, d_y, n);   // configuración inválida: el kernel NO se ejecuta
 ```
 
-Los eventos reportan ≈ 0.003 ms (no hubo trabajo), el "*speedup*" sale de 10 000× y `h_out` conserva los valores
-viejos. La verificación contra la CPU lo detecta (`FALLA`) y `cudaGetLastError()` devuelve
-`invalid configuration argument`. Regla: ningún tiempo cuenta sin verificación (idea errónea 27).
+Los eventos de la forma 3 reportan unos microsegundos (no hubo trabajo), el "*speedup*" sale de miles de veces
+y en la forma 4 `h_out` regresa con `y` sin cambios (1.0 en todas las posiciones). La verificación contra la CPU
+lo detecta (`FALLA`) y `cudaGetLastError()` devuelve `invalid configuration argument`; `cudaMemcpy` y los
+eventos, en cambio, regresan `cudaSuccess`. Regla: ningún tiempo cuenta sin verificación (idea errónea 27).
 
 ## Qué te llevas
 

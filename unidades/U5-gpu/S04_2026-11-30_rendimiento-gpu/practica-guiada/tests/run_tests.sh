@@ -4,7 +4,8 @@
 #  2. la referencia CPU compila con -Wall -Wextra -Werror, pasa su autoverificación y genera el CSV de ejemplo
 #  3. el espejo Numba de los kernels pasa en el simulador (NUMBA_ENABLE_CUDASIM=1)
 #  4. graficar.py produce las dos PNG a partir del CSV de ejemplo
-#  5. notebook_colab.ipynb es un notebook válido (nbformat) con las celdas obligatorias
+#  5. notebook_colab.ipynb es un notebook válido (nbformat) con las celdas obligatorias y sus %%writefile
+#     reproducen exactamente los fuentes de la carpeta
 # Imprime PASS/FAIL por caso; código de salida 0 solo si todo pasa.
 set -u
 cd "$(dirname "$0")/.." || exit 1
@@ -80,6 +81,22 @@ for needle in ("!nvidia-smi", "%%writefile medir_eventos.cu", "%%writefile bench
 print("notebook OK:", len(nb.cells), "celdas")
 PY
 check "notebook_colab.ipynb válido (nbformat) y con las celdas obligatorias" $?
+python3 - >"$OUT/notebook_sync.log" 2>&1 <<'PY'
+import nbformat
+nb = nbformat.read("notebook_colab.ipynb", as_version=4)
+seen = set()
+for c in nb.cells:
+    if c.cell_type == "code" and c.source.startswith("%%writefile"):
+        first, body = c.source.split("\n", 1)
+        name = first.split()[1]
+        with open(name, encoding="utf-8") as f:
+            assert body == f.read().rstrip("\n"), f"{name}: la celda no reproduce el archivo (corre make notebook)"
+        seen.add(name)
+missing = {"medir_eventos.cu", "bench_gpu.cu", "pinned_streams.cu", "graficar.py", "bench_numba.py"} - seen
+assert not missing, missing
+print("celdas %%writefile idénticas a los fuentes:", sorted(seen))
+PY
+check "notebook: cada %%writefile reproduce exactamente su fuente" $?
 
 echo "Resumen: $pass PASS, $fail FAIL"
 if [ $fail -eq 0 ]; then

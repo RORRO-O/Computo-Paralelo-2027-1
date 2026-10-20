@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # escalado.sh — Parte D de la Práctica 5: escalabilidad FUERTE (tamaño fijo) y DÉBIL (tamaño por
-# proceso fijo) con 1, 2 y 4 procesos, más 8 sobre-suscrito (declarado y etiquetado aparte).
+# proceso fijo) con p = 1, 2, 4, … hasta los núcleos FÍSICOS, más 2 × núcleos sobre-suscrito (declarado
+# y etiquetado aparte). En una laptop de 4 núcleos: 1, 2, 4 y 8.
 #
 # Produce, con el formato del protocolo de medición del curso (herramientas/protocolo-medicion.md):
 #   $OUT/fuerte.csv   config,hilos,n,rep1..rep5,mediana_s,speedup,eficiencia   (speedup = T_seq / T(p))
@@ -12,9 +13,13 @@
 #
 # Qué programa se mide (PROG) y sus tamaños (variables de entorno, todas opcionales):
 #   PROG=heat    (por defecto)  N=1000000 ITERS=1200 NLOCAL=250000 CHECK_EVERY=1   -> c_heat_seq / c_heat_mpi (tol = 0)
-#   PROG=matvec                 M=2000 NCOLS=2000 ITERS=200 MLOCAL=500            -> b_matvec_seq / b_matvec_mpi (M filas)
-#   PROG=primes                 A=2 B=3000000 LEN=750000 MODO=ciclico             -> c_primes_seq / c_primes_mpi
-#   PROCS="1 2 4"  OVERSUB=8 (OVERSUB="" para omitirlo)  OUT=resultados  PLOT=1  MPIRUN_FLAGS="--oversubscribe"
+#   PROG=matvec                 M=2000 NCOLS=2000 ITERS=400 MLOCAL=500            -> b_matvec_seq / b_matvec_mpi (M filas)
+#   PROG=primes                 A=2 B=6000000 LEN=1500000 MODO=ciclico            -> c_primes_seq / c_primes_mpi
+#   (tamaños elegidos para que la secuencial tarde >= 1 s, como pide el protocolo: calor ~2 s, matvec ~1.1 s,
+#    primos ~1.4 s en la máquina de autoría; si en la tuya tarda menos, súbelos)
+#   PROCS          por defecto las potencias de 2 hasta los núcleos físicos (en 4 núcleos: "1 2 4")
+#   OVERSUB        por defecto 2 × núcleos físicos (en 4 núcleos: 8); OVERSUB="" para omitirlo
+#   OUT=resultados  PLOT=1  MPIRUN_FLAGS="--oversubscribe"
 #   WAIT_IDLE=0    segundos máximos a esperar antes de CADA corrida a que la CPU esté >= 90 % ociosa
 # Cada programa hace 1 calentamiento + 5 repeticiones y reporta la mediana (línea TIME,...).
 # Regla del protocolo que más importa aquí: CIERRA LO DEMÁS. Con p = núcleos, cualquier otro proceso
@@ -22,24 +27,27 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# Núcleos FÍSICOS (protocolo: se mide hasta los núcleos físicos; HT y sobre-suscripción van aparte).
+CORES=$(lscpu -p=CORE,SOCKET 2>/dev/null | grep -v '^#' | sort -u | wc -l)
+[ "${CORES:-0}" -ge 1 ] || CORES=$(nproc)
+LOGICAL=$(nproc)
+default_procs() { local p=1 list=""; while [ "$p" -le "$CORES" ]; do list="$list $p"; p=$((p * 2)); done; echo "${list# }"; }
+
 PROG=${PROG:-heat}
-PROCS=${PROCS:-"1 2 4"}
-OVERSUB=${OVERSUB-8}
+PROCS=${PROCS:-$(default_procs)}
+OVERSUB=${OVERSUB-$((2 * CORES))}
 OUT=${OUT:-resultados}
 PLOT=${PLOT:-1}
 WAIT_IDLE=${WAIT_IDLE:-0}
 MPIRUN_FLAGS=${MPIRUN_FLAGS:---oversubscribe}
 REPS=5
 N=${N:-1000000};      ITERS_HEAT=${ITERS:-1200};   NLOCAL=${NLOCAL:-250000}; CHECK_EVERY=${CHECK_EVERY:-1}
-M=${M:-2000};         NCOLS=${NCOLS:-2000};       ITERS_MV=${ITERS:-200};   MLOCAL=${MLOCAL:-500}
-A=${A:-2};            B=${B:-3000000};            LEN=${LEN:-750000};       MODO=${MODO:-ciclico}
+M=${M:-2000};         NCOLS=${NCOLS:-2000};       ITERS_MV=${ITERS:-400};   MLOCAL=${MLOCAL:-500}
+A=${A:-2};            B=${B:-6000000};            LEN=${LEN:-1500000};      MODO=${MODO:-ciclico}
 
 if [ "$(id -u)" -eq 0 ]; then
     export OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 fi
-CORES=$(lscpu -p=CORE,SOCKET 2>/dev/null | grep -v '^#' | sort -u | wc -l)   # núcleos FÍSICOS
-[ "${CORES:-0}" -ge 1 ] || CORES=$(nproc)
-LOGICAL=$(nproc)
 mkdir -p "$OUT"
 make -s all
 
@@ -155,7 +163,7 @@ for p in $PROCS $OVERSUB; do
     printf "%-12s %3s %10s %10s %8s %8s\n" "$label" "$p" "$n" "$T" "$S" "$E"
 done
 
-[ -n "$OVERSUB" ] && echo "== Aviso: p=$OVERSUB > $CORES núcleos -> sobre-suscrito; etiquetado mpi_oversub, se reporta aparte."
+if [ -n "$OVERSUB" ]; then echo "== Aviso: p=$OVERSUB > $CORES núcleos -> sobre-suscrito; etiquetado mpi_oversub, se reporta aparte."; fi
 echo "== CSV: $OUT/fuerte.csv, $OUT/debil.csv ; entorno: $OUT/entorno.txt"
 if [ "$PLOT" = "1" ]; then
     python3 graficar.py "$OUT/fuerte.csv" "$OUT/debil.csv" "$OUT" --titulo "$PROG"

@@ -12,5 +12,7 @@ __pycache__/
 .ipynb_checkpoints/
 # Sistema
 .DS_Store
+# Corridas de comprobación (./run_all.sh --rapido): no son mediciones del reporte
+resultados/rapido/
 # Datos grandes: si tu entrada pesa más de 10 MB, no la subas; documenta cómo regenerarla o descargarla
 # datos/*.bin

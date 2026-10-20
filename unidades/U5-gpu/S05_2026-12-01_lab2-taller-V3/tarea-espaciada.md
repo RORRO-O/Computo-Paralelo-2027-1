@@ -5,9 +5,10 @@
 Tres ejercicios: uno del tema de hoy, uno intercalado de la Unidad IV y uno de preparación para la S06 (jueves 3 de
 diciembre, repaso de Unidades IV–V). **Entrega**: los tres van en un archivo `tareas/U5-S05.md` del repositorio de tu
 equipo (ejercicio 1 en equipo; 2 y 3 individuales, firmados con número de lista) antes del jueves 3 de diciembre a
-las 10:30. En el 3er parcial las tareas no tienen ponderación propia (ver `planeacion/mapa-evaluacion.md`): lo que
-produce el ejercicio 1 entra directo en la Parte D de P6 y en la sección V3 del reporte final; los ejercicios 2 y 3
-son preparación para el Examen 3.
+las 10:30; al inicio de la S06 la autocalificas con las claves en `<details>` y el profesor registra la entrega, no
+el acierto. **Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 %
+acumulativo del Examen 3 toman ítems de aquí.** Además, lo que produce el ejercicio 1 entra directo en la Parte D de
+P6 y en la sección V3 del reporte final.
 
 ## 1. Del tema (equipo, ~15 min, Colab) · mapeo 1D vs. 2D
 
@@ -24,6 +25,18 @@ la tabla con las medianas que imprime el programa:
 Escribe 3 líneas: ¿hay diferencia entre 2D 16 × 16 y 1D 256? Explícala (o explica por qué no la hay) con la
 coalescencia de la S02: cuántos floats contiguos lee un *warp* en cada caso. Anota GPU y fecha. Guarda el CSV del
 notebook en `resultados/`.
+
+<details><summary>Para autoverificar (los tiempos son tuyos; esto es lo que debe salir y por qué)</summary>
+
+- Las tres configuraciones dan `verificacion vs CPU: PASS` y el mismo `checksum = 627403.109541` que la referencia C;
+  si `1d` da FAIL, revisa `r = idx / width; c = idx % width` (no al revés).
+- Un *warp* son 32 hilos con `threadIdx.x` consecutivos. `1d` con 256 hilos: 32 floats contiguos (128 B, un segmento).
+  `2d 32 8`: también 32 floats contiguos de una fila. `2d 16 16`: dos medias filas de 16 floats (dos segmentos de 64 B).
+- Esperado: `1d` y `2d 32 8` iguales o un poco más rápidos que `2d 16 16`; diferencias pequeñas (del orden de 10 %),
+  porque las cachés L1/L2 absorben buena parte de las lecturas de vecinos. `t_total − t_kernel` casi no cambia entre
+  configuraciones: las copias no dependen del mapeo.
+- Bien: la explicación usa el número de floats contiguos por *warp* **y** el dato medido. Parcial: solo uno de los dos.
+</details>
 
 ## 2. Intercalado (individual, ~10 min, Unidad IV · modelo de costo aplicado a PCIe)
 

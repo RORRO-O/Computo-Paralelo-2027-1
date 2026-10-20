@@ -31,18 +31,19 @@ con bloques 16 × 16; ping-pong de dos búferes en la GPU; 100 iteraciones; veri
   `threadIdx.x = 29` del bloque 0. (Salida real en CUDASIM y en la referencia C: `checksum = 1128.125000` para 10 × 8 × 3.)
 - 37 × 45 con 16 × 16 → 3 × 3 bloques, 2304 hilos lanzados, 1665 celdas, 639 ociosos (27.7 %); sin guardia, el hilo
   (15, 15) del bloque (2, 2) escribiría `idx = 2162` en un arreglo de 1665.
-- 1024 × 1024 × 100: CPU 0.20 s (mediana de 5, máquina de autoría); en una T4 se esperan ~5–15 ms solo *kernels* y
-  ~8–20 ms con transferencias (no ejecutado aquí; depende de la GPU asignada). Copiando la malla en cada iteración:
-  ~150–400 ms. Mismo *kernel*, misma verificación, *speedup* de ~30× a ~1×.
+- 1024 × 1024 × 100: CPU 0.088 s (real: mediana de 5, máquina de revisión con 4 núcleos; en Colab se espera
+  0.1–0.4 s). En una T4 se **esperan** ≈ 3–10 ms solo *kernels* y ≈ 5–15 ms con transferencias (no ejecutado aquí;
+  depende de la GPU asignada). Copiando la malla en cada iteración: ≈ 150–400 ms. Mismo *kernel*, misma
+  verificación, *speedup* con transferencias de varias decenas a ≈ 1×.
 
 ## 4. Qué cuenta como V3 (y qué no)
 
-| Aceptado | No cuenta |
+| Aceptado | No cuenta como V3 completa (y lo que cuesta en `proyecto/entrega-final/rubrica-codigo.md`) |
 |---|---|
-| CUDA C con `nvcc` | Llamar a `cupy.matmul`, `cv2.cuda`, `torch` o similar sin un *kernel* propio |
-| Numba CUDA (`@cuda.jit`) | Una V3 que no se verifica contra la V1 con tolerancia declarada |
-| CuPy con `RawKernel` o `ElementwiseKernel` escrito por el equipo | Un solo tiempo, o solo el tiempo del *kernel*, o sin GPU/fecha |
-| Bibliotecas **alrededor** del *kernel* (subir datos, graficar) | Código que ningún integrante puede explicar línea por línea |
+| CUDA C con `nvcc` | Llamar a `cupy.matmul`, `cv2.cuda`, `torch` o similar sin un *kernel* propio → C3 "En desarrollo" como máximo |
+| Numba CUDA (`@cuda.jit`) | Una V3 que no se verifica contra la V1 con tolerancia declarada → C1 "En desarrollo" o menos |
+| CuPy con `RawKernel` o `ElementwiseKernel` escrito por el equipo | Un solo tiempo, o solo el tiempo del *kernel*, o sin GPU/fecha → C4 "En desarrollo" o menos |
+| Bibliotecas **alrededor** del *kernel* (subir datos, graficar) | Código que ningún integrante puede explicar línea por línea → prueba de propiedad en la defensa |
 
 Ejemplo mínimo aceptado en CuPy (el *kernel* es tuyo; CuPy solo administra la memoria):
 
@@ -63,7 +64,7 @@ step(((w+15)//16, (h+15)//16), (16, 16), (d_in, d_out, h, w))
 
 | Error | Cómo se ve | Idea errónea |
 |---|---|---|
-| Copiar en cada iteración | PASS, pero el tiempo total es 20–40× el del *kernel* | 24: "las transferencias no cuentan" |
+| Copiar en cada iteración | PASS, pero el tiempo total es decenas de veces el del *kernel* | 24: "las transferencias no cuentan" |
 | Olvidar la guardia | PASS en tamaños múltiplos del bloque, FAIL o `illegal memory access` en los demás | 27: "sin error = correcto" |
 | Escrituras compartidas sin atómica | Resultado cambia entre corridas; a veces coincide | 7 y 27 |
 | Medir sin sincronizar | `t_kernel` de microsegundos, *speedup* de miles | 5: "medir una vez basta" |

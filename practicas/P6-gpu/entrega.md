@@ -30,8 +30,9 @@ Repositorio **privado** del equipo (el mismo de P4 y P5, con el profesor como co
 ```
 practicas/P6/
   prelab/<alias>.md                 un archivo por integrante (§3)
-  src/                              a_vectores.cu, a_vectores_numba.py, b_matmul_tiled.cu (TODO resueltos),
-                                    b_matmul_numba.py (TODO resueltos), c_<nombre>.cu (tu Parte C),
+  src/                              a_vectores.cu, a_vectores_numba.py, a_matmul_tiled.cu, a_matmul_numba.py,
+                                    b_matmul_rect.cu y b_matmul_rect_numba.py (TODO corregidos),
+                                    c_<nombre>.cu (tu Parte C; y c_<nombre>_numba.py si hiciste el espejo),
                                     las referencias *_cpu.c y common.cuh tal como vienen (si cambias una, dilo)
   tests/run_tests.sh                el del curso; puedes agregar casos propios (cuenta en la rúbrica)
   Makefile, graficar.py             los del curso
@@ -77,14 +78,16 @@ en el archivo y lo dice al entrar al laboratorio: se le empareja con un equipo q
 
 ## 4. Qué se revisa en cada laboratorio
 
-**Lab 1 (martes 24 de noviembre).** Al minuto 80: la tabla de predicciones de la Parte A llena y contrastada;
-`make test` en verde (los dos casos de la Parte B pueden estar en `PEND`); `make test-b` en verde o, si no, los
-`TODO` que faltan identificados por número. Mini-defensa (2 min por equipo, al azar): una pregunta por integrante
-sobre el código en pantalla ("¿qué hace esta línea?"); la segunda ("¿qué pasaría si la quito?") solo si la primera
-falla; cuenta la mejor de las dos. Líneas preferidas: cada `__syncthreads()`, el `? … : 0.0f` de la carga, la
-guardia de escritura, el `cudaEventSynchronize` y el `cudaGetLastError` tras el lanzamiento.
+**Lab 1 (martes 24 de noviembre).** Al minuto 80: las tablas de predicción de la Parte A (A.1 y A.7) llenas y
+contrastadas con lo observado; `make test` en verde (los dos casos de la Parte B pueden estar en `PEND`); `make
+test-b` en verde o, si no, los `TODO` que faltan identificados por número (lo que no quede se termina en casa antes
+del martes 1 de diciembre). Mini-defensa (2 min por equipo, al azar): una pregunta por integrante sobre el código en
+pantalla ("¿qué hace esta línea?"); la segunda ("¿qué pasaría si la quito?") solo si la primera falla; cuenta la
+mejor de las dos. Líneas preferidas: cada `__syncthreads()` y el `? … : 0.0f` de la carga de `a_matmul_tiled.cu`, la
+guardia de escritura (Parte A y `TODO(4)` de la Parte B), el `cudaEventSynchronize` y el `cudaGetLastError` tras el
+lanzamiento.
 
-**Lab 2 (martes 1 de diciembre).** Punto de control (minuto 40–52): cada equipo proyecta **una** tabla de la Parte D
+**Lab 2 (martes 1 de diciembre).** Punto de control (minuto 38–50): cada equipo proyecta **una** tabla de la Parte D
 y la explica en 1 minuto. Tabla aceptable: dos tiempos (sin y con copias), mediana de 5 tras calentamiento, `T(1)`
 declarado (referencia CPU de la misma máquina, `-O2`), GPU y fecha, al menos tres tamaños de bloque múltiplos de 32.
 Mini-defensas de los equipos que no se defendieron el 24, con las mismas reglas. Quien pide responder por escrito lo
@@ -93,14 +96,15 @@ hace en el momento (5 min, papel).
 ## 5. Lista de cotejo antes de entregar
 
 - [ ] `make clean && make && make test` termina con código 0 y sin *warnings*, **y** `make test-b` también (los
-      `TODO` de la Parte B resueltos en el `.cu` y en el espejo Numba).
+      `TODO` de la Parte B corregidos en el `.cu` y en el espejo Numba, `TODO_LISTO` en 1/`True`, y `make notebook`
+      corrido después de editar).
 - [ ] `src/c_<nombre>.cu` compila con `nvcc -c -arch=sm_75` y con `-arch=sm_60`; su salida en GPU coincide con la
       referencia CPU en los tamaños que pide el README (exacta en histograma/reducción; con tolerancia en Jacobi).
 - [ ] `notebook_colab.ipynb` está ejecutado: se ve `nvidia-smi` con la GPU, la compilación sin errores, `OK` en todas
       las verificaciones y las celdas de medición con sus tablas.
 - [ ] `resultados/`: CSV con `origen=gpu`, barrido de bloque 32…1024 para los *kernels* de la Parte A y el de la
-      Parte C, barrido `umbral` de `n`, filas `matmul_naive`/`matmul_tiled` con `n = 512, 1024, 2048` y tres `TILE`;
-      las tres PNG; `entorno.txt` con modelo de GPU y fecha.
+      Parte C, barrido `umbral` de `n`, filas `matmul_naive`/`matmul_tiled` con `n = 512, 1024, 2048` y tres `TILE`,
+      filas `matmul_rect_*` de las tres formas de la Parte B; las tres PNG; `entorno.txt` con modelo de GPU y fecha.
 - [ ] `REPORTE.md` ≤ 3 páginas con: entorno (GPU, fecha, CPU), decisiones de diseño con dato, predicción del pre-lab
       frente a lo medido, tabla, gráficas, las tres preguntas de interpretación de la Parte D respondidas con un
       número cada una, reflexión individual (una por integrante), bitácora de errores (≥ 3 entradas), reparto de
@@ -127,8 +131,9 @@ mide, dos quedan de reserva para la última semana; nadie comparte cuentas ni cr
 ## 7. Cómo se califica
 
 1. El profesor clona el *commit* etiquetado y corre `make clean && make && make test` y `make test-b`; además corre
-   los casos extra de calificación (`EXTRA=1 bash tests/run_tests.sh`: `n = 1`, `n = 1025` con bloque 1024, matrices
-   `17×17`, `24×24` con `TILE = 8`, `20×20` con `TILE = 8`) y tu `src/c_<nombre>.cu` en Colab con los tamaños del README.
+   los casos extra de calificación (`EXTRA=1 bash tests/run_tests.sh`: vectores con `n = 1` y `n = 1025` con bloque
+   1024; mosaicos `17×17` con `TILE = 16` y `24×24` con `TILE = 8`; Parte B (`M×K×N`) con `1×37×3` y `17×33×5` con
+   `TILE = 16`, y `33×8×17` y `12×20×30` con `TILE = 8`) y tu `src/c_<nombre>.cu` en Colab con los tamaños del README.
 2. Lee `REPORTE.md` y abre el *notebook* ejecutado y las PNG.
 3. Aplica `rubrica.md` criterio por criterio; el criterio "Proceso e integridad" se ajusta **por integrante** con la
    hoja de registro de las mini-defensas y `git log`.

@@ -155,6 +155,9 @@ static GpuTimes measure_gpu(KernelId k, int n, int block, const float *h_a, cons
     double h2d[N_REPS], ker[N_REPS], d2h[N_REPS];
 
     for (int r = -1; r < N_REPS; ++r) {  // r = -1 es el calentamiento
+        // Borra la salida ANTES de medir (fuera de los eventos): si el kernel no corre o las operaciones van en
+        // otro orden, la verificación ve ceros y falla, en vez de aprobar el resultado de la repetición anterior.
+        CUDA_CHECK(cudaMemset(d_c, 0, bytes));
         CUDA_CHECK(cudaEventRecord(ev[0], 0));
         CUDA_CHECK(cudaMemcpy(d_a, h_a, bytes, cudaMemcpyHostToDevice));
         CUDA_CHECK(cudaMemcpy(d_b, h_b, bytes, cudaMemcpyHostToDevice));
@@ -165,7 +168,9 @@ static GpuTimes measure_gpu(KernelId k, int n, int block, const float *h_a, cons
         CUDA_CHECK(cudaMemcpy(h_c, d_c, bytes, cudaMemcpyDeviceToHost));
         CUDA_CHECK(cudaEventRecord(ev[3], 0));
         CUDA_CHECK(cudaEventSynchronize(ev[3]));
-        CUDA_CHECK(cudaGetLastError());  // un bloque de 1024 con demasiados registros falla aquí, no antes
+        // Un lanzamiento inválido (bloque > 1024, demasiados registros por hilo) NO hace fallar a cudaMemcpy ni a
+        // los eventos: queda anotado y solo cudaGetLastError lo reporta. Por eso esta revisión es obligatoria.
+        CUDA_CHECK(cudaGetLastError());
 
         float ms;
         if (r >= 0) {
@@ -293,6 +298,15 @@ int main(int argc, char **argv)
         init_inputs(h_a, h_b, n);
         printf("Experimento 'bloque': n = %d (%.1f MB por vector), bloques de %d a %d\n", n,
                (double)bytes / 1048576.0, BLOCK_SIZES[0], BLOCK_SIZES[N_BLOCK_SIZES - 1]);
+        for (int i = 0; i < N_BLOCK_SIZES; ++i) {
+            if (BLOCK_SIZES[i] < 1 || BLOCK_SIZES[i] > 1024) {
+                fprintf(stderr, "Bloque %d fuera de 1..1024 en BLOCK_SIZES\n", BLOCK_SIZES[i]);
+                return EXIT_FAILURE;
+            }
+            if (BLOCK_SIZES[i] % 32 != 0)
+                printf("Aviso: %d no es múltiplo de 32; el último warp de cada bloque va incompleto (%d de 32 carriles)\n",
+                       BLOCK_SIZES[i], BLOCK_SIZES[i] % 32);
+        }
         print_table_header();
         for (int k = 0; k < 2; ++k) {
             double cpu_ms = measure_cpu_ms((KernelId)k, n, h_a, h_b, h_ref);
@@ -319,7 +333,9 @@ int main(int argc, char **argv)
             fprintf(stderr, "El bloque debe estar entre 1 y 1024\n");
             return EXIT_FAILURE;
         }
-        if (block % 32 != 0) printf("Aviso: %d no es múltiplo de 32; el último warp de cada bloque va incompleto\n", block);
+        if (block % 32 != 0)
+            printf("Aviso: %d no es múltiplo de 32; el último warp de cada bloque va incompleto (%d de 32 carriles)\n",
+                   block, block % 32);
         printf("Experimento 'umbral': bloque = %d, n = 2^%d .. 2^%d\n", block, LOG2_N_MIN, LOG2_N_MAX);
         print_table_header();
         for (int log2n = LOG2_N_MIN; log2n <= LOG2_N_MAX; log2n += LOG2_N_STEP) {

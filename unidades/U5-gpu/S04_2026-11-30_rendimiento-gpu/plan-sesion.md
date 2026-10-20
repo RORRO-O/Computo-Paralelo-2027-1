@@ -32,6 +32,10 @@ Dónde se evalúa cada uno: 1 → CT1 y la fila verificada de *Crear*; 2 → *ex
   bloque funciona igual), **1** (más hilos siempre es más rápido), **5** (medir una vez basta / con -O0).
   Dónde aparece cada una: 24 → ejemplo resuelto forma 4, CT1-C, CT3-A, exit ticket 2; 26 → CT2-C, PRIMM
   Investigar 3, exit ticket 1; 1 → CT1-A, CT2-A, predicción P4; 5 → CT1-D, CT2-A, CT3-D, calentamiento en el código.
+- **Nivel de andamiaje: por completar** (07 §A.5; tercera sesión de contenido de U5). El ejemplo resuelto deja 3
+  huecos (A, B, C) con respuesta en `<details>`. PRIMM abrevia *Predecir* (7 min; P5 y P8 pueden escribirse justo
+  antes de correr esa celda) e *Investigar* (8 min; obligatorias la 2 y la 3, las demás para quien va adelantado)
+  para que *Crear* conserve sus 10 min completos (75–85).
 
 ## Materiales
 
@@ -62,7 +66,9 @@ diciembre a las 10:30 se califica con la tabla con y sin copias; hoy aprenden a 
 ### 10–35 · Instrucción explícita I
 
 **10–22 · Ejemplo resuelto en voz alta** (`ejemplo-resuelto.md`, cuaderno celda `!./medir_eventos`).
-Pensar en voz alta: "Miro el `<<<>>>`: regresa de inmediato. Si leo el reloj aquí, ¿qué medí?" Correr la celda.
+Pensar en voz alta: "Miro el `<<<>>>`: regresa de inmediato. Si leo el reloj aquí, ¿qué medí?" Dar 1 min para
+que cada quien escriba los huecos A–C; revisarlos en voz alta (A: sincronizar; B: marca antes de la H2D; C: la D2H
+antes de `ev_stop`). Correr la celda.
 Pausas 1–5 con tarjetas de lista (una persona por pausa, 30 s cada una). Subrayar: creación de contexto, forma 1
 ≈ 0.01 ms contra forma 3 ≈ 0.9 ms, forma 4 ≈ 50 ms → copias 98 %. Escribir en el pizarrón los **dos números** y
 el porcentaje. Mostrar la variante que falla (bloque de 2048) y `cudaGetLastError`.
@@ -80,17 +86,17 @@ Si > 80 %, explicar en 30 s y pasar a PRIMM con 5 min de ventaja para *Investiga
 ### 35–65 · Práctica guiada PRIMM (`practica-guiada/README.md`)
 
 **Arranque (35–37).** Parejas; conductor abre `notebook_colab.ipynb` y pide GPU; navegante lee P1–P8. "Nadie
-corre la celda de `bench_gpu` sin las 8 predicciones escritas." Anunciar el cambio de roles a las 10:50.
+corre la celda de `bench_gpu` sin las 8 predicciones escritas." Anunciar el cambio de roles en el minuto 50 (11:20).
 
 **35–42 · Predecir.** Las 8 predicciones por escrito. El profesor recoge en voz alta tres predicciones de P3
 (mejor bloque) y dos de P7 (cruce con copias) y las anota en el pizarrón para la puesta en común.
 
 **42–52 · Ejecutar.** Secciones 3–6 del cuaderno: compilar, `medir_eventos`, `bloque 2^24`, `bloque 4096`, `umbral 256`.
-Comparar con P1–P7. **10:50: cambio de roles.**
+Comparar con P1–P7. **Minuto 50 (11:20): cambio de roles.**
 
-**52–60 · Investigar.** Preguntas 1–5 del README (eventos en `measure_gpu`, fracción de copias, tabla de
-ocupación, crecimiento del tiempo con `n`, `nsys`). La celda de `nsys` tarda ≈ 1 min: lanzarla y seguir con la
-tabla de ocupación mientras corre.
+**52–60 · Investigar (abreviado).** Obligatorias: pregunta 2 (fracción de copias) y 3 (tabla de ocupación). Quien
+va adelantado: 1 (eventos y `cudaGetLastError` en `measure_gpu`), 4 (crecimiento con `n`) y 5 (`nsys`). La celda de
+`nsys` tarda ≈ 1 min: lanzarla y seguir con la tabla de ocupación mientras corre.
 
 **60–65 · Modificar.** `umbral 256 ... pinned` y `pinned_streams`. Quien va adelantado: `BLOCK_SIZES` con 48 y 96.
 
@@ -108,6 +114,27 @@ tabla de ocupación mientras corre.
 | Con *pinned* esperaba que el kernel fuera más rápido | "¿Qué cambió: el kernel o el camino de los datos? ¿Qué columna debería moverse?" |
 | Lee `cuda_api_sum` de `nsys` como tiempo del kernel | "¿Esa tabla mide tiempo de CPU o de GPU? ¿En cuál están los kernels?" |
 | Corre `bench_numba.py` con `CUDASIM` en Colab y no ve tiempos | "¿Qué dice la línea `modo =`? ¿Para qué existe el simulador?" |
+
+<details><summary>Clave de <em>Predecir</em> e <em>Investigar</em> (solo para el profesor; valores esperados en una T4,
+no ejecutados en el entorno de autoría salvo donde se indica)</summary>
+
+| # | Respuesta esperada |
+|---|---|
+| P1 | La forma 1 (CPU sin sincronizar), ≈ 0.01 ms. Es incorrecta: mide el encolado, no el kernel. |
+| P2 | > 90 % (≈ 97–98 %): ≈ 200 MB por PCIe a ≈ 4 GB/s contra ≈ 0.9 ms de kernel. |
+| P3 | Peor: 32 (≈ 1.5–2× el mejor). Mejor: 128–512, prácticamente empatados (≈ 256). |
+| P4 | No: la ocupación es 100 % desde 64; con 1024 cabe un solo bloque por SM y quedan menos bloques para la cola. Igual o un poco peor. |
+| P5 | Diferencias de microsegundos y sin orden estable entre corridas: con `n = 4096` se mide el costo de lanzar (≈ 5–10 µs), no el trabajo. |
+| P6 | ≈ `2^14`–`2^16`: la CPU del entorno de autoría tarda 0.007 ms en `2^14` y 0.025 ms en `2^16` (medido); el kernel no baja de ≈ 5–10 µs. |
+| P7 | Nunca en el rango con memoria paginable. |
+| P8 | Kernel ×1 (no cambia); copias ≈ ×2–3 más rápidas. |
+| I1 | Kernel entre `ev[1]` y `ev[2]`. Un lanzamiento inválido solo lo reporta `cudaGetLastError` (`cudaMemcpy` y los eventos regresan éxito). El `cudaMemset` borra `d_c` para que, si el kernel no corre, la verificación vea ceros y no el resultado de la repetición anterior. |
+| I2 | ≈ 97–98 %. PCIe paginable ≈ 4–5 GB/s contra ≈ 200–230 GB/s del kernel: ≈ 50× más lento por byte. |
+| I3 | 64: 2 warps, 16 bloques, 32 de 32, 100 %. 256: 8 warps, 4 bloques, 32 de 32, 100 %. 1024: 32 warps, 1 bloque, 32 de 32, 100 %. Razones para 1024: un SM no recibe bloque nuevo hasta que termina el bloque entero (cola final con menos bloques, 16 384 contra 65 536); tope de 64 registros por hilo. |
+| I4 | De `2^10` a `2^12`: ≈ ×1 (domina el lanzamiento). De `2^22` a `2^24`: ≈ ×4 (domina bytes / ancho de banda). |
+| I5 | `Avg` de `saxpy_kernel` ≈ `kernel ms` (± 5 %). Cada fila `[CUDA memcpy Host-to-Device]` es **una** copia: su `Avg` ≈ la mitad de `H2D ms`, que suma dos vectores. En `cuda_api_sum` domina `cudaMemcpy`: la CPU queda bloqueada durante cada copia síncrona; `cudaLaunchKernel` dura microsegundos porque solo encola. |
+
+</details>
 
 ### 65–75 · Puesta en común
 
@@ -135,13 +162,15 @@ reporte PDF; 70 de los 100 puntos del proyecto). Tarea espaciada: `tarea-espacia
 
 ## Diferenciación
 
-- **Apoyo (quien no arranca):** hoja impresa con la tabla de ocupación medio llena (filas 32 y 64) y la tabla
-  H2D/kernel/D2H con la primera fila de ejemplo; trabajar solo con `n = 2^22`; para Crear, la plantilla de
-  `measure_gpu` con el lanzamiento marcado como única línea a cambiar.
-- **Ampliación (quien termina):** agregar 48, 96 y 192 a `BLOCK_SIZES` y explicar 48 vs. 64 con la ocupación;
-  medir `pinned_streams` con 1, 2, 4, 8 *streams* y relacionar con `asyncEngineCount`; correr `ncu --section
-  SpeedOfLight` si el entorno lo permite y leer el porcentaje de ancho de banda; portar el barrido a
-  `bench_numba.py` y comparar tiempos con el `.cu`.
+- **Apoyo (quien no arranca): el mismo ejemplo con un hueco menos y una pista sellada.** En el ejemplo resuelto se
+  le da el hueco A ya escrito (solo completa B y C). Para *Crear*, abre la pista sellada en `<details>` de la
+  sección *Crear* del README: copiar `measure_gpu` de `bench_gpu.cu` tal cual y cambiar **solo** la línea del
+  lanzamiento por la de su kernel; la tabla de ocupación de *Investigar 3* ya trae llena la fila de 32 como modelo.
+- **Ampliación (quien termina): el problema sin ejemplo.** Medir su kernel de P6 **sin** abrir `measure_gpu`:
+  decidir dónde van los cuatro eventos, calcular antes la intensidad aritmética y predecir por escrito el `n` del
+  cruce con copias; después comparar con lo medido. Restricción extra opcional: agregar 48, 96 y 192 a
+  `BLOCK_SIZES` y explicar 48 vs. 64 con la ocupación, o medir `pinned_streams` con 1, 2, 4 y 8 *streams* y
+  relacionarlo con `asyncEngineCount`.
 
 ## Evaluación formativa de la sesión
 

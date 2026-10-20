@@ -296,7 +296,15 @@ int main(int argc, char **argv)
                 argv[0], MAX_BLOCK);
         return 1;
     }
-    if ((run_div || run_nodiv) && !is_power_of_two(block))
+    if (run_div && !is_power_of_two(block)) {
+        /* tree_div leería s[tid + stride] más allá de blockDim.x (p. ej., s[96] con block = 96): memoria
+         * compartida sin inicializar. El experimento de block no potencia de 2 se hace con tree_nodiv. */
+        fprintf(stderr, "aviso: tree_div con block=%d leería fuera del bloque; se omite (usa tree_nodiv)\n", block);
+        run_div = 0;
+        if (!run_atomic && !run_nodiv)
+            return 1;
+    }
+    if (run_nodiv && !is_power_of_two(block))
         fprintf(stderr, "aviso: el árbol supone block potencia de 2; con block=%d se pierden sumandos "
                         "(experimento de la fase Investigar)\n", block);
 

@@ -110,15 +110,21 @@ saxpy        16777216   1024    16384    100   ≈25–50    ≈0.85–1.0  ≈1
 Con `n = 4096` todos los bloques tardan entre ≈3 y ≈8 µs y el orden cambia de una corrida a otra: ahí se
 mide el costo de lanzar, no el trabajo.
 
-Salida real de la referencia de CPU en el entorno de autoría (4 núcleos, `gcc -O2`), para que tengas una
-escala de la columna `CPU ms`:
+Salida real de `./bench_cpu` en el entorno de autoría (Intel Xeon a 2.1 GHz, un hilo, `gcc -O2`), para que
+tengas una escala de la columna `CPU ms`. En tres corridas seguidas la fila de `2^24` varió entre 18.7 y 21.1 ms:
+por eso se reporta la mediana y se anota el equipo.
 
 ```
+Referencia CPU (mediana de 5 repeticiones tras 1 calentamiento, -O2)
          n       add ms     add GB/s     saxpy ms   saxpy GB/s
-      1024       0.0006         19.4       0.0006         19.8
-     16384       0.0109         18.1       0.0127         15.4
-   1048576       0.8338         15.1       0.5430         23.2
-  16777216      18.4982         10.9      18.3445         11.0
+      1024       0.0004         34.0       0.0004         30.1
+      4096       0.0017         28.6       0.0016         29.8
+     16384       0.0076         25.7       0.0068         29.0
+     65536       0.0256         30.7       0.0245         32.1
+    262144       0.1652         19.0       0.1286         24.5
+   1048576       0.6740         18.7       0.5968         21.1
+   4194304       2.4957         20.2       2.5140         20.0
+  16777216      18.7873         10.7      18.7351         10.7
 ```
 
 ## I · Investigar
@@ -126,8 +132,9 @@ escala de la columna `CPU ms`:
 Responde en la hoja, con números de tu tabla:
 
 1. **Línea por línea.** En `bench_gpu.cu`, función `measure_gpu`: ¿entre qué dos eventos queda el kernel?
-   ¿Por qué `cudaGetLastError()` va después de `cudaEventSynchronize(ev[3])` y no inmediatamente después del
-   lanzamiento? (Pista: ¿qué errores aparecen al lanzar y cuáles al ejecutar?)
+   Si el lanzamiento fuera inválido (bloque de 2048), ¿cuál de las llamadas con `CUDA_CHECK` del ciclo lo
+   detectaría: `cudaMemcpy`, `cudaEventSynchronize` o `cudaGetLastError`? ¿Para qué sirve el `cudaMemset` del
+   inicio de cada repetición? (Pista: ¿qué contendría `d_c` si el kernel no corriera?)
 2. **Copias.** Con `n = 2^24`, ¿qué fracción del total son H2D + D2H? ¿Coincide con P2? ¿Cuántas veces más
    lento es copiar un byte por PCIe que leerlo desde la memoria de la GPU? (Divide `GB/s` del kernel entre
    `bytes copiados / t_h2d`.)
@@ -149,14 +156,16 @@ Responde en la hoja, con números de tu tabla:
    con `H2D ms`. En `cuda_api_sum`, ¿qué llamada consume más tiempo de **CPU** y por qué no es el kernel?
    Si `nsys` no existe en tu entorno, la celda lo dice: te quedas con los eventos, que miden lo mismo con menos detalle.
 
-Formato esperado de `nsys --stats=true` (aproximado; **no ejecutado aquí**; las cifras dependen de la GPU):
+Formato esperado de `nsys --stats=true` (aproximado; **no ejecutado aquí**; las cifras dependen de la GPU). Los
+conteos sí se deducen del código: 2 kernels × 6 bloques × 6 repeticiones (1 de calentamiento + 5) = 72
+iteraciones de `measure_gpu`, cada una con 2 copias H2D, 1 D2H, 1 `cudaMemset` y 1 `cudaEventSynchronize`.
 
 ```
 [5/8] Executing 'cuda_api_sum' stats report
  Time (%)  Total Time (ns)  Num Calls   Avg (ns)   ...  Name
-     ≈70      ≈2 000 000 000        84  ≈24 000 000      cudaMemcpy
-     ≈20        ≈600 000 000        36  ≈17 000 000      cudaMalloc
-      ≈1         ≈30 000 000        84     ≈360 000      cudaEventSynchronize
+     ≈90      ≈3 800 000 000       216  ≈17 500 000      cudaMemcpy
+      ≈6        ≈250 000 000        36   ≈7 000 000      cudaMalloc        (casi todo es la 1.ª: crea el contexto)
+     ...                              ...                cudaFree, cudaMemset (72), cudaEventSynchronize (72), ...
 [6/8] Executing 'cuda_gpu_kern_sum' stats report
  Time (%)  Total Time (ns)  Instances  Avg (ns)  Med (ns)  ...  Name
      ≈50        ≈40 000 000         36  ≈1 100 000  ...       saxpy_kernel(float, const float *, const float *, float *, int)
@@ -165,7 +174,10 @@ Formato esperado de `nsys --stats=true` (aproximado; **no ejecutado aquí**; las
  Time (%)  Total Time (ns)  Count  Avg (ns)  ...  Operation
      ≈65      ≈2 500 000 000    144  ≈17 000 000     [CUDA memcpy Host-to-Device]
      ≈35      ≈1 300 000 000     72  ≈18 000 000     [CUDA memcpy Device-to-Host]
+     <1          ≈20 000 000     72     ≈300 000     [CUDA memset]
 ```
+
+`cudaEventSynchronize` casi no aparece: la copia D2H con memoria paginable ya bloqueó a la CPU hasta terminar.
 
 Columnas que importan: **Time (%)** (quién domina), **Total Time** y **Instances/Count** (cuántas veces),
 **Avg/Med** (lo comparable con tus eventos), **Name/Operation** (qué cosa).
@@ -178,10 +190,12 @@ Columnas que importan: **Time (%)** (quién domina), **Total Time** y **Instance
 2. **Streams.** Corre `./pinned_streams`. Predice primero el orden de A, B y C. Después prueba
    `./pinned_streams 16777216 8` y `./pinned_streams 16777216 2`. ¿Más *streams* siempre ayuda? ¿Qué limita?
 3. **Un bloque que no es múltiplo de 32.** En `bench_gpu.cu`, agrega `48` y `96` a `BLOCK_SIZES` (línea
-   `static const int BLOCK_SIZES[]`), recompila y corre `bloque 16777216`. Predice antes: ¿48 se parecerá más a
-   32 o a 64? Explica con el aviso que imprime el programa y con la columna `ocup%`.
+   `static const int BLOCK_SIZES[]`, en orden), recompila y corre `bloque 16777216`. Predice antes: ¿48 se
+   parecerá más a 32 o a 64? Explica con el aviso que imprime el programa (cuántos carriles del segundo warp
+   trabajan) y con la columna `ocup%`. `graficar.py` agrega los bloques nuevos al eje sin cambios.
 4. (Si te sobra tiempo) En `measure_gpu`, cambia el orden a H2D → **D2H** → kernel. ¿Qué pasa con la
-   verificación? Es la forma de comprobar que las pruebas detectan un error de orden.
+   verificación? Después comenta además la línea `cudaMemset(d_c, 0, bytes)` y vuelve a correr: ¿por qué ahora
+   la verificación **aprueba** un programa que está mal? (Cada repetición copiaría el resultado de la anterior.)
 
 Salida esperada de `pinned_streams` en una T4 (órdenes de magnitud; **no ejecutada aquí**):
 
@@ -205,10 +219,23 @@ Aplica el protocolo a **tu** kernel de la Práctica 6 (el que entregas el doming
 3. Calcula la intensidad aritmética de tu kernel (FLOP por byte leído+escrito desde memoria global) y
    decide si está limitado por memoria o por cómputo en una T4 (balance ≈ 25 FLOP/byte).
 
-**Criterio de "listo":** CSV con ≥ 9 filas, dos PNG generadas por `graficar.py`, una frase que diga cuál es el
-mejor bloque y por qué, una que diga a partir de qué `n` conviene la GPU **con copias**, y una que clasifique tu
-kernel (*memory-bound* / *compute-bound*) con el número que lo sustenta. Esto mismo es lo que se revisa mañana,
-martes 1 de diciembre a las 08:30, en el Lab 2 de la Práctica 6, y es la Parte D de su reporte.
+<details><summary>Pista sellada (ábrela solo si en 3 minutos no arrancaste)</summary>
+
+Copia `measure_gpu` de `bench_gpu.cu` **tal cual** (eventos, calentamiento, `cudaMemset`, medianas) y cambia
+solo la línea del lanzamiento `<<<grid, block>>>` por la de tu kernel, con sus argumentos. Si tu kernel tiene
+más entradas o salidas que `a`, `b`, `c`, agrega una copia H2D (antes de `ev[1]`) o D2H (antes de `ev[3]`) por
+arreglo; nunca entre `ev[1]` y `ev[2]`. Para la fila del CSV reutiliza `emit_row` cambiando `bytes_moved` por los
+bytes que mueve tu kernel.
+
+</details>
+
+**Criterio de "listo" en clase (10 min):** una fila verificada (`OK`) con `n`, bloque, H2D, kernel, D2H, CPU y los
+dos *speedups*, más la intensidad aritmética de tu kernel escrita.
+
+**Criterio de "listo" completo (para mañana):** CSV con ≥ 9 filas, dos PNG generadas por `graficar.py`, una frase
+que diga cuál es el mejor bloque y por qué, una que diga a partir de qué `n` conviene la GPU **con copias**, y una
+que clasifique tu kernel (*memory-bound* / *compute-bound*) con el número que lo sustenta. Esto es lo que se revisa
+mañana, martes 1 de diciembre a las 08:30, en el Lab 2 de la Práctica 6, y es la Parte D de su reporte.
 
 ## Errores que vas a ver (y la primera pregunta que debes hacerte)
 

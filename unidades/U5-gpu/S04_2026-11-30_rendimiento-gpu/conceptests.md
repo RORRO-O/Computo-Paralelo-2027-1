@@ -31,7 +31,7 @@ el kernel está medido); D → idea 5 (repetir no corrige una medición mal colo
 **Acierto esperado en el primer voto: 55–65 %.** Muchos eligen C porque acaban de oír "las copias cuentan".
 
 **Guion de discusión.** "Si B tiene razón, ¿qué línea le falta al código y dónde?" (respuesta:
-`cudaDeviceSynchronize()` antes de `t1`, o eventos). "Si C tuviera razón, ¿cuánto darían 192 MB a 230 GB/s?"
+`cudaDeviceSynchronize()` antes de `t1`, o eventos). "Si C tuviera razón, ¿cuánto darían los ≈ 200 MB que mueve el kernel (3 × 64 MiB) a 230 GB/s?"
 (≈ 0.9 ms, no 12 µs: el número es físicamente imposible para ese kernel). Cerrar con la regla: el reloj de la
 CPU solo vale con sincronización; los eventos miden en el reloj de la GPU.
 

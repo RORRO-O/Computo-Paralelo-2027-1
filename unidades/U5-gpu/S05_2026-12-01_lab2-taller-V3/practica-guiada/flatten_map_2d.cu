@@ -191,7 +191,9 @@ static void run_once(const Config &cfg, const float *h_init, float *h_out, float
             std::swap(d_a, d_b);              // ping-pong: no hay copias, solo se intercambian punteros
         }
         CUDA_CHECK(cudaEventRecord(e_k1));
-        CUDA_CHECK(cudaEventSynchronize(e_k1));   // sin esto se mide el encolado, no la ejecución
+        // La GPU estampa e_k1 cuando termina el último kernel; la CPU debe esperar a esa marca.
+        // Sin esta espera cudaEventElapsedTime regresa cudaErrorNotReady (CUDA_CHECK aborta).
+        CUDA_CHECK(cudaEventSynchronize(e_k1));
         CUDA_CHECK(cudaEventElapsedTime(&ms_kernel, e_k0, e_k1));
         CUDA_CHECK(cudaMemcpy(h_out, d_a, bytes, cudaMemcpyDeviceToHost));
     } else {

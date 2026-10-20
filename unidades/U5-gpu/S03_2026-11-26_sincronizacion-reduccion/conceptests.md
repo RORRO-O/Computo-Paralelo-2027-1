@@ -37,8 +37,8 @@ Compila y corre sin ningún error de CUDA. ¿Qué pasa?
 | Distractor | Origen |
 |---|---|
 | A | Anexo A n.º 25: "`__syncthreads()` sincroniza toda la GPU" |
-| C | Nueva (agregar al Anexo A): confunde funciones de anfitrión con funciones de dispositivo; `cudaDeviceSynchronize()` no existe dentro de un *kernel* |
-| D | Nueva (variante de la 25): "simultáneo = sincronizado"; aunque todos los bloques estén residentes, nada ordena sus *warps* entre sí |
+| C | Anexo A n.º 25c (agregada para esta sesión): confunde funciones de anfitrión con funciones de dispositivo; con `nvcc` 12 ni siquiera compila (`calling a __host__ function("cudaDeviceSynchronize") from a __global__ function … is not allowed`, verificado), y en el paralelismo dinámico antiguo solo esperaba a los *kernels* hijos, nunca a otros bloques |
+| D | Anexo A n.º 25b (agregada para esta sesión): "simultáneo = sincronizado"; aunque todos los bloques estén residentes, nada ordena sus *warps* entre sí |
 
 **Acierto esperado en el primer voto: ~50 %.** La tarea de la S02 ya planteó la pregunta ("¿puede `__syncthreads()`
 combinar 1000 parciales?") y la recuperación de hoy la repitió como conjetura; quienes trajeron la respuesta votan B,
@@ -80,8 +80,8 @@ Un compañero concluye algo. ¿Cuál conclusión es correcta?
 | Distractor | Origen |
 |---|---|
 | A | Anexo A n.º 10: "`reduction` da exactamente el mismo resultado que la suma secuencial" (espera igualdad) |
-| C | Anexo A n.º 7, invertida: toma el no determinismo por carrera; una atómica no tiene carrera, tiene **orden arbitrario** |
-| D | Nueva (variante de la 10): la referencia debe ser **más** precisa que lo que se verifica, no igual de imprecisa; con `2^24` el acumulador `float` secuencial se equivoca 10 % |
+| C | Anexo A n.º 7e (la 7 invertida, agregada para esta sesión): toma el no determinismo por carrera; una atómica no tiene carrera, tiene **orden arbitrario** |
+| D | Anexo A n.º 10c (agregada para esta sesión): la referencia debe ser **más** precisa que lo que se verifica, no igual de imprecisa; con `2^24` el acumulador `float` secuencial se equivoca 10 % |
 
 **Acierto esperado en el primer voto: ~55 %** (después de PRIMM, donde vieron `verificacion=OK` con tres sumas
 distintas). Si el primer voto queda entre 30 % y 80 %, discusión y revoto; fuera de ese rango, directo a la
@@ -112,7 +112,7 @@ residuo en cada iteración de Jacobi). En una T4 el *kernel* en árbol tarda ≈
 | Distractor | Origen |
 |---|---|
 | A | Anexo A n.º 24: "las transferencias `cudaMemcpy` no cuentan en el tiempo" (aquí cuestan lo mismo que el *kernel*: 50 % del total) |
-| C | Nueva (agregar al Anexo A): "las atómicas son gratis"; `2^20` atómicas sobre **una** dirección se serializan: uno o dos órdenes de magnitud más lento que el árbol |
+| C | Anexo A n.º 8b (agregada para esta sesión): "las atómicas son gratis"; `2^20` atómicas sobre **una** dirección se serializan: uno o dos órdenes de magnitud más lento que el árbol |
 | D | Anexo A n.º 24 (variante) y n.º 21 ("la comunicación es gratis"): la copia **no** se amortiza, se repite 1000 veces |
 
 **Acierto esperado en el primer voto: ~50 %** si ya hicieron I5 (comparar `etapa2_cpu_ms` con `kernel_mediana_ms`);

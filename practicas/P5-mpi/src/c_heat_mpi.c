@@ -13,12 +13,21 @@
  * sin Gather de toda la malla en cada paso; mismo número de pasos y mismos valores que c_heat_seq.
  * Se exige n >= p (cada rango tiene al menos una celda).
  *
- * Uso: mpirun -np P ./c_heat_mpi [n] [max_iter] [tol] [check_every] [reps] [--verify] [--print] [--trace]
- *      mismos valores por defecto que c_heat_seq (1000000 500 0 1 3).
+ * Uso: mpirun -np P ./c_heat_mpi [n] [max_iter] [tol] [check_every] [reps] [--verify] [--print] [--sin-solape] [--trace]
+ *      mismos valores por defecto que c_heat_seq (1000000 500 0 1 3). --sin-solape pone use_overlap = 0
+ *      (tu diseño decide qué hace con eso: es para medir con y sin solape, restricción 6 del README).
  * Compilar: mpicc -std=c11 -O2 -Wall -Wextra -o c_heat_mpi c_heat_mpi.c -lm
  */
 #include <mpi.h>
 #include "c_heat_common.h"
+
+/* Interruptor e instrumentación que main ya maneja (puedes usarlos en tu diseño; no los renombres):
+ *   use_overlap : 1 por defecto; main lo pone en 0 con --sin-solape. Úsalo para medir con y sin solape.
+ *   t_comm_acc, t_comp_acc : segundos de comunicación (publicar, esperar en Waitall, Allreduce) y de cómputo
+ *                de ESTE rango. main los pone en 0 antes de cada repetición y, si acumulas en ellos, imprime
+ *                "por paso (max entre rangos, ultima repeticion): computo=... us, comunicacion=... us". */
+static int use_overlap = 1;
+static double t_comm_acc = 0.0, t_comp_acc = 0.0;
 
 /* Estado local: fronteras físicas en los halos de las orillas, condición inicial en el interior.
  * u[0] y u[n_local+1] son las celdas fantasma; u[1..n_local] las propias (índice global first + i - 1). */
@@ -73,8 +82,9 @@ int main(int argc, char **argv)
     int reps = p5_clamp_reps(p5_arg_ll(argc, argv, 4, 3));
     int verify = p5_has_flag(argc, argv, "--verify"), print = p5_has_flag(argc, argv, "--print");
     int trace = p5_has_flag(argc, argv, "--trace");
+    use_overlap = !p5_has_flag(argc, argv, "--sin-solape");
     if (n <= 0 || max_iter <= 0 || tol < 0 || check_every <= 0 || n < size) {
-        if (rank == 0) fprintf(stderr, "Uso: %s [n >= p] [max_iter > 0] [tol >= 0] [check_every > 0] [reps] [--verify] [--print] [--trace]\n"
+        if (rank == 0) fprintf(stderr, "Uso: %s [n >= p] [max_iter > 0] [tol >= 0] [check_every > 0] [reps] [--verify] [--print] [--sin-solape] [--trace]\n"
                                        "(n = %lld, p = %d: se exige n >= p para que todos tengan al menos una celda)\n", argv[0], n, size);
         MPI_Finalize();
         return 1;
@@ -90,6 +100,7 @@ int main(int argc, char **argv)
     double last_diff = 0.0, t_max[P5_MAX_REPS];
     for (int r = -1; r < reps; r++) { /* r = -1: calentamiento */
         heat_init_local(u, u_new, n, n_local, first);
+        t_comm_acc = t_comp_acc = 0.0;
         MPI_Barrier(MPI_COMM_WORLD);
         double t0 = MPI_Wtime();
         iters = heat_solve_mpi(u, u_new, n, n_local, first, rank, size, max_iter, tol, check_every, &converged, &last_diff);
@@ -117,6 +128,11 @@ int main(int argc, char **argv)
     double *u_global = (rank == 0) ? p5_alloc(n) : NULL;
     MPI_Gatherv(u + 1, (int)n_local, MPI_DOUBLE, u_global, counts, displs, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
+    /* Diagnóstico de la razón cómputo/comunicación (solo informativo): máximo entre rangos de cada uno. */
+    double comm_max = 0.0, comp_max = 0.0;
+    MPI_Reduce(&t_comm_acc, &comm_max, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&t_comp_acc, &comp_max, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
+
     int ok = 1;
     if (rank == 0) {
         p5_stats s = p5_time_stats(t_max, reps);
@@ -124,10 +140,15 @@ int main(int argc, char **argv)
         double u_center = u_global[n / 2], u_quarter = u_global[n / 4];
         printf("c_heat_mpi: n=%lld p=%d reparto:", n, size);
         for (int k = 0; k < size; k++) printf(" %d", counts[k]);
-        printf(" max_iter=%lld tol=%g check_every=%lld reps=%d\n", max_iter, tol, check_every, reps);
+        printf(" max_iter=%lld tol=%g check_every=%lld reps=%d %s\n", max_iter, tol, check_every, reps,
+               use_overlap ? "(solape permitido)" : "(--sin-solape)");
         printf("iteraciones=%lld convergio=%d diff_final=%.3e\n", iters, converged, last_diff);
         printf("checksum=%.12e u[centro]=%.12e u[n/4]=%.12e (reconstruido con un Gatherv al final)\n",
                checksum, u_center, u_quarter);
+        if (comm_max + comp_max > 0.0)
+            printf("por paso (max entre rangos, ultima repeticion): computo=%.3f us, comunicacion=%.3f us, razon=%.1f\n",
+                   1e6 * comp_max / (double)iters, 1e6 * comm_max / (double)iters,
+                   comm_max > 0 ? comp_max / comm_max : 0.0);
         const char *verdict = "SIN_VERIFICAR";
         if (verify) {
             double *ur = p5_alloc(n + 2), *ur_new = p5_alloc(n + 2), ref_diff = 0.0, max_diff = 0.0;

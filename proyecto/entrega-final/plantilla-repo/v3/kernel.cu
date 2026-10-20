@@ -36,20 +36,14 @@
         }                                                                           \
     } while (0)
 
-/* PLANTILLA: mismo cómputo por elemento que comun/problema.h, en versión de dispositivo.
- * Si cambias `elemento()` en la cabecera, cambia también esta función. */
-__device__ static double elemento_dev(double x, int iter) {
-    double y = x;
-    for (int k = 0; k < iter; ++k) {
-        y = sin(y) + cos(0.5 * y) * 0.25;
-    }
-    return y;
-}
-
+/* Un hilo por elemento: el hilo i calcula out[i]. El cómputo es `elemento()` de
+ * comun/problema.h, la MISMA función que usa la V1 (marcada CP_HD = __host__ __device__):
+ * no hay una copia de dispositivo que pueda divergir de la de CPU. La guarda i < n hace
+ * falta porque la malla redondea n hacia arriba al múltiplo del tamaño de bloque. */
 __global__ void kernel_elemento(const double *in, double *out, size_t n, int iter) {
     size_t i = (size_t)blockIdx.x * blockDim.x + threadIdx.x;
     if (i < n) {
-        out[i] = elemento_dev(in[i], iter);
+        out[i] = elemento(in[i], iter);
     }
 }
 
@@ -114,6 +108,14 @@ int main(int argc, char **argv) {
     CUDA_CHECK(cudaEventCreate(&ev_total1));
 
     unsigned int grid = (unsigned int)((n + block - 1) / block);
+
+    /* Calentamiento FUERA del cronómetro (protocolo §2): con la carga perezosa de módulos de
+     * CUDA 12, el primer lanzamiento de un kernel incluye cargarlo en la GPU. Una ronda
+     * completa sin medir deja el contexto, el módulo y las copias listos. */
+    CUDA_CHECK(cudaMemcpy(d_in, h_in, bytes, cudaMemcpyHostToDevice));
+    kernel_elemento<<<grid, (unsigned int)block>>>(d_in, d_out, (size_t)n, ITER_DEFAULT);
+    CUDA_CHECK(cudaGetLastError());
+    CUDA_CHECK(cudaDeviceSynchronize());
 
     /* ---- región de interés con transferencias ---- */
     CUDA_CHECK(cudaEventRecord(ev_total0, 0));

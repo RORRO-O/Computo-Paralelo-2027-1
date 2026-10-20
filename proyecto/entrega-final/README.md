@@ -1,6 +1,6 @@
 # Entrega final del proyecto integrador
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Entrega final · **lunes 7 de diciembre de 2026, 10:30** · 40 puntos (repositorio V1·V2·V3) + 30 puntos (reporte PDF) de los 100 del proyecto · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Entrega final · **lunes 7 de diciembre de 2026, 10:30** · 40 puntos (repositorio V1·V2·V3) + 30 puntos (reporte PDF) de los 100 del proyecto · versión 1.1 · 20 de octubre de 2026
 
 ## 1. Qué se entrega y cuánto vale
 
@@ -17,22 +17,27 @@ H1 (jueves 29 de octubre) cuenta en el 2º parcial (12 %), no aquí.
 ## 2. Cuándo y cómo
 
 - **Fecha y hora límite:** lunes 7 de diciembre de 2026, 10:30, inicio de la sesión C1.
-- **Qué se califica:** el último *commit* en la rama `main` del repositorio del equipo anterior a esa hora, según la hora de
-  GitHub. El equipo lo marca con `git tag entrega-final && git push --tags`. Si no hay etiqueta se toma el último *commit*
-  anterior a las 10:30.
+- **Qué se califica:** el *commit* marcado con la etiqueta `entrega-final`, creada y subida antes de esa hora según la hora
+  de GitHub: `git tag entrega-final && git push origin entrega-final`. Si no hay etiqueta, se toma el último *commit* de
+  `main` anterior a las 10:30.
 - **No se recibe** por correo, memoria USB ni enlaces a Drive. El profesor es colaborador del repositorio desde H0; no hace
   falta enviar nada más.
 - **El PDF va dentro del repositorio** en `reporte/reporte.pdf`. No se reciben versiones posteriores por otro medio.
 - **Entrega tardía:** hasta 72 h después (jueves 10 de diciembre, 10:30) con calificación máxima de 80 % en las dos piezas
-  (regla transversal del mapa de evaluación). Después no se recibe salvo justificante institucional. La ventana termina en
-  el momento en que empieza la defensa: la defensa se hace con lo que haya en el repositorio a esa hora.
+  (regla transversal del mapa de evaluación). Después no se recibe salvo justificante institucional. La ventana termina
+  cuando empieza la defensa: la defensa se hace con lo que haya en la etiqueta a esa hora.
+- **Videos.** El plan B de la demo (≤ 3 min) se graba después de la etiqueta y antes del miércoles 9 de diciembre, 20:00, y
+  se enlaza en un *issue* del repositorio (`proyecto/defensa/logistica-defensa.md` §8). Si el profesor elige la opción (c)
+  de la defensa (`proyecto/README.md` §3), el video de la exposición (≤ 8 min) se enlaza en el README **con la entrega
+  final**, antes del lunes 7 de diciembre 10:30.
 - **La sesión del lunes 7 de diciembre (10:30–12:00)** es taller de ensayo de defensa con lista de cotejo entre equipos. Se
   asume que el repositorio ya está cerrado; el martes 8 de diciembre a las 08:30 es el Examen 3 (Unidades IV–V).
 
 ## 3. Qué debe tener el repositorio
 
-La carpeta `plantilla-repo/` es una plantilla **funcional**: compila, pasa `make test`, mide y grafica. El cómputo que trae
-es un marcador de posición (`comun/problema.h`, función `elemento()`): entregarlo tal cual vale 0 en correctitud. Lo que
+La estructura es la de `proyecto/README.md` §4, la misma desde H1. La carpeta `plantilla-repo/` la implementa y es
+**funcional**: compila, pasa `make test`, mide y grafica. El cómputo que trae es un marcador de posición
+(`comun/problema.h`, función `elemento()`): entregarlo tal cual vale 0 en correctitud, y el verificador lo detecta. Lo que
 sí se conserva es la infraestructura, porque es lo que el profesor va a ejecutar.
 
 ```
@@ -42,24 +47,34 @@ run_all.sh              entorno → make → make test → mediciones V1 y V2 �
 comun/problema.h        datos con semilla, checksum, cómputo compartido por V1/V2/V3
 v1/  v2/  v3/           una carpeta por versión, cada una con su Makefile; v3/ incluye notebook_colab.ipynb EJECUTADO
 tests/run_tests.sh      V2 y V3 contra V1 con tolerancia; casos borde; casos propios del equipo
-herramientas/           resumen_csv.py (tabla + gráfica), generar_notebook_v3.py
+herramientas/           resumen_csv.py (tabla + gráfica), generar_notebook_v3.py, medir_proyecto.sh (proyecto/plantillas/)
 resultados/             mediciones.csv · mediciones_v3.csv · entorno.txt · entorno_gpu.txt · speedup.png · tabla.md
+resultados/rapido/      salida de ./run_all.sh --rapido; está en .gitignore y nunca va al reporte
 reporte/reporte.pdf     el reporte (8–12 páginas)
-bitacora.md             qué falló, cómo se detectó, qué se cambió; mediciones descartadas; predicciones vs. resultados
+bitacora.md             errores, mediciones descartadas, predicciones vs. resultados (fechas AAAA-MM-DD)
+declaracion-ia.md       una sección por entrega (plantilla en proyecto/plantillas/)
 ```
 
 **Cómo adoptar la plantilla** (desde la raíz del repositorio del equipo, creado en H0; no se hace *fork* del repositorio del
-curso):
+curso; `RUTA_CURSO` es donde clonaste el repositorio del curso):
 
 ```bash
-cp -r /ruta/al/repositorio/del/curso/proyecto/entrega-final/plantilla-repo/. .
+cp -r RUTA_CURSO/proyecto/entrega-final/plantilla-repo/. .
 make && make test && ./run_all.sh --rapido
 ```
 
-Si el equipo ya tiene una estructura desde H1/H2 puede conservarla, siempre que cumpla el contrato que revisa
-`scripts/verificar_entrega.sh`: `Makefile` raíz con `all/run/test/clean`, `run_all.sh` ejecutable, carpetas `v1*/ v2*/ v3*/`,
-programas que aceptan `[n] [semilla] [hilos]` e imprimen `clave=valor` (al menos `tiempo_s=` y `checksum=`; la V3 además
-`tiempo_kernel_s=` y `tiempo_total_s=`), `tests/run_tests.sh`, y `resultados/` con el formato del protocolo.
+**Contrato que revisa `scripts/verificar_entrega.sh`** (si tu repositorio no parte de la plantilla, basta con cumplirlo):
+
+| Elemento | Qué se exige | Variantes que también se aceptan |
+|---|---|---|
+| `Makefile` raíz | `all`, `run`, `test`, `clean`; `make test` con código 0 solo si todo pasa | — |
+| `run_all.sh` raíz | Ejecutable; reproduce las mediciones de CPU; `--rapido` termina en ≤ 3 min y escribe en `resultados/rapido/` | — |
+| Versiones | `v1/`, `v2/`, `v3/`, cada una con su `Makefile` | `src/v1`, `src/v2`, `src/v3`; la V3 con `run_colab.sh` en lugar de `Makefile` |
+| Programas V1 y V2 | Argumentos `[n] [semilla] [hilos]`; salida `clave=valor` con `tiempo_s=` y `checksum=` | — |
+| Programa V3 | Mismos argumentos (el tercero es hilos por bloque); `gpu=`, `tiempo_kernel_s=` (sin transferencias), `tiempo_total_s=` (con transferencias) y `checksum=` | — |
+| Pruebas | `tests/run_tests.sh` con una sección "Casos del equipo" | `v1/tests/run_tests.sh` (o `src/v1/...`) |
+| Mediciones | `resultados/mediciones.csv` y un CSV de la sesión de GPU con la cabecera del protocolo | Columnas extra `min_s,max_s` y etiquetas `V1`, `V2`, `V3`, `V3-kernel` de `medir_proyecto.sh` |
+| Bitácora y declaración de IA | `bitacora.md`; la declaración en el README §7 o en `declaracion-ia.md` | `bitacora-errores.md` |
 
 ## 4. Reproducibilidad exigida
 
@@ -67,10 +82,11 @@ programas que aceptan `[n] [semilla] [hilos]` e imprimen `clave=valor` (al menos
 repositorio en una máquina limpia y le da **10 minutos** para `make`, `make test` y `./run_all.sh --rapido`, abre el PDF y
 compara sus tablas con `resultados/*.csv`, y abre el *notebook* de la V3 para ver la salida de `nvidia-smi` y la verificación
 contra V1. Lo que no se logre en ese tiempo se califica como si no estuviera. El detalle, incluido cómo documentar la GPU de
-Colab y cómo incluir el *notebook* ejecutado, está en `reproducibilidad.md`. El equipo corre antes de entregar:
+Colab y cómo incluir el *notebook* ejecutado, está en `reproducibilidad.md`. El equipo corre antes de entregar, sobre un clon
+limpio de su repositorio:
 
 ```bash
-bash /ruta/al/repositorio/del/curso/proyecto/entrega-final/scripts/verificar_entrega.sh /ruta/al/repo/del/equipo
+bash RUTA_CURSO/proyecto/entrega-final/scripts/verificar_entrega.sh RUTA_AL_CLON
 ```
 
 ## 5. Archivos de esta carpeta
@@ -78,25 +94,28 @@ bash /ruta/al/repositorio/del/curso/proyecto/entrega-final/scripts/verificar_ent
 | Archivo | Para quién | Qué contiene |
 |---|---|---|
 | `README.md` | Equipo y profesor | Este documento: qué, cuándo, cómo, cuánto vale |
-| `rubrica-codigo.md` | Ambos | Rúbrica analítica del repositorio: 6 criterios, 4 niveles, 40 puntos |
+| `rubrica-codigo.md` | Ambos | Rúbrica analítica del repositorio: 6 criterios, 4 niveles, 40 puntos (C6 por integrante) |
 | `rubrica-reporte.md` | Ambos | Rúbrica analítica del PDF: 7 criterios, 4 niveles, 30 puntos |
 | `plantilla-reporte.md` | Equipo | Estructura obligatoria del PDF, sección por sección: qué va, qué no va, de dónde sale; esqueleto para copiar |
-| `lista-cotejo-entrega.md` | Equipo | 25 ítems sí/no para correr antes de entregar; 24 los verifica el script |
-| `reproducibilidad.md` | Ambos | Qué hace el profesor en 10 minutos; contrato de `run_all.sh`; GPU de Colab; *notebook* ejecutado |
+| `lista-cotejo-entrega.md` | Equipo | 25 ítems sí/no para correr antes de entregar; el script revisa los ítems 1–24 (el 5, el 15 y el 20 solo en parte) |
+| `reproducibilidad.md` | Ambos | Qué hace el profesor en 10 minutos; contrato de `make`, `run_all.sh` y los programas; GPU de Colab; *notebook* ejecutado |
 | `faq-entrega.md` | Equipo | 10 preguntas frecuentes con respuesta |
-| `scripts/verificar_entrega.sh` | Ambos | Verificación automática de los ítems 1–24 de la lista de cotejo sobre cualquier repositorio |
+| `scripts/verificar_entrega.sh` | Ambos | Verificación automática de los ítems 1–24 de la lista de cotejo sobre cualquier repositorio (`--help` para el uso) |
+| `scripts/Makefile`, `scripts/tests/` | Profesor | `make test`: pruebas del verificador con repositorios sintéticos (≈ 30 s); `make run`: el verificador sobre la plantilla sin llenar |
 | `plantilla-repo/` | Equipo | Repositorio plantilla funcional (V1, V2, V3, pruebas, `run_all.sh`, *notebook*, bitácora) |
 
 ## 6. Calendario de cierre
 
 | Fecha | Hora | Qué |
 |---|---|---|
-| jueves 3 de diciembre | 10:30–12:00 | S06 (U5): repaso para el Examen 3 y **lista de cotejo de la entrega final** entre equipos |
+| semana del 30 de noviembre | — | Mediciones de la V3 en Colab/Kaggle (`docs/metodo/04-evaluacion.md` §5); taller de V3 el martes 1 de diciembre |
+| jueves 3 de diciembre | 10:30–12:00 | S06 (U5): repaso para el Examen 3 y **lista de cotejo de la entrega final** entre equipos; a más tardar este día el profesor anuncia el formato de la defensa |
 | domingo 6 de diciembre | 23:59 | Fecha límite de la Práctica 6 (GPU) |
-| **lunes 7 de diciembre** | **10:30** | **Entrega final: repositorio V1·V2·V3 (40) + reporte PDF (30)**; después, taller de ensayo de defensa |
+| **lunes 7 de diciembre** | **10:30** | **Entrega final: repositorio V1·V2·V3 (40) + reporte PDF (30)**; después, sorteo del orden y taller de ensayo de defensa |
 | martes 8 de diciembre | 08:30–10:00 | Examen departamental 3 (Unidades IV–V) |
+| miércoles 9 de diciembre | 20:00 | Límite para el video de plan B de la demo (≤ 3 min, enlazado en un *issue*) |
 | jueves 10 de diciembre | 10:30–12:00 | Defensa oral (15 puntos; ajusta la calificación individual); fin de la ventana de entrega tardía |
-| lunes 14 de diciembre | 10:30 | Reserva: retroalimentación del Examen 3 y del proyecto; calificaciones preliminares |
+| lunes 14 de diciembre | 10:30 | Reserva: retroalimentación del Examen 3 y del proyecto; calificaciones preliminares (o defensas, si el profesor elige la opción a o b) |
 | martes 15 de diciembre | 08:30 | Reserva: defensas pendientes por causa justificada |
 
 ## 7. Uso de IA en esta entrega
@@ -104,11 +123,14 @@ bash /ruta/al/repositorio/del/curso/proyecto/entrega-final/scripts/verificar_ent
 Aplica `docs/metodo/05-politica-ia.md` completa. En resumen: verde para explicar, criticar el diseño de Foster con preguntas,
 sugerir casos de prueba y generar gráficas a partir de **sus** datos; amarillo para fragmentos de ≤ 10 líneas que se
 reescriben, se explican y se declaran con archivo y líneas; rojo para pedir una versión completa, "mejorar" mediciones o
-entregar texto del reporte sin revisar. La declaración de uso va en el README del repositorio y en la sección 12 del PDF, con
-la línea "qué nos dijo la IA que resultó estar mal". La defensa oral es zona sin IA y ahí se aplica la prueba de propiedad.
+entregar texto del reporte sin revisar. La declaración de uso va en el README §7 (o en `declaracion-ia.md`, sección
+"Entrega final") y en la sección 12 del PDF, con la línea "qué nos dijo la IA que resultó estar mal". La defensa oral es
+zona sin IA y ahí se aplica la prueba de propiedad.
 
 ## 8. Después de la entrega
 
-Retroalimentación con las dos rúbricas en ≤ 7 días: se publica en la sesión de reserva del lunes 14 de diciembre junto con las
-calificaciones preliminares. La defensa del jueves 10 de diciembre puede mover la calificación individual (ver
-`proyecto/defensa/`). Las dudas que no resuelve `faq-entrega.md` se plantean en clase antes del jueves 3 de diciembre.
+Retroalimentación escrita con las dos rúbricas en ≤ 7 días, a más tardar el lunes 14 de diciembre, junto con las
+calificaciones preliminares; si esa sesión se usa para defensas (opciones a o b de `proyecto/README.md` §3), se comenta en
+clase el jueves 17 de diciembre. La defensa del jueves 10 de diciembre puede mover la calificación individual
+(`proyecto/README.md` §6 y `proyecto/defensa/`). Las dudas que no resuelve `faq-entrega.md` se plantean en clase antes del
+jueves 3 de diciembre.

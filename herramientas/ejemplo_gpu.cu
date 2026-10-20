@@ -12,7 +12,7 @@
  * Verificación local sin GPU (solo sintaxis):  nvcc -c -arch=sm_75 ejemplo_gpu.cu
  * Correctitud: checksum = sum(a[i] + b[i]) con a[i] = i mod 7, b[i] = 2*(i mod 5); se compara con el valor calculado
  * en la CPU dentro del mismo programa (imprime ok=1 si coincide con tolerancia relativa 1e-9).
- * Código de salida: 0 bien; 1 error de CUDA; 2 argumentos no válidos.
+ * Código de salida: 0 bien; 1 error de CUDA o checksum distinto del de la CPU (ok=0); 2 argumentos no válidos.
  */
 #include <cuda_runtime.h>
 #include <math.h>
@@ -118,6 +118,10 @@ int main(int argc, char **argv)
     printf("tiempo_kernel_s=%.6f\n", ms_kernel / 1000.0);
     printf("tiempo_s=%.6f\n", ms_total / 1000.0);
 
+    CUDA_OK(cudaEventDestroy(ini_total));
+    CUDA_OK(cudaEventDestroy(ini_kernel));
+    CUDA_OK(cudaEventDestroy(fin_kernel));
+    CUDA_OK(cudaEventDestroy(fin_total));
     CUDA_OK(cudaFree(d_a));
     CUDA_OK(cudaFree(d_b));
     CUDA_OK(cudaFree(d_c));

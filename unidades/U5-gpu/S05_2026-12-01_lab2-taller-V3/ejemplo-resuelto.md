@@ -81,7 +81,7 @@ Los 32 hilos de un <em>warp</em> tienen <code>threadIdx.x</code> consecutivos. S
 **Pausa 3.** Para 37 × 45 con bloques 16 × 16 se lanzan 3 × 3 bloques = 2304 hilos para 1665 celdas. ¿Qué escribe el hilo (15, 15) del bloque (2, 2) si se quita la guardia?
 
 <details><summary>Respuesta</summary>
-Calcula c = 2·16 + 15 = 47, r = 47, idx = 47·45 + 47 = 2162, fuera de un arreglo de 1665 floats. Como no es frontera (47 ≠ 0 y 47 ≠ 36), además <em>lee</em> <code>in[2162 ± 45]</code>. Es comportamiento indefinido: puede corromper el otro búfer (la verificación falla "sin error"), disparar <code>illegal memory access</code>, o no notarse. La guardia cuesta una comparación por hilo y evita las tres.
+Calcula c = 2·16 + 15 = 47, r = 47, idx = 47·45 + 47 = 2162, fuera de un arreglo de 1665 floats. Como no es frontera (r = 47 ≠ 36 = alto − 1 y c = 47 ≠ 44 = ancho − 1), además <em>lee</em> <code>in[2162 ± 45]</code>. Es comportamiento indefinido: puede corromper el otro búfer (la verificación falla "sin error"), disparar <code>illegal memory access</code>, o no notarse. La guardia cuesta una comparación por hilo y evita las tres.
 </details>
 
 ## Paso 4 · Mover datos una vez, no por iteración
@@ -104,7 +104,7 @@ un hilo leería un vecino ya actualizado por otro hilo en el mismo paso.
 sus arreglos del anfitrión. ¿Cuántas veces más datos cruzan el PCIe con 100 iteraciones?
 
 <details><summary>Respuesta</summary>
-100 veces más en cada dirección: 100 subidas y 100 bajadas de la malla completa en lugar de una y una. Con 1024 × 1024 floats (4 MB) son 800 MB en lugar de 8 MB. A 3–6 GB/s (memoria paginable) eso es 150–300 ms de puras copias contra ~10 ms de <em>kernels</em>: la V3 pasa de ~30× a ~1× respecto a la V1. El programa reproduce esto con <code>copiar_cada_iter=1</code>.
+100 veces más en cada dirección: 100 subidas y 100 bajadas de la malla completa en lugar de una y una. Con 1024 × 1024 floats (4 MB) son 800 MB en lugar de 8 MB. A 3–6 GB/s (memoria paginable) eso es ≈ 130–270 ms de puras copias contra ≈ 3–10 ms de <em>kernels</em>: el <em>speedup</em> con transferencias pasa de varias decenas a ≈ 1× respecto a la V1. El programa reproduce esto con <code>copiar_cada_iter=1</code>.
 </details>
 
 ## Paso 5 · Verificar contra la V1 con tolerancia
@@ -135,7 +135,7 @@ cudaMemcpy(... H2D ...);
 cudaEventRecord(e_k0);
 for (...) { kernel<<<...>>>; swap; }
 cudaEventRecord(e_k1);
-cudaEventSynchronize(e_k1);                      // sin esto, se mide el encolado
+cudaEventSynchronize(e_k1);                      // sin esto: cudaErrorNotReady (e_k1 aún sin marca)
 cudaEventElapsedTime(&ms_kernel, e_k0, e_k1);
 cudaMemcpy(... D2H ...);
 cudaEventRecord(e_total1);
@@ -150,19 +150,20 @@ referencia CPU se mide igual (1 + 5, mediana).
 bastaba con `omp_get_wtime()` después del ciclo?
 
 <details><summary>Respuesta</summary>
-Un lanzamiento <code>&lt;&lt;&lt;&gt;&gt;&gt;</code> es asíncrono: la CPU lo encola y sigue. Al final de un <code>parallel for</code> de OpenMP hay una barrera implícita; aquí no. Sin <code>cudaEventSynchronize</code> (o <code>cudaDeviceSynchronize</code>) el reloj se detiene microsegundos después de encolar 100 lanzamientos, y el "tiempo del <em>kernel</em>" sale absurdamente pequeño. Es la versión GPU de la idea errónea 5: medir mal y creer el número.
+Un lanzamiento <code>&lt;&lt;&lt;&gt;&gt;&gt;</code> es asíncrono: la CPU lo encola y sigue. Al final de un <code>parallel for</code> de OpenMP hay una barrera implícita; aquí no. Con un reloj de CPU (el análogo de <code>omp_get_wtime()</code>) y sin <code>cudaDeviceSynchronize()</code>, el reloj se detiene microsegundos después de encolar 100 lanzamientos y el "tiempo del <em>kernel</em>" sale absurdamente pequeño. Con eventos el reloj es el de la GPU (S04, pausa 4): las marcas se estampan cuando la GPU llega a ellas, y <code>cudaEventSynchronize</code> garantiza que la segunda ya exista; sin esa espera, <code>cudaEventElapsedTime</code> regresa <code>cudaErrorNotReady</code> y, si nadie revisa el error, se imprime un valor basura. Es la versión GPU de la idea errónea 5: medir mal y creer el número.
 </details>
 
 ## Salidas
 
-**Referencia CPU (real, máquina de autoría: 4 núcleos, gcc 13, `-O2`, sin GPU):**
+**Referencia CPU (real, máquina de revisión: 4 núcleos, gcc 13.3, `-O2`, sin GPU; el tiempo cambia entre máquinas, el *checksum* no):**
 
 ```
 $ ./flatten_map_cpu 1024 1024 100
 # flatten_map_cpu · alto=1024 ancho=1024 iteraciones=100 (referencia secuencial)
 indice lineal de (fila 3, col 5) con ancho 1024: 3077
 checksum = 627403.109541
-t_cpu (mediana de 5, s) = 0.204470   min = 0.143430   max = 0.230399
+t_cpu (mediana de 5, s) = 0.087645   min = 0.083836   max = 0.098619
+CSV,cpu,1,1,1024,1024,100,0,0.087645,,,1.00,1.00,REF
 ```
 
 **Espejo Numba en CUDASIM (real, sin GPU), caso pequeño:**
@@ -186,24 +187,26 @@ La referencia en C para los mismos argumentos da `checksum = 1128.125000`: tres 
 GPU: Tesla T4 (40 SMs, 1024 hilos máx. por bloque)
 malla 2D: bloques=64x64 hilos/bloque=16x16
 hilos lanzados=1048576 celdas=1048576 hilos ociosos=0 (0.0 %)
-verificacion vs CPU: PASS (max |diff| <= 1e-4)
-t_cpu    (mediana de 5, s) ≈ 0.3–0.6        (CPU de Colab)
-t_kernel (mediana de 5, s) ≈ 0.005–0.015    <- solo kernels
-t_total  (mediana de 5, s) ≈ 0.008–0.020    <- H2D + kernels + D2H
-speedup sin transferencias ≈ 30–60
-speedup con transferencias ≈ 20–40
+hilo que la proceso: blockIdx=(0,0) threadIdx=(5,3) idx=3077
+verificacion vs CPU: PASS (max |diff| = 0.000e+00, tol = 1.0e-04)
+checksum = 627403.109541        <- mismo valor que la referencia C (misma aritmética en float)
+t_cpu    (mediana de 5, s) ≈ 0.1–0.4        (CPU de Colab)
+t_kernel (mediana de 5, s) ≈ 0.003–0.010    <- solo kernels
+t_total  (mediana de 5, s) ≈ 0.005–0.015    <- H2D + kernels + D2H
+speedup sin transferencias ≈ 20–60
+speedup con transferencias ≈ 15–40
 ```
 
-Con `copiar_cada_iter=1`: `t_total ≈ 0.15–0.40 s` y *speedup* con transferencias ≈ 1–3. Mismo *kernel*, misma
+Con `copiar_cada_iter=1`: `t_total ≈ 0.15–0.40 s` y *speedup* con transferencias ≈ 0.5–2. Mismo *kernel*, misma
 verificación PASS, una V3 inútil.
 
 ## Variantes que fallan (y cómo se ven)
 
 | Variante | Síntoma | Qué lo delata |
 |---|---|---|
-| Copiar en cada iteración | PASS, pero `t_total` 20–40× mayor que `t_kernel` | La columna "con transferencias" del protocolo |
+| Copiar en cada iteración | PASS, pero `t_total` decenas de veces mayor que `t_kernel` | La columna "con transferencias" del protocolo |
 | Sin guardia (`-DSIN_GUARDIA`) con 37 × 45 | FAIL sin error de CUDA, o `illegal memory access`, o nada | Probar un tamaño no múltiplo del bloque |
-| Sin `cudaEventSynchronize` | `t_kernel` de microsegundos, *speedup* de miles | Un *speedup* mayor que el cociente de anchos de banda es sospechoso |
+| Reloj de CPU sin `cudaDeviceSynchronize` (o eventos sin `cudaEventSynchronize` y sin revisar el error) | `t_kernel` de microsegundos, *speedup* de miles (con eventos: `cudaErrorNotReady` y un valor basura) | Un *speedup* mayor que el cociente de anchos de banda es sospechoso |
 | Leer y escribir el mismo búfer | Resultado distinto entre corridas; a veces PASS | Repetir la verificación; razonar sobre lecturas y escrituras |
 | Comparar contra la V2 con 1 hilo o con `-O0` | *Speedup* inflado | T(1) debe ser la V1 con `-O2` |
 

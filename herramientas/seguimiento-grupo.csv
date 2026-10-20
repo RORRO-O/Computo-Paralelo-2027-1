@@ -1,4 +1,1 @@
-fecha,sesion,aciertos_retrieval_pct,exit_bien,exit_parcial,exit_mal,entregas_a_tiempo_pct,notas
-2026-10-15,U3-S07,71,18,11,5,,fila de ejemplo (borrar); error frecuente del exit: creen que atomic protege una region completa (A.8)
-2026-10-19,U3-S08,56,14,13,7,,fila de ejemplo (borrar); retrieval < 60 % en schedule: reexplicar al inicio de S09; ALERTA retrieval
-2026-10-20,U3-S09,64,20,9,4,85,fila de ejemplo (borrar); entregas = pre-lab P4 en repositorio antes de las 08:30 (29 de 34)
+fecha,evento,ambito,id,nivel_diagnostico_ago,retrieval_ant1_pct,retrieval_ant2_pct,ct1_voto_pct,ct1_revoto_pct,ct2_voto_pct,ct2_revoto_pct,exit_bien,exit_parcial,exit_mal,entregas_a_tiempo_pct,hito_pct,prediccion,postdiccion,calificacion,escala,notas

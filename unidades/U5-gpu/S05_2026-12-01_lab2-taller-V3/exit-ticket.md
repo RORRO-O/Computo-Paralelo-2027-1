@@ -5,12 +5,19 @@
 Cinco minutos, individual, en papel. Se revisa hoy mismo; el error más frecuente abre la S06 del jueves 3 de
 diciembre. Cuenta la entrega, no el acierto.
 
-**1. (Conceptual)** Un equipo reporta "*speedup* del *kernel*: 45×" y otro reporta "*speedup* de la V3: 4×" para el
-mismo programa y la misma GPU. Ambos midieron bien. Explica en dos líneas cómo pueden ser ciertos los dos números
-y cuál de los dos describe lo que gana el usuario del programa.
+**1. (Conceptual)** Cuatro equipos describen su V3. ¿Cuál cumple con lo que pide la entrega final? Escribe la letra.
+
+- A) "Subimos la malla una vez, llamamos a `cupyx.scipy.ndimage.convolve` en cada paso y bajamos al final. Verificado
+  contra la V1; 40× sin transferencias y 25× con ellas, mediana de 5."
+- B) "*Kernel* propio en Numba. `cuda.synchronize()` no lanzó ninguna excepción, así que no hizo falta compararlo con
+  la V1. 30× con transferencias, mediana de 5."
+- C) "*Kernel* propio en CUDA C, verificado contra la V1 con tolerancia 1e-4 en 37 × 45 y en 2048 × 2048. Mediana de 5
+  tras calentamiento: 35× solo *kernels* y 12× con transferencias, T4, 1 de diciembre."
+- D) "*Kernel* propio en CUDA C verificado contra la V1. Reportamos 60×: una corrida, solo el tiempo del *kernel*,
+  porque las copias no son parte del algoritmo."
 
 <details><summary>Clave</summary>
-El primero cronometra solo los <em>kernels</em> (eventos alrededor del ciclo); el segundo incluye las transferencias H2D/D2H (y, si aplica, lo que quedó en CPU). Si las copias tardan 10 veces más que el cómputo, 45× y 4× son el mismo programa. Lo que gana el usuario es el 4×: el tiempo total. El protocolo exige reportar ambos (idea errónea 24).
+<strong>C</strong>. A: no hay <em>kernel</em> propio, la biblioteca hace todo (C3 queda en "En desarrollo" como máximo). B: "sin error = correcto" (idea errónea 27); falta la comparación con la V1. D: las transferencias sí cuentan (idea 24) y una corrida no basta (idea 5). Bien = C; mal = cualquier otra letra (anota cuál: dice qué idea errónea sigue viva).
 </details>
 
 **2. (Aplicación)** Una imagen de 480 filas × 640 columnas se guarda aplanada por filas y se procesa con un *kernel*
@@ -27,6 +34,9 @@ El primero cronometra solo los <em>kernels</em> (eventos alrededor del ciclo); e
 
 **3. (Confianza)** ¿Qué tan seguro estás de tus dos respuestas? (1 = nada, 4 = podría explicarlo a un compañero).
 ¿Qué te quedó menos claro hoy: la medición de la Parte D, la aritmética de índices, o qué cuenta como V3?
+
+**Solo si tu equipo no presentó en el punto de control:** configuración con menor `t_total` de tu tabla de la Parte D:
+______ · mediana de `t_total` (s): ______ · *speedup* con transferencias: ______ (así queda registrado tu punto de control).
 
 ---
 

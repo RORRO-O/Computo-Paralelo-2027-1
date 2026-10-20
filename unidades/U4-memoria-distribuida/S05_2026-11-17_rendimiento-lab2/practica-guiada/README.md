@@ -175,7 +175,9 @@ cómputo/comunicación que imprime el programa en el cruce: según el modelo, en
 los nombres de los binarios en `run_seq`/`run_mpi`, los argumentos (tu programa debe imprimir una línea
 `RESULT,...` con los mismos 13 campos, o adapta `reps_and_median`/`median_of`) y los tamaños por defecto para que
 tu T(1) ≥ 1 s. Verificable: tu `fuerte.csv` y `debil.csv` tienen el encabezado del protocolo, 5 repeticiones por
-fila y la fila p = 8 (si la incluyes) etiquetada `mpi_oversub`.
+fila y la fila p = 8 (si la incluyes) etiquetada `mpi_oversub`. Si usas el `escalado.sh` que trae
+`practicas/P5-mpi/` (ya adaptado con `PROG=heat|matvec|primes`; lee la línea `TIME,...`), M2 se reduce a correrlo con
+tus tamaños y a señalar en los dos scripts las líneas que hacen lo mismo.
 
 **M3 · Cede el núcleo al esperar (opcional).** Repite la fila p = 8 con
 `MPIRUN_FLAGS="--oversubscribe --mca mpi_yield_when_idle 1" make run-fuerte NP=8`. Verificable: la mediana baja

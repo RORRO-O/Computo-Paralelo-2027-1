@@ -1,18 +1,18 @@
 # Guion de la defensa oral · 12 minutos + preguntas individuales
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026 · 10:30–12:00 · Salón 3208 · 15 de los 100 puntos del proyecto (`rubrica-defensa.md`) · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026 · 10:30–12:00 · Salón 3208 · 15 de los 100 puntos del proyecto (`rubrica-defensa.md`) · versión 1.1 · 20 de octubre de 2026
 
 ## 1. En una tabla
 
 | Qué | Detalle |
 |---|---|
-| Fecha y hora | **Jueves 10 de diciembre de 2026, 10:30–12:00** (sesión C2). Según la opción de `logistica-defensa.md` que elija el profesor, una parte de los equipos defiende el **lunes 14 de diciembre, 10:30–12:00** (sesión de reserva). El orden sale por sorteo con semilla publicada el lunes 7 de diciembre |
-| Peso | **15 de los 100 puntos del proyecto** (el proyecto es 40 % del 3.er parcial, `planeacion/mapa-evaluacion.md`). Rúbrica de 100 puntos × 0.15. El criterio de respuestas individuales se asigna **por integrante** y puede mover tu calificación del proyecto hasta en 20 % (`rubrica-defensa.md` §4) |
-| Formato | **12 minutos** cronometrados de exposición con demo en vivo (1 + 3 + 4 + 2 + 2); el profesor corta a los 12:00. Después, **preguntas individuales: 2 por integrante**, sin ayuda del equipo |
-| Qué se defiende | Lo que está en la etiqueta `entrega-final` (lunes 7 de diciembre, 10:30). El código no cambia entre la entrega y la defensa; la demo corre desde un **clon de esa etiqueta**, no desde la carpeta de trabajo |
+| Fecha y hora | **Jueves 10 de diciembre de 2026, 10:30–12:00** (sesión C2, salón 3208). Según la opción de `logistica-defensa.md` §3 que elija el profesor (anuncio a más tardar el jueves 3 de diciembre), una parte de los equipos defiende el **lunes 14 de diciembre, 10:30–12:00** y, con la opción (a) y más de 8 equipos, el **martes 15 de diciembre, 08:30–10:00** (sesiones de reserva). El orden y la sesión de cada equipo salen del sorteo con semilla publicada, que se corre en clase el lunes 7 de diciembre |
+| Peso | **15 de los 100 puntos del proyecto** (el proyecto es 40 % del 3.er parcial, `planeacion/mapa-evaluacion.md`). Rúbrica de 100 puntos × 0.15. El criterio de respuestas individuales (D4) se asigna **por integrante**, y cada respuesta tuya en Insuficiente baja 10 % tu calificación individual del proyecto, hasta 20 % (`rubrica-defensa.md` §4.1) |
+| Formato | **12 minutos** cronometrados de exposición con demo en vivo (1 + 3 + 4 + 2 + 2); el profesor corta a los 12:00. Después, **preguntas individuales: 2 por integrante**, sin ayuda del equipo. Si el profesor elige la opción (b) o (c), los tiempos cambian como dice §2 |
+| Qué se defiende | Lo que está en la etiqueta `entrega-final` (lunes 7 de diciembre, 10:30; una etiqueta tardía vale hasta el jueves 10 de diciembre 10:30, con tope de 80 % en repositorio y reporte). El código no cambia entre la entrega y la defensa; la demo corre desde un **clon de esa etiqueta**, no desde la carpeta de trabajo |
 | Zona sin IA | `docs/metodo/05-politica-ia.md`: sin teléfonos, sin asistentes, sin notas. La única máquina encendida del equipo es la de la demo. Las preguntas se responden con el código del repositorio en pantalla |
 | Ensayo | **Lunes 7 de diciembre, 10:30–12:00** (sesión C1), por parejas de equipos, con `lista-cotejo-pares.md` |
-| Plan B de la demo | Video de ≤ 3 minutos grabado antes del jueves 10 de diciembre (`logistica-defensa.md` §8). Solo se usa si la demo en vivo falla |
+| Plan B de la demo | Video de ≤ 3 minutos grabado entre la creación de la etiqueta y el **miércoles 9 de diciembre, 20:00**, enlazado en un *issue* del repositorio (`logistica-defensa.md` §8). Solo se usa si la demo en vivo falla y el profesor lo pide |
 | Banco de preguntas | `banco-preguntas-individuales.md`: público. Prepárate con él sobre **tu** repositorio, no memorizando respuestas |
 
 ## 2. Los 12 minutos, bloque por bloque
@@ -35,6 +35,20 @@ el profesor puede abrir en ese momento. Lo que no se sabe se dice ("no sabemos p
 4 y 8 hilos; lo que probamos fue X y descartó Y"). Un resultado malo bien explicado vale más que uno bueno sin
 explicación (`proyecto/entrega-final/faq-entrega.md` §1).
 
+**Si el profesor elige otro formato** (`logistica-defensa.md` §3; se anuncia a más tardar el jueves 3 de diciembre y se
+ensaya así el lunes 7):
+
+| Bloque | Completo (este guion) | Opción (b): 7 min | Opción (c): video ≤ 8 min + clase |
+|---|---|---|---|
+| Problema | 0:00–1:00 | 0:00–0:30 | En el video, con los mismos contenidos de los bloques 1–4 |
+| Diseño y decisiones | 1:00–4:00, dos decisiones medidas | 0:30–2:00, **una** decisión medida | En el video |
+| Resultados V2/V3 | 4:00–8:00 | 2:00–4:30 | En el video |
+| Qué falló | 8:00–10:00 | 4:30–5:30 | En el video |
+| Demo | 10:00–12:00 | 5:30–7:00; el *notebook* solo si sobra tiempo | En clase, 2:00 |
+| Preguntas individuales | 2 por integrante, ≤ 40 s cada una | 2 por integrante, ≤ 30 s cada una | 1 por integrante; la segunda solo como rescate |
+
+La rúbrica es la misma en los tres formatos: lo que no se alcanza a mostrar no se evalúa.
+
 ## 3. La demo en vivo (minuto 10:00–12:00)
 
 Prepara **antes de la sesión** un clon limpio en la laptop de la demo (o en la máquina del salón, si el profesor lo
@@ -53,30 +67,31 @@ Durante la demo, en este orden y con este presupuesto:
 | Segundos | Comando | Qué debe verse | Si no se ve |
 |---|---|---|---|
 | 0–20 | `git describe --tags --exact-match` y `git status --short` | `entrega-final` y ninguna línea de cambios | D3 baja a En desarrollo: la demo no corresponde a la entrega |
-| 20–60 | `make test` | Líneas `PASS` de V2 (y V3 si hay GPU local) contra V1 y código de salida 0, en ≤ 40 s (tamaño de prueba) | Explica qué falla y por qué; sigue con el resto |
-| 60–100 | `make run` de V1 y de V2 con `OMP_NUM_THREADS=1` y con `OMP_NUM_THREADS=<núcleos físicos>` al tamaño de demo | `tiempo_s=` (o `TIEMPO_S`) y `checksum=`/`RESULTADO` iguales entre versiones; tiempos coherentes con la Tabla 1 (misma forma: V2 con 4 hilos claramente menor que V1) | Di qué tamaño usas y por qué los tiempos difieren de la tabla (otra máquina, tamaño de demo) |
-| 100–120 | Pestaña de GitHub con `v3*/notebook_colab.ipynb` **ejecutado** | Salida de `!nvidia-smi` con el modelo de GPU y la fecha; celda de verificación con `PASS v3 == v1`; celda de medición con `tiempo_kernel_s` y `tiempo_total_s` | Sin *notebook* ejecutado no hay evidencia de V3: D3 no pasa de En desarrollo |
+| 20–60 | `make test` y después `echo $?` | Líneas `PASS` de V2 contra V1 (y de V3, si se puede verificar en la laptop: espejo en CPU o `NUMBA_ENABLE_CUDASIM=1`) y `0`, en ≤ 40 s (tamaño de prueba) | Explica qué falla y por qué; sigue con el resto |
+| 60–100 | `./v1/v1 <n_demo> <semilla>`, `./v2/v2 <n_demo> <semilla> 1` y `./v2/v2 <n_demo> <semilla> <p>` (`p` = núcleos físicos de la laptop; contrato `[n] [semilla] [hilos]` de `proyecto/README.md` §4) | `tiempo_s=` en las tres corridas y `checksum=` igual en las tres (dentro de la tolerancia declarada); tiempos con la misma forma que la Tabla 1 (V2 con `p` hilos claramente menor que V1) | Di qué tamaño usas y por qué los tiempos difieren de la tabla (otra máquina, tamaño de demo) |
+| 100–120 | Pestaña de GitHub con `v3/notebook_colab.ipynb` **ejecutado** | Salida de `!nvidia-smi` con el modelo de GPU y la fecha; celda de verificación con `PASS v3 == v1`; celda de medición con `tiempo_kernel_s` y `tiempo_total_s` | Sin *notebook* ejecutado no hay evidencia de V3: D3 no pasa de En desarrollo |
 
 **Tamaño de demo.** El que haga que V1 tarde entre 1 y 5 s en la máquina de la demo (`proyecto/medicion-en-el-proyecto.md`
 §2: "segundos, no minutos"). Si el tamaño declarado cumple eso, úsalo; si no, declara el tamaño de demo en el guion y dilo.
 No se corre Colab en vivo: la evidencia de V3 es el *notebook* ejecutado y guardado en el repositorio.
 
 **Si la demo falla.** Tienes 60 segundos para recuperarla. Si no, el profesor pide el video del plan B (≤ 3 min, ya
-abierto en la laptop) y la rúbrica aplica el tope de D3 (`rubrica-defensa.md` §4). Si la falla es de la sala (proyector,
+abierto en la laptop) y la rúbrica aplica el tope de D3 (`rubrica-defensa.md` §4.2). Si la falla es de la sala (proyector,
 corriente), no del equipo, la demo se repite al final de la sesión sin penalización.
 
 ## 4. Las preguntas individuales (después del minuto 12)
 
 | Qué | Cómo |
 |---|---|
-| Cuántas | **2 por integrante**. Formato completo: hasta 40 s por respuesta. Formato corto (opción b de la logística): hasta 30 s |
+| Cuántas | **2 por integrante**. Formato completo: hasta 40 s por respuesta. Formato corto (opción b de la logística): hasta 30 s. Opción (c): 1 por integrante y la segunda solo como rescate |
 | Quién responde | La persona a la que se dirige la pregunta. El equipo no ayuda, no completa, no corrige. Si otro integrante interviene, la respuesta se califica como la dio la persona antes de la intervención |
 | Pregunta 1 | Sobre la parte que **esa persona firmó** en el reparto (`README.md` §6 del repositorio y §11 del reporte). El profesor pone una línea, un `#pragma`, una función o un *kernel* en pantalla y usa uno de los tres patrones de línea del banco (`banco-preguntas-individuales.md` §1): "¿qué hace y qué pasa si la quito?", "¿por qué así y no de otra forma?", "¿dónde se mide y qué queda fuera?" |
-| Pregunta 2 | Del banco, con el tema sorteado para esa posición del equipo (Foster, OpenMP, medición, MPI, CUDA o decisiones del equipo). El sorteo de temas se publica junto con el orden (`logistica-defensa.md` §4). La pregunta exacta la elige el profesor sobre tu proyecto |
+| Pregunta 2 | Del banco, con el tema sorteado para esa posición del equipo (Foster, OpenMP, medición, MPI, CUDA o decisiones del equipo). El sorteo de temas se publica junto con el orden (`logistica-defensa.md` §4). La pregunta exacta la elige el profesor sobre tu proyecto. **Rescate:** si tu pregunta 1 quedó en Insuficiente, la pregunta 2 es otra línea de tu parte firmada, no el tema (`docs/metodo/05-politica-ia.md`) |
 | Con qué | Con el repositorio en pantalla. Sin notas, sin teléfono, sin consultar al equipo. Puedes abrir el archivo que haga falta |
 | Reformulación | Si la pregunta no se entendió, el profesor la reformula **una vez**. La respuesta que cuenta es la que das después |
+| Por escrito | Puedes pedir, sin dar razones, responder tus dos preguntas por escrito en el momento: 5 minutos, papel, sin dispositivos, en una mesa aparte mientras sigue la sesión. Vale igual (`docs/metodo/05-politica-ia.md`) |
 | Qué se evalúa | Que puedas explicar código, mediciones y decisiones de tu propio repositorio: qué hace, por qué está ahí, qué pasaría si cambia. No se evalúa fluidez ni vocabulario |
-| Qué cuenta como desconocimiento | No poder decir qué hace la línea o el *kernel* que firmaste; contradecir el código que está en pantalla; describir código que no está en el repositorio; atribuir la línea a otro integrante o a "la IA" sin poder explicarla; responder con generalidades ("paraleliza"); o no responder. Cada respuesta así baja tu calificación individual del proyecto 10 %, hasta 20 % con dos (`rubrica-defensa.md` §4) |
+| Qué cuenta como desconocimiento | No poder decir qué hace la línea o el *kernel* que firmaste; contradecir el código que está en pantalla; describir código que no está en el repositorio; atribuir la línea a otro integrante o a "la IA" sin poder explicarla; responder con generalidades ("paraleliza"); o no responder. Cada respuesta así (también la de rescate) baja tu calificación individual del proyecto 10 %, hasta 20 % con dos (`rubrica-defensa.md` §4.1). Si además fallas la pregunta 1 y la de rescate, el criterio C6 del repositorio baja a Insuficiente para ti. Una respuesta incompleta (En desarrollo) solo baja D4 |
 
 ## 5. Qué llevar
 
@@ -113,7 +128,7 @@ corriente), no del equipo, la demo se repite al final de la sesión sin penaliza
 | Usar un tamaño que tarda minutos "para que se note el *speedup*" | El cronómetro no se detiene. Usa el tamaño de demo de §3 |
 | Responder por un compañero, soplar, completar | La respuesta se califica como estaba antes de la intervención; la persona que intervino pierde su turno de reformulación |
 | Consultar el teléfono, un asistente de IA o notas durante las preguntas | Zona sin IA. La pregunta se califica como Insuficiente y se trata como integridad académica (`docs/metodo/04-evaluacion.md` §6) |
-| Hablar solo uno o dos integrantes | D1 baja un nivel por cada integrante que habla menos de 2 minutos |
+| Hablar solo uno o dos integrantes | Con un integrante que habla menos de 2 minutos, D1 queda en En desarrollo; si habla uno solo, en Insuficiente (`rubrica-defensa.md` §3.1) |
 | Pasarse de 12:00 | El profesor corta. Lo que no se mostró no existe para la rúbrica |
 | Agregar diapositivas de "agradecimientos", índice o portada animada | Consumen tiempo que la rúbrica no paga |
 
@@ -124,7 +139,7 @@ se pasa dos veces, recorta contenido, no hables más rápido.
 
 ```
 GUION DE DEFENSA · Equipo NN · <problema en ≤ 8 palabras>
-Fecha asignada por sorteo: [ ] jue 10 dic  [ ] lun 14 dic   Posición: __   Hora estimada de inicio: __:__
+Fecha asignada por sorteo: [ ] jue 10 dic  [ ] lun 14 dic  [ ] mar 15 dic   Posición: __   Hora estimada de inicio: __:__
 Laptop de la demo: <modelo> · Salida de video: [ ] HDMI [ ] USB-C+adaptador [ ] máquina del salón
 Tamaño de demo n_demo = ______ (V1 tarda ____ s en la laptop de la demo) · semilla = ______
 

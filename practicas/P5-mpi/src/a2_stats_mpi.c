@@ -151,7 +151,7 @@ int main(int argc, char **argv)
         double rel = (global_sum - ref_sum) / (ref_sum == 0.0 ? 1.0 : ref_sum);
         printf("verificacion (rango 0 recorre el arreglo completo): %s; dif. rel. suma=%.1e; max %s; "
                "dif. rel. varianza=%.1e\n", ok ? "OK" : "FALLA", fabs(rel),
-               global_max == ref_max ? "igual" : "DISTINTO", fabs((var - ref_var) / ref_var));
+               global_max == ref_max ? "igual" : "DISTINTO", fabs(var - ref_var) / (ref_var > 0.0 ? ref_var : 1.0));
         printf("nota: la suma distribuida y la secuencial suman en distinto orden; por eso se compara con tolerancia\n");
         p5_print_time_human("Scatter+computo+Reduce+Bcast+Allreduce, max entre rangos", t_max, reps);
         p5_print_time_line(t_max, reps);

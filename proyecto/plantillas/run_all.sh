@@ -1,34 +1,47 @@
 #!/usr/bin/env bash
-# run_all.sh — Aplica el protocolo de medición del curso a un ejecutable y agrega filas a un CSV.
+# run_all.sh — Aplica el protocolo de medición del curso a UN ejecutable y agrega filas a un CSV.
 # Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1 · Plantilla del proyecto integrador
+#
+# En el repositorio del equipo este archivo se copia como herramientas/medir_proyecto.sh. No sustituye al
+# run_all.sh de la raíz (el que reproduce TODAS las mediciones y acepta --rapido, como exige la entrega
+# final; proyecto/entrega-final/plantilla-repo/run_all.sh): sirve para medir una configuración a la vez
+# (perfil de H1, tabla de hilos de H2, experimentos de schedule, V3 en Colab).
 #
 # Uso:
 #   ./run_all.sh -e ETIQUETA -n N [-t "1 2 4 8"] [-r 5] [-o resultados/mediciones.csv] -- ./programa [args...]
 #
-#   -e  Etiqueta de la versión: V1, V2 o V3. La fila "V1" con el mismo N es la línea base del speedup.
-#   -n  Tamaño del problema. Se pasa al programa como ÚLTIMO argumento y se guarda en la columna n.
+#   -e  Etiqueta de la versión: V1, V2, V3 o una de experimento (V2-dynamic-64). La fila V1 (o v1) con el
+#       mismo N es la línea base del speedup.
+#   -n  Tamaño del problema. Se pasa al programa como ÚLTIMO argumento y se guarda en la columna n. Con el
+#       contrato [n] [semilla] [hilos] no pongas args: el programa recibe solo n, usa su semilla por defecto
+#       y toma los hilos de OMP_NUM_THREADS.
 #   -t  Lista de hilos entre comillas (por defecto "1"). Cada valor se exporta en OMP_NUM_THREADS.
 #       Usa "gpu" para una versión V3: no se fija OMP_NUM_THREADS y la eficiencia queda en NA.
 #   -r  Repeticiones cronometradas por configuración (por defecto 5; el protocolo exige >= 5).
-#   -o  CSV de salida (por defecto resultados/mediciones.csv). Se crea con encabezado si no existe.
+#   -o  CSV de salida (por defecto resultados/mediciones.csv). Se crea con encabezado si no existe; si existe
+#       con otro encabezado (otro -r, u otro formato), se rechaza con código 3: no se mezclan formatos.
 #   -h  Muestra esta ayuda.
 #
 # Contrato con el programa medido:
-#   - Imprime en stdout una línea "TIEMPO_S <segundos>" con el tiempo de la región de interés. Se acepta también
-#     el formato clave=valor de la plantilla de entrega final (tiempo_s= o tiempo_total_s=, tiempo_kernel_s=).
-#   - Opcional (V3): una línea "TIEMPO_KERNEL_S <segundos>" con el tiempo SIN transferencias; produce una
-#     fila adicional con etiqueta "<ETIQUETA>-kernel".
+#   - Imprime en stdout tiempo_s=<segundos> (o tiempo_total_s=, que tiene prioridad) con el tiempo de la región
+#     de interés. También acepta líneas "TIEMPO_S <segundos>".
+#   - Opcional (V3): tiempo_kernel_s=<segundos> (o "TIEMPO_KERNEL_S <segundos>"), el tiempo SIN
+#     transferencias; produce una fila adicional con etiqueta "<ETIQUETA>-kernel".
 #   - Termina con código 0. Si falla, la medición se aborta con código 4.
 #
 # Qué hace por cada valor de hilos: 1 ejecución de calentamiento (no se cuenta) + R ejecuciones; calcula
-# mediana, mínimo y máximo; calcula speedup = T_V1 / mediana y eficiencia = speedup / hilos usando la fila
-# V1 con el mismo N que ya esté en el CSV (si no la hay, escribe NA y avisa). Escribe además el entorno
-# (fecha, sistema, CPU, RAM, compilador, GPU si la hay) en <carpeta del CSV>/entorno.txt.
+# mediana, mínimo y máximo; calcula speedup = T_V1 / mediana y eficiencia = speedup / hilos usando la primera
+# fila V1 con el mismo N que ya esté en el CSV (si no la hay, escribe NA y avisa; si repites V1, empieza un CSV
+# nuevo y anota el anterior en la bitácora). Escribe además el entorno (fecha, sistema operativo, CPU, núcleos
+# físicos y lógicos, RAM, compilador, banderas, GPU si la hay) en <carpeta del CSV>/entorno.txt, que se
+# sobrescribe: un CSV por máquina y por carpeta. Las banderas salen de la variable BANDERAS si la exportas
+# (BANDERAS="-std=c11 -O2 -fopenmp" ./run_all.sh ...) o, si no, de las líneas CFLAGS/NVFLAGS/LDLIBS del
+# Makefile de la carpeta del programa (./v2/v2 -> v2/Makefile).
 #
 # Columnas del CSV: config,hilos,n,rep1..repR,mediana_s,speedup,eficiencia,min_s,max_s
 #
-# Ejemplo ejecutable (desde esta carpeta, después de `make`):
-#   ./run_all.sh -e V1 -n 20000000 -t 1       -o resultados-prueba/mediciones.csv -- ./plantilla_main.out
+# Ejemplo ejecutable (desde proyecto/plantillas/, después de `make`; n de demostración: T(1) < 1 s no se reporta):
+#   ./run_all.sh -e V1 -n 20000000 -t 1       -o resultados-prueba/mediciones.csv -- ./plantilla_sec.out
 #   ./run_all.sh -e V2 -n 20000000 -t "1 2 4" -o resultados-prueba/mediciones.csv -- ./plantilla_main.out
 #   python3 graficar_proyecto.py resultados-prueba/mediciones.csv
 set -euo pipefail
@@ -95,12 +108,33 @@ else
     echo "$HEADER" > "$OUT"
 fi
 
+# Banderas de compilación del programa medido: BANDERAS si se exportó; si no, las líneas CFLAGS/NVFLAGS/
+# LDLIBS del Makefile de la carpeta del programa (./v1/v1 -> v1/Makefile).
+banderas() {
+    if [[ -n ${BANDERAS:-} ]]; then
+        echo "banderas: $BANDERAS"
+        return
+    fi
+    local mk
+    mk="$(dirname "$1")/Makefile"
+    if [[ -f $mk ]] && grep -qE '^[[:space:]]*(CFLAGS|NVFLAGS|NVCCFLAGS|LDLIBS)[[:space:]]*[:?+]?=' "$mk"; then
+        echo "banderas ($mk): $(grep -E '^[[:space:]]*(CFLAGS|NVFLAGS|NVCCFLAGS|LDLIBS)[[:space:]]*[:?+]?=' "$mk" \
+            | sed 's/[[:space:]][[:space:]]*/ /g; s/^ //' | paste -sd ';' -)"
+    else
+        echo "banderas: no encontré CFLAGS en $mk; exporta BANDERAS='-std=c11 -O2 ...' y vuelve a medir"
+    fi
+}
+
 # Entorno de medición (se sobrescribe en cada corrida; cópialo al reporte).
 {
     echo "fecha: $(date '+%Y-%m-%d %H:%M:%S %z')"
     echo "sistema: $(uname -srm)"
+    if [[ -r /etc/os-release ]]; then echo "so: $(. /etc/os-release && echo "${PRETTY_NAME:-desconocido}")"; fi
     if command -v lscpu > /dev/null 2>&1; then
         lscpu | grep -E 'Model name|^CPU\(s\)|Core\(s\) per socket|Thread\(s\) per core|Socket\(s\)' | sed 's/  */ /g'
+        fisicos=$(lscpu | awk -F: '/^Core\(s\) per socket/ { c = $2 } /^Socket\(s\)/ { s = $2 } END { if (c && s) print c * s }')
+        echo "nucleos fisicos: ${fisicos:-desconocido}"
+        echo "nucleos logicos: $(nproc 2> /dev/null || echo desconocido)"
     elif command -v sysctl > /dev/null 2>&1; then
         echo "cpu: $(sysctl -n machdep.cpu.brand_string 2> /dev/null || true)"
         echo "nucleos fisicos: $(sysctl -n hw.physicalcpu 2> /dev/null || true)"
@@ -108,6 +142,7 @@ fi
     fi
     if [[ -r /proc/meminfo ]]; then grep MemTotal /proc/meminfo | sed 's/  */ /g'; fi
     if command -v gcc > /dev/null 2>&1; then echo "compilador: $(gcc --version | head -n 1)"; fi
+    banderas "$1"
     if command -v nvcc > /dev/null 2>&1; then echo "nvcc: $(nvcc --version | tail -n 1)"; fi
     if command -v nvidia-smi > /dev/null 2>&1; then
         echo "gpu: $(nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader 2> /dev/null || echo 'no disponible')"
@@ -150,12 +185,15 @@ escribir_fila() {
             printf "%.6f %.6f %.6f", m, a[1], a[n]
         }')"
     local speedup=NA eficiencia=NA t1=""
-    if [[ $config == "V1" && $hilos == "1" ]]; then
+    if [[ ($config == "V1" || $config == "v1") && $hilos == "1" ]]; then
         speedup=1.000
         eficiencia=1.000
+        if awk -v t="$mediana" 'BEGIN { exit !(t < 1.0) }'; then
+            echo "AVISO: T(1) = ${mediana} s < 1 s: sirve para probar el flujo, no para reportar (protocolo §2)." >&2
+        fi
     else
         # La mediana es la 5.ª columna contando desde el final (mediana_s,speedup,eficiencia,min_s,max_s).
-        t1=$(awk -F, -v n="$N" '$1 == "V1" && $3 == n { print $(NF - 4); exit }' "$OUT")
+        t1=$(awk -F, -v n="$N" 'toupper($1) == "V1" && $3 == n { print $(NF - 4); exit }' "$OUT")
         if [[ -n $t1 ]]; then
             speedup=$(awk -v a="$t1" -v b="$mediana" 'BEGIN { printf "%.3f", a / b }')
             if [[ $hilos =~ ^[0-9]+$ ]]; then

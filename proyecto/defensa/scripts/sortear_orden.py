@@ -10,8 +10,9 @@ Uso:
                              [--salida orden.md] [--solo-orden | --solo-temas]
 
     --semilla     Entero o texto publicado antes del sorteo (logistica-defensa.md §4). Mismo valor → mismo orden.
-    --equipos     Rango "1-12", lista "1,2,5,7" o archivo CSV con columnas equipo,integrantes (sin encabezado
-                  opcional). Los equipos se nombran equipoNN con dos dígitos, como los repositorios cp-6bm1-equipoNN.
+    --equipos     Rango "1-12", lista "1,2,5,7" o archivo CSV con columnas equipo,integrantes (el encabezado es
+                  opcional; las líneas que empiezan con # se ignoran). Números de 1 a 99: los equipos se nombran
+                  equipoNN con dos dígitos, como los repositorios cp-6bm1-equipoNN.
     --integrantes Integrantes por equipo cuando --equipos no es un CSV (por defecto 3). Afecta el tiempo de preguntas.
     --formato     completo: 12 min de exposición + 2 preguntas por integrante (40 s c/u) + cambio (1 min)
                   corto:    7 min de exposición + 3 min de preguntas + cambio (1 min)
@@ -62,28 +63,49 @@ def clave(semilla, texto):
     return hashlib.sha256(f"{semilla}-{texto}".encode("utf-8")).hexdigest()
 
 
+def error(mensaje):
+    """Argumentos que no sirven: mensaje en stderr y código 2 (el mismo que usa argparse)."""
+    print(f"sortear_orden.py: error: {mensaje}", file=sys.stderr)
+    sys.exit(2)
+
+
+def entero(texto, que):
+    try:
+        return int(str(texto).strip())
+    except ValueError:
+        error(f"{que}: se esperaba un entero y llegó {texto!r}")
+
+
 def leer_equipos(espec, integrantes_defecto):
     """Devuelve lista de (numero, integrantes) a partir de rango, lista o CSV."""
     equipos = []
+    if espec.lower().endswith(".csv") and not os.path.isfile(espec):
+        error(f"no existe el archivo de equipos {espec!r}")
     if os.path.isfile(espec):
         with open(espec, newline="", encoding="utf-8") as fh:
-            for fila in csv.reader(fh):
+            for i, fila in enumerate(csv.reader(fh), start=1):
                 if not fila or fila[0].strip().startswith("#"):
                     continue
                 if fila[0].strip().lower() == "equipo":
                     continue
-                num = int(fila[0])
-                integ = int(fila[1]) if len(fila) > 1 and fila[1].strip() else integrantes_defecto
+                num = entero(fila[0], f"{espec}, línea {i}, equipo")
+                integ = (entero(fila[1], f"{espec}, línea {i}, integrantes")
+                         if len(fila) > 1 and fila[1].strip() else integrantes_defecto)
                 equipos.append((num, integ))
     elif "-" in espec and "," not in espec:
         a, b = espec.split("-", 1)
-        equipos = [(n, integrantes_defecto) for n in range(int(a), int(b) + 1)]
+        equipos = [(n, integrantes_defecto) for n in range(entero(a, "--equipos"), entero(b, "--equipos") + 1)]
     else:
-        equipos = [(int(x), integrantes_defecto) for x in espec.split(",") if x.strip()]
+        equipos = [(entero(x, "--equipos"), integrantes_defecto) for x in espec.split(",") if x.strip()]
     if not equipos:
-        sys.exit("No hay equipos en --equipos")
+        error("no hay equipos en --equipos (¿el archivo existe?)")
     if len({n for n, _ in equipos}) != len(equipos):
-        sys.exit("Hay números de equipo repetidos en --equipos")
+        error("hay números de equipo repetidos en --equipos")
+    for num, integ in equipos:
+        if not 1 <= num <= 99:
+            error(f"equipo {num}: el número debe estar entre 1 y 99 (cp-6bm1-equipoNN)")
+        if not 1 <= integ <= 3:
+            error(f"equipo {num}: {integ} integrantes; los equipos son de 1 a 3 (2–3 por regla del proyecto)")
     return equipos
 
 
@@ -95,7 +117,7 @@ def segundos_por_equipo(formato, integrantes, cambio_min):
     elif formato == "mixto":
         exposicion, preguntas = 2 * 60, integrantes * 60 + 60
     else:
-        sys.exit(f"Formato desconocido: {formato}")
+        error(f"formato desconocido: {formato}")
     return exposicion, preguntas, int(round(cambio_min * 60))
 
 
@@ -104,9 +126,15 @@ def leer_sesiones(lista):
     for s in lista:
         partes = s.split()
         if len(partes) != 3:
-            sys.exit(f"Sesión mal escrita (se espera 'AAAA-MM-DD HH:MM DUR'): {s!r}")
-        inicio = dt.datetime.strptime(partes[0] + " " + partes[1], "%Y-%m-%d %H:%M")
-        sesiones.append((inicio, int(partes[2])))
+            error(f"sesión mal escrita (se espera 'AAAA-MM-DD HH:MM DUR'): {s!r}")
+        try:
+            inicio = dt.datetime.strptime(partes[0] + " " + partes[1], "%Y-%m-%d %H:%M")
+        except ValueError:
+            error(f"fecha u hora inválida en la sesión {s!r}")
+        dur = entero(partes[2], f"duración de la sesión {s!r}")
+        if dur <= 0:
+            error(f"duración no positiva en la sesión {s!r}")
+        sesiones.append((inicio, dur))
     return sesiones
 
 
@@ -137,6 +165,10 @@ def main():
     ap.add_argument("--solo-orden", action="store_true")
     ap.add_argument("--solo-temas", action="store_true")
     args = ap.parse_args()
+    if args.max_por_sesion is not None and args.max_por_sesion < 1:
+        error("--max-por-sesion debe ser al menos 1")
+    if args.apertura < 0 or args.cierre < 0 or (args.cambio is not None and args.cambio < 0):
+        error("--apertura, --cierre y --cambio no pueden ser negativos")
 
     equipos = leer_equipos(args.equipos, args.integrantes)
     cambio = args.cambio if args.cambio is not None else (0.5 if args.formato == "mixto" else 1.0)

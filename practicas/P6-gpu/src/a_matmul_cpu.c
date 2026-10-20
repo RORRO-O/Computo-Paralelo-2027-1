@@ -1,11 +1,11 @@
 /*
- * b_matmul_cpu.c — Referencia secuencial de la Parte B (C = A·B, n×n, float) y calculadora del
- * modelo de lecturas a memoria global de las dos versiones de GPU.
+ * a_matmul_cpu.c — Referencia secuencial de la Parte A, multiplicación de matrices (C = A·B, n×n,
+ * float), y calculadora del modelo de lecturas a memoria global de las dos versiones de GPU.
  *
- * Uso:      ./b_matmul_cpu [n=512] [tile=16]
- * Compilar: gcc -std=c11 -O2 -Wall -Wextra b_matmul_cpu.c -o b_matmul_cpu
+ * Uso:      ./a_matmul_cpu [n=512] [tile=16]
+ * Compilar: gcc -std=c11 -O2 -Wall -Wextra a_matmul_cpu.c -o a_matmul_cpu
  *
- * Misma inicialización que b_matmul_tiled.cu y b_matmul_numba.py: el checksum (suma de C en double)
+ * Misma inicialización que a_matmul_tiled.cu y a_matmul_numba.py: el checksum (suma de C en double)
  * sirve para comparar los tres programas. Protocolo: 1 calentamiento + 5 repeticiones (mediana) hasta
  * n = 1024; con n mayor una sola repetición (y se dice).
  */
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
     unsigned long long reads_tiled = 2ULL * (unsigned long long)n * n * (unsigned long long)phases;
     double gflops = 2.0 * (double)n * n * n / t_med / 1e9;
 
-    printf("b_matmul_cpu: n=%d tile=%d t_cpu_ms=%.3f (mediana de %d; min %.3f, max %.3f) %.2f GFLOP/s\n",
+    printf("a_matmul_cpu: n=%d tile=%d t_cpu_ms=%.3f (mediana de %d; min %.3f, max %.3f) %.2f GFLOP/s\n",
            n, tile, t_med * 1e3, reps, t[0] * 1e3, t[reps - 1] * 1e3, gflops);
     printf("  modelo de lecturas a memoria global: ingenua=%llu (cada elemento de A: %d veces) "
            "mosaicos=%llu (cada elemento de A: %d veces) cociente=%.2f fases=%d\n",

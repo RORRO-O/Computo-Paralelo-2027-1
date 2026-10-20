@@ -39,9 +39,10 @@ practicas/P5/
 ├── tests/run_tests.sh              el de esta carpeta + al menos un caso propio
 ├── resultados/
 │   ├── entorno.txt                 lo escribe escalado.sh (CPU, núcleos, compilador, CPU ociosa antes de medir)
-│   ├── fuerte.csv  debil.csv       formato del protocolo, 5 repeticiones, fila seq, p = 1, 2, 4 y 8 (mpi_oversub)
+│   ├── fuerte.csv  debil.csv       formato del protocolo, 5 repeticiones, fila seq, p = 1, 2, 4 y 2 × núcleos (mpi_oversub)
 │   ├── pingpong.txt                salida completa de mpirun -np 2 ./src/d_pingpong en la misma máquina
-│   └── fuerte.png  debil.png       graficar.py (con la curva del modelo en fuerte.png)
+│   ├── fuerte.png  debil.png       graficar.py (con la curva del modelo en fuerte.png)
+│   └── matvec/                     PROG=matvec OUT=resultados/matvec ./escalado.sh (Parte B: cierra la predicción del pre-lab)
 └── REPORTE.md                      ≤ 3 páginas; plantilla: herramientas/plantilla-reporte-practica.md
 ```
 
@@ -81,10 +82,10 @@ Nada de nombres completos ni correos en el repositorio: usa el alias de tus *com
 - [ ] `make` sin warnings; `make test-entrega PARTE_C=...` termina en `0 FAIL` (y ningún `PEND`).
 - [ ] Agregaron ≥ 1 caso propio a `tests/run_tests.sh` (con `EXTRA` o en su propia sección) y pasa.
 - [ ] `resultados/fuerte.csv` y `debil.csv`: cabecera del protocolo, 5 repeticiones por fila, fila `seq`, filas
-      `mpi` con p = 1, 2, 4 y la fila `mpi_oversub,8` (o declaran por qué no la incluyen); `T_seq ≥ 1 s`.
+      `mpi` con p = 1, 2, 4 y la fila `mpi_oversub` de 2 × núcleos (o declaran por qué no la incluyen); `T_seq ≥ 1 s`.
 - [ ] `resultados/entorno.txt` con `cpu_ociosa_antes_de_medir >= 85 %`; si no se pudo, lo dicen en el reporte.
 - [ ] `resultados/pingpong.txt` medido en la **misma** máquina que los CSV; α y β usados en `modelo.py` y en `graficar.py --modelo`.
-- [ ] `fuerte.png` con línea ideal, puntos medidos, p = 8 hueco y aparte, y la curva del modelo; `debil.png` con E = 1.
+- [ ] `fuerte.png` con línea ideal, puntos medidos, el punto sobre-suscrito hueco y aparte, y la curva del modelo; `debil.png` con E = 1.
 - [ ] `REPORTE.md` ≤ 3 páginas con las secciones de arriba; la predicción del pre-lab copiada **tal cual**.
 - [ ] Declaración de IA con las cuatro líneas; reparto de trabajo que coincide con `git log`; ≥ 3 *commits* con código por integrante.
 - [ ] Cualquier integrante puede explicar en voz alta cualquier línea de `src/` (prueba de propiedad, `05-politica-ia.md`).

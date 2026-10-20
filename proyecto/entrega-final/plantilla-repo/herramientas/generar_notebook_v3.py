@@ -3,29 +3,31 @@
 herramientas/generar_notebook_v3.py · Genera el notebook de Colab/Kaggle de la V3 (plantilla)
 
 Uso:
-    python3 herramientas/generar_notebook_v3.py --fuente v3/kernel.cu --cabecera comun/problema.h
-                                                --v1 v1/main.c --salida v3/notebook_colab.ipynb
-                                                [--equipo NN] [--n 4000000] [--semilla 12345] [--reps 5]
-                                                [--arch sm_75]
+    python3 herramientas/generar_notebook_v3.py --fuente v3/kernel.cu --v1 v1/main.c
+                                                --salida v3/notebook_colab.ipynb
+                                                [--cabecera comun/problema.h] [--equipo NN] [--n 4000000]
+                                                [--semilla 12345] [--reps 5] [--arch sm_75]
     --fuente    v3/kernel.cu (CUDA C) o un .py (Numba CUDA / CuPy). Se decide por la extensión.
-    --cabecera  cabecera común que el .cu incluye (se escribe junto al .cu en Colab). Opcional con .py.
+    --cabecera  cabecera común que incluyen la V1 y, en CUDA C, la V3 (se escribe junto a ellas en
+                Colab). Por defecto comun/problema.h; también hace falta con .py, porque la V1 la incluye.
     --v1        v1/main.c: se compila también en Colab para verificar el checksum y medir T(1)
                 EN LA MISMA MÁQUINA (el speedup de la GPU se reporta contra ese T(1)).
 Qué produce: un .ipynb válido (nbformat 4) con estas celdas, en orden:
     0  Markdown: qué es, cómo activar la GPU, qué descargar al terminar.
-    1  Entorno: !nvidia-smi, !nvcc --version, fecha UTC, CPU  -> entorno_gpu.txt
-    2  %%writefile de la cabecera, la V1 y la fuente de la V3.
+    1  Entorno: !nvidia-smi, !nvcc --version, python3 (y numba/cupy si la V3 es .py), fecha UTC,
+       CPU anfitriona  -> entorno_gpu.txt
+    2  Markdown + %%writefile de la cabecera, la V1 y la fuente de la V3 (copias exactas del repositorio).
     3  Compilación: gcc para V1; nvcc (o nada, si es .py) para V3.
     4  Verificación: corre V1 y V3 con la misma n y semilla y compara el checksum con tolerancia.
     5  Medición: 1 calentamiento + K repeticiones de V1 y de V3; escribe mediciones_v3.csv con
        la cabecera del protocolo y filas v1, v3_kernel (sin transferencias) y v3_total (con).
     6  Markdown final: descargar notebook CON salidas, mediciones_v3.csv y entorno_gpu.txt.
 Código de salida: 0 si el notebook se escribió y valida; 1 si falta un archivo de entrada.
-Ejemplo:
+Ejemplo (desde la raíz del repositorio):
     python3 herramientas/generar_notebook_v3.py --fuente v3/kernel.cu --cabecera comun/problema.h \
         --v1 v1/main.c --salida v3/notebook_colab.ipynb --equipo 07
 Después de ejecutarlo en Colab, descarga el .ipynb EJECUTADO y reemplaza v3/notebook_colab.ipynb;
-la versión sin salidas no cuenta como evidencia (reproducibilidad.md §3).
+la versión sin salidas no cuenta como evidencia (proyecto/entrega-final/reproducibilidad.md §4).
 """
 import argparse
 import os
@@ -45,7 +47,8 @@ def leer(ruta):
 def main():
     ap = argparse.ArgumentParser(description="Genera el notebook de Colab/Kaggle de la V3.")
     ap.add_argument("--fuente", required=True, help="v3/kernel.cu o v3/main_gpu.py")
-    ap.add_argument("--cabecera", help="comun/problema.h (si la fuente la incluye)")
+    ap.add_argument("--cabecera", default="comun/problema.h",
+                    help="cabecera que incluyen la V1 y la V3 en CUDA C (por defecto comun/problema.h)")
     ap.add_argument("--v1", required=True, help="v1/main.c para verificar y medir T(1) en Colab")
     ap.add_argument("--salida", required=True, help="ruta del .ipynb a escribir")
     ap.add_argument("--equipo", default="NN", help="número de equipo (cp-6bm1-equipoNN)")
@@ -61,8 +64,8 @@ def main():
     v1 = leer(args.v1)
     nombre_fuente = os.path.basename(args.fuente)
     es_python = nombre_fuente.endswith(".py")
-    cabecera = leer(args.cabecera) if args.cabecera else None
-    nombre_cab = os.path.basename(args.cabecera) if args.cabecera else None
+    cabecera = leer(args.cabecera)
+    nombre_cab = os.path.basename(args.cabecera)
 
     celdas = []
     celdas.append(new_markdown_cell(
@@ -78,19 +81,30 @@ def main():
         "regenéralo en lugar de editar las celdas a mano."
     ))
 
-    celdas.append(new_code_cell(
-        "# 1. Entorno: qué GPU nos tocó HOY (cambia entre sesiones; por eso se guarda con fecha)\n"
-        "!nvidia-smi\n"
-        "!nvidia-smi --query-gpu=name,driver_version,memory.total,compute_cap --format=csv > entorno_gpu.txt\n"
-        "!date -u +fecha_utc=%Y-%m-%dT%H:%M:%SZ >> entorno_gpu.txt\n"
-        "!nvcc --version | tail -1 >> entorno_gpu.txt\n"
-        "!grep -m1 'model name' /proc/cpuinfo | sed 's/^/cpu_anfitrion: /' >> entorno_gpu.txt\n"
-        "!nproc | sed 's/^/nucleos_anfitrion=/' >> entorno_gpu.txt\n"
-        "!cat entorno_gpu.txt"
-    ))
+    entorno = [
+        "# 1. Entorno: qué GPU nos tocó HOY (cambia entre sesiones; por eso se guarda con fecha)",
+        "!nvidia-smi",
+        "!nvidia-smi --query-gpu=name,driver_version,memory.total,compute_cap --format=csv > entorno_gpu.txt",
+        "!date -u +fecha_utc=%Y-%m-%dT%H:%M:%SZ >> entorno_gpu.txt",
+        "!nvcc --version | tail -1 >> entorno_gpu.txt",
+        "!python3 --version | sed 's/^/python: /' >> entorno_gpu.txt",
+    ]
+    if es_python:
+        entorno.append("!pip show numba cupy-cuda12x 2>/dev/null | grep -E '^(Name|Version):' >> entorno_gpu.txt")
+    entorno += [
+        "!grep -m1 'model name' /proc/cpuinfo | sed 's/^/cpu_anfitrion: /' >> entorno_gpu.txt",
+        "!nproc | sed 's/^/nucleos_anfitrion=/' >> entorno_gpu.txt",
+        "!cat entorno_gpu.txt",
+    ]
+    celdas.append(new_code_cell("\n".join(entorno)))
 
-    if cabecera is not None:
-        celdas.append(new_code_cell(f"%%writefile {nombre_cab}\n{cabecera}"))
+    celdas.append(new_markdown_cell(
+        "## 2. Código fuente\n\n"
+        "Las tres celdas siguientes escriben en Colab copias exactas de los archivos del repositorio "
+        f"(`{nombre_cab}`, la V1 como `main_v1.c` y `{nombre_fuente}`). No las edites aquí: cambia el "
+        "repositorio y regenera el notebook; el verificador de la entrega compara estas celdas con el repositorio."
+    ))
+    celdas.append(new_code_cell(f"%%writefile {nombre_cab}\n{cabecera}"))
     celdas.append(new_code_cell(f"%%writefile main_v1.c\n{v1}"))
     celdas.append(new_code_cell(f"%%writefile {nombre_fuente}\n{fuente}"))
 

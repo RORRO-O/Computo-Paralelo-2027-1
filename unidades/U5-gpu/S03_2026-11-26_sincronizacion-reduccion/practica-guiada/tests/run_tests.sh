@@ -9,7 +9,8 @@
 #   3. Espejo Numba de la reducción bajo CUDASIM: las tres versiones dan la referencia con n=1000/256
 #      (n no potencia de 2, último bloque parcial), n=37/8 y block=128 con etapa 2 atómica; los parciales
 #      del árbol coinciden bit a bit con la emulación en CPU; la suma coincide con la referencia en C.
-#   4. Con block=96 (no potencia de 2) el árbol DEBE marcar FALLA sin error de CUDA (idea errónea 27).
+#   4. Con block=96 (no potencia de 2) el árbol DEBE marcar FALLA sin error de CUDA (idea errónea 27);
+#      tree_div con block=96 se omite con aviso (leería fuera del arreglo compartido).
 #   5. Sin __syncthreads entre niveles (--sin-sync) el programa termina y reporta verificacion= (el resultado
 #      concreto es no determinista; se imprime como información: "a veces sale bien").
 #   6. Espejo Numba del histograma bajo CUDASIM: la versión global coincide EXACTAMENTE con la CPU
@@ -121,6 +122,13 @@ if [ $rc -ne 0 ] && echo "$out" | grep -q "verificacion=FALLA" && echo "$out" | 
     ok "CUDASIM tree_nodiv 1000 96 -> verificacion=FALLA sin error de CUDA (la comparación con la CPU sí lo detecta)"
 else
     echo "$out"; ko "CUDASIM tree_nodiv 1000 96 debía marcar FALLA"
+fi
+# tree_div con block no potencia de 2 leería s[tid + stride] fuera del bloque: debe omitirse, no lanzarse
+out=$($PY reduce_sum_numba.py tree_div 64 96 2>&1); rc=$?
+if [ $rc -ne 0 ] && echo "$out" | grep -q "tree_div con block=96 leería fuera del bloque; se omite" && ! echo "$out" | grep -q "IndexError"; then
+    ok "CUDASIM tree_div 64 96 -> se omite con aviso (sin lectura fuera del arreglo compartido)"
+else
+    echo "$out" | tail -5; ko "CUDASIM tree_div 64 96 debía omitirse con aviso"
 fi
 
 # ---------- 5. Sin __syncthreads entre niveles: carrera deliberada (resultado no determinista) ----------

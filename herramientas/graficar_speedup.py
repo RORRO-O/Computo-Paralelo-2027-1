@@ -25,8 +25,8 @@ Salida (en CARPETA, por defecto la carpeta del CSV):
 También imprime en pantalla la tabla en Markdown (mediana, speedup, eficiencia, f de Karp–Flatt) para pegarla
 en el reporte. Código de salida 0 si generó las dos imágenes; 1 si el CSV no sirve.
 
-Ejemplo ejecutable (desde herramientas/):
-    python3 graficar_speedup.py ejemplo_resultados.csv --titulo "pi por rectángulos" --salida pruebas-tmp
+Ejemplo ejecutable (desde herramientas/; `make clean` borra la carpeta resultados/ que crea):
+    python3 graficar_speedup.py ejemplo_resultados.csv --titulo "pi por rectángulos" --salida resultados
 
 Requiere: python3 y matplotlib (sin pandas).
 """
@@ -216,9 +216,9 @@ def dibujar(series, colores, ax):
                 color=colores[config], label=config, markeredgecolor=SURFACE, markeredgewidth=1,
                 zorder=3 if solo_un_punto else 2)
         # Etiqueta directa solo en el último punto; una serie de un solo punto (la secuencial) se etiqueta
-        # arriba a la izquierda para no chocar con las demás series en p = 1.
+        # arriba a la derecha para no chocar con las demás series en p = 1 ni con los números del eje.
         ax.annotate(f"{ys[-1]:.2f}", (xs[-1], ys[-1]), textcoords="offset points",
-                    xytext=(-6, 8) if solo_un_punto else (6, -4), ha="right" if solo_un_punto else "left",
+                    xytext=(5, 7) if solo_un_punto else (6, -4), ha="left",
                     fontsize=9, color=INK2)
 
 
@@ -260,7 +260,7 @@ def graficar_eficiencia(series, colores, n, carpeta, titulo):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="speedup.png y eficiencia.png a partir del CSV del protocolo")
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("csv", help="CSV con las columnas del protocolo")
     ap.add_argument("--salida", help="carpeta de salida (por defecto la del CSV)")
     ap.add_argument("--titulo", help="título de las gráficas (p. ej. el nombre del problema)")

@@ -2,27 +2,35 @@
 # run_all.sh · Reproduce TODO lo medible en CPU en un solo comando (plantilla del proyecto)
 #
 # Uso:  ./run_all.sh [--n N] [--semilla S] [--hilos "1 2 4 8"] [--reps 5] [--rapido] [--sin-grafica]
-#       --n N          tamaño del problema (por defecto: N_DEFAULT de comun/problema.h, 4000000)
+#       --n N          tamaño del problema (por defecto: N_DEFAULT de comun/problema.h)
 #       --semilla S    semilla de los datos (por defecto 12345)
-#       --hilos "..."  lista de hilos para V2 (por defecto: 1 2 4 ... hasta nproc)
+#       --hilos "..."  lista de hilos para V2 (por defecto: 1 2 4 ... hasta los núcleos FÍSICOS
+#                      y uno más allá, la siguiente potencia de 2; protocolo §2)
 #       --reps K       repeticiones medidas por configuración (mínimo 5, protocolo §2)
-#       --rapido       n pequeña (200000) y 5 repeticiones: para comprobar que el flujo
-#                      funciona, NO para reportar (T(1) < 1 s invalida la medición)
-#       --sin-grafica  no genera resultados/speedup.png
+#       --rapido       n pequeña (200000): comprueba que el flujo funciona en segundos. Escribe en
+#                      resultados/rapido/ (ignorada por git), NUNCA en resultados/: así no pisa las
+#                      mediciones del reporte. T(1) < 1 s invalida la medición: no se reporta.
+#       --sin-grafica  no genera la tabla ni la gráfica
 # Qué hace, en orden:
-#   1. Escribe resultados/entorno.txt (CPU, RAM, SO, compilador, banderas, fecha, commit).
+#   1. Escribe <salida>/entorno.txt (CPU, núcleos, RAM, SO, compilador, banderas, versiones de nvcc,
+#      python3, numpy y matplotlib, fecha, commit, n, semilla, hilos, repeticiones). <salida> es
+#      resultados/ o, con --rapido, resultados/rapido/.
 #   2. make all (V1, V2 y verificación de compilación de V3 si hay nvcc).
 #   3. make test: si falla, ABORTA (un programa rápido y equivocado no tiene speedup).
 #   4. Mide V1 y V2 (1 calentamiento + K repeticiones por configuración) y escribe
-#      resultados/mediciones.csv con la cabecera del protocolo:
+#      <salida>/mediciones.csv con la cabecera del protocolo:
 #      config,hilos,n,rep1,...,repK,mediana_s,speedup,eficiencia
-#   5. Si hay python3 con numpy/matplotlib: tabla Markdown (resultados/tabla.md) y
-#      gráfica speedup vs hilos con la línea ideal (resultados/speedup.png).
-#   La V3 NO se mide aquí: se mide en Colab/Kaggle con v3/notebook_colab.ipynb, que
-#   produce resultados/mediciones_v3.csv y resultados/entorno_gpu.txt.
-# Código de salida: 0 si todo terminó; distinto de 0 si falló la compilación o una prueba.
-# Ejemplo:  ./run_all.sh --rapido            (≈ 10 s)
-#           ./run_all.sh --hilos "1 2 4"     (medición real con el tamaño por defecto)
+#   5. Si hay python3 con numpy/matplotlib: <salida>/tabla.md y <salida>/speedup.png
+#      (speedup vs hilos con la línea ideal y barras mín–máx; si existe resultados/mediciones_v3.csv
+#      y no es --rapido, agrega la tabla de la V3 y un segundo panel con su speedup con y sin
+#      transferencias).
+#   La V3 NO se mide aquí: se mide en Colab/Kaggle con v3/notebook_colab.ipynb, que produce
+#   resultados/mediciones_v3.csv y resultados/entorno_gpu.txt.
+# Código de salida: 0 si todo terminó; 1 si falló la compilación, una prueba o una medición;
+#   2 si los argumentos son inválidos.
+# Ejemplo:  ./run_all.sh --rapido            (≈ 10 s; resultados/rapido/)
+#           ./run_all.sh                     (mediciones del reporte, ≈ 30 s con el marcador de posición en 4 núcleos)
+#           ./run_all.sh --hilos "1 2 4 8"   (lista explícita; declárala en el reporte)
 set -u
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -34,30 +42,49 @@ HILOS=""
 REPS=5
 GRAFICA=1
 RAPIDO=0
+
+falta_valor() { echo "error: $1 requiere un valor (usa --help)" >&2; exit 2; }
 while [ $# -gt 0 ]; do
     case "$1" in
-        --n) N="$2"; shift 2 ;;
-        --semilla) SEMILLA="$2"; shift 2 ;;
-        --hilos) HILOS="$2"; shift 2 ;;
-        --reps) REPS="$2"; shift 2 ;;
+        --n) [ $# -ge 2 ] || falta_valor "$1"; N="$2"; shift 2 ;;
+        --semilla) [ $# -ge 2 ] || falta_valor "$1"; SEMILLA="$2"; shift 2 ;;
+        --hilos) [ $# -ge 2 ] || falta_valor "$1"; HILOS="$2"; shift 2 ;;
+        --reps) [ $# -ge 2 ] || falta_valor "$1"; REPS="$2"; shift 2 ;;
         --rapido) RAPIDO=1; shift ;;
         --sin-grafica) GRAFICA=0; shift ;;
-        -h|--help) sed -n '2,30p' "$0"; exit 0 ;;
+        -h|--help) sed -n '2,/^set -u$/p' "$0" | sed '$d'; exit 0 ;;
         *) echo "argumento desconocido: $1 (usa --help)" >&2; exit 2 ;;
     esac
 done
-if [ "$REPS" -lt 5 ]; then echo "error: --reps debe ser >= 5 (protocolo §2)" >&2; exit 2; fi
+
+es_entero() { case "$1" in ''|*[!0-9]*) return 1 ;; *) return 0 ;; esac; }
+if ! es_entero "$REPS" || [ "$REPS" -lt 5 ]; then
+    echo "error: --reps debe ser un entero >= 5 (protocolo §2)" >&2; exit 2
+fi
+if ! es_entero "$SEMILLA"; then echo "error: --semilla debe ser un entero sin signo" >&2; exit 2; fi
 if [ "$RAPIDO" -eq 1 ]; then N="${N:-200000}"; fi
 if [ -z "$N" ]; then N="$(sed -n 's/^#define N_DEFAULT[[:space:]]*\([0-9]*\)u.*/\1/p' comun/problema.h)"; fi
-if [ -z "$HILOS" ]; then
-    nucleos="$(nproc 2>/dev/null || echo 4)"
-    HILOS="1"; p=2
-    while [ "$p" -le "$nucleos" ]; do HILOS="$HILOS $p"; p=$((p * 2)); done
-fi
+if ! es_entero "$N" || [ "$N" -eq 0 ]; then echo "error: n debe ser un entero > 0 (n='$N')" >&2; exit 2; fi
 
-mkdir -p resultados
-ENTORNO=resultados/entorno.txt
-CSV=resultados/mediciones.csv
+nucleos_logicos="$(nproc 2>/dev/null || echo 1)"
+nucleos_fisicos="$(lscpu 2>/dev/null | awk -F: '/^Core\(s\) per socket/ {c=$2} /^Socket\(s\)/ {s=$2} END {if (c && s) print c*s}')"
+[ -n "$nucleos_fisicos" ] || nucleos_fisicos="$nucleos_logicos"
+if [ -z "$HILOS" ]; then
+    # 1 2 4 ... (< físicos), los físicos, y la siguiente potencia de 2 como "uno más allá".
+    HILOS="1"; p=2
+    while [ "$p" -lt "$nucleos_fisicos" ]; do HILOS="$HILOS $p"; p=$((p * 2)); done
+    if [ "$nucleos_fisicos" -gt 1 ]; then HILOS="$HILOS $nucleos_fisicos"; fi
+    if [ "$p" -le "$nucleos_fisicos" ]; then p=$((p * 2)); fi
+    HILOS="$HILOS $p"
+fi
+for h in $HILOS; do
+    if ! es_entero "$h" || [ "$h" -eq 0 ]; then echo "error: --hilos contiene '$h' (enteros >= 1)" >&2; exit 2; fi
+done
+
+if [ "$RAPIDO" -eq 1 ]; then SALIDA=resultados/rapido; else SALIDA=resultados; fi
+mkdir -p "$SALIDA"
+ENTORNO="$SALIDA/entorno.txt"
+CSV="$SALIDA/mediciones.csv"
 
 # ---------- 1. Entorno ----------
 {
@@ -65,16 +92,20 @@ CSV=resultados/mediciones.csv
     echo "commit=$(git rev-parse --short HEAD 2>/dev/null || echo sin-git)"
     echo "so=$(uname -srmo 2>/dev/null || uname -a)"
     echo "cpu_modelo=$(grep -m1 'model name' /proc/cpuinfo 2>/dev/null | cut -d: -f2- | sed 's/^ //')"
-    echo "nucleos_logicos=$(nproc 2>/dev/null)"
-    echo "nucleos_fisicos=$(lscpu 2>/dev/null | awk -F: '/^Core\(s\) per socket/ {c=$2} /^Socket\(s\)/ {s=$2} END {if (c && s) print c*s}')"
-    echo "ram_total=$(grep -m1 MemTotal /proc/meminfo 2>/dev/null | awk '{print $2/1024/1024 " GiB"}')"
+    echo "nucleos_logicos=$nucleos_logicos"
+    echo "nucleos_fisicos=$nucleos_fisicos"
+    echo "ram_total=$(grep -m1 MemTotal /proc/meminfo 2>/dev/null | awk '{printf "%.1f GiB\n", $2/1024/1024}')"
     echo "compilador=$(gcc --version 2>/dev/null | head -1)"
     echo "banderas_v1=$(sed -n 's/^CFLAGS *?= *//p' v1/Makefile)"
     echo "banderas_v2=$(sed -n 's/^CFLAGS *?= *//p' v2/Makefile)"
-    echo "nvcc=$(nvcc --version 2>/dev/null | tail -1 || echo no-disponible)"
+    if command -v nvcc > /dev/null 2>&1; then echo "nvcc=$(nvcc --version | tail -1)"; else echo "nvcc=no-disponible"; fi
+    echo "python=$(python3 --version 2>/dev/null || echo no-disponible)"
+    echo "numpy=$(python3 -c 'import numpy; print(numpy.__version__)' 2>/dev/null || echo no-disponible)"
+    echo "matplotlib=$(python3 -c 'import matplotlib; print(matplotlib.__version__)' 2>/dev/null || echo no-disponible)"
     echo "n=$N"
     echo "semilla=$SEMILLA"
     echo "hilos=$HILOS"
+    echo "hilos_mas_alla_de_fisicos=$(for h in $HILOS; do [ "$h" -gt "$nucleos_fisicos" ] && echo "$h"; done | paste -sd' ' -)"
     echo "repeticiones=$REPS"
     echo "modo_rapido=$RAPIDO"
 } > "$ENTORNO"
@@ -93,11 +124,13 @@ campo() { printf '%s\n' "$1" | awk -F= -v k="$2" '$1 == k { print $2; exit }'; }
 
 # mide <comando...>: 1 calentamiento + REPS repeticiones; imprime "rep1,...,repK,mediana"
 mide() {
-    local salida tiempos=""
+    local salida tiempos="" t
     salida="$("$@")" || return 1              # calentamiento (no se cuenta)
     for _ in $(seq 1 "$REPS"); do
         salida="$("$@")" || return 1
-        tiempos="$tiempos,$(campo "$salida" tiempo_s)"
+        t="$(campo "$salida" tiempo_s)"
+        [ -n "$t" ] || { echo "ERROR: '$*' no imprimió tiempo_s=" >&2; return 1; }
+        tiempos="$tiempos,$t"
     done
     tiempos="${tiempos#,}"
     local mediana
@@ -135,9 +168,9 @@ if [ "$GRAFICA" -eq 1 ]; then
     if python3 -c "import numpy, matplotlib" 2>/dev/null; then
         echo "[5/5] tabla y gráfica"
         extra=""
-        [ -f resultados/mediciones_v3.csv ] && extra="--v3 resultados/mediciones_v3.csv"
+        if [ "$RAPIDO" -eq 0 ] && [ -f resultados/mediciones_v3.csv ]; then extra="--v3 resultados/mediciones_v3.csv"; fi
         # shellcheck disable=SC2086
-        python3 herramientas/resumen_csv.py "$CSV" $extra --png resultados/speedup.png --md resultados/tabla.md \
+        python3 herramientas/resumen_csv.py "$CSV" $extra --png "$SALIDA/speedup.png" --md "$SALIDA/tabla.md" \
             || { echo "ERROR: resumen_csv.py falló" >&2; exit 1; }
     else
         echo "[5/5] python3 con numpy/matplotlib no disponible: se omite la gráfica (instálalos o usa --sin-grafica)"
@@ -146,4 +179,4 @@ else
     echo "[5/5] gráfica omitida (--sin-grafica)"
 fi
 
-echo "Listo. Revisa resultados/ y ejecuta la lista de cotejo antes de entregar."
+echo "Listo. Revisa $SALIDA/ y ejecuta la lista de cotejo antes de entregar."

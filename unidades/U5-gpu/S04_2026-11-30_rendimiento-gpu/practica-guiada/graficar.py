@@ -22,7 +22,6 @@ import matplotlib.pyplot as plt  # noqa: E402
 COLORS = {"vector_add": "#2a78d6", "saxpy": "#eb6834"}  # paleta validada para daltonismo (2 series)
 MARKERS = {"vector_add": ("o", 9), "saxpy": ("s", 5)}  # círculo grande y cuadrado chico
 STYLE_TOTAL = {"pageable": "--", "pinned": ":"}
-BLOCK_ORDER = (32, 64, 128, 256, 512, 1024)
 
 
 def read_rows(path):
@@ -51,23 +50,26 @@ def plot_block_sweep(rows, out_path, note):
         print("Sin filas del experimento 'bloque': no se genera tiempo_vs_bloque.png")
         return
     sizes = sorted({r["n"] for r in rows}, reverse=True)
+    # Eje x categórico con TODOS los bloques presentes (incluye 48, 96... si los agregaste en Modificar).
+    blocks = sorted({r["block"] for r in rows})
+    pos = {b: i for i, b in enumerate(blocks)}
     fig, axes = plt.subplots(1, len(sizes), figsize=(5.2 * len(sizes), 4.2), squeeze=False)
     for ax, n in zip(axes[0], sizes):
         for kernel in ("vector_add", "saxpy"):
             pts = sorted((r["block"], r["t_kernel_ms"]) for r in rows if r["n"] == n and r["kernel"] == kernel)
             if not pts:
                 continue
-            xs = [BLOCK_ORDER.index(b) if b in BLOCK_ORDER else -1 for b, _ in pts]
+            xs = [pos[b] for b, _ in pts]
             # Marcadores distintos por kernel: si los tiempos coinciden, las dos series siguen siendo visibles.
             ax.plot(xs, [t for _, t in pts], marker=MARKERS[kernel][0], markersize=MARKERS[kernel][1],
                     linewidth=2, color=COLORS[kernel], label=kernel)
             best = min(pts, key=lambda p: p[1])
             ax.annotate(f"mejor {kernel}: {best[0]}",
-                        (BLOCK_ORDER.index(best[0]) if best[0] in BLOCK_ORDER else -1, best[1]),
+                        (pos[best[0]], best[1]),
                         textcoords="offset points", xytext=(0, -14 if kernel == "vector_add" else 10),
                         ha="center", fontsize=8, color="#52514e")
-        ax.set_xticks(range(len(BLOCK_ORDER)))
-        ax.set_xticklabels([str(b) for b in BLOCK_ORDER])
+        ax.set_xticks(range(len(blocks)))
+        ax.set_xticklabels([str(b) for b in blocks])
         ax.set_xlabel("hilos por bloque")
         ax.set_ylabel("tiempo del kernel (ms)")
         ax.set_ylim(bottom=0)

@@ -63,7 +63,8 @@ static inline void heat_init_full(double *u, double *u_new, long long n)
 
 /* Resuelve en UN proceso. Al regresar, u[1..n] tiene el estado final (también si terminó en u_new:
  * se copia). Devuelve el número de pasos ejecutados; *converged = 1 si paró por tol; *last_diff =
- * la última diferencia máxima revisada. Es la referencia contra la que se verifica la versión MPI. */
+ * la última diferencia máxima revisada (-1 si no se revisó ningún paso). Es la referencia contra la que
+ * se verifica la versión MPI. */
 static inline long long heat_solve_seq(double *u, double *u_new, long long n, long long max_iter, double tol,
                                        long long check_every, int *converged, double *last_diff)
 {
@@ -72,9 +73,12 @@ static inline long long heat_solve_seq(double *u, double *u_new, long long n, lo
     *converged = 0;
     for (it = 1; it <= max_iter; it++) {
         int check = (it % check_every == 0);
-        diff = heat_step_range(u, u_new, 1, n, check);
+        double d = heat_step_range(u, u_new, 1, n, check);
         double *tmp = u; u = u_new; u_new = tmp; /* doble búfer: el nuevo pasa a ser el actual */
-        if (check && diff < tol) { *converged = 1; break; }
+        if (check) {
+            diff = d;                             /* solo cuenta la diferencia de un paso revisado */
+            if (diff < tol) { *converged = 1; break; }
+        }
     }
     if (it > max_iter) it = max_iter;
     /* Tras un número impar de intercambios el resultado quedó en el búfer que el llamador conoce

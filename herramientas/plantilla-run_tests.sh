@@ -10,7 +10,9 @@
 # Cómo usarlo en tu repositorio:
 #   1. cp herramientas/plantilla-run_tests.sh  <tu-carpeta>/tests/run_tests.sh  &&  chmod +x tests/run_tests.sh
 #   2. Ajusta las variables de CONFIGURACIÓN (o pásalas por entorno desde el Makefile: ver Makefile.openmp).
-#   3. Completa casos_extra() (busca TODO). El Makefile llama a este script en el objetivo `test`.
+#   3. Completa casos_extra() (busca TODO). Mientras no tenga casos propios, el script imprime "TODO pendiente"
+#      (no falla por eso; la rúbrica pide casos propios para el nivel Ejemplar). El Makefile llama a este script
+#      en el objetivo `test`.
 #
 # Convención con los programas: imprimen "CLAVE=valor" (p. ej. resultado= o checksum=) y aceptan el tamaño
 # como último argumento. Con MODO=mpi la versión paralela se lanza con "$MPIRUN -np P programa".
@@ -160,12 +162,16 @@ casos_extra() {
     : # TODO(1): agrega aquí casos específicos. Ejemplos (descomenta y adapta):
     # caso_comando "rechaza un tamaño no válido" bash -c "! $PROGRAMA_PAR abc"
     # caso_valor "n=1 da el valor conocido a mano" 3.2 "$("$PROGRAMA_PAR" 1 | valor_de resultado)" 1e-12
-    # "$PROGRAMA_PAR" 1000 > /tmp/salida_1000.txt
-    # caso_archivos "salida completa igual a la referencia" tests/ref_1000.txt /tmp/salida_1000.txt 1e-9
+    # local salida; salida=$(mktemp); "$PROGRAMA_PAR" 1000 > "$salida"
+    # caso_archivos "salida completa igual a la referencia" tests/ref_1000.txt "$salida" 1e-9; rm -f "$salida"
 }
 
 casos_base
+antes=$((PASS + FAIL))
 casos_extra
+if [[ $((PASS + FAIL)) -eq $antes ]]; then
+    echo "AVISO: TODO pendiente — casos_extra() no tiene casos propios (TODO(1) de este archivo)."
+fi
 
 echo "Resultado: $PASS PASS, $FAIL FAIL"
 [[ $FAIL -eq 0 ]]

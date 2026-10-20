@@ -1,22 +1,25 @@
 # Rúbrica de la defensa oral · 15 puntos del proyecto
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026, 10:30–12:00 (y lunes 14 de diciembre, 10:30–12:00, si el profesor elige la opción a de `logistica-defensa.md`) · 15 de los 100 puntos del proyecto · ajusta la calificación individual · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026, 10:30–12:00 · Salón 3208 (y las reservas del lunes 14 de diciembre 10:30 y del martes 15 de diciembre 08:30 si el profesor elige la opción a o b de `logistica-defensa.md` §3) · 15 de los 100 puntos del proyecto · ajusta la calificación individual · versión 1.1 · 20 de octubre de 2026
 
 ## 1. Cómo se aplica
 
 1. Se evalúa lo que ocurre en la sesión: los 12 minutos de exposición con demo y las preguntas individuales
-   (`guion-defensa.md`). El material de referencia es la etiqueta `entrega-final` del repositorio del equipo; lo que se
+   (`guion-defensa.md`; con la opción b o c de `logistica-defensa.md` §3, los tiempos de `guion-defensa.md` §2 y, en la c,
+   el video de exposición para D1 y D2). El material de referencia es la etiqueta `entrega-final` del repositorio del equipo; lo que se
    diga y no esté ahí no cuenta, y lo que contradiga al repositorio baja el criterio correspondiente.
 2. Rúbrica de **100 puntos** en cuatro criterios; **puntos del proyecto = puntos de la rúbrica × 0.15** (misma mecánica
    que H2). Niveles: Ejemplar = 100 % del peso · Competente = 80 % · En desarrollo = 55 % · Insuficiente = 20 % · criterio
    ausente = 0. Cada criterio se ubica en **un** nivel según la evidencia observable de §3.
 3. Los criterios D1, D2 y D3 son del **equipo**. El criterio D4 se asigna **por integrante** a partir de sus dos respuestas
    individuales (§3.4). Por eso la defensa produce una calificación distinta para cada integrante.
-4. Además de D4, dos respuestas individuales pueden activar el **ajuste individual del proyecto** de §4 (hasta −20 % de los
-   100 puntos del proyecto de esa persona). Es la regla de la "prueba de propiedad" (`docs/metodo/05-politica-ia.md`) aplicada
-   con números; está anunciada desde `proyecto/README.md` §6.
+4. Además de D4, las dos respuestas individuales pueden activar el **ajuste individual del proyecto** de §4.1: −10 % de los
+   100 puntos del proyecto de esa persona por cada respuesta Insuficiente, hasta −20 %. Es la regla de la "prueba de
+   propiedad" (`docs/metodo/05-politica-ia.md`) aplicada con números, como la fijan `docs/metodo/04-evaluacion.md` §3.2 y
+   `proyecto/README.md` §6.
 5. La hoja de registro de §6 (y el *script* `scripts/calificar_defensa.py`) hacen el cálculo. La retroalimentación escrita se
-   entrega en ≤ 7 días (a más tardar el jueves 17 de diciembre).
+   entrega en ≤ 7 días: a más tardar el jueves 17 de diciembre para las sesiones del 10, 14 y 15 de diciembre; una defensa
+   pendiente atendida después, ≤ 7 días después de esa sesión.
 
 ## 2. Pesos
 
@@ -64,17 +67,20 @@ Cubre el bloque 5 del guion (minutos 10:00–12:00). La teclea el integrante que
 
 | Nivel | Evidencia |
 |---|---|
-| **Ejemplar (20)** | Clon limpio: `git describe --tags --exact-match` imprime `entrega-final` y `git status --short` no imprime nada. `make test` termina con código 0 y muestra `PASS` de V2 (y de V3 si hay GPU local) contra V1 en ≤ 40 s. V1 y V2 corren con 1 hilo y con el número de núcleos físicos al tamaño de demo; `checksum`/`RESULTADO` iguales; los tiempos tienen la misma forma que la Tabla 1 y el equipo lo señala. El *notebook* de V3 ejecutado se muestra en GitHub con la salida de `nvidia-smi`, la celda `PASS v3 == v1` y la de medición. Todo en ≤ 2 minutos, sin intervención de otro integrante |
+| **Ejemplar (20)** | Clon limpio: `git describe --tags --exact-match` imprime `entrega-final` y `git status --short` no imprime nada. `make test` termina con código 0 y muestra `PASS` de V2 (y de V3 si hay GPU local) contra V1 en ≤ 40 s. V1 y V2 (esta con 1 hilo y con el número de núcleos físicos) corren al tamaño de demo; `checksum=` igual en las tres corridas (dentro de la tolerancia declarada); los tiempos tienen la misma forma que la Tabla 1 y el equipo lo señala. El *notebook* de V3 ejecutado se muestra en GitHub con la salida de `nvidia-smi`, la celda `PASS v3 == v1` y la de medición. Todo en ≤ 2 minutos, sin intervención de otro integrante |
 | **Competente (16)** | Todo corre, con una de estas faltas: un tropiezo resuelto en < 30 s (ruta, variable de entorno); los tiempos se muestran sin compararlos con la tabla; no se muestra el *notebook* pero está ejecutado en el repositorio; el integrante designado necesita que otro le dicte un comando |
-| **En desarrollo (11)** | La demo corre desde la carpeta de trabajo o desde un *commit* posterior a la etiqueta; `make test` falla y el equipo explica por qué; solo corre V1; el *notebook* no está ejecutado; o la demo en vivo falló y se mostró el **video del plan B** completo (tope de este nivel, salvo falla de la sala: §4) |
+| **En desarrollo (11)** | La demo corre desde la carpeta de trabajo o desde un *commit* posterior a la etiqueta; `make test` falla y el equipo explica por qué; solo corre V1; el *notebook* no está ejecutado; o la demo en vivo falló y se mostró el **video del plan B** completo (tope de este nivel, salvo falla de la sala: §4.2) |
 | **Insuficiente (4)** | Nada corre y no hay video; lo que corre no corresponde al repositorio (otra carpeta, otro código); `checksum` distinto entre V1 y V2 sin explicación; o el equipo se niega a que el integrante designado teclee |
 
 ### 3.4 D4 · Respuestas individuales (30; por integrante)
 
-Cada integrante responde **dos preguntas** sin ayuda (`guion-defensa.md` §4): la pregunta 1 sobre la parte que firmó en el
-reparto; la pregunta 2 del tema sorteado para su posición. Cada respuesta se ubica en un nivel con esta tabla; **D4 de la
-persona = 30 × promedio de los dos factores** (Ejemplar 1.00 · Competente 0.80 · En desarrollo 0.55 · Insuficiente 0.20 ·
-sin respuesta 0).
+Cada integrante responde **dos preguntas** sin ayuda (`guion-defensa.md` §4): la pregunta 1 sobre una línea de la parte que
+firmó en el reparto; la pregunta 2 del tema sorteado para su posición. Si la pregunta 1 queda en Insuficiente, la pregunta 2
+es de **rescate**: otra línea de su parte firmada, en lugar del tema (`docs/metodo/05-politica-ia.md`: "si la primera respuesta
+falla, el profesor pregunta sobre otra línea"). En la opción (c) de `logistica-defensa.md` §3 solo hay pregunta 1 y la de
+rescate cuando haga falta. Cada respuesta se ubica en un nivel con esta tabla; **D4 de la persona = 30 × promedio de los dos
+factores** (Ejemplar 1.00 · Competente 0.80 · En desarrollo 0.55 · Insuficiente 0.20 · integrante ausente 0), o 30 × el
+factor de la pregunta 1 cuando no hubo segunda (opción c). Una pregunta que no se responde es Insuficiente, no ausente.
 
 | Nivel de la respuesta | Evidencia |
 |---|---|
@@ -105,30 +111,50 @@ Tabla de D4 por combinación de niveles (puntos de la rúbrica → puntos del pr
 - "Código propio" es el repositorio del equipo: la prueba de propiedad exige que **cualquier** integrante explique
   **cualquier** línea (`docs/metodo/05-politica-ia.md`). La pregunta 1 se hace sobre la parte firmada precisamente para que
   nadie sea evaluado primero sobre lo que no escribió.
-- Una respuesta En desarrollo **no** activa el ajuste; solo baja D4. El ajuste castiga el desconocimiento, no los nervios:
-  por eso existe la reformulación única y por eso la pregunta 1 es sobre lo firmado.
-- Orden de cálculo, por integrante: (1) H2 (15) + repositorio (40, con C6 ya asignado por integrante según
-  `proyecto/entrega-final/rubrica-codigo.md` §4) + reporte (30) + defensa (15, con D4 de esa persona) = puntos del proyecto;
-  (2) × factor. Ejemplo: 13.5 + 34.0 + 25.5 + 13.2 = 86.2 puntos; con una respuesta Insuficiente → 86.2 × 0.90 = 77.58.
+- Cuentan **las dos** respuestas, también la de rescate: con pregunta 1 Insuficiente y rescate Competente, el factor es 0.90.
+  Una respuesta En desarrollo **no** activa el ajuste; solo baja D4. El ajuste castiga el desconocimiento, no los nervios:
+  por eso existe la reformulación única, por eso la pregunta 1 es sobre lo firmado y por eso se puede pedir responder por
+  escrito. Un integrante ausente (A) no tiene respuestas que cuenten (§4.2).
+- **C6 del repositorio.** Para C6 (`proyecto/entrega-final/rubrica-codigo.md` §4) rige la prueba de propiedad tal como la
+  escribe `05-politica-ia.md`: cuenta la mejor de las dos líneas. C6 baja a Insuficiente por la defensa solo si la pregunta 1
+  **y** la de rescate quedan en Insuficiente; el profesor lo asigna antes de sumar el repositorio.
+- Orden de cálculo, por integrante:
+  1. Suma = H2 (15) + repositorio (40, con C6 ya asignado por integrante) + reporte (30) + defensa (15, con D4 de esa
+     persona).
+  2. Ajustada = suma × factor.
+  3. **Tope:** el resultado nunca queda más de **20 puntos** por debajo de la referencia del equipo, que se calcula con lo
+     mejor del equipo: la mayor H2 + repositorio + reporte entre sus integrantes, más D1–D3 y la mayor D4, en puntos del
+     proyecto. Así, el desconocimiento del código propio baja la calificación individual **hasta 20 %** de los 100 puntos
+     del proyecto y no más, aunque coincida con C6 y D4 bajos. Final = el mayor entre "ajustada" y "referencia − 20".
+- Ejemplos (los mismos que calcula `scripts/calificar_defensa.py` y que prueba `make test`): equipo con D1–D3 en Ejemplar,
+  H2 13.5, repositorio 34.0 y reporte 25.5; referencia = 73.0 + (70 + 30) × 0.15 = 88.0, piso 68.0.
+
+| Integrante | P1 · P2 | Defensa (/15) | Suma | Insuficientes · factor | Ajustada | Final |
+|---|---|---:|---:|---|---:|---:|
+| A | E · E | 15.00 | 88.00 | 0 · 1.00 | 88.00 | **88.00** |
+| B | I · C (rescate) | 12.75 | 85.75 | 1 · 0.90 | 77.18 | **77.18** |
+| C | I · I (rescate); C6 Insuficiente → repositorio 30.8 | 11.40 | 81.20 | 2 · 0.80 | 64.96 | **68.00** (tope) |
+
 - El ajuste es la aplicación numérica de la regla "una respuesta que muestre desconocimiento del código propio baja la
-  calificación individual del proyecto hasta en 20 %" (`proyecto/README.md` §6, `planeacion/mapa-evaluacion.md`, reglas
-  transversales). No hay otros ajustes individuales no escritos.
+  calificación individual del proyecto hasta en 20 %" (`docs/metodo/04-evaluacion.md` §3.2, `proyecto/README.md` §6,
+  `planeacion/mapa-evaluacion.md`, reglas transversales). La calificación de una persona nunca baja por las respuestas de
+  otro integrante. No hay otros ajustes individuales no escritos.
 
 ### 4.2 Otras situaciones
 
 | Situación | Efecto |
 |---|---|
 | El equipo se pasa de 12:00 | El profesor corta y pasa a las preguntas. Lo no mostrado no se evalúa; D1 baja según §3.1 |
-| La demo falla por causa del equipo y se muestra el video del plan B (≤ 3 min, grabado antes, `logistica-defensa.md` §8) | D3 máximo **En desarrollo** si el video muestra clon con etiqueta, `make test`, 1 vs 4 hilos y *notebook*; Insuficiente si el video no muestra eso o no hay video |
-| La demo falla por causa de la sala (proyector, corriente, máquina del salón) | Se repite al final de la sesión o el martes 15 de diciembre 08:30, sin penalización; D3 se evalúa con la repetición |
-| El integrante designado para la demo no puede teclearla y otro lo sustituye | D3 baja un nivel; cuenta como una respuesta Insuficiente del integrante designado para efectos de §4.1 solo si además no puede explicar qué hace cada comando |
-| Un integrante falta **con justificante institucional** | Sus dos preguntas se hacen el martes 15 de diciembre, 08:30 (sesión de reserva), sin tope; D1–D3 son los del equipo |
-| Un integrante falta **sin justificante** | D4 = 0 para esa persona. Si solicita responder el martes 15 de diciembre, D4 tiene tope de 80 % (regla transversal de 72 h). No se aplica el factor de §4.1: no hubo respuesta que mostrara desconocimiento |
-| El equipo completo falta sin justificante | 0 en los 15 puntos; con justificante, defensa el martes 15 de diciembre 08:30 |
+| La demo falla por causa del equipo y se muestra el video del plan B (≤ 3 min, grabado antes, `logistica-defensa.md` §8) | D3 máximo **En desarrollo** si el video muestra clon con etiqueta, `make test`, V1 y V2 con 1 y `p` hilos y *notebook*; Insuficiente si el video no muestra eso o no hay video |
+| La demo falla por causa de la sala (proyector, corriente, máquina del salón) | Se repite al final de la sesión o en la sesión de pendientes (martes 15 de diciembre 08:30; jueves 17 de diciembre 10:30 si el martes 15 se usa para defensas, opción a), sin penalización; D3 se evalúa con la repetición |
+| El integrante designado para la demo no puede teclearla y otro lo sustituye | D3 baja un nivel. No cuenta para §4.1: el ajuste individual solo lo activan las dos respuestas individuales |
+| Un integrante falta **con justificante institucional** | Sus dos preguntas se hacen en la sesión de pendientes (martes 15 de diciembre 08:30, o jueves 17 de diciembre 10:30 con la opción a), sin tope; D1–D3 son los del equipo |
+| Un integrante falta **sin justificante** | D4 = 0 para esa persona (P1 y P2 = A). Si pide responder en la sesión de pendientes, D4 tiene tope de 80 % (misma regla que la recepción de hitos, `proyecto/README.md` §5). No se aplica el factor de §4.1: no hubo respuesta que mostrara desconocimiento |
+| El equipo completo falta sin justificante | 0 en los 15 puntos; con justificante, defensa en la sesión de pendientes |
 | Uso de teléfono, notas o asistente de IA durante las preguntas | La respuesta en curso queda Insuficiente (cuenta para §4.1) y se reporta según `docs/metodo/04-evaluacion.md` §6 |
 | Un integrante responde por otro o sopla | La respuesta se califica como estaba antes de la intervención; quien intervino pierde su reformulación |
 | El repositorio cambió después de la etiqueta y la demo usa el nuevo código | D3 máximo En desarrollo; D1 y D2 se evalúan contra la etiqueta. Si la etiqueta se creó después del lunes 7 de diciembre 10:30, aplica además la entrega tardía de `proyecto/entrega-final/README.md` §2 |
-| Respuesta individual Insuficiente sobre una línea que el equipo entregó | Además de §4.1, aplica C6 Insuficiente para esa persona en `rubrica-codigo.md` §4 (ya está anunciado ahí). El factor de §4.1 se aplica después de ese cambio en C6, no antes |
+| Pregunta 1 y pregunta de rescate en Insuficiente (no explica ninguna de las dos líneas de su parte) | Además de §4.1, C6 Insuficiente para esa persona en `proyecto/entrega-final/rubrica-codigo.md` §4 (ya está anunciado ahí). El factor de §4.1 se aplica después de ese cambio en C6, y el tope de §4.1 al final |
 | Código idéntico entre equipos descubierto en la defensa | `docs/metodo/04-evaluacion.md` §6: 0 en la entrega para los involucrados y reporte según reglamento |
 
 ## 5. Lo que mira el profesor durante la sesión (guía rápida)
@@ -138,13 +164,15 @@ Tabla de D4 por combinación de niveles (puntos de la rúbrica → puntos del pr
 | 0–4 | ¿`n`, semilla, `T(1)`? ¿Diagrama propio? ¿Tabla tarea → datos? ¿Dos decisiones con medianas? ¿Fragmentos coinciden con el repositorio? → nivel D1 provisional |
 | 4–10 | ¿Línea ideal y mín–máx? ¿`T(1)` = V1? ¿`f(p)` y su tendencia? ¿Amdahl con fracción medida? ¿Causa verificable? ¿V3 sin y con transferencias, misma máquina? ¿Predicción vs resultado? ¿Bitácora con detección y causa? ¿"Qué no entendemos"? ¿IA que se equivocó? Abrir `resultados/*.csv` y verificar dos números → nivel D2 |
 | 10–12 | Designar quién teclea. ¿Etiqueta? ¿`status` limpio? ¿`make test` = 0? ¿1 vs `p` hilos, `checksum` igual? ¿*Notebook*? → nivel D3 |
-| Preguntas | Por integrante: pregunta 1 (línea de la parte firmada), pregunta 2 (tema sorteado). Anotar ID del banco o descripción, nivel, y si hubo reformulación → D4 y conteo de Insuficientes |
+| Preguntas | Por integrante: pregunta 1 (línea de la parte firmada); pregunta 2 del tema sorteado o, si la 1 quedó en Insuficiente, de rescate sobre otra línea de su parte. Anotar archivo:línea o ID del banco, nivel, si hubo reformulación y si respondió por escrito → D4, conteo de Insuficientes y C6 |
 | Cierre | Tiempo total; observaciones de 3 líneas para la retroalimentación escrita (lo mejor, lo que falta, qué cambiaría la calificación) |
 
 ## 6. Hoja de registro (una por equipo; la llena el profesor)
 
-Versión imprimible. El formato CSV equivalente y el cálculo automático están en `logistica-defensa.md` §7 y
-`scripts/calificar_defensa.py`.
+Versión imprimible. Es también la **hoja de registro por integrante** que pide la logística: la tabla "Criterio individual"
+tiene una fila por persona. El formato CSV equivalente y el cálculo automático están en `logistica-defensa.md` §7 y
+`scripts/calificar_defensa.py`. La hoja llena y el CSV contienen calificaciones con usuarios de GitHub: se guardan en
+`docente/` (fuera del repositorio público), nunca en `proyecto/`.
 
 | Equipo: `cp-6bm1-equipo__` | Fecha: `__/12/2026` | Posición en el orden: `__` | Inicio: `__:__` | Fin de exposición: `__:__` | Fin de preguntas: `__:__` |
 |---|---|---|---|---|---|
@@ -160,19 +188,19 @@ Versión imprimible. El formato CSV equivalente y el cálculo automático están
 
 **Criterio individual (una fila por integrante; sin nombres en documentos públicos: usuario de GitHub)**
 
-| Integrante (usuario de GitHub) | Pregunta 1 (línea de la parte firmada: archivo:línea) | Nivel P1 | Reformulada (sí/no) | Pregunta 2 (tema sorteado · ID del banco) | Nivel P2 | Reformulada (sí/no) | D4 (rúbrica /30) | D4 (proyecto /4.50) | Insuficientes (0/1/2) | Factor (1.00/0.90/0.80) |
-|---|---|---|---|---|---|---|---:|---:|---:|---:|
-| | | | | | | | | | | |
-| | | | | | | | | | | |
-| | | | | | | | | | | |
+| Integrante (usuario de GitHub) | Pregunta 1 (línea de la parte firmada: archivo:línea) | Nivel P1 | Reformulada · por escrito | Pregunta 2: tema sorteado · ID del banco, o rescate (archivo:línea) | Nivel P2 | Reformulada · por escrito | D4 (rúbrica /30) | D4 (proyecto /4.50) | Insuficientes (0/1/2) | Factor (1.00/0.90/0.80) | C6 Insuficiente por la defensa (P1 y rescate en I) |
+|---|---|---|---|---|---|---|---:|---:|---:|---:|---|
+| | | | | | | | | | | | |
+| | | | | | | | | | | | |
+| | | | | | | | | | | | |
 
 **Totales por integrante**
 
-| Integrante | D1+D2+D3 (equipo, /10.50) | D4 (/4.50) | Defensa (/15) | H2 (/15) | Repositorio (/40, con C6 individual) | Reporte (/30) | Suma (/100) | × factor | **Proyecto individual (/100)** |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| | | | | | | | | | |
-| | | | | | | | | | |
-| | | | | | | | | | |
+| Integrante | D1+D2+D3 (equipo, /10.50) | D4 (/4.50) | Defensa (/15) | H2 (/15) | Repositorio (/40, con C6 individual) | Reporte (/30) | Suma (/100) | × factor | Piso (referencia del equipo − 20) | **Proyecto individual (/100)** = mayor de las dos columnas anteriores |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| | | | | | | | | | | |
+| | | | | | | | | | | |
+| | | | | | | | | | | |
 
 **Retroalimentación para el equipo (3 líneas):** lo mejor · lo que faltó · qué habría cambiado la calificación.
 

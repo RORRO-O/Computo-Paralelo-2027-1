@@ -3,7 +3,8 @@
 > **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Formato según `herramientas/protocolo-medicion.md` §4
 
 Esta carpeta la llenan `run_all.sh` (CPU) y el notebook de la V3 (GPU). No se edita a mano. Si una
-medición se repite, se sobrescribe y se anota en `bitacora.md` por qué.
+medición se repite, se sobrescribe y se anota en `bitacora.md` por qué. `./run_all.sh --rapido` escribe en
+`resultados/rapido/`, que git ignora: esas corridas comprueban el flujo y nunca van al reporte.
 
 | Archivo | Quién lo escribe | Contenido |
 |---|---|---|
@@ -27,3 +28,6 @@ config,hilos,n,rep1,rep2,rep3,rep4,rep5,mediana_s,speedup,eficiencia
   archivo** (misma máquina). `eficiencia = speedup / hilos`.
 - `n` y la semilla son los mismos en todas las filas del archivo; si cambian, es otro archivo y se declara
   (escalabilidad débil, protocolo §3).
+- `herramientas/medir_proyecto.sh` (de `proyecto/plantillas/`) escribe el mismo formato con dos columnas más al
+  final (`min_s,max_s`) y etiquetas `V1`, `V2`, `V3` (con transferencias) y `V3-kernel` (sin ellas);
+  `herramientas/resumen_csv.py` y `proyecto/entrega-final/scripts/verificar_entrega.sh` (repositorio del curso) aceptan los dos.

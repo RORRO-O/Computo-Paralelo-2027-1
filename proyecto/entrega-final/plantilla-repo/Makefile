@@ -5,7 +5,7 @@
 #   make run      corre V1 y V2 con el tamaño por defecto (demostración rápida).
 #   make test     ejecuta tests/run_tests.sh; termina con código 0 solo si TODO pasa.
 #   make medir    ejecuta ./run_all.sh (pruebas + mediciones + CSV + gráfica).
-#   make clean    borra binarios y objetos (no borra resultados/).
+#   make clean    borra binarios, objetos y resultados/rapido/ (no borra las mediciones de resultados/).
 # Ejemplo:  make && make test && ./run_all.sh --rapido
 #
 # Las banderas de compilación están en v1/Makefile, v2/Makefile y v3/Makefile
@@ -43,3 +43,4 @@ clean:
 	$(MAKE) -C v1 clean
 	$(MAKE) -C v2 clean
 	$(MAKE) -C v3 clean
+	rm -rf resultados/rapido
