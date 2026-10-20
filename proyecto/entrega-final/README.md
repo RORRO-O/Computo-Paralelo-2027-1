@@ -56,10 +56,12 @@ declaracion-ia.md       una sección por entrega (plantilla en proyecto/plantill
 ```
 
 **Cómo adoptar la plantilla** (desde la raíz del repositorio del equipo, creado en H0; no se hace *fork* del repositorio del
-curso; `RUTA_CURSO` es donde clonaste el repositorio del curso):
+curso; `RUTA_CURSO` es donde clonaste el repositorio del curso). Se hace una vez, de preferencia antes de H1; `-n` no
+sobrescribe lo que ya tienes (tu `README.md`, tu `bitacora.md` llena): esos archivos se comparan a mano con los de la
+plantilla. Con coreutils 9.x, `cp` avisa que `-n` "no es portable"; el aviso no cambia lo que hace.
 
 ```bash
-cp -r RUTA_CURSO/proyecto/entrega-final/plantilla-repo/. .
+cp -rn RUTA_CURSO/proyecto/entrega-final/plantilla-repo/. .
 make && make test && ./run_all.sh --rapido
 ```
 
@@ -97,7 +99,7 @@ bash RUTA_CURSO/proyecto/entrega-final/scripts/verificar_entrega.sh RUTA_AL_CLON
 | `rubrica-codigo.md` | Ambos | Rúbrica analítica del repositorio: 6 criterios, 4 niveles, 40 puntos (C6 por integrante) |
 | `rubrica-reporte.md` | Ambos | Rúbrica analítica del PDF: 7 criterios, 4 niveles, 30 puntos |
 | `plantilla-reporte.md` | Equipo | Estructura obligatoria del PDF, sección por sección: qué va, qué no va, de dónde sale; esqueleto para copiar |
-| `lista-cotejo-entrega.md` | Equipo | 25 ítems sí/no para correr antes de entregar; el script revisa los ítems 1–24 (el 5, el 15 y el 20 solo en parte) |
+| `lista-cotejo-entrega.md` | Equipo | 25 ítems sí/no para correr antes de entregar; el script revisa los ítems 1–24 (el 5, el 7, el 15 y el 20 solo en parte) |
 | `reproducibilidad.md` | Ambos | Qué hace el profesor en 10 minutos; contrato de `make`, `run_all.sh` y los programas; GPU de Colab; *notebook* ejecutado |
 | `faq-entrega.md` | Equipo | 10 preguntas frecuentes con respuesta |
 | `scripts/verificar_entrega.sh` | Ambos | Verificación automática de los ítems 1–24 de la lista de cotejo sobre cualquier repositorio (`--help` para el uso) |
@@ -116,7 +118,7 @@ bash RUTA_CURSO/proyecto/entrega-final/scripts/verificar_entrega.sh RUTA_AL_CLON
 | miércoles 9 de diciembre | 20:00 | Límite para el video de plan B de la demo (≤ 3 min, enlazado en un *issue*) |
 | jueves 10 de diciembre | 10:30–12:00 | Defensa oral (15 puntos; ajusta la calificación individual); fin de la ventana de entrega tardía |
 | lunes 14 de diciembre | 10:30 | Reserva: retroalimentación del Examen 3 y del proyecto; calificaciones preliminares (o defensas, si el profesor elige la opción a o b) |
-| martes 15 de diciembre | 08:30 | Reserva: defensas pendientes por causa justificada |
+| martes 15 de diciembre | 08:30 | Reserva: defensas pendientes por causa justificada (con la opción a y más de 8 equipos, defensas del formato completo; las pendientes pasan al jueves 17 de diciembre, 10:30) |
 
 ## 7. Uso de IA en esta entrega
 

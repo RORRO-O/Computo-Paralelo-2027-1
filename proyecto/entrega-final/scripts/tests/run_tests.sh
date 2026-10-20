@@ -10,7 +10,8 @@
 #     B  entrega completa con la estructura de plantilla-repo/: código 0, sin ningún FAIL.
 #     C  entrega completa con la otra estructura aceptada (src/v1 src/v2 src/v3, bitacora-errores.md,
 #        declaracion-ia.md, CSV con V1/V2/V3/V3-kernel y min_s,max_s): código 0, sin ningún FAIL.
-#     D  B con --sin-ejecutar: ítems 6–8 como MANUAL, código 0.
+#     D  B con --sin-ejecutar: ítems 6–8 como MANUAL, código 0; con LIMITE_EPOCH en el pasado, aviso
+#        de entrega tardía (ítem 24).
 #     E  errores de uso: código 2.
 #     F  B con v3/kernel.cu cambiado después de generar el notebook: FAIL 16 (notebook desactualizado).
 #     G  C con un run_all.sh cuyo --rapido sobrescribe resultados/mediciones.csv: AVISO 8.
@@ -88,8 +89,9 @@ if [ -z "$(cd "$A" && git status --porcelain)" ]; then ok "A9 el verificador no 
 B="$TMP/B"; cp -a "$PLANTILLA" "$B"
 (
 cd "$B" || exit 1
-# El equipo sustituye el marcador de posición (en la cabecera y en el kernel) y agrega dos casos propios.
-sed -i 's/y = sin(y) + cos(0.5 \* y) \* 0.25;/y = sin(y) * 0.5 + cos(y) * 0.25;/' comun/problema.h v3/kernel.cu
+# El equipo sustituye el marcador de posición (elemento() en la cabecera, que también usa el kernel)
+# y agrega dos casos propios.
+sed -i 's/y = sin(y) + cos(0.5 \* y) \* 0.25;/y = sin(y) * 0.5 + cos(y) * 0.25;/' comun/problema.h
 python3 - << 'EOF'
 p = "tests/run_tests.sh"
 s = open(p, encoding="utf-8").read()
@@ -184,6 +186,7 @@ espera "B10 declaración de IA llena" "$TMP/B.out" '^PASS +20 '
 espera "B11 dos autores" "$TMP/B.out" '^PASS +21 .*2 autores'
 espera "B12 etiqueta en HEAD" "$TMP/B.out" '^PASS +24 '
 no_espera "B13 sin avisos de C6 por integrante" "$TMP/B.out" '^AVISO +21 '
+espera "B14 detalle de C6 por autor (commits y semanas)" "$TMP/B.out" '^ +a@ejemplo\.mx: 3 commit\(s\) en 3 semana\(s\)'
 
 # ======================= C. entrega completa (estructura src/) =======================
 C="$TMP/C"; mkdir -p "$C"
@@ -324,6 +327,9 @@ espera "C10 PDF de 10 páginas" "$TMP/C.out" '^PASS +18 .*10 páginas'
 bash "$VERIF" "$B" --sin-ejecutar --sin-red > "$TMP/D.out" 2>&1; cD=$?
 codigo_es "D1 --sin-ejecutar sobre B" 0 "$cD"
 espera "D2 ítems 6–8 como MANUAL" "$TMP/D.out" '^MANUAL +8 '
+LIMITE_EPOCH=1 bash "$VERIF" "$B" --sin-ejecutar --sin-red > "$TMP/D3.out" 2>&1
+espera "D3 LIMITE_EPOCH: aviso de entrega tardía" "$TMP/D3.out" '^AVISO +24 .*posterior'
+no_espera "D4 sin aviso de entrega tardía con la fecha límite real" "$TMP/D.out" '^AVISO +24 .*posterior'
 
 # ======================= E. errores de uso =======================
 bash "$VERIF" > /dev/null 2>&1; codigo_es "E1 sin argumentos" 2 $?

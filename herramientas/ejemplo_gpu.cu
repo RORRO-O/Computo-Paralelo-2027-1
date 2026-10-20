@@ -84,7 +84,10 @@ int main(int argc, char **argv)
 
     int bloques = (int)((n + bloque - 1) / bloque);
 
-    /* Calentamiento: la primera llamada paga la carga del módulo; no se cuenta (protocolo §2). */
+    /* Calentamiento: la primera llamada paga la carga del módulo; no se cuenta (protocolo §2). Los ceros evitan
+     * que el kernel lea memoria sin inicializar; la región medida copia después los datos reales. */
+    CUDA_OK(cudaMemset(d_a, 0, bytes));
+    CUDA_OK(cudaMemset(d_b, 0, bytes));
     suma_vectores<<<bloques, bloque>>>(d_a, d_b, d_c, n);
     CUDA_OK(cudaGetLastError());
     CUDA_OK(cudaDeviceSynchronize());

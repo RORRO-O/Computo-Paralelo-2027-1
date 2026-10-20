@@ -15,7 +15,9 @@ make            # ejemplo_cronometro.out (OpenMP), ejemplo_cronometro_seq.out y,
 export OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1   # solo si corres MPI como root (contenedores)
 ```
 
-Los ejemplos escriben en `resultados/` y dejan binarios `*.out`; `make clean` borra ambos.
+Los ejemplos escriben en `resultados/` y dejan binarios `*.out`; `make clean` borra ambos. Los de `medir.sh` usan
+`n = 2·10⁷` para correr en segundos: T(1) ≈ 0.03 s sirve para ver el formato, no como evidencia (el protocolo
+pide T(1) ≥ 1 s y `medir.sh` lo avisa). Para medir de verdad, `n = 8·10⁸`, como en la cabecera de `medir.sh`.
 
 ## Índice
 
@@ -97,8 +99,9 @@ imprime su ruta). Cubre:
 - `cronometro.h`: reloj OpenMP y `clock_gettime`, mediana, mín y máx, fila CSV, y el `#error` si se incluye después
   de `<stdio.h>` sin `-fopenmp`.
 - `medir.sh`: modos OpenMP, `--mpi` y `-t gpu`; `--clave`, `--t1`, `n` leído de la salida; mediana; líneas
-  `corrida:` de `entorno.txt`; avisos de línea base y sobre-suscripción; códigos de salida 2, 3 y 4; y los
-  ejemplos de su cabecera con `n` pequeño.
+  `corrida:` de `entorno.txt`; avisos de línea base, de T(1) < 1 s y de sobre-suscripción; códigos de salida 2,
+  3 y 4; los ejemplos de su cabecera y de las de `ejemplo_cronometro.c` y `ejemplo_mpi.c` con `n` pequeño, que solo
+  escriben en `resultados/`.
 - `graficar_speedup.py`: CSV de 5 y de 3 repeticiones, columnas extra, filas `gpu`, recálculo desde T(1), `-h` y
   rechazo de un CSV sin `mediana_s`.
 - `plantilla-run_tests.sh`: OpenMP y MPI, detección de una diferencia mayor que la tolerancia, aviso de

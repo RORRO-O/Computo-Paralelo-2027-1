@@ -15,7 +15,7 @@ export PYTHONDONTWRITEBYTECODE = 1
 .PHONY: all run test clean
 
 all:
-	$(PYTHON) -c "import sys; [compile(open(f, encoding='utf-8').read(), f, 'exec') for f in sys.argv[1:]]" \
+	$(PYTHON) -W error -c "import sys, pathlib; [compile(pathlib.Path(f).read_text(encoding='utf-8'), f, 'exec') for f in sys.argv[1:]]" \
 	    sortear_orden.py calificar_defensa.py
 	@echo "Scripts verificados (sintaxis)."
 

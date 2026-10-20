@@ -7,6 +7,7 @@
 # Verifica, en una carpeta temporal fuera del repositorio (se borra si todo pasa; si algo falla se imprime su ruta):
 #   1. cronometro.h vía ejemplo_cronometro (OpenMP y secuencial) y el #error por orden de inclusión
 #   2. medir.sh: OpenMP, --mpi, -t gpu, --clave, --t1, entorno.txt, avisos, códigos de error y los ejemplos de su cabecera
+#      y de las de ejemplo_cronometro.c y ejemplo_mpi.c (solo escriben en resultados/)
 #   3. graficar_speedup.py: CSV de 5 y 3 repeticiones, columnas extra, filas gpu, recálculo, -h, CSV inválido
 #   4. plantilla-run_tests.sh: OpenMP, MPI, diferencia mayor que la tolerancia, aviso TODO pendiente
 #   5. Makefile.openmp y Makefile.mpi en una carpeta nueva: make, run, test, medir, grafica, clean
@@ -100,6 +101,8 @@ check "la línea corrida: dice config, lanzador, hilos y comando" \
 ./medir.sh -c openmp -t '1 2' -n $N -r 1 -o "$M/sinbase.csv" -- ./ejemplo_cronometro.out > /dev/null 2> "$M/sinbase.err"
 check "sin fila secuencial ni --t1, avisa que la línea base es la paralela con 1 hilo (idea errónea 31)" \
     "grep -q 'línea base T(1) es .openmp. con 1 hilo' $M/sinbase.err"
+check "avisa que T(1) < 1 s sirve para probar el flujo, no para reportar (protocolo §2)" \
+    "grep -q 'con 1 hilo o proceso la mediana es .* s < 1 s' $M/sinbase.err"
 ./medir.sh -c sobre -t "$((NUCLEOS + 1))" -n 1000 -r 1 -o "$M/sobre.csv" -- ./ejemplo_cronometro.out > /dev/null 2> "$M/sobre.err"
 check "avisa de sobre-suscripción con más hilos que núcleos lógicos" "grep -q 'sobre-suscripción' $M/sobre.err"
 check "--t1 fija la línea base y sin -n toma n de la salida del programa" \
@@ -145,6 +148,21 @@ done < "$C/ejemplos.txt"
 filas_esperadas=$((1 + 1 + 4 + 3 * HAY_MPI))
 check "los $corridos ejemplos de la cabecera corren: CSV con $filas_esperadas filas, speedup.png y eficiencia.png" \
     "test $errores -eq 0 && test $corridos -eq \$(wc -l < $C/ejemplos.txt) && test \$(wc -l < $C/resultados/mediciones.csv) -eq $filas_esperadas && test -s $C/resultados/speedup.png && test -s $C/resultados/eficiencia.png"
+# Ejemplos de las cabeceras de ejemplo_cronometro.c y ejemplo_mpi.c, en un solo script (comparten T1) y con n
+# reducido: deben correr y escribir solo en resultados/, que `make clean` borra.
+E=$T/cabeceras-c
+mkdir -p "$E"
+cp ./*.out medir.sh "$E/"
+for f in ejemplo_cronometro.c ejemplo_mpi.c; do
+    awk '/^ \* Ejemplos ejecutables/ { e = 1; next } e && /^ \*   / { sub(/^ \*   /, ""); print; next } e { exit }' "$f"
+done | sed 's/100000000/2000000/g; s/50000000/2000000/g' > "$T/ejemplos-c.txt"
+if [[ $HAY_MPI -eq 0 ]]; then sed -i.bak '/mpi/d' "$T/ejemplos-c.txt"; fi
+antes_c=$(ls -A "$E")
+(cd "$E" && bash -e "$T/ejemplos-c.txt") < /dev/null > "$T/ejemplos-c.log" 2>&1
+codigo_c=$?
+despues_c=$(ls -A "$E" | grep -vx resultados)
+check "los ejemplos de las cabeceras de ejemplo_cronometro.c y ejemplo_mpi.c corren y solo escriben en resultados/" \
+    "test $codigo_c -eq 0 && test \$(wc -l < $T/ejemplos-c.txt) -ge 4 && test '$despues_c' = '$antes_c' && test -s $E/resultados/cron.csv"
 
 # ---------- 3. graficar_speedup.py ----------
 G=$T/g

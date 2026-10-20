@@ -6,8 +6,8 @@
 
 1. Clona tu propio repositorio en una carpeta nueva (lo que tienes en tu disco no es lo que verá el profesor), junto a
    la carpeta de trabajo: `git clone <URL de cp-6bm1-equipoNN> ../prueba-entrega`.
-2. Corre el verificador del curso sobre ese clon. Revisa los ítems 1–24 en segundos y ejecuta `make`, `make test` y
-   `./run_all.sh --rapido` en una copia temporal, sin tocar tus archivos:
+2. Corre el verificador del curso sobre ese clon. Revisa los ítems 1–24 (en menos de un minuto, más lo que tarde tu
+   `--rapido`) y ejecuta `make`, `make test` y `./run_all.sh --rapido` en una copia temporal, sin tocar tus archivos:
    `bash RUTA_CURSO/proyecto/entrega-final/scripts/verificar_entrega.sh ../prueba-entrega`
    (`RUTA_CURSO` es donde clonaste el repositorio del curso; `--help` muestra las opciones).
 3. Marca cada ítem **sí** o **no**. "Casi" es **no**. Un `FAIL` del verificador es un **no**; un `AVISO` señala algo que
@@ -34,7 +34,7 @@ Columnas: **Auto** = lo verifica el script con ese número; **Rúbrica** = crite
 | # | ¿Sí o no? | Cómo se verifica | Auto | Rúbrica |
 |---|---|---|---|---|
 | 6 | `make all` compila sin un solo *warning* con `-Wall -Wextra` | `make clean && make all 2>&1 \| grep -i warning` no imprime nada | 6 | C5 |
-| 7 | `make test` termina con código 0 y todos los casos imprimen `PASS` | `make test; echo $?` → `0` | 7 | C1 |
+| 7 | `make test` termina con código 0 y todos los casos imprimen `PASS`; V2 se compara con V1 con 1, 2, 4 y 8 hilos, ≥ 3 corridas por caso, y V1 tiene los tres tipos de caso (`proyecto/README.md` §2) | `make test; echo $?` → `0`; leer la lista de casos | 7 (en parte) | C1 |
 | 8 | `./run_all.sh --rapido` termina sin error en ≤ 3 minutos en un clon limpio y escribe en `resultados/rapido/`, sin tocar `resultados/mediciones.csv` | Cronometrar; código 0; `git status` no muestra `resultados/mediciones.csv` modificado | 8 | C5 |
 
 ## C. Mediciones (protocolo)

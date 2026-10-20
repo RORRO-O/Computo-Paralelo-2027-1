@@ -1,6 +1,6 @@
 # Rúbrica de la defensa oral · 15 puntos del proyecto
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026, 10:30–12:00 · Salón 3208 (y las reservas del lunes 14 de diciembre 10:30 y del martes 15 de diciembre 08:30 si el profesor elige la opción a o b de `logistica-defensa.md` §3) · 15 de los 100 puntos del proyecto · ajusta la calificación individual · versión 1.1 · 20 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026, 10:30–12:00 · Salón 3208 (y la reserva del lunes 14 de diciembre 10:30 con la opción a o b de `logistica-defensa.md` §3; la del martes 15 de diciembre 08:30 solo con la opción a y más de 8 equipos) · 15 de los 100 puntos del proyecto · ajusta la calificación individual · versión 1.1 · 20 de octubre de 2026
 
 ## 1. Cómo se aplica
 
@@ -20,6 +20,15 @@
 5. La hoja de registro de §6 (y el *script* `scripts/calificar_defensa.py`) hacen el cálculo. La retroalimentación escrita se
    entrega en ≤ 7 días: a más tardar el jueves 17 de diciembre para las sesiones del 10, 14 y 15 de diciembre; una defensa
    pendiente atendida después, ≤ 7 días después de esa sesión.
+6. Los descriptores de §3 están escritos para el formato completo. Con otro formato se leen con esta tabla; todo lo
+   demás no cambia:
+
+| Descriptor del formato completo | Opción (b): 7 min | Opción (c): video ≤ 8 min + demo en clase |
+|---|---|---|
+| D1: **dos** decisiones con alternativas medidas | **Una** decisión medida (`guion-defensa.md` §2) | Dos, en el video |
+| D1: termina entre 11:30 y 12:00 · entre 11:00 y 11:30 · corte a los 12:00 | Entre 6:30 y 7:00 · entre 6:00 y 6:30 · corte a los 7:00 | El video dura ≤ 8:00 (no hay descriptor de tiempo); lo que pase de 8:00 no se evalúa |
+| D3: todo en ≤ 2 minutos; *notebook* mostrado | En ≤ 1:30; no mostrar el *notebook* no baja de Ejemplar si está ejecutado en la etiqueta | Sin cambio (2:00 en clase) |
+| D4: dos respuestas, ≤ 40 s cada una | Dos, ≤ 30 s cada una | Una; la segunda solo como rescate (§3.4) |
 
 ## 2. Pesos
 
@@ -45,8 +54,8 @@ Cubre los bloques 1 y 2 del guion (minutos 0:00–4:00) y la conducción de los 
 
 | Nivel | Evidencia |
 |---|---|
-| **Ejemplar (25)** | El problema queda dicho en ≤ 1 minuto con entrada (origen, `n`, semilla), salida, dependencia que queda y `T(1)` con su CPU. Las cuatro etapas de Foster se explican **sobre este problema** con diagrama propio y tabla tarea → datos → dependencias; el mapeo distingue hilos de CPU (V2) de bloques e hilos CUDA (V3) y dice qué cambió. **Dos decisiones** con alternativas medidas: opción elegida, medianas en pantalla, costo de la descartada en términos del modelo (costo por *chunk*, contención, orden de redondeo, ocupación). Un fragmento de ≤ 15 líneas por versión paralela, explicado línea por línea, que coincide con el repositorio. Términos usados con precisión (*speedup* ≠ eficiencia; carrera ≠ resultado distinto por redondeo; bloque ≠ *warp*). Termina entre 11:30 y 12:00; todos los integrantes hablan ≥ 2 minutos; ≤ 8 diapositivas legibles |
-| **Competente (20)** | Todo lo anterior presente, con una de estas faltas: una decisión se enuncia con su razón pero sin las medianas en pantalla; el diagrama es correcto pero genérico; un término mal usado y corregido en el momento; termina entre 11:00 y 11:30 o se corta en 12:00 con el bloque 5 completo |
+| **Ejemplar (25)** | El problema queda dicho en ≤ 1 minuto con entrada (origen, `n`, semilla), salida, dependencia que queda y `T(1)` con su CPU. Las cuatro etapas de Foster se explican **sobre este problema** con diagrama propio y tabla tarea → datos → dependencias; el mapeo distingue hilos de CPU (V2) de bloques e hilos CUDA (V3) y dice qué cambió. **Dos decisiones** con alternativas medidas: opción elegida, medianas en pantalla, costo de la descartada en términos del modelo (costo por *chunk*, contención, orden de redondeo, ocupación). Un fragmento de ≤ 15 líneas por versión paralela, que coincide con el repositorio, en el que se señalan las líneas que materializan la partición y cada decisión. Términos usados con precisión (*speedup* ≠ eficiencia; carrera ≠ resultado distinto por redondeo; bloque ≠ *warp*). Termina entre 11:30 y 12:00; todos los integrantes hablan ≥ 2 minutos; ≤ 8 diapositivas legibles |
+| **Competente (20)** | Todo lo anterior presente, con una de estas faltas: una decisión se enuncia con su razón pero sin las medianas en pantalla; el diagrama es correcto pero genérico; un término mal usado y corregido en el momento; termina entre 11:00 y 11:30, o el profesor corta a los 12:00 con la demo (bloque 5) ya iniciada |
 | **En desarrollo (13.75)** | Foster descrito en abstracto (definiciones) con poca conexión al problema; "aglomerar" entendido como juntar todo en un hilo (idea errónea 28); decisiones sin alternativas ("usamos `dynamic` porque es mejor"); se lee de la diapositiva o del papel; un integrante habla menos de 2 minutos; el profesor corta a los 12:00 sin que se haya llegado a la demo |
 | **Insuficiente (5)** | La exposición describe un diseño o un código distinto del que está en `entrega-final`; no hay diseño; habla un solo integrante; o faltan dos bloques del guion |
 
@@ -75,7 +84,8 @@ Cubre el bloque 5 del guion (minutos 10:00–12:00). La teclea el integrante que
 ### 3.4 D4 · Respuestas individuales (30; por integrante)
 
 Cada integrante responde **dos preguntas** sin ayuda (`guion-defensa.md` §4): la pregunta 1 sobre una línea de la parte que
-firmó en el reparto; la pregunta 2 del tema sorteado para su posición. Si la pregunta 1 queda en Insuficiente, la pregunta 2
+firmó en el reparto; la pregunta 2 del tema sorteado para su posición (A, B o C: orden alfabético de los usuarios de
+GitHub del equipo, `logistica-defensa.md` §4). Si la pregunta 1 queda en Insuficiente, la pregunta 2
 es de **rescate**: otra línea de su parte firmada, en lugar del tema (`docs/metodo/05-politica-ia.md`: "si la primera respuesta
 falla, el profesor pregunta sobre otra línea"). En la opción (c) de `logistica-defensa.md` §3 solo hay pregunta 1 y la de
 rescate cuando haga falta. Cada respuesta se ubica en un nivel con esta tabla; **D4 de la persona = 30 × promedio de los dos
@@ -149,7 +159,7 @@ Tabla de D4 por combinación de niveles (puntos de la rúbrica → puntos del pr
 | La demo falla por causa de la sala (proyector, corriente, máquina del salón) | Se repite al final de la sesión o en la sesión de pendientes (martes 15 de diciembre 08:30; jueves 17 de diciembre 10:30 si el martes 15 se usa para defensas, opción a), sin penalización; D3 se evalúa con la repetición |
 | El integrante designado para la demo no puede teclearla y otro lo sustituye | D3 baja un nivel. No cuenta para §4.1: el ajuste individual solo lo activan las dos respuestas individuales |
 | Un integrante falta **con justificante institucional** | Sus dos preguntas se hacen en la sesión de pendientes (martes 15 de diciembre 08:30, o jueves 17 de diciembre 10:30 con la opción a), sin tope; D1–D3 son los del equipo |
-| Un integrante falta **sin justificante** | D4 = 0 para esa persona (P1 y P2 = A). Si pide responder en la sesión de pendientes, D4 tiene tope de 80 % (misma regla que la recepción de hitos, `proyecto/README.md` §5). No se aplica el factor de §4.1: no hubo respuesta que mostrara desconocimiento |
+| Un integrante falta **sin justificante** | D4 = 0 para esa persona (P1 y P2 = A). Si pide responder en la sesión de pendientes, D4 tiene tope de 80 % (misma regla que la recepción de hitos, `proyecto/README.md` §5) y esas respuestas cuentan para §4.1 como cualquier otra. Si no responde, no se aplica el factor de §4.1: no hubo respuesta que mostrara desconocimiento |
 | El equipo completo falta sin justificante | 0 en los 15 puntos; con justificante, defensa en la sesión de pendientes |
 | Uso de teléfono, notas o asistente de IA durante las preguntas | La respuesta en curso queda Insuficiente (cuenta para §4.1) y se reporta según `docs/metodo/04-evaluacion.md` §6 |
 | Un integrante responde por otro o sopla | La respuesta se califica como estaba antes de la intervención; quien intervino pierde su reformulación |

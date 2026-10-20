@@ -11,13 +11,13 @@ docstring de cada archivo (`python3 <script> --help` resume los argumentos).
 | `calificar_defensa.py` | Defensa (/15) por integrante, conteo de respuestas Insuficientes, factor de ajuste, aviso de C6 y proyecto individual con el tope de 20 puntos | El mismo día de cada sesión de defensa | `../rubrica-defensa.md` §2–§4, `../logistica-defensa.md` §7 |
 | `ejemplo/equipos.csv` | 12 equipos de ejemplo (once de 3 y uno de 2) | Pruebas y ensayo del comando | — |
 | `ejemplo/registro-defensa.csv` | Registro de ejemplo con usuarios ficticios; produce la tabla de `rubrica-defensa.md` §4.1 | Pruebas | — |
-| `tests/run_tests.sh` | 29 casos `PASS`/`FAIL`, incluida la comparación de la tabla de `logistica-defensa.md` §4 con la salida real | Antes de usar los *scripts* y después de cambiarlos | — |
+| `tests/run_tests.sh` | 33 casos `PASS`/`FAIL`, incluida la comparación de la tabla de `logistica-defensa.md` §4 con la salida real y la lectura de CSV exportados desde una hoja de cálculo (marca BOM, equipo "7" = "07") | Antes de usar los *scripts* y después de cambiarlos | — |
 
 ## Comandos
 
 ```bash
 make            # verifica la sintaxis (no escribe __pycache__/)
-make test       # 29 casos; código 0 solo si todo pasa
+make test       # 33 casos; código 0 solo si todo pasa
 make run        # ejemplos: salida/orden-corto.md y salida/calificaciones.csv
 make clean      # borra salida/ y __pycache__/
 
@@ -34,7 +34,7 @@ python3 calificar_defensa.py ../../../docente/proyecto/registro-defensa.csv \
 | Script | 0 | 1 | 2 | 3 |
 |---|---|---|---|---|
 | `sortear_orden.py` | Todos los equipos tienen horario | — | Argumentos inválidos (mensaje en stderr) | Algún equipo queda **SIN HORARIO** con ese formato y esas sesiones (el informe se imprime igual) |
-| `calificar_defensa.py` | Todo calculado | Archivo inexistente, columna faltante, nivel o número inválido, D1–D3 distintos dentro de un equipo, uso de `A` fuera de una ausencia (se indica fila y columna) | Argumentos inválidos (argparse) | — |
+| `calificar_defensa.py` | Todo calculado | Archivo inexistente, columna faltante, nivel o número inválido, integrante vacío o repetido en su equipo, D1–D3 distintos dentro de un equipo, uso de `A` fuera de una ausencia (se indica fila y columna) | Argumentos inválidos (argparse) | — |
 
 ## Qué no se versiona
 

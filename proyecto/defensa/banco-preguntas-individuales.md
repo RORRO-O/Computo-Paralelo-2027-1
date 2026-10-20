@@ -1,6 +1,6 @@
 # Banco de preguntas individuales para la defensa
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026 · 10:30–12:00 · Salón 3208 (y las reservas del lunes 14 y martes 15 de diciembre si aplica la opción a o b de `logistica-defensa.md` §3) · Público: sirve para preparar la defensa · versión 1.1 · 20 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Proyecto integrador · Defensa oral · jueves 10 de diciembre de 2026 · 10:30–12:00 · Salón 3208 (y la reserva del lunes 14 de diciembre con la opción a o b de `logistica-defensa.md` §3; la del martes 15, solo con la opción a y más de 8 equipos) · Público: sirve para preparar la defensa · versión 1.1 · 20 de octubre de 2026
 
 ## 1. Cómo se usa
 
@@ -17,8 +17,8 @@ entiendes tu repositorio. Cada integrante responde **dos preguntas** sin ayuda (
 | L3 | "¿Dónde se mide el tiempo aquí y qué queda fuera?" | El reloj (`omp_get_wtime`, `cudaEvent`, `perf_counter`), el inicio y fin de la región de interés, y qué se excluye (lectura de datos, impresión, transferencias si es la medición de *kernel*) |
 
 - **Pregunta 2 · de tema.** Del tema sorteado para tu posición en el equipo (§3 a §8), elegida por el profesor sobre
-  **tu** proyecto. Los temas se sortean con la misma semilla que el orden (`logistica-defensa.md` §4) para que en cada
-  equipo salgan temas distintos.
+  **tu** proyecto. Tu posición (A, B o C) es la de tu usuario de GitHub en orden alfabético dentro del equipo. Los temas
+  se sortean con la misma semilla que el orden (`logistica-defensa.md` §4) para que en cada equipo salgan temas distintos.
 - **Rescate.** Si la pregunta 1 queda en Insuficiente, la pregunta 2 no es de tema: es otra pregunta de línea (L1–L3)
   sobre otra parte de lo que firmaste (`docs/metodo/05-politica-ia.md`). Las dos respuestas cuentan para D4 y para el
   ajuste de `rubrica-defensa.md` §4.1; para C6 cuenta la mejor de las dos.
@@ -130,7 +130,7 @@ se vio en la Unidad IV y en la Práctica 5.
 
 | ID | Nivel | Pregunta | Una buena respuesta contiene | Señal de Insuficiente |
 |---|---|---|---|---|
-| DE1 | N2 | Abre un *commit* **tuyo** de las últimas dos semanas y explica qué cambió y por qué | Localiza el *commit* (`git log --author`), describe el cambio en términos del problema o de la medición, lo liga a una entrada de bitácora o a una decisión | No encuentra ningún *commit* propio reciente; describe un cambio que el *diff* no muestra |
+| DE1 | N2 | Abre un *commit* **tuyo** posterior a H2 (lunes 23 de noviembre) y explica qué cambió y por qué | Localiza el *commit* (`git log --author`), describe el cambio en términos del problema o de la medición, lo liga a una entrada de bitácora o a una decisión | No encuentra ningún *commit* propio reciente; describe un cambio que el *diff* no muestra |
 | DE2 | N2 | Elige una entrada de la bitácora que escribiste tú: ¿cómo detectaron la falla y qué **prueba agregaron** para que no vuelva? | Herramienta o prueba de detección, causa raíz, cambio, y el caso de prueba o la verificación que se agregó a `tests/run_tests.sh` o al flujo de medición | "Salió mal y lo arreglamos"; no hay prueba agregada y no sabe por qué |
 | DE3 | N1 | ¿Qué les dijo la IA que **resultó estar mal** y cómo lo descubrieron? | Ejemplo concreto (una cláusula, una afirmación de rendimiento, un tamaño de bloque, una "optimización") y el método de verificación: compilar con `-Wall -Wextra`, medir con el protocolo, contrastar con la especificación o la guía oficial | "Nunca se equivocó" o no recuerda ningún caso; no verificaron nada |
 | DE4 | N3 | Si empezaran hoy, ¿qué harían distinto? Nombra **una decisión** y el dato que la cambiaría | Decisión concreta (partición, tamaño declarado, tecnología de V3, orden de trabajo) y el número o experimento que la motivaría | Generalidades ("organizarnos mejor"); ninguna decisión técnica |

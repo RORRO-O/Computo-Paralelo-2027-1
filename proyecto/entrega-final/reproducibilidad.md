@@ -91,8 +91,10 @@ necesita.
 ### 2.5 Versiones
 
 El README declara con qué versiones se midió: `gcc --version`, `nvcc --version` (la de Colab), `python3 --version` y las de
-`numpy`, `matplotlib` y, si aplica, `numba` o `cupy` (`pip show`). `entorno.txt` y `entorno_gpu.txt` lo repiten
-automáticamente para que el dato no dependa de que alguien lo haya copiado bien.
+`numpy`, `matplotlib` y, si aplica, `numba` o `cupy` (`pip show`). Los archivos de entorno lo repiten automáticamente para
+que el dato no dependa de que alguien lo haya copiado sin errores: `entorno.txt` (lo escribe `run_all.sh`) trae gcc, nvcc si
+lo hay, python3, numpy y matplotlib; `entorno_gpu.txt` (celda 1 del *notebook*) trae nvcc, python3 y, con una V3 en Python,
+numba y cupy.
 
 ## 3. Cómo documentar la GPU de Colab/Kaggle
 
@@ -132,8 +134,17 @@ protocolo. Sin salidas no es evidencia.
    celdas `%%writefile` con el repositorio y marca FAIL en el ítem 16 si no coinciden. Un *notebook* cuyo código no
    coincide con el del repositorio cuenta como "describe código distinto" (C5 Insuficiente).
 
-Numba CUDA y CuPy: para probar la lógica del *kernel* sin GPU usa `NUMBA_ENABLE_CUDASIM=1 python3 v3/main_gpu.py 1000 1`
-(simulador; **no** sirve para medir). CuPy no tiene simulador: las pruebas de la V3 en CuPy se corren en Colab.
+Verificar la V3 sin GPU (`docs/metodo/04-evaluacion.md` §5; `proyecto/README.md` §2):
+
+- **CUDA C.** En la plantilla, `elemento()` de `comun/problema.h` se compila para CPU y para GPU (`CP_HD`, que con `nvcc`
+  vale `__host__ __device__`): la V1 y el *kernel* llaman a la **misma** función, así que `make test` en una máquina sin GPU
+  ya verifica lo que calcula cada hilo ("espejo en CPU"). En Colab solo queda por verificar el mapeo hilo→dato, la guarda
+  de límites y las copias (celda 4). Si tu *kernel* no es por elemento, conserva la idea: lo que calcula un hilo va en una
+  función `CP_HD` que la V1 también usa.
+- **Numba CUDA.** `NUMBA_ENABLE_CUDASIM=1 python3 v3/main_gpu.py 1000 1` corre el *kernel* en el simulador (**no** sirve para
+  medir).
+- **CuPy.** No tiene simulador: la lógica del *kernel* se prueba con una función equivalente en NumPy contra la V1, y la V3
+  completa en Colab.
 
 ## 5. Antes de etiquetar: prueba en un clon limpio
 

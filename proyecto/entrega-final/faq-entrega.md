@@ -42,8 +42,10 @@ La calificación de una persona nunca baja por lo que hizo o dejó de hacer otra
    hizo qué y qué pasó. Decirlo a tiempo es lo honesto y no le cuesta nada a quien sí trabajó. Lo que sí cuesta al equipo
    es un reparto en el README y en el reporte (§11) que no coincide con el historial y no se explica: baja R7.
 3. **La defensa individual** (jueves 10 de diciembre, 15 puntos, `proyecto/defensa/`). Las preguntas son por integrante y
-   pueden mover la calificación de cada uno respecto a la del equipo. Quien no puede explicar el código que firmó queda en
-   C6 Insuficiente y, además, aplica el ajuste de `proyecto/defensa/rubrica-defensa.md` §4.1.
+   pueden mover la calificación de cada uno respecto a la del equipo. La primera es sobre una línea de la parte que firmó;
+   si falla, la segunda es de rescate sobre otra línea de esa parte y cuenta la mejor (`docs/metodo/05-politica-ia.md`).
+   Quien no explica ninguna de las dos queda en C6 Insuficiente, y cada respuesta en Insuficiente resta además 10 % de
+   sus 100 puntos del proyecto (`proyecto/defensa/rubrica-defensa.md` §4.1).
 
 Si el problema aparece antes, se avisa por escrito al profesor la semana en que ocurre, no la semana de la entrega.
 
@@ -69,8 +71,10 @@ otro sin decirlo (protocolo §5).
 
 ## 6. ¿Qué pasa si no llegamos a las 10:30 del lunes 7 de diciembre?
 
-Se califica el último *commit* anterior a esa hora. Si siguen subiendo cambios después, aplica la entrega tardía: hasta 72 h
+Se califica lo que tenga la etiqueta `entrega-final` a las 10:30 (hora de GitHub) o, sin etiqueta, el último *commit* de
+`main` anterior a esa hora. Si crean o mueven la etiqueta después, se califica esa versión como entrega tardía: hasta 72 h
 (jueves 10 de diciembre, 10:30) con máximo 80 % en las dos piezas; después no se recibe salvo justificante institucional.
+Subir *commits* después de las 10:30 sin tocar la etiqueta no cambia lo que se califica.
 Dos consecuencias prácticas: el martes 8 a las 08:30 es el Examen 3, y la defensa del jueves usa lo que esté en la etiqueta
 a las 10:30. Un repositorio incompleto pero honesto (README §8 "lo que no funciona") a tiempo suele valer más que uno
 "completo" 48 horas tarde con el 80 % de tope.
@@ -108,10 +112,10 @@ cotejo entre equipos) y otra vez después del último *commit*, no el lunes a la
 ## 10. ¿Cuándo y cuánto tiempo defiende mi equipo?
 
 El calendario fija la defensa el jueves 10 de diciembre de 2026, 10:30–12:00: 12 minutos por equipo con demo en vivo y
-preguntas individuales, 15 puntos (`proyecto/defensa/`). Con alrededor de 12 equipos, 12 × 12 minutos no caben en 90
-minutos. La decisión es del profesor y la anuncia a más tardar el jueves 3 de diciembre, junto con el orden (sorteo con
-semilla publicada el lunes 7 de diciembre). Las opciones (`proyecto/README.md` §3 y `proyecto/defensa/logistica-defensa.md`
-§3):
+preguntas individuales, 15 puntos (`proyecto/defensa/`). Con alrededor de 12 equipos, solo la exposición pide
+12 × 12 = 144 minutos, y la sesión dura 90 (80 útiles). La decisión es del profesor y la anuncia a más tardar el jueves 3 de
+diciembre; el orden se sortea con semilla publicada el lunes 7 de diciembre. Las opciones (`proyecto/README.md` §3 y
+`proyecto/defensa/logistica-defensa.md` §2–§3, donde están las cuentas completas):
 
 | Opción | Cómo queda |
 |---|---|
@@ -122,4 +126,5 @@ semilla publicada el lunes 7 de diciembre). Las opciones (`proyecto/README.md` �
 En cualquier caso: la demo corre desde un clon de la etiqueta `entrega-final` (no desde la carpeta de trabajo), el
 repositorio no cambia entre la entrega y la defensa, cada integrante responde por separado, y el equipo graba antes del
 miércoles 9 de diciembre a las 20:00 un video de plan B de la demo (≤ 3 min, enlazado en un *issue*). Las defensas
-pendientes por causa justificada se atienden el martes 15 de diciembre, 08:30.
+pendientes por causa justificada se atienden el martes 15 de diciembre, 08:30 (con la opción (a) y más de 8 equipos esa
+sesión ya tiene defensas, y las pendientes pasan al jueves 17 de diciembre, 10:30).

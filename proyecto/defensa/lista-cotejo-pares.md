@@ -57,7 +57,7 @@ Total de **sí**: `__ / 12`
 
 - Lo más claro de la exposición (una frase): ______________________________________________
 - Lo que no entendimos o no vimos (ítems con **no**, por número): ______________________________________________
-- Una pregunta que le haríamos al equipo el jueves y que hoy no supo responder: ______________________________________________
+- Una pregunta que le haríamos al equipo en su defensa y que en este ensayo no supo responder: ______________________________________________
 - El número que dijeron y que no encontramos en su tabla (si lo hubo): ______________________________________________
 
 ## Qué hace el equipo evaluado con esta hoja

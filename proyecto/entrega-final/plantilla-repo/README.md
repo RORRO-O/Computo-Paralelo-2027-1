@@ -13,8 +13,14 @@
   archivo, cómo obtenerlo o regenerarlo: «comando o URL + suma SHA-256».
 - **Salida y cómo se verifica que es correcta:** «checksum / comparación con V1 / solución conocida; tolerancia».
 - **Semillas:** V1, V2 y V3 usan la misma semilla «12345» para el mismo `n`; las pruebas usan «…».
-- **Tamaño declarado:** `n` = «…» (T(1) = «…» s en la CPU de `resultados/entorno.txt`); tamaño de prueba: «…».
 - **Por qué es paralelizable (3 líneas):** «…»
+- **Tamaño de prueba y tamaño declarado** (`proyecto/hitos/H1-avance-1.md` §2.1; la búsqueda queda en `bitacora.md`,
+  sección "Búsqueda del tamaño declarado"):
+
+| Nombre | Valor(es) de los parámetros | T(1) con -O2 (mediana de 5) | Para qué se usa |
+|---|---|---|---|
+| N_prueba | «…» | «…» s (< 1 s) | `make test` |
+| N_declarado | «…» | «…» s (1–10 s; ideal 2–5 s) en la CPU de `resultados/entorno.txt` | Todas las mediciones de V1, V2 y V3 |
 
 ## 2. Cómo compilar y correr (sin leer nada más)
 
@@ -70,11 +76,16 @@ v1/                     V1 secuencial (main.c, Makefile)
 v2/                     V2 OpenMP (main.c, Makefile)
 v3/                     V3 GPU (kernel.cu o main_gpu.py, Makefile, notebook_colab.ipynb EJECUTADO)
 tests/run_tests.sh      pruebas: V2 y V3 contra V1 con tolerancia; casos borde; casos del equipo
-herramientas/           resumen_csv.py (tabla + gráfica), generar_notebook_v3.py
+herramientas/           resumen_csv.py (tabla + gráfica), generar_notebook_v3.py; medir_proyecto.sh y
+                        graficar_proyecto.py (de proyecto/plantillas/: perfil, experimentos, Colab)
+datos/                  entrada o script que la genera o descarga (nada > 10 MB en git)
 resultados/             mediciones.csv, mediciones_v3.csv, entorno.txt, entorno_gpu.txt, *.png, tabla.md
+                        (y perfil-v1.csv, experimentos.csv de los hitos)
 resultados/rapido/      salida de ./run_all.sh --rapido (ignorada por git)
-reporte/reporte.pdf     reporte final (8–12 páginas; proyecto/entrega-final/plantilla-reporte.md)
+reporte/                diseno-foster.md, H1.md, H2.md y reporte.pdf (8–12 páginas;
+                        proyecto/entrega-final/plantilla-reporte.md)
 bitacora.md             errores, mediciones descartadas, predicciones vs. resultados (fechado AAAA-MM-DD)
+declaracion-ia.md       una sección por entrega (proyecto/plantillas/declaracion-ia.md); la final se copia en §7
 run_all.sh              reproduce todo lo medible en CPU
 ```
 

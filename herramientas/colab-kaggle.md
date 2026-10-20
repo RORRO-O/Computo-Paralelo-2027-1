@@ -182,6 +182,12 @@ Si tu CSV de laptop usa el formato de `proyecto/plantillas/run_all.sh` (con `min
 produce las filas `V3` y `V3-kernel` (lee `TIEMPO_KERNEL_S`/`tiempo_kernel_s=`): usa uno u otro, no mezcles
 archivos con distinto encabezado.
 
+**V3 del proyecto.** El contrato de la entrega final (`proyecto/entrega-final/README.md`, "Programa V3") pide que la
+V3 imprima `tiempo_total_s=` (con transferencias) en lugar de `tiempo_s=`. Con `medir.sh`, la fila `V3` se mide
+entonces con `--clave tiempo_total_s`; sin esa opción, `medir.sh` se detiene con código 4 porque no encuentra
+`tiempo_s=`. `ejemplo_gpu.cu` y los esqueletos de §11 imprimen `tiempo_s=`: si los usas como base de tu V3,
+cambia esa clave.
+
 Reglas que aplican igual en la nube (protocolo §2 y §5):
 
 - `n` tal que la versión secuencial tarde ≥ 1 s **en Colab**; el mismo `n` para la fila GPU. Si la GPU necesita
@@ -318,7 +324,9 @@ Se mide con `./medir.sh -c V3 -t gpu -n 50000000 -o ... -- python3 v3_numba.py` 
 `--clave tiempo_kernel_s` para la fila sin transferencias. Cada repetición de `medir.sh` es un proceso nuevo y
 la primera llamada a un *kernel* de Numba compila (JIT): por eso el programa se calienta a sí mismo antes de
 abrir el cronómetro, además del calentamiento de `medir.sh`. Para `make test` sin GPU: `NUMBA_ENABLE_CUDASIM=1`
-(con `n` pequeño: el simulador es lento).
+(con `n` pequeño: el simulador es lento). Si es tu V3 del proyecto, `proyecto/entrega-final/faq-entrega.md` §2
+pide además las claves `gpu=`, `tiempo_total_s=` y `checksum=` (ver §6) y medir con eventos de CUDA
+(`cuda.event()` en Numba, `cupy.cuda.Event` en CuPy) en lugar de `time.perf_counter()`.
 
 Con **CuPy** el esquema es el mismo; copias con `cp.asarray`/`cp.asnumpy` y sincronización explícita:
 

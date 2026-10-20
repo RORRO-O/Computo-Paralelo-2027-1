@@ -131,6 +131,18 @@ inval "puntos fuera de rango"           "${H}01,x,E,E,E,E,E,16,40,30\n"        "
 inval "faltan columnas"                 'equipo,integrante,D1\n01,x,E\n'       "columnas"
 $PY calificar_defensa.py "$TMP/no-existe.csv" > /dev/null 2> "$TMP/err.txt"; rc=$?
 [ $rc -eq 1 ] && grep -q "no existe" "$TMP/err.txt" && ok "16 archivo inexistente → rc=1" || bad "16 archivo inexistente → rc=$rc"
+inval "integrante repetido en un equipo" "${H}01,x,E,E,E,E,E,,,\n1,x,E,E,E,C,C,,,\n" "ya aparece"
+inval "integrante vacío"                "${H}01,,E,E,E,E,E,,,\n"               "integrante"
+
+# 17. CSV exportado desde una hoja de cálculo: marca BOM y "7" en lugar de "07" → mismo resultado que el ejemplo.
+{ printf '\xef\xbb\xbf'; sed 's/^07,/7,/' ejemplo/registro-defensa.csv; } > "$TMP/bom.csv"
+$PY calificar_defensa.py "$TMP/bom.csv" --salida "$TMP/bom_out.csv" --sin-tabla 2>/dev/null; rc=$?
+[ $rc -eq 0 ] && cmp -s "$TMP/cal.csv" "$TMP/bom_out.csv" \
+    && ok "17 CSV con BOM y equipo sin cero inicial = ejemplo" || bad "17 CSV con BOM y equipo sin cero inicial (rc=$rc)"
+{ printf '\xef\xbb\xbf'; cat ejemplo/equipos.csv; } > "$TMP/eq_bom.csv"
+$PY sortear_orden.py --semilla $SEM --equipos "$TMP/eq_bom.csv" --solo-orden > "$TMP/o_bom.txt" 2>/dev/null; rc=$?
+[ $rc -eq 0 ] && cmp -s "$TMP/o1.txt" "$TMP/o_bom.txt" \
+    && ok "17 equipos.csv con BOM = mismo orden" || bad "17 equipos.csv con BOM (rc=$rc)"
 
 echo "== $pass PASS · $fail FAIL =="
 [ $fail -eq 0 ]

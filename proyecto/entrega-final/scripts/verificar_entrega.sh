@@ -7,6 +7,9 @@
 #       --sin-ejecutar  solo revisa archivos y git: no corre make, make test ni run_all.sh
 #       --sin-red       no consulta GitHub (git ls-remote) para confirmar la etiqueta
 #       -h, --help      muestra esta ayuda
+#       LIMITE_EPOCH    (variable de entorno, opcional) fecha límite en segundos Unix para el aviso de entrega
+#                       tardía del ítem 24; por defecto 1796661000 = lunes 7 dic 2026 10:30 en la Ciudad de México.
+#                       El aviso usa la hora del commit etiquetado; la que vale es la de GitHub al subir la etiqueta.
 # Quién lo usa: el equipo, antes de etiquetar (lista-cotejo-entrega.md, columna "Auto"), y el
 #       profesor, en los primeros minutos de la revisión (reproducibilidad.md §1).
 # Qué revisa: los ítems 1–24 de lista-cotejo-entrega.md que una máquina puede comprobar y las
@@ -640,7 +643,8 @@ if [ "$HAY_PY" -eq 1 ]; then correr_py P plantilla; fi
 # ---------- Lo que una máquina no puede revisar ----------
 MANUAL 25 "las tablas y gráficas del PDF coinciden número a número con resultados/*.csv (misma n, misma semilla, misma fecha de GPU)"
 echo "Recordatorios (lista-cotejo-entrega.md):"
-echo "  - cada caso de 'Casos del equipo' dice por qué importa (ítem 5); la gráfica de speedup tiene la línea ideal (ítem 15);"
+echo "  - cada caso de 'Casos del equipo' dice por qué importa (ítem 5); make test cubre 1, 2, 4 y 8 hilos con >= 3 corridas"
+echo "    y los tres tipos de caso de V1 (ítem 7); la gráfica de speedup tiene la línea ideal (ítem 15);"
 echo "  - la declaración de IA también está en el PDF §12 (ítem 20); cualquier integrante explica cualquier línea (defensa)."
 
 echo "----"

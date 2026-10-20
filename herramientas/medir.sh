@@ -36,7 +36,9 @@
 #
 # Qué hace por cada valor de hilos: 1 ejecución de calentamiento (no se cuenta) + R ejecuciones cronometradas;
 # calcula la mediana, el speedup = T1 / mediana y la eficiencia = speedup / hilos; agrega una fila al CSV y la
-# muestra en pantalla. Avisa si pides más hilos o procesos que núcleos lógicos (sobre-suscripción: se declara).
+# muestra en pantalla. Avisa si pides más hilos o procesos que núcleos lógicos (sobre-suscripción: se declara),
+# si la línea base es la versión paralela con 1 hilo (idea errónea 31) y si la fila con 1 hilo tarda < 1 s
+# (protocolo §2: el n de demostración sirve para probar el flujo, no para reportar).
 # Escribe además <carpeta del CSV>/entorno.txt para copiarlo al reporte (protocolo §1.4): el bloque de la
 # máquina (fecha, sistema, CPU, RAM, cuota de CPU del contenedor, compilador, MPI) se reescribe en cada llamada y
 # se agrega una línea "corrida:" por llamada terminada (inicio, CSV, config, lanzador, hilos, repeticiones, clave
@@ -175,7 +177,8 @@ PROGRAMA=("$@")
 ejecutar() {
     local p=$1 salida=$2
     if [[ $MODO == "mpi" ]]; then
-        "${MPIRUN_CMD[@]}" -np "$p" "${PROGRAMA[@]}" ${N:+"$N"} > "$salida"
+        # < /dev/null: mpirun reenvía la entrada estándar al rango 0; dentro de un "while read" se la comería.
+        "${MPIRUN_CMD[@]}" -np "$p" "${PROGRAMA[@]}" ${N:+"$N"} < /dev/null > "$salida"
     elif [[ $p == gpu ]]; then
         "${PROGRAMA[@]}" ${N:+"$N"} > "$salida"
     else
@@ -236,8 +239,12 @@ for p in $HILOS; do
     fi
     # Idea errónea 31 del Anexo A: el speedup se calcula contra la mejor secuencial, no contra la paralela con 1 hilo.
     if [[ $AVISO_BASE -eq 0 && -z $T1 && $config_base == "$CONFIG" && $N_VALORES -gt 1 ]]; then
-        echo "AVISO: la línea base T(1) es '$CONFIG' con 1 hilo, no la versión secuencial (protocolo §3). Mide antes -c secuencial -t 1 en el mismo CSV, pasa --t1 o decláralo." >&2
+        echo "AVISO: la línea base T(1) es '$CONFIG' con 1 hilo o proceso, no la versión secuencial (protocolo §3). Mide antes -c secuencial -t 1 en el mismo CSV, pasa --t1 o decláralo." >&2
         AVISO_BASE=1
+    fi
+    # Protocolo §2: n tal que T(1) >= 1 s; §5: con T(1) < 0.1 s la medición no vale. Sirve para probar el flujo.
+    if [[ $p == 1 ]] && awk -v t="$mediana" 'BEGIN { exit !(t < 1.0) }'; then
+        echo "AVISO: con 1 hilo o proceso la mediana es ${mediana} s < 1 s: sirve para probar el flujo, no para reportar (protocolo §2; con T(1) < 0.1 s no vale, §5). Aumenta -n." >&2
     fi
     speedup=NA
     eficiencia=NA

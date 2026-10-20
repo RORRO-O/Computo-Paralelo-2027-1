@@ -31,7 +31,7 @@ Con preguntas y cambios (modelo que usa `scripts/sortear_orden.py`; equipos de 3
 | **Corto** (opción b) | 7:00 | 3:00 por equipo (2 por integrante, 30 s) | 1:00 | 11:00 | **132 min** | 1.65 → **2** | 6 + 6 (66 min por sesión, sobran 14) |
 | **Mixto** (opción c, `04-evaluacion.md` §3.2) | 2:00 de demo (la exposición va en video) | 1 min por integrante (pregunta y posible rescate) + 1 min de margen = 4:00 (3:00 con 2 integrantes) | 0:30 (una sola máquina) | 6:30 | **77 min** (11 × 6:30 + 5:30) | 0.96 → **1** | 12 en el jueves 10 (sobran 3 min en total) |
 
-Lectura: **ningún formato con 12 equipos cabe en una sola sesión salvo el mixto, y ese cabe sin holgura.** El
+Lectura: **ningún formato con 12 equipos cabe en una sola sesión salvo el mixto, y ese cabe con 3 min de holgura.** El
 formato corto tampoco cabe en una sesión (132 > 80): solo cabría con ≤ 7 equipos. Si el número real de equipos es
 distinto, el *script* recalcula (§4).
 
@@ -47,7 +47,7 @@ del profesor.**
 |---|---|
 | Cómo queda | 12 min + 2 preguntas por integrante + 1 min de cambio = 17 min por equipo de 3. **Caben 4 equipos por sesión** (68 de 80 min). Con 12 equipos: jueves 10 (4), lunes 14 (4), martes 15 08:30 (4). Con ≤ 8 equipos bastan jueves y lunes. Orden por sorteo (§4): posiciones 1–4 el jueves, 5–8 el lunes, 9–12 el martes |
 | A favor | Es el formato del calendario y del guion que los equipos ensayan el lunes 7 de diciembre; 4 minutos de resultados y análisis (el bloque de mayor peso) y 2 minutos de demo sin recortes; dos preguntas de 40 s por integrante dan evidencia individual suficiente y margen para la reformulación; 12 minutos de holgura por sesión absorben una demo repetida por falla de la sala; el profesor califica 4 equipos por sesión con atención |
-| En contra | Consume **las tres sesiones de reserva**: la retroalimentación de E3 y del proyecto prevista para el lunes 14 pasa al jueves 17 de diciembre (sigue dentro de los 7 días de la entrega del 7 de diciembre si se publica por escrito el 14) y el martes 15 deja de estar disponible para defensas pendientes y para la segunda entrega de P6 (`04-evaluacion.md` §5), que tendrían que atenderse el jueves 17; los equipos del martes defienden 5 días después que los del jueves, a las 08:30, con el Examen 3 en medio (el código no cambia: la etiqueta está congelada desde el 7 de diciembre; cambia el tiempo de ensayo); tres sesiones con el mismo nivel de exigencia para el profesor |
+| En contra | Consume **las tres sesiones de reserva**: la retroalimentación de E3 y del proyecto prevista para el lunes 14 pasa al jueves 17 de diciembre (sigue dentro de los 7 días de la entrega del 7 de diciembre si se publica por escrito el 14) y el martes 15 deja de estar disponible para defensas pendientes, que pasan al jueves 17 (la fecha límite de la segunda entrega de P6, martes 15 de diciembre 08:30 según `04-evaluacion.md` §5, no cambia: es un *push* al repositorio y no ocupa la sesión); los equipos del martes defienden 5 días después que los del jueves, a las 08:30, con el Examen 3 en medio (el código no cambia: la etiqueta está congelada desde el 7 de diciembre; cambia el tiempo de ensayo); tres sesiones con el mismo nivel de exigencia para el profesor |
 
 ### Opción (b) · Formato corto: 7 min de exposición + 3 min de preguntas, en dos sesiones
 
@@ -84,9 +84,13 @@ retroalimentación escrita a más tardar el jueves 17 de diciembre.
 línea; `NN` con dos dígitos, como en `cp-6bm1-equipoNN`). El orden de defensa es el orden ascendente de las claves en
 hexadecimal. No depende de versión de Python ni de ninguna biblioteca: cualquiera lo verifica con `sha256sum`.
 
-**Semilla preinscrita:** `20261210`. Está publicada desde hoy (14 de octubre de 2026); el profesor puede sustituirla
-hasta el jueves 3 de diciembre publicando la nueva en el *issue* del anuncio. Como la lista de equipos se conoce desde
-H0, cualquier equipo puede calcular hoy su posición; eso es deliberado: el sorteo es transparente, no secreto.
+**Semilla preinscrita:** `20261210`. Está publicada desde la versión 1.0 de este documento (14 de octubre de 2026); el
+profesor puede sustituirla hasta el jueves 3 de diciembre publicando la nueva en el *issue* del anuncio. Como la lista de
+equipos se conoce desde H0, cualquier equipo puede calcular su posición en cuanto se publica la semilla; eso es
+deliberado: el sorteo es transparente, no secreto.
+
+**Posiciones A, B y C dentro del equipo** (para el tema de la pregunta 2): los integrantes en orden alfabético de su
+usuario de GitHub, sin distinguir mayúsculas: un orden fijo que el equipo no elige.
 
 **Verificación a mano (un equipo, en el pizarrón el 7 de diciembre):**
 
@@ -229,9 +233,9 @@ este video de ≤ 3 min.
 | Caso | Qué se hace |
 |---|---|
 | Integrante ausente con justificante institucional | Sus 2 preguntas se hacen en la sesión de pendientes: martes 15 de diciembre 08:30 (jueves 17 de diciembre 10:30 si el martes 15 se usa para defensas, opción a), sin tope. D1–D3 son los del equipo |
-| Integrante ausente sin justificante | D4 = 0 (`P1` y `P2` = `A`). Si pide responder en la sesión de pendientes, D4 con tope de 80 % (misma regla que la recepción de hitos, `proyecto/README.md` §5). Sin factor de ajuste: no hubo respuesta que mostrara desconocimiento |
+| Integrante ausente sin justificante | D4 = 0 (`P1` y `P2` = `A`). Si pide responder en la sesión de pendientes, D4 con tope de 80 % (misma regla que la recepción de hitos, `proyecto/README.md` §5), y esas respuestas cuentan para el ajuste de `rubrica-defensa.md` §4.1. Si no responde, sin factor de ajuste: no hubo respuesta que mostrara desconocimiento |
 | Equipo completo ausente | Con justificante: defensa en la sesión de pendientes (martes 15 de diciembre 08:30, o jueves 17 con la opción a). Sin justificante: 0 en los 15 puntos |
-| Equipo de 2 integrantes | Mismo formato; las preguntas duran 2:40 en vez de 4:00 (el *script* lo contempla con `equipos.csv`) |
+| Equipo de 2 integrantes | Mismo formato; las preguntas duran 2:40 en vez de 4:00 en el completo y 3:00 en vez de 4:00 en el mixto (el *script* lo contempla con `equipos.csv`); en el corto se conservan los 3:00 por equipo como margen |
 | Integrante que se retiró del equipo (avisado por escrito, `proyecto/README.md` §5) | No defiende; su calificación la decide el historial de *commits* según lo renegociado |
 | Repositorio con etiqueta tardía (después del lunes 7 de diciembre 10:30) | Se defiende lo que haya en la etiqueta a las 10:30 del jueves 10 de diciembre; aplica el tope de 80 % de la entrega tardía en repositorio y reporte, no en la defensa |
 | Medición de V3 pendiente por cuota de GPU, con captura fechada (`04-evaluacion.md` §5) | D2 se evalúa sobre V2 y sobre lo que el equipo espera medir y por qué; D3 no exige el *notebook* ejecutado; la medición se completa a más tardar el martes 15 de diciembre 08:30 |

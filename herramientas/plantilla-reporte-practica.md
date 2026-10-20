@@ -132,7 +132,7 @@ sobre el enunciado. Si no hay ninguna, escriban qué verificaron para estar segu
 código (rúbrica, criterio "Proceso e integridad"). Si alguien tiene menos, explíquenlo aquí. En la mini-defensa
 se pregunta a cada quien sobre lo que firmó (`docs/metodo/05-politica-ia.md`, "Prueba de propiedad").*
 
-| Integrante (alias) | Qué firmó (archivo y funciones o líneas) | *Commits* con código | Pregunta individual que respondió en el Laboratorio 2 |
+| Integrante (alias) | Qué firmó (archivo y funciones o líneas) | *Commits* con código | Pregunta individual de su mini-defensa (Laboratorio 2, o Laboratorio 1 si así se publicó) |
 |---|---|---|---|
 | | | | |
 | | | | |

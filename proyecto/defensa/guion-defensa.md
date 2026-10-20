@@ -86,7 +86,7 @@ corriente), no del equipo, la demo se repite al final de la sesión sin penaliza
 | Cuántas | **2 por integrante**. Formato completo: hasta 40 s por respuesta. Formato corto (opción b de la logística): hasta 30 s. Opción (c): 1 por integrante y la segunda solo como rescate |
 | Quién responde | La persona a la que se dirige la pregunta. El equipo no ayuda, no completa, no corrige. Si otro integrante interviene, la respuesta se califica como la dio la persona antes de la intervención |
 | Pregunta 1 | Sobre la parte que **esa persona firmó** en el reparto (`README.md` §6 del repositorio y §11 del reporte). El profesor pone una línea, un `#pragma`, una función o un *kernel* en pantalla y usa uno de los tres patrones de línea del banco (`banco-preguntas-individuales.md` §1): "¿qué hace y qué pasa si la quito?", "¿por qué así y no de otra forma?", "¿dónde se mide y qué queda fuera?" |
-| Pregunta 2 | Del banco, con el tema sorteado para esa posición del equipo (Foster, OpenMP, medición, MPI, CUDA o decisiones del equipo). El sorteo de temas se publica junto con el orden (`logistica-defensa.md` §4). La pregunta exacta la elige el profesor sobre tu proyecto. **Rescate:** si tu pregunta 1 quedó en Insuficiente, la pregunta 2 es otra línea de tu parte firmada, no el tema (`docs/metodo/05-politica-ia.md`) |
+| Pregunta 2 | Del banco, con el tema sorteado para esa posición del equipo (Foster, OpenMP, medición, MPI, CUDA o decisiones del equipo). La posición A, B o C es la de tu usuario de GitHub en orden alfabético dentro del equipo. El sorteo de temas se publica junto con el orden (`logistica-defensa.md` §4). La pregunta exacta la elige el profesor sobre tu proyecto. **Rescate:** si tu pregunta 1 quedó en Insuficiente, la pregunta 2 es otra línea de tu parte firmada, no el tema (`docs/metodo/05-politica-ia.md`) |
 | Con qué | Con el repositorio en pantalla. Sin notas, sin teléfono, sin consultar al equipo. Puedes abrir el archivo que haga falta |
 | Reformulación | Si la pregunta no se entendió, el profesor la reformula **una vez**. La respuesta que cuenta es la que das después |
 | Por escrito | Puedes pedir, sin dar razones, responder tus dos preguntas por escrito en el momento: 5 minutos, papel, sin dispositivos, en una mesa aparte mientras sigue la sesión. Vale igual (`docs/metodo/05-politica-ia.md`) |
@@ -128,7 +128,7 @@ corriente), no del equipo, la demo se repite al final de la sesión sin penaliza
 | Usar un tamaño que tarda minutos "para que se note el *speedup*" | El cronómetro no se detiene. Usa el tamaño de demo de §3 |
 | Responder por un compañero, soplar, completar | La respuesta se califica como estaba antes de la intervención; la persona que intervino pierde su turno de reformulación |
 | Consultar el teléfono, un asistente de IA o notas durante las preguntas | Zona sin IA. La pregunta se califica como Insuficiente y se trata como integridad académica (`docs/metodo/04-evaluacion.md` §6) |
-| Hablar solo uno o dos integrantes | Con un integrante que habla menos de 2 minutos, D1 queda en En desarrollo; si habla uno solo, en Insuficiente (`rubrica-defensa.md` §3.1) |
+| Que no hablen todos los integrantes | Con un integrante que habla menos de 2 minutos, D1 queda en En desarrollo; si habla uno solo, en Insuficiente (`rubrica-defensa.md` §3.1) |
 | Pasarse de 12:00 | El profesor corta. Lo que no se mostró no existe para la rúbrica |
 | Agregar diapositivas de "agradecimientos", índice o portada animada | Consumen tiempo que la rúbrica no paga |
 
@@ -189,6 +189,7 @@ BLOQUE 5 · Demo (10:00–12:00) · Teclea: quien designe el profesor (los tres 
   Plan B: ruta local del video ______________________ · issue #__ del repositorio
   Tiempo real en ensayos: __:__ / __:__ / __:__
 
-PREGUNTAS INDIVIDUALES · tema sorteado para la pregunta 2: A: ________ B: ________ C: ________
+PREGUNTAS INDIVIDUALES · posición = orden alfabético del usuario de GitHub · tema sorteado para la pregunta 2:
+  A (usuario ________): ________ · B (usuario ________): ________ · C (usuario ________): ________
   Cada quien practicó en voz alta, sin notas, las preguntas del banco sobre este repositorio: [ ] A [ ] B [ ] C
 ```

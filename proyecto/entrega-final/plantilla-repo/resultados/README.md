@@ -8,12 +8,12 @@ medición se repite, se sobrescribe y se anota en `bitacora.md` por qué. `./run
 
 | Archivo | Quién lo escribe | Contenido |
 |---|---|---|
-| `entorno.txt` | `run_all.sh` | CPU, núcleos físicos/lógicos, RAM, SO, compilador, banderas, fecha, commit, n, semilla, hilos |
+| `entorno.txt` | `run_all.sh` | CPU, núcleos físicos/lógicos, RAM, SO, compilador, banderas, versiones de nvcc, python3, numpy y matplotlib, fecha, commit, n, semilla, hilos |
 | `mediciones.csv` | `run_all.sh` | Filas `v1` y `v2` con la cabecera del protocolo (abajo) |
-| `entorno_gpu.txt` | notebook, celda 1 | Modelo de GPU, driver, memoria, capacidad de cómputo, fecha UTC, nvcc, CPU del anfitrión |
+| `entorno_gpu.txt` | notebook, celda 1 | Modelo de GPU, driver, memoria, capacidad de cómputo, fecha UTC, nvcc, python3 (y numba/cupy si la V3 es `.py`), CPU del anfitrión |
 | `mediciones_v3.csv` | notebook, celda 5 | Filas `v1` (medida en Colab), `v3_kernel` (sin transferencias) y `v3_total` (con transferencias) |
 | `tabla.md` | `herramientas/resumen_csv.py` | Tabla Markdown con mediana, mín, máx, speedup, eficiencia y Karp–Flatt para pegar en el reporte |
-| `speedup.png` | `herramientas/resumen_csv.py` | Speedup vs hilos con la línea ideal `S = p` y, si existe el CSV de V3, sus líneas horizontales |
+| `speedup.png` | `herramientas/resumen_csv.py` | Speedup vs hilos con la línea ideal `S = p` y barras mín–máx; si existe el CSV de V3, un segundo panel con su *speedup* con y sin transferencias |
 
 ## Cabecera obligatoria del CSV
 

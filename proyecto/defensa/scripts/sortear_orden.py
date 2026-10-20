@@ -35,6 +35,8 @@ Método (reproducible por cualquiera, sin este script):
         printf '%s' '20261210-equipo07' | sha256sum
     Tema de la pregunta 2 para cada posición del equipo (A, B, C): se ordenan los seis temas por
     SHA-256("<semilla>-equipoNN-<tema>") y se toman los tres primeros; así cada integrante recibe un tema distinto.
+    A, B y C son los integrantes en orden alfabético de su usuario de GitHub, sin distinguir mayúsculas
+    (logistica-defensa.md §4); el script no necesita los usuarios.
 
 Salida: informe en Markdown (parámetros, orden con claves, horario por sesión, temas) y resumen por sesión.
 Código de salida: 0 si todos los equipos caben en las sesiones dadas; 3 si alguno queda sin horario
@@ -82,7 +84,7 @@ def leer_equipos(espec, integrantes_defecto):
     if espec.lower().endswith(".csv") and not os.path.isfile(espec):
         error(f"no existe el archivo de equipos {espec!r}")
     if os.path.isfile(espec):
-        with open(espec, newline="", encoding="utf-8") as fh:
+        with open(espec, newline="", encoding="utf-8-sig") as fh:  # -sig: acepta CSV con marca BOM
             for i, fila in enumerate(csv.reader(fh), start=1):
                 if not fila or fila[0].strip().startswith("#"):
                     continue
@@ -151,19 +153,23 @@ def mmss(seg):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Orden de defensa por semilla publicada", add_help=True)
-    ap.add_argument("--semilla", required=True)
-    ap.add_argument("--equipos", required=True)
-    ap.add_argument("--integrantes", type=int, default=3)
-    ap.add_argument("--formato", choices=["completo", "corto", "mixto"], default="completo")
-    ap.add_argument("--cambio", type=float, default=None)
-    ap.add_argument("--sesiones", nargs="+", default=SESIONES_POR_DEFECTO)
-    ap.add_argument("--max-por-sesion", type=int, default=None)
-    ap.add_argument("--apertura", type=int, default=5)
-    ap.add_argument("--cierre", type=int, default=5)
-    ap.add_argument("--salida", default=None)
-    ap.add_argument("--solo-orden", action="store_true")
-    ap.add_argument("--solo-temas", action="store_true")
+    ap = argparse.ArgumentParser(
+        description="Orden de defensa por semilla publicada (detalle en el docstring y en logistica-defensa.md §4)")
+    ap.add_argument("--semilla", required=True, help="semilla publicada antes del sorteo")
+    ap.add_argument("--equipos", required=True, help='rango "1-12", lista "1,2,5" o CSV equipo,integrantes')
+    ap.add_argument("--integrantes", type=int, default=3,
+                    help="integrantes por equipo si --equipos no es CSV (por defecto 3)")
+    ap.add_argument("--formato", choices=["completo", "corto", "mixto"], default="completo",
+                    help="completo 12 min · corto 7 + 3 min · mixto 2 min de demo + preguntas (por defecto completo)")
+    ap.add_argument("--cambio", type=float, default=None, help="minutos entre equipos (sustituye el del formato)")
+    ap.add_argument("--sesiones", nargs="+", default=SESIONES_POR_DEFECTO, metavar='"AAAA-MM-DD HH:MM DUR"',
+                    help="sesiones disponibles (por defecto jue 10, lun 14 y mar 15 de diciembre de 2026)")
+    ap.add_argument("--max-por-sesion", type=int, default=None, help="tope de equipos por sesión")
+    ap.add_argument("--apertura", type=int, default=5, help="minutos de apertura por sesión (por defecto 5)")
+    ap.add_argument("--cierre", type=int, default=5, help="minutos de cierre por sesión (por defecto 5)")
+    ap.add_argument("--salida", default=None, help="escribe también el informe en este archivo Markdown")
+    ap.add_argument("--solo-orden", action="store_true", help="imprime solo los números de equipo en orden")
+    ap.add_argument("--solo-temas", action="store_true", help='imprime "NN temaA temaB temaC" por equipo')
     args = ap.parse_args()
     if args.max_por_sesion is not None and args.max_por_sesion < 1:
         error("--max-por-sesion debe ser al menos 1")

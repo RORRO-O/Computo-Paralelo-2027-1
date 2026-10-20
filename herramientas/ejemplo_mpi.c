@@ -11,9 +11,10 @@
  * Salida del rango 0 (clave=valor): procesos=, n=, resultado=, tiempo_s=. Los demás rangos solo saludan.
  * Código de salida 0; 2 si n no es un entero >= 1.
  *
- * Ejemplos ejecutables (después de `make`):
+ * Ejemplos ejecutables (desde herramientas/, después de `make`; resultados/ la borra `make clean`):
  *   mpirun --oversubscribe -np 4 ./ejemplo_mpi.out 50000000
- *   MPIRUN_FLAGS="--oversubscribe" ./medir.sh --mpi -c mpi -t "1 2 4" -n 100000000 -o mpi.csv -- ./ejemplo_mpi.out
+ *   ./medir.sh -c secuencial -t 1 -n 100000000 -o resultados/mpi.csv -- ./ejemplo_cronometro_seq.out   # T(1)
+ *   MPIRUN_FLAGS="--oversubscribe" ./medir.sh --mpi -c mpi -t "1 2 4" -n 100000000 -o resultados/mpi.csv -- ./ejemplo_mpi.out
  */
 #include <errno.h>
 #include <mpi.h>

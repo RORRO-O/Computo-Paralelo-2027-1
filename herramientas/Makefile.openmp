@@ -22,7 +22,7 @@ SRC      ?= main.c                 # fuente(s) de la versión OpenMP
 SRC_SEQ  ?= $(SRC)                 # fuente(s) de la referencia secuencial (por defecto la misma, sin -fopenmp)
 BIN      ?= programa               # ejecutable OpenMP
 BIN_SEQ  ?= $(basename $(BIN))_seq$(suffix $(BIN))  # referencia secuencial: programa_seq, ej_seq.out
-N        ?= 20000000               # tamaño por defecto para `make run` y `make medir` (T1 >= 1 s al medir)
+N        ?= 20000000               # tamaño para `make run` y `make medir`; al medir, elige N con T(1) >= 1 s
 THREADS  ?= 4                      # hilos para `make run`
 HILOS    ?= 1 2 4 8                # lista para `make medir` (hasta núcleos físicos + 1)
 TAMANOS  ?= 1000 100000            # tamaños pequeños para `make test` (<= 1 s cada uno)

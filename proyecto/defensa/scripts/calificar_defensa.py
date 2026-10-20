@@ -40,7 +40,8 @@ Salida: tabla en Markdown (stdout) y, con --salida, CSV con las columnas
     equipo,integrante,D4_rubrica,rubrica_100,defensa_15,insuficientes,factor,c6_insuficiente,suma_100,
     proyecto_ajustado,referencia_equipo,tope_aplicado,proyecto_final
 Código de salida: 0 si todo se calculó; 1 si el archivo no existe o el CSV tiene una columna, un nivel o un número
-inválido (se indica fila y columna).
+inválido, un integrante vacío o repetido en su equipo (se indica fila y columna). El número de equipo se normaliza a
+dos dígitos ("7" = "07"). Acepta CSV con marca BOM (exportado desde una hoja de cálculo).
 
 Ejemplo ejecutable (desde esta carpeta; lo corre `make run`):
     python3 calificar_defensa.py ejemplo/registro-defensa.csv --salida salida/calificaciones.csv
@@ -102,14 +103,25 @@ def leer_registro(ruta):
     if not os.path.isfile(ruta):
         falla(f"no existe el archivo {ruta!r}")
     filas = []
-    with open(ruta, newline="", encoding="utf-8") as fh:
+    vistos = {}
+    # utf-8-sig: acepta también el CSV que exportan las hojas de cálculo con marca BOM al inicio.
+    with open(ruta, newline="", encoding="utf-8-sig") as fh:
         lector = csv.DictReader(fh)
         req = {"equipo", "integrante", "D1", "D2", "D3", "P1", "P2"}
         if not lector.fieldnames or not req.issubset(set(lector.fieldnames)):
             falla(f"el CSV debe tener las columnas {sorted(req)}; tiene {lector.fieldnames}")
         for i, fila in enumerate(lector, start=2):
-            if not (fila.get("equipo") or "").strip():
+            equipo = (fila.get("equipo") or "").strip()
+            if not equipo:
                 continue
+            if equipo.isdigit():
+                equipo = f"{int(equipo):02d}"  # "7" y "07" son el mismo cp-6bm1-equipo07
+            integrante = (fila.get("integrante") or "").strip()
+            if not integrante:
+                falla(f"fila {i}, columna integrante: vacía (usuario de GitHub)")
+            if (equipo, integrante) in vistos:
+                falla(f"fila {i}: {integrante} del equipo {equipo} ya aparece en la fila {vistos[(equipo, integrante)]}")
+            vistos[(equipo, integrante)] = i
             d = {c: nivel(fila[c], i, c) for c in ("D1", "D2", "D3")}
             p1 = nivel(fila["P1"], i, "P1")
             p2 = nivel(fila["P2"], i, "P2", permitir_guion=True)
@@ -130,7 +142,7 @@ def leer_registro(ruta):
             rubrica = equipo_pts + d4
             n_insuf, fac = factor_ajuste(p1, p2)
             filas.append({
-                "fila": i, "equipo": fila["equipo"].strip(), "integrante": fila["integrante"].strip(),
+                "fila": i, "equipo": equipo, "integrante": integrante,
                 "D1": d["D1"], "D2": d["D2"], "D3": d["D3"], "P1": p1, "P2": p2 or "-",
                 "equipo_pts": equipo_pts, "D4": d4, "rubrica": rubrica, "defensa": rubrica * A_PROYECTO,
                 "insuf": n_insuf, "factor": fac, "c6": "sí" if (p1 == "I" and p2 == "I") else "no",
