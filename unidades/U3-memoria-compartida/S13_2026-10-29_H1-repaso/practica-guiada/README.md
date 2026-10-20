@@ -5,8 +5,8 @@
 Actividad PRIMM para la semana del Examen 2 (martes 3 de noviembre, 08:30). En la sesión S13 el tiempo de
 clase se va en la recepción de H1 y en la corrección del examen de práctica; esta práctica se hace **en
 casa, en parejas** (la misma pareja de PRIMM del diagnóstico), entre el jueves 29 y el lunes 2 de
-noviembre, y su fase Crear es el ejercicio del tema de `../tarea-espaciada.md`. Dura 40–50 minutos. Es
-autocontenida: solo necesitas `gcc` con OpenMP, `make` y, para la fase Investigar, `-fsanitize=thread`.
+noviembre. Dura unos 55 minutos: las fases 1–3 (30 min) se hacen primero, como práctica guiada, y las fases
+4–5 (Modificar y Crear, 25 min) son el ejercicio 1 de `../tarea-espaciada.md`. Es autocontenida: solo necesitas `gcc` con OpenMP, `make` y, para la fase Investigar, `-fsanitize=thread`.
 
 Cada programa hace algo sencillo (estadística de un arreglo, transformación y suma, estandarización) y
 **tiene exactamente un error**. Los tres errores son los que más se repiten en los exámenes y en la Práctica 4:
@@ -82,7 +82,8 @@ caza3: n=4000000 hilos=4  shift=0.500080 scale=3.465393  referencia: y[0]=0.1541
 RESULT program=caza3 threads=4 n=4000000 reps_incorrectas=3/3 status=INCORRECTO
 ```
 
-Y con otros hilos (corridas reales):
+Y con otros hilos (corridas reales; la de `caza1` con 2 hilos es la de autoría: en 13 corridas de revisión
+salió 3/3 incorrectas, así que una repetición "buena" es posible, no segura):
 
 ```
 caza1, 2 hilos:  rep 1 ok · rep 2 media=0.249956719518 INCORRECTO · rep 3 INCORRECTO   -> 2/3 incorrectas
@@ -92,8 +93,8 @@ caza3, 1 hilo:   y[] = 0.000000 en todo el arreglo -> 3/3 INCORRECTO
 ```
 
 Anota qué coincidió con tu tabla. Tres observaciones que conviene no dejar pasar: en `caza1` la media con 4
-hilos salió casi exactamente **un cuarto** de la correcta y con 2 hilos **la mitad**, y una repetición con 2
-hilos salió **bien**; `caza2` con 1 hilo termina y da `OK`; `caza3` falla **también con 1 hilo**.
+hilos salió casi exactamente **un cuarto** de la correcta y con 2 hilos **la mitad**, y en la corrida de
+autoría una repetición con 2 hilos salió **bien**; `caza2` con 1 hilo termina y da `OK`; `caza3` falla **también con 1 hilo**.
 
 ## Fase 3 · Investigar (15 min)
 
@@ -117,7 +118,9 @@ Léelo con las tres preguntas de S07: (a) qué línea señala (la 33 es el `#pra
 corridas señala la 35 o la 36, `sum += x[i]` y `sumsq += …`); (b) qué hilos chocan (**dos trabajadores**, T2 y
 T3: una lectura y una escritura previa de la misma dirección); (c) de quién es la memoria (la pila de `main`:
 `sum` y `sumsq`, declaradas fuera de la región). Dos hilos trabajadores sobre una variable de `main` sin
-nada que los ordene: carrera real.
+nada que los ordene: carrera real. En otras corridas uno de los dos aparece como `main thread`: el hilo
+principal **también** es el hilo 0 del equipo. Lo que decide es el marco `#0` de cada acceso: si los dos están
+en `stats_par._omp_fn.0` (dentro de la región), son dos trabajadores.
 
 Reporte real para `caza3`:
 
@@ -172,12 +175,12 @@ explica el código de salida 124 y por qué con 1 hilo "funciona" (idea errónea
 
 ### 3.4 Preguntas sobre líneas concretas
 
-1. `caza1`, línea 35: `sum` se declara en la línea 30, fuera de la región. ¿Es compartida o privada? ¿Qué pasa
+1. `caza1`, línea 35: `sum` se declara en la línea 32, fuera de la región. ¿Es compartida o privada? ¿Qué pasa
    si la declaras **dentro** del cuerpo del `for`? (compila, pero ¿qué calcula?)
 2. `caza1`: la media con 4 hilos salió **un cuarto** de la correcta en las tres repeticiones y con 2 hilos la
    mitad. ¿Qué está haciendo el compilador con `-O2` para que se pierdan bloques completos y no cuentas
-   sueltas? (S07, Pausa 2: acumula en registro y escribe pocas veces). ¿Y por qué una repetición con 2 hilos
-   salió bien?
+   sueltas? (S07, Pausa 2: acumula en registro y escribe pocas veces). ¿Y por qué, en la corrida de autoría,
+   una repetición con 2 hilos salió bien?
 3. `caza2`, línea 40: si quitas el `nowait`, ¿sigue haciendo falta la barrera de la línea 45? ¿Por qué?
 4. `caza3`, línea 51: `shift` y `scale` solo se **leen** dentro de la región. ¿Necesitan alguna cláusula? ¿Cuál
    sería la diferencia de costo entre "ninguna" y `firstprivate`? ¿Cuándo sería obligatorio `firstprivate`?
@@ -221,7 +224,7 @@ corregidos. Ahora escribe el cuarto (fase Crear)". Fíjate en que `caza1` con 1 
 
 Criterio de "listo" de esta fase: `make cazar` en `0 FAIL` **y** las tres líneas de justificación escritas.
 
-## Fase 5 · Crear (transferencia, 15 min; es el ejercicio 1 de `../tarea-espaciada.md`)
+## Fase 5 · Crear (transferencia, 15 min; con la fase 4, es el ejercicio 1 de `../tarea-espaciada.md`)
 
 Escribe `caza4_<tema>_buggy.c` con **un** error a propósito para tu pareja, distinto de los tres de arriba.
 Temas válidos (uno): `taskwait` faltante o `shared` faltante en una tarea (S09); `schedule` que produce un
@@ -321,7 +324,7 @@ clave. Resumen real: `53 PASS, 0 FAIL, 0 SKIP`.
 |---|---|---|
 | `caza2` "no hace nada" | Se colgó y no usaste `timeout` | `timeout 10 ./caza2_barrier_buggy`; Ctrl-C si ya lo lanzaste |
 | `make cazar` pasa `caza1` con 1 hilo y falla con 4 | Es lo esperado: la carrera necesita ≥ 2 hilos | Corrige la variable compartida, no el número de hilos |
-| TSan reporta carrera en `caza3` | Falso positivo entre el `memset` de `main` y los trabajadores (S07 3.3) | Mira **entre qué hilos**; dos trabajadores = real; principal fuera de la región = ruido |
+| TSan reporta carrera en `caza3` | Falso positivo entre el `memset` de `main` y los trabajadores (S07 3.3) | Mira el marco `#0` de cada acceso: los dos dentro de `_omp_fn` = dos trabajadores = real (aunque uno diga `main thread`); uno en `main`, fuera de la región = ruido |
 | `make tsan` tarda minutos | TSan multiplica el tiempo ×5–20 | El `Makefile` ya usa `n = 200 000`; no subas `n` |
 | `caza3` da `OK` en tu máquina | La basura coincidió con el valor correcto (muy improbable) o el compilador reutilizó la pila | Corre con otro `n` y con 1 hilo; lee `make warn` |
 | El ejemplo `medir` da *speedup* < 1 | Es real: `T(1) ≈ 0.02 s` y dos pasadas sobre `a[]`; el protocolo rechaza esa medición | Lee `../ejemplo-resuelto.md`, Pausa 6 |

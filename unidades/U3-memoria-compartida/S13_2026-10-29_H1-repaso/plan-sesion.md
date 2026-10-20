@@ -40,6 +40,7 @@ en la pregunta 2 del *exit ticket*.
 |---|---|---|---|---|
 | 1, 3, 31 | I.5, V, *exit* 1 | CT1 (A, C) | Pausa 5 del ejemplo | R7, *exit* 1 |
 | 2 | V.a, guía de corrección | — | — | R1 |
+| 4 | VI (clave: el 4.1 con 4 hilos de la tabla medida se explica, no se celebra) | — | — | — |
 | 5 | I.1-C, I.5 | CT1-D | — | — |
 | 6 | I.5-C/D | — | — | tarea 2a |
 | 7 | I.1, III.1 | — | caza1 (una rep. "buena" con 2 hilos), variante que falla | — |
@@ -47,10 +48,11 @@ en la pregunta 2 del *exit ticket*.
 | 9, 15 | II.1-c, III.1-c | CT2 (A, B) | caza3, Pausas 1–2 del ejemplo | — |
 | 10 | III.1-d | — | `make test` con tolerancia (caza1) | — |
 | 11 | I.3, VI | CT3-A | — | R4 |
-| 12, 32 | — | CT2 (D) | caza2, Pausa 3 del ejemplo | — |
+| 12, 32 | I.3-D, I.4-C | CT2 (D) | caza2, Pausa 3 del ejemplo | — |
 | 13 | I.4, IV | — | pista de Crear (`caza4`) | R5 |
 | 14 | VI | — | — | — |
 | 30 | III.2 | CT3 | — | R6 |
+| 7d, 10b, 11b, 30b, 30c (variantes agregadas al Anexo A el 29 de octubre) | I.2-D, I.2-C, I.3-C, III.2-b | CT3 (C, D) | — | R3, R4-D |
 
 - **Nivel de andamiaje:** problema libre con pistas selladas (fin de unidad, `07-guia-de-autoria.md` §A.5): el
   ejemplo resuelto es un problema por completar (3 huecos con pista y respuesta en `<details>`); la práctica
@@ -64,9 +66,12 @@ en la pregunta 2 del *exit ticket*.
 - `examen-practica-U3.md` proyectable (clave por ítem en `<details>`; la guía de corrección entre pares impresa
   o proyectada). Hoja de calibración: cada estudiante trae la suya con las casillas 1 y 2; hojas en blanco
   para quien no.
-- Lista de cotejo rápida de H1 (abajo), impresa: una fila por equipo. Antes de clase (la tarde del miércoles
-  28): clonar cada repositorio en la etiqueta `H1` y correr los cuatro comandos de `proyecto/hitos/H1-avance-1.md`
-  §3 (≈ 5 min por equipo; criterios 1–4 se califican fuera de clase, opción A de H1 §8).
+- Lista de cotejo rápida de H1 (abajo), impresa: una fila por equipo. La etiqueta vence a las 10:30 de hoy, así
+  que el repositorio **no** se puede revisar antes: a las 10:25, un ciclo de `git ls-remote --tags <repo> H1`
+  sobre la lista de repositorios (1 min) llena la primera columna; la tarde del jueves 29, después de clase, se
+  clona cada repositorio en la etiqueta y se corren los cuatro comandos de `proyecto/hitos/H1-avance-1.md` §3
+  (≈ 5 min por equipo) para llenar las columnas técnicas; los criterios 1–4 se califican fuera de clase
+  (opción A de H1 §8).
 - Proyector, cronómetro visible, tarjetas con números de lista. Plan B de `02` §2.7: recuperación y *exit
   ticket* dictados; corrección entre pares con la clave impresa (una por pareja).
 - Hoja de seguimiento (`herramientas/seguimiento-grupo.csv` → copia en `docente/`) para registrar predicción,
@@ -86,13 +91,13 @@ en la pregunta 2 del *exit ticket*.
    clave y entrega la hoja de calibración el martes 3; participa en el bloque 50–80 y en el *exit ticket*.
 3. Con más de 12 equipos, la ronda es de 75 s (dos preguntas, sin repreguntar) y se avisa al empezar.
 
-## Lista de cotejo rápida de H1 (una fila por equipo; se llena en la ronda de 90 s y con lo visto el 28)
+## Lista de cotejo rápida de H1 (una fila por equipo; P1, P2 y la nota en la ronda de 90 s; el resto, la tarde del 29 con la etiqueta)
 
 Referencia: `proyecto/hitos/H1-avance-1.md` §3 (qué corre el profesor), §5 (autoevaluación) y §6 (preguntas).
 La rúbrica (§4) **no** se aplica aquí; se aplica fuera de clase y la retroalimentación escrita llega a más
 tardar el jueves 5 de noviembre.
 
-| Equipo | Etiqueta `H1` antes de 10:30 | `make && make test` sin *warnings*, código 0 (visto el 28) | `T(1) ≥ 1 s` declarado; región sin E/S | Perfil ≥ 3 secciones, suma 90–100 % | `f_p` en tiempo + Amdahl 2/4/8 | Foster: 4 etapas + diagrama | Plan V2 con ≥ 4 riesgos | P1 "¿qué midieron?" (B/P/N) | P2 "¿qué no entienden?" (≥ 3 preguntas: B/P/N) | Bitácora ≥ 3 · declaración de IA con "qué nos dijo mal" | Nota de 1 línea |
+| Equipo | Etiqueta `H1` antes de 10:30 | `make && make test` sin *warnings*, código 0 (tarde del 29) | `T(1) ≥ 1 s` declarado; región sin E/S | Perfil ≥ 3 secciones, suma 90–100 % | `f_p` en tiempo + Amdahl 2/4/8 | Foster: 4 etapas + diagrama | Plan V2 con ≥ 4 riesgos | P1 "¿qué midieron?" (B/P/N) | P2 "¿qué no entienden?" (≥ 3 preguntas: B/P/N) | Bitácora ≥ 3 · declaración de IA con "qué nos dijo mal" | Nota de 1 línea |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | | | | | | | | | | | |
 | … | | | | | | | | | | | |
@@ -126,7 +131,7 @@ muestran el perfil."
 Orden de la ronda: por sorteo con tarjetas (se anuncia el orden completo al inicio para que cada equipo tenga
 el repositorio listo). Con 12 equipos: 18 minutos; el profesor lleva la lista de cotejo y marca B/P/N sin
 discutir la calificación ("la rúbrica llega por escrito el jueves 5"). Qué **no** hacer: no abrir el código en
-la ronda (ya se vio el 28), no aceptar "lo midió mi compañero" (la pregunta es al equipo, no a un integrante),
+la ronda (se revisa por la tarde con la etiqueta), no aceptar "lo midió mi compañero" (la pregunta es al equipo, no a un integrante),
 no extender más de 20 s a un equipo que no trae la etiqueta (se anota N en la primera casilla y aplica la regla
 de 72 h al 80 %, H1 §1).
 
@@ -182,7 +187,7 @@ probabilidad de aparecer (por los *exit tickets* de S07–S12 y la experiencia d
 | **III.2** (dependencia) | CT3 | `./examen_items/item_III2_scan_buggy` y `_fixed` con 4 hilos | "Un cuarto del resultado: cada hilo arrancó su bloque leyendo un cero. No hay cláusula que ordene iteraciones; se cambia el algoritmo (dos fases) o se deja secuencial si no domina el tiempo." |
 | III.1 (carrera) | — (ya cubierta por CT2 si se usó) | `make tsan` (caza1) y `item_III1_dot_buggy` vs `_fixed` | "Un cuarto del producto punto: con `-O2` cada hilo acumula en registro y escribe al final; sobrevive uno. `reduction` es la más barata que es correcta. La tolerancia no es un error: es otro orden de suma." |
 | IV (tareas) | — | `item_IV_tasks_sum` con 4 hilos: `total=52952176 tareas=510` | "Hija escribe, padre lee: `shared`. `taskwait` antes de combinar. `parallel` crea el equipo, `single` genera las raíces; sin `single`, cuatro árboles." |
-| I.3 / VI (`schedule`) | CT3 | `item_VI_collatz` con 4 hilos (tabla de las cuatro estrategias) | "`dynamic,1024` ganó a `static` en todas las corridas porque el trabajo es irregular; `dynamic,1` perdió siempre. Acumular en privado y combinar una vez no depende del tamaño del trabajo; se mide, no se opina." |
+| I.3 / VI (`schedule`) | CT3 | `item_VI_collatz` con 4 hilos (tabla de las cuatro estrategias; los números cambian entre corridas, el orden casi no) | "`dynamic,1024` ganó a `static` en ocho de nueve corridas porque el trabajo es irregular; `dynamic,1` perdió siempre. Acumular en privado y combinar una vez no depende del tamaño del trabajo; se mide, no se opina." |
 | I.2 / I.1 | — | `ejemplo_revision_falla` + `make tsan` (línea 63) | "Salió bien 6 de 6 y TSan lo reporta: la ventana es de nanosegundos, no una garantía. `atomic` no cubre un `if` con dos variables." |
 
 Regla general que se escribe en el pizarrón al cerrar el bloque: *"Variable compartida que se escribe →
@@ -211,9 +216,9 @@ escriben, anuncios en el proyector, leídos una vez:
 3. "**Examen 2: martes 3 de noviembre, 08:30–10:00**, aquí en el 3208 (o en LS4 con los equipos apagados),
    versiones A y B alternadas por fila, 80 minutos efectivos, sin dispositivos, hoja de calibración aparte.
    Misma estructura que el examen de práctica, 100 puntos."
-4. "Tarea (`tarea-espaciada.md`): el cazador de errores en pareja (`practica-guiada/`), el intercalado y rehacer
-   los dos ítems que fallaron. Entrega en `tareas/S13/` antes del martes 3 a las 08:30; se autocalifica el
-   jueves 5."
+4. "Tarea (`tarea-espaciada.md`): el cazador de errores en pareja (`practica-guiada/`: fases 1–3 como práctica
+   guiada, 30 min; fases 4–5 dentro de la tarea), el intercalado y rehacer el ítem que anotaron en el *exit
+   ticket*. Entrega en `tareas/S13/` antes del martes 3 a las 08:30; se autocalifica el jueves 5."
 5. "H1: la rúbrica aplicada llega por escrito el jueves 5 de noviembre; ese día, en los primeros 20 minutos,
    la pregunta individual de H1. Unidad IV empieza el jueves 5 a las 10:30."
 
@@ -244,8 +249,8 @@ los errores que aparecerán en asesoría y en los `respuestas.md`; se revisan 3 
   archivo exacto; se le pide llenar solo dos filas.
 - **Ampliación (quien termina).** El problema sin ejemplo: escribir **dos** `caza4` de temas distintos y
   medir, en `caza1`, `reduction` contra `atomic` contra `critical` con `n = 40 000 000` y el protocolo; o, en
-  el ítem VI, implementar la cuarta estrategia que falta (`guided`) y explicar con Karp–Flatt por qué ninguna
-  pasa de 2.8 con 4 hilos en la máquina de autoría. En el bloque 50–80, explicar el CT a la pareja de al lado.
+  el ítem VI, implementar la quinta estrategia (`guided`), medir cinco corridas y explicar con Karp–Flatt la
+  `f` de la mejor mediana y por qué el rango entre corridas es tan ancho en una máquina compartida. En el bloque 50–80, explicar el CT a la pareja de al lado.
 
 ## Evaluación formativa de la sesión
 

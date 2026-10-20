@@ -21,7 +21,7 @@ repartirlos entre 4 hilos, obtener el resultado correcto y entender qué los hac
    equivocarse (una variable que no es `shared`, un `taskwait` que falta).
 3. Poner un **corte** para no crear tareas diminutas, contar cuántas se crean y medir contra el mejor secuencial.
 
-## Paso 1 · El patrón `parallel` + `single` + `task` (`list_tasks.c`, líneas 60–76)
+## Paso 1 · El patrón `parallel` + `single` + `task` (`list_tasks.c`, líneas 60–77)
 
 ```c
 #pragma omp parallel
@@ -86,7 +86,7 @@ tareas, ocho copias, ocho nodos distintos. Si `p` fuera `shared` (por ejemplo, d
 `NULL`.
 </details>
 
-## Paso 2 · Recursión con tareas: Fibonacci (`fib_tasks.c`, líneas 38–57)
+## Paso 2 · Recursión con tareas: Fibonacci (`fib_tasks.c`, líneas 39–59)
 
 ```c
 static long fib_tasks(int n, int cutoff)

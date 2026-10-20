@@ -26,6 +26,8 @@ eficiencia 100 %". ¿Qué es correcto?
 - **C)** `S(4) = 3.3` y `E(4) = 3.3`: la eficiencia con 4 hilos es el mismo número.
 - **D)** No se puede saber: falta repetir las tres mediciones con `-O0` para quitar el efecto del compilador.
 
+<details><summary>Respuesta, origen de los distractores y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Idea errónea 31: el denominador es el **mejor secuencial**, no la paralela con 1 hilo (protocolo §3). |
@@ -41,7 +43,9 @@ dan uno de 3 s, ¿cuánto ganó? ¿Y si le dan el de 12 s con un hilo, ganó o p
 cada núcleo está trabajando si 4 núcleos rinden como 3.3?" Cerrar con la regla: *S contra el mejor secuencial,
 E = S/p, y la paralela con 1 hilo se reporta aparte para medir cuánto cuesta OpenMP.*
 
-## CT2 · Alcance y barreras en seis líneas (ítems II, III.1, IV; ideas 9, 15, 12, 32)
+</details>
+
+## CT2 · Alcance y barreras en diez líneas (ítems II, III.1, IV; ideas 9, 15, 12, 32)
 
 ```c
 int k = 3;
@@ -49,7 +53,7 @@ long a[8];
 #pragma omp parallel num_threads(4) private(k)
 {
     int j = omp_get_thread_num();
-    #pragma omp for nowait
+    #pragma omp for schedule(static) nowait
     for (int i = 0; i < 8; i++) a[i] = i * j;
     #pragma omp barrier
     if (j == 0) printf("%ld\n", a[7]);
@@ -63,6 +67,8 @@ long a[8];
 - **C)** `k` tiene un valor indefinido en cada hilo; `j` es privada por alcance; la `barrier` la alcanzan los
   cuatro hilos, así que `a[7]` ya está escrito cuando el hilo 0 lo imprime: imprime `21`.
 - **D)** El `#pragma omp barrier` sobra: `omp for` ya termina con una barrera y el `printf` es seguro sin él.
+
+<details><summary>Respuesta, origen de los distractores y guion (ábrelo después de votar)</summary>
 
 | Opción | Origen |
 |---|---|
@@ -79,7 +85,9 @@ A: ¿para qué existiría `firstprivate` si `private` ya copiara? Quien votó B:
 Regla general: *lo declarado adentro es privado; `private` es basura; `nowait` quita la barrera y entonces la
 pones tú, fuera de cualquier `if`.*
 
-## CT3 · Un `schedule` no arregla una dependencia (ítems I.3, III.2, VI; ideas 30, 11, nueva)
+</details>
+
+## CT3 · Un `schedule` no arregla una dependencia (ítems I.3, III.2, VI; ideas 30, 11, 30b, 30c)
 
 ```c
 y[0] = x[0];
@@ -96,12 +104,14 @@ Con 4 hilos el resultado es incorrecto. ¿Qué es cierto?
 - **C)** Basta `reduction(+:y[:n])`: OpenMP combina las copias de `y` al final.
 - **D)** Basta `ordered` y queda tan rápido como `static`, porque solo ordena las escrituras.
 
+<details><summary>Respuesta, origen de los distractores y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Idea errónea 30 con disfraz de 11: `static` también reparte en bloques y cada bloque leería un `y[lo-1]` no escrito. |
 | **B** | **Correcta** (S11 §1.2: el *scan* en dos fases cuesta 1.5× el tráfico de memoria y dio *speedup* 1.9 con 4 hilos; aquí el coeficiente 0.5 complica la fase 2, así que "secuencial si no domina el tiempo" también vale). |
-| C | Nueva: usar `reduction` para una recurrencia. `reduction` combina copias **independientes** al final; no transmite el valor de una iteración a la siguiente. Se agrega al catálogo como 30b. |
-| D | Nueva: `ordered` obliga a ejecutar el bloque en orden de iteración: es correcto y **serializa** el ciclo (más lento que secuencial por la sincronización). Se agrega como 30c. |
+| C | Idea errónea 30b (agregada al Anexo A con esta sesión): usar `reduction` para una recurrencia. `reduction` combina copias **independientes** al final; no transmite el valor de una iteración a la siguiente. |
+| D | Idea errónea 30c (agregada al Anexo A con esta sesión): `ordered` obliga a ejecutar el bloque en orden de iteración: es correcto y **serializa** el ciclo (más lento que secuencial por la sincronización). |
 
 **Acierto esperado en el primer voto:** 45–60 % (C atrae a quien aprendió `reduction(+:hist[:n])` en S11 sin
 distinguir reducción de recurrencia).
@@ -110,6 +120,8 @@ distinguir reducción de recurrencia).
 su bloque? ¿Quién lo escribió ya? Quien votó D: si cada iteración espera a la anterior, ¿cuántas se ejecutan
 al mismo tiempo?" Regla general: *antes del pragma, lista qué lee y qué escribe cada iteración; si lee lo que
 escribió otra, no es un problema de cláusulas, es de algoritmo.*
+
+</details>
 
 ## Registro para el profesor (llenar en la sesión)
 

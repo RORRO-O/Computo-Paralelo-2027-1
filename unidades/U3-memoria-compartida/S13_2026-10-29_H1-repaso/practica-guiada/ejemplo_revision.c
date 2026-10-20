@@ -63,7 +63,7 @@ static long count_hits_par(const double *x, double *a, long n, double thr,
             if (a[i] > thr) my_hits++;
         }
 
-        if (hits_by_thread) hits_by_thread[tid] = my_hits;
+        if (hits_by_thread && tid < MAX_THREADS) hits_by_thread[tid] = my_hits;
         #pragma omp atomic                            /* una actualización compartida por hilo */
         hits += my_hits;
     }                                                 /* barrera de fin de región: hits completa */

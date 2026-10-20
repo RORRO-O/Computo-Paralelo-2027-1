@@ -43,13 +43,13 @@ las tres líneas de la elección citan un dato medido.
 
 ## 2. Intercalado, Unidades I y II (10 min) · Gustafson, `clock()` y Foster sobre los datos de hoy
 
-a) Con `weak_scaling` en la máquina de autoría (ver `notas-estudiante.md`, §3 d) se midió `T(1, n) = 0.108 s`
-(secuencial, `n = 10^6`) y `T(4, 4n) = 0.131 s`. Calcula la eficiencia débil `E_w = T(1,n)/T(p,p·n)` y el
+a) Con `weak_scaling` en la máquina de autoría (`notas-estudiante.md`, §3, fila "Fuerte y débil") se midió
+`T(1, n) = 0.108 s` (secuencial, `n = 10^6`) y `T(4, 4n) = 0.131 s`. Calcula la eficiencia débil `E_w = T(1,n)/T(p,p·n)` y el
 *speedup* escalado `S_w = p · E_w`. ¿Qué ley de la Unidad I describe este experimento (Amdahl o Gustafson) y por
 qué su techo no es `1/f`?
 
-b) `profile_amdahl` con 4 hilos imprimió (corrida de `notas-estudiante.md`): reloj de pared `0.48 s`, `clock()`
-`1.40 s` en el mismo lapso. Si alguien calculara el *speedup* con `clock()`, ¿saldría mayor o menor que el real,
+b) `profile_amdahl` con 4 hilos imprimió (corrida de `ejemplo-resuelto.md`, Paso 2): reloj de pared `0.48 s`,
+`clock()` `1.40 s` en el mismo lapso. Si alguien calculara el *speedup* con `clock()`, ¿saldría mayor o menor que el real,
 y por qué el protocolo prohíbe `clock()` para esto? (dos líneas)
 
 c) Foster sobre `false_sharing.c`: la partición son los índices `i`; la aglomeración es "un bloque de `n/p`

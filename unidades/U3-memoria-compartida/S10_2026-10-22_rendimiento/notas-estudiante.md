@@ -46,130 +46,26 @@ secuencial y el remedio es atacarla; si `f_KF ≫ f medida`, hay sobrecarga (hil
 compartido, competencia por el procesador) y el remedio está dentro de la región paralela. Si `f_KF` **crece** con
 `p`, la sobrecarga crece con los hilos.
 
-## 3. Los cuatro experimentos de la práctica, con sus números
+## 3. Los experimentos de la práctica, con sus números
 
-Todo con `make medir` (1, 2 y 4 hilos, tamaños reducidos para la sesión: la secuencial tarda 0.1–0.3 s) y
-`make grafica`, que imprime estas tablas. Columnas: mediana de 5 repeticiones tras 1 calentamiento; `speedup`
-contra la versión secuencial sin OpenMP medida en el mismo proceso; `f` = Karp–Flatt.
+`make medir` (1, 2 y 4 hilos; tamaños reducidos para la sesión: la secuencial tarda 0.1–0.3 s) y `make grafica`
+producen las tablas completas, que están en `practica-guiada/README.md`, Fase 2. Aquí, solo la fila de 4 hilos de
+la máquina de autoría (mediana de 5 tras 1 calentamiento). Cada programa divide entre la secuencial que midió en
+su propio proceso.
 
-**a) Falso compartido** (`false_sharing`, `n = 10^8`): tres variantes con el mismo resultado y las mismas
-operaciones; solo cambia dónde viven los contadores.
+| Experimento | Qué cambia | Resultado con 4 hilos | Lectura |
+|---|---|---|---|
+| **Falso compartido** (`false_sharing`, `n = 10^8`) | Solo dónde viven los contadores; mismas operaciones | `contiguo` S = 2.17 (`f_KF` = 0.28); `relleno` 3.50; `local` 3.56 (`f_KF` = 0.04) | El programa no tiene parte secuencial: la `f` de `contiguo` es el rebote de la línea de caché. `local` es el mejor código (no depende del tamaño de la línea) |
+| **Amdahl medido** (`profile_amdahl`, `n = 2·10^6`, `iters = 64`) | — | `f` medida 0.101 → Amdahl S(4) = 3.07, techo 9.88. Medido: total 2.58 (`f_KF` = 0.184); sección B 3.25 | `f_KF ≫ f`: la pérdida está dentro de la región paralela, no en A ni en C |
+| **Memoria vs. cómputo** (`saxpy_vs_matmul`, `10^7` y 640 × 640) | Intensidad aritmética: 0.083 frente a 53 flop/byte | `saxpy` 3.06; `matmul` 2.87. Con `n = 5·10^7` (800 MB): `saxpy` 2.90, 40.5 GB/s | En la de autoría (servidor con muchos canales de memoria) los GB/s siguieron creciendo. En una laptop (20–40 GB/s) `saxpy` se estanca desde 2 hilos y `matmul` no: el reporte declara hardware y GB/s |
+| **Fuerte y débil** (`weak_scaling`, `10^6` por hilo) | `n` fijo frente a `n/p` fijo | Fuerte: S(4) = 3.66. Débil: `T(1,n)` = 0.108 s, `T(4,4n)` = 0.131 s → `E_w` = 0.83, `S_w` = 3.3 | En `debil` la columna `n` crece (se declara); `speedup` es el escalado `p·E_w` |
+| **Sobrecarga** (`region_overhead 2000 20000`) | Una región por pasada, una región con barreras, sin barreras | `regiones` 0.17; `una-region` 0.28; `sin-barrera` 1.22. Región ≈ 3.3 µs, barrera ≈ 1.8 µs por pasada | Cuestan más que los 2000 elementos de la pasada (≈ 0.65 µs en secuencial): idea errónea 1 en acción. Con `2000000 20` (mismas operaciones) las paralelas aceleran |
+| **Afinidad** (`make afinidad`, `weak_scaling` fuerte) | Sin fijar, `close`+`cores`, `spread` | 3.57, 3.25 y 3.48 (máquina desocupada) | Dentro del ruido; con otro proceso compitiendo, las tres cayeron a 1.0–1.6×. Fijar hilos no sustituye a cerrar lo demás (protocolo §1.5); se fija y se **declara** (§4) |
 
-| config | hilos | n | mediana (s) | speedup | eficiencia | Karp–Flatt f |
-|---|---|---|---|---|---|---|
-| secuencial | 1 | 100000000 | 0.1178 | 1.00 | 1.00 | — |
-| contiguo | 1 | 100000000 | 0.1238 | 0.95 | 0.95 | — |
-| contiguo | 2 | 100000000 | 0.0905 | 1.37 | 0.69 | 0.457 |
-| contiguo | 4 | 100000000 | 0.0524 | 2.17 | 0.54 | 0.280 |
-| relleno | 1 | 100000000 | 0.1254 | 0.94 | 0.94 | — |
-| relleno | 2 | 100000000 | 0.0588 | 2.11 | 1.06 | -0.054 |
-| relleno | 4 | 100000000 | 0.0325 | 3.50 | 0.88 | 0.047 |
-| local | 1 | 100000000 | 0.1144 | 1.03 | 1.03 | — |
-| local | 2 | 100000000 | 0.0605 | 2.06 | 1.03 | -0.027 |
-| local | 4 | 100000000 | 0.0320 | 3.56 | 0.89 | 0.041 |
+Una `f` de Karp–Flatt ligeramente negativa (p. ej., `relleno` con 2 hilos, −0.05) solo dice que esa medición quedó
+unos puntos por encima de la ideal: ruido, dentro del rango mín–máx que imprime el programa; no es caché ni error.
 
-Lectura: `contiguo` tarda 1.5 veces más que `relleno` con 4 hilos y su `f` de Karp–Flatt es la mayor,
-aunque el programa no tiene ninguna parte secuencial: lo que `f` captura es el rebote de la línea de caché.
-`relleno` y `local` son equivalentes en tiempo; `local` es mejor código (no depende del tamaño de la línea). Una
-`f` ligeramente negativa (filas con 2 hilos) solo dice que esa medición quedó un 3–6 % por encima de la ideal: ruido
-de la máquina virtual, dentro del rango mín–máx que imprime el programa; no es un efecto de caché ni un error.
-
-**b) Amdahl con fracción medida** (`profile_amdahl`, `n = 2·10^6`, `iters = 64`): perfil secuencial
-`f = 0.101` → Amdahl `S(4) = 3.07`, techo `9.88`.
-
-| config | hilos | n | mediana (s) | speedup | eficiencia | Karp–Flatt f |
-|---|---|---|---|---|---|---|
-| secuencial | 1 | 2000000 | 0.2118 | 1.00 | 1.00 | — |
-| total | 1 | 2000000 | 0.1983 | 1.07 | 1.07 | — |
-| total | 2 | 2000000 | 0.1256 | 1.45 | 0.72 | 0.380 |
-| total | 4 | 2000000 | 0.0726 | 2.58 | 0.64 | 0.184 |
-| seccionB | 1 | 2000000 | 0.1788 | 1.05 | 1.05 | — |
-| seccionB | 2 | 2000000 | 0.1027 | 1.59 | 0.80 | 0.257 |
-| seccionB | 4 | 2000000 | 0.0520 | 3.25 | 0.81 | 0.077 |
-
-Lectura: la sección B escaló 3.25× y el programa 2.58×. `f_KF` del total (0.184) es mayor que la `f` medida
-(0.101): la diferencia es sobrecarga dentro de la región paralela, no código secuencial.
-
-**c) Memoria frente a cómputo** (`saxpy_vs_matmul`, `n = 10^7` elementos y matrices de 640 × 640):
-
-| config | hilos | n | mediana (s) | speedup | eficiencia | Karp–Flatt f |
-|---|---|---|---|---|---|---|
-| saxpy-seq | 1 | 10000000 | 0.1754 | 1.00 | 1.00 | — |
-| saxpy | 1 | 10000000 | 0.1820 | 0.96 | 0.96 | — |
-| saxpy | 2 | 10000000 | 0.0936 | 2.06 | 1.03 | -0.031 |
-| saxpy | 4 | 10000000 | 0.0616 | 3.06 | 0.77 | 0.102 |
-| matmul-seq | 1 | 640 | 0.1566 | 1.00 | 1.00 | — |
-| matmul | 1 | 640 | 0.1990 | 0.79 | 0.79 | — |
-| matmul | 2 | 640 | 0.0834 | 1.80 | 0.90 | 0.114 |
-| matmul | 4 | 640 | 0.0537 | 2.87 | 0.72 | 0.131 |
-
-Lectura: `saxpy` hace 2 flop por cada 24 bytes (0.083 flop/byte); `matmul` 53 flop/byte sobre sus datos. Un
-núcleo de baja intensidad aritmética escala hasta donde llega el ancho de banda de la máquina. En la de autoría
-no se agotó: con `n = 10^7` (160 MB, que aún caben en la L3 del anfitrión, 260 MB) y también con `n = 5·10^7`
-(800 MB) los GB/s siguieron creciendo con los hilos: `S(2) = 1.81` y `S(4) = 2.90` (eficiencia 0.72), con 10.9, 25.6 y 40.5 GB/s para 1, 2 y 4 hilos, frente a `S(4) = 3.06` con `n = 10^7`. Es un servidor con memoria de muchos canales.
-En una laptop (dos canales, 20–40 GB/s en total) `saxpy` se estanca a partir de 2 hilos y `matmul` no: la misma
-medición cambia de conclusión con el hardware, y por eso el reporte declara el hardware y los GB/s alcanzados.
-
-**d) Escalabilidad fuerte y débil** (`weak_scaling`, `n = 10^6` por hilo, 64 pasos de cómputo por elemento):
-
-| config | hilos | n | mediana (s) | speedup | eficiencia | Karp–Flatt f |
-|---|---|---|---|---|---|---|
-| secuencial | 1 | 1000000 | 0.1076 | 1.00 | 1.00 | — |
-| fuerte | 1 | 1000000 | 0.1095 | 0.98 | 0.98 | — |
-| fuerte | 2 | 1000000 | 0.0605 | 1.90 | 0.95 | 0.053 |
-| fuerte | 4 | 1000000 | 0.0296 | 3.66 | 0.92 | 0.031 |
-| debil | 1 | 1000000 | 0.1134 | 0.95 | 0.95 | — |
-| debil | 2 | 2000000 | 0.1056 | 2.18 | 1.09 | -0.081 |
-| debil | 4 | 4000000 | 0.1306 | 3.32 | 0.83 | 0.068 |
-
-Lectura: en las filas `debil` la columna `n` crece con los hilos (declarado), `speedup` es el *speedup* escalado
-`p·T(1,n)/T(p,p·n)` y `eficiencia` es la eficiencia débil. El núcleo no tiene parte secuencial: lo que baja la
-eficiencia es la sobrecarga de hilos y la competencia por los núcleos de la máquina virtual.
-
-## 4. Sobrecarga de regiones y afinidad, medidas
-
-`region_overhead 2000 20000` (40 millones de operaciones en 20 000 pasadas de 2000 elementos), 4 hilos:
-
-```
-== sobrecarga de regiones: n=2000 elementos, k=20000 pasadas, hilos=4  (40000000 operaciones en total)
-  secuencial   hilos=1  mediana=0.0130 s  (min 0.0129, max 0.0136)
-  regiones     hilos=4  mediana=0.0768 s  (min 0.0645, max 0.1717)  speedup=0.17  eficiencia=0.04  ok
-  una-region   hilos=4  mediana=0.0465 s  (min 0.0304, max 0.1108)  speedup=0.28  eficiencia=0.07  ok
-  sin-barrera  hilos=4  mediana=0.0107 s  (min 0.0101, max 0.0107)  speedup=1.22  eficiencia=0.30  ok
-  costo estimado por pasada: region paralela ~ 3.3 us, barrera ~ 1.8 us  (diferencias contra sin-barrera, entre k=20000)
-```
-
-Abrir una región cuesta aquí ≈ 3.3 µs y una barrera ≈ 1.8 µs: más que los 2000 elementos de la pasada.
-Las versiones `regiones` y `una-region` pierden contra la secuencial (idea errónea 1 en acción); solo gana la que
-no sincroniza por pasada. Con `2000000 20` (mismas operaciones, pasadas 1000 veces más largas) las tres versiones
-paralelas aceleran: la sobrecarga es la misma, el trabajo que la amortiza no.
-
-`make afinidad` (`weak_scaling`, 4 hilos, máquina desocupada; `fuerte` es la fila relevante):
-
-```
-== sin afinidad (OMP_PROC_BIND=false): el sistema operativo mueve los hilos entre nucleos
-  secuencial   hilos=1  n=1000000  mediana=0.1051 s
-  fuerte       hilos=4  mediana=0.0294 s  (min 0.0281, max 0.0600)  speedup=3.57  eficiencia=0.89  ok
-  debil        hilos=4  n=4000000  mediana=0.1326 s  eficiencia debil E_w=T(1,n)/T(p,pn)=0.79  speedup escalado=3.17  ok
-== OMP_PROC_BIND=close OMP_PLACES=cores: un hilo por nucleo, sin migraciones
-level 1 thread 0x7fbe07cd47c0 affinity 0
-level 1 thread 0x7fbe05b7a6c0 affinity 1
-level 1 thread 0x7fbe053796c0 affinity 2
-level 1 thread 0x7fbe04b786c0 affinity 3
-  secuencial   hilos=1  n=1000000  mediana=0.1088 s
-  fuerte       hilos=4  mediana=0.0335 s  (min 0.0317, max 0.0484)  speedup=3.25  eficiencia=0.81  ok
-  debil        hilos=4  n=4000000  mediana=0.1095 s  eficiencia debil E_w=T(1,n)/T(p,pn)=0.99  speedup escalado=3.97  ok
-== OMP_PROC_BIND=spread OMP_PLACES=threads: reparte los hilos lo mas lejos posible
-  fuerte       hilos=4  mediana=0.0300 s  (min 0.0286, max 0.0314)  speedup=3.48  eficiencia=0.87  ok
-  debil        hilos=4  n=4000000  mediana=0.1187 s  eficiencia debil E_w=T(1,n)/T(p,pn)=0.88  speedup escalado=3.53  ok
-```
-
-Con la máquina desocupada, las tres colocaciones quedan dentro del ruido (3.6, 3.3 y 3.5): cuatro núcleos iguales
-y un solo programa es el caso fácil para el sistema operativo. Durante la autoría, cuando otro proceso compitió
-por los cuatro núcleos, las tres configuraciones cayeron por igual a 1.0–1.6×: fijar hilos **no sustituye** a
-cerrar lo demás (protocolo §1.5). Se fija y se declara de todos modos por las razones de §5: en otras máquinas sí
-cambia el resultado, y sin ese dato la medición no se puede repetir.
-## 5. Afinidad: panorama
+## 4. Afinidad: panorama
 
 El sistema operativo puede mover un hilo de un núcleo a otro en cualquier momento. Cada migración tira lo que el
 hilo tenía en su caché privada y, en máquinas virtuales, con *hyper-threading* o con varios zócalos, puede dejar
@@ -185,10 +81,10 @@ dos hilos compitiendo por el mismo núcleo mientras otro queda vacío. OpenMP pe
 Regla del curso: la medición se hace con `OMP_PROC_BIND=close OMP_PLACES=cores` (un hilo por núcleo físico) y
 **se declara** en el reporte, junto con `OMP_NUM_THREADS`. Si cambias la afinidad, es otra configuración (otra
 fila `config` del CSV), no una repetición. Cuánto cambia depende de la máquina: nada en cuatro núcleos iguales
-desocupados (§4), mucho con *hyper-threading* (dos hilos en un núcleo físico), con núcleos híbridos o con dos
+desocupados (§3), mucho con *hyper-threading* (dos hilos en un núcleo físico), con núcleos híbridos o con dos
 zócalos. Lo que nunca arregla es la competencia con otros procesos.
 
-## 6. Cuatro causas de que "no escale", y cómo se distinguen
+## 5. Cuatro causas de que "no escale", y cómo se distinguen
 
 | Síntoma en la tabla | Causa probable | Cómo confirmarla | Remedio |
 |---|---|---|---|
@@ -202,7 +98,7 @@ caché** (64 bytes en x86-64), no la variable. Dos hilos que escriben variables 
 línea se la arrebatan en cada escritura, como si compartieran el dato (idea errónea 14). Más hilos no lo arreglan;
 lo empeoran.
 
-## 7. Errores frecuentes
+## 6. Errores frecuentes
 
 1. Reportar el *speedup* de la sección paralela como el del programa. → El usuario ve el total; se perfila por
    secciones y se reporta el total (y, aparte, el de la sección si ayuda a explicar).
@@ -219,7 +115,7 @@ lo empeoran.
 9. Comparar mediciones hechas con distinta afinidad, distinto `n` o distinta carga del sistema. → Una
    configuración = una fila; `uptime` antes de medir; `OMP_DISPLAY_ENV=true` en el reporte.
 
-## 8. Para saber más
+## 7. Para saber más
 
 - OpenMP Architecture Review Board, *OpenMP Application Programming Interface*, versión 5.2 (noviembre de 2022):
   *Environment Variables* (`OMP_PLACES`, `OMP_PROC_BIND`, `OMP_DISPLAY_AFFINITY`, `OMP_DISPLAY_ENV`), *Timing

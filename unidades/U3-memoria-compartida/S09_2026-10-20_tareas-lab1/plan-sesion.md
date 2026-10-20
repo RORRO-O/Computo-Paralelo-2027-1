@@ -49,10 +49,20 @@ de control 5 min · *exit ticket* 5 min. Este guion debe bastar para que otro pr
 - Esta carpeta, compilada **antes** de la sesión en la máquina del profesor del LS4: `cd practica-guiada &&
   make clean && make && make test` (34 PASS, ≈ 3 s) y `make tsan` (≈ 2 s). Terminal con
   `export OMP_NUM_THREADS=4`.
-- `practicas/P4-openmp/README.md` y `rubrica.md` abiertos (si al dar la sesión la carpeta de P4 aún no
-  existe, el flujo de la sección 50–80 describe lo mínimo: Parte A histograma guiado, Parte B mergesort con
-  tareas semi-guiado). Lista impresa de qué mitad de los equipos se defiende hoy (equipos con número impar;
-  los pares el martes 27), si hay más de 12 equipos.
+- `practicas/P4-openmp/README.md` y `rubrica.md` abiertos. **Comprobar a las 08:00 que existen.** Al revisar
+  esta sesión (martes 20 de octubre, 04:30) `practicas/P4-openmp/` solo tenía `src/`, `tests/` y `resultados/`
+  vacíos, sin README ni rúbrica. Si siguen así, se usa el **Plan B de P4** (sección 50–80) y la variante B de la
+  pregunta 1 de la recuperación; para eso, compilar también la práctica guiada de S07:
+  `cd ../S07_2026-10-15_sincronizacion/practica-guiada && make && make test` (16 PASS, ≈ 6 s).
+  **Publicación tardía** (la carpeta quedó completa el martes 20 hacia las 05:00 UTC, lunes 19 a las 23:00 en
+  la Ciudad de México): el código sí está, así que las Partes A y B se trabajan con `practicas/P4-openmp/` y no
+  aplica el Plan B de código; pero es probable que casi nadie haya podido entregar el pre-lab. Si es así, se usa
+  la **variante B** de la pregunta 1
+  (se compara con `make speedup-a`) y se anuncia al cierre la nueva hora del pre-lab (se propone el jueves 22 de
+  octubre, 10:30), igual que en el último punto del Plan B. Antes de la sesión, desde la raíz del repositorio
+  del curso: `cd practicas/P4-openmp && make && make test-a` (14 PASS, ≈ 2 s).
+- Lista impresa de qué mitad de los equipos se defiende hoy (equipos con número impar; los pares el martes
+  27), si hay más de 12 equipos.
 - Proyector; cronómetro visible; tarjetas con números de lista; pizarrón para el árbol de llamadas de n = 8.
 - Estudiantes: una máquina del LS4 por pareja (misma pareja que en S08, nivel adyacente en el diagnóstico de
   agosto) y el repositorio del equipo clonado con el pre-lab en `practicas/P4/prelab/`.
@@ -67,7 +77,9 @@ Proyectar las 5 preguntas de `retrieval-inicio.md`. Individual, sin apuntes, 4 m
 y manos por pregunta. Anotar tres conteos: `sin pre-lab` (pregunta 1), aciertos de la 2 (`static,3`; si en S08
 la 2b quedó bajo 60 %, proyectarla con la pista "bloques de 3 repartidos como cartas") y cuántos contestan "la
 suma correcta" en la 5. Más de un tercio en la 5 → en el minuto 13 `taskwait_buggy` se corre tres veces y se
-lee el reporte de TSan completo; si no, una corrida.
+lee el reporte de TSan completo; si no, una corrida. Con el Plan B de P4 (sin enunciado publicado no hubo
+pre-lab que entregar) la pregunta 1 es la **variante B** de `retrieval-inicio.md`: la predicción del
+histograma, que se compara con la medición A′ del minuto ~65.
 
 ### 5–30 · Mini-lección: ejemplo resuelto + ConcepTest 1
 
@@ -76,14 +88,14 @@ teclea código nuevo; solo se corre el que existe.
 
 | Minuto | Qué se hace | Qué se dice |
 |---|---|---|
-| 5–7 | Objetivos en una pantalla. Anclaje con S08: "el error más frecuente del *exit ticket* de ayer fue ____ [si no se revisó: 'poner `dynamic` sin pensar en el costo por *chunk*']. Hoy el reparto dinámico vuelve, pero sin ciclo: cuando no hay índices que repartir." Autocalificación de la tarea de S08 con su clave (2 min): las preguntas 3a–3c de esa tarea son exactamente el patrón de hoy. | "¿Cuántos hilos crearon las 8 tareas? ¿Puede salir `fin del single` antes que una tarea?" |
+| 5–7 | Objetivos en una pantalla. Anclaje con S08: "el error más frecuente del *exit ticket* de ayer fue ____ [si no se revisó: 'poner `dynamic` sin pensar en el costo por *chunk*']. Hoy el reparto dinámico vuelve, pero sin ciclo: cuando no hay índices que repartir." Autocalificación **solo del ejercicio 3** de la tarea de S08 (la preparación de hoy; 1 min con la clave en `<details>`): 3a–3c son exactamente el patrón de hoy. Los ejercicios 1–2 vencen el jueves 22 de octubre, 10:30, y se autocalifican en S10. | "¿Cuántos hilos crearon las 8 tareas? ¿Puede salir `fin del single` antes que una tarea?" |
 | 7–10 | **Paso 1** del ejemplo: `list_tasks.c` proyectado (solo la región). Correr `./list_tasks 8` dos veces. | "Un `parallel for` no puede repartir una lista: no hay `i`. Un hilo recorre y encola; los demás toman." **Pausa 1** (tarjeta): "¿por qué `fin del recorrido` sale antes que los nodos?" **Pausa 2**: "`p` está declarada adentro: ¿la tarea ve el puntero que sigue avanzando o una copia?" (idea 15 al revés: lo de adentro es privado, y la tarea recibe copia `firstprivate`). |
 | 10–13 | **Paso 2**: `fib_tasks.c`, solo la función `fib_tasks`. Correr `./fib_buggy`. | "Mismo código sin `shared(x)`: 0, siempre, sin carrera y sin *warning*." **Pausa 3**: "¿dónde escribió la hija y qué leyó el padre?" Regla en el pizarrón: *lo que la hija escribe y el padre lee, `shared`*. |
 | 13–16 | **Paso 3**: `./taskwait_buggy` (una o tres veces según la recuperación). Proyectar el reporte de `make tsan` recortado: la escritura de `left` (línea 21 inlineada en la tarea) contra la lectura prematura (línea 46). | "`task` encola; el hilo sigue de largo y lee 0. La barrera del `single` sí espera a todas; por eso la segunda lectura sale bien." **Pausa 4**: "¿qué línea falta y dónde?" Señalar, una vez, los reportes de TSan que son ruido de `libgomp` (líneas 41–44 contra `GOMP_task`): mismo criterio que en S07. |
-| 16–20 | **Paso 4 y 5**: tabla de cortes de `fib_tasks` (del ejemplo; no se corre en vivo salvo `./fib_tasks`, 1 s). Fórmula 2·(fib(n−c+3)−1). La línea `lineal: 0.000000017 s`. | "48 millones de tareas tardaron 26 s en calcular lo que el recursivo hace en 0.03 s y el lineal en 17 ns." **Pausa 5**: "¿contra qué T(1) se reporta el *speedup*?" (protocolo §3; idea 31). "Fibonacci enseña la mecánica; para rendimiento la práctica usa mergesort." Mostrar la tabla de `list_tasks 100000` (1, 2, 4 hilos). |
+| 16–20 | **Paso 4 y 5**: tabla de cortes de `fib_tasks` (del ejemplo; no se corre en vivo salvo `./fib_tasks`, 1 s). Fórmula 2·(fib(n−c+3)−1). La línea `lineal    : 0.0000000…` (≈ 20 ns con n = 40). | "48 millones de tareas tardaron 26 s en calcular lo que el recursivo hace en 0.023 s y el lineal en unos 17 ns." **Pausa 5**: "¿contra qué T(1) se reporta el *speedup*?" (protocolo §3; idea 31). "Fibonacci enseña la mecánica; para rendimiento la práctica usa mergesort." Mostrar la tabla de `list_tasks 100000` (1, 2, 4 hilos). |
 | 20–22 | Panorama: `./taskloop_demo 16 4` dos veces (mapa cambia; "`schedule(dynamic)` del mundo de las tareas"). `depend` en dos frases: "se puede declarar que una tarea lee lo que otra escribe (`depend(in:x)`, `depend(out:x)`) y OpenMP las ordena sin `taskwait`; no se usa en P4". | No profundizar aunque pregunten: "anótenlo para la V2". |
 | 22–28 | **CT1** (`conceptests.md`): la suma sobre `total` declarada adentro. Voto → parejas → revoto → explicación. Esperado 35–45 % en el primer voto. Si < 30 %, volver a la Pausa 2 antes de discutir. | Guion de CT1. Cerrar con la corrección (`shared(total)` + `atomic`, o escribir en `p->result`). |
-| 28–30 | Instrucciones del PRIMM: "`practica-guiada/README.md`, fase 1 **sin tocar el teclado**, 4 minutos; el navegante escribe las cinco predicciones". Anunciar los hitos: 08:38 Ejecutar, 08:41 Investigar, 08:47 Modificar, 08:55 puesta en común. | "Hoy no hay fase Crear en clase: es el ejercicio 1 de la tarea." |
+| 28–30 | Instrucciones del PRIMM: "`practica-guiada/README.md`, fase 1 **sin tocar el teclado**, 4 minutos; el navegante escribe las cinco predicciones". Anunciar los hitos (con inicio puntual a las 08:30): 09:04 Ejecutar, 09:07 Investigar, 09:13 Modificar, 09:17 puesta en común, 09:20 Práctica 4. | "Hoy no hay fase Crear en clase: es el ejercicio 1 de la tarea." |
 
 Si la sesión arranca con ≥ 5 min de retraso (es martes 08:30): recuperación de 3 preguntas (1, 2 y 5), se
 salta la tabla de `list_tasks 100000` y el panorama de `taskloop` pasa al README (M4).
@@ -94,9 +106,10 @@ Es el código completo del constructo que la Parte B de P4 pide; por eso va ante
 (`02` §2.1: "nunca como `TODO` en la Parte B de esa misma sesión").
 
 - **30–34 Predecir** (P1–P5 del README, por escrito). **34–37 Ejecutar**: `make`, `./mergesort_tasks 8 2` dos
-  veces, `./mergesort_tasks`. **37–43 Investigar** (3.1 contador atómico, 3.2 árbol de llamadas, 3.3 cláusulas,
-  3.4 `taskwait`). **43–50 Modificar**: M1 obligatorio (`make cutoffs`, 20–30 s con `REPS=3`), M2 si alcanza
-  (1, 2, 4 hilos con el mejor corte), M3 opcional (quitar el `taskwait` y ver fallar `make test`).
+  veces, `./mergesort_tasks`. **37–43 Investigar** (en clase 3.2 árbol de llamadas, 3.3 cláusulas y 3.4 `taskwait`;
+  3.1, contador atómico, para quien termine). **43–47 Modificar**: solo M1 (`make cutoffs`, ≈ 25 s con
+  `REPS=3`; llenar la tabla y las dos líneas). M2 (1, 2, 4 hilos con el mejor corte) y M3 (quitar el `taskwait`
+  y ver fallar `make test`) quedan para la ampliación o para casa; en el Plan B de P4 son la parte B′.
 
 **El profesor circula** con esta lista. Ante cada error, **una pregunta**, no la respuesta:
 
@@ -135,15 +148,43 @@ Parte B después: completar los `TODO`. Orden de trabajo: `make test` antes de c
 
 Flujo mínimo de P4 en esta sesión (`practicas/P4-openmp/README.md`):
 
-- **Parte A · histograma guiado** (≈ 15 min): el histograma de S07 con las tres correcciones (`atomic`,
-  `critical`, acumulador local) y `reduction(+:hist[:nbins])`; se lee, se predice el orden de tiempos, se
-  corre con 1, 2 y 4 hilos y se pasa `make test`. Es la medición que se compara con la predicción del pre-lab.
+- **Parte A · histograma guiado** (≈ 15 min): el histograma de S07, ahora con ≈ 20–25 ns de cálculo por muestra
+  (Box–Muller), con las correcciones `critical`, `atomic`, acumulador local y `reduction(+:hist[:nbins])`, más
+  una versión con **tareas** (reducción en árbol con corte) como código completo para leer y predecir; se predice
+  el orden de tiempos y el número de tareas, se corre con 1, 2 y 4 hilos (`make speedup-a`) y se pasa
+  `make test-a`. Es la medición que se compara con la predicción del pre-lab.
 - **Parte B · mergesort con tareas semi-guiado** (≈ 15 min en clase; se termina en casa): el esqueleto es el de
-  `mergesort_tasks.c` que acaban de leer. Las líneas `parallel` + `single`, `task` y `taskwait` vienen
-  **completas**; los `TODO(n)` piden la mezcla, el corte parametrizable y el arnés de medición con el protocolo.
-  Si el enunciado publicado pusiera los pragmas de tareas como `TODO`, el profesor los escribe en el pizarrón
-  (son las líneas 91, 96 y 101 de `mergesort_tasks.c`, más el `parallel` + `single` de las líneas 193–194): el
-  constructo nuevo no se pide a ciegas el día que debuta.
+  `mergesort_tasks.c` que acaban de leer, aplicado a registros (clave, id) que deben quedar en orden **estable**
+  y verificados contra `qsort`. Las líneas `parallel` + `single`, `task` y `taskwait` vienen **completas** (líneas
+  134–135 y 105–109 de `src/b_mergesort.c`); los `TODO(1)`–`TODO(3)` piden la mezcla estable, el corte y el arnés
+  de medición con el protocolo: el constructo nuevo no se pide a ciegas el día que debuta.
+
+**Plan B de P4** (si a las 08:00 `practicas/P4-openmp/` sigue sin README ni código en `src/`). No se improvisa
+un enunciado: se trabaja con código del curso que ya compila y pasa sus pruebas, y cada equipo lo deja en su
+repositorio, en `practicas/P4/lab1/`, como avance de las Partes A y B reales. Mismos tiempos y mismas
+mini-defensas.
+
+- **A′ · histograma (≈ 15 min).** En la copia del repositorio del curso:
+  `cd unidades/U3-memoria-compartida/S07_2026-10-15_sincronizacion/practica-guiada && make && make test`
+  (16 PASS). Antes de correr, el equipo ordena por escrito `critical`, `atomic` y `local` del más rápido al más
+  lento con 4 hilos. Después:
+  `for v in critical atomic local; do for t in 1 2 4; do OMP_NUM_THREADS=$t ./histogram_$v | grep RESULT; done; done`
+  (≈ 20 s; `critical` con 4 hilos tarda 1–2 s por repetición: no matarlo). Tabla de 9 renglones (versión,
+  hilos, `t_par`, *speedup*) en `practicas/P4/lab1/parteA.md` y una línea: ¿coincidió con la pregunta 1 de la
+  recuperación? Referencia de autoría (10⁷ elementos, 64 bins, 4 hilos): `critical` 0.01–0.03, `atomic`
+  0.06–0.07, `local` 4.6–4.8.
+- **B′ · mergesort con tareas (≈ 15 min).** Copiar la carpeta completa (`cp -r practica-guiada
+  <repo-del-equipo>/practicas/P4/lab1/`: el `Makefile` compila los siete programas y `make test` usa `tests/`)
+  y hacer ahí M2 (1, 2 y 4 hilos con el mejor corte de M1) y M3 (quitar el `taskwait`,
+  ver `verificacion: FALLA`, restaurarlo y confirmar `OK`), con un *commit* por paso firmado por quien lo hizo.
+  Es código completo, como pide `02` §2.1 el día que debuta el constructo. `tree_sum_tasks.c` no se adelanta:
+  sigue siendo la tarea.
+- **Mini-defensas y punto de control** sobre ese código: la línea del `atomic` o del acumulador local, el
+  `taskwait` antes de `merge`, la condición del corte. La línea `resumen:` del punto de control sale de M2.
+- **Anuncio al cierre** (sustituye el punto 3 de 85–90): "La Práctica 4 se publica en `practicas/P4-openmp/`
+  y se avisa por el canal del grupo. Lo de hoy, en `practicas/P4/lab1/`, es avance de las Partes A y B. El
+  pre-lab se entrega en `practicas/P4/prelab/` antes de ____ [fecha que fija el profesor; se propone el jueves
+  22 de octubre, 10:30]. La fecha límite no cambia: domingo 1 de noviembre, 23:59 (40 % del 2º parcial)."
 
 **Mini-defensas** (una por equipo, 2 min; con más de 12 equipos solo la mitad hoy, lista publicada): una
 pregunta por integrante sobre el código de ese momento ("¿qué hace esta línea?"); la segunda ("¿qué pasaría si
@@ -154,8 +195,9 @@ momento (5 min, papel). Líneas que conviene señalar: el `taskwait` antes de `m
 Errores de P4 esperados hoy, con la pregunta: histograma de la Parte A "más lento con 4 hilos que con 1" →
 "¿cuánto trabajo hay por elemento? ¿qué dijo tu pre-lab?"; `critical` alrededor de todo el cuerpo → "¿qué parte
 toca memoria compartida?"; en la Parte B, `make test` falla con n grande y pasa con n pequeño → "¿tu corte
-funciona cuando n no es potencia de 2? ¿qué pasa con `hi − lo == 1`?"; resultado 0 o basura → tabla 8
-(`shared`).
+funciona cuando n no es potencia de 2? ¿qué pasa con `hi − lo == 1`?"; resultado 0 o basura → "¿quién escribe esa
+variable y quién la lee después? ¿Es compartida donde se crea la tarea?" (Pausa 3, `fib_buggy`); `merge` que pasa
+con n = 20 y da `ordenado pero NO estable` con n = 200 → "ante dos claves iguales, ¿cuál debe salir primero?".
 
 ### 80–85 · Punto de control
 
@@ -181,10 +223,10 @@ sin discusión; si no, abre la recuperación de S10.
 - **Apoyo (quien no arranca en PRIMM):** entregarle impreso el árbol de llamadas de n = 8, corte 2 (fase 3.2
   del README) con los dos primeros niveles ya llenos, para que complete el tercero y cuente; después, solo
   Ejecutar + Investigar 3.2–3.3 y M1 con los cortes 16, 4096 y n (no requiere escribir código). En la tarea,
-  pista sellada: el `TODO(1)` con las dos líneas `#pragma omp task shared(...)` ya escritas y solo la recursión
-  por completar (está en la clave de la tarea, en `<details>`).
-- **Ampliación (quien termina M1–M3 antes del minuto 47):** M4 (`taskloop_demo 40000 64` y 16: explicar por
-  qué `taskloop` pierde contra `for dynamic` aquí) y, sin ejemplo, *quicksort* con tareas: partición
+  pista sellada: las dos líneas `#pragma omp task shared(...)` del `TODO(1)` ya escritas y solo la recursión
+  por completar (`tarea-espaciada.md`, ejercicio 1a, "Pista", en `<details>` aparte de la clave).
+- **Ampliación (quien termina M1 antes del minuto 47):** M2, M3 y M4 (`taskloop_demo 40000 64` contra
+  `taskloop_demo 40000 200`: por qué `taskloop` pierde con 625 tareas y empata con 200; README, fase 4) y, sin ejemplo, *quicksort* con tareas: partición
   secuencial, dos tareas, sin arreglo auxiliar, corte en 4 096; criterio de listo: igual a `qsort` en 1, 2 y 4
   hilos y una línea sobre por qué su balance es peor que el de mergesort. En la Práctica 4, la extensión
   opcional del README.
@@ -196,7 +238,7 @@ sin discusión; si no, abre la recuperación de S10.
 | 1 (encolar, `taskwait`, barrera) | Recuperación 5; revoto CT1; *exit ticket* 1 | > 30 % eligen A o D en el *exit ticket* 1 |
 | 2 (entorno de datos) | Pausa 2 y 3 en voz alta; Investigar 3.3; *exit ticket* 2b | > 30 % sin `shared(x)` en 2b |
 | 3 (corte y número de tareas) | P1/P3 comparadas con la traza; tabla M1 con dos líneas; CT2; *exit ticket* 2a | Revoto CT2 < 70 % o > 30 % contestan "cambia con 2 hilos" |
-| 4 (Partes A y B, propiedad) | Mini-defensas (mejor de dos preguntas); punto de control; `make test` de la Parte A en el repositorio | Más de 3 equipos sin Parte A en PASS al minuto 80 |
+| 4 (Partes A y B, propiedad) | Mini-defensas (mejor de dos preguntas); punto de control; `make test` de la Parte A en el repositorio (Plan B: `parteA.md` con la tabla A′ y los *commits* de M2–M3 en `practicas/P4/lab1/`) | Más de 3 equipos sin Parte A en PASS (o sin tabla A′) al minuto 80 |
 
 Datos que se registran hoy en `herramientas/seguimiento-grupo.csv`: % aciertos recuperación 2 y 5, `sin
 pre-lab`, % CT1 y CT2 (primer voto y revoto), montones del *exit ticket*, equipos con mini-defensa hecha.
@@ -205,6 +247,7 @@ pre-lab`, % CT1 y CT2 (primer voto y revoto), montones del *exit ticket*, equipo
 
 Se llenan el mismo martes 20 de octubre, después de clasificar los *exit tickets* (10 min):
 
+- ¿Se usó el Plan B de P4? Si sí, fecha que se fijó para el pre-lab y qué se avisó al grupo:
 - Qué falló en el tiempo (¿el PRIMM se comió minutos de P4? ¿cuántos equipos llegaron a la Parte B?):
 - ConcepTest que falló y por qué (opción más votada entre los errados):
 - Error más frecuente del *exit ticket* (abre la recuperación del jueves 22 de octubre):

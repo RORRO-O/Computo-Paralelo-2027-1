@@ -13,17 +13,13 @@ Las filas con config que termina en "-seq" o se llama "secuencial" son la refere
 
 Salida: el PNG (por defecto, junto al CSV con el mismo nombre) y, en pantalla, la tabla Markdown con
 mediana, speedup, eficiencia y la fracción secuencial de Karp–Flatt f = (1/S − 1/p) / (1 − 1/p).
-Código de salida 0 si generó la imagen; 1 si el CSV no sirve.
+Código de salida 0 si generó la imagen; 1 si el CSV no sirve; 2 si falta matplotlib (la tabla sí se imprime:
+con ella se hace la gráfica a mano).
 """
 import argparse
 import csv
 import os
 import sys
-
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
 
 # Paleta categórica del curso: el color sigue al nombre de la serie, no a su posición.
 COLORES = {
@@ -84,17 +80,26 @@ def main():
             print(f"| {c} | {p} | {fila.get('n', '')} | {fila['_mediana']:.4f} | {fila['_speedup']:.2f} | "
                   f"{fila['_eficiencia']:.2f} | {'—' if f != f else f'{f:.3f}'} |")
 
-    # --- gráfica ---
+    # --- gráfica (matplotlib se importa aquí: sin él, la tabla de arriba ya salió) ---
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+    except ImportError:
+        print("graficar.py: falta matplotlib (pip install matplotlib); la tabla de arriba sirve para graficar a mano",
+              file=sys.stderr)
+        return 2
     fig, ax = plt.subplots(figsize=(7, 4.5), dpi=120)
     fig.patch.set_facecolor(SURFACE)
     ax.set_facecolor(SURFACE)
     max_p = max(p for v in graficables.values() for p in v)
     ax.plot([1, max_p], [1, max_p], linestyle="--", linewidth=1.5, color="#898781", label="ideal S = p", zorder=1)
-    libres = [c for c in PALETA]
+    usados = {COLORES[c] for c in graficables if c in COLORES}
+    libres = [c for c in PALETA if c not in usados] or list(PALETA)   # sin repetir colores ya asignados
     y_max = max(max_p, max(y for v in graficables.values() for y in (r["_speedup"] for r in v.values()))) * 1.1
     finales = []                                   # (y del último punto, x, etiqueta) para rotular al final
     for k, (nombre, puntos) in enumerate(graficables.items()):
-        color = COLORES.get(nombre) or libres.pop(0)
+        color = COLORES.get(nombre) or libres[k % len(libres)]
         xs = sorted(puntos)
         ys = [puntos[p]["_speedup"] for p in xs]
         ax.plot(xs, ys, marker=MARCADORES[k % len(MARCADORES)], markersize=8, linewidth=2,

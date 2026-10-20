@@ -4,7 +4,9 @@
 
 Si faltaste: lee esto (10 min), haz `ejemplo-resuelto.md` con sus pausas (20 min) y la práctica guiada
 (`practica-guiada/README.md`, 25 min; la fase Crear es la tarea). La Parte A y la Parte B de la Práctica 4
-(`practicas/P4-openmp/README.md`) se trabajaron en el laboratorio y se terminan en casa.
+(`practicas/P4-openmp/README.md`) se trabajaron en el laboratorio y se terminan en casa. Si ese día la práctica
+aún no estaba publicada, en su lugar se hicieron A′ (histogramas de S07 con 1, 2 y 4 hilos) y B′ (M2 y M3 de la
+práctica guiada), que quedan en `practicas/P4/lab1/` del repositorio del equipo (`plan-sesion.md`, Plan B de P4).
 
 ## 1. Qué es una tarea y para qué sirve
 
@@ -25,7 +27,8 @@ Tres hechos para memorizar:
 
 - **`task` encola, no ejecuta.** El hilo que crea la tarea sigue de largo. La tarea la ejecuta cualquier hilo
   del equipo, cuando puede; puede ser el mismo creador, más tarde. "Se ejecuta al crearse" es la idea errónea
-  13. Con un solo hilo también se difiere.
+  13. Con un solo hilo también se difiere. (La implementación *puede* ejecutarla en el acto, y libgomp lo hace
+  cuando ya hay demasiadas pendientes; lo único garantizado es que terminó tras `taskwait` o una barrera.)
 - **El patrón es `parallel` + `single` + `task`.** `parallel` crea el equipo; `single` hace que **un** hilo
   genere las tareas (sin él, los 4 hilos recorrerían la lista y cada nodo se procesaría 4 veces); los otros
   tres hilos no están ociosos en la barrera del `single`: toman tareas de la cola.
@@ -91,14 +94,9 @@ Número de tareas: en mergesort con potencias de dos, 2·(n/cutoff − 1); en Fi
 Mediciones reales (máquina de autoría: 4 núcleos virtuales compartidos, gcc 13, `-O2`, mediana de 5 tras 1
 calentamiento; los valores absolutos cambian entre corridas, el orden no):
 
-| `fib_tasks 40 c` | Tareas creadas | t recursivo (s) | t tareas (s) | *Speedup* vs recursivo |
-|---|---|---|---|---|
-| c = 30 | 464 | 0.159 | 0.074 | 2.15 |
-| c = 27 | 1 972 | 0.156 | 0.070 | 2.23 |
-| c = 25 | 5 166 | 0.164 | 0.095 | 1.73 |
-| c = 20 | 57 312 | 0.169 | 0.113 | 1.51 |
-| c = 15 | 635 620 | 0.169 | 0.612 | 0.28 |
-| `36 2` (48 315 632 tareas, una sola corrida) | 48 315 632 | 0.023 | 25.9 | 0.00 |
+Fibonacci (tabla completa en `ejemplo-resuelto.md`, paso 4): `fib_tasks 40` con corte 27 crea 1 972 tareas y
+gana 2.2 veces al recursivo; con corte 15, 635 620 tareas y pierde (0.28); `fib_tasks 36 2`, 48 millones de
+tareas y 25.9 s para lo que el recursivo hace en 0.023 s.
 
 | `mergesort_tasks 2000000 c`, 4 hilos | Tareas | t_seq (s) | t_tareas (s) | *Speedup* |
 |---|---|---|---|---|
@@ -140,9 +138,10 @@ taskloop grainsize(4)     | 1 1 1 1 3 3 3 3 2 2 2 2 0 0 0 0
 for schedule(dynamic,4)   | 0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3
 ```
 
-No es para ganarle a `parallel for`: en el ciclo triangular de S08 (n = 40 000), `for schedule(dynamic,64)`
-dio *speedup* 2.69 y `taskloop grainsize(64)` 1.10 en la máquina de autoría (la `reduction` sobre tareas de
-libgomp es más cara que la del `for`). Si hay ciclo e índices, `parallel for`.
+No es para ganarle a `parallel for`. En el ciclo triangular de S08 (n = 40 000, máquina de autoría),
+`for schedule(dynamic,64)` dio *speedup* 3.83 y `taskloop grainsize(64)` 1.08: son 625 tareas y libgomp, si un
+`taskloop` dejaría más de 64 × hilos tareas pendientes, las ejecuta todas en el hilo que las genera. Con
+`grainsize(200)` (200 tareas) los dos dieron ≈ 3.8. Si hay ciclo e índices, `parallel for`.
 
 ## 7. Ejemplo resuelto en una pantalla
 

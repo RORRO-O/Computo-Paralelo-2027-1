@@ -148,6 +148,12 @@ lee qué.
 **Hueco 2.** Con **2 hilos** y `n = 16`, ¿qué imprime `hits por hilo`? Escribe el mapeo `static` y cuenta los
 asteriscos de cada mitad con la fila `a>thr` de arriba.
 
+<details><summary>Pista</summary>
+
+Con 2 hilos y `static` sin *chunk*, cada hilo recibe un bloque contiguo de `16 / 2` iteraciones. Los dos
+ciclos reparten igual, así que cada hilo cuenta los asteriscos de su propio bloque.
+</details>
+
 <details><summary>Respuesta</summary>
 
 Hilo 0: `i = 0..7` (asteriscos en 1, 3, 4, 6 → 4); hilo 1: `i = 8..15` (9, 12, 14, 15 → 4). Salida real:
@@ -155,6 +161,12 @@ Hilo 0: `i = 0..7` (asteriscos en 1, 3, 4, 6 → 4); hilo 1: `i = 8..15` (9, 12,
 </details>
 
 **Hueco 3.** Con 4 hilos y `n = 18` (no divisible), ¿cómo reparte `static`? Escribe `owner1` para `i = 0..17`.
+
+<details><summary>Pista</summary>
+
+`18 = 4 · 4 + 2`: cada hilo recibe 4 iteraciones y sobran 2. Lo que debes decidir es a quién van esas dos y
+si los bloques siguen siendo contiguos (`notas-estudiante.md` §2.4).
+</details>
 
 <details><summary>Respuesta</summary>
 
@@ -185,7 +197,7 @@ paralelo hace **más trabajo de memoria** que el secuencial: escribe `a[]` compl
 vuelve a leer en el ciclo 2, mientras que el secuencial compara cada `a[i]` cuando todavía está en un
 registro. Dos pasadas contra una, en un ciclo limitado por el ancho de banda (dos flops por 16 bytes),
 más dos repartos y una barrera. Karp–Flatt supone que el paralelo hace el **mismo** trabajo que el
-secuencial repartido entre `p`; cuando hace más, la fórmula devuelve `f > 1`: no "131 % secuencial", sino
+secuencial repartido entre `p`; cuando hace más, la fórmula devuelve `f > 1`: no "142 % secuencial", sino
 "el modelo no aplica". Es la idea errónea 1 con datos: más hilos no es más rápido cuando el problema es
 de milisegundos y lo limita la memoria. En el examen, la pregunta "¿es válida esta medición?" se contesta con
 el protocolo, no con el *speedup*.

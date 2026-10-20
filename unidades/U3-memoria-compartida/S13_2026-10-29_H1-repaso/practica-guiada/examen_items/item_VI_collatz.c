@@ -55,7 +55,10 @@ static void par_dynamic_reduction(long n, long *hist, int *maxlen)
     *maxlen = mx;
 }
 
-/* C: dynamic,1024 + atomic por elemento sobre el histograma compartido y critical para el máximo. */
+/* C: dynamic,1024 + atomic por elemento sobre el histograma compartido y critical para el máximo.
+ * La lectura rápida de mx fuera del critical es `atomic read` (y la escritura, `atomic write`): sin eso
+ * sería una carrera aunque el resultado saliera bien (idea 7). El critical solo se paga cuando len supera
+ * el máximo visto, que ocurre pocas veces. */
 static void par_dynamic_atomic(long n, long *hist, int *maxlen)
 {
     for (int b = 0; b < NB; b++) hist[b] = 0;
@@ -65,9 +68,17 @@ static void par_dynamic_atomic(long n, long *hist, int *maxlen)
         int len = collatz_len(k);
         #pragma omp atomic
         hist[len]++;
-        if (len > mx) {
+        int seen;
+        #pragma omp atomic read
+        seen = mx;
+        if (len > seen) {
             #pragma omp critical
-            if (len > mx) mx = len;
+            {
+                if (len > mx) {
+                    #pragma omp atomic write
+                    mx = len;
+                }
+            }
         }
     }
     *maxlen = mx;

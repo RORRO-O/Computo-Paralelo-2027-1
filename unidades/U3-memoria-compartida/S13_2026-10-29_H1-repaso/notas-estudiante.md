@@ -40,6 +40,16 @@ a las 23:59**.
 5. **Dependencias entre iteraciones** (`a[i]` usa `a[i-1]`, mismo arreglo leído y escrito en un *stencil*,
    *scan*): ninguna cláusula lo arregla; se cambia el algoritmo o se deja secuencial.
 
+**El protocolo aplicado** (`ejemplo-resuelto.md`, código en `practica-guiada/ejemplo_revision.c`). Una región
+con dos `omp for schedule(static)`: el primero escribe `a[i] = 2·x[i] − 0.5` con `nowait`, el segundo cuenta
+los `a[i] > 0.6` en `my_hits` (declarada adentro) y al final `atomic` suma `hits += my_hits`. (1) Se escriben
+`a[]`, `my_hits` y `hits`: `my_hits` es privada por alcance; `hits` es compartida y se protege una vez por
+hilo. (2) `thr` solo se lee: sin cláusula o `firstprivate`; nunca `private`. (3) El `nowait` es seguro porque
+(4) los dos ciclos `static` con el mismo `n` dan el mismo mapeo: cada hilo lee solo lo que él escribió. Con
+4 hilos y `n = 16`: `hits por hilo: h0=2 h1=2 h2=1 h3=3`, total 8. Si el ciclo 1 pasa a `dynamic,1`, el
+resultado sigue saliendo bien y ThreadSanitizer reporta la carrera en la lectura de `a[i]`: "salió bien" no
+es evidencia.
+
 ## 3. Tabla de decisión: la más barata que sea correcta
 
 | Situación | Elige | Descarta |

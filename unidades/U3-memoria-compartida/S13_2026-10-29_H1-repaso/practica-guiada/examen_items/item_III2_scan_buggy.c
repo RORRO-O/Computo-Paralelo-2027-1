@@ -25,7 +25,8 @@ static void scan_par(const long *x, long *y, long n)
 static void scan_par(const long *x, long *y, long n)
 {
     long block_sum[64] = {0};
-    #pragma omp parallel
+    int max_t = omp_get_max_threads() < 64 ? omp_get_max_threads() : 64;   /* block_sum tiene 64 casillas */
+    #pragma omp parallel num_threads(max_t)
     {
         int tid = omp_get_thread_num(), nt = omp_get_num_threads();
         long lo = n * tid / nt, hi = n * (tid + 1) / nt;

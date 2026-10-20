@@ -42,7 +42,7 @@ al cerrar la mini-lección) y CT2 (minuto ~47, puesta en común de la práctica 
 | A | Idea errónea 13 (variante): cree que `taskwait` resuelve todo, sin mirar en qué memoria escribió cada tarea. |
 | **B** | **Correcta.** Regla de OpenMP para `task`: una variable que **no** es compartida en el contexto que crea la tarea entra a la tarea como `firstprivate` (copia con el valor del momento). `total` se declaró dentro de la región: es privada del hilo del `single` (idea 15, al revés de como suele creerse) y por eso cada tarea recibe una copia. `p` también es `firstprivate`: por eso cada tarea procesa el nodo correcto aunque `p` siga avanzando. |
 | C | Idea errónea 15: "lo declarado dentro de la región es compartido". La intuición de carrera es sana, pero el modelo de datos está mal: ninguna tarea toca la `total` de otra. |
-| D | Nueva (13b): "con un hilo, `task` es una llamada directa". No: con un hilo la tarea también recibe su copia `firstprivate` (y libgomp también la difiere). Se agrega al catálogo. |
+| D | Anexo A, 13b: "con un hilo, `task` es una llamada directa". No: con un hilo la tarea también recibe su copia `firstprivate` (y libgomp también la difiere). |
 
 **Acierto esperado en el primer voto:** 35–45 % (A y C se reparten el resto; D poca gente).
 
@@ -50,7 +50,7 @@ al cerrar la mini-lección) y CT2 (minuto ~47, puesta en común de la práctica 
 compartida o privada? Y para una tarea, ¿qué regla aplica a una variable que **no** es compartida donde se
 crea?" Cerrar con la corrección: `shared(total)` en el `task` **y** `#pragma omp atomic` en `total +=` (o,
 mejor, cada tarea escribe en `p->result` y el hilo del `single` suma al final, como en `list_tasks.c`). Mostrar
-la salida de `fib_buggy` (`0 esperado 14930352`): mismo mecanismo, sin carrera y sin aviso del compilador.
+la salida de `./fib_buggy` (`0   esperado 832040`): mismo mecanismo, sin carrera y sin aviso del compilador.
 
 ## CT2 · ¿Por qué `cutoff = 1` tarda tanto? (minuto ~47, puesta en común de la práctica guiada)
 
@@ -70,8 +70,8 @@ principal?
 | Opción | Origen |
 |---|---|
 | **A** | **Correcta.** El número de tareas lo fija la recursión, 2·(n/cutoff − 1) en potencias de dos (con n = 8 y cutoff = 2 salieron exactamente 6; con cutoff = 1, 14). La sobrecarga por tarea (reservar memoria para su entorno de datos, encolarla, que un hilo la tome, la termine y despierte a quien espera en `taskwait`) es de microsegundos; ordenar un elemento, de nanosegundos. Es la aglomeración de Foster: el corte agrupa trabajo hasta que cada tarea vale lo que cuesta. |
-| B | Confunde sobrecarga con carrera. Cada tarea escribe un tramo **disjunto** del arreglo (`[lo, mid)` y `[mid, hi)`), y `taskwait` ordena hija-antes-de-mezcla: no hay carrera con ningún corte, y `make test` lo comprueba con 1, 4 y 70 000. Pariente de la idea 7 (razona sobre el síntoma, no sobre los accesos). |
-| C | Nueva (13c): "solo el hilo del `single` crea tareas". Las tareas **crean tareas**: cada hija con más de `cutoff` elementos crea dos más, desde el hilo que la tomó. La traza con n = 8 lo muestra: tareas creadas por hilos distintos al del `single`. Se agrega al catálogo. |
+| B | Confunde sobrecarga con carrera. Cada tarea escribe un tramo **disjunto** del arreglo (`[lo, mid)` y `[mid, hi)`), y `taskwait` ordena hija-antes-de-mezcla: no hay carrera con ningún corte, y `make test` lo comprueba con cortes 1, 3, 1 024 y 70 000. Pariente de la idea 7 (razona sobre el síntoma, no sobre los accesos). |
+| C | Anexo A, 13c: "solo el hilo del `single` crea tareas". Las tareas **crean tareas**: cada hija con más de `cutoff` elementos crea dos más, desde el hilo que la tomó. La traza con n = 8 lo deja ver: `[4,6)` y `[6,8)` las creó el hilo que ejecutó `[4,8)`, y `[0,2)`, `[2,4)` el que ejecutó `[0,4)`; cuando esos dos son distintos (casi siempre), al menos uno no es el del `single`. |
 | D | Idea errónea 1 en versión de tareas ("más tareas/hilos no puede ser peor") combinada con la 5 ("la diferencia es ruido"). Una diferencia de 17–19 veces respecto a la secuencial (3.7 s contra 0.2 s en la máquina de autoría), estable en 5 repeticiones y en tres corridas distintas, no es ruido; el trabajo útil es el mismo, pero el tiempo mide trabajo útil **más** sobrecarga. |
 
 **Acierto esperado en el primer voto:** 55–65 % (acaban de medirlo; si queda por debajo de 40 %, la tabla de
@@ -116,7 +116,7 @@ tareas que hilos"**. Anticipar S10 (jueves 22 de octubre): esa sobrecarga es una
 |---|---|
 | A | Idea errónea 13 (segunda mitad): "`taskwait` espera a todas". Espera a las hijas directas. Para esperar a todas las descendientes existe `#pragma omp taskgroup` alrededor del bloque que las crea. |
 | **B** | **Correcta** (OpenMP API Specification 5.2, *taskwait Construct*: "the current task region is suspended until all child tasks that it generated before the taskwait region complete"). T1 termina sin esperar a T2, porque T1 no tiene `taskwait`. |
-| C | Nueva (13d): confunde `taskwait` con una barrera de hilos. `taskwait` es una espera de **tareas**: quién las ejecute no importa. Se agrega al catálogo. |
+| C | Anexo A, 13d: confunde `taskwait` con una barrera de hilos. `taskwait` es una espera de **tareas**: quién las ejecute no importa. |
 | D | Idea 13b (ver CT1-D): con un hilo las reglas son las mismas; libgomp también difiere la tarea. |
 
 **Acierto esperado en el primer voto:** 40–50 %.

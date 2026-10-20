@@ -11,6 +11,10 @@ línea, una letra o un número.
 hilos espero un *speedup* de ___ en la Parte A porque ___". Si no lo entregaste en el repositorio antes de las
 08:30, escribe `sin pre-lab`.
 
+*Variante B (solo si la Práctica 4 no se publicó a tiempo y no hubo pre-lab; el profesor avisa cuál toca):* antes de
+correr nada, con 4 hilos y 10⁷ elementos, ¿qué *speedup* esperas para el histograma con `atomic` de S07 y para
+el de acumuladores locales? Un número cada uno y una razón de una línea.
+
 **2. (S08, lunes 19 de octubre)** Un `parallel for` de 16 iteraciones con 4 hilos lleva `schedule(static, 3)`.
 ¿Qué hilo ejecuta la iteración `i = 14`?
 
@@ -27,8 +31,12 @@ imprime `left + right`, sin nada en medio. ¿Qué crees que imprima? ¿Por qué?
 
 <details><summary>Respuestas (se proyectan al minuto 4)</summary>
 
-1. Sin clave: la respuesta es tu propia predicción (se compara con tu medición en el Lab 2, martes 27 de
-   octubre). Para el profesor: cuenta cuántos escribieron `sin pre-lab`.
+1. Sin clave: la respuesta es tu propia predicción (se compara hoy con `make speedup-a` de la Parte A y otra
+   vez en la pregunta 4 de la Parte D, en el Lab 2, martes 27 de octubre). Para el profesor: cuenta cuántos
+   escribieron `sin pre-lab`. *Variante B:* también es predicción y se compara hoy, en la parte A′ del
+   laboratorio (si la Práctica 4 ya está publicada, con las filas `atomic` y `local` de `make speedup-a`: allí
+   cada muestra trae ≈ 20 ns de cálculo y `local` sí escala, que es la pregunta P2). Referencia de autoría: `atomic` ≈ 0.06 (más lento que el
+   secuencial: cada incremento pelea por la línea de caché del *bin*) y locales ≈ 4.7.
 2. **Hilo 0.** `static,3` forma los bloques {0,1,2}, {3,4,5}, {6,7,8}, {9,10,11}, {12,13,14}, {15} y los
    reparte cíclicamente: bloques 0–3 a los hilos 0–3, el bloque 4 otra vez al hilo 0. `i = 14` está en el
    bloque 4. Quien contestó "hilo 3" pensó en `static` sin *chunk* (bloques contiguos de 4); quien contestó
@@ -50,5 +58,5 @@ cartas: 0, 1, 2, 3, 0, 1…" en lugar de sin pista; anotar de nuevo el conteo. S
 ejercicio intercalado de la tarea de hoy la retoma. La pregunta 1 verifica la entrega del pre-lab (regla de
 `docs/metodo/04-evaluacion.md` §5: se entrega en el repositorio antes de la hora, falte o no el estudiante);
 anotar cuántos no lo entregaron. La pregunta 5 anticipa la idea errónea 13: anotar cuántos contestan "la suma
-correcta"; ese número decide cuánto tiempo se dedica a `taskwait_buggy.c` en el minuto 12 (si son más de un
+correcta"; ese número decide cuánto tiempo se dedica a `taskwait_buggy.c` en el minuto 13 (si son más de un
 tercio, correrlo tres veces y leer el reporte de ThreadSanitizer completo; si no, una corrida basta).

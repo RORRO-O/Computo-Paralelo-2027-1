@@ -70,7 +70,10 @@ respuestas y pedir manos por pregunta; anotar el conteo de la 1, la 2 y la 3.
 
 ### 5–10 · Objetivos y anclaje
 
-Autocalificación de la tarea de S08 con su clave (2 min; se registra entrega). Proyectar los cuatro objetivos.
+Autocalificación con su clave (2 min; se registra entrega) de lo que vence hoy a las 10:30: la tarea de S09
+(`tareas/S09/`; su ejercicio 3 fue la preparación de hoy: *speedup*, eficiencia y Karp–Flatt del mergesort y la
+conjetura del falso compartido) y los ejercicios 1–2 de la tarea de S08 (el 3 se autocalificó en S09). Si falta
+tiempo, solo el ejercicio 3 de S09 y el resto con la clave en casa. Proyectar los cuatro objetivos.
 Frase de anclaje: "El martes en el Lab 1 el error más frecuente del *exit ticket* fue [sustituir por el error
 real registrado en las notas post-sesión de S09; si no se tiene, usar: *reportar el speedup de la parte con
 tareas como si fuera el del programa*]. Hoy la sesión entera es sobre cómo medir sin engañarse: lo que entreguen
@@ -86,8 +89,8 @@ Seguir `ejemplo-resuelto.md`. El profesor **piensa en voz alta** y deja los huec
 | Minuto | Qué se hace | Qué se dice |
 |---|---|---|
 | 10–13 | Proyectar las tres secciones de `profile_amdahl.c` (solo `run_pipeline`). No correr `make run` (tarda); correr solo `OMP_PROC_BIND=close OMP_PLACES=cores OMP_NUM_THREADS=1 ./profile_amdahl` y proyectar la tabla del perfil. | "Tres cronómetros, uno por sección, en la versión **secuencial**. Antes de paralelizar nada ya sabemos cuánto podemos ganar. ¿Cuántas líneas tiene B? ¿Y cuánto tiempo?" |
-| 13–17 | **Hueco 1** (f medida) y **Hueco 2** (Amdahl S(2), S(4), S(8), S(∞)) en silencio, 2 min; elegir al azar dos números de lista para dictarlos. Escribir en el pizarrón `f = 0.101`, techo `9.88`. | "Alguien calculó `f` con líneas de código: ¿cuánto le dio? Esa es la idea errónea más cara del examen. `f` es tiempo." |
-| 17–22 | Correr con 4 hilos, proyectar. **Hueco 3** (S medido, E, Karp–Flatt) en parejas, 2 min; "¿qué concluyó tu pareja?" a dos parejas. | "Amdahl dijo 3.07; medimos 2.58. Karp–Flatt dice `f_KF = 0.184`, pero la f medida es 0.101: la diferencia no está en A ni en C. ¿Dónde está?" Cerrar: "`f_KF ≫ f` → el problema está **dentro** de la región paralela: sobrecarga, memoria o competencia por el procesador." |
+| 13–17 | **Hueco 1** (f medida) y **Hueco 2** (Amdahl S(2), S(4), S(8), S(∞)) en silencio, 2 min, con la tabla de `ejemplo-resuelto.md` (las claves usan esos números; la corrida en vivo da otros parecidos: en la revisión, `f` = 0.096–0.108). Elegir al azar dos números de lista para dictarlos. Escribir en el pizarrón `f = 0.101`, techo `9.88`. | "Alguien calculó `f` con líneas de código: ¿cuánto le dio? Esa es la idea errónea más cara del examen. `f` es tiempo." |
+| 17–22 | Correr con 4 hilos, proyectar. **Hueco 3** (S medido, E, Karp–Flatt) en parejas, 2 min, con los números del documento; "¿qué concluyó tu pareja?" a dos parejas. Si la corrida en vivo da otros (en la revisión: S = 2.02–2.62, `f_KF` = 0.18–0.33), decirlo: la conclusión `f_KF ≫ f` se repite. | "Amdahl dijo 3.07; medimos 2.58. Karp–Flatt dice `f_KF = 0.184`, pero la f medida es 0.101: la diferencia no está en A ni en C. ¿Dónde está?" Cerrar: "`f_KF ≫ f` → el problema está **dentro** de la región paralela: sobrecarga, memoria o competencia por el procesador." |
 | 22–25 | Pausa 4 (`clock()`) y Pausa 5 (qué sección atacar). Señalar la línea `clock()` de la salida. | "`clock()` sumó la CPU de los 4 hilos: con él el *speedup* sale al revés. Por eso el protocolo dice `omp_get_wtime`." |
 | 25–28 | Las seis reglas del protocolo (`notas-estudiante.md`, §1) en una pantalla, señalando dónde está cada una en el código que acaban de ver. Mencionar afinidad en una frase: "hoy medimos con un hilo por núcleo y lo declaramos; en M4 van a ver qué cambia y qué no". | Una regla por frase. No leer la tabla completa. |
 | 28–35 | **CT1** (`conceptests.md`): voto → parejas → revoto → explicación con la salida de `profile_amdahl` a la vista. | Guion de discusión de CT1. Si el primer voto > 80 %, saltar la discusión y preguntar "¿y si B fuera el 99 % del tiempo?" |
@@ -98,7 +101,8 @@ afinidad más de una frase aquí (va en M4).
 ### 35–65 · Práctica guiada PRIMM (parejas: conductor/navegante, cambio al minuto 50)
 
 **Arranque (1 min).** "Abran `practica-guiada/README.md`. Fase 1, Predecir, por escrito, 3 minutos: cuatro
-predicciones, una línea cada una. El navegante escribe." Al minuto 39: "`make && make run`; mientras corre,
+predicciones, una línea cada una. El navegante escribe. P1 parte de su conjetura de la tarea de S09 (ejercicio 3b)
+y de la pregunta 5 de hoy: ahora pongan un número." Al minuto 39: "`make && make run`; mientras corre,
 lean la salida de `false_sharing` y compárenla con P1. Después `make medir && make grafica`." Al minuto 47:
 "Investigar: preguntas 1, 2, 4 y 5 obligatorias; 3 y 6 si alcanzan." Al minuto 50: cambio de roles. Al minuto 53:
 "Modificar: M1 y M2 obligatorios; M3 y M4 si alcanzan. Cada cambio con `make test`."
@@ -112,7 +116,7 @@ lean la salida de `false_sharing` y compárenla con P1. Después `make medir && 
 | 3 | Calculan `E` dividiendo entre el número de hilos lógicos u olvidan dividir. | "¿Qué significa una eficiencia de 2.6? ¿Puede un núcleo rendir más del 100 %? ¿Entre cuántos núcleos repartiste?" |
 | 4 | En `weak_scaling`, comparan `debil` con 4 hilos contra `secuencial` y concluyen "*speedup* 0.9, no escala". | "¿Cuánto trabajo hizo cada hilo en la fila `debil`? ¿Y en la `secuencial`? ¿Qué pregunta responde la escalabilidad débil?" (idea 6) |
 | 5 | Corren `make medir` con el navegador abierto o dos parejas en la misma laptop; todas las eficiencias < 0.4. | "¿Qué dice `uptime`? ¿Con quién compite tu programa por los 4 núcleos? ¿Qué regla del protocolo §1 es?" |
-| 6 | En M1 ponen `stride = 4` pero reservan el arreglo con el tamaño de `STRIDE_CONTIG` y el programa escribe fuera del bloque. | "¿Cuántos `long` necesitas con `stride = 4` y 4 hilos? ¿Quién reservó esa memoria?" |
+| 6 | En M1 agregan el nombre de la variante a `names` (y suben el `3` del ciclo a `4`) pero no la rama `else if`: la cuarta fila vuelve a medir `local` y sale idéntica a ella. | "¿Qué función llama tu programa cuando `v == 3`? ¿Por qué tu variante tarda lo mismo que `local` y no algo entre `contiguo` y `relleno`?" |
 | 7 | Concluyen de `region_overhead 2000 20000` que "OpenMP es más lento que secuencial". | "¿Cuántas operaciones hace cada pasada? ¿Cuánto cuesta abrir una región según la última línea? Corre `2000000 20`: mismo total de operaciones, ¿qué cambió?" (idea 1) |
 | 8 | `saxpy` escala casi perfecto y lo dan por "limitado por cómputo". | "¿Cuántos flop hace por byte? ¿Cuántos GB/s alcanzó con 1, 2 y 4 hilos: siguen creciendo o se estancaron? ¿Cuánta L3 tiene tu CPU (`lscpu`)? ¿Qué pasa con `50000000`?" (M3) |
 | 9 | Toman `f_KF` negativa (de un *speedup* superlineal) como error del script. | "¿Qué supone Amdahl sobre la caché? Si `S > p`, ¿qué entró en caché que antes no cabía? ¿Está bien el resultado (`status=OK`)?" (idea 4) |
@@ -124,7 +128,7 @@ Si una pareja termina M1–M4 antes del minuto 65, pasa a Crear (Fase 5).
 ### 65–75 · Puesta en común + CT2
 
 Proyectar las tablas de **dos parejas** (una con laptop de 2 núcleos, otra de 4) junto a la de autoría
-(`notas-estudiante.md`, §3). Mostrar sin nombres dos o tres hallazgos de la ronda (los más probables: #2, #4 y
+(`practica-guiada/README.md`, Fase 2; resumen en `notas-estudiante.md`, §3). Mostrar sin nombres dos o tres hallazgos de la ronda (los más probables: #2, #4 y
 #7 de la lista) y pedir a la pareja correspondiente que diga qué pregunta la destrabó.
 
 **CT2** (`conceptests.md`): voto; discusión en parejas y revoto solo si el primer voto queda entre 30 % y 80 %;

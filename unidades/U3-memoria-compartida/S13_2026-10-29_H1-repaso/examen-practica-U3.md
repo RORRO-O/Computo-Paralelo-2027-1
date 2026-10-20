@@ -12,7 +12,8 @@
   (abajo), se discuten los tres ítems peor contestados y llenas la casilla 3.
 - El **Examen 2** es el **martes 3 de noviembre, 08:30–10:00**: misma estructura, 100 puntos, 80 minutos,
   versiones A/B alternadas por fila, sin dispositivos, hoja de calibración aparte. Esta versión corta tiene
-  60 % del tamaño; el tiempo por punto es el mismo (0.67 min/punto; 0.8 en el examen).
+  60 % de los puntos y la mitad del tiempo: aquí vas a 0.67 min por punto; en el examen tendrás 0.8, un poco
+  más de holgura.
 - Si faltas el 29: lo haces en casa con la clave y registras igual la hoja de calibración
   (`docs/metodo/04-evaluacion.md`, §5).
 
@@ -81,9 +82,10 @@ for (long i = 1; i < n; i++)
 **B.** Dos variables que deben cambiar **juntas** y una comparación: no cabe en `atomic` (idea errónea 8;
 `atomic` cubre `x++`, `x += e`, `x = x op e` sobre **una** variable escalar). `critical` alrededor del `if`
 en cada iteración también es correcto pero serializa el ciclo; con máximos locales el `critical` se ejecuta
-una vez por hilo. C: `reduction(max:best_i)` daría el **índice más grande**, no el índice del máximo
-(variante nueva de la idea 10: `reduction` no sabe que las dos variables van juntas). D: confunde el índice
-del ciclo con la variable compartida que todos escriben (S07, CT2-C).
+una vez por hilo. C: `reduction(max:best_i)` daría el **mayor de los índices** que encontró cada hilo, no
+el índice del máximo (idea errónea 10b: `reduction` combina cada variable por separado, no sabe que las dos
+van juntas). D: confunde el índice del ciclo con la variable compartida que todos escriben (idea 7d; S07,
+CT2-C).
 </details>
 
 **I.3.** Un ciclo de 10⁶ iteraciones donde **todas cuestan lo mismo** (≈ 50 ns cada una) corre con
@@ -100,9 +102,10 @@ mejor". ¿Qué pasa con el tiempo del ciclo?
 
 **B.** Idea errónea 11: `dynamic` tiene costo por *chunk* y gana solo cuando las iteraciones son desiguales.
 En S08 con carga uniforme: `static` 0.37 s, `dynamic,1` 0.75 s (más lento que la secuencial, 0.45 s),
-`dynamic,256` 0.21 s. A: idea 11 literal. C: nueva ("el reparto no afecta el tiempo"); el reparto es
-exactamente lo que decide el tiempo del hilo más lento. D: idea 12 mezclada: `dynamic` no añade barreras;
-la implícita del `for` está en todas las políticas.
+`dynamic,256` 0.21 s (con *chunk* grande el costo por pedido desaparece; que en esa máquina virtual quedara
+por debajo de `static` es ruido de la VM, como advierte S08 §3). A: idea 11 literal. C: idea 11b ("el reparto
+no afecta el tiempo"); el reparto es exactamente lo que decide el tiempo del hilo más lento. D: idea 12
+mezclada: `dynamic` no añade barreras; la implícita del `for` está en todas las políticas.
 </details>
 
 **I.4.** Con 4 hilos:
@@ -138,17 +141,18 @@ variante). A: idea 13 literal. D: `shared` es precisamente la cláusula que nece
 `T(4) = 2.5 s` con el mismo `n`; y `T(8) = 2.6 s` con `2n` (8 núcleos físicos). ¿Cuál afirmación es correcta?
 
 - A) La eficiencia con 4 hilos es 3.2.
-- B) `S(4) = 3.2` y `E(4) = 0.8`; la fila de 8 hilos cambió `n`, así que es un experimento de escalabilidad
-  **débil** y no da un *speedup* fuerte.
+- B) `S(4) = 3.2` y `E(4) = 0.8`; la fila de 8 hilos cambió `n`, así que no da un *speedup* (fuerte): solo
+  sirve como dato de escalabilidad **débil**.
 - C) `S(8) = 8.0 / 2.6 ≈ 3.1`: con 8 hilos escala peor que con 4.
 - D) Con 8 hilos la eficiencia es `3.1 / 8 ≈ 0.38`: pasar de 4 a 8 hilos empeora el programa.
 
 <details><summary>Clave I.5</summary>
 
 **B.** `S = T(1)/T(p)` con el **mismo** problema; `E = S/p`. A: idea errónea 3 (eficiencia = *speedup*). C y
-D: idea 6 (fuerte y débil como sinónimos): con `2n` el cociente `T(1,n)/T(8,2n)` no es un *speedup*; lo
-reportable es la eficiencia débil `T(1,n)/T(p,p·n)` si `n` crece con `p`, y aquí ni siquiera creció
-proporcionalmente (8 hilos, 2n). D además es la idea 1 al revés.
+D: idea 6 (fuerte y débil como sinónimos): con `2n` el cociente `T(1,n)/T(8,2n)` no es un *speedup*. Lo que
+sí se puede reportar es débil: de 4 a 8 hilos se duplicaron `p` y `n`, así que la eficiencia débil entre esas
+dos filas es `T(4,n)/T(8,2n) = 2.5/2.6 ≈ 0.96` (escala bien en débil). Contra `T(1)` no es débil propiamente:
+habría que medir con `8n`. D además es la idea 1 al revés.
 </details>
 
 ---
@@ -207,7 +211,7 @@ imprime? c) (1 pt) Si el ciclo fuera `schedule(dynamic, 2)`, ¿qué puedes afirm
 <details><summary>Clave II.2</summary>
 
 a) `owner=0 0 1 1 2 2 3 3 0 0 1 1`: bloques de 2 repartidos cíclicamente (S08, `schedule_map`). Salida real.
-Puntos: 3 si exacto; 1 si bloques de 2 pero sin ciclar (`0 0 0 1 1 1 …`, confunde `static,2` con `static`).
+Puntos: 3 si exacto; 1 si escribe el reparto de `static` sin *chunk* (`0 0 0 1 1 1 2 2 2 3 3 3`: ignora el 2).
 b) **Una** vez, por **cualquier** hilo (el primero que llega; en seis corridas reales salió 1, 2, 3, 3, 1, 1).
 "El hilo 0" es incorrecto (ese es `master`); "cuatro veces" también.
 c) **Nada**: con `dynamic` el reparto depende de qué hilo se desocupa primero; cambia entre corridas y no se
@@ -371,7 +375,7 @@ hilo como `T(1)`" (idea 31).
 ## VI. Diseño breve (6 puntos; ≤ 10 líneas)
 
 Para cada `k` en `1..N` (`N = 2 000 000`) se calcula la longitud de la secuencia de Collatz (`k → k/2` si es
-par, `3k+1` si es impar, hasta llegar a 1; entre 1 y ~550 pasos, sin patrón respecto a `k`), se acumula un
+par, `3k+1` si es impar, hasta llegar a 1; entre 0 y 556 pasos, sin patrón respecto a `k`), se acumula un
 histograma `hist[len]++` de 1000 clases y el máximo `maxlen`. Diseña la versión OpenMP con 4 hilos:
 
 a) (2 pts) Qué construcción usas para `hist` y para `maxlen`, y por qué no `atomic`/`critical` por elemento.
@@ -399,20 +403,25 @@ acumuladores privados contra `atomic`; verificar antes que `hist` y `maxlen` coi
 secuencial (enteros). 2 puntos: menciona mediana de ≥ 5, `T(1)` secuencial y la comparación `static` vs
 `dynamic`; 1: solo "medir el *speedup*".
 
-Lo medido en la máquina de autoría (4 hilos, `N = 2·10⁶`, secuencial 0.50–0.51 s; máquina virtual, tres
-corridas):
+Lo medido (`make run-examen`: 4 hilos, `N = 2·10⁶`, secuencial 0.42–0.51 s, 1 calentamiento + 5
+repeticiones, mediana) en una máquina virtual de 4 núcleos **compartida con otros procesos**, nueve corridas
+(tres de autoría y seis de revisión). Las salidas no son deterministas: los rangos son anchos y la tuya dará
+otros números.
 
-| Versión | *Speedup* con 4 hilos (rango en 3 corridas) |
+| Versión | *Speedup* con 4 hilos (rango en 9 corridas) |
 |---|---|
-| `static` + `reduction` | 1.7–2.6 |
-| `dynamic,1024` + `reduction` | 1.8–2.8 |
-| `dynamic,1024` + `atomic`/`critical` por elemento | 2.0–2.8 |
-| `dynamic,1` + `reduction` | 1.3–1.6 |
+| `static` + `reduction` | 1.6–3.8 |
+| `dynamic,1024` + `reduction` | 1.7–4.1 |
+| `dynamic,1024` + `atomic`/`critical` por elemento | 1.6–3.8 |
+| `dynamic,1` + `reduction` | 1.3–2.2 |
 
-`dynamic,1024` ganó a `static` en las tres corridas (10–25 %); `dynamic,1` perdió siempre; la versión con
-`atomic` por elemento quedó indistinguible de `reduction` **en este problema**, porque cada iteración trabaja
-~250 ns y los 1000 bins reparten la contención. La respuesta de diseño sigue siendo acumular en privado: no
-depende de que el trabajo por iteración sea grande; y la diferencia se decide midiendo, no opinando.
+Lo estable es el **orden**, no el número: `dynamic,1` perdió en las nueve; `dynamic,1024` ganó a `static` en
+ocho de nueve (hasta 25 %; en la otra empataron dentro del ruido); la versión con `atomic` por elemento quedó
+entre 0 y 30 % por debajo de `dynamic,1024` + `reduction`, cerca **en este problema** porque cada iteración
+trabaja ~250 ns y los 1000 bins reparten la contención. Un 4.1 con 4 hilos no es superlinealidad: el
+secuencial de esa corrida salió lento (idea 4: se explica, no se celebra). La respuesta de diseño sigue siendo
+acumular en privado: no depende de que el trabajo por iteración sea grande; y la diferencia se decide
+midiendo, no opinando.
 </details>
 
 ---
@@ -438,7 +447,7 @@ el margen y firma. Ante una duda, aplica estas reglas y marca el ítem con "?" p
 |---|---|---|---|---|
 | I (×5) | 3 c/u | La letra de la clave | — (no hay parcial) | Otra letra o dos letras |
 | II.1 | 5 | a) 3: las 8 cifras · b) 1 · c) 1 | a) 2 si el patrón por hilo es correcto con un error aritmético; 1 si solo `base=10` | `out=10 11 13 16…` en a) |
-| II.2 | 5 | a) 3: exacto · b) 1: "una vez, cualquier hilo" · c) 1: "no predecible" | a) 1 si bloques de 2 sin ciclar | "hilo 0" en b); un arreglo concreto en c) |
+| II.2 | 5 | a) 3: exacto · b) 1: "una vez, cualquier hilo" · c) 1: "no predecible" | a) 1 si escribe el reparto de `static` sin *chunk* (`0 0 0 1 1 1 …`) | "hilo 0" en b); un arreglo concreto en c) |
 | III.1 | 6 | a) 2 · b) 2 (`reduction`) · c) 1 · d) 1 | b) 1 con `atomic`, 0.5 con `critical` · c) 0.5 si "ponerla `private`" | b) `private(dot)`; d) "está mal" |
 | III.2 | 6 | a) 2 · b) 2 (dos razones) · c) 2 (dos fases) | b) 1 (una razón) · c) 1 ("dejarlo secuencial" con Amdahl) | "falta `reduction`" |
 | IV | 8 | 2 por hueco (`shared(left)`, `shared(right)`, `taskwait`, `parallel`+`single`) | (4b) `master`: 1 · (1)/(2) `firstprivate`: 0 | `taskwait` ausente o `barrier` en (3): 0 en (3) |

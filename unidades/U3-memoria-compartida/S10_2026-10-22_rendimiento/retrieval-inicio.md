@@ -25,10 +25,10 @@ propia casilla de `long c[2]`: el hilo 0 hace `c[0]++` y el hilo 1 hace `c[1]++`
 
 1. Solo a las **hijas directas** (las tareas creadas por la tarea actual), no a las nietas. Para esperar a todas
    las descendientes se usa `taskgroup` o un `taskwait` en cada nivel (idea errónea 13 del Anexo A).
-2. Evita el costo de **crear y encolar una tarea** (decenas de microsegundos cada una, entre memoria y
-   sincronización) para subproblemas que se resuelven en nanosegundos. Con `cutoff = 2` se crearían millones de
-   tareas diminutas y el programa sería **más lento** que el secuencial: la sobrecarga supera al trabajo. Hoy
-   se mide ese mismo fenómeno con regiones paralelas.
+2. Evita el costo de **crear y encolar una tarea** (del orden de microsegundos cada una, entre memoria y
+   sincronización; `notas-estudiante.md` de S09) para subproblemas que se resuelven en nanosegundos. Con
+   `cutoff = 2` se crearían millones de tareas diminutas y el programa sería **más lento** que el secuencial:
+   la sobrecarga supera al trabajo. Hoy se mide ese mismo fenómeno con regiones paralelas.
 3. `S(4) = T(1)/T(4) = 12/4 = 3`. `E(4) = S(4)/p = 3/4 = 0.75` (75 %). Eficiencia y *speedup* no son lo mismo
    (idea errónea 3).
 4. **Midiendo tiempo** en la versión secuencial: la fracción de Amdahl es una fracción de **tiempo**, no de líneas

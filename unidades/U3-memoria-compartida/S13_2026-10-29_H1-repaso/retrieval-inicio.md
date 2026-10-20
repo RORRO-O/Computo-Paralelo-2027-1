@@ -47,7 +47,7 @@ que predice Amdahl? (dos números)
    `critical` alrededor del `if` también sería correcto, pero más caro.
 4. **C.** Trabajo creciente: `static` deja al último hilo casi todo (S08: 58 contra 10 unidades); `dynamic,1`
    paga una atómica por iteración (idea 11); `dynamic` con *chunk* mediano o `static,c` cíclico balancean sin
-   pagar tanto. D es la idea nueva del examen de práctica I.3-C.
+   pagar tanto. D es la idea 11b, la misma del examen de práctica I.3-C.
 5. Solo a las **hijas directas** (idea 13). Para todas las descendientes: `taskgroup`, o un `taskwait` en cada
    nivel de la recursión.
 6. Porque si se actualiza en el lugar, la iteración `i` leería `u[i−1]` **ya actualizado** por otra iteración

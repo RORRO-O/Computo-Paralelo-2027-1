@@ -1,6 +1,6 @@
 > **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Unidad III · Sesión S13 · jueves 29 de octubre de 2026 · 10:30–12:00 · Salón 3208
 
-# S13 · Tarea espaciada (30–40 minutos): cazador de errores, intercalado y preparación del Examen 2
+# S13 · Tarea espaciada (40 minutos): cazador de errores, intercalado y preparación del Examen 2
 
 **Entrega.** Carpeta `tareas/S13/` en el repositorio de tu equipo con `respuestas.md`, los tres cazadores
 corregidos y tu `caza4_<tema>_buggy.c`, antes del **martes 3 de noviembre de 2026, 08:30** (hora del Examen 2:
@@ -18,19 +18,20 @@ El martes 3 no hay IA y sí hay un ítem igual a estos.
 noviembre: no hay clase.** **Examen 2: martes 3 de noviembre, 08:30–10:00**, versiones A/B, 80 minutos, sin
 dispositivos, hoja de calibración aparte. **Unidad IV** (MPI) inicia el **jueves 5 de noviembre, 10:30**.
 
-## 1. Del tema (20 min, en pareja) · Cazador de errores: Modificar y Crear
+## 1. Del tema (25 min, en pareja) · Cazador de errores: Modificar y Crear
 
-Es la fase Crear de `practica-guiada/README.md`, que no cabe en la sesión de repaso (en clase no se hace
+Son las fases 4 y 5 de `practica-guiada/README.md`, que no caben en la sesión de repaso (en clase no se hace
 PRIMM: se recibe H1 y se corrige el examen de práctica).
 
-1. Haz las fases Predecir, Ejecutar e Investigar del README (20 min) si no las hiciste antes.
-2. **Modificar.** Corrige `caza1_race_buggy.c`, `caza2_barrier_buggy.c` y `caza3_private_buggy.c` en el lugar
+1. **Antes de la tarea** (no cuenta en sus 40 minutos): las fases Predecir, Ejecutar e Investigar del README
+   (30 min, en pareja). Son la práctica guiada de esta sesión, que en S13 se hace en casa.
+2. **Modificar (10 min).** Corrige `caza1_race_buggy.c`, `caza2_barrier_buggy.c` y `caza3_private_buggy.c` en el lugar
    hasta que `make cazar` termine en `0 FAIL`. Para cada uno, en `respuestas.md`, la **elección justificada**
    entre las tres alternativas de la tabla de la fase 4 (una línea por alternativa: por qué la elegiste o por
    qué la descartaste, citando correctitud **y** costo). Ejemplo del formato, para un caso distinto:
    "`atomic`: correcto, una atómica por elemento, descartado por costo; `critical`: correcto, serializa,
    descartado; `reduction`: correcto, una combinación por hilo, elegido".
-3. **Crear.** Escribe `caza4_<tema>_buggy.c` con un error para tu pareja (reglas en el README, fase 5: encabezado
+3. **Crear (15 min).** Escribe `caza4_<tema>_buggy.c` con un error para tu pareja (reglas en el README, fase 5: encabezado
    con `Síntoma esperado:` e `Idea errónea:`, referencia secuencial propia, `RESULT`). Intercámbienlo; cada
    quien corrige el de la otra persona hasta que `make cazar` pase con los cuatro archivos. En `respuestas.md`:
    qué error plantaste, en cuántos minutos lo encontró tu pareja y con qué herramienta (razonamiento, TSan,
@@ -77,11 +78,11 @@ combinar al cerrar). Aglomeración: `schedule(dynamic, c)` agrupa `c` valores co
 mapeo a hilos es dinámico porque el costo por `k` es irregular (ideas 28 y 11).
 </details>
 
-## 3. Preparación (10 min, individual) · El Examen 2 y la Unidad IV
+## 3. Preparación (7 min, individual) · El Examen 2 y la Unidad IV
 
-a) **Rehaz sin clave y cronometrado** los dos ítems del examen de práctica en que menos puntos obtuviste (los
-anotaste en el *exit ticket*). Compara después con la clave y escribe en `respuestas.md` una línea por ítem:
-"la segunda vez obtuve __/__; lo que cambió fue __".
+a) **Rehaz sin clave y cronometrado** el ítem del examen de práctica en que menos puntos obtuviste (el que
+anotaste en el *exit ticket*). Compara después con la clave y escribe en `respuestas.md` una línea: "la segunda
+vez obtuve __/__; lo que cambió fue __". Si te sobra tiempo antes del martes, repite con el segundo peor.
 
 b) El Examen 2 tiene un ítem de **encontrar el error** como los cazadores. Escribe tu lista de verificación
 de cinco preguntas (las de `notas-estudiante.md` §2, con tus palabras) en una tarjeta; úsala el martes.

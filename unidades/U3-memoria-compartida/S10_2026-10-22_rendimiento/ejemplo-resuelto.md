@@ -57,7 +57,7 @@ Salida real (es la primera mitad de la corrida con 4 hilos: el programa mide sie
 ```
 
 Fíjate en el código fuente: la función de B (`transform_one` + `transform_seq`) tiene casi las mismas líneas que
-la de A (`generate`), y C es la más larga de las tres. Nada de eso importa para Amdahl.
+la de A (`generate`), y C tiene tantas como B. Nada de eso importa para Amdahl.
 
 **Hueco 1.** Con la tabla de arriba, calcula la fracción secuencial `f = (T_A + T_C) / T_total`. Escríbela con tres
 decimales **antes** de abrir la respuesta. ¿Qué porcentaje de las *líneas* del programa es secuencial y por qué ese
@@ -146,9 +146,10 @@ fases de S11. Lo que **no** sirve es agregar hilos a B: el techo sigue en `1/f`.
 
 ## Variante que falla · medir con `-O0`, una sola vez y sin calentamiento
 
-Es la combinación de la idea errónea 5. Compilado con `-O0`, el mismo perfil secuencial en la máquina de autoría
-dio `A = 0.0583 s`, `B = 0.8715 s`, `C = 0.0223 s`: todo 4–5 veces más lento, pero no en la misma proporción (B se
-frenó 5.2×, A 4.2×), así que `f` bajó a `0.084` (frente a `0.101` con `-O2`) y el techo de Amdahl subió a 11.9×.
+Es la combinación de la idea errónea 5. Compilado con `-O0`, el mismo perfil secuencial (1 hilo, misma máquina,
+tres corridas seguidas de cada binario) dio `A = 0.0211 s`, `B = 0.3604 s`, `C = 0.0087 s`, frente a `A = 0.0134 s`,
+`B = 0.1608 s`, `C = 0.0053 s` con `-O2`: todo más lento, pero no en la misma proporción (B se frenó 2.2×, A 1.6×),
+así que `f` bajó a `0.076` (frente a `0.104` con `-O2` en esas corridas) y el techo de Amdahl subió de 9.6× a 13.1×.
 Estarías prediciendo el techo de un programa que nadie va a ejecutar, y el *speedup* que midieras después
 compararía dos binarios lentos. Si además tomas la primera corrida en vez de la mediana, pagas la creación del
 equipo de hilos y las cachés frías dentro de `T(4)`. El `Makefile` no tiene objetivo para `-O0` a propósito;
@@ -178,8 +179,10 @@ El segundo argumento es el trabajo por elemento de B. Con `iters = 8`, B pesa me
 Mismo código, misma máquina: el techo de Amdahl depende de **cuánto tiempo** es secuencial, y eso lo decide el tamaño
 del trabajo paralelo, no el número de líneas. Con `iters = 256` la sección B pesa el 98 % y escaló 4.04× (una
 eficiencia de 1.01 es ruido de medición de ±2 %, no un efecto de caché; se reporta tal cual), así que `f_KF` (0.019)
-coincide con la `f` medida (0.018): el único límite que queda es la parte secuencial. Con `iters = 8`, B es tan
-corta (4.5 ms con 4 hilos) que la sobrecarga de la región pesa y `f_KF` (0.66) supera a `f` (0.55).
+coincide con la `f` medida (0.018): el único límite que queda es la parte secuencial. Con `iters = 8`, `f_KF`
+(0.66) supera a `f` (0.55) porque B escaló 3.27× y no 4×, la misma pérdida dentro de la región que con
+`iters = 64`; no es el costo de abrir la región (microsegundos, frente a 4.5 ms de B). Estas corridas varían mucho
+si otro proceso usa los núcleos: en la revisión, con la máquina compartida, `iters = 256` dio de 1.7× a 2.7×.
 
 ## Qué te llevas
 

@@ -25,6 +25,17 @@ Completa `TODO(1)` y `TODO(2)` de `practica-guiada/tree_sum_tasks.c` (copia el a
 profundidad (prueba 4, 8 y 12); `make test` en `practica-guiada/` sigue en `0 FAIL`. En `respuestas.md` pega la
 línea `tareas :` de los tres cortes y escribe una línea: ¿cuál corte elegiste y por qué?
 
+<details><summary>Pista (ábrela solo si a los 10 minutos no arrancas)</summary>
+
+El corazón del `TODO(1)` son estas dos líneas, una antes de cada llamada recursiva. Te falta el resto: los dos
+casos base, declarar `left_sum` y `right_sum`, las dos llamadas con `depth + 1`, el `taskwait` y el `return`.
+
+```c
+#pragma omp task shared(left_sum)
+#pragma omp task shared(right_sum)
+```
+</details>
+
 Si terminas, `TODO(3)`: el contador atómico de tareas. Para el corte 8 la cota es 2·(2⁸ − 1) = 510 tareas.
 ¿Por qué tu contador queda por debajo? (una línea).
 
@@ -104,7 +115,7 @@ b) T(4)/T(1) = 1/9 + (1/9)/2 + (7/9)/4 ≈ 0.111 + 0.056 + 0.194 = 0.361 → *sp
    hilos, aunque el código "sea 100 % paralelo". La medición de autoría (2.10, eficiencia 0.52) queda por
    debajo: además de la mezcla final secuencial, mezclar es copiar memoria y los 4 hilos compiten por el
    mismo ancho de banda (se mide en S10, jueves 22 de octubre). Con 8 hilos el techo de Amdahl sube poco
-   (≈ 3.4): la mezcla de arriba sigue siendo de un hilo. Idea errónea 1.
+   (≈ 3.6 = 1 / (1/9 + 1/18 + 1/36 + 6/72)): la mezcla de arriba sigue siendo de un hilo. Idea errónea 1.
 c) Partición: por dominio, cada llamada parte su tramo en dos mitades. Comunicación: la mezcla, que necesita
    las dos mitades ya ordenadas (por eso el `taskwait` antes de `merge`). Aglomeración: el corte, que junta
    todo el subárbol de llamadas pequeñas en una sola tarea secuencial. Mapeo: la cola de tareas de OpenMP,

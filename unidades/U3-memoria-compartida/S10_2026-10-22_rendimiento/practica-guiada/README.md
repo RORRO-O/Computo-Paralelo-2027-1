@@ -83,8 +83,10 @@ Y el barrido completo (`make medir` + `make grafica`), en la tabla que imprime `
 | local | 4 | 100000000 | 0.0320 | 3.56 | 0.89 | 0.041 |
 
 Compara con P1. Las tres variantes dan el mismo resultado (`ok`) y hacen las mismas operaciones; solo cambia en qué
-bytes vive cada contador. `contiguo` tardó 1.5 veces más que `relleno` con 4 hilos aquí; en
-procesadores con núcleos físicos separados la diferencia suele ser mayor.
+bytes vive cada contador. `contiguo` tardó 1.5 veces más que `relleno` con 4 hilos aquí (en la revisión, en la
+misma máquina, entre 1.5 y 1.8 veces); en una laptop sin virtualización la diferencia suele ser mayor. Ojo: cada
+programa divide entre la secuencial que midió **en su propio proceso**, así que la `mediana` de la fila
+`secuencial` (la de la corrida con 1 hilo) no es exactamente el denominador de las filas con 2 y 4 hilos.
 
 Salida real de `region_overhead` con 4 hilos, caso de pasadas cortas:
 
@@ -111,7 +113,10 @@ cada pasada. Con `2000000 20` (mismo total de operaciones, pasadas largas) el pa
 ```
 
 (Eficiencias de 1.05–1.07 no son *speedup* superlineal: la secuencial de esa corrida tuvo mín 0.0195 s y mediana
-0.0286 s, así que el ±5 % es ruido de la máquina virtual. Se reporta tal cual y se dice; idea errónea 4 al revés.)
+0.0286 s, es decir, su propia mediana salió inflada por el ruido de la máquina virtual; contra el mínimo, los
+*speedups* serían ≈ 2.6–2.9. Se reporta tal cual y se dice; idea errónea 4 al revés. En la revisión, con otros
+procesos usando los núcleos, una corrida dio 1.4–2.6× y otra, más cargada, dejó `regiones` y `una-region` por
+debajo de 1: con pasadas cortas o largas, una máquina ocupada invalida la medición, protocolo §1.5.)
 
 Salida real de `saxpy_vs_matmul` y de `weak_scaling` (barrido `make medir`, tabla de `graficar.py`):
 
@@ -162,8 +167,9 @@ Compara con P4: `fuerte` es el *speedup* clásico (mismo `n`); en `debil` la col
 2. Misma función: `mine[bin_of(i)]++` lee y escribe memoria **compartida** en cada iteración aunque nadie más
    toque esa casilla. ¿Por qué la variante `local` evita el problema sin relleno? ¿Cuántas escrituras al arreglo
    compartido hace cada hilo en `local`?
-3. `main` reserva `counts` con `aligned_alloc(CACHE_LINE, …)`. Si usaras `malloc`, ¿seguiría garantizado que
-   `relleno` da una línea completa por hilo? (pista: ¿dónde empieza la primera casilla?)
+3. `main` reserva `counts` con `aligned_alloc(CACHE_LINE, …)`. Si usaras `malloc` (en x86-64 solo garantiza
+   16 B de alineación), ¿seguiría garantizado que el bloque de 64 B de cada hilo coincide con una línea? ¿Y si
+   cada hilo tuviera 8 casillas en lugar de 2? (pista: ¿dónde empieza la primera casilla?)
 4. `region_overhead.c`, versión `sin-barrera`: lleva `schedule(static) nowait` y aun así es correcta. Lee el
    comentario del encabezado: ¿qué garantiza OpenMP sobre `schedule(static)` que lo hace seguro? ¿Qué pasaría
    con `schedule(dynamic) nowait`?
@@ -174,7 +180,31 @@ Compara con P4: `fuerte` es el *speedup* clásico (mismo `n`); en `debil` la col
    protocolo (§5) obliga a declararlo, y qué significa la columna `speedup` en esas filas (lee el encabezado de
    `weak_scaling.c`)?
 
-## Fase 4 · Modificar (8 min; cada cambio se verifica con `make test`)
+<details><summary>Respuestas de Investigar (ábrelas después de discutir con tu pareja)</summary>
+
+1. Con `stride = 2` las casillas del hilo 3 empiezan en el byte 48 y terminan en el 63: las ocho casillas
+   (4 hilos × 2) ocupan exactamente una línea de 64 B. Con `stride = 8` cada hilo empieza en un múltiplo de 64:
+   una línea por hilo.
+2. En `local` el `++` va a una variable de la pila del hilo, que ningún otro núcleo toca; cada hilo escribe en
+   el arreglo compartido **dos** veces en total (sus dos casillas, al final), no una vez por iteración.
+3. No: con `malloc` el bloque puede empezar a mitad de una línea y el bloque de 64 B de cada hilo queda partido
+   entre dos líneas. Con 2 casillas (16 B, alineadas a 16) las que **se escriben** todavía caen en una sola línea
+   y no se nota; con 8 casillas por hilo, las últimas de un hilo y las primeras del siguiente compartirían línea.
+   `aligned_alloc` lo garantiza por construcción.
+4. Con `schedule(static)`, el mismo número de iteraciones y de hilos, OpenMP reparte **las mismas** iteraciones
+   a cada hilo en todos los ciclos de la región: cada hilo solo vuelve a tocar sus `y[i]`. Con
+   `schedule(dynamic) nowait`, la iteración `i` de la pasada siguiente puede tomarla otro hilo mientras el
+   primero todavía actualiza `y[i]`: carrera y resultado incorrecto (a veces).
+5. Depende de la máquina: en una laptop los GB/s de `saxpy` dejan de crecer entre 2 y 4 hilos (se saturó el
+   ancho de banda de memoria) mientras los GFLOP/s de `matmul` siguen creciendo. Si no se estancan, la memoria
+   de tu máquina da más ancho de banda del que 4 núcleos pueden pedir (servidor con muchos canales, o arreglos
+   que caben en la L3).
+6. "Cambiar el tamaño del problema entre configuraciones sin declararlo (eso es escalabilidad débil, no
+   fuerte)". En las filas `debil`, `speedup` es el escalado de Gustafson `S_w = p · T(1,n) / T(p,p·n)` y
+   `eficiencia` es `E_w`.
+</details>
+
+## Fase 4 · Modificar (12 min; cada cambio se verifica con `make test`)
 
 **M1 · Dos hilos por línea.** En `false_sharing.c` agrega una tercera variante compartida con `stride = 4` (32
 bytes por hilo: los hilos 0–1 comparten una línea y los 2–3 otra). Predice primero dónde queda su tiempo entre
@@ -231,6 +261,32 @@ Parte B de tu Práctica 4 o, si aún no compila, `histogram_atomic.c` y `histogr
 2. Copia `csv_append()` y el patrón `for (int r = -1; r < N_REPS; r++)` de `common.h` a tu programa. Debe
    escribir una fila `secuencial,1,…` (solo con 1 hilo) y una fila por número de hilos con `speedup = T_seq /
    mediana`.
+
+   <details><summary>Pista (ábrela después de 3 minutos de intento)</summary>
+
+   Copia `common.h` junto a tu `.c` y pon `#include "common.h"`. El esqueleto es el mismo de `false_sharing.c`:
+
+   ```c
+   int p = omp_get_max_threads();
+   double times[N_REPS];
+   for (int r = -1; r < N_REPS; r++) {            /* 1) referencia secuencial */
+       double t0 = now();  mi_version_seq(...);  double t = now() - t0;
+       if (r >= 0) times[r] = t;
+   }
+   double t_seq = median_of(times, N_REPS);
+   if (p == 1) csv_append(csv, "secuencial", 1, n, times, t_seq, t_seq);
+   for (int r = -1; r < N_REPS; r++) {            /* 2) versión paralela, mismo patrón */
+       double t0 = now();  mi_version_par(...);  double t = now() - t0;
+       if (r >= 0) times[r] = t;
+   }
+   csv_append(csv, "mi-config", p, n, times, median_of(times, N_REPS), t_seq);   /* y compara resultados */
+   ```
+
+   Luego: `for t in 1 2 4; do OMP_PROC_BIND=close OMP_PLACES=cores OMP_NUM_THREADS=$t ./mi_programa N mio.csv; done`.
+   `csv_append` necesita el nombre de la configuración, los hilos, `n`, las 5 repeticiones, su mediana y el
+   tiempo de referencia `t_seq`.
+   </details>
+
 3. Mide con 1, 2 y 4 hilos, afinidad fija y un tamaño con el que la secuencial tarde ≥ 1 s (aquí en clase, si no
    alcanza, ≥ 0.3 s y lo declaras).
 4. `python3 graficar.py tu.csv --titulo "..."`; pega la tabla Markdown y mira el PNG.

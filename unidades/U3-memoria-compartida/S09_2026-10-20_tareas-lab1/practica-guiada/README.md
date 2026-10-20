@@ -3,7 +3,7 @@
 # Práctica guiada S09 · Mergesort con tareas: cuántas se crean, quién las ejecuta y con qué corte
 
 Actividad PRIMM corta, en parejas (conductor/navegante; cambio de rol al minuto 11). Dura **20 minutos** en
-clase (fases 1–4); la fase 5 (Crear) es el ejercicio 1 de `../tarea-espaciada.md`. Es autocontenida: solo
+clase: Predecir 4 · Ejecutar 3 · Investigar 6 · Modificar 4 · puesta en común 3; la fase 5 (Crear) es el ejercicio 1 de `../tarea-espaciada.md`. Es autocontenida: solo
 necesitas `gcc` con OpenMP y `make`. El código que vas a leer es el mismo patrón que pide la Parte B de la
 Práctica 4; léelo aquí completo antes de completarlo allá.
 
@@ -40,7 +40,7 @@ en la hoja de la pareja:
 | P1 | `./mergesort_tasks 8 2` con 4 hilos: ¿cuántas líneas `tarea [lo,hi)` se imprimen (tareas creadas)? Dibuja el árbol de llamadas: `[0,8)` arriba, cada nodo parte en dos, y marca cuáles crean tareas. | |
 | P2 | ¿Qué hilo ejecuta la primera tarea que se imprime? ¿Será el mismo en dos corridas? ¿Saldrán las líneas en el mismo orden? | |
 | P3 | Con `OMP_NUM_THREADS=1 ./mergesort_tasks 8 2`, ¿cuántas tareas se crean: 0, 1 o 6? | |
-| P4 | Con n = 2 000 000 y corte 4 096, ¿cuántas tareas? (potencias de dos: 2·(n/cutoff − 1); n/4 096 ≈ 512). Pre-mortem: ¿qué *speedup* esperas con 4 hilos y por qué? | |
+| P4 | Con n = 2 000 000 y corte 4 096, ¿cuántas tareas? (potencias de dos: 2·(n/cutoff − 1); n/4 096 ≈ 488: redondea a la potencia de dos de arriba, 512). Pre-mortem: ¿qué *speedup* esperas con 4 hilos y por qué? | |
 | P5 | Ordena de más rápido a más lento con n = 2 000 000 y 4 hilos: `cutoff` = 1, 256, 4 096, 2 000 000. ¿Alguno será **más lento** que la versión secuencial? | |
 
 No corrijas tus predicciones después. El valor está en comparar.
@@ -103,6 +103,9 @@ Anota tu línea `resumen:`: la vas a usar en el punto de control, en el *exit ti
 
 ## Fase 3 · Investigar (6 min)
 
+En clase: 3.2, 3.3 y 3.4 (son las que deciden P1, P3 y el *exit ticket*). La 3.1 queda para quien termine o
+para casa.
+
 ### 3.1 El contador atómico (`task_begin`, líneas 28–37)
 
 `task_begin` se llama al **inicio del cuerpo** de cada tarea, así que la ejecuta el hilo que **tomó** la tarea,
@@ -140,7 +143,7 @@ donde se crea la tarea entra como **`firstprivate`** (copia con el valor de ese 
 1. ¿Por qué funciona sin `shared(a)`? Pista: `a` es un **puntero**. ¿Qué se copia, el puntero o el arreglo?
    ¿Cuántos arreglos hay?
 2. ¿Por qué no hay carrera aunque las dos hijas escriban en el mismo arreglo? ¿Qué tramos escribe cada una?
-3. Compara con `fib_tasks.c`, línea 43: ahí **sí** hace falta `shared(x)`. ¿Qué diferencia hay entre `x` en
+3. Compara con `fib_tasks.c`, línea 45: ahí **sí** hace falta `shared(x)`. ¿Qué diferencia hay entre `x` en
    Fibonacci y `a` en mergesort? (Quién escribe y quién lee después.) Corre `./fib_buggy`: `0 esperado 832040`.
 
 ### 3.4 El `taskwait` (línea 101) y la barrera (líneas 193–194)
@@ -152,7 +155,7 @@ donde se crea la tarea entra como **`firstprivate`** (copia con el valor de ese 
 3. El cronómetro se detiene después de la región (línea 197). ¿Qué garantiza que para entonces **todas** las
    tareas terminaron, incluso sin `taskwait` en la raíz? (Barrera implícita del `single` y de `parallel`.)
 
-## Fase 4 · Modificar (7 min; cada cambio se verifica con `make test`)
+## Fase 4 · Modificar (4 min en clase: solo M1; M2–M4 si alcanza o en casa; cada cambio se verifica con `make test`)
 
 **M1 · Barrido del corte (obligatorio).** `make cutoffs` corre n = 2 000 000 con `cutoff` = 1, 16, 256, 4 096,
 65 536 y n, con `REPS=3` (unos 20–30 s; `cutoff = 1` tarda varios segundos por repetición: no lo mates).
@@ -186,9 +189,9 @@ sus dos bordes: por abajo, la sobrecarga por tarea; por arriba, quedarse sin tar
 | 2 000 000 | | | | |
 
 **M2 · Hilos.** Con el mejor corte de tu tabla, corre con `OMP_NUM_THREADS=1`, `2` y `4`. En la máquina de
-autoría, corte 4 096: 1 hilo → `t_tareas=0.2207` (*speedup* 0.88: el único hilo crea y ejecuta las 1 022 tareas
-él solo y paga la sobrecarga sin ganar nada); 2 hilos → 1.85 (eficiencia 0.92); 4 hilos → 2.10 (eficiencia
-0.52). Pregunta: ¿por qué la eficiencia cae tanto de 2 a 4 hilos si el número de tareas es el mismo? Dos
+autoría, corte 4 096: 1 hilo → *speedup* 0.98–1.02 en tres corridas (el único hilo crea y ejecuta las 1 022 tareas;
+a microsegundos cada una, la sobrecarga es ≈ 1 ms de 180: invisible con este corte, no con `cutoff = 1`);
+2 hilos → 1.80–1.85 (eficiencia ≈ 0.9); 4 hilos → 2.08–2.10 (eficiencia 0.52). Pregunta: ¿por qué la eficiencia cae tanto de 2 a 4 hilos si el número de tareas es el mismo? Dos
 pistas: la mezcla del nivel superior la hace **un** hilo, y mezclar es copiar memoria (tarea, ejercicio 2).
 
 **M3 · Quita el `taskwait`** (línea 101), compila y corre `./mergesort_tasks 8 2` y `./mergesort_tasks 1000000
@@ -206,10 +209,15 @@ taskloop grainsize(4)     | 1 1 1 1 3 3 3 3 2 2 2 2 0 0 0 0
 for schedule(dynamic,4)   | 0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3
 ```
 
-Después `./taskloop_demo 40000 64`: en la máquina de autoría `for schedule(dynamic,64)` dio *speedup* 1.57 y
-`taskloop grainsize(64)` 0.88 (una corrida, máquina compartida). `taskloop` no es para ganarle a `parallel
-for`: es para partir un ciclo en tareas cuando ya estás dentro de una tarea o de un `single` y no quieres
-abrir otra región paralela; en libgomp la `reduction` sobre tareas cuesta más que la de `for`.
+Después `./taskloop_demo 40000 64` y `./taskloop_demo 40000 200`. Corridas reales en la máquina de autoría
+(una de cada una; los tiempos absolutos varían mucho entre corridas, el contraste no): con bloque 64,
+`for schedule(dynamic,64)` dio *speedup* 3.83 y `taskloop grainsize(64)` 1.08; con bloque 200, 3.85 y 3.79.
+¿Por qué `taskloop` se desploma con 64? Son 40 000 / 64 = 625 tareas, y libgomp (gcc 13) tiene un freno: si
+el `taskloop` dejaría más de 64 × hilos tareas pendientes (256 con 4 hilos), las ejecuta **todas en el hilo
+que las genera**, una tras otra (con 256 tareas reparte; con 258, no). La especificación lo permite: una
+tarea puede ejecutarse en el acto o diferirse, y tu código no puede suponer ninguna de las dos. Y `taskloop`
+no es para ganarle a `parallel for`: es para partir un ciclo en tareas cuando ya estás dentro de una tarea o
+de un `single` y no quieres abrir otra región paralela.
 
 ## Fase 5 · Crear (transferencia; hoy pasa íntegra a la tarea espaciada)
 
