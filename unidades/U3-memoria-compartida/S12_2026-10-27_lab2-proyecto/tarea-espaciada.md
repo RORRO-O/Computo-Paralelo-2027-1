@@ -2,12 +2,14 @@
 
 # Tarea espaciada · S12 → S13
 
-Tiempo estimado: 40 minutos (20 en equipo + 20 individuales). **Entrega:** la parte de equipo (1a) va al
-repositorio del equipo antes del **jueves 29 de octubre a las 10:30** y se revisa dentro de H1; las partes 1b,
-2 y 3 las traes escritas y las **autocalificas con la clave** al inicio de S13 (2 minutos, dentro del bloque
-5–10). El profesor registra la entrega, no el acierto; revisa 3 tareas al azar por parcial. Cuenta en "tareas
-espaciadas y ejercicios" (5 % del 2.º parcial: proporción de tareas entregadas a tiempo × calidad de las
-revisadas). Quien faltó hoy, entregarla sustituye el *exit ticket* y la recuperación de la sesión.
+Tiempo estimado: 40 minutos (20 en equipo + 20 individuales). **Entrega:** la tarea es individual: las partes
+1b, 2 y 3 van en `tareas/<usuario-github>/U3-S12.md` del repositorio del equipo antes del **jueves 29 de octubre
+a las 10:30** (inicio de S13) y las **autocalificas con la clave** en los minutos 5–10 de S13 (2 minutos). La
+parte 1a se hace en equipo, va al repositorio del equipo con la misma fecha y se revisa dentro de H1 (no va en
+`tareas/`). El profesor registra la entrega, no el acierto; revisa 3 tareas al azar por parcial. Cuenta en
+"tareas espaciadas y ejercicios" (5 % del 2.º parcial: proporción de tareas entregadas a tiempo × calidad de las
+revisadas). Quien faltó hoy: entregarla en esa misma fecha sustituye el *exit ticket* y la recuperación de la
+sesión.
 
 ## 1. Del tema de hoy
 
@@ -94,7 +96,8 @@ Examen 2 (martes 3 de noviembre, 08:30). Como ese día coincide con un hito, el 
 en casa cronometrado y en clase se corrige entre pares (`04-evaluacion.md`, §4); el profesor anuncia hoy dónde
 está publicado y para cuándo.
 
-1. Escribe en una línea tu **calificación esperada** en el Examen 2 (0–10). Se guarda y se compara después.
+1. Escribe en una línea tu **calificación esperada** en el Examen 2 (0–100, la escala del examen). Se guarda y se
+   compara después.
 2. Escribe los **tres temas de la Unidad III** de los que te sientes menos seguro (regiones y alcance de
    variables; carreras y sincronización; `schedule`; tareas; medición y Amdahl; falso compartido; patrones y
    SIMD). Empieza a repasar por el que más te preocupe, con las `notas-estudiante.md` de esa sesión.

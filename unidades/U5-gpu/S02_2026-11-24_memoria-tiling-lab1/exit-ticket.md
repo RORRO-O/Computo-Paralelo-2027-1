@@ -2,7 +2,7 @@
 
 # Exit ticket · S02
 
-Individual, 5 minutos, en papel. Se entrega al salir. Cuenta como participación.
+Individual, 5 minutos, en papel. Se entrega al salir. Cuenta la entrega, no el acierto.
 
 Medición de tu equipo (si la tienen; no se califica): GPU ________ · `n = 512` · naive ______ ms ·
 tiled ______ ms · cociente ______

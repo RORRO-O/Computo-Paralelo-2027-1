@@ -14,7 +14,8 @@
    que alcance cualquiera de sus dos evidencias, su historial de *commits* y la bitácora del equipo (que es común).
 5. La defensa oral del jueves 10 de diciembre (rúbrica aparte, 15 puntos) aplica la prueba de propiedad; su resultado también
    baja C6 **del integrante** que no explica ni la línea de su parte firmada ni la de rescate (cuenta la mejor de las dos,
-   `docs/metodo/05-politica-ia.md`; `proyecto/defensa/rubrica-defensa.md` §4.1; ver §4).
+   `docs/metodo/05-politica-ia.md`; `proyecto/defensa/rubrica-defensa.md` §4.1; ver §4), o que falta a la defensa sin
+   justificante (cuenta como fallar las dos, `docs/metodo/04-evaluacion.md` §3.2).
 
 ## 2. Pesos
 
@@ -86,7 +87,7 @@ tienen cambios de código se revisa con `git log --stat --author=<usuario> entre
 | **Ejemplar (4.0)** | El integrante tiene ≥ 3 *commits* con cambios de código (no solo README o formato) en ≥ 3 semanas distintas entre H1 y la entrega, con mensajes en español, en infinitivo, que describen el cambio; lo que el reparto del README §6 le atribuye coincide con sus *commits*. La bitácora del equipo tiene ≥ 5 entradas de errores fechadas y completas (qué falló, cómo se detectó, causa, qué se cambió, qué se aprendió), ≥ 1 medición descartada con su razón y ≥ 1 predicción comparada con el resultado; "qué no entendemos todavía" está escrito. |
 | **Competente (3.2)** | El integrante tiene ≥ 3 *commits* con cambios de código, pero concentrados en ≤ 2 semanas; o la bitácora tiene 3–4 entradas completas, o le falta la medición descartada o la predicción. |
 | **En desarrollo (2.2)** | El integrante tiene < 3 *commits* con cambios de código y el reparto del README explica por qué (p. ej. sus *commits* son de mediciones o del reporte); o sus mensajes no describen el cambio ("cambios", "final"); o la bitácora tiene menos de 3 entradas o entradas genéricas ("no funcionaba, lo arreglamos"). |
-| **Insuficiente (0.8)** | Participación marginal **sin** explicación en el reparto (sin *commits* propios, o un solo volcado de archivos el último día); bitácora ausente; o en la defensa el integrante no explica ni la línea de su parte firmada ni la de rescate (pregunta 1 y rescate en Insuficiente; prueba de propiedad, `docs/metodo/05-politica-ia.md`). |
+| **Insuficiente (0.8)** | Participación marginal **sin** explicación en el reparto (sin *commits* propios, o un solo volcado de archivos el último día); bitácora ausente; o en la defensa el integrante no explica ni la línea de su parte firmada ni la de rescate (pregunta 1 y rescate en Insuficiente; prueba de propiedad, `docs/metodo/05-politica-ia.md`); o faltó a la defensa sin justificante. |
 
 ## 4. Reglas que modifican la calificación
 
@@ -97,6 +98,7 @@ tienen cambios de código se revisa con `git log --stat --author=<usuario> entre
 | No compila en la máquina del profesor en 10 minutos | C5 Insuficiente; C1–C4 se evalúan solo con lo que se pueda verificar en la demo en vivo de la defensa (si tampoco compila ahí, C1 Insuficiente) |
 | Compila, pero `make test` falla | C1 Insuficiente; los demás criterios se evalúan con su evidencia (`reproducibilidad.md` §1) |
 | Un integrante no explica en la defensa ni la línea de su parte firmada (pregunta 1) ni la de rescate | C6 Insuficiente **para ese integrante** (cuenta la mejor de las dos respuestas, `docs/metodo/05-politica-ia.md`); además aplica `proyecto/defensa/rubrica-defensa.md` §4.1 |
+| Un integrante falta a la defensa sin justificante | C6 Insuficiente **para ese integrante**, como si hubiera fallado la pregunta 1 y la de rescate; además aplica `proyecto/defensa/rubrica-defensa.md` §4.2 |
 | Mediciones que el flujo no puede producir: tiempos imposibles para el hardware de `entorno.txt` (p. ej. repeticiones idénticas en todos los dígitos, o *speedup* mayor que `p` sin verificación ni explicación), o CSV sin entorno ni comando que lo genere | C4 = 0 y se trata como integridad académica (`docs/metodo/04-evaluacion.md` §6) |
 | Código idéntico entre equipos sin explicación | 0 en la entrega para todos los involucrados y reporte según reglamento |
 | Uso de IA fuera del semáforo sin declarar (versión completa generada, texto sin revisar) | El criterio afectado baja a Insuficiente y se pregunta en la defensa |

@@ -92,6 +92,7 @@ corriente), no del equipo, la demo se repite al final de la sesión sin penaliza
 | Por escrito | Puedes pedir, sin dar razones, responder tus dos preguntas por escrito en el momento: 5 minutos, papel, sin dispositivos, en una mesa aparte mientras sigue la sesión. Vale igual (`docs/metodo/05-politica-ia.md`) |
 | Qué se evalúa | Que puedas explicar código, mediciones y decisiones de tu propio repositorio: qué hace, por qué está ahí, qué pasaría si cambia. No se evalúa fluidez ni vocabulario |
 | Qué cuenta como desconocimiento | No poder decir qué hace la línea o el *kernel* que firmaste; contradecir el código que está en pantalla; describir código que no está en el repositorio; atribuir la línea a otro integrante o a "la IA" sin poder explicarla; responder con generalidades ("paraleliza"); o no responder. Cada respuesta así (también la de rescate) baja tu calificación individual del proyecto 10 %, hasta 20 % con dos (`rubrica-defensa.md` §4.1). Si además fallas la pregunta 1 y la de rescate, el criterio C6 del repositorio baja a Insuficiente para ti. Una respuesta incompleta (En desarrollo) solo baja D4 |
+| Si faltas | Sin justificante, cuenta como si hubieras fallado las dos preguntas: D4 = 0, −20 % y C6 Insuficiente; faltar nunca conviene más que presentarse. Con justificante institucional, defensa individual el martes 15 de diciembre, 08:30 (`rubrica-defensa.md` §4.2) |
 
 ## 5. Qué llevar
 

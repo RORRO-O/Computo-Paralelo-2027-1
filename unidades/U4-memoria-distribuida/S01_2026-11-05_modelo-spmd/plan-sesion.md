@@ -4,6 +4,15 @@
 
 Tipo: Contenido (estructura base de 90 min). Primera sesión de la Unidad IV. Se publica la Práctica 5.
 
+Reserva 25 min para dos pendientes de la Unidad III: 10–30, preguntas individuales de H1 (opción A de
+`proyecto/hitos/H1-avance-1.md` §8); 30–35, pregunta posterior a la fecha límite de la Práctica 4
+(`practicas/P4-openmp/entrega.md` §1). Para absorberlos (02 §1): Predecir de PRIMM se hace en silencio durante
+esas rondas; Instrucción explícita baja de 25 a 20 min; la práctica guiada, de 30 a 20 (arranca en Ejecutar); y
+Transferencia se recorta completa: su Crear (`promedio_maximo.c`) pasa íntegro a la tarea. Recuperación y Cierre
+no se tocan. Suma: 5 + 5 + 25 + 20 + 20 + 10 + 5 = 90. Si en S11 se anunció la opción B o C de H1 §8, no hay
+preguntas de H1 pendientes: solo se reservan los 5 min de la P4 (se descuentan de Transferencia) y el resto vuelve a
+la estructura base de 02 §1.
+
 ## Objetivos (al terminar, el estudiante podrá…)
 
 1. **Explicar**, con un diagrama y un fragmento de código, por qué dos procesos MPI no comparten variables y
@@ -32,6 +41,9 @@ Tipo: Contenido (estructura base de 90 min). Primera sesión de la Unidad IV. Se
   - **1** "Más hilos/procesos siempre es más rápido" → Investigar I6: con `n = 10` cuatro procesos tardan más
     que uno; con `n = 10⁹` sí escala. Tarea, ejercicio 2.
   - **28** "Aglomerar es juntar todo en un proceso" → recuperación P4 y tabla de Foster del ejemplo.
+- **Nivel de andamiaje:** completo (07 §A.5; primera sesión de contenido de la unidad). Ejemplo resuelto completo
+  con pausas de autoexplicación y práctica guiada con las cinco fases de PRIMM: Predecir en 10–35, Ejecutar,
+  Investigar y Modificar en 55–75, y Crear en la tarea (ejercicio 1(c)) porque hoy se recorta Transferencia.
 
 ## Materiales
 
@@ -42,6 +54,9 @@ Tipo: Contenido (estructura base de 90 min). Primera sesión de la Unidad IV. Se
   `sudo apt install openmpi-bin libopenmpi-dev` (Ubuntu/Debian, también en WSL), `brew install open-mpi` (macOS).
 - Pizarrón: antes de empezar, dibujar el diagrama de `notas-estudiante.md` §1 (dos columnas: hilos sobre una
   memoria; procesos con cajas separadas unidas por flechas de mensajes).
+- Para 10–35: la lista de cotejo rápida de H1 que se llenó en S13, el reparto de trabajo de cada equipo
+  (quién firmó qué) y el banco de preguntas de `proyecto/hitos/H1-avance-1.md` §6; hojas en blanco para quien
+  pida responder por escrito; 2–3 tarjetas de equipo sacadas al azar para la pregunta posterior de la P4.
 
 ## Guion minuto a minuto
 
@@ -54,11 +69,14 @@ contar manos por pregunta; anotar los conteos en "Notas post-sesión".
   ambos MIMD; P4 agrupar tareas sin perder paralelismo; P5 cuatro variables, las otras ven 0.
 - Si **P1 < 60 %** (carrera/`reduction`): no reexplicar hoy; decir "esto se retoma con la retroalimentación del
   Examen 2 el jueves 12 de noviembre" y anotarlo.
-- Si **P3 < 60 %** (compartida vs. distribuida): dedicar 2 minutos extra al diagrama en el bloque 5–10 y
-  recortar Transferencia.
+- Si **P3 < 60 %** (compartida vs. distribuida): dedicar 2 minutos extra al diagrama al abrir la instrucción
+  (35–37) y quitarlos de Investigar (I5 pasa a la casa).
 - P5 es el gancho: pedir manos a "¿quién escribió *una* variable?". Ese número se retoma en CT1.
 
 ### 5–10 Objetivos y anclaje
+
+Autocalificación de la tarea de U3 S13 con su clave (2 min; el martes 3 fue el Examen 2 y no hubo bloque de
+tarea). El profesor registra la entrega en el repositorio, no el acierto.
 
 Frase de apertura: "El martes hicieron el Examen 2 con hilos que comparten memoria. Hoy le quitamos la
 memoria compartida. Lo que queda son procesos que solo pueden hablar por mensajes. Así corren los clústeres y
@@ -72,32 +90,54 @@ Conexión con el proyecto y la evaluación: "La V2 del proyecto (H2, lunes 23 de
 compartida; MPI entra en la Práctica 5 (15 % del 3er parcial) y en el Examen 3 (martes 8 de diciembre)."
 
 Proyectar los cuatro objetivos. Señalar el diagrama del pizarrón: "al terminar, me van a explicar por qué la
-caja de la derecha no puede leer la de la izquierda".
+caja de la derecha no puede leer la de la izquierda". Anunciar el bloque siguiente: "25 minutos voy a pasar por
+los equipos con las preguntas pendientes de H1 y de la Práctica 4. Mientras, cada quien trabaja solo y en
+silencio en la fase Predecir de la práctica guiada".
 
-### 10–35 Instrucción explícita I
+### 10–30 Preguntas individuales pendientes de H1 (opción A de H1 §8)
 
-**10–13 · Dos memorias, dos unidades de ejecución.** Pensar en voz alta sobre el diagrama: "en OpenMP, `total`
+Ronda por equipos, en orden de tarjeta, ≈ 90 s por equipo (12 equipos caben en 18 min). A cada integrante, una
+pregunta del banco de H1 §6 sobre la parte que firmó en el reparto, sin ayuda del equipo; la segunda, sobre otra
+línea de esa parte, solo si la primera falla, y cuenta la mejor de las dos. Quien lo pida responde por escrito en
+el momento (5 min, papel, sin dispositivos). El resultado cierra el criterio 5 de H1 de esa persona (regla de
+H1 §6) y se anota en la lista de cotejo rápida de S13. Con más de 12 equipos: 75 s por equipo, sin repreguntar,
+como en S13. Quien falta hoy: se anota y el profesor le dice cuándo se repone.
+
+Mientras tanto, el resto del grupo trabaja solo, en silencio y sin computadora: lee `notas-estudiante.md` §1–2 y
+contesta por escrito la fase **Predecir** de `practica-guiada/README.md` (P1–P8). Quien regresa de su pregunta
+sigue donde iba. Con eso la práctica guiada de 55–75 arranca en Ejecutar (02 §1).
+
+### 30–35 Pregunta posterior de la Práctica 4
+
+Un integrante al azar de 2–3 equipos al azar explica en su laptop qué cambió en su P4 desde el Laboratorio 2
+(martes 27 de octubre). Misma regla que la mini-defensa (`practicas/P4-openmp/entrega.md` §1 y `rubrica.md`): si
+no explica la línea que firmó, **su** criterio 5 de la P4 baja a Insuficiente. El grupo sigue con Predecir.
+
+### 35–55 Instrucción explícita I
+
+**35–37 · Dos memorias, dos unidades de ejecución.** Pensar en voz alta sobre el diagrama: "en OpenMP, `total`
 existía una vez y cuatro hilos la golpeaban: carrera. Aquí `total` existe cuatro veces y nadie golpea a nadie:
 el riesgo cambia de carrera a *olvidar mandar el dato*". Tabla procesos vs. hilos de las notas (§2) en 60 s:
 `mpirun -np 4` lanza 4 procesos con 4 `pid`; `ps` los vería.
 
-**13–18 · `hello_rank.c`.** Proyectar el archivo. Leer línea por línea: `Init` → `rank`/`size` → `printf` que
+**37–41 · `hello_rank.c`.** Proyectar el archivo. Leer línea por línea: `Init` → `rank`/`size` → `printf` que
 ejecutan todos → `counter` → dos `if` por rango → `Finalize`. Preguntar por tarjeta de lista (nunca "¿alguien?"):
 "número __: ¿cuántas líneas salen con `-np 4`?" (10) "número __: ¿y con `-np 1`?" (4: el rango 0 también es el
 último). "número __: ¿qué imprime `[rango 3] counter = `?" (4, no 10). Ejecutar **dos veces** seguidas y
 señalar que el orden cambió (si no cambia a la segunda, correr una tercera; en la máquina de autoría cambió entre
 las corridas 1 y 2). Señalar los `pid` distintos. Decir en voz alta: "la línea 'nada me obliga a ser el maestro'
-está ahí a propósito: rango 0 es una convención".
+está ahí a propósito: rango 0 es una convención". Cada quien marca ✓/✗ en su P1–P4 de Predecir.
 
-**18–23 · ConcepTest 1** (`conceptests.md`): voto → si 30–80 % discusión en parejas 2 min → revoto →
+**41–46 · ConcepTest 1** (`conceptests.md`): voto → si 30–80 % discusión en parejas 2 min → revoto →
 explicación. Acierto esperado en el primer voto: 55–65 %. Explicación en una frase: "cuatro procesos, cuatro
 `x`; la barrera sincroniza el avance, no la memoria". Mostrar la salida real: `x = 0`.
 
-**23–33 · Ejemplo resuelto** (`ejemplo-resuelto.md`). Proyectar el núcleo del código.
+**46–55 · Ejemplo resuelto** (`ejemplo-resuelto.md`). Proyectar el núcleo del código.
 1. `block_range` en el pizarrón con `n = 10`, `p = 4`: tabla `q = 2`, `r = 2`, `count = 3,3,2,2`,
    `start = 0,3,6,8`. **Pausa 2** ("¿qué pasa con `n/p` para todos?"): pedir respuesta por tarjeta.
 2. Correr `mpirun -np 4 ./suma_distribuida 10 bloques` y `-np 3`. Señalar que el orden de las líneas de rango
-   fue distinto en las dos corridas.
+   fue distinto en las dos corridas. Señalar la barrera antes de `MPI_Wtime` (**Pausa 6**) y decir: "esto es
+   *una corrida*, no una medición; el protocolo (calentamiento, 5 repeticiones, mediana) es parte de la tarea".
 3. **Pausa 3** ("¿cuánto vale `total` en el rango 2?"): mostrar la salida con `printf` de `total` en todos los
    rangos (está en el ejemplo resuelto): 64.9 / 206.7 / 548.5 / 97.3. "Cuatro variables, cuatro valores."
 4. **Pausa 4** en 30 s: "el rango 0 recibe en orden 1, 2, 3 aunque el 3 termine primero; su mensaje espera".
@@ -107,18 +147,18 @@ explicación. Acierto esperado en el primer voto: 55–65 %. Explicación en una
    `k` → rango `k`; la comunicación son `p − 1` mensajes. "Aglomerar bajó los mensajes de `n` a `p − 1` sin
    perder paralelismo; juntar todo en un proceso bajaría a 0 mensajes y a 0 paralelismo" (idea 28).
 
-**33–35 · Medir.** Correr una vez `./referencia_secuencial 1000000000` y `mpirun -np 4 ./suma_distribuida
-1000000000`. Decir: "esto es *una corrida*, no una medición; el protocolo (calentamiento, 5 repeticiones,
-mediana) es parte de la tarea". Señalar la barrera antes de `MPI_Wtime` (**Pausa 6**).
+La corrida de medición con `n = 10⁹` ya no tiene minutos propios: está en I6 de la práctica guiada y en el
+ejercicio 2 de la tarea.
 
-### 35–65 Práctica guiada PRIMM
+### 55–75 Práctica guiada PRIMM
 
-Arranque (1 min): parejas; roles conductor (teclado) y navegante (lee el README y escribe las predicciones);
-**cambio de roles al minuto 50**. `cd practica-guiada && make`. Si la máquina tiene menos núcleos que procesos,
+Arranque (1 min): parejas; roles conductor (teclado) y navegante (lee el README y compara con las predicciones);
+**cambio de roles al minuto 65**. `cd practica-guiada && make`. Si la máquina tiene menos núcleos que procesos,
 el `Makefile` ya pasa `--oversubscribe`.
 
-Tiempos sugeridos: Predecir 35–42 (por escrito, antes de correr nada) · Ejecutar 42–47 · Investigar 47–57 ·
-Modificar 57–65 (TODO(1) cíclico). Quien no llegue a I6 (medición) lo salta: está en la tarea.
+Tiempos sugeridos: Predecir ya está escrito (10–35; el profesor mira dos hojas al azar en 1 min, 02 §1) ·
+Ejecutar 56–60 · Investigar 60–68 · Modificar 68–75 (TODO(1) cíclico). Quien no llegue a I6 (medición) lo
+salta: está en la tarea.
 
 El profesor circula con esta lista. No da respuestas; hace la pregunta de la derecha.
 
@@ -139,10 +179,10 @@ El profesor circula con esta lista. No da respuestas; hace la pregunta de la der
 | 13 | `n = 2` con `-np 4`: se sorprenden de rangos con 0 elementos | "¿Qué suma parcial manda un rango sin elementos? ¿Rompe el total?" (no: manda 0.0) |
 | 14 | Corren como root y Open MPI se niega | "Lee el mensaje completo: ¿qué dos variables pide?" |
 
-Al minuto 50: cambio de roles. Al minuto 57: todos deben estar en Modificar; quien sigue en Investigar deja I5 e
+Al minuto 65: cambio de roles. Al minuto 68: todos deben estar en Modificar; quien sigue en Investigar deja I5 e
 I6 para la casa.
 
-### 65–75 Puesta en común
+### 75–85 Puesta en común
 
 Mostrar (sin nombres) 2–3 hallazgos recogidos al circular:
 
@@ -151,34 +191,40 @@ Mostrar (sin nombres) 2–3 hallazgos recogidos al circular:
 2. La tabla de rastreo de `block_range` de una pareja (I3) y, al lado, el error #3 si apareció.
 3. La salida de I4 (`total` por rango) de una pareja que la tenía: "¿cuántas variables `total`?".
 
-**ConcepTest 2** (índices del rango 2): voto → discusión si hace falta → revoto → explicación con la tabla del
-pizarrón. Acierto esperado: 60–70 %.
+**ConcepTest 2** (índices del rango 2, minuto ~78): voto → discusión si hace falta → revoto → explicación con
+la tabla del pizarrón. Acierto esperado: 60–70 %. Si sobran 5 minutos: **ConcepTest 3**; si no, abre S02.
 
 Regla general (dictarla, que la copien): **"En MPI nada se comparte. Lo que un proceso necesita de otro
 viaja en un mensaje. El reparto de índices es responsabilidad del programador: `n/p` no basta cuando hay
 residuo."**
 
-### 75–85 Transferencia
+### Transferencia (recortada hoy, 02 §1)
 
-Reto (fase **Crear** del README): `promedio_maximo.c`. Cada proceso calcula suma parcial y máximo parcial de su
-bloque; un rango combina e imprime `promedio = X` y `maximo = Y` (formato `%.3f`). Criterio de "listo":
-`make test` muestra 8 PASS para `promedio_maximo` (n = 10 y n = 1 000 003 con 1, 2, 3 y 4 procesos).
+Sin minutos en esta sesión: cedió sus 10 al bloque 10–35. La fase **Crear** del README (`promedio_maximo.c`)
+pasa íntegra a la tarea como ejercicio 1(c). Cada proceso calcula suma parcial y máximo parcial de su bloque; un
+rango combina e imprime `promedio = X` y `maximo = Y` (formato `%.3f`). Criterio de "listo": `make test` muestra
+8 PASS para `promedio_maximo` (n = 10 y n = 1 000 003 con 1, 2, 3 y 4 procesos). Para la asesoría y para revisar
+la tarea el lunes 9:
 
 - Apoyo para quien no arranca: "copia `suma_distribuida.c`, cambia el cuerpo del ciclo para llevar también el
   máximo, y manda **dos** `double` en un solo mensaje: `double stats[2]`". Quien no terminó TODO(1) lo termina
-  en lugar del reto.
+  antes.
 - Extensión para quien termina: que el **último** rango (`size − 1`) sea el que combina el máximo (idea 19);
-  después, versión cíclica del promedio. Si sobran 5 minutos en el grupo: **ConcepTest 3**.
+  después, versión cíclica del promedio.
 
 ### 85–90 Cierre
 
 `exit-ticket.md` en papel (5 min; número de lista, no nombre). Mientras escriben, anunciar textualmente:
 
 1. "Queda publicada la **Práctica 5** (MPI) en `practicas/P5-mpi/`. El pre-laboratorio es individual y se
-   entrega al inicio de la sesión del **martes 10 de noviembre, 08:30**. La entrega final es el **domingo 22 de
-   noviembre a las 23:59** y vale **15 % del 3er parcial**. La rúbrica ya está publicada con el enunciado."
+   entrega antes de las **08:30 del martes 10 de noviembre**, en el repositorio del equipo, faltes o no. La entrega
+   final es el **domingo 22 de noviembre a las 23:59** y vale **15 % del 3er parcial**. La rúbrica ya está
+   publicada con el enunciado."
 2. "La **retroalimentación del Examen 2** se da el **jueves 12 de noviembre** en clase."
-3. "Tarea espaciada (`tarea-espaciada.md`): 30 minutos; se revisa al inicio de la sesión del lunes 9 de noviembre."
+3. "Tarea espaciada (`tarea-espaciada.md`, 30–40 minutos; su ejercicio 1(c) es el `promedio_maximo.c` que hoy no
+   cupo): individual, en `tareas/<usuario-github>/U4-S01.md` del repositorio del equipo (el código, en
+   `tareas/<usuario-github>/U4-S01/`), antes del **lunes 9 de noviembre, 10:30**; ese día la autocalifican en los
+   minutos 5–10. H1: con las preguntas de hoy se cierra el criterio 5; la rúbrica escrita se publica hoy."
 4. "Siguiente sesión: **lunes 9 de noviembre, 10:30, Salón 3208**: `MPI_Send`/`MPI_Recv` a fondo e
    interbloqueo. Lean las notas de hoy antes."
 
@@ -234,6 +280,8 @@ MPI_DOUBLE, 0, 0, MPI_COMM_WORLD)` por rango; el rango 0 acumula la suma, toma e
 - Conteos de recuperación (P1–P5): ____ / ____ / ____ / ____ / ____
 - CT1 primer voto ____ % · revoto ____ %. CT2 primer voto ____ % · revoto ____ %. CT3 (si se usó) ____ %.
 - Errores de la lista que aparecieron (números): ____
-- Parejas que pasaron TODO(1): ____ de ____. Parejas con `promedio_maximo` listo: ____
+- Preguntas individuales de H1: ____ integrantes; en Insuficiente: ____; ausentes por reponer: ____
+- Pregunta posterior de la P4: equipos ____ · integrantes ____ · resultado ____
+- Parejas que pasaron TODO(1): ____ de ____
 - Error más frecuente del exit ticket (abre S02 el lunes 9 de noviembre): ____
 - Qué cambiar la próxima vez: ____

@@ -79,22 +79,22 @@ segunda entrega son las de [`docs/metodo/04-evaluacion.md`](../../docs/metodo/04
 | **Práctica 4 · OpenMP** (en equipo) | **domingo 1 de noviembre, 23:59** (etiqueta `P4-entrega`) | **40 %** | [`practicas/P4-openmp/`](../../practicas/P4-openmp/README.md): enunciado, [`entrega.md`](../../practicas/P4-openmp/entrega.md) y [`rubrica.md`](../../practicas/P4-openmp/rubrica.md). Tardía hasta el miércoles 4 de noviembre, 23:59, con máximo 80 % y sin segunda entrega. Retroalimentación a más tardar el domingo 8 de noviembre. Segunda entrega solo si la primera obtiene < 70 %: dentro de los 7 días siguientes a la retroalimentación, con tope de 80 % |
 | **Examen departamental 2** (individual) | **martes 3 de noviembre, 08:30–10:00** | **40 %** | Salón 3208 (o Lab LS4 con los equipos apagados). Calificación y clave a más tardar el martes 10 de noviembre; análisis de errores el jueves 12 de noviembre (U4 S04). Preparación: [`guia-estudio-E2.md`](guia-estudio-E2.md) |
 | **H1 · Avance 1 del proyecto** (en equipo) | **jueves 29 de octubre**: etiqueta `H1` antes de las **10:30**; recepción en clase (S13) | **12 %** | [`proyecto/hitos/H1-avance-1.md`](../../proyecto/hitos/H1-avance-1.md): V1 secuencial, diseño de Foster, perfil por secciones y plan de V2. Tardía hasta el domingo 1 de noviembre, 10:30, con máximo 80 %. Rúbrica por escrito a más tardar el jueves 5 de noviembre |
-| Tareas espaciadas y ejercicios | antes de la sesión indicada en cada `tarea-espaciada.md` (tabla 3.2) | 5 % | (entregadas a tiempo / total) × calidad promedio de 3 revisadas al azar. Se autocalifican con la clave al inicio de la sesión siguiente |
+| Tareas espaciadas y ejercicios (individuales) | al inicio de la sesión siguiente del calendario (tabla 3.2) | 5 % | En el repositorio del equipo: `tareas/<usuario-github>/U3-Sxx.md` (el código, si lo hay, en `tareas/<usuario-github>/U3-Sxx/`). (entregadas a tiempo / total) × calidad promedio de 3 revisadas al azar. Se autocalifican con la clave en los minutos 5–10 de esa sesión |
 | *Exit tickets* y recuperación | cada sesión | 3 % | Por participación, no por acierto. Dos ausencias no descuentan |
 
 ### 3.2 Calendario de entregas de la unidad
 
 | Fecha y hora | Qué se entrega | Archivo de referencia |
 |---|---|---|
-| lunes 19 de octubre, 10:30 | Tarea de S07 (`tareas/S07/`) | [S07 `tarea-espaciada.md`](S07_2026-10-15_sincronizacion/tarea-espaciada.md) |
-| martes 20 de octubre, 08:30 | **Pre-laboratorio de la Práctica 4**, individual (`practicas/P4/prelab/`), faltes o no. La carpeta de la práctica quedó completa la noche del lunes 19; si casi nadie alcanzó a entregarlo, el plan de S09 prevé que el profesor anuncie al cierre una fecha nueva (propuesta: jueves 22 de octubre, 10:30). Vale la que se anuncie | [P4 `README.md`](../../practicas/P4-openmp/README.md), "Pre-laboratorio" |
-| jueves 22 de octubre, 10:30 | Tareas de S08 (`tareas/S08.md`) y de S09 (`tareas/S09/`) | [S08](S08_2026-10-19_planificacion/tarea-espaciada.md) · [S09](S09_2026-10-20_tareas-lab1/tarea-espaciada.md) |
-| lunes 26 de octubre, 10:30 | Tarea de S10 (`tareas/S10/`) | [S10 `tarea-espaciada.md`](S10_2026-10-22_rendimiento/tarea-espaciada.md) |
-| martes 27 de octubre, 08:30 | Práctica 4, Partes A y B terminadas (`make test-a`, `make test-b` en `0 FAIL`); Parte C avanzada para el Laboratorio 2 | [P4 `entrega.md`](../../practicas/P4-openmp/entrega.md) §1 |
+| lunes 19 de octubre, 10:30 | Tarea de S07 (`U3-S07.md`) | [S07 `tarea-espaciada.md`](S07_2026-10-15_sincronizacion/tarea-espaciada.md) |
+| martes 20 de octubre, 08:30 | Tarea de S08 (`U3-S08.md`). **Pre-laboratorio de la Práctica 4**, individual (`practicas/P4/prelab/`), faltes o no. La carpeta de la práctica quedó completa la noche del lunes 19; opción por defecto, a decisión del profesor (plan de S09): el pre-lab se recoge el jueves 22 de octubre, 10:30. Vale la que se anuncie al cierre de S09 | [S08 `tarea-espaciada.md`](S08_2026-10-19_planificacion/tarea-espaciada.md) · [P4 `README.md`](../../practicas/P4-openmp/README.md), "Pre-laboratorio" |
+| jueves 22 de octubre, 10:30 | Tarea de S09 (`U3-S09.md`) | [S09 `tarea-espaciada.md`](S09_2026-10-20_tareas-lab1/tarea-espaciada.md) |
+| lunes 26 de octubre, 10:30 | Tarea de S10 (`U3-S10.md`) | [S10 `tarea-espaciada.md`](S10_2026-10-22_rendimiento/tarea-espaciada.md) |
+| martes 27 de octubre, 08:30 | Tarea de S11 (`U3-S11.md`). Práctica 4, Partes A y B terminadas (`make test-a`, `make test-b` en `0 FAIL`); Parte C avanzada para el Laboratorio 2 | [S11 `tarea-espaciada.md`](S11_2026-10-26_patrones-simd/tarea-espaciada.md) · [P4 `entrega.md`](../../practicas/P4-openmp/entrega.md) §1 |
 | martes 27 de octubre | Se publica el examen de práctica; se resuelve **en casa**, cronometrado a 40 min, antes del jueves 29 a las 10:30. No tiene peso: sirve para calibrar | [`examen-practica-U3.md`](S13_2026-10-29_H1-repaso/examen-practica-U3.md) |
-| jueves 29 de octubre, 10:30 | **H1** (etiqueta `H1`). Tareas de S11 (`tareas/S11.md`) y de S12 (la parte 1a va dentro de H1) | [S11](S11_2026-10-26_patrones-simd/tarea-espaciada.md) · [S12](S12_2026-10-27_lab2-proyecto/tarea-espaciada.md) · [H1](../../proyecto/hitos/H1-avance-1.md) |
+| jueves 29 de octubre, 10:30 | **H1** (etiqueta `H1`). Tarea de S12 (`U3-S12.md`; la parte 1a, de equipo, va dentro de H1) | [S12 `tarea-espaciada.md`](S12_2026-10-27_lab2-proyecto/tarea-espaciada.md) · [H1](../../proyecto/hitos/H1-avance-1.md) |
 | domingo 1 de noviembre, 23:59 | **Práctica 4 completa** (etiqueta `P4-entrega`) | [P4 `entrega.md`](../../practicas/P4-openmp/entrega.md) |
-| martes 3 de noviembre, 08:30 | Tarea de S13 (`tareas/S13/`) y **Examen 2** | [S13 `tarea-espaciada.md`](S13_2026-10-29_H1-repaso/tarea-espaciada.md) · [`guia-estudio-E2.md`](guia-estudio-E2.md) |
+| martes 3 de noviembre, 08:30 | Tarea de S13 (`U3-S13.md`; se autocalifica el jueves 5) y **Examen 2** | [S13 `tarea-espaciada.md`](S13_2026-10-29_H1-repaso/tarea-espaciada.md) · [`guia-estudio-E2.md`](guia-estudio-E2.md) |
 | jueves 5 de noviembre, 10:30 (U4 S01) | Pregunta individual de H1 (primeros 20 min) y pregunta posterior de la Práctica 4 a 2–3 equipos | [H1](../../proyecto/hitos/H1-avance-1.md) · [P4 `entrega.md`](../../practicas/P4-openmp/entrega.md) §1 |
 
 Carga orientativa fuera de clase (`planeacion/calendario-27-1.md`): 3 h la semana del 15 al 18 de octubre, 5 h
@@ -104,7 +104,7 @@ la del 19 al 25 y 6 h la del 26 de octubre al 1 de noviembre (Parte D y reporte 
 
 | Qué | Para qué en esta unidad | Notas |
 |---|---|---|
-| `gcc` con OpenMP (`-fopenmp`) | Todo el código: `gcc -std=c11 -O2 -Wall -Wextra -fopenmp` | El material se escribió y probó con gcc 13.3. El README del curso pide gcc ≥ 9; el `collapse(2)` sobre un ciclo triangular de S08 §6 necesita gcc ≥ 11 |
+| `gcc` con OpenMP (`-fopenmp`) | Todo el código: `gcc -std=c11 -O2 -Wall -Wextra -fopenmp` | Requisito del curso: gcc ≥ 11 (el `collapse(2)` sobre un ciclo triangular de S08 §6 lo necesita). El material se escribió y probó con gcc 13.3 |
 | ThreadSanitizer (`-fsanitize=thread`) | Localizar carreras (S07, S08, S09, S11, S12, S13: `make tsan`) | Viene con gcc en Linux. Con gcc da falsos positivos en código sincronizado por `libgomp` (S07 §2) |
 | `make` y `bash` | `make`, `make test`, `tests/run_tests.sh`, `medir.sh` | Todas las carpetas con código tienen `all`, `run`, `test` y `clean` |
 | Python 3 con `matplotlib` | Gráficas de *speedup* y eficiencia (S10 `graficar.py`; P4 `graficar.py`; `herramientas/graficar_speedup.py`) | Sin `matplotlib`, la gráfica se hace a mano con la tabla que imprime el programa |
@@ -120,24 +120,25 @@ salida proyectada. El protocolo de medición está en
 
 Regla del curso (`docs/metodo/04-evaluacion.md` §5 y `01-marco-pedagogico.md`, P10): todo el material es
 autocontenido, y el *exit ticket* y la recuperación del día que faltaste se sustituyen **entregando la
-`tarea-espaciada.md` de esa sesión en la fecha que ella indica** (tabla 3.2; casi siempre, el inicio de la sesión
-siguiente). Cuenta como participación. Orden de trabajo (≈ 1.5 h, lo mismo que la clase):
+`tarea-espaciada.md` de esa sesión en la fecha que ella indica** (tabla 3.2: el inicio de la sesión siguiente,
+la misma fecha que para el grupo). Cuenta como participación. Orden de trabajo (≈ 1.5 h, lo mismo que la clase):
 
 | Paso | Archivo de la carpeta de la sesión | Tiempo | Qué haces |
 |---|---|---|---|
 | 1 | `notas-estudiante.md` | 10 min | Lee el concepto, la tabla principal y los errores frecuentes |
 | 2 | `ejemplo-resuelto.md` | 20 min | Responde cada pausa ("¿por qué este paso?") **por escrito** antes de abrir su `<details>` |
 | 3 | `practica-guiada/README.md` | 25–40 min | PRIMM completo: escribe las predicciones antes de compilar; `make test` debe pasar |
-| 4 | `tarea-espaciada.md` | 20–40 min | Entrégala en el repositorio del equipo en la fecha que indica (tabla 3.2); sustituye *exit ticket* y recuperación |
+| 4 | `tarea-espaciada.md` | 20–40 min | Entrégala en `tareas/<usuario-github>/U3-Sxx.md` del repositorio del equipo en la fecha que indica, la misma que para el grupo (tabla 3.2); sustituye *exit ticket* y recuperación |
 | 5 (opcional) | `retrieval-inicio.md` y `exit-ticket.md` | 10 min | Contéstalos sin apuntes y corrige con la clave en `<details>`; así sabes si de verdad recuperaste la sesión |
 
 Casos particulares:
 
 - **Laboratorios (S09 y S12).** Las Partes de la Práctica 4 se siguen haciendo con tu equipo. El pre-laboratorio
-  se entrega antes de la hora de la sesión, faltes o no. Si te tocaba **mini-defensa**, se hace en la siguiente
-  sesión de laboratorio (para S09, el martes 27 de octubre; para S12, el martes 10 de noviembre) o en la reserva
-  del martes 15 de diciembre (`04` §5); `03-plantilla-practica.md` §1 y el plan de S12 ofrecen en cambio un video
-  de 3 minutos o menos, no listado. Pregunta al profesor cuál aplica.
+  se entrega antes de la hora de la sesión, faltes o no. Si te tocaba **mini-defensa**, se repone en la siguiente
+  sesión de laboratorio (para S09, el martes 27 de octubre; para S12, el martes 10 de noviembre). Si no puedes ir
+  a ese laboratorio, envías un video no listado de ≤ 3 minutos en el que explicas dos fragmentos de tu código que
+  elige el profesor, a más tardar el martes 15 de diciembre, 08:30 (`04` §5;
+  [P4 `entrega.md`](../../practicas/P4-openmp/entrega.md) §5).
 - **S09.** Si ese día la Práctica 4 aún no estaba publicada, en su lugar se hicieron A′ y B′; lo que hayan dejado
   en `practicas/P4/lab1/` cuenta como avance de las Partes A y B (S09 `plan-sesion.md`, Plan B de P4, y
   `notas-estudiante.md`, primer párrafo).
@@ -199,4 +200,5 @@ guía de estudio las repasa con preguntas en su §4.
   y código verificado en `docente/examenes/E2/` (no se publica). La guía de estudio toma de ahí solo los pesos por
   tema, la estructura con los minutos sugeridos, las instrucciones de portada y el modelo de la hoja de
   calibración, sin ítems.
-- **Registro:** `herramientas/seguimiento-grupo.csv` (la copia llena vive en `docente/`).
+- **Registro:** la hoja llena vive en `docente/seguimiento-grupo.csv` (no se versiona);
+  `herramientas/seguimiento-grupo.csv` es solo la plantilla vacía.

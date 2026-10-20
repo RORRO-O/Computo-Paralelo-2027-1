@@ -2,16 +2,17 @@
 
 # S13 · Tarea espaciada (40 minutos): cazador de errores, intercalado y preparación del Examen 2
 
-**Entrega.** Carpeta `tareas/S13/` en el repositorio de tu equipo con `respuestas.md`, los tres cazadores
-corregidos y tu `caza4_<tema>_buggy.c`, antes del **martes 3 de noviembre de 2026, 08:30** (hora del Examen 2:
-esta tarea es tu preparación y no sirve después). La **autocalificas con la clave** en `<details>` al inicio
-de la sesión del **jueves 5 de noviembre** (U4 S01, bloque 5–10; el martes es el examen y no hay bloque de
-tarea). El profesor registra la entrega, no el acierto; revisa 3 tareas al azar por parcial (5 % del 2.º
-parcial, "Tareas espaciadas y ejercicios"). Quien faltó hoy: entregarla antes del martes 3 a las 08:30
-sustituye el *exit ticket* y la recuperación de la sesión.
+**Entrega.** Individual (el ejercicio 1 se trabaja en pareja, pero cada quien sube lo suyo), en el repositorio
+de tu equipo: tus respuestas en `tareas/<usuario-github>/U3-S13.md` y, en `tareas/<usuario-github>/U3-S13/`, los
+tres cazadores corregidos y tu `caza4_<tema>_buggy.c`, antes del **martes 3 de noviembre de 2026, 08:30** (hora
+del Examen 2, la sesión siguiente: esta tarea es tu preparación y no sirve después). La **autocalificas con la
+clave** en `<details>` en los minutos 5–10 de la sesión del **jueves 5 de noviembre** (U4 S01; el martes es el
+examen y no hay bloque de tarea). El profesor registra la entrega, no el acierto; revisa 3 tareas al azar por
+parcial (5 % del 2.º parcial, "Tareas espaciadas y ejercicios"). Quien faltó hoy: entregarla en esa misma fecha
+(martes 3, 08:30) sustituye el *exit ticket* y la recuperación de la sesión.
 
 IA: verde para que te explique un reporte de ThreadSanitizer o una idea errónea; amarillo (declarado en
-`respuestas.md`) para que revise tu `caza4`; rojo para que corrija los cazadores o escriba el `caza4` por ti.
+`U3-S13.md`) para que revise tu `caza4`; rojo para que corrija los cazadores o escriba el `caza4` por ti.
 El martes 3 no hay IA y sí hay un ítem igual a estos.
 
 **Recordatorios.** **Práctica 4: domingo 1 de noviembre, 23:59** (40 % del 2.º parcial). **Lunes 2 de
@@ -26,14 +27,14 @@ PRIMM: se recibe H1 y se corrige el examen de práctica).
 1. **Antes de la tarea** (no cuenta en sus 40 minutos): las fases Predecir, Ejecutar e Investigar del README
    (30 min, en pareja). Son la práctica guiada de esta sesión, que en S13 se hace en casa.
 2. **Modificar (10 min).** Corrige `caza1_race_buggy.c`, `caza2_barrier_buggy.c` y `caza3_private_buggy.c` en el lugar
-   hasta que `make cazar` termine en `0 FAIL`. Para cada uno, en `respuestas.md`, la **elección justificada**
+   hasta que `make cazar` termine en `0 FAIL`. Para cada uno, en `U3-S13.md`, la **elección justificada**
    entre las tres alternativas de la tabla de la fase 4 (una línea por alternativa: por qué la elegiste o por
    qué la descartaste, citando correctitud **y** costo). Ejemplo del formato, para un caso distinto:
    "`atomic`: correcto, una atómica por elemento, descartado por costo; `critical`: correcto, serializa,
    descartado; `reduction`: correcto, una combinación por hilo, elegido".
 3. **Crear (15 min).** Escribe `caza4_<tema>_buggy.c` con un error para tu pareja (reglas en el README, fase 5: encabezado
    con `Síntoma esperado:` e `Idea errónea:`, referencia secuencial propia, `RESULT`). Intercámbienlo; cada
-   quien corrige el de la otra persona hasta que `make cazar` pase con los cuatro archivos. En `respuestas.md`:
+   quien corrige el de la otra persona hasta que `make cazar` pase con los cuatro archivos. En `U3-S13.md`:
    qué error plantaste, en cuántos minutos lo encontró tu pareja y con qué herramienta (razonamiento, TSan,
    `make warn`, `make cazar`).
 
@@ -81,7 +82,7 @@ mapeo a hilos es dinámico porque el costo por `k` es irregular (ideas 28 y 11).
 ## 3. Preparación (7 min, individual) · El Examen 2 y la Unidad IV
 
 a) **Rehaz sin clave y cronometrado** el ítem del examen de práctica en que menos puntos obtuviste (el que
-anotaste en el *exit ticket*). Compara después con la clave y escribe en `respuestas.md` una línea: "la segunda
+anotaste en el *exit ticket*). Compara después con la clave y escribe en `U3-S13.md` una línea: "la segunda
 vez obtuve __/__; lo que cambió fue __". Si te sobra tiempo antes del martes, repite con el segundo peor.
 
 b) El Examen 2 tiene un ítem de **encontrar el error** como los cazadores. Escribe tu lista de verificación

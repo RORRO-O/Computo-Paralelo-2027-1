@@ -11,7 +11,7 @@ En el repositorio del curso esta carpeta solo tiene este archivo. En el reposito
 | `tiempo_vs_bloque.png`, `speedup_vs_n.png`, `transferencias.png` | `python3 graficar.py resultados/resultados_P6_*.csv -o resultados` (o `make graficas`) | Las gráficas de `REPORTE.md` |
 | `entorno.txt` | La misma sección 9: `nvidia-smi` (modelo de GPU, controlador, memoria), `nvcc --version`, CPU de la máquina y fecha | Sin modelo de GPU y fecha la medición no cuenta (`herramientas/protocolo-medicion.md` §1.4 y §5) |
 | `hist_cpu.txt` (opción 1 de la Parte C) | `./c_histograma_cpu <n> --volcar hist_cpu.txt` | Las 256 cuentas de referencia para comparar tu histograma completo |
-| `tarea-S04.md` (una por integrante) | Tarea espaciada de la S04 (lunes 30 de noviembre) | Pre-mortem y primera fila de la tabla; el profesor la usa en las mini-defensas del Lab 2 |
+| Primera fila de la tabla de la Parte D | Tarea espaciada de la S04 (lunes 30 de noviembre), que cada integrante entrega en `tareas/<usuario-github>/U5-S04.md`; el equipo copia aquí la fila | Pre-mortem y primera fila de la tabla; el profesor usa la tarea en las mini-defensas del Lab 2 |
 | Captura fechada del aviso de cuota (solo si aplica) | Tú, si Colab **y** Kaggle niegan GPU en las 48 h previas a la entrega | Evidencia para entregar la medición como "pendiente" sin penalización (`docs/metodo/04-evaluacion.md` §5) |
 
 Los CSV y PNG **sí** se versionan (son la evidencia); los binarios no. Una sesión de medición = una GPU = un
@@ -34,7 +34,7 @@ experimento,kernel,n,block,grid,ocupacion_pct,memoria,t_h2d_ms,t_kernel_ms,t_d2h
 | `memoria` | `pageable` (`malloc`) o `pinned` (`cudaMallocHost`; extensión opcional) |
 | `t_h2d_ms`, `t_kernel_ms`, `t_d2h_ms` | Medianas de 5 repeticiones (tras 1 calentamiento) de las copias anfitrión→dispositivo, del *kernel* solo y de la copia de regreso, medidas con `cudaEvent_t` |
 | `t_total_ms` | `t_h2d + t_kernel + t_d2h`: el tiempo **con** transferencias |
-| `t_cpu_ms` | Mediana de la referencia secuencial en la **misma máquina** (`-O2`): el `T(1)` del protocolo |
+| `t_cpu_ms` | Mediana de la referencia secuencial en la **misma máquina** (`-O2`): el `T(1)` del protocolo, de la misma operación que el *kernel* de la fila (en la opción 1 de la Parte C, el histograma y la suma se miden por separado) |
 | `speedup_kernel` | `t_cpu / t_kernel` (**sin** copias) |
 | `speedup_total` | `t_cpu / t_total` (**con** copias): el que vale cuando los datos empiezan y terminan en la CPU |
 | `ancho_banda_gbs` | Bytes útiles que mueve el *kernel* (entradas + salidas) entre `t_kernel`; compáralo con los ≈ 320 GB/s teóricos de una T4 |

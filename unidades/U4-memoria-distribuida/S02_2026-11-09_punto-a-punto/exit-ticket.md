@@ -2,8 +2,8 @@
 
 # S02 · Exit ticket (5 minutos, individual)
 
-Escribe tu número de lista. Responde en media hoja. Se entrega al salir; cuenta como participación y
-decide cómo empieza la sesión del jueves 12 de noviembre.
+Escribe tu número de lista. Responde en media hoja. Se entrega al salir; no se califica (en el 3.er parcial no
+tiene peso propio) y decide cómo empieza la sesión del martes 10 de noviembre (S03).
 
 ## Pregunta 1 (conceptual)
 
@@ -62,6 +62,6 @@ parte fija (latencia) que se paga por mensaje; muchos mensajes chicos son mucho 
 con los mismos bytes.
 
 **Pregunta 3.** Registrar la distribución de confianza junto con el montón de la pregunta 1: quien está en
-"mal" con confianza 4 es la prioridad de la retroalimentación del jueves 12 de noviembre.
+"mal" con confianza 4 es la prioridad de la retroalimentación del martes 10 de noviembre (S03).
 
 </details>

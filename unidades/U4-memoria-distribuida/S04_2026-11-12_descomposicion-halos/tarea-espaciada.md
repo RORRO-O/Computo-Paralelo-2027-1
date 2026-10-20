@@ -2,13 +2,16 @@
 
 # S04 · Tarea espaciada (20–40 min)
 
-**Entrega.** Carpeta `tareas/U4-S04/` en tu repositorio personal, antes del **martes 17 de noviembre de 2026, 08:30** (inicio de
-S05, Lab 2 de la Práctica 5). Un archivo `respuestas.md` más el código del ejercicio 1. El lunes 16 de noviembre no hay clase.
+**Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U4-S04.md` (tus respuestas) y el código del
+ejercicio 1 en `tareas/<usuario-github>/U4-S04/`, antes del **martes 17 de noviembre de 2026, 08:30** (inicio de S05, Lab 2 de
+la Práctica 5). El lunes 16 de noviembre no hay clase. Si faltaste hoy, entregarla en esa misma fecha sustituye tu recuperación
+y tu *exit ticket* de S04 (`docs/metodo/04-evaluacion.md` §5).
 
 **Qué cuenta.** Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del
-Examen 3 toman ítems de aquí (ponderaciones del 3er parcial en `planeacion/mapa-evaluacion.md`: Examen 3 30 %, P5 15 %, P6 15 %,
-proyecto 40 %). La autocalificas con la clave al inicio de S05 (2 min); el profesor registra la entrega. El ejercicio 3 es tu
-predicción obligatoria para la Parte D de la Práctica 5 (15 % del parcial), que se mide ese día.
+Examen 3 toman ítems de aquí. Ponderaciones del 3er parcial en `planeacion/mapa-evaluacion.md`: Examen 3 30 %, P5 15 %, P6 15 %,
+proyecto 40 %. La autocalificas con la clave en los minutos 5–10 de S05 (2 min); el profesor registra la entrega, no el
+acierto, y revisa 3 al azar por parcial. El ejercicio 3 es tu predicción obligatoria para la Parte D de la Práctica 5 (15 % del
+parcial), que se mide ese día.
 
 ## 1. Del tema (15 min) · Fuente de calor en el centro
 
@@ -20,7 +23,7 @@ Verificación: `./jacobi1d_seq 15 1e-3 100000 --source` debe dar `iteraciones=11
 `mpirun -np 4 ./jacobi1d_mpi 15 1e-3 100000 --source` exactamente lo mismo (verificado con la solución del profesor con 3 y 4
 procesos). Descomenta la línea `run_case "fuente n=15 p=4 ..."` de `tests/run_tests.sh`: debe salir `PASS`.
 
-En `respuestas.md`: (a) ¿en qué rango cae la fuente con `n = 15, p = 4` y qué índice local tiene? (b) Un compañero fijó la celda
+En `U4-S04.md`: (a) ¿en qué rango cae la fuente con `n = 15, p = 4` y qué índice local tiene? (b) Un compañero fijó la celda
 `local_n / 2` en cada rango: ¿cuántas fuentes tiene su programa con `p = 4`? ¿Cómo lo delata la salida sin leer su código?
 
 <details><summary>Respuestas</summary>
@@ -69,7 +72,7 @@ MB/s de **tu** máquina; si no los tienes, usa α = 2 µs, β = 2000 MB/s), esti
 | 1 000 000 | | | | |
 
 Escribe tu predicción para la Parte D de la Práctica 5: "Con `n = 10^6` y 4 procesos espero un *speedup* de ___ porque ___".
-Se compara con la medición del martes 17 de noviembre. Tráela impresa o en el `respuestas.md`.
+Se compara con la medición del martes 17 de noviembre. Va en tu `U4-S04.md`.
 
 <details><summary>Orientación</summary>
 `n = 1000`: `local_n = 250` → 0.25 µs de cómputo contra ~6 µs de comunicación: la comunicación domina 20 a 1; el *speedup* será

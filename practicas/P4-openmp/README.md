@@ -138,7 +138,7 @@ Lee `hist_tasks_rec` y `hist_tasks` (líneas 78–110). Anota en el reporte, sec
 | # | Pregunta | Tu predicción |
 |---|---|---|
 | P1 | Con 4 hilos y n = 10⁶, ordena de más rápida a más lenta: `critical`, `atomic`, `local`, `reduction`, `tareas`. ¿Cuáles serán más lentas que la secuencial? | |
-| P2 | En la tabla de S07 (≈ 1.5–2 ns de trabajo por elemento) las tres versiones salieron más lentas que la secuencial, y al repetirlo `local` cambia mucho entre corridas. ¿Qué esperas aquí de `local`, con ≈ 20 ns por muestra? ¿Por qué podría cambiar? | |
+| P2 | En la tabla de S07 (≈ 1.5–2 ns de trabajo por elemento) `critical` y `atomic` salieron más lentas que la secuencial, y `local` cambió mucho entre corridas: *speedup* de 3.3 a 4.8 con 4 hilos y la máquina libre, menor que 1 en otra corrida (depende de la carga). ¿Qué esperas aquí de `local`, con ≈ 20 ns por muestra? ¿Por qué podría cambiar? | |
 | P3 | `./bin/a_histogram tareas 1000000 64 16384`: ¿cuántas tareas se crean? (cada llamada con más de 16 384 muestras crea dos; dibuja los dos primeros niveles del árbol) | |
 | P4 | La misma corrida con `OMP_NUM_THREADS=1`: ¿cuántas tareas? | |
 | P5 | `right` (línea 87) es una variable local del padre y la tarea de las líneas 96–97 la recibe sin cláusula `shared`. ¿La hija escribe en el arreglo que después suma el padre (línea 99) o en una copia? | |
@@ -284,9 +284,12 @@ enteros: la comparación es exacta.
 
 <details><summary>Respuestas de referencia de la Parte A (ábrelas después de ejecutar)</summary>
 
-- **P1/P2.** Con 4 hilos: `reduction` ≈ `local` ≈ `tareas` < `seq` < `atomic` ≪ `critical`. A diferencia de S07,
-  las versiones con acumulador privado sí le ganan a la secuencial: cada muestra trae 20–25 ns de cálculo privado
-  que se reparte entre los hilos, y la sincronización ocurre una vez por hilo (o por hoja), no por muestra.
+- **P1/P2.** Con 4 hilos: `reduction` ≈ `local` ≈ `tareas` < `seq` < `atomic` ≪ `critical`. Las versiones con
+  acumulador privado le ganan a la secuencial: cada muestra trae 20–25 ns de cálculo privado que se reparte entre
+  los hilos, y la sincronización ocurre una vez por hilo (o por hoja), no por muestra. A diferencia de S07, donde la
+  región de `local` dura unos 5 ms, aquí con n = 10⁷ (`make speedup-a`) dura decenas de milisegundos: que otro
+  proceso le quite el núcleo a un hilo un momento pesa menos, aunque el *speedup* sigue cambiando con la carga de
+  la máquina.
 - **P3/P4.** 126 en los dos casos: 1 000 000 → 500 000 → … → 15 625 ≤ 16 384 en el nivel 6; 2 + 4 + 8 + 16 + 32 + 64
   = 126 (64 hojas). Las tareas las crea la recursión, no los hilos.
 - **P5.** En el arreglo del padre: se copia el **puntero**, no el arreglo. En `fib_buggy.c` la hija escribía en
@@ -526,8 +529,8 @@ Resumen (detalle en `entrega.md`): repositorio **privado** del equipo con el pro
 `entorno.txt`, `p4_speedup.png`, `p4_eficiencia.png`, y `mandelbrot.png` si elegiste Mandelbrot), `prelab/` y
 `REPORTE.md` (≤ 3 páginas: reparto de trabajo, decisiones, tablas, gráficas, interpretación, reflexión, bitácora de
 errores con ≥ 3 entradas, declaración de IA). Historial de *commits* con participación de cada integrante. Etiqueta
-`P4-entrega` antes del **domingo 1 de noviembre, 23:59**. Mini-defensa en el Laboratorio 2; video de ≤ 3 minutos solo
-para quien no estuvo en la suya.
+`P4-entrega` antes del **domingo 1 de noviembre, 23:59**. Mini-defensa en el Laboratorio 2; quien no estuvo en la suya
+la repone en el siguiente laboratorio y, solo si no puede, envía un video de ≤ 3 minutos (`entrega.md` §5).
 
 ## Rúbrica (resumen; completa en `rubrica.md`)
 

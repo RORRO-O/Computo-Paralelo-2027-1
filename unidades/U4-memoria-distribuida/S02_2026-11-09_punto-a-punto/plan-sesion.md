@@ -30,6 +30,9 @@ el autor: contiene las frases clave, las salidas reales y las soluciones de los 
   → ConcepTest 1, práctica I1–I2, *exit ticket* P1; **21** (la comunicación es gratis) → ConcepTest 3,
   práctica I4, *exit ticket* P2; **16** (los procesos comparten memoria) → recuperación P2, práctica P1c,
   ejemplo resuelto pausa 3, distractor D del ConcepTest 1.
+- **Nivel de andamiaje:** completo (07 §A.5; segunda sesión de contenido de la unidad). Ejemplo resuelto
+  completo (`status_demo.c` y la variante que falla, con sus pausas) y práctica guiada con las cinco fases de
+  PRIMM; Crear (`ring_neighbors.c`) en Transferencia.
 
 ## Materiales
 
@@ -67,13 +70,17 @@ pedir manos por pregunta.
 
 ### 5–10 · Objetivos y anclaje
 
+Autocalificación de la tarea de S01 con su clave (2 min); el profesor registra la entrega en el repositorio
+(`tareas/<usuario-github>/U4-S01.md`), no el acierto.
+
 Frase de apertura: "El jueves cada proceso imprimió su rango. Hoy un proceso le manda algo a otro. El error
 más frecuente del *exit ticket* del jueves fue ______ [o: creer que si el rango 2 cambia una variable el
 rango 3 la ve]. Hoy van a ver que ni siquiera el búfer que acaban de enviar lo ve el otro: lo que viaja es
 una copia."
 
-Proyectar los cuatro objetivos. Vínculo con el proyecto: "En la V2 del proyecto, y en la Práctica 5 que
-empieza mañana, el costo de comunicación decide si su versión distribuida gana o pierde. Hoy lo miden."
+Proyectar los cuatro objetivos. Vínculo con la práctica y el proyecto: "En la Práctica 5, que empieza mañana,
+el costo de comunicación decide si su versión distribuida gana o pierde. Hoy lo miden. La V2 del proyecto es
+OpenMP, sin mensajes; la pregunta es la misma con hilos: cuánto trabajo hay por cada sincronización."
 
 ### 10–35 · Instrucción explícita I
 
@@ -208,10 +215,13 @@ y `todo_pending = 0`.
 
 - *Exit ticket* (`exit-ticket.md`): 2 preguntas + confianza, en la hoja, con número de lista. Se recoge al salir.
 - Anuncios, con fecha:
-  - **Mañana martes 10 de noviembre, 08:30, Lab LS4 (Edificio 3): Práctica 5 · Lab 1.** Se entrega el
-    **pre-laboratorio de la Práctica 5** al inicio. La Práctica 5 vale **15 % del 3er parcial** y se entrega el **domingo 22 de
+  - **Mañana martes 10 de noviembre, 08:30, Lab LS4 (Edificio 3): Práctica 5 · Lab 1.** El
+    **pre-laboratorio de la Práctica 5** se entrega antes de las **08:30 del martes 10 de noviembre**, en el
+    repositorio del equipo. La Práctica 5 vale **15 % del 3er parcial** y se entrega el **domingo 22 de
     noviembre, 23:59**.
-  - Tarea espaciada (`tarea-espaciada.md`, 20–40 min): se trae resuelta el **jueves 12 de noviembre, 10:30**.
+  - Tarea espaciada (`tarea-espaciada.md`, 20–40 min): individual, en `tareas/<usuario-github>/U4-S02.md` (el
+    código, en `tareas/<usuario-github>/U4-S02/`), antes del **martes 10 de noviembre, 08:30** (inicio de S03);
+    ahí se autocalifica en los minutos 5–10.
   - El jueves 12 de noviembre también se devuelve la retroalimentación del Examen 2.
 
 ## Diferenciación
@@ -234,8 +244,8 @@ y `todo_pending = 0`.
 | 3 (corregir el intercambio) | `make test` con `PASS` en `cross_exchange_sendrecv` al minuto 65 | < 70 % de parejas con `PASS` |
 | 4 (modelo de costo) | ConcepTest 3; *exit ticket* P2 inciso c | > 30 % contesta que "da igual" |
 
-El mismo día: clasificar los *exit tickets* (bien / parcial / mal) y abrir S04 (jueves 12 de noviembre) con
-el error más frecuente. Si la P2 del *exit ticket* sale mal en más del 30 %, el ConcepTest 3 se repite en S05.
+El mismo día: clasificar los *exit tickets* (bien / parcial / mal) y abrir S03 (martes 10 de noviembre, 08:30)
+con el error más frecuente. Si la P2 del *exit ticket* sale mal en más del 30 %, el ConcepTest 3 se repite en S05.
 
 ## Notas post-sesión
 

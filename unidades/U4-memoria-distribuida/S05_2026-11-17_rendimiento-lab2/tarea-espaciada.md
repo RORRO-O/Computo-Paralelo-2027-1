@@ -2,11 +2,12 @@
 
 # S05 · Tarea espaciada (20–40 minutos)
 
-**Entrega:** archivo `tareas/U4-S05.md` en el repositorio de tu equipo (una entrada por integrante, con tu
-nombre de usuario de Git) antes del **jueves 19 de noviembre de 2026, 10:30**. Los ejercicios 1 y 3 se
-reutilizan directamente en la Parte D de la Práctica 5 (vence el **domingo 22 de noviembre, 23:59**) y en el
-H2 del proyecto (**lunes 23 de noviembre, en clase**); por eso conviene hacerlos bien una sola vez. La tarea se
-revisa en la recuperación del jueves.
+**Entrega:** individual, en el repositorio del equipo: `tareas/<usuario-github>/U4-S05.md`, antes del **jueves
+19 de noviembre de 2026, 10:30** (inicio de S06). Los ejercicios 1 y 3 se reutilizan directamente en la Parte D
+de la Práctica 5 (vence el **domingo 22 de noviembre, 23:59**) y en el H2 del proyecto (**lunes 23 de
+noviembre, en clase**); por eso conviene hacerlos bien una sola vez. La autocalificas en los minutos 5–10 de S06
+(ver "Qué cuenta y cómo se revisa", al final). Si faltaste hoy, entregarla en esa misma fecha sustituye tu
+recuperación y tu *exit ticket* de S05 (`docs/metodo/04-evaluacion.md` §5).
 
 ## Ejercicio 1 · Del tema de hoy (15 min): tu modelo contra tus datos
 
@@ -91,7 +92,7 @@ La S06 cierra la Unidad IV con tipos derivados y comunicadores (panorama) y un t
 ## Qué cuenta y cómo se revisa
 
 Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del
-Examen 3 toman ítems de aquí. La autocalificas con las claves de arriba en los primeros minutos del jueves 19
+Examen 3 toman ítems de aquí. La autocalificas con las claves de arriba en los minutos 5–10 del jueves 19
 de noviembre (2 min); el profesor registra la entrega, no el acierto, y revisa 3 al azar por parcial. Su valor
 inmediato: el ejercicio 1 es la interpretación de la Parte D de la P5 y el ejercicio 3.2 es la lista de cotejo
 del H2. En la recuperación del jueves 19 se preguntan el valor de la barrera (ej. 2) y el número de mensajes

@@ -35,8 +35,10 @@ imprime `left + right`, sin nada en medio. ¿Qué crees que imprima? ¿Por qué?
    vez en la pregunta 4 de la Parte D, en el Lab 2, martes 27 de octubre). Para el profesor: cuenta cuántos
    escribieron `sin pre-lab`. *Variante B:* también es predicción y se compara hoy, en la parte A′ del
    laboratorio (si la Práctica 4 ya está publicada, con las filas `atomic` y `local` de `make speedup-a`: allí
-   cada muestra trae ≈ 20 ns de cálculo y `local` sí escala, que es la pregunta P2). Referencia de autoría: `atomic` ≈ 0.06 (más lento que el
-   secuencial: cada incremento pelea por la línea de caché del *bin*) y locales ≈ 4.7.
+   cada muestra trae ≈ 20 ns de cálculo y `local` también escala, que es la pregunta P2). Referencia de autoría
+   en el histograma de S07 (cinco corridas): `atomic` 0.06–0.08 (más lento que el secuencial: cada incremento
+   pelea por la línea de caché del *bin*) y locales 3.3–4.8. El de locales depende de la carga de la máquina: en
+   otra corrida quedó por debajo de 1 (S07 `practica-guiada/README.md`, tabla de Ejecutar).
 2. **Hilo 0.** `static,3` forma los bloques {0,1,2}, {3,4,5}, {6,7,8}, {9,10,11}, {12,13,14}, {15} y los
    reparte cíclicamente: bloques 0–3 a los hilos 0–3, el bloque 4 otra vez al hilo 0. `i = 14` está en el
    bloque 4. Quien contestó "hilo 3" pensó en `static` sin *chunk* (bloques contiguos de 4); quien contestó

@@ -28,6 +28,9 @@ completo** se obtiene con 4 hilos?
 - C) 3.5
 - D) 0.63
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 **Respuesta: B.** Tiempo nuevo = 0.25 + 1.20/4 + 0.05 = 0.60 s; S = 1.50 / 0.60 = 2.5.
 
 | Distractor | Origen |
@@ -42,6 +45,8 @@ Guion de discusión (3 líneas): "Quien votó C: ¿en qué unidad está la fracc
 segundos? Quien votó A: ¿cuánto tarda la carga con 4 hilos? Todos: escriban el tiempo nuevo fase por fase
 y súmenlo; después dividan."
 
+</details>
+
 ## CT2 · ¿Cuál es el primer paso para pasar de la V1 a la V2? (ideas erróneas 29 y 28)
 
 La V1 de un equipo lee un archivo, construye una estructura y corre un ciclo principal donde aparece
@@ -53,6 +58,9 @@ La V1 de un equipo lee un archivo, construye una estructura y corre un ciclo pri
 - C) Juntar lectura, construcción y ciclo en una sola función para "aglomerar" y que una sola región
   `parallel` cubra todo el programa.
 - D) Cambiar el ciclo a `schedule(dynamic)`, que siempre reparte mejor el trabajo.
+
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
 
 **Respuesta: B.** Primero medir dónde está el tiempo y después analizar dependencias (`hist[bin]++` es una
 carrera potencial); el `#pragma` viene al final, con `schedule` elegido por evidencia.
@@ -70,6 +78,8 @@ Guion de discusión: "Quien votó A: ¿qué pasa con `hist[bin]++` cuando dos hi
 sabrías antes de correrlo? Quien votó C: según Foster, ¿aglomerar reduce comunicación o elimina el
 paralelismo? Todos: ¿qué número necesitan antes de decidir qué ciclo tocar?"
 
+</details>
+
 ## CT3 (reserva) · ¿Qué *speedup* se reporta? (idea errónea 5)
 
 Fase caliente, mismo tamaño del problema, `-O2`. Con 1 hilo la mediana de 5 corridas es 1.20 s. Con 4 hilos
@@ -79,6 +89,9 @@ las 5 corridas dan: 0.41, 0.39, 0.95, 0.40 y 0.40 s. ¿Qué *speedup* se reporta
 - B) 2.4
 - C) 3.1
 - D) Ninguno todavía: hay que repetir con `-O0` para que las corridas sean estables.
+
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
 
 **Respuesta: A.** La mediana de {0.39, 0.40, 0.40, 0.41, 0.95} es 0.40 s; S = 1.20 / 0.40 = 3.0. El 0.95 se
 reporta como máximo (y se investiga si se repite), pero no arrastra el estadístico.
@@ -94,3 +107,5 @@ reporta como máximo (y se investiga si se repite), pero no arrastra el estadís
 Guion de discusión: "Quien votó B: si el pico fuera 9.5 s en vez de 0.95, ¿seguirías promediando? Quien votó
 C: ¿por qué el protocolo pide reportar mín y máx además de la mediana? Todos: ¿qué harías con la corrida de
 0.95 s antes de entregar la tabla?"
+
+</details>

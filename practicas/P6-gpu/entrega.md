@@ -11,14 +11,15 @@ entrega: `docs/metodo/04-evaluacion.md` §5. Si algo aquí las contradice, valen
 |---|---|---|
 | Publicación | lunes 23 de noviembre de 2026 (en la S01, 10:30) | Enunciado, código base, pruebas y rúbrica disponibles; se asigna el pre-laboratorio |
 | Pre-laboratorio | **martes 24 de noviembre, antes de las 08:30** | Un archivo por integrante en el repositorio del equipo; falte o no el estudiante |
-| Laboratorio 1 (S02) | martes 24 de noviembre, 08:30–10:00, Lab LS4 | Partes A y B; mini-defensas de la mitad de los equipos si hay más de 12 |
+| Laboratorio 1 (S02) | martes 24 de noviembre, 08:30–10:00, Lab LS4 | Partes A y B; mini-defensas de la mitad de los equipos solo si hay más de 12 (lista publicada al inicio del laboratorio) |
 | Entre sesiones | 25–30 de noviembre | Parte C; tarea espaciada de la S04 (lunes 30) produce el pre-mortem y la primera fila de la Parte D |
-| Laboratorio 2 (S05) | martes 1 de diciembre, 08:30–10:00, Lab LS4 | Parte D, punto de control (una tabla por equipo, 1 min), mini-defensas restantes |
+| Laboratorio 2 (S05) | martes 1 de diciembre, 08:30–10:00, Lab LS4 | Parte D, punto de control (una tabla por equipo, 1 min), mini-defensas (todas; con más de 12 equipos, la mitad que no se defendió el 24) |
 | **Fecha límite** | **domingo 6 de diciembre de 2026, 23:59** | Entrega en el repositorio del equipo (etiqueta `P6`) |
 | Primera sesión después | lunes 7 de diciembre, 10:30 | 5 min: un integrante al azar de 2–3 equipos explica qué cambió desde el laboratorio |
 | Retroalimentación | a más tardar el jueves 10 de diciembre | Salida de `tests/run_tests.sh` + nivel por criterio + ≤ 2 líneas por criterio |
 | Segunda entrega (solo si la primera obtiene < 70 %) | hasta el martes 15 de diciembre, 08:30 | Una sola vez, con nota de cambios; tope 80 % |
 | Medición en GPU pendiente por cuota (ver §6) | a más tardar el martes 15 de diciembre, 08:30 | Sin penalización si se entregó a tiempo con la evidencia |
+| Mini-defensa pendiente (ver §4) | a más tardar el martes 15 de diciembre, 08:30 | Video no listado de ≤ 3 min (dos fragmentos de su código que elige el profesor), solo si no hubo laboratorio para reponerla o el estudiante no pudo asistir |
 
 Ponderación: **15 % del 3er parcial**. Entrega tardía dentro de las 72 h siguientes: máximo 80 %; después no se
 recibe salvo justificante institucional. Una entrega tardía no tiene segunda entrega.
@@ -79,19 +80,24 @@ en el archivo y lo dice al entrar al laboratorio: se le empareja con un equipo q
 ## 4. Qué se revisa en cada laboratorio
 
 **Lab 1 (martes 24 de noviembre).** Al minuto 80: las tablas de predicción de la Parte A (A.1 y A.7) llenas y
-contrastadas con lo observado; `make test` en verde (los dos casos de la Parte B pueden estar en `PEND`); `make
-test-b` en verde o, si no, los `TODO` que faltan identificados por número (lo que no quede se termina en casa antes
-del martes 1 de diciembre). Mini-defensa (2 min por equipo, al azar): una pregunta por integrante sobre el código en
-pantalla ("¿qué hace esta línea?"); la segunda ("¿qué pasaría si la quito?") solo si la primera falla; cuenta la
-mejor de las dos. Líneas preferidas: cada `__syncthreads()` y el `? … : 0.0f` de la carga de `a_matmul_tiled.cu`, la
-guardia de escritura (Parte A y `TODO(4)` de la Parte B), el `cudaEventSynchronize` y el `cudaGetLastError` tras el
-lanzamiento.
+contrastadas con lo observado; `make test` en verde (los dos casos de la Parte B pueden estar en `PEND`);
+`make test-b` en verde o, si no, los `TODO` que faltan identificados por número (lo que no quede se termina en casa
+antes del martes 1 de diciembre). Mini-defensas, solo si hay más de 12 equipos: hoy se defiende la mitad de la lista
+publicada al inicio del laboratorio. Mini-defensa (2 min por equipo, en orden al azar): una pregunta por integrante
+sobre el código en pantalla ("¿qué hace esta línea?"); la segunda ("¿qué pasaría si la quito?") solo si la primera
+falla; cuenta la mejor de las dos. Líneas preferidas: cada `__syncthreads()` y el `? … : 0.0f` de la carga de
+`a_matmul_tiled.cu`, la guardia de escritura (Parte A y `TODO(4)` de la Parte B), el `cudaEventSynchronize` y el
+`cudaGetLastError` tras el lanzamiento.
 
 **Lab 2 (martes 1 de diciembre).** Punto de control (minuto 38–50): cada equipo proyecta **una** tabla de la Parte D
 y la explica en 1 minuto. Tabla aceptable: dos tiempos (sin y con copias), mediana de 5 tras calentamiento, `T(1)`
 declarado (referencia CPU de la misma máquina, `-O2`), GPU y fecha, al menos tres tamaños de bloque múltiplos de 32.
-Mini-defensas de los equipos que no se defendieron el 24, con las mismas reglas. Quien pide responder por escrito lo
-hace en el momento (5 min, papel).
+Mini-defensas de todos los equipos (con más de 12, de la mitad que no se defendió el 24), con las mismas reglas. Quien
+pide responder por escrito lo hace en el momento (5 min, papel).
+
+**Mini-defensa pendiente** (`docs/metodo/04-evaluacion.md` §5). Se repone en el siguiente laboratorio. Si ya no hay uno
+antes del cierre (después del Lab 2 no hay otro) o el estudiante no puede asistir, envía un video no listado de ≤ 3 min
+en el que explica dos fragmentos de su código que elige el profesor, a más tardar el **martes 15 de diciembre, 08:30**.
 
 ## 5. Lista de cotejo antes de entregar
 

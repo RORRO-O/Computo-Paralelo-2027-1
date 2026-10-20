@@ -2,21 +2,23 @@
 
 # S08 · Tarea espaciada (20–40 minutos)
 
-**Entrega:** archivo `tareas/S08.md` en tu repositorio del curso (texto + tablas; el código del ejercicio 1 en
-`tareas/S08/`), antes del **jueves 22 de octubre de 2026, 10:30** (inicio de S10). Cuenta en "Tareas
-espaciadas y ejercicios" (5 % del 2º parcial; se revisan 3 al azar por parcial). Trabajo individual; puedes
-discutirlo con tu pareja de la práctica, pero las mediciones y el texto son tuyos.
+**Entrega:** individual, en el repositorio de tu equipo (el mismo de las prácticas): archivo
+`tareas/<usuario-github>/U3-S08.md` (texto + tablas; el código del ejercicio 1 en `tareas/<usuario-github>/U3-S08/`),
+antes del **martes 20 de octubre de 2026, 08:30** (inicio de S09). La autocalificas con la clave en `<details>` en
+los minutos 5–10 de S09. Cuenta en "Tareas espaciadas y ejercicios" (5 % del 2º parcial; se revisan 3 al azar por
+parcial). Puedes discutirla con tu pareja de la práctica, pero las mediciones y el texto son tuyos. Si faltaste a
+S08, entregarla en esa misma fecha sustituye tu recuperación y tu *exit ticket* (`docs/metodo/04-evaluacion.md`, §5).
 
-**Antes:** el pre-laboratorio de la Práctica 4 se entrega **mañana martes 20 de octubre a las 08:30**, al
-inicio del Lab 1. No lo dejes para después de esta tarea.
+**A la misma hora:** el pre-laboratorio de la Práctica 4 se entrega **mañana martes 20 de octubre a las 08:30**,
+al inicio del Lab 1. No lo dejes para después de esta tarea.
 
 ## 1. Del tema de hoy (15 min) · Terminar la fase Crear: primos por división de prueba
 
 Completa la fase 5 de `practica-guiada/README.md` si no la terminaste en clase:
 
 1. Tu predicción escrita (política, *chunk*, *speedup* esperado con 4 hilos) **antes** de medir.
-2. El núcleo `primes` agregado a `unbalanced.c` (copia el archivo modificado a `tareas/S08/`). Debe compilar
-   con las banderas del curso sin *warnings* y `make test` debe seguir en `0 FAIL`.
+2. El núcleo `primes` agregado a `unbalanced.c` (copia el archivo modificado a `tareas/<usuario-github>/U3-S08/`).
+   Debe compilar con las banderas del curso sin *warnings* y `make test` debe seguir en `0 FAIL`.
 3. La tabla de `OMP_NUM_THREADS=4 ./unbalanced primes 2000000 static static,1 dynamic,64 guided,64` más al
    menos una política adicional que tú elijas. Pega la salida completa (incluye las líneas `#` con la
    secuencial y la columna `verif`). Comprueba que el resultado sea 148 933 (cantidad de primos menores que

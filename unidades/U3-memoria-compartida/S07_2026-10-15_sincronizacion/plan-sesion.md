@@ -141,8 +141,9 @@ el archivo solo) + tabla de 4 hilos contra `atomic` y `local` + tres líneas de 
 
 1. **Exit ticket** (`exit-ticket.md`): 2 preguntas + confianza, individual, en hoja con número de lista. Se recoge
    al salir.
-2. **Tarea espaciada** (`tarea-espaciada.md`): 20–40 min; se entrega en `tareas/S07/` del repositorio del equipo
-   antes del lunes 19 de octubre, 10:30.
+2. **Tarea espaciada** (`tarea-espaciada.md`): 20–40 min, individual; se entrega en
+   `tareas/<usuario-github>/U3-S07.md` (código en `tareas/<usuario-github>/U3-S07/`) del repositorio del equipo
+   antes del lunes 19 de octubre, 10:30 (inicio de S08), y se autocalifica en los minutos 5–10 de S08.
 3. **Anuncio: se publica la Práctica 4** (`practicas/P4-openmp/`). Decir exactamente: "La Práctica 4 queda
    publicada hoy. El **pre-laboratorio es individual y se entrega al inicio de la sesión del martes 20 de octubre,
    08:30, Lab LS4**. La práctica completa se entrega el **domingo 1 de noviembre a las 23:59** y vale **40 % del
@@ -168,7 +169,8 @@ el archivo solo) + tabla de 4 hilos contra `atomic` y `local` + tres líneas de 
 | 3 (corregir y justificar) | M1 con `make test` en PASS y línea de justificación; CT2; *exit ticket* 2 | Revoto CT2 < 70 % o > 30 % proponen `atomic` para el `max` |
 | 4 (predecir barreras y alcance) | Predicciones P3–P5 comparadas con la salida; M3/M4; CT3 si se aplica | Más de un tercio responde "5" en retrieval 2 y falla CT3 |
 
-Datos que se registran hoy en `herramientas/seguimiento-grupo.csv`: % aciertos retrieval 1 y 2, % CT1 y CT2
+Datos que se registran hoy en `docente/seguimiento-grupo.csv` (la hoja llena, que no se versiona;
+`herramientas/seguimiento-grupo.csv` es solo la plantilla vacía): % aciertos retrieval 1 y 2, % CT1 y CT2
 (primer voto y revoto), montones del *exit ticket* (bien/parcial/mal).
 
 ## Notas post-sesión

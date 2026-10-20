@@ -31,6 +31,7 @@ Los objetivos 1–3 se miden en el exit ticket; el 4 en la fase Crear y en la ta
   Si `mpirun` rechaza 4 procesos por falta de *slots*, el Makefile ya pasa `--oversubscribe`.
 - Proyector; cronómetro visible; tarjetas con números de lista; tarjetas A/B/C/D para los ConcepTests.
 - Tres diapositivas o impresiones con los 3 ítems peor contestados del Examen 2 (sin la respuesta) y el registro de abajo lleno.
+  Si queda una reposición del Examen 2 (versión B, a más tardar hoy, `04-evaluacion.md` §2.4), aplicarla antes de las 10:30: este bloque proyecta ítems del examen.
 - Exit tickets de S03 clasificados; el error más frecuente anotado para el anclaje.
 
 ## Guion minuto a minuto
@@ -43,6 +44,9 @@ Respuestas esperadas: 1) `Reduce` deja el resultado en la raíz, `Allreduce` en 
 Si < 60 % acierta la 1: repetir en el pizarrón "colectiva = la llaman todos" antes del ejemplo; hoy se usa en cada iteración y CT2 lo retoma.
 
 ### 5–10 · Objetivos y anclaje
+
+Autocalificación de la tarea de S03 con su clave (2 min); el profesor registra la entrega en el repositorio
+(`tareas/<usuario-github>/U4-S03.md`), no el acierto.
 
 Frase de arranque: "El martes repartieron una matriz con `Scatter` y juntaron el resultado con `Gather`. Hoy repartimos una barra de
 celdas, pero con una diferencia: cada celda necesita a sus vecinas, y dos de ellas viven en otro proceso. Ese par de celdas ajenas
@@ -58,7 +62,7 @@ Procedimiento, 3 ítems × ~3 min + 1 min de calibración:
 1. Proyectar el ítem **sin** la respuesta. 30 s de revoto individual con tarjetas A/B/C/D (o "levanta la mano si lo resolverías distinto hoy" en ítems abiertos).
 2. Mostrar la distribución real del examen (porcentaje por opción) y nombrar la idea errónea del Anexo A que explica el distractor más elegido.
 3. Re-resolverlo en voz alta en ≤ 90 s: qué se mira primero, qué se descarta y por qué. Una línea de "cómo detectarlo la próxima vez".
-4. Cierre (1 min): brecha de calibración del grupo (promedio de calificación predicha vs. obtenida), sin nombres. Si la sobreestimación promedio pasa de 1.5 puntos, decirlo: es el umbral de alerta del método.
+4. Cierre (1 min): brecha de calibración del grupo (promedio de calificación predicha vs. obtenida, las dos en la escala del examen, 0–100), sin nombres. Si la sobreestimación media del grupo pasa de 15 puntos (15 % de 100), decirlo: es el umbral de alerta del método (`04-evaluacion.md` §2.3).
 
 Registro (llenar antes de la sesión con las estadísticas de `docente/examenes/E2/`):
 
@@ -145,7 +149,7 @@ Lo que no se termine aquí es el ejercicio 1 de la tarea.
 ### 85–90 · Cierre
 
 Exit ticket en papel (`exit-ticket.md`), individual. Mientras escriben, anunciar:
-- Tarea espaciada: `tarea-espaciada.md`, entrega antes del **martes 17 de noviembre, 08:30**; el ejercicio 3 es la predicción obligatoria para la Parte D de P5.
+- Tarea espaciada: `tarea-espaciada.md`, individual, en `tareas/<usuario-github>/U4-S04.md` (el código, en `tareas/<usuario-github>/U4-S04/`), antes del **martes 17 de noviembre, 08:30**; se autocalifica ese día en los minutos 5–10. El ejercicio 3 es la predicción obligatoria para la Parte D de P5.
 - **Lunes 16 de noviembre no hay clase** (Revolución Mexicana).
 - **Martes 17 de noviembre, 08:30, Lab LS4: Lab 2 de la Práctica 5 (Partes C y D)**; traer la Parte C avanzada y los datos del *ping-pong* de S02.
 - Fecha límite de P5: **domingo 22 de noviembre, 23:59** (15 % del 3er parcial).

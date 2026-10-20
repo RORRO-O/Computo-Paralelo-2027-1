@@ -629,8 +629,8 @@ desplazamientos: el del bloque `t` es la suma de los totales de los bloques ante
 hilo suma su desplazamiento a todo su bloque.
 
 b) Recorre la memoria dos veces: la fase 1 lee `x` y escribe `y`; la fase 3 vuelve a leer y escribir todo `y`. Es
-un ciclo limitado por memoria y mueve más bytes que el secuencial (S11 notas lo estiman en 1.5×; contando la
-relectura de `y`, casi 2×), más el paso de los `p` totales. En S11 dio 1.89 con 4 hilos y `n = 2²³`.
+un ciclo limitado por memoria y mueve casi el doble de bytes que el secuencial por la relectura de `y` (S11 notas
+§1.2 y Pausa 5 del ejemplo resuelto), más el paso de los `p` totales. En S11 dio 1.89 con 4 hilos y `n = 2²³`.
 
 c) Las sumas se agrupan en otro orden y en punto flotante el orden cambia el redondeo: en S11, 2.9·10⁻⁷ absoluto y
 6.9·10⁻¹⁴ relativo a la suma total, igual en cada corrida. Una carrera da diferencias enormes que cambian con el
@@ -789,7 +789,7 @@ salida"; dar un número sin la fórmula en la sección V.
 - Llega antes de las 08:30 al Salón 3208; si el examen se aplica en el LS4, los equipos estarán apagados. Te
   sentarás en filas alternas con versiones A y B.
 - Lleva pluma o lápiz y goma. Celular, reloj inteligente, calculadora y audífonos van **apagados y en la mochila**.
-- La tarea de S13 vence a las 08:30 de ese día (`tareas/S13/` en el repositorio del equipo).
+- La tarea de S13 vence a las 08:30 de ese día (`tareas/<usuario-github>/U3-S13.md` en el repositorio del equipo).
 
 **Al recibir el examen**
 
@@ -824,8 +824,10 @@ salida"; dar un número sin la fórmula en la sección V.
   clase los tres ítems peor contestados.
 - Tu hoja de calibración se abre después de calificar y te regresa con tu brecha; al grupo solo se le muestra el
   promedio. No afecta tu calificación.
-- La política para quien no pueda presentarse por causa justificada no está escrita en el material del curso: si
-  es tu caso, avísale al profesor con tu justificante institucional lo antes posible.
+- Si no puedes presentarte por causa justificada: con justificante institucional se aplica la versión B en un
+  horario acordado, a más tardar el jueves 12 de noviembre (propuesta por defecto, a confirmar por el profesor;
+  `docs/metodo/04-evaluacion.md` §2.4). Avísale al profesor con tu justificante lo antes posible. Si queda una
+  reposición pendiente, la clave pública espera a que se aplique.
 
 ## 8. Hoja de calibración
 
@@ -838,8 +840,8 @@ y **no afecta la calificación** (`docs/metodo/04-evaluacion.md` §2.3).
 >
 > | Casilla | Cuándo | Qué escribes |
 > |---|---|---|
-> | 1 · Predicción | Al recibir el examen, **antes** de leerlo | Calificación que esperas (0–10, con un decimal): `____` |
-> | 2 · Postdicción | Al entregar, sin volver a abrir el examen | Calificación que crees haber obtenido (0–10): `____` |
+> | 1 · Predicción | Al recibir el examen, **antes** de leerlo | Calificación que esperas (0–100, la escala del examen): `____` |
+> | 2 · Postdicción | Al entregar, sin volver a abrir el examen | Calificación que crees haber obtenido (0–100): `____` |
 > | 3 · Lo que menos dominas | Al entregar | Los **tres** temas de la Unidad III que menos dominas: 1. `____` 2. `____` 3. `____` |
 >
 > Temas para la casilla 3 (o escribe otro): regiones y alcance de variables · carreras y sincronización (`atomic`,
@@ -849,7 +851,7 @@ y **no afecta la calificación** (`docs/metodo/04-evaluacion.md` §2.3).
 > *La llena el profesor después de calificar:* calificación real `____` · brecha (postdicción − real) `____`
 
 **Cómo leer tu brecha.** La que importa es la de la postdicción: casilla 2 menos tu calificación real. Si supera
-1.5 puntos, sobreestimaste: estudiaste con la sensación de saber y no con la prueba de saber. Compárala con la
-brecha de tu examen de práctica (casilla 3 de su hoja, en puntos de 60: divídela entre 6) y con tu bitácora de
-§4. Si las tres apuntan al mismo lado, el ajuste para el Examen 3 (martes 8 de diciembre) es más preguntas de
-recuperación y menos relectura, desde la primera semana de la Unidad IV.
+15 puntos (el 15 % de 100), sobreestimaste: estudiaste con la sensación de saber y no con la prueba de saber.
+Compárala con la brecha de tu examen de práctica (casilla 3 de su hoja, en puntos de 60, donde el mismo 15 % son
+9 puntos) y con tu bitácora de §4. Si las tres apuntan al mismo lado, el ajuste para el Examen 3 (martes 8 de
+diciembre) es más preguntas de recuperación y menos relectura, desde la primera semana de la Unidad IV.

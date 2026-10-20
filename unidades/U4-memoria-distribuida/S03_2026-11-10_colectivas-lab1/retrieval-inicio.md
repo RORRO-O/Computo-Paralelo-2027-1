@@ -3,7 +3,7 @@
 # S03 · Recuperación de inicio (5 minutos, individual, sin apuntes ni dispositivos)
 
 Responde por escrito, una línea por pregunta (o elige la opción). A los 4 minutos se muestran las respuestas;
-levanta la mano por cada pregunta que hayas acertado. No se califica por acierto: cuenta como participación.
+levanta la mano por cada pregunta que hayas acertado. No se califica: en el 3.er parcial no tiene peso propio.
 La pregunta 1 verifica el pre-laboratorio; la 5 es una conjetura: "no sé" es válida y no cuenta.
 
 ## Preguntas

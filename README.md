@@ -1,5 +1,7 @@
 # Cómputo Paralelo · Grupo 6BM1 · ESCOM-IPN · Semestre 27/1
 
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Índice del curso · Profesor: Rodrigo Ojeda Santillán
+
 Planeación, material de clase, prácticas y proyecto integrador del curso (agosto–diciembre de 2026).
 Horario: lunes 10:30–12:00 · martes 08:30–10:00 · jueves 10:30–12:00 · Salón 3208 / Laboratorio LS4 (Edificio 3).
 
@@ -29,7 +31,7 @@ primero, práctica deliberada después, proyecto real al final, con la IA genera
 | Dar una sesión | `unidades/<unidad>/<sesión>/plan-sesion.md` (guion minuto a minuto) + `conceptests.md` |
 | Escribir material nuevo con el mismo método | [`docs/metodo/07-guia-de-autoria.md`](docs/metodo/07-guia-de-autoria.md) · [`docs/CONVENCIONES.md`](docs/CONVENCIONES.md) |
 | Exámenes, claves y soluciones | Carpeta `docente/` (no se publica; ver `docente/README.md`) |
-| Comprobar que todo el código compila y pasa pruebas | `./verificar.sh` |
+| Comprobar que todo el código compila y pasa pruebas | `./verificar.sh` (`PEND`: esqueleto de práctica cuyas únicas pruebas en FAIL son `TODO` del estudiante) |
 
 ## Estructura
 
@@ -52,7 +54,7 @@ y `tarea-espaciada.md`.
 
 ## Requisitos de software
 
-- C con OpenMP: `gcc` ≥ 9 (`-fopenmp`), `make`.
+- C con OpenMP: `gcc` ≥ 11 (`-fopenmp`), `make`.
 - MPI: Open MPI o MPICH (`mpicc`, `mpirun`).
 - GPU: cuenta de Google Colab o Kaggle (CUDA C con `nvcc`); localmente, `numba` para simular *kernels* con `NUMBA_ENABLE_CUDASIM=1`.
 - Python 3 con `numpy` y `matplotlib` para gráficas.

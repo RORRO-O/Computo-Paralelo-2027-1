@@ -111,7 +111,8 @@ eso lo revisa otro equipo."
 **36–62 · Trabajo por equipos con la lista de cotejo 2.1 (26 min).** Instrucción: "Marquen en orden del 1 al 8;
 cuando pase les pregunto en qué número van y las dos preguntas fijas." Cada equipo corre el revisor sobre **su**
 CSV (ítem 3) en los primeros 5 minutos; los que no tienen CSV usan `ejemplo_mediciones_ok.csv` para llenar la
-tabla de Karp–Flatt y pasan el resto del tiempo generando el suyo con `run_all.sh`. Roles conductor/navegante
+tabla de Karp–Flatt y pasan el resto del tiempo generando el suyo con `herramientas/medir_proyecto.sh` (copia de
+`proyecto/plantillas/run_all.sh`; H2 §2.2). Roles conductor/navegante
 dentro del equipo; cambio al minuto 50.
 
 **Rondas del profesor, 3 min por equipo, en orden de tarjeta, del minuto 36 al 74** (con 12 equipos caben todos;
@@ -157,7 +158,8 @@ del lunes.
      Colab probado (tarea, ej. 3b). Ese día se publica la **Práctica 6**; su pre-laboratorio exige GPU verificada
      en Colab y Kaggle antes del martes 24 de noviembre, 08:30.
    - **Tarea espaciada** (`tarea-espaciada.md`): 20–40 min; el ejercicio 3 es la última revisión de H2. Entrega
-     en `tareas/U4-S06/` antes del lunes 23, 10:30. Sin peso propio; alimenta el examen de práctica del 3 de
+     individual en `tareas/<usuario-github>/U4-S06.md` (los `.c`, en `tareas/<usuario-github>/U4-S06/`) antes del
+     lunes 23, 10:30; se autocalifica ese día en los minutos 5–10. Sin peso propio; alimenta el examen de práctica del 3 de
      diciembre y el Examen 3.
 
 ## Lista de errores esperados (y la pregunta que se hace ante cada uno)
@@ -173,13 +175,13 @@ del lunes.
 | 6 | Quieren corregir `caza1` bajando `n` o `caza3` recibiendo con capacidad `n` "por si acaso". | "¿Es correcto un programa que funciona hasta cierto `n`? Si recibes con capacidad `n`, ¿cómo sabes cuántos llegaron para avanzar `offset`?" |
 | 7 | En CT1 votan A: "la colectiva la llaman los cuatro". | "¿Sobre qué comunicador está la llamada del rango 3? ¿Quiénes están en él?" |
 | **Taller** | | |
-| 8 | La tabla está normalizada contra `V2,1`; "no tenemos V1 medida al mismo `n`". | "¿Qué dice el protocolo que va en el numerador? ¿Cuánto tarda correr V1 cinco veces con `run_all.sh -e V1`?" |
+| 8 | La tabla está normalizada contra `V2,1`; "no tenemos V1 medida al mismo `n`". | "¿Qué dice el protocolo que va en el numerador? ¿Cuánto tarda correr V1 cinco veces con `medir_proyecto.sh -e V1`?" |
 | 9 | Promedio en lugar de mediana; una corrida por configuración "porque tarda mucho". | "¿Qué hace un pico de 0.65 s con el promedio de cinco corridas de 0.22? ¿Cuánto tarda la tabla completa con `n` declarado?" |
 | 10 | La fila de 8 hilos en la curva y "escala hasta 8" (o "la V2 está mal porque 8 no mejora a 4"). | "¿Cuántos núcleos físicos dice `lscpu`? ¿Qué hacen los hilos 5–8? ¿Cómo marca el protocolo esa fila?" |
 | 11 | Cambian `n` respecto a H1 "porque así escala mejor". | "¿Lo declararon? ¿Repitieron el perfil de V1 al nuevo `n`? Si no, ¿contra qué comparan `f(p)` con `f_H1`?" |
 | 12 | Interpretación: "deja de escalar por la sobrecarga". | "¿Qué sobrecarga? ¿Cuál número de tu tabla o qué experimento la muestra? ¿`f` crece con `p`?" |
 | 13 | El revisor dice `0 errores` y lo toman por "ya está". | "¿Qué tres cosas dice el encabezado del revisor que no puede ver? ¿Quién las revisó?" |
-| 14 | `make test` de V2 compara con un solo número de hilos o una sola repetición; `num_threads(4)` fijo en el código. | "¿Cómo va a medir `run_all.sh` con 1, 2 y 8? ¿Qué dice H2 §2.1 sobre repetir cada caso?" |
+| 14 | `make test` de V2 compara con un solo número de hilos o una sola repetición; `num_threads(4)` fijo en el código. | "¿Cómo va a medir `medir_proyecto.sh` con 1, 2 y 8? ¿Qué dice H2 §2.1 sobre repetir cada caso?" |
 | 15 | `V2,1` más lenta que `V1` y lo esconden ("se ve mal"). | "¿Qué es esa diferencia? ¿Qué dice H2 §2.2 de la fila `V2,1`? ¿Qué decisión de la V2 la explica?" |
 | 16 | Mediciones de dos máquinas en una tabla; `entorno.txt` sin núcleos físicos. | "¿La fila de 2 hilos y la de 4 se midieron en la misma máquina? ¿Qué dice `entorno.txt`?" |
 | 17 | En la revisión por pares marcan todo ✓ en 2 minutos. | "¿Dónde está la frase 'antes de medir esperábamos…'? ¿Qué número respalda el ítem 4? Enséñame el `rep3` de la fila de 4." |
@@ -191,7 +193,7 @@ del lunes.
   marcada y pedir solo la predicción del síntoma con `n = 100` y con `n = 2²⁰` (la pista sellada del README, "¿quién
   llama a la colectiva?", ya señala la línea). Taller: el equipo sin CSV propio llena la tabla de Karp–Flatt de H2
   §2.3 con `ejemplo_mediciones_ok.csv` (la tabla ya calculada por el revisor) y una `f_H1` supuesta de 0.03, con
-  la lectura argumentada; después genera su CSV con `run_all.sh` siguiendo el cuadro 2.2 del README línea por línea.
+  la lectura argumentada; después genera su CSV con `herramientas/medir_proyecto.sh` siguiendo el cuadro 2.2 del README línea por línea.
 - **Ampliación (quien termina).** Sin ejemplo: (a) escribir `caza4_*_buggy.c` en clase (fase Crear) y dárselo a
   la pareja vecina; (b) resolver la pausa 3 del ejemplo en código: enviar las columnas 1 y 2 con `count = 2` usando
   `MPI_Type_create_resized`, verificar contra la matriz; (c) revisar la tabla de un segundo equipo con la lista 2.3
@@ -212,7 +214,8 @@ Registro de las rondas (llenar en clase):
 |---|---|---|---|---|---|
 | | | | | | |
 
-Datos que se registran hoy en `herramientas/seguimiento-grupo.csv`: % aciertos de recuperación 1 y 2, % CT1
+Datos que se registran hoy en la hoja de seguimiento llena, `docente/seguimiento-grupo.csv` (no se versiona;
+`herramientas/seguimiento-grupo.csv` es solo la plantilla vacía): % aciertos de recuperación 1 y 2, % CT1
 (primer voto y revoto), % CT2, montones del *exit ticket* (bien/parcial/mal), equipos con revisor en `0 errores`
 al salir.
 

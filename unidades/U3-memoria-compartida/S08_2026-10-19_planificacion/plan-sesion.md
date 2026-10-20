@@ -56,9 +56,10 @@ pedir manos por pregunta; anotar el conteo de la pregunta 2 (barrera implícita)
 
 ### 5–10 Objetivos y anclaje
 
-Frase de apertura (ajustar el hueco con el *exit ticket* de S07): "El jueves, el error más frecuente en el
-*exit ticket* fue ______ [si no se revisó: 'creer que al final del `for` no hay barrera']. Hoy esa barrera es
-la protagonista: es la que convierte un mal reparto en tiempo perdido."
+Autocalificación de la tarea de S07 (venció hoy a las 10:30) con su clave en `<details>`: 2 min; el profesor
+registra la entrega, no el acierto. Frase de apertura (ajustar el hueco con el *exit ticket* de S07): "El jueves,
+el error más frecuente en el *exit ticket* fue ______ [si no se revisó: 'creer que al final del `for` no hay
+barrera']. Hoy esa barrera es la protagonista: es la que convierte un mal reparto en tiempo perdido."
 
 Leer los 4 objetivos en voz alta. Vínculo con el proyecto: "En la V2 de su proyecto (H2, lunes 23 de
 noviembre) van a tener **un** ciclo principal. La cláusula `schedule` es la decisión más barata y de mayor
@@ -164,7 +165,8 @@ Repartir `exit-ticket.md` (2 preguntas + confianza). Recoger junto con la hoja d
 Anuncios, con fecha:
 
 - **Pre-laboratorio de la Práctica 4: mañana martes 20 de octubre, 08:30, al inicio del Lab 1** (S09).
-- Tarea espaciada de hoy (`tarea-espaciada.md`): entrega el jueves 22 de octubre a las 10:30 en el repositorio.
+- Tarea espaciada de hoy (`tarea-espaciada.md`), individual: `tareas/<usuario-github>/U3-S08.md` en el repositorio
+  del equipo antes de mañana martes 20 de octubre, 08:30 (inicio de S09); se autocalifica en los minutos 5–10 de S09.
 - Práctica 4 completa: domingo 1 de noviembre, 23:59 (40 % del 2º parcial).
 
 ## Diferenciación

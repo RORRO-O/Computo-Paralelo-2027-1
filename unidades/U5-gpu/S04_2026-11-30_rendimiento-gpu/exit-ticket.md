@@ -2,7 +2,7 @@
 
 # Exit ticket · S04
 
-Individual, 5 minutos, en papel. Se entrega al salir. Cuenta por participación, no por acierto.
+Individual, 5 minutos, en papel. Se entrega al salir. Cuenta la entrega, no el acierto.
 
 **1. (Conceptual)** En el barrido de hoy, el bloque de 32 hilos fue el más lento y el de 1024 **no** fue el más
 rápido. Explica ambas cosas en ≤ 3 líneas usando las palabras *warp*, *ocupación* y *bloques residentes por SM*.

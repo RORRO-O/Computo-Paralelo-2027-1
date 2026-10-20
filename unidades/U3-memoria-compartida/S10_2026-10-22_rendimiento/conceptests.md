@@ -22,6 +22,9 @@ el 90 % de las líneas del programa.
 - **C)** El *speedup* con 4 hilos es ≈ 2.6, así que con 8 hilos será ≈ 5.2.
 - **D)** La eficiencia con 4 hilos es 2.6, igual que el *speedup*.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Nueva: "el *speedup* del núcleo es el *speedup* del programa". Se mide el total que ve el usuario: `(0.02 + 0.18 + 0.01) / (0.02 + 0.05 + 0.01) = 0.21 / 0.08 ≈ 2.6`. Se agrega al catálogo como 2b. |
@@ -39,6 +42,8 @@ programa para la sección B).
 menos tiempo? Suma las tres secciones antes y después. Quien votó C: con infinitos hilos B tarda cero; ¿cuánto
 tarda entonces el programa? Ese es el techo." Cerrar con la salida real de `profile_amdahl` proyectada:
 la línea `Amdahl con f medida` y la línea `Karp-Flatt`.
+
+</details>
 
 ## CT2 · Sin carrera y aun así más lento (minuto ~68, puesta en común)
 
@@ -63,6 +68,9 @@ versión con `counts[tid]` llega a tardar más que con 1 hilo). ¿Cuál es la ex
 - **C)** Es la sobrecarga normal de crear hilos; con 8 o 16 hilos se compensa y las dos versiones se igualan.
 - **D)** Es un error de medición: hay que compilar con `-O0` para ver el tiempo real del ciclo.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Nueva: confundir **falso** compartido con compartir de verdad. `counts[tid]` es una posición distinta por hilo: no hay carrera; `atomic` lo haría todavía más lento. Se agrega al catálogo como 14b. |
@@ -78,6 +86,8 @@ contención; C a quien no miró que `local` tiene las mismas creaciones de hilos
 *una línea de caché es la unidad que viaja entre núcleos; dos hilos que escriben en la misma línea se estorban
 aunque no compartan ningún dato.*
 
+</details>
+
 ## CT3 · *Speedup* superlineal (reserva: transferencia, o apertura de S11 el lunes 26 de octubre)
 
 Un equipo mide con el protocolo completo (mediana de 5, `-O2`, mejor secuencial como `T(1)`), `make test` pasa, y
@@ -88,6 +98,9 @@ obtiene `S(4) = 4.6`. Sus datos ocupan 6 MB; cada núcleo tiene 2 MB de caché L
   en una. Se reporta explicándolo y verificando correctitud.
 - **C)** Significa que la versión secuencial está mal compilada; ambas deben compilarse con `-O0` para comparar.
 - **D)** Karp–Flatt da `f` negativa, lo que demuestra que el programa no tiene ninguna parte secuencial.
+
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
 
 | Opción | Origen |
 |---|---|
@@ -101,6 +114,8 @@ obtiene `S(4) = 4.6`. Sus datos ocupan 6 MB; cada núcleo tiene 2 MB de caché L
 **Guion de discusión.** "Quien votó A: ¿qué cambió entre 1 y 4 hilos además del número de hilos? ¿Cuánta caché
 tiene el programa a su disposición en cada caso? Quien votó D: calcula `f` con `S = 4.6`, `p = 4`: `(1/4.6 − 1/4)
 / 0.75 ≈ −0.043`. ¿Qué supone Amdahl que aquí no se cumple?"
+
+</details>
 
 ## Registro para el profesor (llenar en la sesión)
 

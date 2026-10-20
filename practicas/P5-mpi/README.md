@@ -1,4 +1,4 @@
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Unidad IV · Práctica 5 · Simulación distribuida con MPI · publicada jueves 5 de noviembre de 2026 · Lab 1 martes 10 de noviembre 08:30 · Lab 2 martes 17 de noviembre 08:30 · Lab LS4 (Edificio 3) · entrega domingo 22 de noviembre de 2026, 23:59
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Unidad IV · Práctica 5 · Simulación distribuida con MPI · publicada jueves 5 de noviembre de 2026 · Lab 1 (Partes A y B) martes 10 de noviembre 08:30 · Lab 2 (Partes C y D) martes 17 de noviembre 08:30 · Lab LS4 (Edificio 3) · entrega domingo 22 de noviembre de 2026, 23:59
 
 # Práctica 5 · Simulación distribuida con MPI
 
@@ -6,7 +6,7 @@
 |---|---|
 | Unidad | IV · Programación en memoria distribuida (MPI) |
 | Publicación | jueves 5 de noviembre de 2026, 10:30 (U4·S01, salón 3208) |
-| Pre-laboratorio | individual, en el repositorio del equipo **antes del martes 10 de noviembre, 08:30** |
+| Pre-laboratorio | individual, en el repositorio del equipo; se entrega **antes de las 08:30 del martes 10 de noviembre** |
 | Laboratorio 1 | martes 10 de noviembre, 08:30–10:00, Lab LS4 (U4·S03): Partes A y B |
 | Laboratorio 2 | martes 17 de noviembre, 08:30–10:00, Lab LS4 (U4·S05): Partes C y D, punto de control, mini-defensas |
 | **Fecha límite** | **domingo 22 de noviembre de 2026, 23:59** (etiqueta `P5-entrega`) |
@@ -36,8 +36,8 @@ Documentos de esta carpeta: este enunciado · `entrega.md` (qué, cómo, cuándo
 
 ## Pre-laboratorio (individual, 20 min; se entrega antes del Laboratorio 1)
 
-Un archivo `practicas/P5/prelab/prelab-<tu alias>.md` en el repositorio del equipo, **antes del martes 10 de
-noviembre a las 08:30**, faltes o no a la sesión. La pregunta 1 de la recuperación de ese día lo verifica.
+Un archivo `practicas/P5/prelab/prelab-<tu alias>.md` en el repositorio del equipo; se entrega **antes de las
+08:30 del martes 10 de noviembre**, faltes o no a la sesión. La pregunta 1 de la recuperación de ese día lo verifica.
 
 **Lectura previa (15 min).** `unidades/U4-memoria-distribuida/S01_2026-11-05_modelo-spmd/notas-estudiante.md` (SPMD,
 rango, reparto por bloques con residuo), `S02_2026-11-09_punto-a-punto/notas-estudiante.md` §4–§6 (qué promete
@@ -559,8 +559,9 @@ Resumen (detalle y lista de cotejo en `entrega.md`): repositorio **privado** del
 `fuerte.png`, `debil.png`) y `REPORTE.md` ≤ 3 páginas (plantilla: `herramientas/plantilla-reporte-practica.md`) con
 decisiones, tablas, gráficas, interpretación, reflexiones, bitácora de errores (≥ 3 entradas), **reparto de trabajo**
 y **declaración de uso de IA**. Etiqueta `P5-entrega` antes del domingo 22 de noviembre, 23:59. Historial de *commits*
-con participación de cada integrante (≥ 3 con código). Mini-defensa en el laboratorio; solo quien no estuvo graba un
-video de ≤ 3 minutos.
+con participación de cada integrante (≥ 3 con código). Mini-defensa en el laboratorio; quien no estuvo la repone en
+el siguiente laboratorio y, si no lo hay antes del cierre o no puede, envía un video no listado de ≤ 3 minutos con
+dos fragmentos de su código que elige el profesor, a más tardar el martes 15 de diciembre, 08:30 (`entrega.md` §3).
 
 ## Rúbrica (resumen; completa en `rubrica.md`)
 

@@ -46,10 +46,11 @@ sobrecarga de OpenMP), ¿el *speedup* reportado sería mayor o menor, y por qué
    decide: "mayor" + "mejor secuencial" (o "infla"); "mayor" sin razón es parcial.
 3. Sin clave. Para el profesor: la brecha entre confianza 4 y respuestas incorrectas en la pregunta 2 es el dato
    de calibración de la sesión.
-</details>
 
 **Clasificación rápida (profesor, 10 min después de clase).** Bien: pregunta 1 = B **y** pregunta 2 con
 `2.5`, `0.625` (o `62.5 %`) y `0.20` (se acepta `0.2`). Parcial: una de las dos, o la 2 con `S` y `E` bien y `f`
 mal. Mal: ninguna de las dos (típico: pregunta 1 = A y, en la 2, `E = 2.5` o `f` sin calcular). Si "mal" supera 30 %, la
 recuperación del lunes 26 de octubre abre con el cálculo de `S`, `E` y `f` (ya está prevista como pregunta 1 de
 S11) y el ejemplo de la tabla con `n` creciente se vuelve a proyectar.
+
+</details>

@@ -166,7 +166,8 @@ cada principio están en `06-evidencia-y-bibliografia.md`, §1.
   (2006) y Karpicke y Blunt (2011) muestran más confianza en la técnica que menos enseña. La bitácora de errores
   y el pre-mortem son hábitos de ingeniería adoptados por diseño, sin fuente verificada (`06`, §1).
 - **Regla operativa.** Al recibir el examen, el estudiante anota la calificación que espera (predicción); al
-  entregarlo, la que cree haber obtenido (postdicción); después compara ambas con la real. Cada
+  entregarlo, la que cree haber obtenido (postdicción), las dos en la escala del instrumento (0–100 en los
+  exámenes departamentales, 0–60 en los de práctica); después compara ambas con la real. Cada
   equipo lleva una **bitácora de errores** (qué falló, por qué, cómo se detectó) que forma parte del reporte del
   proyecto. Las prácticas incluyen "pre-mortem": antes de medir, escribe qué *speedup* esperas y por qué.
 
@@ -284,13 +285,13 @@ pregunta 1 quedó bajo 60 %, se repite con pista).
 | Aciertos en *exit ticket* | Montones bien/parcial/mal | > 30 % en "mal" |
 | Entregas a tiempo | Repositorios | < 80 % del grupo |
 | Avance del proyecto por hito | Rúbricas H1/H2 | Equipos con < 60 % en un hito |
-| Brecha de calibración | Postdicción (al entregar el examen) vs. calificación real; la predicción (al recibirlo) se reporta aparte | Promedio > 1.5 puntos de sobreestimación |
+| Brecha de calibración | Postdicción (al entregar el examen) vs. calificación real, en la escala del instrumento (0–100 departamental, 0–60 de práctica); la predicción (al recibirlo) se reporta aparte | Sobreestimación media del grupo > 15 % del puntaje total (15/100 o 9/60) |
 | Mejora de examen 1 → 2 → 3 | Calificaciones | Sin mejora en los estudiantes que estaban en "requiere refuerzo" |
 
 Estos datos se registran en una hoja de cálculo sencilla. La plantilla vacía está en
 `herramientas/seguimiento-grupo.csv` e incluye la columna `nivel_diagnostico_ago` (refuerzo / medio / alto), sin
 la cual el último indicador no se puede calcular. La hoja llena contiene datos personales: vive en
-`docente/seguimiento-grupo.csv` o fuera del repositorio y nunca se versiona en `main`.
+`docente/seguimiento-grupo.csv` y no se versiona (`docs/CONVENCIONES.md`, §5).
 
 ## 6. Límites
 
@@ -428,7 +429,9 @@ Cada entrada: **la idea errónea** → la idea correcta → dónde se trabaja.
   sobre los accesos (o con `compute-sanitizer --tool racecheck`), no por la variación. → U5 S03 (CT2-C).
 - **8b. "Las atómicas son gratis: son una instrucción de *hardware*."** → Son correctas, no gratis: `n` atómicas
   sobre una dirección se serializan (contención). Se reduce primero dentro del bloque y se hace una atómica por
-  bloque. → U5 S03 (CT3-C).
+  bloque. En CPU es lo mismo: `atomic` por elemento es correcta pero más cara que `reduction` o que un acumulador
+  privado por hilo combinado una vez. → U3 S07 (notas §3, costo medido por mecanismo), Examen 2 (I.1-D, VI-b);
+  U5 S03 (CT3-C), Examen 3 (I.5-A, VI.2-d).
 - **10c. "La referencia correcta es la suma secuencial en `float`, porque la GPU también suma en `float`."** → La
   referencia debe ser **más** precisa que lo que se verifica (`double`); con `2^24` elementos el acumulador `float`
   secuencial se equivoca 10 %. → U5 S03 (CT2-D).
@@ -438,3 +441,55 @@ Cada entrada: **la idea errónea** → la idea correcta → dónde se trabaja.
 - **25c. "Dentro de un *kernel* se puede llamar a `cudaDeviceSynchronize()` para esperar a los demás bloques."** →
   Es una función de anfitrión: con `nvcc` 12 no compila en código de dispositivo, y en el paralelismo dinámico
   antiguo solo esperaba a los *kernels* hijos, nunca a otros bloques. → U5 S03 (CT1-C).
+
+### Variantes de las ideas 7 y 9 (15 de octubre de 2026; distractores de U3 S07; no se renumera)
+
+- **7b. "Una instrucción es atómica: `count++` es una sola instrucción en x86 y no se puede interrumpir."** →
+  `incq (mem)` sin prefijo `lock` se descompone en leer, sumar y escribir entre núcleos; además el compilador puede
+  partirla o acumular en registro. Atómico es lo que garantiza `atomic`, no lo que se ve corto. → U3 S07 (CT1-C).
+- **7c. "Hay carrera solo cuando `n` no es divisible entre el número de hilos."** → Confunde el reparto de
+  iteraciones con la sincronización de datos: el reparto decide quién hace qué iteración; la carrera está en que
+  todos escriben la misma variable (`count`). → U3 S07 (CT1-D).
+- **9b. "`private` inicializa en cero."** → La copia privada queda indefinida. La que inicializa con la identidad
+  de la operación es `reduction`; para copiar el valor de afuera se usa `firstprivate`. → U3 S07 (CT3-C), S13
+  (examen de práctica II.1-c).
+
+### Variantes de las ideas 16, 17, 18 y 19 (5 y 19 de noviembre de 2026; distractores de U4 S01 y S06; no se renumera)
+
+- **16b. "`MPI_Barrier` sincroniza la memoria entre procesos."** → Solo sincroniza el avance; ningún dato se mueve
+  sin un mensaje. → U4 S01 (CT1-C, CT3-C, *exit ticket* 1).
+- **16c. "Repartir `n/p` elementos a cada proceso cubre todo el arreglo."** → Solo cuando `n % p == 0`; el residuo
+  se reparte explícitamente (`count = q + (rank < r)`, `start = rank·q + min(rank, r)`). Su variante, `ceil(n/p)`
+  para todos, se sale del arreglo. → U4 S01 (CT2-A, CT2-D; `suma_distribuida_buggy.c`).
+- **16d. "Bloques y cíclico asignan los mismos índices, solo en otro orden."** → Asignan conjuntos distintos;
+  afecta localidad y balance. → U4 S01 (CT2-C).
+- **17b. "Que el intercambio se interbloquee depende de cuántas parejas (procesos) hay."** → Cada pareja es
+  independiente y sus dos partes hacen lo mismo; lo que decide es si el programa depende del *buffering* de
+  `MPI_Send`. → U4 S06 (CT3-D); U5 S06 (examen de práctica I.1-D).
+- **18b. "Una colectiva es sobre todos los procesos del programa."** → La llaman todos los procesos del
+  comunicador sobre el que se llama, ni más ni menos; con un comunicador derivado (`MPI_Comm_split`), solo los de
+  ese comunicador. → U4 S06 (CT1-A).
+- **18c. "Sin raíz no hay espera: cada proceso llama a `MPI_Allreduce` cuando quiere."** → Toda colectiva es un
+  punto de encuentro de todos los procesos del comunicador, tenga raíz o no. → U4 S06 (CT1-C).
+- **19b. "Con `-np 3` el último rango es el 3."** → Confunde la cantidad de procesos con la identidad del rango:
+  los rangos siempre son `0..size−1`; con `-np 3`, 0, 1 y 2. → U4 S01 (CT3-D).
+
+### Variantes de las ideas 18, 22 y 26 (3 y 8 de diciembre de 2026; distractores de U5 S06 y del Examen 3; no se renumera)
+
+- **18d. "Si `counts` y `displs` solo los conoce la raíz, `MPI_Scatterv` falla."** → Esos argumentos solo son
+  significativos en la raíz: que los demás no los tengan es correcto. Un cuelgue con colectivas se busca en quién
+  llama a la colectiva (idea 18). → U5 S06 (CT1-C).
+- **22b. "Un acceso no coalescido es divergencia."** → Divergencia es que hilos del mismo *warp* tomen ramas
+  distintas; la coalescencia depende del patrón de direcciones. 32 hilos con `threadIdx.x` consecutivos que tocan
+  direcciones separadas por una fila generan hasta 32 transacciones sin ninguna rama. → U5 S02 (notas §2), S03
+  (notas §4); Examen 3 (I.4-C).
+- **26b. "El tamaño de bloque debe ser potencia de 2."** → El límite real es ≤ 1 024 hilos y la recomendación,
+  múltiplo de 32. → U5 S06 (CT2-C).
+
+### Adiciones (20 de octubre de 2026; Unidad I, se usa en el Examen 2; no se renumera)
+
+35. **"Varios hilos que ejecutan el mismo código (SPMD) son SIMD."** → SPMD es un estilo de programación: un
+    mismo programa con su propio flujo de instrucciones en cada hilo o proceso; en la taxonomía de Flynn eso es
+    MIMD. SIMD es una instrucción sobre varios datos (carriles vectoriales, `omp simd`). `parallel for simd` en
+    4 núcleos es MIMD entre núcleos y SIMD dentro de cada uno; la GPU ejecuta SIMT. → U3 S11 (`simd`), S13 (tarea,
+    Flynn); Examen 2 (I.6-A); U4 S01 (recuperación 3); U5 S01 (de SIMD a SIMT).

@@ -44,9 +44,10 @@ conclusión sobre escalabilidad? (sí/no y una palabra de por qué) ______
    lo usa para "escala hasta 8" cae en las ideas 1 y 20.
 3. Sin clave. Para el profesor: la brecha entre confianza 4 y pregunta 2b incorrecta es el dato de calibración de
    la sesión.
-</details>
 
 **Clasificación rápida (profesor, 10 min después de clase).** Bien: pregunta 1 = B **y** pregunta 2 con `3.0`,
 `0.11` y "no". Parcial: 1 = B con un error en 2 (lo más probable: `f` mal calculada o "sí" en c), o 1 ≠ B con la 2
 completa. Mal: 1 ≠ B y algún error en 2, o 2c = "sí". Si "mal" supera 30 %, la recuperación del lunes 23 de
 noviembre repite 2b con la fórmula escrita (su ítem 2 ya pregunta `T(1)` y el protocolo).
+
+</details>

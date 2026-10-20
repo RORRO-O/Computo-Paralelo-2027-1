@@ -28,6 +28,9 @@ printf("%ld\n", count);
 - **C)** No hay carrera porque `count++` es una sola instrucción en x86 y una instrucción no se puede interrumpir.
 - **D)** Hay carrera solo cuando `n` no es divisible entre el número de hilos.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Idea errónea 7: "si salió bien una vez, no hay carrera" |
@@ -41,6 +44,8 @@ printf("%ld\n", count);
 describir una secuencia de eventos que lo rompa, busca la tabla de leer-modificar-escribir. Quien votó C: ¿qué
 hace el procesador con `count++` cuando `count` está en la caché de otro núcleo?" Cerrar con la salida real de
 `counter_buggy` a `-O2` (correcto tres veces) y a `-O0` (casi siempre incorrecto): mismo código, misma carrera.
+
+</details>
 
 ## CT2 · `atomic` en el histograma (minuto ~68, puesta en común)
 
@@ -63,6 +68,9 @@ for (long i = 0; i < n; i++) {
 - **D)** `atomic` elimina la barrera implícita del final del `for`, así que después del ciclo hay que poner
   `#pragma omp barrier` antes de leer `hist`.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Idea errónea 8: "`critical` y `atomic` son equivalentes" |
@@ -76,6 +84,8 @@ for (long i = 0; i < n; i++) {
 dos? Quien votó A: en la tabla de tiempos, `critical` costó 73 ns por elemento y `atomic` 16; si fueran lo
 mismo, ¿de dónde sale la diferencia?" Regla general: `atomic` protege **una** actualización simple de **una**
 posición; `critical` protege **código**. Se elige el más barato que sea correcto.
+
+</details>
 
 ## CT3 · `private` y alcance (reserva: transferencia o apertura de S08, lunes 19 de octubre)
 
@@ -96,6 +106,9 @@ Con 4 hilos, ¿qué vale `out[2]` después del ciclo?
 - **C)** 2: `private` inicializa `k` en cero.
 - **D)** Depende de qué hilo escriba `j` al último, porque `j` es compartida.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Idea errónea 9: "`private` copia el valor inicial" |
@@ -108,6 +121,8 @@ Con 4 hilos, ¿qué vale `out[2]` después del ciclo?
 **Guion de discusión.** "Quien votó A: ¿qué cláusula existe entonces para copiar el valor? Si `private` ya lo
 copiara, `firstprivate` no tendría razón de ser. Quien votó D: ¿cuántas `j` hay con 4 hilos?" Mostrar
 `private_buggy.c`: la fila B cambia entre corridas, la C no.
+
+</details>
 
 ## Registro para el profesor (llenar en la sesión)
 

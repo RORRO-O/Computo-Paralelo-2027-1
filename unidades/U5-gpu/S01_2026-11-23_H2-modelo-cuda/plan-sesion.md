@@ -39,7 +39,7 @@ queda comprimido a 60 min (25–85). La recuperación (0–5) y el cierre (85–
 - Para H2: lista de equipos impresa con la lista de cotejo rápida (abajo); `proyecto/hitos/H2-avance-2.md` a la
   mano para responder dudas de rúbrica (no se califica en clase).
 - Hoja por estudiante: lado A recuperación, lado B *exit ticket*.
-- Anotar aquí antes de empezar: error más frecuente del *exit ticket* de S06 (jueves 19 de noviembre): ________.
+- Anotar aquí antes de empezar: error más frecuente del *exit ticket* de U4·S06 (jueves 19 de noviembre): ________.
 
 ## Lista de cotejo rápida de recepción de H2 (registro, no rúbrica)
 
@@ -64,8 +64,9 @@ es el mejor secuencial / la versión paralela con un hilo / no saben.
 **Pregunta individual (criterio 5 de la rúbrica).** No cabe en 20 minutos con 12–15 equipos (la rúbrica prevé 3 min
 por equipo y ofrece tres opciones en su §8). Este plan sigue la **opción A**: en clase solo la ronda corta; la
 pregunta individual del banco de §6 se hace **a un integrante por equipo mientras el profesor circula en PRIMM
-(50–70)**, con la tarjeta al azar y 30 s por persona, y las que falten se completan al inicio de la S02 (martes 24
-de noviembre, Lab LS4). Si se prefiere otra opción, se anuncia el jueves 19 de noviembre, como pide `H2-avance-2.md` §8.
+(50–70)**, con la tarjeta al azar y 30 s por persona, y las que falten se completan al arrancar el laboratorio de P6
+en la S02 (martes 24 de noviembre, Lab LS4, minutos 50–62; anotar hoy quiénes quedan pendientes). Si se prefiere
+otra opción, se anuncia el jueves 19 de noviembre, como pide `H2-avance-2.md` §8.
 
 ## Guion minuto a minuto
 
@@ -79,9 +80,9 @@ contestamos con números".
 ### 5–25 · Recepción de H2 (20 min)
 
 - **5–7.** Instrucciones: "Cada equipo abre su repositorio en la V2 y deja `make test` corriendo. Paso por cada mesa
-  un minuto. Mientras esperan: (a) intercambien laptop con el equipo vecino y apliquen la lista de cotejo de seis
-  puntos al otro equipo; (b) abran Colab, cambien el tipo de entorno a GPU T4 y dejen que se asigne" (así la GPU ya
-  está lista a las 10:55).
+  un minuto. Mientras esperan: (a) autocalifiquen la tarea de U4·S06 con su clave (2 min; registro la entrega al
+  pasar); (b) intercambien laptop con el equipo vecino y apliquen la lista de cotejo de seis puntos al otro equipo;
+  (c) abran Colab, cambien el tipo de entorno a GPU T4 y dejen que se asigne" (así la GPU ya está lista a las 10:55).
 - **7–22.** Ronda por equipos (12–15 equipos × ≤ 1 min): marcar la lista; una pregunta fija; sin discutir la
   calificación. Si un equipo no tiene nada que mostrar, se anota "no presentado" y se le recuerda la política de
   entrega tardía (≤ 72 h, máximo 80 %).
@@ -178,7 +179,8 @@ operación, los índices o las copias?".
 
 - **Práctica 6 · GPU** publicada hoy en `practicas/P6-gpu/`: 15 % del 3.er parcial; **pre-laboratorio individual se
   entrega al inicio de la S02, martes 24 de noviembre, 08:30, Lab LS4**; fecha límite **domingo 6 de diciembre, 23:59**.
-- Tarea espaciada (`tarea-espaciada.md`): `tareas/U5-S01.md` antes del martes 24 de noviembre, 08:30.
+- Tarea espaciada (`tarea-espaciada.md`): `tareas/<usuario-github>/U5-S01.md` antes del martes 24 de noviembre, 08:30;
+  sin peso propio; se autocalifica en los minutos 5–10 de la S02.
 - H2: retroalimentación con rúbrica antes del lunes 30 de noviembre.
 - Recoger las hojas al salir.
 

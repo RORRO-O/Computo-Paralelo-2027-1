@@ -2,15 +2,16 @@
 
 # Tarea espaciada · S04 (20–40 minutos)
 
-**Entrega:** antes de mañana, martes 1 de diciembre de 2026, 08:30, en la carpeta `practicas/P6/resultados/`
-del repositorio de tu equipo (un archivo `tarea-S04.md` por integrante, con tu nombre de usuario de Git, más el
-CSV y las PNG si los generaste). **Qué cuenta: Esta tarea no tiene peso propio; el examen de práctica del jueves
-3 de diciembre y el 10–20 % acumulativo del Examen 3 toman ítems de aquí.** Se autocalifica con la clave en
-`<details>` al inicio de la S05 (martes 1 de diciembre, 08:30, Lab LS4; 2 minutos después de la recuperación); el
-profesor registra la entrega, no el acierto, y revisa 3 al azar por parcial. Además es la entrada directa de la
-Parte D de la Práctica 6 (15 % del 3er parcial, vence el domingo 6 de diciembre a las 23:59) y de la medición de la
-V3 del proyecto (entrega final el lunes 7 de diciembre a las 10:30). En el Lab 2 el profesor la usa para las
-mini-defensas. Si en clase se recortó la Transferencia, el *Crear* de la práctica guiada es tu ejercicio 3b.
+**Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U5-S04.md` (y el CSV y las PNG, si
+los generaste, en `tareas/<usuario-github>/U5-S04/`), antes de mañana, **martes 1 de diciembre de 2026, 08:30**
+(inicio de la S05, Lab LS4). **Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el
+10–20 % acumulativo del Examen 3 toman ítems de aquí.** Se autocalifica con la clave en `<details>` en los minutos
+5–10 de la S05 (2 minutos después de la recuperación); el profesor registra la entrega, no el acierto, y revisa 3 al
+azar por parcial. Si faltaste hoy, entregarla en esa misma fecha sustituye tu recuperación y tu *exit ticket* de S04
+(`docs/metodo/04-evaluacion.md` §5). Además es la entrada directa de la Parte D de la Práctica 6 (15 % del 3er
+parcial, vence el domingo 6 de diciembre a las 23:59; tu equipo copia la fila a `practicas/P6/resultados/`) y de la
+medición de la V3 del proyecto (entrega final el lunes 7 de diciembre a las 10:30). En el Lab 2 el profesor la usa
+para las mini-defensas. Si en clase se recortó la Transferencia, el *Crear* de la práctica guiada es tu ejercicio 3b.
 
 ## 1. Del tema de hoy (≈ 15 min) · ¿Memoria o cómputo?
 

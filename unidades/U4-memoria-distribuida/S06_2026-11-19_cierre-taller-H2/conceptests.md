@@ -31,11 +31,14 @@ Fíjate en el `MPI_Allreduce` que ejecuta el **rango 3**. ¿Qué otros procesos 
   los que ya llamaron.
 - **D)** Solo la raíz de `row_comm` (el rango 2, que es el rango 0 de esa fila); el rango 3 recibe por debajo.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
-| A | Nueva (18b): "una colectiva es sobre todos los procesos del programa". Confunde `MPI_COMM_WORLD` con "el comunicador sobre el que se llama". Se agrega al catálogo. |
+| A | Variante 18b del Anexo A: "una colectiva es sobre todos los procesos del programa". Confunde `MPI_COMM_WORLD` con "el comunicador sobre el que se llama". |
 | **B** | **Correcta.** `s` vale 1 en los rangos 0 y 1 y 5 en los rangos 2 y 3 (salida real del ejemplo). |
-| C | Nueva (18c): "sin raíz no hay espera". Toda colectiva es un punto de encuentro de todos los procesos del comunicador, tenga raíz o no. |
+| C | Variante 18c del Anexo A: "sin raíz no hay espera". Toda colectiva es un punto de encuentro de todos los procesos del comunicador, tenga raíz o no. |
 | D | Idea errónea 18: "solo el proceso raíz llama a la colectiva", trasladada a un comunicador derivado. |
 
 **Acierto esperado en el primer voto:** 50–60 % (A es el distractor fuerte: en S03 aprendieron "todos llaman a la
@@ -46,6 +49,8 @@ están dentro de ese comunicador? Quien votó D: en S03 vimos qué pasa cuando s
 qué sería distinto aquí?" Cerrar con el Hueco 3 del ejemplo resuelto: si se cambia `row_comm` por
 `MPI_COMM_WORLD`, los cuatro imprimen 6 y `VERIFICACION FAIL`, sin cuelgue ni aborto. Regla: **una colectiva la
 llaman todos los procesos del comunicador sobre el que se llama, ni más ni menos.**
+
+</details>
 
 ## CT2 · La tabla que "escala hasta 8" (minuto ~76, puesta en común del taller; voto único)
 
@@ -69,6 +74,9 @@ Su interpretación: "la V2 escala hasta 8 hilos con *speedup* 3.48". ¿Qué le d
   condición de carrera.
 - **D)** Falta promediar varias corridas y reportar el promedio; con eso la tabla cumple el protocolo.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Idea errónea 5 ("medir una vez basta") + 31 ("el *speedup* se calcula contra la versión paralela con 1 hilo"). |
@@ -86,6 +94,8 @@ mientras los 4 núcleos están ocupados?" Regla general: **sin `T(1)` = V1, sin 
 sobre-suscrita, la tabla no es evidencia; es una anécdota.** Enlace con H2: el criterio 2 de la rúbrica cae a "En desarrollo" por las dos primeras (`T(1)` tomado de
 `V2,1` sin decirlo; < 5 repeticiones); la fila de 8 sin declarar lo deja fuera de "Ejemplar".
 
+</details>
+
 ## CT3 · "Funcionó con n = 100" (reserva: recuperación de U5·S01 o examen de práctica)
 
 `caza1_orden_send_buggy` (los dos procesos de cada pareja hacen `MPI_Send` y después `MPI_Recv`) terminó con
@@ -100,12 +110,15 @@ sobre-suscrita, la tabla no es evidencia; es una anécdota.** Enlace con H2: el 
   eso es inseguro; se corrige con `MPI_Sendrecv`, orden por paridad o `Isend`/`Irecv` + `Wait`.
 - **D)** Funciona porque son 4 procesos; con 2 procesos se colgaría con cualquier `n`.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Idea errónea 17, mitad "siempre regresa de inmediato". |
 | B | Idea errónea 17, mitad "siempre bloquea hasta que el otro recibe". |
 | **C** | **Correcta.** Umbral real en la máquina de autoría: 505 `double` (4 040 bytes) termina; 508 (4 064 bytes) se cuelga; límite *eager* de Open MPI: 4 096 bytes con cabecera. |
-| D | Nueva (17b): confunde el número de parejas con la condición de interbloqueo; cada pareja es independiente y las dos partes de cada pareja hacen lo mismo. Se agrega al catálogo. |
+| D | Variante 17b del Anexo A: confunde el número de parejas con la condición de interbloqueo; cada pareja es independiente y las dos partes de cada pareja hacen lo mismo. |
 
 **Acierto esperado en el primer voto:** 60–70 % (S02 CT1 ya atacó la 17; aquí se mide si quedó).
 
@@ -113,6 +126,8 @@ sobre-suscrita, la tabla no es evidencia; es una anécdota.** Enlace con H2: el 
 qué existiría `MPI_Isend`? Quien votó B: entonces, ¿cómo terminó con `n = 100`?" Mostrar la corrida real del
 barrido: `n = 505` termina, `n = 508` no. Regla: **el programa debe terminar aunque todos los `Send` esperen al
 `Recv`; si solo funciona hasta cierto `n`, está mal.**
+
+</details>
 
 ## Registro para el profesor (llenar en la sesión)
 

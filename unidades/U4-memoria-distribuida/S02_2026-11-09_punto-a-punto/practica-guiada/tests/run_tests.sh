@@ -6,7 +6,7 @@
 #   SKIP = el archivo todavía tiene su TODO sin completar (imprime "TODO pendiente").
 #
 # El caso "cross_exchange_buggy n=1000000" se ejecuta con "timeout 10": el
-# interbloqueo (código 124 de timeout) es el síntoma ESPERADO y cuenta como PASS.
+# interbloqueo (código 124 de timeout, o 137 si tuvo que matar a mpirun con KILL) es el síntoma ESPERADO y cuenta como PASS.
 #
 # Variables: MPIRUN (por defecto mpirun), MPIRUN_FLAGS (por defecto --oversubscribe).
 # Si tu MPI no acepta --oversubscribe: MPIRUN_FLAGS="" bash tests/run_tests.sh
@@ -38,7 +38,7 @@ run() {
     local np="$1"; shift
     # shellcheck disable=SC2086
     timeout -k 2 "$TIMEOUT_OK" "$MPIRUN" $MPIRUN_FLAGS -np "$np" "$@" >"$out" 2>&1
-    rc=$?
+    rc=$?; [ $rc -eq 137 ] && rc=124   # KILL tras el TERM de timeout: también es cuelgue
 }
 
 echo "== Compilando =="
@@ -92,7 +92,7 @@ fi
 # ---------- 5. cross_exchange_buggy con n grande: el cuelgue es el síntoma esperado
 # shellcheck disable=SC2086
 timeout -k 2 "$TIMEOUT_HANG" "$MPIRUN" $MPIRUN_FLAGS -np 2 ./cross_exchange_buggy 1000000 >"$out" 2>&1
-rc=$?
+rc=$?; [ $rc -eq 137 ] && rc=124   # KILL tras el TERM de timeout: también es cuelgue
 if [ $rc -eq 124 ]; then
     report PASS "cross_exchange_buggy -np 2 n=1000000 (timeout $TIMEOUT_HANG)" "se interbloqueo, como se esperaba"
 elif [ $rc -eq 0 ] && [ "$(grep -c 'intercambio correcto' "$out")" -eq 2 ]; then

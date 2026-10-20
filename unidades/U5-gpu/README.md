@@ -66,7 +66,7 @@ tiene `plan-sesion.md`, `retrieval-inicio.md`, `notas-estudiante.md`, `ejemplo-r
 | Sesión | Fecha y lugar | Tipo | Tema | Carpeta | Práctica guiada (PRIMM) |
 |---|---|---|---|---|---|
 | S01 | lunes 23 de noviembre, 10:30 · 3208 | Contenido + hito | **Recepción de H2** (20 min). CPU orientada a latencia vs. GPU orientada a rendimiento; SIMT, *warps* y SM; modelo CUDA: anfitrión/dispositivo, *kernel*, hilos/bloques/malla, índice global, guardia; suma de vectores en Colab. **Se publica la Práctica 6** | [`S01_2026-11-23_H2-modelo-cuda/`](S01_2026-11-23_H2-modelo-cuda/) | [Suma de vectores en CUDA](S01_2026-11-23_H2-modelo-cuda/practica-guiada/README.md) |
-| S02 | martes 24 de noviembre, 08:30 · LS4 | Laboratorio (constructo nuevo) | Jerarquía de memoria (registros, compartida, global, constante), acceso coalescido, multiplicación ingenua vs. por mosaicos (*tiling*) + **Práctica 6 · Laboratorio 1** (Partes A y B, mini-defensas). **Pre-lab de P6** | [`S02_2026-11-24_memoria-tiling-lab1/`](S02_2026-11-24_memoria-tiling-lab1/) | [Multiplicación de matrices: ingenua vs. por mosaicos](S02_2026-11-24_memoria-tiling-lab1/practica-guiada/README.md) (PRIMM corto) |
+| S02 | martes 24 de noviembre, 08:30 · LS4 | Laboratorio (constructo nuevo) | Jerarquía de memoria (registros, compartida, global, constante), acceso coalescido, multiplicación ingenua vs. por mosaicos (*tiling*) + **Práctica 6 · Laboratorio 1** (Partes A y B; mini-defensas solo con más de 12 equipos). **Pre-lab de P6** | [`S02_2026-11-24_memoria-tiling-lab1/`](S02_2026-11-24_memoria-tiling-lab1/) | [Multiplicación de matrices: ingenua vs. por mosaicos](S02_2026-11-24_memoria-tiling-lab1/practica-guiada/README.md) (PRIMM corto) |
 | S03 | jueves 26 de noviembre, 10:30 · 3208 | Contenido | `__syncthreads()` y su alcance, atómicas y contención, reducción en árbol en tres versiones, *warps* y divergencia, histograma privado por bloque; verificar contra la CPU con tolerancia o exacto | [`S03_2026-11-26_sincronizacion-reduccion/`](S03_2026-11-26_sincronizacion-reduccion/) | [Reducción en tres versiones e histograma con atómicas](S03_2026-11-26_sincronizacion-reduccion/practica-guiada/README.md) |
 | S04 | lunes 30 de noviembre, 10:30 · 3208 | Contenido | Rendimiento en GPU: eventos `cudaEvent_t`, transferencias H2D/D2H, umbral de tamaño, tamaño de bloque y ocupación, memoria *pinned* y *streams* (panorama), *roofline* simple, perfilado con `nsys` en Colab | [`S04_2026-11-30_rendimiento-gpu/`](S04_2026-11-30_rendimiento-gpu/) | [¿Cuánto tarda de verdad mi *kernel*?](S04_2026-11-30_rendimiento-gpu/practica-guiada/README.md) |
 | S05 | martes 1 de diciembre, 08:30 · LS4 | Laboratorio + taller | **Práctica 6 · Laboratorio 2** (Parte D, punto de control, mini-defensas) + **taller V3**: portar la V2 a GPU (aplanar, mapear, mover una vez, verificar, medir; qué cuenta como V3) | [`S05_2026-12-01_lab2-taller-V3/`](S05_2026-12-01_lab2-taller-V3/) | [Mini PRIMM "aplanar y mapear" + plantilla del plan V3](S05_2026-12-01_lab2-taller-V3/practica-guiada/README.md) ([`plan-V3.md`](S05_2026-12-01_lab2-taller-V3/practica-guiada/plan-V3.md)) |
@@ -92,8 +92,8 @@ igual, se registran, y el examen de práctica del jueves 3 de diciembre y el 10�
 
 | Entrega | Fecha límite | Peso | Dónde y cómo |
 |---|---|---|---|
-| **Práctica 6 · GPU** (en equipo, 2–3 integrantes, los de P4 y P5) | **domingo 6 de diciembre, 23:59** (etiqueta `P6`) | **15 %** del 3.er parcial | [`practicas/P6-gpu/`](../../practicas/P6-gpu/README.md): enunciado, [`entrega.md`](../../practicas/P6-gpu/entrega.md) y [`rubrica.md`](../../practicas/P6-gpu/rubrica.md). Pre-laboratorio individual antes del martes 24 de noviembre, 08:30, con la **verificación de GPU en Colab y en Kaggle**. Lab 1 (24 de noviembre): Partes A y B; Parte C entre el 25 y el 30 de noviembre; Lab 2 (1 de diciembre): Parte D, punto de control y mini-defensas. Tardía hasta el miércoles 9 de diciembre, 23:59, con máximo 80 % y sin segunda entrega. Retroalimentación a más tardar el jueves 10 de diciembre. Segunda entrega solo si la primera obtiene < 70 %: hasta el martes 15 de diciembre, 08:30, con tope de 80 %. Sin GPU en las 48 h previas: captura fechada del aviso de cuota y medición pendiente, que se completa a más tardar el martes 15 de diciembre, 08:30, sin penalización (`entrega.md` §6) |
-| **H2 · Avance 2 del proyecto** (en equipo) | **lunes 23 de noviembre**: etiqueta `H2` antes de las **10:30**; recepción en clase (S01) | **15 puntos** del proyecto | [`proyecto/hitos/H2-avance-2.md`](../../proyecto/hitos/H2-avance-2.md): V2 con OpenMP correcta frente a V1, tabla de *speedup* y eficiencia con el protocolo, Karp–Flatt, decisiones justificadas y `reporte/H2.md` con "Hacia V3". Tardía hasta el jueves 26 de noviembre, 10:30, con máximo 80 %. Lista de cotejo rápida el mismo día; rúbrica por escrito a más tardar el lunes 30 de noviembre. La pregunta individual sigue la opción anunciada el jueves 19 de noviembre (`H2-avance-2.md` §8; el plan de S01 está escrito con la opción A: se hace durante la práctica guiada y las que falten, al inicio de S02) |
+| **Práctica 6 · GPU** (en equipo, 2–3 integrantes, los de P4 y P5) | **domingo 6 de diciembre, 23:59** (etiqueta `P6`) | **15 %** del 3.er parcial | [`practicas/P6-gpu/`](../../practicas/P6-gpu/README.md): enunciado, [`entrega.md`](../../practicas/P6-gpu/entrega.md) y [`rubrica.md`](../../practicas/P6-gpu/rubrica.md). Pre-laboratorio individual antes del martes 24 de noviembre, 08:30, con la **verificación de GPU en Colab y en Kaggle**. Lab 1 (24 de noviembre): Partes A y B; Parte C entre el 25 y el 30 de noviembre; Lab 2 (1 de diciembre): Parte D, punto de control y mini-defensas (con más de 12 equipos, la mitad se defiende en el Lab 1, con lista publicada ese día). Mini-defensa pendiente: se repone en el siguiente laboratorio o, si no lo hay, con un video no listado de ≤ 3 min a más tardar el martes 15 de diciembre, 08:30 (`entrega.md` §4). Tardía hasta el miércoles 9 de diciembre, 23:59, con máximo 80 % y sin segunda entrega. Retroalimentación a más tardar el jueves 10 de diciembre. Segunda entrega solo si la primera obtiene < 70 %: hasta el martes 15 de diciembre, 08:30, con tope de 80 %. Sin GPU en las 48 h previas: captura fechada del aviso de cuota y medición pendiente, que se completa a más tardar el martes 15 de diciembre, 08:30, sin penalización (`entrega.md` §6) |
+| **H2 · Avance 2 del proyecto** (en equipo) | **lunes 23 de noviembre**: etiqueta `H2` antes de las **10:30**; recepción en clase (S01) | **15 puntos** del proyecto | [`proyecto/hitos/H2-avance-2.md`](../../proyecto/hitos/H2-avance-2.md): V2 con OpenMP correcta frente a V1, tabla de *speedup* y eficiencia con el protocolo, Karp–Flatt, decisiones justificadas y `reporte/H2.md` con "Hacia V3". Tardía hasta el jueves 26 de noviembre, 10:30, con máximo 80 %. Lista de cotejo rápida el mismo día; rúbrica por escrito a más tardar el lunes 30 de noviembre. La pregunta individual sigue la opción anunciada el jueves 19 de noviembre (`H2-avance-2.md` §8; el plan de S01 está escrito con la opción A: se hace durante la práctica guiada y las que falten, en los minutos 50–62 de S02, al arrancar el laboratorio de P6) |
 | **Examen departamental 3** (individual) | **martes 8 de diciembre, 08:30–10:00** | **30 %** del 3.er parcial | Ver §3.3 y la [guía de estudio](guia-estudio-E3.md) |
 | **Entrega final del proyecto** (en equipo; justo después de la unidad) | **lunes 7 de diciembre, 10:30** (etiqueta `entrega-final`) | **40 + 30 puntos** del proyecto | [`proyecto/entrega-final/README.md`](../../proyecto/entrega-final/README.md): V1·V2·V3 + `reporte/reporte.pdf`. La [lista de cotejo](../../proyecto/entrega-final/lista-cotejo-entrega.md) se aplica entre equipos en S06. Tardía hasta el jueves 10 de diciembre, 10:30, con máximo 80 % |
 | **Defensa oral** (en equipo, preguntas individuales) | **jueves 10 de diciembre, 10:30** | **15 puntos** del proyecto; ajusta la calificación individual | [`proyecto/defensa/`](../../proyecto/defensa/logistica-defensa.md): el profesor anuncia el formato a más tardar en S06 (jueves 3 de diciembre) |
@@ -110,23 +110,25 @@ entrega final, que vence el lunes 7 de diciembre a las 10:30; la defensa es el j
 | Fecha y hora | Qué pasa o qué se entrega | Archivo de referencia |
 |---|---|---|
 | lunes 23 de noviembre, 10:30 (S01) | **H2** (etiqueta antes de las 10:30). Tarea de U4·S06. Se publica la **Práctica 6** | [H2](../../proyecto/hitos/H2-avance-2.md) · [P6 `README.md`](../../practicas/P6-gpu/README.md) |
-| martes 24 de noviembre, 08:30 (S02) | **Pre-laboratorio de la Práctica 6**, individual, en `practicas/P6/prelab/<alias>.md` del repositorio del equipo, **faltes o no**, con la verificación de GPU en Colab y Kaggle. Tarea de S01 (`tareas/U5-S01.md`). Laboratorio 1: Partes A y B; mini-defensas (la mitad de los equipos si hay más de 12) | [P6 `README.md`](../../practicas/P6-gpu/README.md), "Pre-laboratorio" · [P6 `entrega.md`](../../practicas/P6-gpu/entrega.md) §3–§4 · [S01 `tarea-espaciada.md`](S01_2026-11-23_H2-modelo-cuda/tarea-espaciada.md) |
+| martes 24 de noviembre, 08:30 (S02) | **Pre-laboratorio de la Práctica 6**, individual, en `practicas/P6/prelab/<alias>.md` del repositorio del equipo, **faltes o no**, con la verificación de GPU en Colab y Kaggle. Tarea de S01 (`tareas/<usuario-github>/U5-S01.md`). Laboratorio 1: Partes A y B; preguntas individuales de H2 pendientes; mini-defensas solo si hay más de 12 equipos (la mitad, con lista publicada ese día) | [P6 `README.md`](../../practicas/P6-gpu/README.md), "Pre-laboratorio" · [P6 `entrega.md`](../../practicas/P6-gpu/entrega.md) §3–§4 · [S01 `tarea-espaciada.md`](S01_2026-11-23_H2-modelo-cuda/tarea-espaciada.md) |
 | miércoles 25 de noviembre, 23:59 | Último momento para la entrega tardía de P5 (máximo 80 %) | [P5 `entrega.md`](../../practicas/P5-mpi/entrega.md) §1 |
 | 25–30 de noviembre | Parte C de la Práctica 6 (≈ 3 h; histograma y reducción, *stencil* de Jacobi o el *kernel* caliente del proyecto) | [P6 `README.md`](../../practicas/P6-gpu/README.md), Parte C |
-| jueves 26 de noviembre, 10:30 (S03) | Tarea de S02 (`tarea-S02.md` en el repositorio del equipo, o en papel). Cierra la ventana de entrega tardía de H2 | [S02 `tarea-espaciada.md`](S02_2026-11-24_memoria-tiling-lab1/tarea-espaciada.md) |
+| jueves 26 de noviembre, 10:30 (S03) | Tarea de S02 (`tareas/<usuario-github>/U5-S02.md`). Cierra la ventana de entrega tardía de H2 | [S02 `tarea-espaciada.md`](S02_2026-11-24_memoria-tiling-lab1/tarea-espaciada.md) |
 | domingo 29 de noviembre | Retroalimentación de la Práctica 5 (a más tardar) | [P5 `entrega.md`](../../practicas/P5-mpi/entrega.md) §1 |
-| lunes 30 de noviembre, 10:30 (S04) | Tarea de S03 (`tareas/U5-S03.md`, con el CSV del *notebook* si lo corriste en GPU). Rúbrica escrita de H2 (a más tardar) | [S03 `tarea-espaciada.md`](S03_2026-11-26_sincronizacion-reduccion/tarea-espaciada.md) |
-| martes 1 de diciembre, 08:30 (S05) | Tarea de S04 (`practicas/P6/resultados/tarea-S04.md`, uno por integrante: el pre-mortem y la primera fila de la Parte D). Laboratorio 2: Parte D, punto de control, mini-defensas pendientes; taller V3 | [S04 `tarea-espaciada.md`](S04_2026-11-30_rendimiento-gpu/tarea-espaciada.md) · [P6 `entrega.md`](../../practicas/P6-gpu/entrega.md) §4 |
-| jueves 3 de diciembre, 10:30 (S06) | Tarea de S05 (`tareas/U5-S05.md` en el repositorio del equipo: ejercicio 1 en equipo, 2 y 3 individuales). Examen de práctica; cotejo de la entrega final; anuncio del formato de la defensa | [S05 `tarea-espaciada.md`](S05_2026-12-01_lab2-taller-V3/tarea-espaciada.md) · [examen de práctica](S06_2026-12-03_repaso-E3/examen-practica-U4-U5.md) |
+| lunes 30 de noviembre, 10:30 (S04) | Tarea de S03 (`tareas/<usuario-github>/U5-S03.md`, con el CSV del *notebook* si lo corriste en GPU). Rúbrica escrita de H2 (a más tardar) | [S03 `tarea-espaciada.md`](S03_2026-11-26_sincronizacion-reduccion/tarea-espaciada.md) |
+| martes 1 de diciembre, 08:30 (S05) | Tarea de S04 (`tareas/<usuario-github>/U5-S04.md`: el pre-mortem y la primera fila de la Parte D). Laboratorio 2: Parte D, punto de control, mini-defensas (todas, o la mitad restante si hay más de 12 equipos); taller V3 | [S04 `tarea-espaciada.md`](S04_2026-11-30_rendimiento-gpu/tarea-espaciada.md) · [P6 `entrega.md`](../../practicas/P6-gpu/entrega.md) §4 |
+| jueves 3 de diciembre, 10:30 (S06) | Tarea de S05 (`tareas/<usuario-github>/U5-S05.md`; las corridas del ejercicio 1 pueden ser en equipo). Examen de práctica; cotejo de la entrega final; anuncio del formato de la defensa | [S05 `tarea-espaciada.md`](S05_2026-12-01_lab2-taller-V3/tarea-espaciada.md) · [examen de práctica](S06_2026-12-03_repaso-E3/examen-practica-U4-U5.md) |
 | domingo 6 de diciembre, 23:59 | **Práctica 6 completa** (etiqueta `P6`) | [P6 `entrega.md`](../../practicas/P6-gpu/entrega.md) §2 y §5 |
-| lunes 7 de diciembre, 10:30 (C1) | **Entrega final del proyecto** (etiqueta `entrega-final`). Tarea de S06 (`tareas/U5-S06.md`). Un integrante de 2–3 equipos explica qué cambió en su P6 desde el laboratorio (5 min). Se confirma el aula del Examen 3 | [entrega final](../../proyecto/entrega-final/README.md) · [S06 `tarea-espaciada.md`](S06_2026-12-03_repaso-E3/tarea-espaciada.md) |
+| lunes 7 de diciembre, 10:30 (C1) | **Entrega final del proyecto** (etiqueta `entrega-final`). Tarea de S06 (`tareas/<usuario-github>/U5-S06.md`). Un integrante de 2–3 equipos explica qué cambió en su P6 desde el laboratorio (5 min). Se confirma el aula del Examen 3 | [entrega final](../../proyecto/entrega-final/README.md) · [S06 `tarea-espaciada.md`](S06_2026-12-03_repaso-E3/tarea-espaciada.md) |
 | martes 8 de diciembre, 08:30 | **Examen 3** (Unidades IV–V) | [guía de estudio](guia-estudio-E3.md) |
 | miércoles 9 de diciembre, 23:59 | Último momento para la entrega tardía de P6 (máximo 80 %) | [P6 `entrega.md`](../../practicas/P6-gpu/entrega.md) §1 |
 | jueves 10 de diciembre, 10:30 (C2) | **Defensa oral**. Retroalimentación de la P6 (a más tardar). Cierra la entrega tardía del proyecto | [defensa](../../proyecto/defensa/logistica-defensa.md) |
-| lunes 14 de diciembre, 10:30 | Reserva: retroalimentación del Examen 3 y del proyecto | [calendario](../../planeacion/calendario-27-1.md), "Reserva" |
-| martes 15 de diciembre, 08:30 | Reserva: segunda entrega de P6 (si aplica), mediciones de GPU pendientes por cuota (P6 y V3), mini-defensas y defensas pendientes por causa justificada | [P6 `entrega.md`](../../practicas/P6-gpu/entrega.md) §1 y §6 |
+| lunes 14 de diciembre, 10:30 | Reserva: calificación y análisis de errores del Examen 3; retroalimentación del proyecto | [calendario](../../planeacion/calendario-27-1.md), "Reserva" |
+| martes 15 de diciembre, 08:30 | Reserva: segunda entrega de P6 (si aplica), mediciones de GPU pendientes por cuota (P6 y V3), video de mini-defensa pendiente, reposición del Examen 3 y defensa individual por causa justificada; después de las 10:00, clave pública del Examen 3 | [P6 `entrega.md`](../../practicas/P6-gpu/entrega.md) §1 y §6 |
 
-Cada `tarea-espaciada.md` dice en su encabezado dónde se entrega y la tabla copia lo que dice cada una. Carga
+Cada `tarea-espaciada.md` dice en su encabezado dónde se entrega y la tabla copia lo que dice cada una: individual,
+en el repositorio del equipo, `tareas/<usuario-github>/U5-S<xx>.md` (el código, si lo hay, en
+`tareas/<usuario-github>/U5-S<xx>/`), al inicio de la sesión siguiente; se autocalifica en sus minutos 5–10. Carga
 orientativa fuera de clase (`planeacion/calendario-27-1.md`): 5 h la semana del 23 al 29 de noviembre (pre-lab de
 P6, Partes A–B, V3) y 7 h la del 30 de noviembre al 6 de diciembre (P6 Partes C–D, V3, reporte final, estudio para
 el Examen 3).
@@ -137,9 +139,10 @@ el Examen 3).
 |---|---|
 | Fecha | **martes 8 de diciembre de 2026, 08:30–10:00** (Salón 3208, o Lab LS4 con los equipos apagados y filas alternas; el aula se confirma el lunes 7) |
 | Cubre | **Unidades IV–V** (MPI y GPU), con 10–20 % de unidades previas **integrado** en los problemas (*speedup*, eficiencia, Amdahl, Karp–Flatt, carreras), no en una sección aparte |
-| Formato | Versiones A/B, 80 minutos efectivos, 100 puntos, seis secciones, individual, sin dispositivos ni hoja de fórmulas; hoja de calibración aparte (no afecta la calificación). Zona sin IA |
+| Formato | Versiones A/B, 80 minutos efectivos, 100 puntos, seis secciones, individual, sin dispositivos ni hoja de fórmulas; hoja de calibración aparte, con predicción al recibir y postdicción al entregar en escala 0–100 (no afecta la calificación). Zona sin IA |
 | Preparación | [`guia-estudio-E3.md`](guia-estudio-E3.md): temario con peso por tema, 30 preguntas de recuperación con respuesta, plan de 5 días. El [examen de práctica](S06_2026-12-03_repaso-E3/examen-practica-U4-U5.md) de S06 y su clave. Las tareas espaciadas de U4–U5 (de ahí salen ítems) y los ConcepTests de cada sesión |
-| Devolución | Calificación y clave en ≤ 7 días; la reserva del lunes 14 de diciembre está prevista para la retroalimentación |
+| Devolución | Calificación y sesión de análisis de errores el lunes 14 de diciembre, 10:30; clave pública el martes 15 de diciembre, después de las 10:00 (después de la última reposición; `04-evaluacion.md` §2.4) |
+| Reposición | Solo con justificante institucional: versión B el martes 15 de diciembre, 08:30 (propuesta por defecto de `04-evaluacion.md` §2.4, a confirmar por el profesor) |
 
 ## 4. Requisitos de software
 
@@ -151,7 +154,7 @@ el Examen 3).
 | Python 3 con `numba` y `numpy` | Espejos de los *kernels*; con `NUMBA_ENABLE_CUDASIM=1` corren en la CPU y verifican la **lógica** sin GPU | `pip install numba numpy`. Probado con Numba 0.68. El simulador ejecuta cada hilo en Python: usa `n ≤ 10 000` y matrices de 64 o menos; sus tiempos no significan nada, pero revisa los límites de cada acceso (la GPU no) |
 | `nbformat` | `make test` valida que cada `notebook_colab.ipynb` esté bien formado y sincronizado con los fuentes | `pip install nbformat` |
 | `matplotlib` | Gráficas: S04 (`graficar.py`) y P6 Parte D (`graficar.py`) | `pip install matplotlib` |
-| `gcc` 13, `make`, `bash`, `timeout` | Referencias en CPU (`*_cpu.c`, `-O2`) y `make test` | Las mismas de U3–U4 |
+| `gcc` ≥ 11, `make`, `bash`, `timeout` | Referencias en CPU (`*_cpu.c`, `-O2`) y `make test` | Las mismas de U3–U4; el material se verificó con gcc 13 |
 | Open MPI (`mpicc`, `mpirun`) | Solo S06: el cazador 1 y los ítems MPI del examen de práctica (`make run-mpi`, `make run-examen`) | Como en U4: `--oversubscribe` ya va en el `Makefile`; como root, `export OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1` |
 | `nsys` (en Colab) | S04, Investigar 5 (opcional): tablas de tiempo por *kernel* y por copia | `ncu` suele estar bloqueado en Colab (`ERR_NVGPUCTRPERM`); entonces se mide con eventos |
 | `git` | Repositorio privado del equipo: pre-lab, tareas, etiquetas `H2`, `P6` y `entrega-final` | Nada de nombres completos ni rutas absolutas en el repositorio |
@@ -166,32 +169,33 @@ el curso: [`herramientas/protocolo-medicion.md`](../../herramientas/protocolo-me
 Regla del curso ([`docs/metodo/04-evaluacion.md`](../../docs/metodo/04-evaluacion.md) §5 y
 [`01-marco-pedagogico.md`](../../docs/metodo/01-marco-pedagogico.md), P10): todo el material es autocontenido, y el
 *exit ticket* y la recuperación del día que faltaste se sustituyen **entregando la `tarea-espaciada.md` de esa
-sesión antes de la sesión siguiente**. Cuenta como participación (sin peso propio en el 3.er parcial, §3). Orden
-de trabajo (≈ 1.5 h, lo mismo que la clase):
+sesión en su fecha: al inicio de la sesión siguiente**, como el resto del grupo. En el 3.er parcial no tiene peso
+propio (§3). Orden de trabajo (≈ 1.5 h, lo mismo que la clase):
 
 | Paso | Archivo de la carpeta de la sesión | Tiempo | Qué haces |
 |---|---|---|---|
 | 1 | `notas-estudiante.md` | 10–15 min | Lee el concepto, la tabla principal y los errores frecuentes |
 | 2 | `ejemplo-resuelto.md` | 15–20 min | Responde cada pausa ("¿por qué este paso?") **por escrito** antes de abrir su `<details>`; en S04 y S06 llena primero los huecos |
 | 3 | `practica-guiada/README.md` | 30–40 min | PRIMM completo: escribe las predicciones antes de correr. Sin GPU: `make test` y los espejos con `NUMBA_ENABLE_CUDASIM=1`; con GPU, el `notebook_colab.ipynb` de la carpeta |
-| 4 | `tarea-espaciada.md` | 20–40 min | Entrégala antes de la sesión siguiente, donde indica su encabezado; sustituye *exit ticket* y recuperación |
+| 4 | `tarea-espaciada.md` | 20–40 min | Entrégala al inicio de la sesión siguiente, donde indica su encabezado; sustituye *exit ticket* y recuperación |
 | 5 (opcional) | `retrieval-inicio.md` y `exit-ticket.md` | 10 min | Contéstalos sin apuntes y corrige con la clave en `<details>`; así sabes si de verdad recuperaste la sesión |
 
 Lo particular de cada sesión:
 
 | Si faltaste a… | Además de los pasos 1–4 |
 |---|---|
-| S01 (lunes 23) | Ese día se recibió **H2**: con justificante institucional se recibe en la sesión siguiente al 100 %; sin justificante, hasta el jueves 26 de noviembre, 10:30, con máximo 80 %. Si te tocaba la pregunta individual de H2, pregunta al profesor cuándo se repone (el plan prevé completar las pendientes al inicio de S02). Ese día se publicó la **Práctica 6**: entrega el pre-laboratorio, con la verificación de GPU, antes del **martes 24 de noviembre, 08:30**, y la tarea de S01 también antes de esa hora |
-| S02 (martes 24, Lab 1) | El pre-lab se entrega antes de las 08:30 **faltes o no**. La memoria compartida y los mosaicos son constructo nuevo: haz el `ejemplo-resuelto.md` **completo** antes de la Parte A.7 de P6. Las Partes A y B las terminas con tu equipo antes del Lab 2 (`make test`, `make test-b`). Mini-defensa pendiente: `04` §5 la pasa a la siguiente sesión de laboratorio (martes 1 de diciembre) o a la reserva del martes 15 de diciembre; el README de P6 pide un video de 3 minutos o menos a quien no estuvo en la suya. Pregunta al profesor cuál aplica |
+| S01 (lunes 23) | Ese día se recibió **H2**: con justificante institucional se recibe en la sesión siguiente al 100 %; sin justificante, hasta el jueves 26 de noviembre, 10:30, con máximo 80 %. Si te tocaba la pregunta individual de H2, pregunta al profesor cuándo se repone (el plan prevé completar las pendientes en los minutos 50–62 de S02). Ese día se publicó la **Práctica 6**: entrega el pre-laboratorio, con la verificación de GPU, antes del **martes 24 de noviembre, 08:30**, y la tarea de S01 también antes de esa hora |
+| S02 (martes 24, Lab 1) | El pre-lab se entrega antes de las 08:30 **faltes o no**. La memoria compartida y los mosaicos son constructo nuevo: haz el `ejemplo-resuelto.md` **completo** antes de la Parte A.7 de P6. Las Partes A y B las terminas con tu equipo antes del Lab 2 (`make test`, `make test-b`). Si tu equipo estaba en la lista de mini-defensas del Lab 1 (solo con más de 12 equipos), tu mini-defensa pendiente se repone en el Lab 2 (martes 1 de diciembre); si tampoco puedes ese día, envías un video no listado de ≤ 3 min en el que explicas dos fragmentos de tu código que elige el profesor, a más tardar el martes 15 de diciembre, 08:30 (`04` §5) |
 | S03 (jueves 26) | El Crear de la práctica guiada (histograma privado por bloque, `TODO(1)`) es el ejercicio 1 de la tarea si no se terminó en clase. Entrega la tarea antes del lunes 30 de noviembre, 10:30. La Parte C de P6 puede usar el histograma o la reducción de esta sesión |
 | S04 (lunes 30) | La tarea produce el pre-mortem y la primera fila de la Parte D de P6: es la entrada del Lab 2 **del día siguiente** (martes 1 de diciembre, 08:30). Si no consigues GPU esa noche, usa las salidas esperadas del README de la práctica guiada y mide en cuanto haya cuota |
-| S05 (martes 1 de diciembre, Lab 2) | La Parte D se mide en casa con el *notebook* de P6 y el mismo protocolo; revisa tu tabla con el criterio del punto de control (`entrega.md` §4). Mini-defensa pendiente: ya no hay otro laboratorio; queda la reserva del martes 15 de diciembre o el video de P6. Llena con tu equipo las secciones 1–5 de [`plan-V3.md`](S05_2026-12-01_lab2-taller-V3/practica-guiada/plan-V3.md); las 6–9 están en la tarea |
+| S05 (martes 1 de diciembre, Lab 2) | La Parte D se mide en casa con el *notebook* de P6 y el mismo protocolo; revisa tu tabla con el criterio del punto de control (`entrega.md` §4). Mini-defensa pendiente: ya no hay otro laboratorio antes del cierre; envías un video no listado de ≤ 3 min en el que explicas dos fragmentos de tu código que elige el profesor, a más tardar el martes 15 de diciembre, 08:30 (`04` §5). Llena con tu equipo las secciones 1–5 de [`plan-V3.md`](S05_2026-12-01_lab2-taller-V3/practica-guiada/plan-V3.md); las 6–9 están en la tarea |
 | S06 (jueves 3 de diciembre) | Haz el [examen de práctica](S06_2026-12-03_repaso-E3/examen-practica-U4-U5.md) **en casa, cronometrado (40 min)**, con las casillas A y B de su hoja de calibración, y corrígelo después con su clave (`04` §5). Aplica tú la [lista de cotejo de la entrega final](../../proyecto/entrega-final/lista-cotejo-entrega.md) a tu repositorio (o `proyecto/entrega-final/scripts/verificar_entrega.sh` sobre un clon limpio). Pregunta a tu equipo qué formato de defensa se anunció |
 
 **Hito, práctica o examen con inasistencia.** Hito con justificante institucional: se recibe en la sesión siguiente
 al 100 %; sin justificante aplica la regla de 72 h al 80 %. La Práctica 6 es de equipo y su fecha no se mueve por
-una inasistencia individual (`04` §5). La reposición del Examen 3 no está escrita en `04-evaluacion.md`: si es tu
-caso, avisa al profesor con tu justificante lo antes posible.
+una inasistencia individual (`04` §5). Examen 3: solo con justificante institucional, reposición con la versión B el
+martes 15 de diciembre, 08:30 (`04-evaluacion.md` §2.4; propuesta por defecto, a confirmar por el profesor); avisa
+con tu justificante lo antes posible.
 
 **Asesoría.** Se da por protocolo: primero escribes qué intentaste y qué observaste (comando, salida, GPU asignada,
 lo que esperabas); después se atiende.
@@ -220,12 +224,12 @@ te suena razonable, vuelve a la sesión que la trabaja.
 | 5 | "Medir una vez basta" / "se mide con `-O0`" | Calentamiento (contexto de CUDA, JIT de Numba), mediana de ≥ 5, `-O2` | S04 (CT1-D, CT2-A, CT3-D), S05 (CT1-A/C) |
 | 21 | "La comunicación es gratis comparada con el cómputo" (de U4, ahora por PCIe) | Cada copia paga latencia + bytes/ancho de banda; con *kernels* cortos domina | S03 (CT3-D), S05 (tarea, ejercicio 2) |
 
-Las sesiones proponen además variantes que todavía no están en el Anexo A y que el profesor puede incorporar si
-aparecen en los *exit tickets*: "la GPU completa sola el trabajo que no cubre la malla" y "`threadIdx.x` es el índice
-global" (S01 CT2-A y CT2-C), y confundir tiempo de compilación con tiempo de ejecución (S01 CT3-D); "índices de hilo
+Las variantes con número que usa la unidad (7e, 8b, 10c, 18d, 22b, 25b, 25c, 26b) están definidas en el Anexo A.
+Las sesiones proponen además variantes sin número que el profesor puede incorporar si aparecen en los *exit
+tickets*: "la GPU completa sola el trabajo que no cubre la malla" y "`threadIdx.x` es el índice global" (S01 CT2-A
+y CT2-C), y confundir tiempo de compilación con tiempo de ejecución (S01 CT3-D); "índices de hilo
 consecutivos ⇒ direcciones consecutivas", "la compartida es una copia única de la matriz", "cada hilo carga el
-mosaico completo" y confundir el manejo de bordes con la sincronización (S02 CT1-a, CT2-a, CT2-d y CT3-d); 18d y 26b
-(S06, `conceptests.md`).
+mosaico completo" y confundir el manejo de bordes con la sincronización (S02 CT1-a, CT2-a, CT2-d y CT3-d).
 
 ## 7. Otros documentos que usa la unidad
 
@@ -263,20 +267,22 @@ mosaico completo" y confundir el manejo de bordes con la sincronización (S02 CT
 | Carpeta | Tipo (`02-plantilla-sesion.md`) | Andamiaje (`07` §A.5) | `make test` | Qué preparar además |
 |---|---|---|---|---|
 | S01 | Contenido con recepción de H2 (20 min) | Completo; PRIMM en cinco fases | 12 PASS, 0 FAIL, 4 SKIP | Lista de cotejo rápida de H2 impresa (una fila por equipo); decidir cuándo va la pregunta individual; Colab con GPU desde las 10:15 |
-| S02 | Laboratorio con constructo nuevo (§2.1) | Completo; PRIMM corto de 20 min | 21 PASS, 0 FAIL | `make test` y el *notebook* ejecutados la víspera (la tabla de tiempos del día); rúbrica de P6 impresa; registro del pre-lab; lista de mini-defensas si hay más de 12 equipos |
+| S02 | Laboratorio con constructo nuevo (§2.1) | Completo; PRIMM corto de 20 min | 21 PASS, 0 FAIL | `make test` y el *notebook* ejecutados la víspera (la tabla de tiempos del día); rúbrica de P6 impresa; registro del pre-lab; lista de preguntas individuales de H2 pendientes (sale de S01); lista de mini-defensas si hay más de 12 equipos |
 | S03 | Contenido | Completo (segunda sesión de contenido) | 18 PASS, 0 FAIL, 2 SKIP | *Notebook* ejecutado hasta la sección 3; fila de 8 casillas y un *warp* dibujados en el pizarrón |
 | S04 | Contenido | Por completar (3 huecos en el ejemplo); PRIMM abreviado | 15 PASS, 0 FAIL | GPU asignada antes de las 10:30; si no, se proyectan las salidas esperadas del README |
 | S05 | Laboratorio (§2.1) + taller de proyecto (§2.4) | Ejemplo completo; el desvanecimiento va en la práctica guiada | 11 PASS, 0 FAIL, 2 SKIP | Celda "Medir" del *notebook* ejecutada antes de clase; hoja de registro de mini-defensas; rúbrica de P6 |
 | S06 | Repaso previo a examen (§2.2) + 10 min de lista de cotejo | Por completar; PRIMM abreviado | 21 PASS, 0 FAIL, 0 SKIP | 35 exámenes de práctica sin clave y 18 claves en sobre cerrado; 18 boletas de cotejo; opción de defensa decidida (se publica ese día en un *issue*) |
 | P6 | Práctica | — | 29 PASS, 0 FAIL, 2 PEND, 2 SKIP (recién clonada; los `PEND` son la Parte B) | Al calificar: `make test-b` y `EXTRA=1 bash tests/run_tests.sh` (`entrega.md` §7) |
 
-- **Laboratorios (S02 y S05):** llevan punto de control y mini-defensas de P6 (una pregunta por integrante; la
-  segunda solo si la primera falla); el banco de preguntas y el registro están en cada plan. S02 trae un plan B si
+- **Laboratorios (S02 y S05):** llevan punto de control; las mini-defensas de P6 van en S05 (con más de 12
+  equipos, la mitad en S02, con lista publicada ese día): una pregunta por integrante, la segunda solo si la primera
+  falla. S02 reserva además los minutos 50–62 para las preguntas individuales de H2 pendientes. El banco de
+  preguntas y el registro están en cada plan. S02 trae un plan B si
   `practicas/P6-gpu/` no estuviera publicada.
 - **Práctica 6:** la solución de referencia y los casos de calificación están en `docente/practicas/P6/` (no se
   publica). La retroalimentación sigue el formato mínimo de `04-evaluacion.md` §3.1.
 - **Examen 3:** tabla de especificaciones, versiones A/B, claves, código de los ítems, instrucciones de aplicación y
   hoja de calibración en `docente/examenes/E3/` (no se publica). La guía pública toma de ahí solo los pesos por tema
   y la estructura de la portada.
-- **Registro:** `herramientas/seguimiento-grupo.csv` (la copia llena vive en `docente/`). Cada plan dice qué datos
-  se anotan ese día.
+- **Registro:** la hoja llena vive en `docente/seguimiento-grupo.csv` (no se versiona);
+  `herramientas/seguimiento-grupo.csv` es solo la plantilla vacía. Cada plan dice qué datos se anotan ese día.

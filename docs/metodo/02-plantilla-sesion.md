@@ -52,7 +52,7 @@ Notas a la variante de laboratorio:
 | 0–10 | Recuperación larga (8–10 preguntas acumulativas) |
 | 10–50 | Examen de práctica individual (versión corta, misma estructura que el real) |
 | 50–80 | Corrección entre pares con clave y rúbrica; discusión de los 3 ítems peor contestados |
-| 80–85 | Predicción individual de calificación (calibración) |
+| 80–85 | Predicción individual de calificación (calibración, en la escala del examen de práctica: 0–60) |
 | 85–90 | *Exit ticket*: "¿qué vas a estudiar hoy y mañana?" (plan concreto) |
 
 Si en esta sesión también se recibe un hito del proyecto (S13 con H1), se usa la variante 2.5.
@@ -61,7 +61,8 @@ Si en esta sesión también se recibe un hito del proyecto (S13 con H1), se usa 
 
 Instrucciones impresas, versiones A/B alternadas por fila, 80 minutos efectivos, 10 minutos de margen.
 Sin dispositivos. Hoja de calibración aparte, con dos casillas: la calificación que espera al recibir el examen
-y la que cree haber obtenido al entregarlo; se recoge separada del examen (`04-evaluacion.md`, §2.3). Si el
+y la que cree haber obtenido al entregarlo, en la escala del examen (0–100); se recoge separada del examen
+(`04-evaluacion.md`, §2.3). Si el
 examen cae en horario de laboratorio (E2 y E3, martes 08:30), se aplica en el 3208 o en LS4 con los equipos
 apagados y filas alternas.
 
@@ -90,7 +91,9 @@ El hito se entrega en el repositorio (etiqueta) antes de la hora de clase; la r�
   en casa, cronometrado (40 min). En clase: 5–25 recepción de H1 · 25–60 corrección entre pares con clave y
   rúbrica · 60–80 los 3 ítems peor contestados · 80–85 calibración · 85–90 *exit ticket*. La pregunta
   individual de H1 que no quepa se hace en los primeros 20 min de U4 S01 (`proyecto/hitos/H1-avance-1.md`).
-- **U5 S01 (H2 + modelo CUDA).** 5–25 recepción de H2 (dos equipos muestran su *speedup*, 2 min c/u) ·
+- **U5 S01 (H2 + modelo CUDA).** 5–25 recepción de H2: ronda de ≤ 1 min por equipo con la lista rápida y las dos
+  preguntas fijas, mientras el equipo vecino aplica la lista de cotejo; la pregunta individual, en PRIMM y al
+  inicio de U5 S02 (`proyecto/hitos/H2-avance-2.md` §8, opción A) ·
   25–30 objetivos · 30–50 instrucción explícita · 50–70 PRIMM · 70–77 puesta en común · 77–85 transferencia ·
   85–90 cierre.
 

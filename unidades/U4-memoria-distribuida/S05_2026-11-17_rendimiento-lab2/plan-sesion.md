@@ -2,8 +2,9 @@
 
 # S05 · Rendimiento en MPI: modelo de costo, escalabilidad fuerte y débil, sobre-suscripción; MPI+OpenMP (panorama) · Práctica 5 · Laboratorio 2
 
-**Tipo:** laboratorio (variante 2.1 adaptada): recuperación 5 min · mini-lección 25 min · 50 min de Práctica 5
-Lab 2 con punto de control y mini-defensas · *exit ticket*.
+**Tipo:** laboratorio (variante 2.1 adaptada): recuperación 5 min · objetivos, anclaje y autocalificación de la
+tarea de S04 5 min · mini-lección 23 min · 52 min de Práctica 5 Lab 2 (Partes C y D) con punto de control y
+mini-defensas · *exit ticket* 5 min. Suma 90.
 
 ## Objetivos (al terminar, el estudiante podrá…)
 
@@ -58,17 +59,20 @@ Proyectar `retrieval-inicio.md` (5 preguntas). A los 4 min, respuestas; manos po
   de la mini-lección, no del cierre.
 - Si la P4 (columnas del CSV) falla: el encabezado queda escrito en el pizarrón toda la sesión.
 
-### 5–8 · Objetivos y anclaje
+### 5–10 · Objetivos, anclaje y tarea de S04
 
-Frase de arranque: "El jueves medimos cuánto tarda un mensaje (*ping-pong*) y escribimos Jacobi con halos. Hoy
-juntamos las dos cosas: ¿cuándo vale la pena repartir un problema entre procesos? La respuesta es un número, y
+Autocalificación de la tarea de S04 con su clave (2 min; el ejercicio 3 es la predicción que se copia en la fase
+Predecir); el profesor registra la entrega en el repositorio (`tareas/<usuario-github>/U4-S04.md`), no el acierto.
+
+Frase de arranque: "El lunes 9 medimos cuánto tarda un mensaje (*ping-pong*) y el jueves 12 escribimos Jacobi
+con halos. Hoy juntamos las dos cosas: ¿cuándo vale la pena repartir un problema entre procesos? La respuesta es un número, y
 hoy lo van a calcular para su propio programa de la Práctica 5." Conectar con el *exit ticket* de S04 (error
 más frecuente: se anota aquí: ______). Leer los 4 objetivos. Mostrar en qué parte de la rúbrica de P5 entra
 cada uno ("Medición" 20 % e "Interpretación" 20 %).
 
-### 8–33 · Mini-lección (25 min) con ConcepTests 1 y 2
+### 10–33 · Mini-lección (23 min) con ConcepTests 1 y 2
 
-**8–14 · Modelo de costo con los números del *ping-pong*.** Correr en vivo `make run-pingpong`
+**10–14 · Modelo de costo con los números del *ping-pong*.** Correr en vivo `make run-pingpong`
 (`mpirun -np 2 ./pingpong`, ~15 s). Mientras corre, escribir `T_com(m) = α + m/β`. Leer de la salida: α ≈ fila
 de 8 bytes; β ≈ ajustado con 1 MiB. Pensar en voz alta: "Para 8 bytes, m/β es ~0.005 µs: no se ve. Para 1 MiB,
 α no se ve. Dos regímenes." Decir explícitamente: *los números de hoy son de esta máquina; en su reporte usan
@@ -117,7 +121,7 @@ en la discusión del reporte final del proyecto.
 abierto; primero la hoja de predicción (fase P), después `make run` con los tamaños del README. Recordar los
 roles conductor/navegante y el cambio a los 15 min.
 
-### 33–85 · Práctica 5 · Laboratorio 2 (52 min): PRIMM con el script + mediciones de la Parte D
+### 33–85 · Práctica 5 · Laboratorio 2 (52 min; Partes C y D): PRIMM con el script + mediciones de la Parte D
 
 **33–48 · Predecir → Ejecutar → Investigar (15 min)** con `practica-guiada/`:
 - *Predecir* (3 min, por escrito): *speedup* con 2 y 4 procesos para n = 1 000 000 y para n = 1 000; ¿cuál
@@ -142,6 +146,8 @@ integrante** sobre su propio código de P5 ("¿qué hace esta línea?"; la segun
 la primera falla, y cuenta la mejor de las dos); candidatas: la
 `MPI_Barrier` antes de `MPI_Wtime`, el `MPI_Waitall`, el `MPI_Reduce` con `MPI_MAX` del tiempo, el reparto con
 residuo. Se anota en la rúbrica impresa quién no pudo explicar su código (criterio "Proceso e integridad").
+Quien falta hoy a la suya la repone en el siguiente laboratorio (U5·S02, martes 24 de noviembre, 08:30, LS4); si
+no puede, video (`practicas/P5-mpi/entrega.md` §3).
 Cambio de roles conductor/navegante al minuto 55.
 
 **68–80 · Punto de control (12 min).** Cada equipo, en 1 minuto, muestra su tabla de escalabilidad fuerte y su
@@ -162,7 +168,8 @@ con p = 2 y explicar por qué n* es distinto (el factor 1 − 1/p).
   con las dos tablas, CSV + PNG, `REPORTE.md` con la razón cómputo/comunicación y la fila sobre-suscrita aparte).
 - **H2 · Avance 2 del proyecto**: **lunes 23 de noviembre, en clase** (V2 memoria compartida + *speedup* con el
   protocolo). El taller del jueves 19 es para dejarlo listo.
-- Tarea espaciada (`tarea-espaciada.md`): antes del jueves 19 de noviembre, 10:30.
+- Tarea espaciada (`tarea-espaciada.md`): individual, en `tareas/<usuario-github>/U4-S05.md`, antes del jueves 19
+  de noviembre, 10:30; se autocalifica ese día en los minutos 5–10.
 
 ## Lista de errores esperados en la práctica (y la pregunta que se hace ante cada uno)
 

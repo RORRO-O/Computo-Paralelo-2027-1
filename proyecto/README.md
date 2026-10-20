@@ -74,8 +74,8 @@ plan B de la demo están en `proyecto/defensa/logistica-defensa.md`. Las opcione
 
 | Opción | Cómo queda | Costo |
 |---|---|---|
-| (a) Formato completo en más sesiones | 12 min + 2 preguntas por integrante + 1 min de cambio: caben 4 equipos por sesión. Con 12 equipos: jueves 10, lunes 14 (reserva) y martes 15 08:30 (reserva); con ≤ 8 equipos bastan el jueves y el lunes | Ocupa las reservas previstas para la retroalimentación del Examen 3 y del proyecto (lunes 14) y para defensas pendientes y segunda entrega de P6 (martes 15), que pasan al jueves 17; los equipos defienden con hasta 5 días de diferencia |
-| (b) Formato corto | 7 min de exposición + 3 min de preguntas (2 por integrante, 30 s) + 1 min de cambio = 11 min: 12 equipos = 132 min, caben en el jueves 10 (6) y el lunes 14 (6); en una sola sesión solo con ≤ 7 equipos | Una decisión medida en lugar de dos y menos tiempo para resultados; el ensayo del 7 de diciembre ya debe hacerse con 7 min; el lunes 14 sigue ocupado |
+| (a) Formato completo en más sesiones | 12 min + 2 preguntas por integrante + 1 min de cambio: caben 4 equipos por sesión. Con 12 equipos: jueves 10, lunes 14 (reserva) y martes 15 08:30 (reserva); con ≤ 8 equipos bastan el jueves y el lunes | Ocupa la reserva del lunes 14, prevista para la calificación y el análisis de errores del Examen 3 y la retroalimentación del proyecto (`docs/metodo/04-evaluacion.md` §2.4), y comparte la del martes 15 08:30 con las defensas pendientes y la segunda entrega de P6, que no cambian de fecha (las pendientes ocupan la holgura de esa sesión); los equipos defienden con hasta 5 días de diferencia |
+| (b) Formato corto | 7 min de exposición + 3 min de preguntas (2 por integrante, 30 s) + 1 min de cambio = 11 min: 12 equipos = 132 min, caben en el jueves 10 (6) y el lunes 14 (6); en una sola sesión solo con ≤ 7 equipos | Una decisión medida en lugar de dos y menos tiempo para resultados; el ensayo del 7 de diciembre ya debe hacerse con 7 min; el lunes 14 sigue ocupado (ahí estaba el análisis del Examen 3, `docs/metodo/04-evaluacion.md` §2.4) |
 | (c) Mixta | En clase, 2 min de demo + preguntas individuales (≈ 6.5 min por equipo de 3 con el cambio, 5.5 con uno de 2: once equipos de 3 y uno de 2 = 77 min, cabe en el jueves 10 con 3 min de holgura; doce de 3 = 78 min, 2 de holgura); la exposición va en video. Así se planteó al principio: video de 12 min antes del jueves 10 de diciembre 10:30. `docs/metodo/04-evaluacion.md` §3.2 la recomienda con dos ajustes: video de ≤ 8 min, enlazado en el repositorio antes del lunes 7 de diciembre 10:30, junto con la entrega final; esa es la versión que desarrolla `logistica-defensa.md` | La exposición no es en vivo; una pregunta individual por integrante (la segunda solo como rescate); poca holgura; el video se suma a la carga del fin de semana del 5–6 de diciembre, salvo que se anuncie desde el 23 de noviembre |
 
 El profesor elige y lo anuncia a más tardar el jueves 3 de diciembre (U5·S06), de preferencia desde el lunes 23
@@ -156,7 +156,9 @@ La calificación del proyecto de cada integrante parte de la del equipo y se mue
    parcial; H2, en el proyecto.
 3. **Proceso en el repositorio final (por integrante).** El criterio C6 de `proyecto/entrega-final/rubrica-codigo.md`
    (historial de *commits* y bitácora, 4 puntos) baja a Insuficiente para quien tenga participación marginal sin
-   explicación en el reparto o no pueda explicar en la defensa una línea que el equipo entregó.
+   explicación en el reparto o, en la defensa, falle la pregunta 1 **y** la de rescate (cuenta la mejor de las dos,
+   `docs/metodo/05-politica-ia.md`; `defensa/rubrica-defensa.md` §4.1). Faltar a la defensa sin justificante cuenta
+   igual que fallar las dos.
 4. **Respuestas individuales en la defensa (por integrante).** El criterio D4 de
    `proyecto/defensa/rubrica-defensa.md` (30 de los 100 puntos de esa rúbrica = 4.5 puntos del proyecto) se asigna
    a cada persona con dos preguntas sin ayuda del equipo; la primera es sobre la parte que firmó.
@@ -165,6 +167,10 @@ La calificación del proyecto de cada integrante parte de la del equipo y se mue
    desarrollo no lo activa: solo baja D4 (`rubrica-defensa.md` §4.1). El cálculo aplica además el tope de
    `docs/metodo/04-evaluacion.md` §3.2: estos ajustes nunca dejan a una persona más de 20 puntos por debajo de la
    referencia del equipo (`defensa/logistica-defensa.md` §7).
+6. **Inasistencia a la defensa.** Faltar sin justificante se califica como si hubieras fallado las dos preguntas
+   individuales (factor 0.80 y C6 Insuficiente), además de 0 en D4: faltar nunca conviene más que presentarse. Con
+   justificante institucional, la defensa es individual, el martes 15 de diciembre, 08:30
+   (`docs/metodo/04-evaluacion.md` §3.2; `defensa/rubrica-defensa.md` §4.2).
 
 La calificación de una persona nunca baja por las respuestas de otro integrante. No hay ajustes no escritos. Si
 crees que la calificación individual no refleja tu trabajo, el canal es la retroalimentación escrita de cada pieza

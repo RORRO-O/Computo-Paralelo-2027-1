@@ -2,11 +2,11 @@
 
 # Examen de práctica · Unidades IV–V (MPI y CUDA)
 
-**40 minutos · 60 puntos · individual · sin dispositivos ni apuntes.** Misma estructura que el Examen 3 del
-martes 8 de diciembre de 2026 (08:30–10:00, 80 minutos, 100 puntos, versiones A/B): seis secciones, los mismos
-tipos de ítem, la misma proporción. El Examen 3 cambia números, nombres y orden de opciones, no lo que mide. El
-10–20 % acumulativo de Unidades I–III va **integrado** en los problemas (eficiencia, Amdahl, protocolo de medición),
-no en una sección aparte.
+**40 minutos · 60 puntos · individual · sin dispositivos ni apuntes.** Versión corta del Examen 3 del martes 8 de
+diciembre de 2026 (08:30–10:00, 80 minutos, 100 puntos, versiones A/B): seis secciones con los mismos tipos de ítem.
+El Examen 3 tiene la misma estructura por tipo de ítem; sus ítems son distintos. El 10–20 % acumulativo de
+Unidades I–III va **integrado** en los problemas (eficiencia, Amdahl, protocolo de medición), no en una sección
+aparte.
 
 **Calibración.** Al recibir el examen escribe en la casilla A la calificación (0–60) que crees que vas a obtener;
 al entregarlo, en la casilla B la que crees haber obtenido. Después de la corrección entre pares anota la real en C
@@ -234,7 +234,7 @@ bytes transferidos, cómputo por iteración, costo de comunicación) (4 puntos).
 
 ---
 
-## Tabla de especificaciones (para verificar la cobertura; el Examen 3 usa la misma, escalada a 100)
+## Tabla de especificaciones (para verificar la cobertura; el Examen 3 tiene la suya, con la distribución 30 / 50 / 20 de `04-evaluacion.md` §2.1)
 
 | Tema | Recordar / Comprender | Aplicar / Analizar | Evaluar / Crear | Puntos |
 |---|---|---|---|---|
@@ -258,7 +258,7 @@ V.b), "más hilos siempre es más rápido" (I.2 A, I.5 A, idea 1), medición ún
 
 | Ítem | Respuesta | Justificación | Origen de los distractores (Anexo A) |
 |---|---|---|---|
-| I.1 | **B** | `MPI_Send` solo promete que el búfer se puede reutilizar; el envío inmediato con mensajes chicos (≈ 4 KB en Open MPI local) es una cortesía, no una garantía. Un programa que depende de eso es inseguro | A: 17 ("siempre regresa de inmediato") · C: 17 ("siempre bloquea") · D: nueva 17b (confunde número de procesos con la condición) |
+| I.1 | **B** | `MPI_Send` solo promete que el búfer se puede reutilizar; el envío inmediato con mensajes chicos (≈ 4 KB en Open MPI local) es una cortesía, no una garantía. Un programa que depende de eso es inseguro | A: 17 ("siempre regresa de inmediato") · C: 17 ("siempre bloquea") · D: 17b (confunde número de procesos con la condición) |
 | I.2 | **C** | Cómputo por proceso: `1 000 × 1 ns = 1 µs`; comunicación `2α = 4 µs`; `T_4 = 5 µs > T_1 = 4 µs`. Umbral: `n·1 ns > (n/4)·1 ns + 4 µs` → `n > 5 333` | A: 1 (más procesos siempre más rápido) · B: 20 (sobre-suscripción; 4 en 4 núcleos no lo es) · D: 5 (medir con `-O0`) |
 | I.3 | **B** | La unidad de ejecución es el *warp*; un SM de T4 tiene hasta 32 *warps* residentes y los 65 536 bloques entran en oleadas | A, C: 22 (hilo CUDA = núcleo de CPU) · D: 22 + límite real de 1 024 hilos **por bloque** |
 | I.4 | **B** | Lecturas de A: `n³` frente a `n³/16` (U5 S02, notas §3); la compartida está uno o dos órdenes de magnitud más cerca que la global | A: 23 (global tan rápida como compartida) · C: 1 · D: nueva ("la barrera acelera"; sincroniza, cuesta) |
@@ -354,12 +354,13 @@ Puntuación: (i) 1; (ii) 2 (1 si suman mal pero incluyen las tres partes); (iii)
 
 (a) Respuesta esperada: **GPU (T4)**. Datos que la sostienen (cualquier par vale): las dos mallas ocupan 512 MB y
 caben en 16 GB; la copia de subida y bajada se paga **una vez** (512 MB a ≈ 4–6 GB/s ≈ 0.1 s) frente a 10 000
-iteraciones de *kernel*; un *stencil* lee ≈ 5 valores y escribe 1 por punto (≈ 24 bytes, 6 FLOP: *memory-bound*,
-donde una T4 da ≈ 200 GB/s contra ≈ 20–40 GB/s de la laptop → ≈ 5–10× solo por ancho de banda); un hilo por celda
-da 67 millones de hilos independientes por iteración. MPI en ese clúster: halos de 8 192 × 4 B = 32 KB por
-vecino y por iteración (`50 µs + 32 KB / 100 MB/s ≈ 0.38 ms` cada uno, ≈ 0.8 ms por iteración de comunicación)
-contra ≈ 8 ms de cómputo por nodo en un núcleo (8 192² / 8 ≈ 8.4 millones de puntos a ≈ 1 ns; ≈ 2 ms con 4 hilos
-OpenMP): **sí escala** (≈ 8 nodos × 4 núcleos ≈ 20–25× sobre un núcleo) y es
+iteraciones de *kernel*; un *stencil* de 5 puntos que lee el centro lee ≈ 5 valores y escribe 1 por punto (≈ 24
+bytes, 6 FLOP; el Jacobi de la Práctica 6 no lee el centro: 4 vecinos y 1 escritura, ≈ 20 bytes y 4 FLOP; con
+cualquiera de las dos cuentas es *memory-bound*, donde una T4 da ≈ 200 GB/s contra ≈ 20–40 GB/s de la laptop → ≈
+5–10× solo por ancho de banda); un hilo por celda da 67 millones de hilos independientes por iteración. MPI en ese
+clúster: halos de 8 192 × 4 B = 32 KB por vecino y por iteración (`50 µs + 32 KB / 100 MB/s ≈ 0.38 ms` cada uno,
+≈ 0.8 ms por iteración de comunicación) contra ≈ 8 ms de cómputo por nodo en un núcleo (8 192² / 8 ≈ 8.4 millones
+de puntos a ≈ 1 ns; ≈ 2 ms con 4 hilos OpenMP): **sí escala** (≈ 8 nodos × 4 núcleos ≈ 20–25× sobre un núcleo) y es
 una respuesta válida con esos números; OpenMP solo en la laptop (≤ 4×) es la opción más débil, válida únicamente
 si el argumento es "no hay cuota de GPU y no hay clúster". 4 puntos: 2 por la elección con dos datos numéricos
 correctos del problema, 1 por descartar explícitamente una alternativa con un número, 1 por mencionar cómo se

@@ -74,8 +74,8 @@ en la pregunta 2 del *exit ticket*.
   (opción A de H1 §8).
 - Proyector, cronómetro visible, tarjetas con números de lista. Plan B de `02` §2.7: recuperación y *exit
   ticket* dictados; corrección entre pares con la clave impresa (una por pareja).
-- Hoja de seguimiento (`herramientas/seguimiento-grupo.csv` → copia en `docente/`) para registrar predicción,
-  postdicción y real del examen de práctica.
+- Hoja de seguimiento llena (`docente/seguimiento-grupo.csv`, no se versiona; `herramientas/seguimiento-grupo.csv`
+  es solo la plantilla vacía) para registrar predicción, postdicción y real del examen de práctica (0–60).
 
 ## Decisiones previas que este plan asume
 
@@ -199,9 +199,10 @@ unidades previas a la recuperación del jueves 5 de noviembre.
 
 ### 80–85 · Hoja de calibración
 
-Proyectar la tabla de tres casillas de `examen-practica-U3.md`. Cada estudiante completa la casilla 3 (real,
-brecha, equivalente sobre 10, calificación que ahora espera en el Examen 2). Pedir manos: "¿quién tuvo brecha
-positiva de más de 9 puntos?" (sobreestimación) y "¿quién negativa de más de 9?" (subestimación). Decir una
+Proyectar la tabla de tres casillas de `examen-practica-U3.md`. Cada estudiante completa la casilla 3 (real
+sobre 60, brecha, equivalente sobre 100, calificación que ahora espera en el Examen 2 sobre 100). Pedir manos:
+"¿quién tuvo brecha positiva de más de 9 puntos?" (sobreestimación) y "¿quién negativa de más de 9?"
+(subestimación). Decir una
 sola frase: "La brecha es el dato que mejor predice sorpresas el martes; su plan de estudio empieza por la
 sección de la casilla 2." Las hojas se recogen con el *exit ticket*, separadas del examen; al grupo solo se le
 muestra el promedio (`04-evaluacion.md`, §2.3).
@@ -218,14 +219,16 @@ escriben, anuncios en el proyector, leídos una vez:
    Misma estructura que el examen de práctica, 100 puntos."
 4. "Tarea (`tarea-espaciada.md`): el cazador de errores en pareja (`practica-guiada/`: fases 1–3 como práctica
    guiada, 30 min; fases 4–5 dentro de la tarea), el intercalado y rehacer el ítem que anotaron en el *exit
-   ticket*. Entrega en `tareas/S13/` antes del martes 3 a las 08:30; se autocalifica el jueves 5."
+   ticket*. Entrega individual en `tareas/<usuario-github>/U3-S13.md` (código en
+   `tareas/<usuario-github>/U3-S13/`) antes del martes 3 a las 08:30; como el martes es el examen, se
+   autocalifica el jueves 5, minutos 5–10."
 5. "H1: la rúbrica aplicada llega por escrito el jueves 5 de noviembre; ese día, en los primeros 20 minutos,
    la pregunta individual de H1. Unidad IV empieza el jueves 5 a las 10:30."
 
 ## Práctica guiada: errores esperados y la pregunta que se hace (para asesoría y para el jueves 5)
 
 La práctica guiada (`practica-guiada/README.md`) se hace en casa entre el 29 y el 2 de noviembre. Estos son
-los errores que aparecerán en asesoría y en los `respuestas.md`; se revisan 3 al azar el jueves 5.
+los errores que aparecerán en asesoría y en las tareas (`U3-S13.md`); se revisan 3 al azar el jueves 5.
 
 | # | Error esperado | Pregunta socrática |
 |---|---|---|
@@ -259,12 +262,12 @@ los errores que aparecerán en asesoría y en los `respuestas.md`; se revisan 3 
 | 1 (demostrar H1) | Lista de cotejo rápida: casillas P1 y P2 por equipo | > 3 equipos con N en P1 ("¿qué midieron?") → mini-lección de perfilado en U4 S01 antes de la pregunta individual |
 | 2 (corregir con criterio) | Hojas firmadas; "?" marcados; errores de corrección vistos en la ronda | > 30 % de hojas con II.1 o V mal corregidos → repetir la guía de corrección el jueves 5 con el examen real |
 | 3 (explicar los 3 errores) | Revoto de los CT usados; *exit ticket* 1 | Revoto < 70 % en algún CT → ese CT abre la recuperación del jueves 5 |
-| 4 (calibrar y planear) | Hoja de calibración (casilla 3); *exit ticket* 2 | Promedio de brecha > 9 puntos (1.5 sobre 10) → se dice al grupo el martes antes del examen; planes "mal" > 30 % → se devuelven con la pregunta "¿qué archivo y cuántos minutos?" |
+| 4 (calibrar y planear) | Hoja de calibración (casilla 3); *exit ticket* 2 | Sobreestimación media del grupo (postdicción − real) > 9 de 60 puntos (15 %) → se dice al grupo el martes antes del examen; planes "mal" > 30 % → se devuelven con la pregunta "¿qué archivo y cuántos minutos?" |
 
-Datos que se registran hoy en la hoja de seguimiento: % de aciertos de la recuperación 1, 2, 3 y 5; conteo de
-manos por ítem; % de primer voto y revoto de los CT usados; predicción, postdicción y real del examen de
-práctica por estudiante (columna propia, separada de la del Examen 2); montones del *exit ticket*
-(bien/parcial/mal); lista de cotejo de H1 por equipo.
+Datos que se registran hoy en la hoja de seguimiento (`docente/seguimiento-grupo.csv`): % de aciertos de la
+recuperación 1, 2, 3 y 5; conteo de manos por ítem; % de primer voto y revoto de los CT usados; predicción,
+postdicción y real del examen de práctica por estudiante, en puntos de 60 (columna propia, separada de la del
+Examen 2, que va de 0 a 100); montones del *exit ticket* (bien/parcial/mal); lista de cotejo de H1 por equipo.
 
 ## Notas post-sesión
 
@@ -274,7 +277,8 @@ Se llenan el mismo jueves 29, después de clasificar los *exit tickets* y las ho
 - ¿Cuántos trajeron el examen de práctica resuelto? ___ de ___ (los que no, lo hicieron en el bloque 8–48).
 - Los tres ítems peor contestados (por manos) y si coincidieron con los previstos (V, II.1, III.2): ___.
 - ConcepTest con peor primer voto y opción más votada entre los errados: ___.
-- Promedio de brecha de calibración (postdicción − real), y cuántos sobreestimaron por más de 9 puntos: ___.
+- Sobreestimación media del grupo (postdicción − real, de 60; alerta si pasa de 9) y cuántos sobreestimaron por
+  más de 9 puntos: ___.
 - Error más frecuente del *exit ticket* (abre la recuperación del jueves 5 de noviembre): ___.
 - ¿Alcanzó el tiempo de la ronda de H1 (8–28)? Si no, ¿cuántos equipos quedaron para el jueves 5?: ___.
 - Cambio concreto para la próxima vez que se dé esta sesión: ___.

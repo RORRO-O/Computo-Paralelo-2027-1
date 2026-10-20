@@ -2,12 +2,13 @@
 
 # S09 · Tarea espaciada (20–40 minutos)
 
-**Entrega.** Carpeta `tareas/S09/` en el repositorio de tu equipo (el mismo de las prácticas), con un archivo
-`respuestas.md` y el `.c` del ejercicio 1, antes del **jueves 22 de octubre de 2026, 10:30** (inicio de S10).
-La autocalificas con las claves de abajo en los primeros minutos de S10; el profesor registra la entrega, no el
+**Entrega.** Individual, en el repositorio de tu equipo (el mismo de las prácticas): tus respuestas en
+`tareas/<usuario-github>/U3-S09.md` y el `.c` del ejercicio 1 en `tareas/<usuario-github>/U3-S09/`, antes del
+**jueves 22 de octubre de 2026, 10:30** (inicio de S10). La autocalificas con las claves de abajo en los minutos
+5–10 de S10; el profesor registra la entrega, no el
 acierto, y revisa 3 tareas al azar por estudiante en el parcial ("Tareas espaciadas y ejercicios", 5 % del 2º
-parcial, `planeacion/mapa-evaluacion.md`). Individual; el *commit* debe ser tuyo. Si faltaste a S09, esta
-tarea sustituye tu recuperación y tu *exit ticket* de hoy (`docs/metodo/04-evaluacion.md`, §5).
+parcial, `planeacion/mapa-evaluacion.md`). El *commit* debe ser tuyo. Si faltaste a S09, esta tarea, entregada
+en esa misma fecha, sustituye tu recuperación y tu *exit ticket* de hoy (`docs/metodo/04-evaluacion.md`, §5).
 
 IA: verde para que te explique la regla de datos de `task` o un mensaje de gcc; amarillo (declarado) para que
 revise tu `tree_sum_tasks.c` y señale dónde una tarea escribe en una copia; rojo para que escriba la recursión
@@ -20,10 +21,11 @@ esta semana y la práctica completa se entrega el **domingo 1 de noviembre, 23:5
 
 **1a. Suma de un árbol con tareas** (es la fase 5 de `practica-guiada/README.md`; en clase no dio tiempo).
 Completa `TODO(1)` y `TODO(2)` de `practica-guiada/tree_sum_tasks.c` (copia el archivo terminado a
-`tareas/S09/`). Criterio de "listo": compila sin *warnings* con `gcc -std=c11 -O2 -Wall -Wextra -fopenmp`;
-`./tree_sum_tasks` imprime `verificacion: OK`; con 4 hilos el *speedup* es mayor que 1 para algún corte de
-profundidad (prueba 4, 8 y 12); `make test` en `practica-guiada/` sigue en `0 FAIL`. En `respuestas.md` pega la
-línea `tareas :` de los tres cortes y escribe una línea: ¿cuál corte elegiste y por qué?
+`tareas/<usuario-github>/U3-S09/`). Criterio de "listo": compila sin *warnings* con
+`gcc -std=c11 -O2 -Wall -Wextra -fopenmp`; `./tree_sum_tasks` imprime `verificacion: OK`; con 4 hilos el *speedup*
+es mayor que 1 para algún corte de profundidad (prueba 4, 8 y 12); `make test` en `practica-guiada/` sigue en
+`0 FAIL`. En `U3-S09.md` pega la línea `tareas :` de los tres cortes y escribe una línea: ¿cuál corte elegiste y
+por qué?
 
 <details><summary>Pista (ábrela solo si a los 10 minutos no arrancas)</summary>
 

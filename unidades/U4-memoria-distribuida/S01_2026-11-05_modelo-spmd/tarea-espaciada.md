@@ -1,16 +1,19 @@
 > **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Unidad IV · Sesión S01 · jueves 5 de noviembre de 2026 · 10:30–12:00 · Salón 3208
 
-# S01 · Tarea espaciada (20–40 min)
+# S01 · Tarea espaciada (30–40 min)
 
-Se revisa al inicio de la sesión del **lunes 9 de noviembre de 2026, 10:30**; trae las respuestas por escrito
-(papel o archivo `tareas/U4-S01.md` en tu repositorio). En el 3er parcial las tareas no tienen ponderación
-propia (`planeacion/mapa-evaluacion.md`); su contenido reaparece en la recuperación de inicio, en la Práctica 5
-y en el Examen 3 (martes 8 de diciembre). Las respuestas están al final; úsalas **después** de intentar.
+**Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U4-S01.md` y el código del
+ejercicio 1(c) en `tareas/<usuario-github>/U4-S01/`, antes del **lunes 9 de noviembre de 2026, 10:30** (inicio
+de S02). La autocalificas con la clave de abajo en los minutos 5–10 de S02 (2 min); el profesor registra la
+entrega, no el acierto, y revisa 3 al azar por parcial. **Esta tarea no tiene peso propio; el examen de práctica
+del jueves 3 de diciembre y el 10–20 % acumulativo del Examen 3 toman ítems de aquí.** Si faltaste hoy,
+entregarla en esa misma fecha sustituye tu recuperación y tu *exit ticket* de S01 (`docs/metodo/04-evaluacion.md`
+§5). Las respuestas están al final; úsalas **después** de intentar.
 
-Aparte de esta tarea, el pre-laboratorio de la **Práctica 5** (`practicas/P5-mpi/README.md`) se entrega al inicio
-de la sesión del martes 10 de noviembre, 08:30.
+Aparte de esta tarea, el pre-laboratorio de la **Práctica 5** (`practicas/P5-mpi/README.md`) se entrega antes de
+las 08:30 del martes 10 de noviembre.
 
-## Ejercicio 1 · Tema de hoy: reparto de índices y rangos (10–15 min)
+## Ejercicio 1 · Tema de hoy: reparto de índices y rangos (20 min)
 
 **(a)** `n = 100`, `p = 8`. Llena la tabla para los rangos 0, 3 y 7.
 
@@ -25,9 +28,13 @@ Comprueba que, sumando `count` de los 8 rangos, cada esquema cubre exactamente 1
 **(b)** `n = 3`, `p = 4`. ¿Qué índices toma cada rango por bloques y por reparto cíclico? ¿Qué suma parcial
 envía un rango sin elementos? ¿Rompe el total?
 
-**(c)** Modifica `practica-guiada/suma_distribuida.c` para que combine el rango `size − 1` en lugar del 0 (M2
-del README). Copia las líneas que cambiaste. `make test` debe seguir pasando. En una frase: ¿qué tiene de
-especial el rango 0 en MPI? (Si ya hiciste M2 en clase, haz en su lugar la versión cíclica de `promedio_maximo.c`.)
+**(c)** Crear (la Transferencia de hoy no cupo en clase y pasa aquí íntegra): escribe
+`practica-guiada/promedio_maximo.c` según la fase 5 del README de la práctica guiada. Cada proceso calcula la suma
+y el máximo parciales de **su** bloque (bloques con residuo) y manda un solo mensaje de dos `double`; un rango
+combina e imprime `promedio = …` y `maximo = …`. Listo cuando `make test` muestra 8 `PASS` de `promedio_maximo` y
+0 `FAIL`. Sube una copia a `tareas/<usuario-github>/U4-S01/promedio_maximo.c`. En una frase: ¿qué tres cosas
+cambiarías para que combine el rango `size − 1` en lugar del 0 (M2 del README) y qué tiene de especial el rango 0
+en MPI? (Si ya lo terminaste en clase, haz en su lugar la versión cíclica de `promedio_maximo.c`.)
 
 ## Ejercicio 2 · Intercalado (Unidad III · rendimiento y protocolo) (10 min)
 
@@ -77,10 +84,14 @@ Cíclico: `count_k = ⌈(n − k) / p⌉`; rangos 0–3: 13, rangos 4–7: 12. A
 igual ({0}, {1}, {2}, {}). El rango 3 envía `local_sum = 0.0`; sumar 0 no rompe nada. (Para el máximo sí habría
 que cuidarlo: por eso `promedio_maximo` inicia el máximo parcial en −1.0.)
 
-**1(c)** Tres cambios: `MPI_Send(&local_sum, 1, MPI_DOUBLE, size - 1, 0, MPI_COMM_WORLD)`; la condición
-`if (rank != size - 1)`; y el ciclo `for (int src = 0; src < size - 1; src++)` con la impresión en
-`rank == size - 1`. Nada: el rango 0 es un número como cualquier otro; "rango 0 = maestro" es una convención
-(idea errónea 19).
+**1(c)** Salida real con `-np 4`, `n = 10`: `promedio = 54.850`, `maximo = 93.200` (igual que
+`./referencia_secuencial 10`); con `n = 1 000 003` y 1 a 4 procesos: `promedio = 49.950`, `maximo = 99.900`.
+Claves del código: `double stats[2] = {suma parcial, máximo parcial}` con el máximo inicial en `-1.0` (menor que
+cualquier elemento: un rango sin elementos no gana), un `MPI_Send(stats, 2, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD)`
+por cada rango que no combina, y el rango 0 suma las sumas y se queda con el mayor máximo. Para que combine
+`size − 1`, tres cambios: destino `size - 1` en `MPI_Send`; la condición `if (rank != size - 1)`; y el ciclo
+`for (int src = 0; src < size - 1; src++)` con la impresión en `rank == size - 1`. Nada tiene de especial el
+rango 0: "rango 0 = maestro" es una convención (idea errónea 19).
 
 **2(a)** `S(1) = 1.473/1.464 = 1.01`, `E = 1.01`; `S(2) = 1.473/0.755 = 1.95`, `E = 0.98`;
 `S(4) = 1.473/0.723 = 2.04`, `E = 0.51`.

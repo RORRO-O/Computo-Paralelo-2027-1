@@ -118,7 +118,7 @@ bash RUTA_CURSO/proyecto/entrega-final/scripts/verificar_entrega.sh RUTA_AL_CLON
 | miércoles 9 de diciembre | 20:00 | Límite para el video de plan B de la demo (≤ 3 min, enlazado en un *issue*) |
 | jueves 10 de diciembre | 10:30–12:00 | Defensa oral (15 puntos; ajusta la calificación individual); fin de la ventana de entrega tardía |
 | lunes 14 de diciembre | 10:30 | Reserva: retroalimentación del Examen 3 y del proyecto; calificaciones preliminares (o defensas, si el profesor elige la opción a o b) |
-| martes 15 de diciembre | 08:30 | Reserva: defensas pendientes por causa justificada (con la opción a y más de 8 equipos, defensas del formato completo; las pendientes pasan al jueves 17 de diciembre, 10:30) |
+| martes 15 de diciembre | 08:30 | Reserva: defensas pendientes por causa justificada y segunda entrega de P6, con cualquier opción (con la opción a y más de 8 equipos, también defensas del formato completo; las pendientes ocupan la holgura de esa sesión) |
 
 ## 7. Uso de IA en esta entrega
 

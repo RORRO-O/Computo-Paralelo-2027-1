@@ -2,10 +2,14 @@
 
 # Tarea espaciada · S01 (20–40 min)
 
-**Entrega.** Un archivo `tareas/U5-S01.md` en tu repositorio del curso (más `dot_partial.cu` o `dot_partial_numba.py`
-si lo terminaste), antes del **martes 24 de noviembre de 2026, 08:30**. Individual. El ejercicio 1 es insumo directo
-del pre-laboratorio de la Práctica 6 (que se entrega esa misma mañana); el mapa de evaluación del 3.er parcial no
-asigna porcentaje propio a las tareas espaciadas: cuentan como evidencia de participación y se revisan al azar.
+**Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U5-S01.md` y, si lo terminaste,
+`dot_partial.cu` o `dot_partial_numba.py` en `tareas/<usuario-github>/U5-S01/`, antes del **martes 24 de noviembre de
+2026, 08:30** (inicio de S02, Lab LS4). La autocalificas con las claves de abajo en los minutos 5–10 de S02 (2 min);
+el profesor registra la entrega, no el acierto, y revisa 3 al azar por parcial. **Esta tarea no tiene peso propio;
+el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del Examen 3 toman ítems de aquí.** Si
+faltaste hoy, entregarla en esa misma fecha sustituye tu recuperación y tu *exit ticket* de S01
+(`docs/metodo/04-evaluacion.md` §5). El ejercicio 1 es insumo directo del pre-laboratorio de la Práctica 6, que se
+entrega esa misma mañana, aparte de esta tarea.
 
 ## 1. Tema de hoy (15 min) · índices y producto punto por partes
 

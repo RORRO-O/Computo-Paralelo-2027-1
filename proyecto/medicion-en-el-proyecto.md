@@ -116,8 +116,10 @@ Definiciones que usa el curso:
 
 La regla que más mediciones invalida: **sincroniza antes de leer el reloj**. Los lanzamientos de *kernel* y
 muchas copias son asíncronos; sin `cudaEventSynchronize`/`cudaDeviceSynchronize` (CUDA C), `cuda.synchronize()`
-(Numba) o `cp.cuda.Stream.null.synchronize()` (CuPy) mides cuánto tarda en **encolarse** el trabajo, no en
-hacerse (Anexo A, 33). Y la correctitud de V3 se prueba también sin GPU (`docs/metodo/04-evaluacion.md` §5): con
+(Numba) o `cp.cuda.Device().synchronize()` (CuPy) mides cuánto tarda en **encolarse** el trabajo, no en
+hacerse (Anexo A, 33). En CUDA C se mide con eventos (§5.1). En Python (Numba o CuPy) basta `time.perf_counter()`
+con esa sincronización explícita antes de detener el reloj; los eventos de CUDA son opcionales
+(`docs/metodo/04-evaluacion.md` §5). Y la correctitud de V3 se prueba también sin GPU (mismo §5): con
 Numba, `NUMBA_ENABLE_CUDASIM=1`; con CUDA C o CuPy, el espejo en CPU del cómputo por elemento que comparte con V1.
 
 ### 5.1 CUDA C: eventos
@@ -206,9 +208,11 @@ La primera llamada a un *kernel* de Numba incluye la compilación (puede ser de 
 del proceso la saca de la medición; `cache=True` evita pagarla en cada ejecución del *script* de medición (y deja
 una carpeta `__pycache__/` que va en el `.gitignore`).
 
-### 5.3 CuPy: eventos de CUDA
+### 5.3 CuPy: `perf_counter` con sincronización o, si prefieres, eventos de CUDA
 
-No verificado en el entorno de autoría (CuPy no está instalado); verifícalo en Colab y anota la versión.
+Con CuPy sirve el mismo esquema de §5.2, con `cp.cuda.Device().synchronize()` antes de cada lectura de
+`time.perf_counter()`. Los eventos son opcionales; si los usas, este es el patrón. No verificado en el entorno de
+autoría (CuPy no está instalado); verifícalo en Colab y anota la versión.
 
 ```python
 import cupy as cp

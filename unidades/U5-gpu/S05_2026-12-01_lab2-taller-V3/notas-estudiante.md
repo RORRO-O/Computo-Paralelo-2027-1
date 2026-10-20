@@ -18,7 +18,7 @@ si ese resto es el 5 % del tiempo de la V1, el *speedup* total no pasa de 20 aun
 | 3. Mapear | Un hilo por elemento; malla 1D o 2D; bloque múltiplo de 32 (≤ 1024) | 2D: `col = blockIdx.x*blockDim.x + threadIdx.x`, `fila = blockIdx.y*blockDim.y + threadIdx.y`; bloques = `ceil(ancho/bx) × ceil(alto/by)`; **guardia** `if (fila >= alto \|\| col >= ancho) return;` |
 | 4. Mover una vez | Qué sube al inicio, qué baja al final, qué se queda | Entre iteraciones: intercambio de punteros (ping-pong), nunca `cudaMemcpy` |
 | 5. Verificar | Comparar con la V1 (no con la V2) con tolerancia | `cudaGetLastError()` + `cudaDeviceSynchronize()` detectan errores, **no** resultados equivocados |
-| 6. Medir | Protocolo: calentamiento, 5 repeticiones, mediana | `cudaEvent` con `cudaEventSynchronize` antes de leer; **dos** tiempos: solo *kernels* y con H2D/D2H; T(1) = V1 con `-O2`; GPU y fecha declaradas |
+| 6. Medir | Protocolo: calentamiento, 5 repeticiones, mediana | En CUDA C, `cudaEvent` con `cudaEventSynchronize` antes de leer; en Numba o CuPy basta `time.perf_counter()` con `cuda.synchronize()` o `cp.cuda.Device().synchronize()` antes de detener el reloj (eventos opcionales); **dos** tiempos: solo *kernels* y con H2D/D2H; T(1) = V1 con `-O2`; GPU y fecha declaradas |
 
 `threadIdx.x` recorre lo contiguo (columnas) para que un *warp* lea 32 floats seguidos (coalescencia, S02).
 

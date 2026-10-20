@@ -3,7 +3,7 @@
 # S02 · Recuperación de inicio (5 minutos, individual, sin apuntes ni dispositivos)
 
 Responde por escrito en tu cuaderno. A los 4 minutos se muestran las respuestas; levanta la mano por cada
-pregunta que hayas acertado. No se califica por acierto: cuenta como participación.
+pregunta que hayas acertado. No se califica: en el 3.er parcial la recuperación no tiene peso propio.
 
 ## Preguntas
 

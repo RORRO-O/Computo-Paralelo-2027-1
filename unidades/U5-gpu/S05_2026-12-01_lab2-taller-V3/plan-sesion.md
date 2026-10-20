@@ -105,11 +105,12 @@ barrido de bloque (≥ 3 tamaños, múltiplos de 32), con y sin transferencias, 
 5 con calentamiento, GPU y fecha. Si la Parte C no corre todavía, me avisan ahora y trabajan sobre el código de la
 práctica guiada para la medición; la Parte C la terminan en casa."
 
-El profesor circula con la rúbrica de P6 y hace la **mini-defensa** (02 §2.1) a los equipos de la lista publicada en
-el Lab 1 (los que no se defendieron el martes 24 de noviembre): 2 min por equipo, al azar con tarjetas, **una pregunta
-por integrante** de la columna A sobre el código que tengan en pantalla; la de la columna B solo si la primera falla, y
-cuenta la mejor de las dos. Anotar en la hoja de registro. Quien pide responder por escrito lo hace en el momento
-(5 min, papel; `docs/metodo/05-politica-ia.md`).
+El profesor circula con la rúbrica de P6 y hace la **mini-defensa** (02 §2.1; `practicas/P6-gpu/entrega.md` §4) a
+todos los equipos o, si hay más de 12, a la mitad de la lista publicada en el Lab 1 que no se defendió el martes 24 de
+noviembre: 2 min por equipo, en orden al azar con tarjetas, **una pregunta por integrante** de la columna A sobre el
+código que tengan en pantalla; la de la columna B solo si la primera falla, y cuenta la mejor de las dos. Anotar en la
+hoja de registro. Quien pide responder por escrito lo hace en el momento (5 min, papel;
+`docs/metodo/05-politica-ia.md`).
 
 | A · "¿Qué hace esta línea?" | B · "¿Qué pasaría si…?" |
 |---|---|
@@ -126,6 +127,11 @@ Una respuesta que muestre que el integrante no entiende su propio código baja "
 Hasta 12 equipos pendientes a 2 min caben en los 25 min del bloque; si quedan menos, el resto del tiempo se dedica a
 quien se atoró. Orden de visita: primero los equipos que avisaron que la Parte C no corre (su mini-defensa se hace
 sobre las Partes A–B, que sí corren).
+
+**Mini-defensa pendiente** (integrante ausente hoy o equipo que no alcanzó; `docs/metodo/04-evaluacion.md` §5). Después
+de este laboratorio no hay otro antes del cierre: el estudiante envía un video no listado de ≤ 3 min en el que explica
+dos fragmentos de su código que elige el profesor, a más tardar el **martes 15 de diciembre, 08:30**. El profesor le
+escribe hoy cuáles son los dos fragmentos.
 
 **Errores típicos de la Parte C/D y la pregunta que se hace** (no se da la respuesta):
 
@@ -210,11 +216,12 @@ dijeron los pares.
 
 ### 85–90 · Cierre
 
-*Exit ticket* (`exit-ticket.md`) en papel, individual. Mientras escriben, proyectar la tarea (`tarea-espaciada.md`) y los
-recordatorios: **P6: domingo 6 de diciembre, 23:59** · **Entrega final del proyecto (V1·V2·V3 + reporte PDF): lunes 7 de
-diciembre, 10:30** · **Examen 3 (Unidades IV–V): martes 8 de diciembre, 08:30** · **Defensa oral: jueves 10 de
-diciembre.** Rúbricas en `proyecto/entrega-final/` y `proyecto/defensa/`; S06 el jueves 3 de diciembre, 10:30, con examen
-de práctica y lista de cotejo de la entrega final.
+*Exit ticket* (`exit-ticket.md`) en papel, individual. Mientras escriben, proyectar la tarea (`tarea-espaciada.md`:
+`tareas/<usuario-github>/U5-S05.md` antes del jueves 3 de diciembre, 10:30; sin peso propio) y los recordatorios:
+**P6: domingo 6 de diciembre, 23:59** · **Entrega final del proyecto (V1·V2·V3 + reporte PDF): lunes 7 de diciembre,
+10:30** · **Examen 3 (Unidades IV–V): martes 8 de diciembre, 08:30** · **Defensa oral: jueves 10 de diciembre.**
+Rúbricas en `proyecto/entrega-final/` y `proyecto/defensa/`; S06 el jueves 3 de diciembre, 10:30, con examen de
+práctica y lista de cotejo de la entrega final.
 
 ## Diferenciación
 

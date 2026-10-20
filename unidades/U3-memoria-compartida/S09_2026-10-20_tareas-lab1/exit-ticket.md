@@ -65,7 +65,6 @@ x = fib(n - 1);
    leería su `x` sin inicializar. (`taskwait` es necesario pero ya está; la cláusula que falta es la de datos.)
 3. Sin clave. Para el profesor: comparar la confianza 4 con errores en 2a (el "cambia con los hilos") y 2b:
    es el dato de calibración de la sesión.
-</details>
 
 **Clasificación rápida (profesor, 10 min después de clase).** Bien: 1 = B **y** 2a = 14 / no **y** 2b =
 `shared(x)`. Parcial: 1 = B y falla una de 2a/2b, o 1 ≠ B con 2a y 2b correctas. Mal: 1 ≠ B y además falla 2a o
@@ -73,3 +72,5 @@ x = fib(n - 1);
 las nietas) y la pregunta 2b se repite con pista ("¿es `x` compartida donde se crea la tarea?"). Anotar aparte
 cuántos contestaron "sí cambia con 2 hilos" en 2a: es la confusión tareas = hilos, que reaparece en la Parte B
 de la Práctica 4.
+
+</details>

@@ -55,8 +55,10 @@ aplicarías esto en la V2 de tu proyecto?").
   `REPORTE.md` (≤ 3 páginas: decisiones, tabla, gráfica, interpretación, reflexión, bitácora de errores,
   declaración de uso de IA, reparto de trabajo).
 - Historial de *commits* con participación de cada integrante.
-- Demostración en vivo en el Laboratorio 2 (mini-defensa). Solo graba un video de ≤ 3 minutos (no listado o
-  privado) quien no estuvo en su mini-defensa.
+- Demostración en vivo en el Laboratorio 2 (mini-defensa). Quien no estuvo en su mini-defensa la repone en el
+  siguiente laboratorio; si no lo hay antes del cierre o no puede, graba un video no listado de ≤ 3 minutos en el
+  que explica dos fragmentos de su código que elige el profesor, a más tardar el martes 15 de diciembre, 08:30
+  (`04-evaluacion.md`, §5).
 
 ### Rúbrica
 Incluida (ver `rubrica.md`) y resumida en una tabla en el README.

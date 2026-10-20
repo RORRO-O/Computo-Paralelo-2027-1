@@ -83,11 +83,14 @@ Salida real de las tres versiones correctas (misma máquina, corridas consecutiv
 | secuencial | 0.014–0.022 (varió entre corridas) | 1.4–2.2 | referencia |
 | `critical` | 0.7306 | 73 | correcto, 5/5 |
 | `atomic` | 0.1584 | 16 | correcto, 5/5 |
-| `local` | 0.0242 | 2.4 | correcto, 5/5 |
+| `local` | 0.0242 (corrida original) · 0.0044–0.0065 (5 corridas con la máquina libre, 20 de octubre) | 2.4 · 0.4–0.7 | correcto, 5/5 |
 
-Estos tiempos son **orientativos**: la máquina de autoría es una máquina virtual compartida y el ciclo
-es tan ligero (un acceso a memoria por elemento) que el ancho de banda y la creación de hilos pesan
-tanto como el cómputo. Lo que sí se repite en cualquier máquina es el orden: `critical` ≫ `atomic` ≫ `local`.
+Estos tiempos son **orientativos**: la máquina de autoría es una máquina virtual compartida y el ciclo es tan
+ligero (un acceso a memoria por elemento) que el ancho de banda y la creación de hilos pesan tanto como el cómputo.
+`local` es la que más cambia: en cinco corridas con 4 hilos y la máquina libre su *speedup* fue de 3.3 a 4.8; en la
+corrida original de la tabla quedó por debajo de 1. Una región de 5 ms se alarga en cuanto otro proceso le quita el
+núcleo a un hilo unos milisegundos: **el *speedup* de `local` depende de la carga de la máquina**. Lo que sí se
+repite en cualquier máquina es el orden: `critical` ≫ `atomic` ≫ `local`.
 Llena tu propia tabla:
 
 | Versión | 1 hilo | 2 hilos | 4 hilos | ¿Correcto 5/5? |
@@ -229,8 +232,9 @@ Si terminas antes: versión con reducción de arreglo, `#pragma omp parallel for
 - **P1.** Menor que `n` (se pierden cuentas) y distinto en cada repetición. A veces una repetición, o una
   corrida entera, sale igual a `n`; eso no la hace correcta.
 - **P2.** De más rápido a más lento: `local`, `atomic`, `critical`. Con `n = 10⁷` y 4 hilos, en la máquina de
-  autoría las tres fueron más lentas que la secuencial (`critical` unas 30 veces): el trabajo por elemento es
-  tan pequeño que dominan la sincronización y la coordinación de hilos.
+  autoría `critical` y `atomic` fueron más lentas que la secuencial (`critical` unas 30 veces): el trabajo por
+  elemento es tan pequeño que domina la sincronización. `local` dio *speedup* de 3.3 a 4.8 con la máquina libre
+  y menor que 1 en la corrida original: depende de la carga (tabla de Ejecutar).
 - **P3.** Cuatro, uno por hilo: lo declarado dentro de la región es privado por alcance (idea errónea 15).
 - **P4.** Los de índice **bajo**. Con el reparto por omisión el hilo 0 toma el primer cuarto, cuya `f` es barata,
   termina antes y lee `a[n-1-i]` (último cuarto, del hilo 3, el más lento) antes de que exista. Medido en la
@@ -257,7 +261,7 @@ Si terminas antes: versión con reducción de arreglo, `#pragma omp parallel for
   las sumas antes de la lectura.
 </details>
 
-<details><summary>Modificar M1–M4 (lo observado en la máquina de autoría, 4 hilos)</summary>
+<details><summary>Modificar M1–M4 (máquina de autoría, 4 hilos, corrida original de la tabla de Ejecutar)</summary>
 
 - **M1.** Con 64 bins la diferencia entre `critical` y `atomic` en la combinación es ruido (0.043–0.057 s las
   dos): son 256 operaciones protegidas contra 10 millones del ciclo. Con 4096 bins tampoco se distingue
@@ -274,7 +278,7 @@ Si terminas antes: versión con reducción de arreglo, `#pragma omp parallel for
 
 <details><summary>Crear: referencia de tiempos</summary>
 
-Con 4 hilos, `n = 10 000 000`, 64 bins: `locks` 0.71 s, `atomic` 0.15 s, `local` 0.057 s;
+Con 4 hilos, `n = 10 000 000`, 64 bins, en la corrida original: `locks` 0.71 s, `atomic` 0.15 s, `local` 0.057 s;
 `reduction(+:hist[:nbins])` 0.044 s (lo mismo que `local`: OpenMP crea la copia privada y la combina por ti).
 `locks` es más lento que `atomic` porque cada `omp_set_lock`/`omp_unset_lock` es una llamada a `libgomp` con
 posible espera, mientras que `atomic` es una instrucción del procesador. Un candado se prefiere cuando lo

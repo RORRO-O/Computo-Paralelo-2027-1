@@ -4,9 +4,9 @@
 
 **Tipo:** repaso previo a examen (variante 2.2 de `docs/metodo/02-plantilla-sesion.md`) con un bloque de 10 min de
 lista de cotejo de la entrega final y logística (75–85). Los bloques de la variante se comprimen así: recuperación
-larga 0–10 · examen de práctica 10–50 · corrección entre pares 50–60 · los tres ítems peor contestados, como
-cazador de errores PRIMM con ConcepTests, 60–72 · calibración 72–75 · lista de cotejo y logística 75–85 · *exit
-ticket* 85–90. Recuperación y cierre no se recortan.
+larga 0–8 y autocalificación de la tarea de S05 8–10 · examen de práctica 10–50 · corrección entre pares 50–60 · los
+tres ítems peor contestados, como cazador de errores PRIMM con ConcepTests, 60–72 · calibración 72–75 · lista de
+cotejo y logística 75–85 · *exit ticket* 85–90. Recuperación y cierre no se recortan.
 
 ## Objetivos (al terminar, el estudiante podrá…)
 
@@ -65,14 +65,15 @@ ticket* 85–90. Recuperación y cierre no se recortan.
 
 ### 0–10 · Recuperación larga
 
-Proyectar `retrieval-inicio.md` (10 preguntas, 8 min, sin apuntes). Minuto 8: respuestas; manos por pregunta;
+Proyectar `retrieval-inicio.md` (10 preguntas, 7 min, sin apuntes). Minuto 7: respuestas; manos por pregunta;
 anotar el conteo:
 
 | Pregunta | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 |---|---|---|---|---|---|---|---|---|---|---|
 | Aciertos (de ~35) | | | | | | | | | | |
 
-Mientras contestan, registrar la entrega de la tarea de S05 (`tareas/U5-S05.md`) con la lista. **Si alguna pregunta
+Minutos 8–10: autocalificación de la tarea de S05 con las claves de sus `<details>` (2 min); el profesor registra la
+entrega (`tareas/<usuario-github>/U5-S05.md`) con la lista, no el acierto. **Si alguna pregunta de la recuperación
 queda por debajo de 60 %**, se anota como candidata del bloque 60–72 aunque el examen no la confirme, y se repite
 con pista en la recuperación del lunes 7 de diciembre. Frase de enlace (30 s): "Estas diez preguntas son las
 cuatro primeras secciones del Examen 3 en miniatura; lo que sigue son 40 minutos de examen de práctica, 60
@@ -140,8 +141,10 @@ lee en voz alta la clave de VI(a) con sus dos números y se pregunta por tarjeta
 Instrucción literal: "Tres datos en la portada de su examen: la brecha `B − C` (positiva = se sintieron mejor de lo
 que salió); la predicción del Examen 3 que escribieron en la tarea de S05 (3b); y la sección donde perdieron más
 puntos. Con esos tres datos van a llenar la pregunta 2 del *exit ticket*". El profesor pide manos: "¿a quién le dio
-`B − C` mayor que +6?" (10 % del examen; es el umbral de sobreestimación del curso escalado) y anota el número. El
-promedio del grupo se dice el lunes 7; la brecha individual no se comenta en público.
+`B − C` mayor que +9?" (15 % de los 60 puntos: el umbral de sobreestimación del curso en la escala del examen de
+práctica, `04-evaluacion.md` §2.3) y anota el número. La alerta es para el promedio del grupo: si la sobreestimación
+media pasa de 9/60, el lunes 7 se abre con ella. El promedio del grupo se dice el lunes 7; la brecha individual no
+se comenta en público.
 
 ### 75–85 · Lista de cotejo de la entrega final y logística
 
@@ -174,9 +177,11 @@ ejercicio 3a de la tarea".
 3. **Examen 3:** martes 8 de diciembre, 08:30–10:00; Unidades IV–V con 10–20 % acumulativo integrado; versiones A y
    B alternadas por fila; 80 minutos efectivos más 10 de margen; sin dispositivos; hoja de calibración aparte con
    dos casillas (al recibir y al entregar), como hoy; hoja de fórmulas solo si el examen lo indica (no cuenten con
-   ella). Lugar: salón 3208 o LS4 con los equipos apagados; se confirma el lunes 7. Calificación y clave a más
-   tardar el martes 15 de diciembre; análisis de los tres ítems peor contestados el lunes 14 (con la opción (a) de
-   defensa, que ocupa el lunes 14, la clave se publica por escrito ese día y el análisis pasa al jueves 17).
+   ella). Lugar: salón 3208 o LS4 con los equipos apagados; se confirma el lunes 7. Calificación y análisis de los
+   tres ítems peor contestados el lunes 14 de diciembre, 10:30; clave pública el martes 15 de diciembre, después de
+   las 10:00 (se publica después de la última reposición). Reposición solo con justificante institucional: versión B
+   el martes 15 de diciembre, 08:30 (propuesta por defecto, a confirmar). Con la opción (a) de defensa, que ocupa el
+   lunes 14, la calificación se publica por escrito ese día y el análisis pasa al jueves 17.
 4. **Defensa oral, jueves 10 de diciembre, 10:30.** El profesor anuncia la opción elegida (`logistica-defensa.md`
    §3) con una de estas tres frases y la publica hoy en un *issue* del repositorio del curso:
    - (a) "Formato completo: 12 min + 2 preguntas por integrante; 4 equipos el jueves 10, 4 el lunes 14 y 4 el
@@ -186,14 +191,17 @@ ejercicio 3a de la tarea".
    - (c) "Mixta: video de ≤ 8 min enlazado en el repositorio antes del lunes 7 a las 10:30; en clase 2 min de demo
      y una pregunta por integrante; todos el jueves 10".
    En cualquier opción: la demo corre desde el clon de la etiqueta; preguntas individuales; prueba de propiedad.
+   Faltar sin justificante se califica como si se hubieran fallado las dos preguntas individuales (factor de ajuste
+   mínimo y C6 Insuficiente), además de 0 en el criterio de presentación: faltar nunca conviene más que presentarse.
+   Con justificante institucional, la defensa es individual, en la reserva del martes 15 de diciembre.
 
 ### 85–90 · Cierre
 
 *Exit ticket* (`exit-ticket.md`, lado B): pregunta 1 de opción múltiple, pregunta 2 = plan concreto para hoy y mañana
 (sección perdida + archivo + hora), pregunta 3 = confianza y predicción del Examen 3. Mientras escriben, proyectar:
 
-- Tarea (`tarea-espaciada.md`): `tareas/U5-S06.md` antes del lunes 7 de diciembre, 10:30; `make cazar` 3/3; el
-  verificador de la entrega sobre un clon limpio. Sin peso propio; es el estudio del Examen 3.
+- Tarea (`tarea-espaciada.md`): `tareas/<usuario-github>/U5-S06.md` antes del lunes 7 de diciembre, 10:30;
+  `make cazar` 3/3; el verificador de la entrega sobre un clon limpio. Sin peso propio; es el estudio del Examen 3.
 - "Antes de salir, intercambien con su pareja las tres preguntas tipo examen de la tarea de S05: son material de
   estudio para hoy y mañana".
 - Recoger exámenes **no** (se los llevan con su clave); recoger hojas de recuperación/*exit ticket* y boletas.
@@ -214,13 +222,13 @@ ejercicio 3a de la tarea".
 
 | Objetivo | Qué mira el profesor |
 |---|---|
-| 1 | Casillas A, B, C llenas en ≥ 90 % de los exámenes; proporción con `B − C > +6` (alerta si > 30 %); predicción del Examen 3 en el *exit ticket* 3 |
+| 1 | Casillas A, B, C llenas en ≥ 90 % de los exámenes; promedio del grupo de `B − C` (alerta si > +9, 15 % de 60); predicción del Examen 3 (0–100) en el *exit ticket* 3 |
 | 2 | Revoto de CT1–CT3 ≥ 80 %; parejas con `make cazar` ≥ 1/3 al minuto 72 (meta ≥ 70 %); *exit ticket* 1 = C en ≥ 70 % |
 | 3 | Puntos de II.1 y II.2 en la tabla de la portada (meta: mediana ≥ 9 de 13); errores "orden fijo" y "`max_root` en todos" contados en la corrección |
 | 4 | Boletas entregadas por todos los equipos; número de **No** por ítem (los ítems 4 y 6 suelen concentrarlos); cada equipo nombra ≥ 2 pendientes propios |
 
 Umbrales de alerta (marco §5): > 30 % de *exit tickets* en "mal" → la recuperación del lunes 7 repite la pregunta 1
-con pista; recuperación < 60 % en 2, 4 u 8 → se repiten con pista el lunes 7; `B − C` promedio > +6 → la
+con pista; recuperación < 60 % en 2, 4 u 8 → se repiten con pista el lunes 7; `B − C` promedio > +9 → la
 retroalimentación del Examen 3 (lunes 14 de diciembre) abre con la brecha de calibración del grupo.
 
 ## Notas post-sesión

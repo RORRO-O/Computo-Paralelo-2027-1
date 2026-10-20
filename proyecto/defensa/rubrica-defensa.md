@@ -124,10 +124,12 @@ Tabla de D4 por combinación de niveles (puntos de la rúbrica → puntos del pr
 - Cuentan **las dos** respuestas, también la de rescate: con pregunta 1 Insuficiente y rescate Competente, el factor es 0.90.
   Una respuesta En desarrollo **no** activa el ajuste; solo baja D4. El ajuste castiga el desconocimiento, no los nervios:
   por eso existe la reformulación única, por eso la pregunta 1 es sobre lo firmado y por eso se puede pedir responder por
-  escrito. Un integrante ausente (A) no tiene respuestas que cuenten (§4.2).
+  escrito. Faltar sin justificante (A) cuenta como dos respuestas Insuficientes: factor 0.80, C6 Insuficiente y
+  D4 = 0 (§4.2). Así faltar nunca conviene más que presentarse (`docs/metodo/04-evaluacion.md` §3.2).
 - **C6 del repositorio.** Para C6 (`proyecto/entrega-final/rubrica-codigo.md` §4) rige la prueba de propiedad tal como la
   escribe `05-politica-ia.md`: cuenta la mejor de las dos líneas. C6 baja a Insuficiente por la defensa solo si la pregunta 1
-  **y** la de rescate quedan en Insuficiente; el profesor lo asigna antes de sumar el repositorio.
+  **y** la de rescate quedan en Insuficiente, o si el integrante faltó sin justificante; el profesor lo asigna antes de sumar
+  el repositorio.
 - Orden de cálculo, por integrante:
   1. Suma = H2 (15) + repositorio (40, con C6 ya asignado por integrante) + reporte (30) + defensa (15, con D4 de esa
      persona).
@@ -145,6 +147,10 @@ Tabla de D4 por combinación de niveles (puntos de la rúbrica → puntos del pr
 | B | I · C (rescate) | 12.75 | 85.75 | 1 · 0.90 | 77.18 | **77.18** |
 | C | I · I (rescate); C6 Insuficiente → repositorio 30.8 | 11.40 | 81.20 | 2 · 0.80 | 64.96 | **68.00** (tope) |
 
+El mismo ejemplo incluye una ausencia sin justificante (equipo 03, `usuario-f`, `P1` y `P2` = `A`): D4 = 0, factor 0.80 y
+C6 de Competente a Insuficiente (repositorio 30.0 → 27.6) → proyecto 55.25. La prueba 15b de `make test` comprueba que faltar queda por debajo
+de presentarse y fallar las dos.
+
 - El ajuste es la aplicación numérica de la regla "una respuesta que muestre desconocimiento del código propio baja la
   calificación individual del proyecto hasta en 20 %" (`docs/metodo/04-evaluacion.md` §3.2, `proyecto/README.md` §6,
   `planeacion/mapa-evaluacion.md`, reglas transversales). La calificación de una persona nunca baja por las respuestas de
@@ -156,11 +162,11 @@ Tabla de D4 por combinación de niveles (puntos de la rúbrica → puntos del pr
 |---|---|
 | El equipo se pasa de 12:00 | El profesor corta y pasa a las preguntas. Lo no mostrado no se evalúa; D1 baja según §3.1 |
 | La demo falla por causa del equipo y se muestra el video del plan B (≤ 3 min, grabado antes, `logistica-defensa.md` §8) | D3 máximo **En desarrollo** si el video muestra clon con etiqueta, `make test`, V1 y V2 con 1 y `p` hilos y *notebook*; Insuficiente si el video no muestra eso o no hay video |
-| La demo falla por causa de la sala (proyector, corriente, máquina del salón) | Se repite al final de la sesión o en la sesión de pendientes (martes 15 de diciembre 08:30; jueves 17 de diciembre 10:30 si el martes 15 se usa para defensas, opción a), sin penalización; D3 se evalúa con la repetición |
-| El integrante designado para la demo no puede teclearla y otro lo sustituye | D3 baja un nivel. No cuenta para §4.1: el ajuste individual solo lo activan las dos respuestas individuales |
-| Un integrante falta **con justificante institucional** | Sus dos preguntas se hacen en la sesión de pendientes (martes 15 de diciembre 08:30, o jueves 17 de diciembre 10:30 con la opción a), sin tope; D1–D3 son los del equipo |
-| Un integrante falta **sin justificante** | D4 = 0 para esa persona (P1 y P2 = A). Si pide responder en la sesión de pendientes, D4 tiene tope de 80 % (misma regla que la recepción de hitos, `proyecto/README.md` §5) y esas respuestas cuentan para §4.1 como cualquier otra. Si no responde, no se aplica el factor de §4.1: no hubo respuesta que mostrara desconocimiento |
-| El equipo completo falta sin justificante | 0 en los 15 puntos; con justificante, defensa en la sesión de pendientes |
+| La demo falla por causa de la sala (proyector, corriente, máquina del salón) | Se repite al final de la sesión o en la sesión de pendientes (martes 15 de diciembre 08:30, con cualquier opción), sin penalización; D3 se evalúa con la repetición |
+| El integrante designado para la demo no puede teclearla y otro lo sustituye | D3 baja un nivel. No cuenta para §4.1: el ajuste individual solo lo activan las dos respuestas individuales (o la inasistencia sin justificante) |
+| Un integrante falta **con justificante institucional** | Defensa individual (sus dos preguntas) en la sesión de pendientes, martes 15 de diciembre 08:30, con cualquier opción (con la a, en la holgura de esa sesión), sin tope; D1–D3 son los del equipo |
+| Un integrante falta **sin justificante** | Se califica como si hubiera fallado las dos preguntas individuales: P1 y P2 = A, D4 = 0, factor mínimo de §4.1 (0.80) y C6 Insuficiente; el tope de §4.1 aplica igual. Así faltar nunca conviene más que presentarse (`docs/metodo/04-evaluacion.md` §3.2). Sin justificante no hay sesión de reposición |
+| El equipo completo falta sin justificante | 0 en los 15 puntos y, para cada integrante, lo de la fila anterior (factor 0.80 y C6 Insuficiente); con justificante, defensa en la sesión de pendientes (martes 15 de diciembre 08:30) |
 | Uso de teléfono, notas o asistente de IA durante las preguntas | La respuesta en curso queda Insuficiente (cuenta para §4.1) y se reporta según `docs/metodo/04-evaluacion.md` §6 |
 | Un integrante responde por otro o sopla | La respuesta se califica como estaba antes de la intervención; quien intervino pierde su reformulación |
 | El repositorio cambió después de la etiqueta y la demo usa el nuevo código | D3 máximo En desarrollo; D1 y D2 se evalúan contra la etiqueta. Si la etiqueta se creó después del lunes 7 de diciembre 10:30, aplica además la entrega tardía de `proyecto/entrega-final/README.md` §2 |
@@ -198,7 +204,7 @@ tiene una fila por persona. El formato CSV equivalente y el cálculo automático
 
 **Criterio individual (una fila por integrante; sin nombres en documentos públicos: usuario de GitHub)**
 
-| Integrante (usuario de GitHub) | Pregunta 1 (línea de la parte firmada: archivo:línea) | Nivel P1 | Reformulada · por escrito | Pregunta 2: tema sorteado · ID del banco, o rescate (archivo:línea) | Nivel P2 | Reformulada · por escrito | D4 (rúbrica /30) | D4 (proyecto /4.50) | Insuficientes (0/1/2) | Factor (1.00/0.90/0.80) | C6 Insuficiente por la defensa (P1 y rescate en I) |
+| Integrante (usuario de GitHub) | Pregunta 1 (línea de la parte firmada: archivo:línea) | Nivel P1 | Reformulada · por escrito | Pregunta 2: tema sorteado · ID del banco, o rescate (archivo:línea) | Nivel P2 | Reformulada · por escrito | D4 (rúbrica /30) | D4 (proyecto /4.50) | Insuficientes (0/1/2; ausente sin justificante = 2) | Factor (1.00/0.90/0.80) | C6 Insuficiente por la defensa (P1 y rescate en I, o ausente sin justificante) |
 |---|---|---|---|---|---|---|---:|---:|---:|---:|---|
 | | | | | | | | | | | | |
 | | | | | | | | | | | | |

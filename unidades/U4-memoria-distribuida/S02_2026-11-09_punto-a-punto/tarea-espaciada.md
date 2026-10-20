@@ -6,14 +6,16 @@ Tres ejercicios cortos: uno del tema de hoy, uno intercalado de la Unidad III, u
 siguiente sesión. Se hace individualmente, sin IA en los ejercicios 2 y 3 (son del tipo que aparece en el
 Examen 3, martes 8 de diciembre); en el ejercicio 1 aplica el semáforo de `docs/metodo/05-politica-ia.md`.
 
-**Entrega.** Tráela resuelta (en papel o como archivo `tarea-S02.md` + `ring_laps.c`) a la sesión S04 del
-jueves 12 de noviembre de 2026, 10:30, Salón 3208. El profesor revisa tres al azar y resuelve en el
-pizarrón el ejercicio que más haya fallado. Según `planeacion/mapa-evaluacion.md`, en el 3er parcial las
-tareas no tienen porcentaje propio: su valor es que los tres ejercicios son del tipo que aparece en el
-Examen 3.
+**Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U4-S02.md` y el código del
+ejercicio 1 en `tareas/<usuario-github>/U4-S02/ring_laps.c`, antes del **martes 10 de noviembre de 2026, 08:30**
+(inicio de S03, Lab LS4). La autocalificas con las claves en los minutos 5–10 de S03 (2 min); el profesor
+registra la entrega, no el acierto, y revisa 3 al azar por parcial. **Esta tarea no tiene peso propio; el examen
+de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del Examen 3 toman ítems de aquí.** Si faltaste
+hoy, entregarla en esa misma fecha sustituye tu recuperación y tu *exit ticket* de S02
+(`docs/metodo/04-evaluacion.md` §5).
 
-**Nota:** el pre-laboratorio de la Práctica 5 es aparte y se entrega **mañana martes 10 de noviembre a las
-08:30, Lab LS4 (Edificio 3)**, al inicio del Lab 1 (ver `practicas/P5-mpi/README.md`).
+**Nota:** el pre-laboratorio de la Práctica 5 es aparte y vence a la misma hora: antes de las **08:30 del martes
+10 de noviembre**, en el repositorio del equipo (ver `practicas/P5-mpi/README.md`).
 
 ---
 
@@ -38,6 +40,13 @@ vuelta, y qué pasaría con k = 2 si en la segunda vuelta recibiera primero?
 <details><summary>Pista (ábrela solo si llevas más de 10 minutos atorado)</summary>
 El rango 0 ejecuta <code>for (lap) { Send; Recv; }</code>; los demás, <code>for (lap) { Recv; sumar; Send; }</code>.
 El valor final es <code>inicial + k · (size − 1) · size / 2</code>.
+</details>
+
+<details><summary>Clave del ejercicio 1 (para autocalificarte)</summary>
+Correcto si reproduce las dos salidas de arriba. Las dos líneas: en cada vuelta alguien tiene que inyectar el
+token, y solo el rango 0 lo tiene al empezar la vuelta. Si en la segunda vuelta recibiera primero, todos los
+rangos quedarían en <code>MPI_Recv</code> esperando al anterior y nadie enviaría: interbloqueo con cualquier tamaño
+de mensaje (es el caso E1 de la práctica guiada), no por el <i>buffering</i>.
 </details>
 
 ## Ejercicio 2 · Intercalado (Unidad III): leer una tabla de rendimiento (10 min)

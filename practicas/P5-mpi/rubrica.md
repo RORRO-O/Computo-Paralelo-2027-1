@@ -25,7 +25,10 @@ puede ver en el repositorio, en la salida de `make test-entrega` y en la mini-de
   Partes C y D). Si la primera respuesta falla, el profesor pregunta sobre otra línea y cuenta la mejor de las dos.
   Si un integrante no puede explicar la línea que firmó en el reparto de trabajo, **su** criterio 5 baja a
   Insuficiente; la calificación del resto del equipo no cambia. Quien lo pide responde por escrito en el momento
-  (5 min, papel, sin dispositivos). En la primera sesión posterior a la fecha límite (lunes 23 de noviembre), el
+  (5 min, papel, sin dispositivos). Mini-defensa pendiente: se repone en el siguiente laboratorio; si no lo hay antes
+  del cierre o el estudiante no puede, video no listado de ≤ 3 minutos en el que explica dos fragmentos de su código
+  que elige el profesor, a más tardar el martes 15 de diciembre, 08:30 (`entrega.md` §3); la misma regla aplica. En
+  la primera sesión posterior a la fecha límite (lunes 23 de noviembre), el
   profesor pregunta a un integrante al azar de 2–3 equipos qué cambió desde el laboratorio; la misma regla aplica.
 - **Alternativa de la Parte C.** El equipo declara en `REPORTE.md` si entregó calor 1D o conteo de primos. Las
   pruebas y los descriptores del criterio 2 se aplican a esa alternativa; la otra no se evalúa (puede quedar como

@@ -33,7 +33,7 @@ con `-np 1` imprime `media=3.497000`. ¿Por qué?
 | Distractor | Origen |
 |---|---|
 | A | Anexo A n.º 17 ("`MPI_Send`/colectivas regresan de inmediato") + "está lento, no colgado" |
-| C | Nueva (18d): confunde "argumentos significativos solo en la raíz" (correcto para `Scatterv`) con un error. Todos los rangos de `caza1` calculan `counts`/`displs` de todos modos |
+| C | Anexo A n.º 18d: confunde "argumentos significativos solo en la raíz" (correcto para `Scatterv`) con un error. Todos los rangos de `caza1` calculan `counts`/`displs` de todos modos |
 | D | Anexo A n.º 20 (sobre-suscripción) usado como excusa + n.º 7 ("salió bien una vez / con un proceso") |
 
 **Acierto esperado en el primer voto: 60–70 %** (acaban de corregir III.1 y I.1; el error de B es el mismo que el
@@ -62,7 +62,7 @@ exacto, no sobra ningún hilo y ya". ¿Qué le dices?
 | Distractor | Origen |
 |---|---|
 | A | Anexo A n.º 34 ("no hace falta comprobar `idx < n`"): la guardia se "arregla" eligiendo el tamaño |
-| C | Nueva (26b): "el bloque debe ser potencia de 2". El límite real es ≤ 1 024 y la recomendación, múltiplo de 32 |
+| C | Anexo A n.º 26b: "el bloque debe ser potencia de 2". El límite real es ≤ 1 024 y la recomendación, múltiplo de 32 |
 | D | Anexo A n.º 27 ("si el *kernel* no da error, el resultado es correcto") |
 
 **Acierto esperado en el primer voto: 65–75 %.**

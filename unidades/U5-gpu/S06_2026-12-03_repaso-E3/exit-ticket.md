@@ -39,8 +39,9 @@ error = correcto"); B → 34 ("no hace falta comprobar <code>idx &lt; n</code>")
 = dos de los tres datos concretos; <em>mal</em> = plan genérico ("repasar todo", "leer las notas", sin archivo ni
 hora). Un plan de "bien" cabe en tres renglones.
 
-**3.** Se registra la confianza y la predicción del Examen 3 en la hoja de calibración del grupo
-(<code>herramientas/seguimiento-grupo.md</code>); se compara con la calificación real el lunes 14 de diciembre.
+**3.** Se registra la confianza y la predicción del Examen 3 (0–100) en la hoja de seguimiento del profesor
+(<code>docente/seguimiento-grupo.csv</code>, no se versiona; la plantilla vacía es
+<code>herramientas/seguimiento-grupo.csv</code>); se compara con la calificación real el lunes 14 de diciembre.
 
 **Clasificación rápida.** <em>Bien</em>: 1 = C y plan "bien". <em>Parcial</em>: 1 = C con plan parcial, o 1 ≠ C con plan
 "bien". <em>Mal</em>: 1 ≠ C y plan parcial o genérico. Si "mal" supera el 30 %, la recuperación del lunes 7 de

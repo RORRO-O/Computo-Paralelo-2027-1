@@ -2,11 +2,13 @@
 
 # S06 · Tarea espaciada (20–40 minutos)
 
-**Entrega.** Carpeta `tareas/U4-S06/` en el repositorio de tu equipo, con `respuestas.md` (una sección por
-integrante, con tu usuario de Git) y los `.c` del ejercicio 1, antes del **lunes 23 de noviembre de 2026, 10:30**
+**Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U4-S06.md` (tus respuestas) y los
+`.c` del ejercicio 1 en `tareas/<usuario-github>/U4-S06/`, antes del **lunes 23 de noviembre de 2026, 10:30**
 (inicio de U5·S01). Ese mismo lunes a las 10:30 cierra la etiqueta `H2` y el domingo 22 a las 23:59 vence la
 Práctica 5: el ejercicio 3 de esta tarea **es** la última revisión de H2, no trabajo adicional. Se autocalifica con
-las claves en `<details>` al inicio de la sesión del lunes (2 min); el profesor registra entrega, no acierto.
+las claves en `<details>` en los minutos 5–10 de U5·S01 (2 min); el profesor registra entrega, no acierto, y
+revisa 3 al azar por parcial. Si faltaste hoy, entregarla en esa misma fecha sustituye tu recuperación y tu *exit
+ticket* de S06 (`docs/metodo/04-evaluacion.md` §5).
 
 Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del
 Examen 3 toman ítems de aquí.
@@ -19,7 +21,7 @@ revise tu `caza4_*_buggy.c` y te diga si el síntoma es reproducible; rojo para 
 En clase hiciste Predecir y Ejecutar con los tres programas de `practica-guiada/`. Termina las tres fases que
 faltan siguiendo `practica-guiada/README.md`, Parte 1:
 
-a) **Investigar (I1–I4).** Escribe en `respuestas.md` el umbral de `n` en el que `caza1` empieza a colgarse y a qué
+a) **Investigar (I1–I4).** Escribe en tu `U4-S06.md` el umbral de `n` en el que `caza1` empieza a colgarse y a qué
    cantidad de S02 corresponde; de dónde sale `suma=1200` en `caza2` con `n = 100`; la tabla de I3 para `caza3`
    con `n = 10`; y la asignación de los tres cazadores a las filas de la tabla de `notas-estudiante.md` §4, con el
    síntoma de las cuatro filas que no tienen cazador.
@@ -36,7 +38,7 @@ c) **Crear.** Escribe `caza4_<tema>_buggy.c` con **uno** de los cuatro errores c
    5: etiquetas cruzadas, `Finalize` con mensajes pendientes, rango como índice sin verificar `p`, imprimir desde
    todos los rangos con verificación), ≤ 60 líneas (parte de una copia de un cazador ya corregido y cambia ≤ 5
    líneas), con la ficha sellada en el encabezado. Tu pareja lo caza y
-   escribe `caza4_<tema>.c`. Si no coincidieron fuera de clase, cázalo tú mismo y dilo en `respuestas.md`.
+   escribe `caza4_<tema>.c`. Si no coincidieron fuera de clase, cázalo tú mismo y dilo en tu `U4-S06.md`.
 
 Criterio de "listo": `make listo` termina con `0 FAIL` y la línea `LISTO:`; los tres comentarios citan la regla
 (no solo el cambio); la ficha del `caza4` coincide con lo que la pareja encontró.
@@ -95,7 +97,7 @@ arreglos y la reducción final, que medimos en 0.08 s de los 2.4 s (3.3 %), lo q
 ## 3. Preparación de U5·S01, lunes 23 de noviembre (7 min) · Cerrar H2 y asomarse a la GPU
 
 a) Pasa la lista de cotejo de autoevaluación de `proyecto/hitos/H2-avance-2.md` §5 con tu equipo y marca en
-   `respuestas.md` qué ítems quedaron sin ✓ el jueves y quién los cierra antes del domingo. Corre
+   tu `U4-S06.md` qué ítems quedaron sin ✓ el jueves y quién los cierra antes del domingo. Corre
    `python3 practica-guiada/revisar_mediciones.py resultados/mediciones.csv --nucleos <físicos>` sobre tu CSV real y
    pega el `Resumen:`; cada `ERROR` debe desaparecer antes de la etiqueta y cada `AVISO` debe estar explicado en
    `reporte/H2.md`. La etiqueta se crea con `git tag -a H2 -m "Avance 2" && git push origin H2` antes de las 10:30.

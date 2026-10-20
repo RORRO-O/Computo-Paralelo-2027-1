@@ -26,6 +26,9 @@ Con 1 hilo imprime `identicos bit a bit: si`. ¿Qué concluyes?
   secuencial.
 - **D.** Es un efecto de las optimizaciones: compilando con `-O0` los resultados coincidirían bit a bit.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 **Respuesta:** B.
 
 | Opción | Origen del distractor |
@@ -42,6 +45,8 @@ mano, y luego 1e16 − 1e16 + 1" (0 vs 1). Regla: **enteros y max/min son exacto
 tolerancia; una carrera no es "un poquito distinto": es un resultado sin garantía, que cambia con el reparto.**
 Conecta con la Práctica 4: sus pruebas usan tolerancia por esto.
 
+</details>
+
 ## ConcepTest 2 · Más hilos, más lento (minuto ~68, puesta en común del PRIMM)
 
 Con `n = 64` el Jacobi converge en 9626 iteraciones tanto en secuencial como con 4 hilos, y los resultados
@@ -55,6 +60,9 @@ explicación?
   ejecuta en serie.
 - **D.** El doble búfer copia los `n` elementos de `u_new` a `u` al final de cada iteración, y esa copia no
   está paralelizada.
+
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
 
 **Respuesta:** B.
 
@@ -73,6 +81,8 @@ rápido si el trabajo por región paralela no amortiza su costo fijo; se mide, n
 Puente a la ampliación: una sola región paralela fuera del `while` con `omp for` adentro reduce el costo, pero
 no elimina la barrera por iteración.
 
+</details>
+
 ## ConcepTest 3 (opcional, si el reloj lo permite; si no, va como pregunta en la S12) · Histograma
 
 Histograma de 2·10^7 valores en 16 casillas, 4 hilos. ¿Qué versión esperas más rápida?
@@ -81,6 +91,9 @@ Histograma de 2·10^7 valores en 16 casillas, 4 hilos. ¿Qué versión esperas m
 - **B.** `reduction(+:hist[:16])`, o acumuladores locales por hilo volcados una vez con `critical`.
 - **C.** `parallel for` y `#pragma omp critical` alrededor de `hist[bin]++`.
 - **D.** Las tres igual: el histograma está limitado por memoria y la sincronización no importa.
+
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
 
 **Respuesta:** B.
 
@@ -92,3 +105,5 @@ Histograma de 2·10^7 valores en 16 casillas, 4 hilos. ¿Qué versión esperas m
 
 **Primer voto esperado:** 60–70 % B. **Discusión:** "¿Cuántas veces se toca la memoria compartida en cada
 versión: una por elemento o 16 por hilo?"
+
+</details>

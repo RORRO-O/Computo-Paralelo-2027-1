@@ -6,7 +6,7 @@
 |---|---|
 | Unidad | V · Programación de GPU (CUDA) |
 | Publicación | lunes 23 de noviembre de 2026 (sesión S01) |
-| Laboratorio 1 | martes 24 de noviembre, 08:30–10:00, Lab LS4 (sesión S02): Partes A y B |
+| Laboratorio 1 | martes 24 de noviembre, 08:30–10:00, Lab LS4 (sesión S02): Partes A y B; con más de 12 equipos, mini-defensas de la mitad (lista publicada ese día) |
 | Laboratorio 2 | martes 1 de diciembre, 08:30–10:00, Lab LS4 (sesión S05): Parte D, punto de control, mini-defensas |
 | Fecha límite | **domingo 6 de diciembre de 2026, 23:59**, en el repositorio del equipo (etiqueta `P6`) |
 | Ponderación | **15 % del 3er parcial** (`planeacion/mapa-evaluacion.md`) |
@@ -471,6 +471,8 @@ cuaderno).
 - **Entrada.** `n` bytes `data[i] = ((i · 2654435761) mod 2^32) >> 24` (`init_histogram_data`). Por defecto `n = 2^24`.
 - **Salida (exacta, son enteros).** Las 256 cuentas, `suma = Σ data[i]`, `hist_checksum = Σ (b+1)·hist[b]`; compara
   las 256 cuentas con `./c_histograma_cpu <n> --volcar hist_cpu.txt` y la suma con la referencia.
+- **`T(1)` por operación.** El *speedup* del histograma se calcula contra el histograma secuencial y el de la suma
+  contra la suma: cronométralas por separado en tu programa (`c_histograma_cpu` reporta las dos juntas).
 - **Restricciones.** Histograma: cada bloque acumula en `__shared__ unsigned int s_hist[256]` con `atomicAdd`, y al
   final vuelca sus 256 cuentas a global con **una** atómica global por clase y bloque (S03 §7); cero atómicas globales
   por elemento en la versión final (puedes conservar la versión "global" como comparación: es un buen dato para el
@@ -485,7 +487,7 @@ cuaderno).
 | 1024 | 256 | 130400 | 131424 | |
 | 1031 | 64 | 131432 | 132463 | `n` no múltiplo del bloque |
 | 1 | 32 | 0 | 1 | un solo elemento, `hist[0] = 1` |
-| 16777216 | 32…1024 | 2139095336 | 2155872552 | `bin_max=18 cuenta_max=65539`; CPU ≈ 14–24 ms (Xeon 2.1 GHz; varía entre corridas) |
+| 16777216 | 32…1024 | 2139095336 | 2155872552 | `bin_max=18 cuenta_max=65539`; CPU ≈ 14–24 ms histograma y suma juntos (Xeon 2.1 GHz; varía entre corridas) |
 
 - **Esperado en T4** (`n = 2^24`, bloque 256): `histograma_shared` ≈ 0.2–0.4 ms; `histograma_global` ≈ 2–4 ms (la
   contención en 256 direcciones serializa); `reduccion_suma` ≈ 0.1–0.2 ms; H2D de 16 MB ≈ 3 ms (≈ 90 % del total).
@@ -601,8 +603,10 @@ Repositorio privado del equipo, carpeta `practicas/P6/`: `prelab/<alias>.md` (un
 `entorno.txt`), `REPORTE.md` (≤ 3 páginas, plantilla en `herramientas/plantilla-reporte-practica.md`: entorno con
 modelo de GPU y fecha, decisiones, predicción vs. resultado, tabla, gráficas, interpretación, reflexiones, bitácora de
 errores con ≥ 3 entradas, reparto de trabajo, declaración de uso de IA). Historial de *commits* con ≥ 3 *commits* de
-código por integrante; etiqueta `P6`. Demostración en vivo en el Lab 2; solo graba un video de ≤ 3 min quien no
-estuvo en su mini-defensa.
+código por integrante; etiqueta `P6`. Mini-defensas en el Lab 2 (con más de 12 equipos, la mitad en el Lab 1, con
+lista publicada ese día). Mini-defensa pendiente: se repone en el siguiente laboratorio; si ya no hay uno antes del
+cierre o no puedes asistir, envías un video no listado de ≤ 3 min en el que explicas dos fragmentos de tu código que
+elige el profesor, a más tardar el martes 15 de diciembre, 08:30.
 
 ## Rúbrica (resumen; la completa, con los cuatro niveles, en `rubrica.md`)
 
@@ -633,16 +637,23 @@ entregues la explica en voz alta cualquier integrante; en el laboratorio se preg
 | `kernel ms ≈ 0.00` con `n = 2^24` y GB/s absurdos | ¿Sincronizaste antes de leer el tiempo? El lanzamiento es asíncrono (idea 33) |
 | `verificacion=FALLA` sin ningún error de CUDA, error ≈ `0.2·n` por elemento | ¿La malla cubre `n` (redondeo hacia arriba, `x` para columnas y `y` para filas)? ¿Se lanzó el *kernel* (`cudaGetLastError`)? |
 | La Parte B pasa con `32×32×32` y falla, o da "acceso fuera de rango", con `20×40×12` | ¿Qué dimensión usaste en cada lugar: filas, columnas, fases, guardia? ¿Probaste una forma con tres dimensiones distintas y no múltiplos de `TILE` (ideas 27 y 34)? |
-| `FAIL` con un error máximo grande (de unidades hasta `inf` o `nan`) en la Parte B tras "simplificar" con `if (row >= M \|\| col >= N) return;` al inicio, y `PASS` con `32×32×32` (salida real en el simulador con `20×40×12`: `error maximo vs NumPy 4.59e+00 … verificacion=FAIL`; en la GPU el valor cambia porque se leen posiciones del mosaico que nadie escribió) | ¿Quién carga los ceros del mosaico que esos hilos debían traer? ¿Llegan todos a las dos barreras (ideas 32 y 34)? |
 | `FAIL` con `checksum` que **cambia entre corridas** y a veces `PASS` | ¿Hay una barrera de menos o varios hilos escribiendo la misma posición? ¿Cuántas veces lo corriste? Una vez bien no es evidencia (idea 7) |
-| El *kernel* "se cuelga" o `unspecified launch failure` | ¿Algún hilo hace `return` antes de un `__syncthreads()`? ¿Hay una barrera dentro de un `if`? |
 | `invalid configuration argument` | ¿Cuántos hilos tiene tu bloque? Máximo 1024 (`TILE = 64` → 4096; `block = 2048`) |
 | `S_total < 1` aunque `S_kern` sea 20 | ¿Qué fracción del total son las copias? ¿Es un error o es el dato de la Parte A (idea 24)? |
+
+<details><summary>Más errores</summary>
+
+| Síntoma | Primera pregunta que debes hacerte |
+|---|---|
+| `FAIL` con un error máximo grande (de unidades hasta `inf` o `nan`) en la Parte B tras "simplificar" con `if (row >= M \|\| col >= N) return;` al inicio, y `PASS` con `32×32×32` (salida real en el simulador con `20×40×12`: `error maximo vs NumPy 4.59e+00 … verificacion=FAIL`; en la GPU el valor cambia porque se leen posiciones del mosaico que nadie escribió) | ¿Quién carga los ceros del mosaico que esos hilos debían traer? ¿Llegan todos a las dos barreras (ideas 32 y 34)? |
+| El *kernel* "se cuelga" o `unspecified launch failure` | ¿Algún hilo hace `return` antes de un `__syncthreads()`? ¿Hay una barrera dentro de un `if`? |
 | Histograma con `total_cuentas != n` o suma que varía (Parte C) | ¿Quién más escribe esa posición? ¿Pusiste el histograma local en cero **antes** de la barrera? ¿La reducción supone bloque potencia de 2? |
 | Jacobi con `iteraciones` distintas a la CPU | ¿Comprobaste el criterio **exactamente** cada `check_every`? ¿Inicializaste la frontera del segundo búfer? ¿Reinicias el `atomicMax` a 0 antes de cada reducción? |
 | El *speedup* de Colab es enorme comparado con tu laptop | ¿Mediste la CPU en Colab (`t_cpu_ms` sale del mismo programa)? Máquinas distintas no se comparan |
 | `make test` dice que el *notebook* está desincronizado | ¿Corriste `make notebook` después de editar un fuente de `src/`? |
 | El cuaderno "se murió" y el CSV desapareció | ¿Descargaste `resultados/` al terminar cada bloque (sección 9)? |
+
+</details>
 
 ## Extensión opcional (sin puntos; reconocimiento en la defensa del proyecto)
 

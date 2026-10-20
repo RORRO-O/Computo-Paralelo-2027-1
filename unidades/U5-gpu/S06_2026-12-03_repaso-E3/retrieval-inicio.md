@@ -2,10 +2,11 @@
 
 # Recuperación larga de inicio · S06 (acumulativa, Unidades IV–V + métricas)
 
-Ocho minutos, individual, sin apuntes ni dispositivos (zona sin IA). Diez preguntas: cuatro de MPI, cuatro de CUDA
-y dos de OpenMP/métricas; cada una se contesta con un número, una palabra o una opción. Al minuto 8 se muestran las
-respuestas y se piden manos por pregunta. Cuenta la entrega, no el acierto. Las preguntas 5 y 6 son de la sesión
-anterior (martes 1 de diciembre); las demás, de toda la Unidad IV, la Unidad V y las métricas de las Unidades I–III.
+Siete minutos, individual, sin apuntes ni dispositivos (zona sin IA). Diez preguntas: cuatro de MPI, cuatro de CUDA y
+dos de OpenMP/métricas; cada una se contesta con un número, una palabra o una opción. Al minuto 7 se muestran las
+respuestas y se piden manos por pregunta; en los minutos 8–10 autocalificas la tarea de S05. Cuenta la entrega, no el
+acierto. Las preguntas 5 y 6 son de la sesión anterior (martes 1 de diciembre); las demás, de toda la Unidad IV, la
+Unidad V y las métricas de las Unidades I–III.
 
 ## MPI (Unidad IV)
 

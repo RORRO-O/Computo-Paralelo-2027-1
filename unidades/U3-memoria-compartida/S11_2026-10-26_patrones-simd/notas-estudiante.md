@@ -35,7 +35,8 @@ Fase 2:   un hilo: offset_0 = 0, offset_t = total_0 + … + total_{t−1}   (p n
 Fase 3:   cada hilo suma offset_t a todo su bloque, en paralelo
 ```
 
-Cuesta leer `x` una vez y escribir `y` dos veces: 1.5× el tráfico de memoria del secuencial. Por eso el
+Cuesta leer `x` una vez, escribir `y` en la fase 1 y, en la fase 3, volver a leer y escribir todo `y`: casi el
+doble del tráfico de memoria del secuencial (32 bytes por elemento contra 16 en `double`). Por eso el
 *speedup* está lejos de 4 aunque el paralelismo sea perfecto (en la máquina de autoría: 1.89 con
 4 hilos y `n = 2^23`; con 1 hilo el paralelo es más lento que el secuencial). Y como las sumas se agrupan en otro orden, el resultado difiere del secuencial en el redondeo
 (max|dif| ≈ 2.873e-07 con `double`): **se compara con tolerancia, no con `==`.**

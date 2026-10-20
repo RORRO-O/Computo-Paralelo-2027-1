@@ -16,7 +16,9 @@ Entrada:
     D1 D2 D3  nivel del EQUIPO en cada criterio: E (Ejemplar) C (Competente) D (En desarrollo) I (Insuficiente)
               A (criterio ausente = 0).
     P1        pregunta 1 del integrante (línea de la parte que firmó): E C D I. "No respondió" es I.
-              A solo si el integrante faltó a la defensa (entonces P2 también es A o "-").
+              A solo si el integrante faltó a la defensa SIN justificante (entonces P2 también es A o "-").
+              Con justificante, la fila se captura después de su defensa individual del martes 15 de diciembre,
+              con los niveles reales.
     P2        pregunta 2: si P1 es I, es la de RESCATE sobre otra línea (05-politica-ia.md); si no, la del tema
               sorteado. "-" cuando no se hizo (opción c: la segunda pregunta solo existe como rescate).
     h2 repo reporte  (opcionales) puntos ya calificados de H2 (/15), repositorio (/40, con C6 ya asignado por
@@ -27,10 +29,11 @@ Cálculo (rubrica-defensa.md §2–§4):
     rúbrica = 25·f(D1) + 25·f(D2) + 20·f(D3) + D4,  D4 = 30·promedio(f(P1), f(P2))  (o 30·f(P1) si P2 = "-")
     defensa (/15) = rúbrica × 0.15
     ajuste individual (§4.1): −10 % por cada respuesta en I entre P1 y P2, máximo dos →
-        factor 1.00 (ninguna) · 0.90 (una) · 0.80 (dos). A (ausente) no cuenta: no hubo respuesta.
+        factor 1.00 (ninguna) · 0.90 (una) · 0.80 (dos). A (ausente sin justificante) cuenta como dos I
+        (§4.2, 04-evaluacion.md §3.2): faltar nunca conviene más que presentarse.
     C6 por la defensa (§4.2, prueba de propiedad: cuenta la mejor de las dos líneas): "sí" cuando P1 = I y el
-        rescate P2 = I, es decir, no explicó ninguna de las dos líneas. El script no cambia "repo": avisa para que
-        el profesor asigne C6 Insuficiente en rubrica-codigo.md antes de capturar "repo".
+        rescate P2 = I, es decir, no explicó ninguna de las dos líneas, o cuando P1 = A. El script no cambia
+        "repo": avisa para que el profesor asigne C6 Insuficiente en rubrica-codigo.md antes de capturar "repo".
     proyecto individual = (h2 + repo + reporte + defensa) × factor, con el tope de §4.1: nunca más de 20 puntos
         por debajo de la referencia del equipo (= máximo de h2+repo+reporte entre los integrantes con esos datos
         + puntos de D1–D3 + máximo D4 del equipo, en puntos del proyecto).
@@ -94,8 +97,9 @@ def numero(valor, fila, col):
 
 
 def factor_ajuste(p1, p2):
-    """rubrica-defensa.md §4.1: −10 % por cada respuesta Insuficiente (P1 y P2, rescate incluido), máximo dos."""
-    n_insuf = sum(1 for p in (p1, p2) if p == "I")
+    """rubrica-defensa.md §4.1: −10 % por cada respuesta Insuficiente (P1 y P2, rescate incluido), máximo dos.
+    §4.2: faltar sin justificante (P1 = A) cuenta como las dos Insuficientes."""
+    n_insuf = 2 if p1 == "A" else sum(1 for p in (p1, p2) if p == "I")
     return n_insuf, Decimal(1) - AJUSTE_POR_INSUFICIENTE * n_insuf
 
 
@@ -145,7 +149,7 @@ def leer_registro(ruta):
                 "fila": i, "equipo": equipo, "integrante": integrante,
                 "D1": d["D1"], "D2": d["D2"], "D3": d["D3"], "P1": p1, "P2": p2 or "-",
                 "equipo_pts": equipo_pts, "D4": d4, "rubrica": rubrica, "defensa": rubrica * A_PROYECTO,
-                "insuf": n_insuf, "factor": fac, "c6": "sí" if (p1 == "I" and p2 == "I") else "no",
+                "insuf": n_insuf, "factor": fac, "c6": "sí" if (p1 == "I" and p2 == "I") or p1 == "A" else "no",
                 "h2": h2, "repo": repo, "reporte": rep,
             })
     return filas

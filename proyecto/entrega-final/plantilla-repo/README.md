@@ -32,7 +32,7 @@ make test            # pruebas: código 0 si todo pasa
 ./run_all.sh            # mediciones del reporte en resultados/ (≈ «N» min en «CPU usada»)
 ```
 
-Requisitos: gcc ≥ «13» con OpenMP, make, bash, python3 con numpy y matplotlib (solo para la gráfica).
+Requisitos: gcc ≥ «11» con OpenMP, make, bash, python3 con numpy y matplotlib (solo para la gráfica).
 V3: Google Colab o Kaggle con GPU; ver §4.
 
 Versiones con las que se midió (las repiten `resultados/entorno.txt` y `resultados/entorno_gpu.txt`):

@@ -39,12 +39,20 @@ Fechas y pesos vienen de `planeacion/mapa-evaluacion.md`; si algo cambia, cambia
 En el 3er parcial las tareas y los *exit tickets* no tienen peso propio: son la preparación del Examen 3, que toma
 ítems de ahí. Nada cuenta hacia atrás: tickets y tareas suman desde el 15 de octubre.
 
+La tarea de cada sesión es individual. La subes al repositorio de tu equipo en
+`tareas/<tu-usuario-github>/U<k>-S<xx>.md` (el código, si lo hay, en `tareas/<tu-usuario-github>/U<k>-S<xx>/`)
+antes de la hora de inicio de la sesión siguiente, y la autocalificas con su clave en los minutos 5–10 de esa
+sesión.
+
 ## Si faltas
 
 Reconstruyes la sesión con `notas-estudiante.md`, el ejemplo resuelto y la práctica guiada de su carpeta. El
-*exit ticket* y la recuperación de ese día se sustituyen entregando la tarea espaciada de esa sesión antes de la
-siguiente. Dos ausencias no descuentan participación. El pre-laboratorio se entrega en el repositorio antes de la
-hora del laboratorio, faltes o no. La pregunta individual pendiente se hace en el siguiente laboratorio.
+*exit ticket* y la recuperación de ese día se sustituyen entregando la tarea espaciada de esa sesión; faltar no
+cambia su fecha: vence al inicio de la sesión siguiente, como para todos. Dos ausencias no descuentan
+participación. El pre-laboratorio se entrega en el repositorio antes de la hora del laboratorio, faltes o no. La
+pregunta individual pendiente se hace en el siguiente laboratorio; si no hay otro antes del cierre o no puedes ir,
+grabas un video no listado de ≤ 3 min en el que explicas dos fragmentos de tu código que elige el profesor, a más
+tardar el martes 15 de diciembre, 08:30.
 
 ## IA
 

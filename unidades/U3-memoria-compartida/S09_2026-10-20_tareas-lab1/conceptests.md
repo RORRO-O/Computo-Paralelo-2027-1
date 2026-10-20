@@ -37,6 +37,9 @@ al cerrar la mini-lección) y CT2 (minuto ~47, puesta en común de la práctica 
 - **D)** La suma correcta solo si se ejecuta con `OMP_NUM_THREADS=1`: con un hilo las tareas se ejecutan en el
   acto y en orden.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Idea errónea 13 (variante): cree que `taskwait` resuelve todo, sin mirar en qué memoria escribió cada tarea. |
@@ -52,6 +55,8 @@ crea?" Cerrar con la corrección: `shared(total)` en el `task` **y** `#pragma om
 mejor, cada tarea escribe en `p->result` y el hilo del `single` suma al final, como en `list_tasks.c`). Mostrar
 la salida de `./fib_buggy` (`0   esperado 832040`): mismo mecanismo, sin carrera y sin aviso del compilador.
 
+</details>
+
 ## CT2 · ¿Por qué `cutoff = 1` tarda tanto? (minuto ~47, puesta en común de la práctica guiada)
 
 En la fase Modificar midieron `mergesort_tasks` con n = 2 000 000 y 4 hilos: con `cutoff = 1` el programa
@@ -66,6 +71,9 @@ principal?
   y no le da tiempo de crearlas.
 - **D)** Deberían tardar lo mismo: el número total de comparaciones es el mismo; la diferencia es ruido de
   medición.
+
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
 
 | Opción | Origen |
 |---|---|
@@ -83,6 +91,8 @@ escribe cada tarea? ¿Se traslapan?" Regla general al cerrar, escrita en el piza
 que el trabajo de una tarea sea mucho mayor que el costo de crearla, y para que aun así haya varias veces más
 tareas que hilos"**. Anticipar S10 (jueves 22 de octubre): esa sobrecarga es una de las causas de que el
 *speedup* no crezca con los hilos.
+
+</details>
 
 ## CT3 · `taskwait` y las nietas (reserva: minuto ~83 si el punto de control termina antes; si no, abre la recuperación de S10)
 
@@ -112,6 +122,9 @@ tareas que hilos"**. Anticipar S10 (jueves 22 de octubre): esa sobrecarga es una
   después, no hay garantía.
 - **D)** `1 1`, pero solo con `OMP_NUM_THREADS=1`.
 
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
+
 | Opción | Origen |
 |---|---|
 | A | Idea errónea 13 (segunda mitad): "`taskwait` espera a todas". Espera a las hijas directas. Para esperar a todas las descendientes existe `#pragma omp taskgroup` alrededor del bloque que las crea. |
@@ -125,6 +138,8 @@ tareas que hilos"**. Anticipar S10 (jueves 22 de octubre): esa sobrecarga es una
 terminar?" Corrección: un `#pragma omp taskwait` dentro de T1 después de crear T2, o envolver la creación de T1
 en `#pragma omp taskgroup`. Conectar con `mergesort_tasks.c`: cada nivel tiene **su** `taskwait`, por eso la
 mezcla de un nivel nunca ve tramos a medio ordenar.
+
+</details>
 
 ## Registro para el profesor (llenar en la sesión)
 

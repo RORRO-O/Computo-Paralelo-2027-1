@@ -28,7 +28,7 @@ una fila por día que vayas a estudiar (mínimo dos filas con contenido).
 | Domingo 1 (después de entregar P4) / lunes 2 | | | |
 
 El ítem del examen de práctica con **menos puntos** que vas a rehacer primero, sin clave y cronometrado:
-sección ____ ítem ____. Calificación que esperas en el Examen 2 (0–10): ____.
+sección ____ ítem ____. Calificación que esperas en el Examen 2 (0–100): ____.
 
 **3. (Confianza)** ¿Qué tan seguro estás de la pregunta 1? 1 = adivinando · 2 = poco · 3 = bastante ·
 4 = podría explicárselo a alguien. ¿Qué te quedó **menos** claro después de la corrección de hoy? (una línea,
@@ -44,10 +44,10 @@ opcional)
    llenas (tema reconocible de la lista, un archivo o ítem concreto, minutos) **y** un ítem nombrado con
    sección y número; **parcial** = filas con tema pero sin material concreto ("repasar OpenMP"), o sin
    minutos, o sin ítem; **mal** = vacío, "todo", o un plan que suma más de 4 horas por día (no se va a cumplir).
-   La calificación esperada se copia a la hoja de seguimiento para compararla con la real del martes.
+   La calificación esperada se copia a la hoja de seguimiento (`docente/seguimiento-grupo.csv`) para compararla
+   con la real del martes.
 3. Sin clave. Para el profesor: la brecha entre confianza 4 y una respuesta incorrecta en la pregunta 1 se
    registra junto con la de la hoja de calibración.
-</details>
 
 **Clasificación rápida (profesor, 10 min después de clase).** Bien: pregunta 1 = B **y** pregunta 2 "bien".
 Parcial: una de las dos. Mal: pregunta 1 ≠ B **y** pregunta 2 "parcial" o "mal". Si "mal" supera 30 % en la
@@ -55,3 +55,5 @@ pregunta 1, el error (eficiencia = *speedup*; "más hilos, más rápido") entra 
 Examen 2 del jueves 12 de noviembre (U4 S04) y como pregunta de unidades previas en la recuperación del
 jueves 5 de noviembre (U4 S01). Los planes "mal" se devuelven el martes 3 con una línea: "¿qué archivo y
 cuántos minutos?".
+
+</details>

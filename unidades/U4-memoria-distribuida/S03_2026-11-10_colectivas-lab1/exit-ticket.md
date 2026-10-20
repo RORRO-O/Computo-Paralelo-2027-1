@@ -2,8 +2,8 @@
 
 # S03 · Exit ticket (5 minutos, individual)
 
-Escribe tu número de lista (no tu nombre). Media hoja. Se entrega al salir; cuenta como participación y
-decide cómo empieza la sesión del jueves 12 de noviembre.
+Escribe tu número de lista (no tu nombre). Media hoja. Se entrega al salir; no se califica (en el 3.er parcial
+no tiene peso propio) y decide cómo empieza la sesión del jueves 12 de noviembre.
 
 ## Pregunta 1 (conceptual; elige una opción)
 

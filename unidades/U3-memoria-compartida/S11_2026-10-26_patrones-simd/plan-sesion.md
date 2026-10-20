@@ -57,9 +57,11 @@ se descuentan de Transferencia). Si falla la 5, **no corregir aún**: es el ganc
 
 ### 5–10 Objetivos y anclaje
 
-Frase de apertura: "El jueves el error más frecuente del *exit ticket* fue ___ (tomar de las notas de S10).
-Hoy lo vamos a volver a ver, pero desde el código: cuatro formas de ciclo que aparecen en casi todos sus
-proyectos, y cómo saber si el compilador está usando las instrucciones vectoriales de su procesador."
+Autocalificación de la tarea de S10 (venció hoy a las 10:30) con su clave en `<details>`: 2 min; el profesor
+registra la entrega, no el acierto. Frase de apertura: "El jueves el error más frecuente del *exit ticket* fue ___
+(tomar de las notas de S10). Hoy lo vamos a volver a ver, pero desde el código: cuatro formas de ciclo que aparecen
+en casi todos sus proyectos, y cómo saber si el compilador está usando las instrucciones vectoriales de su
+procesador."
 Proyectar la tabla de los cuatro patrones (`notas-estudiante.md` §1) y pedir a tres números de lista al azar
 que digan a cuál patrón se parece el ciclo principal de la V1 de su proyecto. Anunciar: mañana martes 27 de
 octubre, 08:30, Lab 2 de la P4 (Partes C y D); jueves 29 de octubre, H1 en clase.
@@ -148,9 +150,10 @@ iteración con `n = 64` (y por qué no desaparece: la barrera sigue ahí). Segun
 ### 85–90 Cierre
 
 *Exit ticket* (`exit-ticket.md`): 2 preguntas + confianza; se recoge en papel. Anunciar la tarea espaciada
-(`tarea-espaciada.md`, entrega jueves 29 de octubre, 10:30, en `tareas/S11.md`). Recordar: **mañana martes 27 de
-octubre, 08:30, Lab LS4: Lab 2 de la Práctica 4 (Partes C y D)**, traer la Parte C avanzada y la predicción de
-la Parte D; **jueves 29 de octubre, 10:30: H1 · Avance 1 del proyecto en clase (12 % del parcial)**; **Práctica
+(`tarea-espaciada.md`, individual: `tareas/<usuario-github>/U3-S11.md` en el repositorio del equipo antes de mañana
+martes 27 de octubre, 08:30, inicio de S12; se autocalifica en los minutos 5–10 de S12). Recordar: **mañana martes
+27 de octubre, 08:30, Lab LS4: Lab 2 de la Práctica 4 (Partes C y D)**, traer la Parte C avanzada y la predicción
+de la Parte D; **jueves 29 de octubre, 10:30: H1 · Avance 1 del proyecto en clase (12 % del parcial)**; **Práctica
 4: domingo 1 de noviembre, 23:59 (40 %)**.
 
 ## Diferenciación

@@ -68,7 +68,7 @@ tiene `plan-sesion.md`, `retrieval-inicio.md`, `notas-estudiante.md`, `ejemplo-r
 | S03 | martes 10 de noviembre, 08:30 · LS4 | Laboratorio | Colectivas (`Bcast`, `Scatter`, `Gather`, `Reduce`, `Allreduce`, `Allgather`, `Barrier`) y producto matriz-vector distribuido + **Práctica 5 · Laboratorio 1** (Partes A y B, mini-defensas). **Pre-lab de P5** | [`S03_2026-11-10_colectivas-lab1/`](S03_2026-11-10_colectivas-lab1/) | [Producto matriz-vector con colectivas](S03_2026-11-10_colectivas-lab1/practica-guiada/README.md) (PRIMM corto) |
 | S04 | jueves 12 de noviembre, 10:30 · 3208 | Contenido | Descomposición de dominio: celdas fantasma en Jacobi 1D, `MPI_PROC_NULL`, `Sendrecv` e `Isend`/`Irecv`/`Waitall`, paro global con `Allreduce`, `Gatherv`; balance de carga (bloques frente a cíclico). **Retroalimentación del Examen 2** | [`S04_2026-11-12_descomposicion-halos/`](S04_2026-11-12_descomposicion-halos/) | [Jacobi 1D con celdas fantasma](S04_2026-11-12_descomposicion-halos/practica-guiada/README.md) |
 | — | lunes 16 de noviembre | Sin clase | Revolución Mexicana | — | — |
-| S05 | martes 17 de noviembre, 08:30 · LS4 | Laboratorio | Rendimiento en MPI: modelo `α + m/β`, razón cómputo/comunicación, escalabilidad fuerte y débil, sobre-suscripción; MPI+OpenMP (panorama) + **Práctica 5 · Laboratorio 2** (Parte D, punto de control, mini-defensas) | [`S05_2026-11-17_rendimiento-lab2/`](S05_2026-11-17_rendimiento-lab2/) | [¿Cuándo conviene repartir? Escalabilidad y modelo de costo](S05_2026-11-17_rendimiento-lab2/practica-guiada/README.md) |
+| S05 | martes 17 de noviembre, 08:30 · LS4 | Laboratorio | Rendimiento en MPI: modelo `α + m/β`, razón cómputo/comunicación, escalabilidad fuerte y débil, sobre-suscripción; MPI+OpenMP (panorama) + **Práctica 5 · Laboratorio 2** (Partes C y D, punto de control, mini-defensas) | [`S05_2026-11-17_rendimiento-lab2/`](S05_2026-11-17_rendimiento-lab2/) | [¿Cuándo conviene repartir? Escalabilidad y modelo de costo](S05_2026-11-17_rendimiento-lab2/practica-guiada/README.md) |
 | S06 | jueves 19 de noviembre, 10:30 · 3208 | Taller | Cierre de la unidad: tipos derivados y comunicadores (panorama), siete errores clásicos de MPI; **taller del proyecto rumbo a H2** (V2 con *speedup*) | [`S06_2026-11-19_cierre-taller-H2/`](S06_2026-11-19_cierre-taller-H2/) | [Cazador de errores MPI + taller de mediciones hacia H2](S06_2026-11-19_cierre-taller-H2/practica-guiada/README.md) |
 
 Para correr una práctica guiada: `cd <carpeta>/practica-guiada && make && make test` (todas tienen `all`, `run`,
@@ -90,7 +90,7 @@ Las reglas de entrega tardía y segunda entrega son las de `04-evaluacion.md` §
 
 | Entrega | Fecha límite | Peso | Dónde y cómo |
 |---|---|---|---|
-| **Práctica 5 · MPI** (en equipo, 2–3 integrantes) | **domingo 22 de noviembre, 23:59** (etiqueta `P5-entrega`) | **15 %** del 3.er parcial | [`practicas/P5-mpi/`](../../practicas/P5-mpi/README.md): enunciado, [`entrega.md`](../../practicas/P5-mpi/entrega.md) y [`rubrica.md`](../../practicas/P5-mpi/rubrica.md). Pre-laboratorio individual antes del martes 10 de noviembre, 08:30. Mini-defensas en los laboratorios del 10 y del 17. Tardía hasta el miércoles 25 de noviembre, 23:59, con máximo 80 % y sin segunda entrega. Retroalimentación a más tardar el domingo 29 de noviembre. Segunda entrega solo si la primera obtiene < 70 %: dentro de los 7 días siguientes a la retroalimentación, con tope de 80 % |
+| **Práctica 5 · MPI** (en equipo, 2–3 integrantes) | **domingo 22 de noviembre, 23:59** (etiqueta `P5-entrega`) | **15 %** del 3.er parcial | [`practicas/P5-mpi/`](../../practicas/P5-mpi/README.md): enunciado, [`entrega.md`](../../practicas/P5-mpi/entrega.md) y [`rubrica.md`](../../practicas/P5-mpi/rubrica.md). Pre-laboratorio individual antes del martes 10 de noviembre, 08:30. Mini-defensas en los laboratorios del 10 y del 17 (la pendiente se repone en el siguiente laboratorio o, si no se puede, con video hasta el martes 15 de diciembre, 08:30; `entrega.md` §3). Tardía hasta el miércoles 25 de noviembre, 23:59, con máximo 80 % y sin segunda entrega. Retroalimentación a más tardar el domingo 29 de noviembre. Segunda entrega solo si la primera obtiene < 70 %: dentro de los 7 días siguientes a la retroalimentación, con tope de 80 % |
 | **H2 · Avance 2 del proyecto** (en equipo) | **lunes 23 de noviembre**: etiqueta `H2` antes de las **10:30**; recepción en clase (U5·S01) | **15 puntos** del proyecto (el proyecto es 40 % del 3.er parcial) | [`proyecto/hitos/H2-avance-2.md`](../../proyecto/hitos/H2-avance-2.md): V2 con OpenMP correcta frente a V1, tabla de *speedup* y eficiencia con el protocolo, Karp–Flatt, decisiones justificadas y `reporte/H2.md`. Tardía hasta el jueves 26 de noviembre, 10:30, con máximo 80 %. Rúbrica por escrito a más tardar el lunes 30 de noviembre |
 | **Examen departamental 3** (individual) | **martes 8 de diciembre, 08:30–10:00** | **30 %** del 3.er parcial | Ver §3.3 |
 
@@ -105,19 +105,21 @@ equipos que ya tengan la etiqueta `H2` antes de las 10:30 de ese día se reciben
 
 | Fecha y hora | Qué pasa o qué se entrega | Archivo de referencia |
 |---|---|---|
-| jueves 5 de noviembre, 10:30 (S01) | Se publica la **Práctica 5**. Rúbrica escrita de H1 (a más tardar). La Unidad III programa ese día la pregunta individual de H1 (opción A de H1 §8: primeros 20 min) y la pregunta posterior de la Práctica 4 a 2–3 equipos (5 min) | [P5 `README.md`](../../practicas/P5-mpi/README.md) · [H1](../../proyecto/hitos/H1-avance-1.md) §8 · [P4 `entrega.md`](../../practicas/P4-openmp/entrega.md) §1 |
+| jueves 5 de noviembre, 10:30 (S01) | Se publica la **Práctica 5**. Rúbrica escrita de H1 (a más tardar). Autocalificación de la tarea de U3 S13 (minutos 5–10). S01 reserva 10–30 para la pregunta individual de H1 (opción A de H1 §8) y 30–35 para la pregunta posterior de la Práctica 4 a 2–3 equipos | [P5 `README.md`](../../practicas/P5-mpi/README.md) · [H1](../../proyecto/hitos/H1-avance-1.md) §8 · [P4 `entrega.md`](../../practicas/P4-openmp/entrega.md) §1 |
 | domingo 8 de noviembre | Retroalimentación de la Práctica 4 (a más tardar) | [P4 `entrega.md`](../../practicas/P4-openmp/entrega.md) §1 |
-| lunes 9 de noviembre, 10:30 (S02) | Tarea de S01 (papel o `tareas/U4-S01.md`) | [S01 `tarea-espaciada.md`](S01_2026-11-05_modelo-spmd/tarea-espaciada.md) |
-| martes 10 de noviembre, 08:30 (S03) | **Pre-laboratorio de la Práctica 5**, individual, en `practicas/P5/prelab/prelab-<alias>.md` del repositorio del equipo, **faltes o no**. Laboratorio 1: Partes A y B (en clase, solo el `TODO(1)` de la B; los `TODO(2)`–`(5)` en casa). Calificación y clave del Examen 2 (a más tardar) | [P5 `README.md`](../../practicas/P5-mpi/README.md), "Pre-laboratorio" · [P5 `entrega.md`](../../practicas/P5-mpi/entrega.md) §1 |
-| jueves 12 de noviembre, 10:30 (S04) | Tareas de S02 (`tarea-S02.md` + `ring_laps.c`) y de S03 (`tarea-S03.md`). Análisis de errores del Examen 2 en clase | [S02](S02_2026-11-09_punto-a-punto/tarea-espaciada.md) · [S03](S03_2026-11-10_colectivas-lab1/tarea-espaciada.md) |
-| martes 17 de noviembre, 08:30 (S05) | Tarea de S04 (`tareas/U4-S04/`; el ejercicio 3 es la predicción de la Parte D). Llegar con las Partes A–C de P5 funcionando y con `nproc`/`lscpu` a la mano para declarar los núcleos físicos. Laboratorio 2: Parte D, punto de control y mini-defensas pendientes | [S04 `tarea-espaciada.md`](S04_2026-11-12_descomposicion-halos/tarea-espaciada.md) · [P5 `entrega.md`](../../practicas/P5-mpi/entrega.md) §1 |
-| jueves 19 de noviembre, 10:30 (S06) | Tarea de S05 (`tareas/U4-S05.md`, con la tabla de *speedup* de la V2 tal como esté). Taller hacia H2; anuncio de la opción de recepción de H2 | [S05 `tarea-espaciada.md`](S05_2026-11-17_rendimiento-lab2/tarea-espaciada.md) · [H2](../../proyecto/hitos/H2-avance-2.md) §8 |
+| lunes 9 de noviembre, 10:30 (S02) | Tarea de S01 (`tareas/<usuario-github>/U4-S01.md`; el `promedio_maximo.c` del ejercicio 1(c), en `tareas/<usuario-github>/U4-S01/`) | [S01 `tarea-espaciada.md`](S01_2026-11-05_modelo-spmd/tarea-espaciada.md) |
+| martes 10 de noviembre, 08:30 (S03) | **Pre-laboratorio de la Práctica 5**, individual, en `practicas/P5/prelab/prelab-<alias>.md` del repositorio del equipo, antes de las 08:30, **faltes o no**. Tarea de S02 (`tareas/<usuario-github>/U4-S02.md` y `U4-S02/ring_laps.c`). Laboratorio 1: Partes A y B (en clase, solo el `TODO(1)` de la B; los `TODO(2)`–`(5)` en casa). Calificación y clave del Examen 2 (a más tardar) | [P5 `README.md`](../../practicas/P5-mpi/README.md), "Pre-laboratorio" · [P5 `entrega.md`](../../practicas/P5-mpi/entrega.md) §1 · [S02 `tarea-espaciada.md`](S02_2026-11-09_punto-a-punto/tarea-espaciada.md) |
+| jueves 12 de noviembre, 10:30 (S04) | Tarea de S03 (`tareas/<usuario-github>/U4-S03.md`). Análisis de errores del Examen 2 en clase | [S03 `tarea-espaciada.md`](S03_2026-11-10_colectivas-lab1/tarea-espaciada.md) |
+| martes 17 de noviembre, 08:30 (S05) | Tarea de S04 (`tareas/<usuario-github>/U4-S04.md` y `U4-S04/`; el ejercicio 3 es la predicción de la Parte D). Llegar con las Partes A–C de P5 funcionando y con `nproc`/`lscpu` a la mano para declarar los núcleos físicos. Laboratorio 2: Partes C y D (la C llega funcionando y se defiende; se mide la D), punto de control y mini-defensas pendientes | [S04 `tarea-espaciada.md`](S04_2026-11-12_descomposicion-halos/tarea-espaciada.md) · [P5 `entrega.md`](../../practicas/P5-mpi/entrega.md) §1 |
+| jueves 19 de noviembre, 10:30 (S06) | Tarea de S05 (`tareas/<usuario-github>/U4-S05.md`, con la tabla de *speedup* de la V2 tal como esté). Taller hacia H2; anuncio de la opción de recepción de H2 | [S05 `tarea-espaciada.md`](S05_2026-11-17_rendimiento-lab2/tarea-espaciada.md) · [H2](../../proyecto/hitos/H2-avance-2.md) §8 |
 | domingo 22 de noviembre, 23:59 | **Práctica 5 completa** (etiqueta `P5-entrega`; `make test-entrega` en `0 FAIL`) | [P5 `entrega.md`](../../practicas/P5-mpi/entrega.md) §3–§4 |
-| lunes 23 de noviembre, 10:30 (U5·S01) | **H2** (etiqueta antes de las 10:30). Tarea de S06 (`tareas/U4-S06/`). Pregunta posterior de la Práctica 5 a 2–3 equipos. Se publica la Práctica 6 | [S06 `tarea-espaciada.md`](S06_2026-11-19_cierre-taller-H2/tarea-espaciada.md) · [U5·S01](../U5-gpu/S01_2026-11-23_H2-modelo-cuda/) |
+| lunes 23 de noviembre, 10:30 (U5·S01) | **H2** (etiqueta antes de las 10:30). Tarea de S06 (`tareas/<usuario-github>/U4-S06.md` y `U4-S06/`). Pregunta posterior de la Práctica 5 a 2–3 equipos. Se publica la Práctica 6 | [S06 `tarea-espaciada.md`](S06_2026-11-19_cierre-taller-H2/tarea-espaciada.md) · [U5·S01](../U5-gpu/S01_2026-11-23_H2-modelo-cuda/) |
 | miércoles 25 de noviembre, 23:59 | Último momento para la entrega tardía de P5 (máximo 80 %) | [P5 `entrega.md`](../../practicas/P5-mpi/entrega.md) §1 |
 | domingo 29 de noviembre | Retroalimentación de la Práctica 5 (a más tardar) | [P5 `entrega.md`](../../practicas/P5-mpi/entrega.md) §1 |
 
-Cada `tarea-espaciada.md` dice en su encabezado dónde se entrega; la tabla copia lo que dice cada una. Carga
+Todas las tareas siguen la misma regla (`docs/CONVENCIONES.md` §1): son individuales, van en el repositorio del
+equipo en `tareas/<usuario-github>/U4-Sxx.md` (el código, en `tareas/<usuario-github>/U4-Sxx/`), vencen al inicio
+de la sesión siguiente y se autocalifican con su clave en los minutos 5–10 de esa sesión. Carga
 orientativa fuera de clase (`planeacion/calendario-27-1.md`): 3 h la semana del 2 al 8 de noviembre (pre-lab de
 P5, tarea), 5 h la del 9 al 15 (P5, Partes A–C) y 6 h la del 16 al 22 (P5, Parte D y reporte; H2).
 
@@ -127,9 +129,10 @@ P5, tarea), 5 h la del 9 al 15 (P5, Partes A–C) y 6 h la del 16 al 22 (P5, Par
 |---|---|
 | Fecha | **martes 8 de diciembre de 2026, 08:30–10:00** (Salón 3208, o Lab LS4 con los equipos apagados y filas alternas) |
 | Cubre | **Unidades IV–V** (MPI y GPU), con 10–20 % de unidades previas integrado en los problemas (eficiencia, Amdahl, protocolo de medición), no en una sección aparte |
-| Formato | Versiones A/B, 80 minutos efectivos, 100 puntos, individual, sin dispositivos; hoja de calibración aparte (no afecta la calificación). Zona sin IA |
+| Formato | Versiones A/B, 80 minutos efectivos, 100 puntos, individual, sin dispositivos; hoja de calibración aparte: la calificación que esperas al recibirlo y la que crees haber obtenido al entregarlo, las dos en 0–100 (no afecta la calificación). Zona sin IA |
 | Preparación | Las tareas espaciadas de U4–U5 (de ahí salen ítems); la [guía de estudio](../U5-gpu/guia-estudio-E3.md) (temario con pesos, banco de preguntas con respuesta y plan de repaso); el [examen de práctica](../U5-gpu/S06_2026-12-03_repaso-E3/examen-practica-U4-U5.md) del jueves 3 de diciembre (U5·S06), con la misma estructura y su clave; los ConcepTests de cada sesión, con su respuesta y el origen de cada distractor |
-| Devolución | Calificación y clave en ≤ 7 días; la reserva del lunes 14 de diciembre está prevista para la retroalimentación |
+| Devolución | Calificación y sesión de análisis de errores el lunes 14 de diciembre, 10:30; clave pública el martes 15 de diciembre, después de las 10:00, tras la última reposición (`04-evaluacion.md` §2.4) |
+| Reposición | Propuesta por defecto, a confirmar por el profesor: con justificante institucional, versión B el martes 15 de diciembre, 08:30 |
 
 De esta unidad, el examen de práctica pregunta por la semántica de `MPI_Send` y el interbloqueo (I.1), el modelo
 de costo de Jacobi 1D con halos y el `n` a partir del cual conviene usar 4 procesos (I.2, V.a), la salida y los
@@ -143,7 +146,7 @@ entre OpenMP, MPI y GPU con dos datos numéricos (VI).
 | Open MPI o MPICH (`mpicc`, `mpirun`) | Todo el código MPI: `mpicc -std=c11 -O2 -Wall -Wextra`; `mpirun -np p` | El material se escribió y probó con Open MPI 4.1.6 y gcc 13.3. Instalación (S01): `sudo apt install openmpi-bin libopenmpi-dev` en Ubuntu/Debian/WSL; `brew install open-mpi` en macOS. Con MPICH, `--oversubscribe` no existe: `make MPIRUN_FLAGS= test` |
 | `--oversubscribe` | Correr más procesos que núcleos para **probar** la lógica | Ya va en `MPIRUN_FLAGS` de cada `Makefile`. Sirve para probar, no para medir (idea errónea 20): la Parte D de P5 etiqueta esa fila `mpi_oversub` |
 | Variables para correr como root (contenedores) | Open MPI se niega a correr como root | `export OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1`. Todos los `tests/run_tests.sh` de la unidad y de P5 lo hacen solos (también los `Makefile` de S05, S06 y P5); para `mpirun` en una terminal nueva, expórtalas tú |
-| `gcc` con OpenMP (`-fopenmp`) | Las versiones secuenciales; el híbrido MPI+OpenMP de S05 (`make run-hibrido`) y la extensión opcional de P5 | `OMP_NUM_THREADS × np ≤ núcleos`, o vuelves a sobre-suscribir |
+| `gcc` ≥ 11 con OpenMP (`-fopenmp`) | Las versiones secuenciales; el híbrido MPI+OpenMP de S05 (`make run-hibrido`) y la extensión opcional de P5 | `OMP_NUM_THREADS × np ≤ núcleos`, o vuelves a sobre-suscribir |
 | `make`, `bash` y `timeout` (coreutils) | `make test`; las pruebas de S01–S06 y P5 usan `timeout` para detectar cuelgues (código 124) | Un programa colgado se mata con `Ctrl+C` |
 | `ompi_info` | Ver el límite *eager* de tu instalación (S02, S03, S06): `ompi_info --param btl vader --level 4 \| grep eager_limit` | Solo Open MPI; con MPICH se omite y se busca el umbral corriendo |
 | Python 3 con `matplotlib` | Gráficas: perfil de Jacobi (S04 `graficar_perfil.py`), escalabilidad (S05 y P5 `graficar.py`) | `modelo.py` (S05, P5) y `revisar_mediciones.py` (S06) corren sin `matplotlib`; el revisor solo omite la gráfica |
@@ -159,15 +162,15 @@ en el curso: [`herramientas/protocolo-medicion.md`](../../herramientas/protocolo
 Regla del curso ([`docs/metodo/04-evaluacion.md`](../../docs/metodo/04-evaluacion.md) §5 y
 [`01-marco-pedagogico.md`](../../docs/metodo/01-marco-pedagogico.md), P10): todo el material es autocontenido, y el
 *exit ticket* y la recuperación del día que faltaste se sustituyen **entregando la `tarea-espaciada.md` de esa
-sesión antes de la sesión siguiente**. Cuenta como participación (sin peso propio en el 3.er parcial, §3). Orden
-de trabajo (≈ 1.5 h, lo mismo que la clase):
+sesión en su fecha**: al inicio de la sesión siguiente, como el resto del grupo. En el 3.er parcial no tiene peso
+propio (§3). Orden de trabajo (≈ 1.5 h, lo mismo que la clase):
 
 | Paso | Archivo de la carpeta de la sesión | Tiempo | Qué haces |
 |---|---|---|---|
 | 1 | `notas-estudiante.md` | 10–15 min | Lee el concepto, la tabla principal y los errores frecuentes |
 | 2 | `ejemplo-resuelto.md` | 15–20 min | Responde cada pausa ("¿por qué este paso?") **por escrito** antes de abrir su `<details>` |
 | 3 | `practica-guiada/README.md` | 30–40 min | PRIMM completo: escribe las predicciones antes de correr; `make test` debe pasar los `TODO` que completes |
-| 4 | `tarea-espaciada.md` | 20–40 min | Entrégala antes de la sesión siguiente, donde indica su encabezado; sustituye *exit ticket* y recuperación |
+| 4 | `tarea-espaciada.md` | 20–40 min | Entrégala en `tareas/<usuario-github>/` antes de la sesión siguiente; sustituye *exit ticket* y recuperación |
 | 5 (opcional) | `retrieval-inicio.md` y `exit-ticket.md` | 10 min | Contéstalos sin apuntes y corrige con la clave en `<details>`; así sabes si de verdad recuperaste la sesión |
 
 Lo particular de cada sesión:
@@ -175,10 +178,10 @@ Lo particular de cada sesión:
 | Si faltaste a… | Además de los pasos 1–4 |
 |---|---|
 | S01 (jueves 5) | Ese día se publicó la Práctica 5: lee su enunciado y entrega el **pre-laboratorio antes del martes 10 de noviembre, 08:30**. El Lab 1 da por hecho el reparto por bloques con residuo (`start`, `count`): `MPI_Scatterv` lo usa en la Parte A. El reparto cíclico (`TODO(1)` de la práctica guiada) reaparece en la Parte C.2 de P5 y en el CT3 de S04. Si ese día te tocaba la pregunta individual de H1, pregunta al profesor cuándo se repone |
-| S02 (lunes 9) | La tarea de S02 fija su entrega el jueves 12 de noviembre (S04), pero para sustituir el *exit ticket* `04` §5 pide entregarla antes de la sesión siguiente: entrégala antes del martes 10, 08:30, y cumples las dos reglas. De S02 necesitas entender α y β del *ping-pong*: S05 construye con ellos el modelo de costo, y la Parte D de P5 vuelve a medirlos en tu máquina con `d_pingpong` |
-| S03 (martes 10, Lab 1) | El pre-lab se entrega antes de las 08:30 **faltes o no**. Las Partes A y B de P5 las haces con tu equipo (`make test-a`, `bash tests/run_tests.sh b`). Si te tocaba **mini-defensa**: `P5-mpi/entrega.md` §3 pide, a quien no estuvo en la suya, un video de 3 minutos o menos enlazado en `REPORTE.md`; `04` §5 permite además reponerla en la siguiente sesión de laboratorio (martes 17) o en la reserva del martes 15 de diciembre. Graba el video de todos modos; el profesor confirma si además te la hace en persona |
-| S04 (jueves 12) | Ese día fue el análisis de errores del Examen 2: la calificación y la clave se publican a más tardar el martes 10 de noviembre (`04` §2.3) y el examen se devuelve en asesoría. El ejercicio 3 de la tarea es la predicción de la Parte D de P5: hazlo antes del martes 17 |
-| S05 (martes 17, Lab 2) | La Parte D de P5 se mide en casa con `escalado.sh` y el mismo protocolo; [`resultados-ejemplo/`](S05_2026-11-17_rendimiento-lab2/practica-guiada/resultados-ejemplo/) trae la corrida de referencia para comparar. Mini-defensa pendiente: el siguiente laboratorio es U5·S02 (martes 24 de noviembre), después de la fecha límite de P5, así que el video de `entrega.md` §3 va en `REPORTE.md` antes del domingo 22, 23:59 (la reposición presencial que permite `04` §5 sería ese martes 24 o la reserva del martes 15 de diciembre; el profesor confirma cuál) |
+| S02 (lunes 9) | La tarea de S02 vence el martes 10 de noviembre, 08:30 (inicio de S03), a la misma hora que el pre-lab de P5. De S02 necesitas entender α y β del *ping-pong*: S05 construye con ellos el modelo de costo, y la Parte D de P5 vuelve a medirlos en tu máquina con `d_pingpong` |
+| S03 (martes 10, Lab 1) | El pre-lab se entrega antes de las 08:30 **faltes o no**. Las Partes A y B de P5 las haces con tu equipo (`make test-a`, `bash tests/run_tests.sh b`). Si te tocaba **mini-defensa**, la repones en el Lab 2 (martes 17 de noviembre); si no puedes ir, envías un video no listado de ≤ 3 minutos en el que explicas dos fragmentos de tu código que elige el profesor, a más tardar el martes 15 de diciembre, 08:30 (`P5-mpi/entrega.md` §3; `04` §5) |
+| S04 (jueves 12) | Ese día fue el análisis de errores del Examen 2: la calificación y la clave se publican a más tardar el martes 10 de noviembre (`04` §2.3; si queda una reposición pendiente, la clave pública espera a que se aplique, §2.4) y el examen se devuelve en asesoría. El ejercicio 3 de la tarea es la predicción de la Parte D de P5: hazlo antes del martes 17 |
+| S05 (martes 17, Lab 2) | La Parte D de P5 se mide en casa con `escalado.sh` y el mismo protocolo; [`resultados-ejemplo/`](S05_2026-11-17_rendimiento-lab2/practica-guiada/resultados-ejemplo/) trae la corrida de referencia para comparar. Mini-defensa pendiente: se repone en el siguiente laboratorio, U5·S02 (martes 24 de noviembre, 08:30, LS4), sobre el código entregado; si no puedes, video no listado de ≤ 3 minutos con dos fragmentos de tu código que elige el profesor, a más tardar el martes 15 de diciembre, 08:30 (`P5-mpi/entrega.md` §3) |
 | S06 (jueves 19) | Haz la Parte 1 del README (los tres cazadores). La Parte 2 (taller de H2: lista de cotejo, revisor de mediciones y revisión por pares) hazla con tu equipo antes del lunes 23 de noviembre; pregúntale a tu equipo qué opción de recepción de H2 se anunció |
 
 **H2 con inasistencia.** Hito con justificante institucional: se recibe en la sesión siguiente al 100 %; sin
@@ -208,21 +211,21 @@ te suena razonable, vuelve a la sesión que la trabaja.
 | 10 | "La reducción da exactamente lo mismo que la suma secuencial" | Otro orden de suma cambia el redondeo: se compara con tolerancia | S03 (tolerancia de `make test`) |
 | 28 | "Aglomerar es juntar todo en un solo proceso" | Es agrupar tareas para bajar la comunicación sin perder paralelismo (`n` tareas → `p` bloques) | S01 (recuperación, tabla de Foster), S04 (recuperación, pausa 1, CT3) |
 
-Las sesiones proponen además variantes que todavía no están en el Anexo A y que el profesor puede incorporar si
-aparecen en los *exit tickets*:
+Las sesiones usan además variantes con etiqueta propia; todas están definidas en el Anexo A (no se renumera):
 
 - **De la 16:** 16b "`MPI_Barrier` sincroniza la memoria" (S01 CT1-C y CT3-C); 16c "`n/p` reparte todo el
   arreglo" (S01 CT2-A y CT2-D); 16d "bloques y cíclico asignan los mismos índices" (S01 CT2-C).
 - **De la 17:** 17b "el interbloqueo depende de cuántas parejas hay" (S06 CT3-D).
 - **De la 18:** 18b "una colectiva es sobre todos los procesos del programa" y 18c "sin raíz no hay espera" (S06
-  CT1-A y CT1-C); "MPI detecta las colectivas mal emparejadas" (S03 CT1-D, S04 CT2-D) y su pariente "MPI detecta
-  etiquetas cruzadas" (S06 *exit ticket* 1-A).
+  CT1-A y CT1-C).
 - **De la 19:** 19b, "con `-np 3` el último rango es el 3": confunde la cantidad de procesos con la identidad del
   rango (S01 CT3-D).
-- **De la 21 y la 6:** "el *speedup* es una constante del programa, no depende de `n`" (S05 CT1-B).
-- **Sin número todavía:** "`MPI_PROC_NULL` es un proceso que no responde" (S04 CT1-D); "el algoritmo exige celdas
-  contiguas" (S04 CT3-C); "si una medición da *speedup* < 1, el problema no es paralelizable" (S03 CT2-B); "las
-  etiquetas no emparejan" (S06 *exit ticket* 1-C).
+
+Otros distractores se citan por su texto, sin etiqueta: "MPI detecta las colectivas mal emparejadas" (S03 CT1-D,
+S04 CT2-D) y su pariente "MPI detecta etiquetas cruzadas" (S06 *exit ticket* 1-A), cercanos a la 18; "el *speedup*
+es una constante del programa, no depende de `n`" (S05 CT1-B), de la 21 y la 6; "`MPI_PROC_NULL` es un proceso que
+no responde" (S04 CT1-D); "el algoritmo exige celdas contiguas" (S04 CT3-C); "si una medición da *speedup* < 1, el
+problema no es paralelizable" (S03 CT2-B); "las etiquetas no emparejan" (S06 *exit ticket* 1-C).
 
 ## 7. Otros documentos que usa la unidad
 
@@ -247,14 +250,15 @@ aparecen en los *exit tickets*:
   `exit-ticket.md`. Cada plan declara sus ideas erróneas y su lista de errores esperados con la pregunta
   socrática; S01–S04 traen además las soluciones de sus `TODO` (S05 no tiene `TODO`; los cazadores de S06 no traen
   solución escrita: las correcciones válidas están en la fase Modificar de su README y en la columna "Regla del
-  estándar" de `notas-estudiante.md` §4). S03–S06 declaran su nivel de andamiaje; S01 y S02 no.
+  estándar" de `notas-estudiante.md` §4). Los seis planes declaran su nivel de andamiaje en "Prerrequisitos y
+  vínculo".
 - **Estado esperado de `make test` al llegar** (sin los `TODO` resueltos; verificado el 20 de octubre de 2026 en el
   entorno de autoría con Open MPI 4.1.6, gcc 13.3 y `--oversubscribe`, sin *warnings*):
 
 | Carpeta | Tipo (`02-plantilla-sesion.md`) | Andamiaje (`07` §A.5) | `make test` | Qué preparar además |
 |---|---|---|---|---|
-| S01 | Contenido, 90 min | Completo; PRIMM en cinco fases (el plan no lo declara) | 15 PASS, 0 FAIL, 2 SKIP | Diagrama de dos memorias en el pizarrón; anuncio de P5. El guion ocupa los 90 min y no reserva los 20 de la pregunta individual de H1 (opción A de H1 §8) ni los 5 de la pregunta posterior de P4: si se hacen ese día, decidir antes qué bloque se recorta (nunca la recuperación ni el *exit ticket*, `01` §4) |
-| S02 | Contenido, 90 min | Completo; PRIMM en cinco fases (el plan no lo declara) | 9 PASS, 0 FAIL, 4 SKIP | Confirmar que `cross_exchange_buggy 1000000` se cuelga en la máquina del salón; límite *eager* con `ompi_info` |
+| S01 | Contenido, 90 min, con 25 min reservados (10–30 pregunta individual de H1, opción A de H1 §8; 30–35 pregunta posterior de P4) | Completo; PRIMM en cinco fases (Predecir durante la ronda; Crear en la tarea, porque Transferencia se recorta) | 15 PASS, 0 FAIL, 2 SKIP | Diagrama de dos memorias en el pizarrón; anuncio de P5; lista de cotejo de H1 de S13, reparto de cada equipo y banco de H1 §6 |
+| S02 | Contenido, 90 min | Completo; PRIMM en cinco fases | 9 PASS, 0 FAIL, 4 SKIP | Confirmar que `cross_exchange_buggy 1000000` se cuelga en la máquina del salón; límite *eager* con `ompi_info` |
 | S03 | Laboratorio con constructo nuevo (§2.1) | Completo; PRIMM corto de 20 min | 15 PASS, 0 FAIL, 3 SKIP | `make run-buggy N=8` y `N=1024`; caja de pre-labs; rúbrica de P5 impresa; lista de mini-defensas si hay más de 12 equipos |
 | S04 | Contenido con 10 min de retroalimentación del E2 | Con pistas; el desvanecimiento va en la práctica guiada | 7 PASS, 0 FAIL, 3 SKIP | Los 3 ítems peor contestados del Examen 2 con su estadística (`docente/examenes/E2/`) |
 | S05 | Laboratorio (§2.1) | Con pistas | 12 PASS, 0 FAIL | Una corrida previa de `make run` (~1 min) para proyectar `fuerte.png` y `debil.png`; rúbrica impresa |
@@ -262,11 +266,12 @@ aparecen en los *exit tickets*:
 | P5 | Práctica | — | 16 PASS, 0 FAIL, 20 PEND, 1 SKIP (recién clonada) | Al calificar: `make test-entrega PARTE_C=heat` (o `primes`) |
 
 - **Laboratorios (S03 y S05):** llevan punto de control y mini-defensas de P5 (una pregunta por integrante; la
-  segunda solo si la primera falla); el registro está en cada plan. S03 trae un plan B si `practicas/P5-mpi/` no
-  estuviera publicada.
+  segunda solo si la primera falla); el registro está en cada plan. S03 repone además las mini-defensas pendientes
+  de P4 (`practicas/P4-openmp/entrega.md` §5) y trae un plan B si `practicas/P5-mpi/` no estuviera publicada.
 - **Práctica 5:** la solución de referencia y los casos de calificación están en `docente/practicas/P5/` (no se
   publica). La retroalimentación sigue el formato mínimo de `04-evaluacion.md` §3.1.
 - **Examen 3:** tabla de especificaciones, versiones A/B, claves, instrucciones de aplicación y hoja de calibración
   en `docente/examenes/E3/` (no se publica).
-- **Registro:** `herramientas/seguimiento-grupo.csv` (la copia llena vive en `docente/`). S03 y S06 dicen qué datos
-  se anotan ese día; los demás planes los piden en "Notas post-sesión".
+- **Registro:** la hoja llena vive en `docente/seguimiento-grupo.csv` (no se versiona);
+  `herramientas/seguimiento-grupo.csv` es solo la plantilla vacía. S03 y S06 dicen qué datos se anotan ese día; los
+  demás planes los piden en "Notas post-sesión".

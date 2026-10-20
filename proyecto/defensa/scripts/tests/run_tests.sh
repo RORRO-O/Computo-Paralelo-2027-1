@@ -105,7 +105,7 @@ chk "07,usuario-b,15.00,85.00,12.75,1,0.90,no,85.75,77.18,88.00,no,77.18"    "P1
 chk "07,usuario-c,6.00,76.00,11.40,2,0.80,sí,81.20,64.96,88.00,sí,68.00"     "P1=I y rescate I → 0.80, C6 sí y tope −20"
 chk "03,usuario-d,20.25,70.00,10.50,0,1.00,no,74.50,74.50,74.50,no,74.50"    "C y D → sin ajuste"
 chk "03,usuario-e,11.25,61.00,9.15,1,0.90,no,73.15,65.84,74.50,no,65.84"     "P1=I, rescate D → 0.90"
-chk "03,usuario-f,0.00,49.75,7.46,0,1.00,no,71.46,71.46,74.50,no,71.46"      "ausente → D4 = 0, sin factor"
+chk "03,usuario-f,0.00,49.75,7.46,2,0.80,sí,69.06,55.25,74.50,no,55.25"      "ausente sin justificante → D4 = 0, 0.80 y C6 sí"
 chk "11,usuario-h,16.50,81.50,12.23,0,1.00,no,,,,n/a,"                        "opción c sin rescate → D4 = 30·f(P1)"
 
 # 15. P1 bien y P2 Insuficiente también cuenta (−10 %): las dos respuestas cuentan para §4.1.
@@ -113,6 +113,15 @@ printf 'equipo,integrante,D1,D2,D3,P1,P2,h2,repo,reporte\n01,x,E,E,E,E,I,15,40,3
 $PY calificar_defensa.py "$TMP/p2i.csv" --salida "$TMP/p2i_out.csv" --sin-tabla 2>/dev/null
 grep -qx "01,x,18.00,88.00,13.20,1,0.90,no,98.20,88.38,98.20,no,88.38" <(tr -d '\r' < "$TMP/p2i_out.csv") \
     && ok "15 P1=E y P2=I → factor 0.90" || bad "15 P1=E y P2=I → factor 0.90"
+
+# 15b. Faltar sin justificante nunca conviene más que presentarse y fallar las dos (04-evaluacion.md §3.2):
+#      mismo equipo, mismos puntos previos; x falta (A, A) e y falla pregunta 1 y rescate (I, I).
+printf 'equipo,integrante,D1,D2,D3,P1,P2,h2,repo,reporte\n01,x,E,E,E,A,A,15,32.8,30\n01,y,E,E,E,I,I,15,32.8,30\n' > "$TMP/aus.csv"
+$PY calificar_defensa.py "$TMP/aus.csv" --salida "$TMP/aus_out.csv" --sin-tabla 2>/dev/null
+fx=$(tr -d '\r' < "$TMP/aus_out.csv" | awk -F, '$2=="x" {print $13 "," $7 "," $8}')
+fy=$(tr -d '\r' < "$TMP/aus_out.csv" | awk -F, '$2=="y" {print $13}')
+[ "$fx" = "70.64,0.80,sí" ] && [ "$fy" = "71.36" ] \
+    && ok "15b ausente sin justificante (70.64) < falla P1 y rescate (71.36)" || bad "15b ausente vs falla las dos ($fx / $fy)"
 
 # 16. Entradas inválidas → código 1 con mensaje, sin traza.
 inval() {  # inval "descripción" "contenido del CSV" "texto esperado en el mensaje"

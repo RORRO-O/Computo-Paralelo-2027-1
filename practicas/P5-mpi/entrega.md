@@ -1,4 +1,4 @@
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Unidad IV · Práctica 5 · Simulación distribuida con MPI · publicada jueves 5 de noviembre de 2026 · Lab 1 martes 10 de noviembre 08:30 · Lab 2 martes 17 de noviembre 08:30 · Lab LS4 (Edificio 3) · entrega domingo 22 de noviembre de 2026, 23:59
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Unidad IV · Práctica 5 · Simulación distribuida con MPI · publicada jueves 5 de noviembre de 2026 · Lab 1 (Partes A y B) martes 10 de noviembre 08:30 · Lab 2 (Partes C y D) martes 17 de noviembre 08:30 · Lab LS4 (Edificio 3) · entrega domingo 22 de noviembre de 2026, 23:59
 
 # Práctica 5 · Qué se entrega, cómo y cuándo
 
@@ -13,7 +13,7 @@ del proyecto) con responsabilidad individual. El enunciado completo está en `RE
 | **Pre-laboratorio** | **martes 10 de noviembre, antes de las 08:30** | Un archivo por integrante en el repositorio del equipo (`practicas/P5/prelab/`), falte o no el estudiante |
 | Laboratorio 1 | martes 10 de noviembre, 08:30–10:00, Lab LS4 (U4·S03) | Partes A y B; mini-defensas de la mitad de los equipos si hay más de 12 |
 | Entre sesiones | 10–16 de noviembre | Parte C (el lunes 16 de noviembre no hay clase) |
-| Laboratorio 2 | martes 17 de noviembre, 08:30–10:00, Lab LS4 (U4·S05) | Parte D (mediciones), punto de control, mini-defensas restantes |
+| Laboratorio 2 | martes 17 de noviembre, 08:30–10:00, Lab LS4 (U4·S05) | Partes C y D: la Parte C llega funcionando y se defiende; se mide la Parte D; punto de control; mini-defensas restantes |
 | **Fecha límite** | **domingo 22 de noviembre de 2026, 23:59** | Etiqueta `P5-entrega` en el repositorio del equipo |
 | Primera sesión posterior | lunes 23 de noviembre, 10:30 (U5·S01, día de H2) | 5 min: un integrante al azar de 2–3 equipos explica qué cambió desde el laboratorio |
 | Retroalimentación | a más tardar domingo 29 de noviembre | Salida de `tests/run_tests.sh` + nivel por criterio + ≤ 2 líneas por criterio (`docs/metodo/04-evaluacion.md` §3.1) |
@@ -73,8 +73,14 @@ Nada de nombres completos ni correos en el repositorio: usa el alias de tus *com
 4. Mini-defensa: en el Laboratorio 1 o 2 (lista publicada al cerrar el Lab 1 si hay más de 12 equipos), una pregunta
    por integrante sobre la parte que firmó ("¿qué hace esta línea?"); la segunda ("¿qué pasaría si la quito?") solo si
    la primera falla, y cuenta la mejor de las dos. Quien lo pida responde por escrito en el momento (5 min, papel).
-   **Solo quien no estuvo en su mini-defensa** graba un video de ≤ 3 minutos (no listado o privado) en el que
-   compila, corre `make test-entrega` y explica una función suya; el enlace va en `REPORTE.md`.
+   **Mini-defensa pendiente** (quien no estuvo en la suya): se repone en el siguiente laboratorio (si faltó al
+   Lab 1, el Lab 2 del martes 17 de noviembre; si faltó al Lab 2, el Lab 1 de la Práctica 6, U5·S02, martes 24 de
+   noviembre, 08:30, LS4), sobre el código de ese momento (después del domingo 22, el de la etiqueta
+   `P5-entrega`). Si no hay laboratorio antes del cierre o el estudiante no puede asistir, graba un video **no
+   listado** de **≤ 3 minutos** en el que explica dos fragmentos de su propio código que elige el profesor (los
+   indica por correo), enlazado en `REPORTE.md` (ese *commit* puede ser posterior a la etiqueta), a más tardar el
+   **martes 15 de diciembre, 08:30** (`docs/metodo/04-evaluacion.md` §5). Solo graba video quien no estuvo en su
+   mini-defensa.
 
 ## 4. Lista de cotejo antes de etiquetar
 

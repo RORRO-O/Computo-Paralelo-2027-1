@@ -55,7 +55,9 @@ comparar contra la versión secuencial con varias corridas y distinto número de
 
 Los números son de `practica-guiada/sum_variants.c` en la máquina de autoría; en la tuya cambiarán, el orden no.
 `critical` y `atomic` **no** son equivalentes (idea errónea 8): `atomic` es más barato porque pide menos.
-Los histogramas de la práctica dieron el mismo orden: `critical` 73 ns, `atomic` 16 ns, local 2.4 ns por elemento.
+Los histogramas de la práctica dieron el mismo orden: `critical` 73 ns, `atomic` 16 ns, local 2.4 ns por elemento
+en la corrida original y 0.4–0.7 ns con la máquina libre (*speedup* de 3.3 a 4.8 con 4 hilos en cinco corridas: el
+de `local` depende de la carga de la máquina).
 
 El patrón que gana casi siempre: **acumular en privado, combinar una vez**. `reduction` es ese patrón
 automatizado. Desde OpenMP 4.5 también funciona con arreglos: `reduction(+:hist[:nbins])`.

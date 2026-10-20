@@ -3,14 +3,17 @@
 # Tarea espaciada · S05 (30–40 minutos)
 
 Tres ejercicios: uno del tema de hoy, uno intercalado de la Unidad IV y uno de preparación para la S06 (jueves 3 de
-diciembre, repaso de Unidades IV–V). **Entrega**: los tres van en un archivo `tareas/U5-S05.md` del repositorio de tu
-equipo (ejercicio 1 en equipo; 2 y 3 individuales, firmados con número de lista) antes del jueves 3 de diciembre a
-las 10:30; al inicio de la S06 la autocalificas con las claves en `<details>` y el profesor registra la entrega, no
-el acierto. **Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 %
-acumulativo del Examen 3 toman ítems de aquí.** Además, lo que produce el ejercicio 1 entra directo en la Parte D de
-P6 y en la sección V3 del reporte final.
+diciembre, repaso de Unidades IV–V). **Entrega.** Individual, en el repositorio del equipo:
+`tareas/<usuario-github>/U5-S05.md` (y el CSV del ejercicio 1 en `tareas/<usuario-github>/U5-S05/`), antes del
+**jueves 3 de diciembre de 2026, 10:30** (inicio de la S06, salón 3208). Las corridas del ejercicio 1 pueden hacerse
+en equipo; la tabla y las tres líneas las entrega cada quien. La autocalificas con las claves en `<details>` en los
+minutos 8–10 de la S06 (2 min, al cerrar la recuperación larga); el profesor registra la entrega, no el acierto, y
+revisa 3 al azar por parcial. **Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el
+10–20 % acumulativo del Examen 3 toman ítems de aquí.** Si faltaste hoy, entregarla en esa misma fecha sustituye tu
+recuperación y tu *exit ticket* de S05 (`docs/metodo/04-evaluacion.md` §5). Además, lo que produce el ejercicio 1
+entra directo en la Parte D de P6 y en la sección V3 del reporte final.
 
-## 1. Del tema (equipo, ~15 min, Colab) · mapeo 1D vs. 2D
+## 1. Del tema (~15 min, Colab; las corridas pueden ser en equipo) · mapeo 1D vs. 2D
 
 Si no lo hiciste en clase, completa `TODO(1)` de `jacobi_step_1d` en `practica-guiada/flatten_map_2d.cu` (el
 notebook `notebook_colab.ipynb` ya tiene las celdas). Luego corre, con `1024 1024 100`, tres configuraciones y llena
@@ -38,7 +41,7 @@ notebook en `resultados/`.
 - Bien: la explicación usa el número de floats contiguos por *warp* **y** el dato medido. Parcial: solo uno de los dos.
 </details>
 
-## 2. Intercalado (individual, ~10 min, Unidad IV · modelo de costo aplicado a PCIe)
+## 2. Intercalado (~10 min, Unidad IV · modelo de costo aplicado a PCIe)
 
 Un equipo porta una V2 de Jacobi con malla de 2048 × 2048 floats (16 777 216 bytes) y 200 iteraciones. El *kernel*
 tarda 0.25 ms por iteración. La V1 tarda 3.0 s. Modela cada transferencia como en la Unidad IV:
@@ -57,14 +60,14 @@ conclusión ("copia una vez") es la misma aunque la razón sea distinta?
 (c) Aquí domina el término de volumen (bytes / ancho de banda): la latencia total de 400 copias es solo 4 ms. En MPI con mensajes de 8 bytes dominaba la latencia. En ambos casos la regla es reducir el número de transferencias, pero en GPU el daño principal de copiar por iteración es mover <em>todos</em> los datos 200 veces, no pagar 400 latencias.
 </details>
 
-## 3. Preparación para la S06 (individual, ~10 min)
+## 3. Preparación para la S06 (~10 min)
 
 La S06 (jueves 3 de diciembre, 10:30) abre con una recuperación larga y un examen de práctica de las Unidades IV–V.
 
 (a) Escribe **tres preguntas tipo examen con su respuesta**, de ≤ 5 líneas cada una: una de colectivas MPI
 (`Bcast`/`Scatter`/`Reduce`: quién las llama y qué recibe cada rango), una de halos o modelo de costo (U4 S04–S05),
 y una de CUDA que use un número (transferencias, tamaño de bloque, índice lineal). Llévalas: se intercambian en
-parejas al inicio de la S06.
+parejas al cierre de la S06 y contestas las de tu pareja en la tarea de la S06 (ejercicio 3c).
 (b) Predice tu calificación del Examen 3 (0–100) y escribe en una línea en qué tema te sientes menos seguro.
 Guárdala: se compara con la real el lunes 14 de diciembre.
 (c) Lee la lista de cotejo de la entrega final en `proyecto/entrega-final/` y marca qué le falta hoy al repositorio de

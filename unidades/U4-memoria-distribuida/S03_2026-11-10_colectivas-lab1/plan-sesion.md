@@ -3,8 +3,8 @@
 # S03 · Operaciones colectivas (`Bcast`, `Scatter`, `Gather`, `Reduce`, `Allreduce`, `Allgather`, `Barrier`) y producto matriz-vector distribuido · Práctica 5 · Laboratorio 1 (Partes A y B)
 
 Tipo: **laboratorio** (variante 2.1 adaptada; caso "constructo nuevo en Lab 1" de `02-plantilla-sesion.md` §2.1):
-recuperación 5 min · objetivos 3 min · mini-lección 22 min (ejemplo resuelto corto con pausas, ConcepTest 1 y
-la variante que falla) · bloque de laboratorio 48 min (= PRIMM corto de 20 min con `practica-guiada/` +
+recuperación 5 min · objetivos, anclaje y autocalificación de la tarea de S02 5 min · mini-lección 20 min (ejemplo
+resuelto corto con pausas, ConcepTest 1 y la variante que falla) · bloque de laboratorio 48 min (= PRIMM corto de 20 min con `practica-guiada/` +
 Práctica 5 Partes A y B de 28 min con mini-defensas) · punto de control 7 min con ConcepTest 2 · *exit ticket*
 5 min. Suma 90. Este plan debe poder darlo otro profesor sin hablar con el autor: trae las frases clave, las
 salidas reales y las soluciones de referencia.
@@ -88,7 +88,10 @@ de la 2 y la 4.
   minutos lo ven correr".
 - La 5 se deja en el pizarrón con el conteo: quien escribió 1/1 trae la idea 18; se retoma en el ConcepTest 1.
 
-### 5–8 · Objetivos y anclaje
+### 5–10 · Objetivos, anclaje y tarea de S02
+
+Autocalificación de la tarea de S02 con su clave (2 min); el profesor registra la entrega en el repositorio
+(`tareas/<usuario-github>/U4-S02.md` y `U4-S02/ring_laps.c`), no el acierto.
 
 Frase de arranque: "Ayer un proceso le mandó algo a otro. Hoy un proceso le manda algo a **todos**, o todos a
 uno, o todos a todos, con una sola línea. El error más frecuente del *exit ticket* de ayer fue ______ [o: creer
@@ -99,15 +102,15 @@ Proyectar los cuatro objetivos. Vínculo con la práctica y el proyecto: "La Par
 de hoy sobre un arreglo y la Parte B es el matriz-vector de hoy con filas desiguales; la Parte D va a medir exactamente lo que vamos a leer en el punto de control: cuánto cuesta repartir los datos.
 En la V2 del proyecto la pregunta es la misma con hilos: ¿cuánto trabajo hay por cada dato que se mueve?"
 
-### 8–30 · Mini-lección: colectivas y la regla de oro (ejemplo resuelto corto + ConcepTest 1 + variante que falla)
+### 10–30 · Mini-lección: colectivas y la regla de oro (ejemplo resuelto corto + ConcepTest 1 + variante que falla)
 
 Seguir `ejemplo-resuelto.md`. El profesor **piensa en voz alta**: qué mira, qué descarta, por qué. En cada pausa,
 30 s en parejas y una tarjeta al azar ("¿qué concluyó tu pareja?").
 
 | Minuto | Qué se hace | Qué se dice |
 |---|---|---|
-| 8–11 | Pizarrón: la pregunta "**¿quién tiene el dato antes y quién lo necesita después?**" y, debajo, la tabla de las siete colectivas (`notas-estudiante.md` §2), fila por fila: uno → todos (`Bcast`, `Scatter`), todos → uno (`Gather`, `Reduce`), todos → todos (`Allgather`, `Allreduce`), nadie avanza (`Barrier`). | "Una colectiva no es un `Send` con destino 'todos'. Es una cita: la llamada describe la operación completa y **cada** proceso ejecuta su parte. Se escribe una vez, fuera de cualquier `if (rank == …)`." Señalar `sendcount`: "por rango, en elementos". |
-| 11–15 | Correr en vivo `mpirun -np 4 ./colectivas_demo` dos veces. Las líneas salen mezcladas: decirlo. Leer agrupado por rango (§4 del ejemplo). **Pausa 1** (`squares = {-1,-1,-1,-1}` tras `Gather` en el rango 1). | "Hay cuatro `squares`, uno por proceso. `Gather` y `Reduce` dejan el resultado **solo** en la raíz; `All…` lo deja en todos. Que todos la llamen es la condición para que ocurra; dónde queda el resultado lo define cada colectiva." |
+| 10–12 | Pizarrón: la pregunta "**¿quién tiene el dato antes y quién lo necesita después?**" y, debajo, la tabla de las siete colectivas (`notas-estudiante.md` §2), fila por fila: uno → todos (`Bcast`, `Scatter`), todos → uno (`Gather`, `Reduce`), todos → todos (`Allgather`, `Allreduce`), nadie avanza (`Barrier`). | "Una colectiva no es un `Send` con destino 'todos'. Es una cita: la llamada describe la operación completa y **cada** proceso ejecuta su parte. Se escribe una vez, fuera de cualquier `if (rank == …)`." Señalar `sendcount`: "por rango, en elementos". |
+| 12–15 | Correr en vivo `mpirun -np 4 ./colectivas_demo` dos veces. Las líneas salen mezcladas: decirlo. Leer agrupado por rango (§4 del ejemplo). **Pausa 1** (`squares = {-1,-1,-1,-1}` tras `Gather` en el rango 1). | "Hay cuatro `squares`, uno por proceso. `Gather` y `Reduce` dejan el resultado **solo** en la raíz; `All…` lo deja en todos. Que todos la llamen es la condición para que ocurra; dónde queda el resultado lo define cada colectiva." |
 | 15–21 | Proyectar `matvec_collectives.c` líneas 54–85 (solo las colectivas). Correr `mpirun -np 4 ./matvec_collectives 8 1 filas`. Señalar "empieza: 4 5 6" en el rango 2 y `x[0] = 1` en los cuatro. **Pausa 2** (`sendcount = local_n * n`), **Pausa 3** (la línea del `Bcast` en el rango 2: ¿envío o recepción?), **Pausa 4** (`MPI_MAX`). Una pantalla con el bloque de `Send`/`Recv` de `matvec_p2p.c` al lado; **Pausa 5** en una frase. | "Misma línea, dos papeles: en la raíz es la fuente; en los demás, el destino. El rango 2 **tiene** que ejecutarla: nadie más va a escribir en su `x`." Sobre p2p: "tres llamadas por rango contra seis envíos y tres recepciones en el 0; y aquí el `if` es normal porque cada lado hace algo distinto; en una colectiva el `if` quita la recepción." |
 | 21–27 | **ConcepTest 1** (`conceptests.md`): voto → parejas → revoto → explicación. Esperado 45–55 % en el primer voto; A es el distractor fuerte (idea 18), B la idea 16, D "MPI lo detecta". Si el primer voto > 80 %, saltar la discusión y ganar 3 min para la práctica. | Guion de discusión de CT1: "Quien votó A: señala la línea que ejecuta el rango 2 para *recibir* `x`." (No hay.) "Quien votó D: ¿cómo sabría el rango 0 que los otros tres no van a llamar nunca?" |
 | 27–30 | **Variante que falla, en vivo**: `make run-buggy N=8` (termina: `y[2..7] = 0.0`, `checksum = 372`) y `make run-buggy N=1024` (10 segundos de silencio hasta `codigo de salida: 124`: vale la pena). Mencionar el umbral (4 032 termina, 4 064 se cuelga) y el `eager_limit` de ayer. **Pausa 6**. Escribir la regla y dejarla todo el día. | Regla en el pizarrón: **"Una colectiva la llaman TODOS los procesos del comunicador. Si uno falta, no hay aviso: los demás esperan para siempre o siguen con datos que no son."** Cerrar: "El cuelgue es el síntoma bueno: se nota. El resultado incorrecto llega al reporte. La medición (Paso 5 del ejemplo) la leemos en el punto de control." |
@@ -183,7 +186,9 @@ pasaría si la quito?") solo si la primera falla, y cuenta la mejor de las dos. 
 `sendcount` del `Scatter`, el `MPI_Bcast` ("¿quién la ejecuta?"), el `Reduce` con `MPI_MAX`, el `MPI_Barrier`
 antes de `MPI_Wtime`, el reparto con residuo. Con más de 12 equipos, hoy se defiende la mitad y la otra mitad el
 martes 17 de noviembre (lista publicada al cerrar esta sesión). Quien pide responder por escrito lo hace en el
-momento (5 min, papel). Una respuesta que muestre que no se entiende el código propio se anota (criterio
+momento (5 min, papel). Quien falta hoy a la suya la repone en el Lab 2 (martes 17); si no puede, video
+(`practicas/P5-mpi/entrega.md` §3). En este bloque se reponen también las mini-defensas pendientes de la
+Práctica 4 (`practicas/P4-openmp/entrega.md` §5), con la misma regla. Una respuesta que muestre que no se entiende el código propio se anota (criterio
 "Proceso e integridad" de ese integrante en la P5). Cambio de roles conductor/navegante al minuto 65.
 
 Errores de entorno frecuentes en este bloque y la pregunta que se hace:
@@ -215,10 +220,11 @@ cuenta: se paga una vez y se amortiza, o se evita generando los datos donde se u
 
 `exit-ticket.md` en media hoja, individual, número de lista. Mientras escriben, anunciar textualmente:
 
-1. "Tarea espaciada (`tarea-espaciada.md`): 20–30 minutos; se trae resuelta el **jueves 12 de noviembre, 10:30,
-   Salón 3208**, junto con la de S02, y se autocalifica ahí con la clave (2 min). No tiene peso propio; el examen
-   de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del Examen 3 toman ítems de aquí. Quien no
-   terminó `norma_allreduce.c`, ese es su ejercicio 1(b)."
+1. "Tarea espaciada (`tarea-espaciada.md`): 20–30 minutos; individual, en `tareas/<usuario-github>/U4-S03.md`
+   (el código, en `tareas/<usuario-github>/U4-S03/`), antes del **jueves 12 de noviembre, 10:30**, y se
+   autocalifica ese día con la clave en los minutos 5–10 (2 min). No tiene peso propio; el examen de práctica del
+   jueves 3 de diciembre y el 10–20 % acumulativo del Examen 3 toman ítems de aquí. Quien no terminó
+   `norma_allreduce.c`, ese es su ejercicio 1(b)."
 2. "Siguiente sesión: **jueves 12 de noviembre, 10:30, Salón 3208**: descomposición de dominio y celdas fantasma,
    y la **retroalimentación del Examen 2** [si ya se publicó la calificación y la clave: decir dónde]. El
    ejercicio 3 de la tarea es la entrada a ese tema."
@@ -322,7 +328,8 @@ son 69840, 133776, 218448 y 323856. `make test`: `PASS norma_allreduce -np 4 n=8
 | 3 (rastrear el reparto y verificar) | Tabla I1 llena para `-np 4` y `-np 2`; M1 en `PASS`; punto de control con `tests/run_tests.sh b` (reparto de la Parte B) | Más de un tercio de los equipos sin M1 en `PASS` al minuto 50 |
 | 4 (leer el desglose de tiempos) | ConcepTest 2 (voto único); tabla de medición propia si la hicieron; tarea 2 el jueves | CT2 < 60 % en el voto único |
 
-Datos que se registran hoy en `herramientas/seguimiento-grupo.csv`: % aciertos de la recuperación 2 y 4, conteo
+Datos que se registran hoy en la hoja de seguimiento llena, `docente/seguimiento-grupo.csv` (no se versiona;
+`herramientas/seguimiento-grupo.csv` es solo la plantilla vacía): % aciertos de la recuperación 2 y 4, conteo
 de la 5 por opción, % CT1 (primer voto y revoto), % CT2, montones del *exit ticket* (bien/parcial/mal), entrega
 del pre-lab (sí/no por número de lista).
 

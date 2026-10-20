@@ -2,13 +2,14 @@
 
 # Tarea espaciada · S03 (20–40 min)
 
-**Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del
-Examen 3 toman ítems de aquí.** Se autocalifica con las claves de abajo al inicio de la S04 (lunes 30 de noviembre
-de 2026, 10:30, salón 3208; 2 minutos del bloque 5–10); el profesor registra la entrega, no el acierto, y revisa 3
-al azar por parcial. Entrégala como `tareas/U5-S03.md` en el repositorio del curso (individual), con el CSV del
-notebook si lo corriste en GPU. Quien faltó hoy la entrega antes de esa hora y así sustituye la recuperación y el
-*exit ticket* de la sesión (`04-evaluacion.md`, §5). Recordatorio de fechas: **Lab 2 de la Práctica 6, martes 1 de
-diciembre, 08:30, Lab LS4**; **Práctica 6 vence el domingo 6 de diciembre, 23:59** (15 % del 3er parcial).
+**Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U5-S03.md` (y el CSV del
+*notebook*, si lo corriste en GPU, en `tareas/<usuario-github>/U5-S03/`), antes del **lunes 30 de noviembre de 2026,
+10:30** (inicio de la S04, salón 3208). Se autocalifica con las claves de abajo en los minutos 5–10 de la S04
+(2 min); el profesor registra la entrega, no el acierto, y revisa 3 al azar por parcial. **Esta tarea no tiene peso
+propio; el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del Examen 3 toman ítems de aquí.**
+Quien faltó hoy la entrega en esa misma fecha y así sustituye la recuperación y el *exit ticket* de la sesión
+(`docs/metodo/04-evaluacion.md` §5). Recordatorio de fechas: **Lab 2 de la Práctica 6, martes 1 de diciembre,
+08:30, Lab LS4**; **Práctica 6 vence el domingo 6 de diciembre, 23:59** (15 % del 3er parcial).
 
 ## 1. Del tema de hoy (15 min) · ¿Atómica ingenua, árbol + etapa 2 en CPU, o árbol + etapa 2 atómica?
 

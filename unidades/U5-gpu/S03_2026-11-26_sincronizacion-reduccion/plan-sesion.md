@@ -175,13 +175,13 @@ escrito así en `tarea-espaciada.md`).
 
 *Exit ticket* (`exit-ticket.md`, lado B de la hoja). Anuncios, con fechas exactas:
 
-- **Tarea espaciada** (`tarea-espaciada.md`): `tareas/U5-S03.md` antes del **lunes 30 de noviembre, 10:30**; se
-  autocalifica al inicio de la S04. Sin peso propio; alimenta el examen de práctica del jueves 3 de diciembre y el
-  Examen 3.
+- **Tarea espaciada** (`tarea-espaciada.md`): `tareas/<usuario-github>/U5-S03.md` antes del **lunes 30 de noviembre,
+  10:30**; se autocalifica en los minutos 5–10 de la S04. Sin peso propio; alimenta el examen de práctica del jueves 3
+  de diciembre y el Examen 3.
 - **S04, lunes 30 de noviembre, 10:30, salón 3208:** rendimiento en GPU (transferencias, eventos, tamaño de
   bloque). Traer el CSV del notebook de hoy con el modelo de GPU y la fecha.
 - **Lab 2 de la Práctica 6: martes 1 de diciembre, 08:30, Lab LS4** (mediciones, punto de control, mini-defensas de
-  la mitad de los equipos que no se defendió el 24). **La Práctica 6 vence el domingo 6 de diciembre, 23:59** (15 % del
+  todos los equipos; con más de 12, de la mitad que no se defendió el 24). **La Práctica 6 vence el domingo 6 de diciembre, 23:59** (15 % del
   3er parcial). La Parte C puede usar el histograma o la reducción de hoy.
 - Recoger las hojas al salir.
 

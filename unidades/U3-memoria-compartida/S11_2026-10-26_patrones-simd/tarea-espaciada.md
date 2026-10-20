@@ -2,9 +2,11 @@
 
 # S11 · Tarea espaciada (20–40 minutos)
 
-**Entrega:** un archivo `tareas/S11.md` en tu repositorio del curso (texto y una tabla; sin capturas
-de pantalla) antes del **jueves 29 de octubre de 2026, 10:30**. Cuenta en "Tareas espaciadas y ejercicios"
-(5 % del 2º parcial; se revisan 3 al azar por estudiante). Trabajo individual; IA en verde para
+**Entrega:** individual, un archivo `tareas/<usuario-github>/U3-S11.md` en el repositorio de tu equipo (texto y
+una tabla; sin capturas de pantalla) antes del **martes 27 de octubre de 2026, 08:30** (inicio de S12). La
+autocalificas con la clave en `<details>` en los minutos 5–10 de S12. Cuenta en "Tareas espaciadas y ejercicios"
+(5 % del 2º parcial; se revisan 3 al azar por estudiante). Si faltaste a S11, entregarla en esa misma fecha
+sustituye tu recuperación y tu *exit ticket* (`docs/metodo/04-evaluacion.md`, §5). IA en verde para
 explicaciones, en rojo para inventar números: las mediciones son tuyas y se te puede pedir que las repitas.
 
 ## Ejercicio 1 · Del tema (15–20 min): Jacobi con el protocolo completo

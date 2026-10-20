@@ -73,8 +73,9 @@ necesita.
 - Cronometran **solo** la región de interés: ni lectura de archivos, ni generación de datos, ni impresión. La creación del
   equipo de hilos (V2) y la carga del módulo CUDA en el primer lanzamiento (V3) quedan fuera con un calentamiento dentro
   del programa, como en `plantilla-repo/v2/main.c` y `plantilla-repo/v3/kernel.cu`.
-- Relojes: `clock_gettime(CLOCK_MONOTONIC)` u `omp_get_wtime()` en CPU; `cudaEvent_t` en CUDA C;
-  `cuda.event()`/`cupy.cuda.Event` en Python. Nunca `clock()` (suma el tiempo de CPU de todos los hilos).
+- Relojes: `clock_gettime(CLOCK_MONOTONIC)` u `omp_get_wtime()` en CPU; `cudaEvent_t` en CUDA C; en Python,
+  `time.perf_counter()` con `cuda.synchronize()` o `cp.cuda.Device().synchronize()` antes de detener el reloj (los
+  eventos `cuda.event()`/`cupy.cuda.Event` son opcionales). Nunca `clock()` (suma el tiempo de CPU de todos los hilos).
 
 ### 2.4 Semillas y datos
 

@@ -279,11 +279,12 @@ iteraciones. `reduction` combina copias al final (no sirve para "el valor anteri
 hacen atómica cada escritura pero no obligan a que `i-1` termine antes que `i`; `ordered` sí lo obliga y por
 eso **serializa** el ciclo: correcto y más lento que la secuencial. Se acepta cualquier dos de las cuatro
 razones bien dichas.
-c) Cambiar el algoritmo (S11, *scan* en dos fases): (1) cada hilo hace el *scan* **local** de su bloque y
-guarda el total del bloque; (2) barrera; (3) cada hilo calcula su desplazamiento sumando los totales de los
-bloques anteriores; (4) suma el desplazamiento a todo su bloque. Costo: 1.5× el tráfico de memoria del
-secuencial; en S11 dio *speedup* 1.9 con 4 hilos. También vale "dejarlo secuencial si es < 5 % del tiempo"
-con la razón (Amdahl), 1 punto. Salida real corregida: `elementos distintos=0 ok` con 1, 3 y 4 hilos.
+c) Cambiar el algoritmo (S11, *scan* en dos fases): (1) cada hilo hace el *scan* **local** de su bloque y guarda el
+total del bloque; (2) barrera; (3) cada hilo calcula su desplazamiento sumando los totales de los bloques
+anteriores; (4) suma el desplazamiento a todo su bloque. Costo: casi el doble del tráfico de memoria del secuencial
+(la fase final vuelve a leer y escribir todo el arreglo); en S11 dio *speedup* 1.9 con 4 hilos. También vale
+"dejarlo secuencial si es < 5 % del tiempo" con la razón (Amdahl), 1 punto. Salida real corregida:
+`elementos distintos=0 ok` con 1, 3 y 4 hilos.
 </details>
 
 ---
@@ -430,11 +431,11 @@ midiendo, no opinando.
 
 | Casilla | Cuándo | Qué escribes |
 |---|---|---|
-| 1 · Predicción | En casa, **antes** de empezar el cronómetro | Puntos que esperas obtener (0–60): ____ · Calificación que esperas en el Examen 2 (0–10): ____ (la misma que escribiste en la tarea de S12) |
+| 1 · Predicción | En casa, **antes** de empezar el cronómetro | Puntos que esperas obtener (0–60): ____ · Calificación que esperas en el Examen 2 (0–100): ____ (la misma que escribiste en la tarea de S12) |
 | 2 · Postdicción | En casa, al terminar los 40 min, **antes** de abrir la clave | Puntos que crees haber obtenido (0–60): ____ · Sección en la que te sentiste menos seguro: ____ |
-| 3 · Real | En clase, jueves 29, tras la corrección entre pares | Puntos reales (0–60): ____ · Brecha = postdicción − real: ____ · Equivalente sobre 10: real/6 = ____ · Calificación que ahora esperas en el Examen 2: ____ |
+| 3 · Real | En clase, jueves 29, tras la corrección entre pares | Puntos reales (0–60): ____ · Brecha = postdicción − real: ____ · Equivalente sobre 100: real/0.6 = ____ · Calificación que ahora esperas en el Examen 2 (0–100): ____ |
 
-Brecha positiva de más de 9 puntos (1.5 sobre 10): sobreestimaste. Es el dato que más predice tropiezos en el
+Brecha positiva de más de 9 puntos (15 % de los 60): sobreestimaste. Es el dato que más predice tropiezos en el
 examen real (`01-marco-pedagogico.md`, P9); tu plan de estudio del *exit ticket* debe empezar por la sección
 de la casilla 2.
 

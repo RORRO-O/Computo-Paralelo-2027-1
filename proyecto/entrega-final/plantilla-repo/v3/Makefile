@@ -5,7 +5,7 @@
 #                errores de sintaxis y warnings antes de subir a Colab/Kaggle.
 #   make all     Compila y enlaza el ejecutable ./v3 (requiere GPU + driver; en Colab).
 #   make run     Ejecuta ./v3 con los valores por defecto (en Colab).
-#   make test    Compara el checksum de ./v3 contra ./v1 (en Colab; usa ../tests).
+#   make test    Compara el checksum de ./v3 contra ./v1 (en Colab; usa ../tests). Sin GPU: make check + SKIP.
 #   make clean
 # Ejemplo (Colab):  make all && ./v3 4000000 12345 256
 #
@@ -31,8 +31,13 @@ check: kernel.cu ../comun/problema.h
 run: $(BIN)
 	./$(BIN)
 
-test: $(BIN)
-	bash ../tests/run_tests.sh --solo-v3
+# Sin GPU (no hay nvidia-smi) no se ejecuta ./v3: se compila con nvcc -c y se avisa (SKIP, código 0).
+test:
+	@if command -v nvidia-smi > /dev/null 2>&1; then \
+	    $(MAKE) $(BIN) && bash ../tests/run_tests.sh --solo-v3; \
+	else \
+	    $(MAKE) check && echo "SKIP  v3 == v1: sin GPU en esta máquina; la prueba se ejecuta en Colab/Kaggle (notebook, celda 'Verificación')"; \
+	fi
 
 clean:
 	rm -f $(BIN) *.o

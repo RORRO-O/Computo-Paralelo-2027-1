@@ -74,7 +74,10 @@ mostrar respuestas y pedir manos por pregunta; anotar el conteo de la 4 (protoco
 Frase de anclaje: "Hoy entregan evidencia, no números. Una medición sin repeticiones, sin `-O2` o sin T(1)
 secuencial no es evidencia y no cuenta en la Parte D ni en H2."
 
-1. (2 min) Recordatorio del protocolo con la tabla de `herramientas/protocolo-medicion.md` §2 proyectada:
+0. (2 min) Autocalificación de la tarea de S11 (venció hoy a las 08:30) con su clave en `<details>`; el profesor
+   registra la entrega al pasar por las mesas en el bloque siguiente. Para que quepa, los puntos 1 y 3 se dicen
+   en 1 minuto cada uno.
+1. (1 min) Recordatorio del protocolo con la tabla de `herramientas/protocolo-medicion.md` §2 proyectada:
    calentamiento, ≥ 5 repeticiones, mediana con mín y máx, `-O2`, región de interés, T(1) secuencial, hilos
    hasta los núcleos físicos. (Si la recuperación 4 quedó bajo 60 %, aquí se vota el CT3 de reserva.)
 2. (3 min) En `practica-guiada/` ejecutar en vivo:
@@ -84,7 +87,7 @@ secuencial no es evidencia y no cuenta en la Parte D ni en H2."
    ```
    Señalar en la salida: la corrida de calentamiento que no aparece, las 5 repeticiones resumidas en mediana
    [mín, máx], el *speedup* de la fase **y** del total, y que `OMP_NUM_THREADS` se fija por corrida.
-3. (2 min) Errores de entorno que invalidan la Parte D (se dicen, no se demuestran): compilar sin `-O2` o con
+3. (1 min) Errores de entorno que invalidan la Parte D (se dicen, no se demuestran): compilar sin `-O2` o con
    el binario de TSan; no exportar `OMP_NUM_THREADS` (el *runtime* usa todos los núcleos lógicos sin que se
    declare); medir con `time` el proceso completo y llamarlo "la región"; cambiar `n` entre configuraciones
    (eso es escalabilidad débil); tener el navegador o el antivirus trabajando mientras se mide.
@@ -114,8 +117,10 @@ según la prueba de propiedad de `docs/metodo/05-politica-ia.md` y `03-plantilla
 - Si la primera sale bien y hay tiempo, una pregunta sobre una **función ajena** ("¿qué hace y por qué está?")
   distingue Ejemplar de Competente en "Proceso e integridad" (rúbrica de `03` §2).
 - Registrar en la hoja. Un "no" en la mejor de las dos baja "Proceso e integridad" **de ese integrante** a
-  Insuficiente; se le dice en el momento. Quien no está hoy: mini-defensa pendiente en el siguiente
-  laboratorio (martes 10 de noviembre) o video de ≤ 3 minutos no listado, según `03` §1 y `04` §5.
+  Insuficiente; se le dice en el momento. Quien no está hoy: la mini-defensa se repone en el siguiente
+  laboratorio (martes 10 de noviembre, 08:30, LS4); si no puede asistir, envía un video no listado de ≤ 3 minutos
+  que explica dos fragmentos de su código que elige el profesor, a más tardar el martes 15 de diciembre, 08:30
+  (`04` §5; `practicas/P4-openmp/entrega.md` §5).
 
 #### Registro de mini-defensas (una fila por integrante)
 
@@ -227,14 +232,16 @@ probable es ___ y su dependencia principal es ___".
 *Exit ticket* (`exit-ticket.md`), en papel, individual. Mientras escriben, anuncios (también en el proyector):
 
 - **Práctica 4: domingo 1 de noviembre, 23:59**, en el repositorio del equipo (40 % del 2.º parcial). Quien no
-  estuvo en su mini-defensa: video de ≤ 3 minutos no listado, o mini-defensa pendiente en el laboratorio del
-  martes 10 de noviembre (`03` §1, `04` §5).
+  estuvo en su mini-defensa la repone en el laboratorio del martes 10 de noviembre, 08:30; si no puede, video no
+  listado de ≤ 3 minutos sobre dos fragmentos de su código que elige el profesor, a más tardar el martes 15 de
+  diciembre, 08:30 (`04` §5).
 - **H1 · Avance 1: jueves 29 de octubre, en clase** (12 % del 2.º parcial); lo que pide está en
   `proyecto/hitos/H1-avance-1.md`. La sección 1 de la plantilla de hoy es el perfilado de H1.
-- Tarea espaciada (`tarea-espaciada.md`): perfil de la V1 (1a) + elección justificada (1b) + intercalado +
-  preparación del repaso; 1b, 2 y 3 se autocalifican al inicio de S13. **Examen 2: martes 3 de noviembre,
-  08:30.** Como S13 coincide con H1, el examen de práctica se resuelve en casa cronometrado y en clase se
-  corrige (`04` §4): anunciar aquí dónde está publicado y para cuándo.
+- Tarea espaciada (`tarea-espaciada.md`): perfil de la V1 (1a, en equipo, va dentro de H1) + elección
+  justificada (1b) + intercalado + preparación del repaso; 1b, 2 y 3 son individuales, van en
+  `tareas/<usuario-github>/U3-S12.md` antes del jueves 29, 10:30, y se autocalifican en los minutos 5–10 de
+  S13. **Examen 2: martes 3 de noviembre, 08:30.** Como S13 coincide con H1, el examen de práctica se resuelve
+  en casa cronometrado y en clase se corrige (`04` §4): anunciar aquí dónde está publicado y para cuándo.
 
 ## Diferenciación
 

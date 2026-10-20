@@ -54,8 +54,10 @@ Esta guía convierte el método en pasos. Se usa junto con `docs/CONVENCIONES.md
     se plantea como elección justificada entre 2–3 alternativas confundibles vistas en sesiones distintas de la
     misma unidad (`atomic`/`critical`/`reduction`; `static`/`dynamic`; `Reduce`/`Allreduce`; `Send`/`Isend`);
     el de unidades previas aporta el espaciado. Si en clase se recortó Transferencia, el "Crear" de PRIMM es el
-    ejercicio del tema. Entrega fija, igual en todas las sesiones: el estudiante la autocalifica con la clave en
-    `<details>` al inicio de la siguiente sesión (2 min, dentro del bloque 5–10); el profesor registra entrega,
+    ejercicio del tema. Entrega fija, igual en todas las sesiones: es individual, se sube al repositorio del
+    equipo en `tareas/<usuario-github>/U<k>-S<xx>.md` (el código, si lo hay, en `tareas/<usuario-github>/U<k>-S<xx>/`)
+    y vence al inicio de la sesión siguiente del calendario (fecha y hora de esa sesión); el estudiante la
+    autocalifica con la clave en `<details>` en esa sesión (2 min, dentro del bloque 5–10); el profesor registra entrega,
     no acierto, y revisa 3 al azar por parcial. En U4–U5 la tarea dice, con estas palabras: "Esta tarea no tiene
     peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del Examen 3 toman
     ítems de aquí".

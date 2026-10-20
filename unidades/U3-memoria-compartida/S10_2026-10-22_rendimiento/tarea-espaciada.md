@@ -2,11 +2,13 @@
 
 # S10 · Tarea espaciada (20–40 minutos)
 
-**Entrega.** Carpeta `tareas/S10/` en el repositorio de tu equipo, con `respuestas.md`, el CSV y el PNG del
-ejercicio 1, antes del **lunes 26 de octubre de 2026, 10:30** (inicio de S11). La autocalificas con la clave en
-`<details>` en los primeros minutos de S11; el profesor registra la entrega (5 % del 2º parcial para "Tareas
-espaciadas y ejercicios"; se revisan 3 al azar por parcial, según `planeacion/mapa-evaluacion.md`). Trabajo
-individual: las mediciones son tuyas y se te puede pedir que las repitas. IA: verde para que te explique
+**Entrega.** Individual, en el repositorio de tu equipo: tus respuestas en `tareas/<usuario-github>/U3-S10.md` y
+el CSV y el PNG del ejercicio 1 en `tareas/<usuario-github>/U3-S10/`, antes del **lunes 26 de octubre de 2026,
+10:30** (inicio de S11). La autocalificas con la clave en `<details>` en los minutos 5–10 de S11; el profesor
+registra la entrega (5 % del 2º parcial para "Tareas espaciadas y ejercicios"; se revisan 3 al azar por parcial,
+según `planeacion/mapa-evaluacion.md`). Si faltaste a S10, entregarla en esa misma fecha sustituye tu
+recuperación y tu *exit ticket* (`docs/metodo/04-evaluacion.md`, §5). Las mediciones son tuyas y se te puede
+pedir que las repitas. IA: verde para que te explique
 Karp–Flatt o un mensaje de `make`; amarillo (declarado) para que revise tu interpretación; rojo para inventar o
 "mejorar" números.
 
@@ -29,7 +31,7 @@ Núcleo a medir: el de la Parte B de tu Práctica 4 o, si todavía no compila, e
    90 minutos; aquí no). Hilos: 1, 2, 4 (y 8 si tu máquina tiene 8 núcleos físicos; declara el hardware).
 3. Escribe el CSV con las 11 columnas del protocolo (`config,hilos,n,rep1,…,rep5,mediana_s,speedup,eficiencia`)
    con tu propio código (copia la función `csv_append` de `practica-guiada/common.h`) y grafícalo con
-   `python3 practica-guiada/graficar.py tu.csv --titulo "..."`. Pega en `respuestas.md` la tabla Markdown que
+   `python3 practica-guiada/graficar.py tu.csv --titulo "..."`. Pega en `U3-S10.md` la tabla Markdown que
    imprime el script (trae la `f` de Karp–Flatt).
 4. **Elección justificada** (tres líneas). Para acumular un conteo por hilo viste tres formas en sesiones
    distintas: (i) `atomic` sobre la casilla compartida (S07), (ii) una ranura por hilo en un arreglo contiguo

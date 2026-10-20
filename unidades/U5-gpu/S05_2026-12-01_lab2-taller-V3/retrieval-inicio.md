@@ -3,7 +3,7 @@
 # Recuperación de inicio · S05
 
 Cuatro minutos, solo, sin apuntes ni dispositivos. Escribe las respuestas; a los 4 minutos se proyectan y cuentas
-tus aciertos (la participación cuenta, el acierto no). Las preguntas 1 y 2 son de la S04 (lunes 30 de noviembre);
+tus aciertos (cuenta la entrega, no el acierto). Las preguntas 1 y 2 son de la S04 (lunes 30 de noviembre);
 la 1 además es sobre la Parte D de la Práctica 6; la 3 es de la Unidad I; la 4 de la Unidad IV; la 5 anticipa el
 tema de hoy.
 

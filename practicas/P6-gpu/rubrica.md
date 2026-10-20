@@ -39,13 +39,15 @@ Pesos: 25 + 20 + 20 + 20 + 15 = 100. Cada nivel vale un porcentaje del peso del 
 
 ## Responsabilidad individual
 
-Las preguntas individuales se hacen en el Laboratorio 2 (martes 1 de diciembre); con más de 12 equipos, la mitad en
-el Laboratorio 1 (martes 24 de noviembre) con lista publicada ese día. Una pregunta por integrante sobre la parte que
+Las preguntas individuales se hacen en el Laboratorio 2 (martes 1 de diciembre); con más de 12 equipos, la mitad en el
+Laboratorio 1 (martes 24 de noviembre) con lista publicada ese día. Una pregunta por integrante sobre la parte que
 firmó; la segunda solo si la primera falla, y cuenta la mejor de las dos. Quien lo pide responde por escrito en el
-momento (5 min, papel). El lunes 7 de diciembre el profesor pregunta a un integrante al azar de 2–3 equipos qué cambió
-desde el laboratorio. Consecuencia (fijada en `docs/metodo/05-politica-ia.md`, "Prueba de propiedad"): el criterio 5
-baja a Insuficiente **para ese integrante**, no para el equipo; si además hay indicios de copia, aplica
-`docs/metodo/04-evaluacion.md` §6.
+momento (5 min, papel). Mini-defensa pendiente: se repone en el siguiente laboratorio; si ya no hay uno antes del
+cierre o el estudiante no puede, envía un video no listado de ≤ 3 min en el que explica dos fragmentos de su código
+que elige el profesor, a más tardar el martes 15 de diciembre, 08:30. El lunes 7 de diciembre el profesor pregunta a
+un integrante al azar de 2–3 equipos qué cambió desde el laboratorio. Consecuencia (fijada en
+`docs/metodo/05-politica-ia.md`, "Prueba de propiedad"): el criterio 5 baja a Insuficiente **para ese integrante**, no
+para el equipo; si además hay indicios de copia, aplica `docs/metodo/04-evaluacion.md` §6.
 
 ## Cómo se aplica
 

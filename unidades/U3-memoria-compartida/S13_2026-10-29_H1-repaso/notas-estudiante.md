@@ -89,8 +89,9 @@ es evidencia.
 4. En "problema numérico": escribe la fórmula, sustituye, redondea al final. Un `E > 1` o un `f_p` calculado
    con líneas es un cero seguro.
 5. En "diseño": nombra la construcción, el `schedule` con su razón, y qué medirías (protocolo). Diez líneas.
-6. Hoja de calibración: tu predicción al recibir el examen, tu postdicción al entregar. No afecta la
-   calificación; sí te dice si estudiaste lo que creías.
+6. Hoja de calibración: tu predicción al recibir el examen, tu postdicción al entregar, las dos en la escala
+   del examen (0–100; en el examen de práctica, 0–60). No afecta la calificación; sí te dice si estudiaste lo
+   que creías.
 
 ## 6. Errores frecuentes en exámenes de esta unidad
 

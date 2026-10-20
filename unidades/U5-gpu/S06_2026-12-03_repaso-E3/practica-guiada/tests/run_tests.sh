@@ -73,6 +73,8 @@ kernel_body() {
 mpi_run() {
     local np=$1 to=$2; shift 2
     timeout -k 2 "$to" mpirun $MPIRUN_FLAGS -np "$np" "$@" >"$OUT/last.txt" 2>&1
+    local rc=$?; [ $rc -eq 137 ] && rc=124   # KILL tras el TERM de timeout: también es cuelgue
+    return $rc
 }
 
 # ---------------------------------------------------------------- modo cazar (lo que corrige el estudiante)

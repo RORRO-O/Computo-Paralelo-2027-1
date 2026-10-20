@@ -71,9 +71,10 @@ respuestas y pedir manos por pregunta; anotar el conteo de la 1, la 2 y la 3.
 ### 5–10 · Objetivos y anclaje
 
 Autocalificación con su clave (2 min; se registra entrega) de lo que vence hoy a las 10:30: la tarea de S09
-(`tareas/S09/`; su ejercicio 3 fue la preparación de hoy: *speedup*, eficiencia y Karp–Flatt del mergesort y la
-conjetura del falso compartido) y los ejercicios 1–2 de la tarea de S08 (el 3 se autocalificó en S09). Si falta
-tiempo, solo el ejercicio 3 de S09 y el resto con la clave en casa. Proyectar los cuatro objetivos.
+(`tareas/<usuario-github>/U3-S09.md`; su ejercicio 3 fue la preparación de hoy: *speedup*, eficiencia y Karp–Flatt
+del mergesort y la conjetura del falso compartido). Si falta tiempo, solo el ejercicio 3 y el resto con la clave en
+casa. Si rige la opción por defecto del pre-lab de P4 (S09 `plan-sesion.md`, Materiales), hoy a las 10:30 vence
+también el pre-lab (`practicas/P4/prelab/`): se registra la entrega igual. Proyectar los cuatro objetivos.
 Frase de anclaje: "El martes en el Lab 1 el error más frecuente del *exit ticket* fue [sustituir por el error
 real registrado en las notas post-sesión de S09; si no se tiene, usar: *reportar el speedup de la parte con
 tareas como si fuera el del programa*]. Hoy la sesión entera es sobre cómo medir sin engañarse: lo que entreguen
@@ -160,8 +161,9 @@ líneas que citan un número.
 
 1. **Exit ticket** (`exit-ticket.md`): 2 preguntas + confianza, individual, en hoja con número de lista. Se recoge
    al salir.
-2. **Tarea espaciada** (`tarea-espaciada.md`): 20–40 min; se entrega en `tareas/S10/` del repositorio del equipo
-   antes del **lunes 26 de octubre de 2026, 10:30**.
+2. **Tarea espaciada** (`tarea-espaciada.md`): 20–40 min, individual; se entrega en
+   `tareas/<usuario-github>/U3-S10.md` (CSV y PNG en `tareas/<usuario-github>/U3-S10/`) del repositorio del equipo
+   antes del **lunes 26 de octubre de 2026, 10:30** (inicio de S11) y se autocalifica en los minutos 5–10 de S11.
 3. **Anuncios**, con estas palabras: "El **martes 27 de octubre a las 08:30, en LS4**, es el Lab 2 de la Práctica
    4: traigan las **Partes C y D** avanzadas; la Parte D es exactamente este protocolo, con CSV y gráfica, y hay
    mini-defensas. El **jueves 29 de octubre** se recibe **H1** en clase: V1 secuencial, diseño de Foster y perfil
@@ -189,7 +191,8 @@ líneas que citan un número.
 | 3 (Amdahl con f medida) | Huecos 1–2 dictados; CT1 revoto | Revoto CT1 < 70 % o > 20 % calcula `f` en líneas |
 | 4 (diagnosticar la causa) | Respuestas a las preguntas socráticas #1, #7 y #8; CT2 | Revoto CT2 < 70 % o > 30 % votan A (carrera) |
 
-Datos que se registran hoy en `herramientas/seguimiento-grupo.csv`: % aciertos retrieval 1, 2 y 3; % CT1 y CT2
+Datos que se registran hoy en `docente/seguimiento-grupo.csv` (la hoja llena, que no se versiona;
+`herramientas/seguimiento-grupo.csv` es solo la plantilla vacía): % aciertos retrieval 1, 2 y 3; % CT1 y CT2
 (primer voto y revoto); montones del *exit ticket* (bien/parcial/mal).
 
 ## Notas post-sesión

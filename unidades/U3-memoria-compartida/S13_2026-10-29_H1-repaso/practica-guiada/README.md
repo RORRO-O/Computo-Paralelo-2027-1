@@ -333,5 +333,5 @@ clave. Resumen real: `53 PASS, 0 FAIL, 0 SKIP`.
 
 Verde: pedirle que te explique un reporte de ThreadSanitizer o la diferencia entre `private` y `firstprivate`.
 Amarillo: pedirle que revise tu `caza4` y te diga si el error es detectable; tú verificas con `make cazar` y
-lo declaras en `tareas/S13/respuestas.md`. Rojo: pedirle que corrija los tres cazadores por ti, o que escriba
+lo declaras en `tareas/<usuario-github>/U3-S13.md`. Rojo: pedirle que corrija los tres cazadores por ti, o que escriba
 el `caza4`; el martes 3 de noviembre no habrá IA y sí habrá un ítem igual a estos.

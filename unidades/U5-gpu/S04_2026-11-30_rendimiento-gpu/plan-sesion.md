@@ -57,11 +57,12 @@ falla la 5 (49 ms contra 20 ms), **no corregir**: decir "en 20 minutos lo van a 
 
 ### 5–10 · Objetivos y anclaje
 
-Frase de anclaje (sustituir el error por el más frecuente del *exit ticket* de S03, clasificado el domingo 29;
-por defecto se asume la idea 25): "El jueves varios escribieron que `__syncthreads()` sincroniza toda la GPU.
-Hoy vamos a ver que incluso la CPU y la GPU no están sincronizadas salvo que lo pidamos, y que si no lo
-pedimos, el cronómetro miente." Leer los 4 objetivos. Vínculo con el proyecto: "La V3 que entregan el lunes 7 de
-diciembre a las 10:30 se califica con la tabla con y sin copias; hoy aprenden a producirla."
+Primero 2 min: autocalificación de la tarea de S03 con las claves de sus `<details>`; el profesor registra la entrega
+(manos por número de lista), no el acierto. Frase de anclaje (sustituir el error por el más frecuente del *exit
+ticket* de S03, clasificado el domingo 29; por defecto se asume la idea 25): "El jueves varios escribieron que
+`__syncthreads()` sincroniza toda la GPU. Hoy vamos a ver que incluso la CPU y la GPU no están sincronizadas salvo que
+lo pidamos, y que si no lo pedimos, el cronómetro miente." Leer los 4 objetivos. Vínculo con el proyecto: "La V3 que
+entregan el lunes 7 de diciembre a las 10:30 se califica con la tabla con y sin copias; hoy aprenden a producirla."
 
 ### 10–35 · Instrucción explícita I
 
@@ -158,7 +159,8 @@ solo la línea del lanzamiento; el profesor se sienta 3 min con esa pareja.
 *Exit ticket* (`exit-ticket.md`), en papel. Anuncios, con fecha: **mañana martes 1 de diciembre, 08:30, Lab 2 de
 la Práctica 6** (traer la fila del CSV y el pre-mortem de la tarea); **Práctica 6 vence el domingo 6 de diciembre a
 las 23:59** (15 % del 3er parcial); **entrega final del proyecto el lunes 7 de diciembre a las 10:30** (V1·V2·V3 +
-reporte PDF; 70 de los 100 puntos del proyecto). Tarea espaciada: `tarea-espaciada.md`, se entrega antes del Lab 2.
+reporte PDF; 70 de los 100 puntos del proyecto). Tarea espaciada: `tarea-espaciada.md`, en
+`tareas/<usuario-github>/U5-S04.md` antes del Lab 2 (martes 1 de diciembre, 08:30); sin peso propio.
 
 ## Diferenciación
 

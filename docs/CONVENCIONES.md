@@ -1,5 +1,7 @@
 # Convenciones del repositorio y del material
 
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · Contrato del material · versión 1.0 · 14 de octubre de 2026
+
 Este documento es el contrato que sigue **todo** el material del curso a partir del 14 de octubre de 2026
 (Cómputo Paralelo · Grupo 6BM1 · ESCOM-IPN · Semestre 27/1). Si un archivo del curso contradice estas
 convenciones, se corrige el archivo, no la convención.
@@ -25,7 +27,7 @@ herramientas/                     Scripts de medición, gráficas, Makefiles bas
 docente/                          SOLO PROFESOR: exámenes, claves, soluciones, notas. NO se publica.
 ```
 
-Cada **sesión** vive en una carpeta `Sxx_AAAA-MM-DD_tema-corto/` y contiene exactamente:
+Cada **sesión** vive en una carpeta `Sxx_AAAA-MM-DD_tema-corto/` y contiene exactamente los archivos siguientes (las sesiones de repaso previas a examen agregan además su `examen-practica-*.md`):
 
 | Archivo | Para quién | Contenido obligatorio |
 |---|---|---|
@@ -37,6 +39,11 @@ Cada **sesión** vive en una carpeta `Sxx_AAAA-MM-DD_tema-corto/` y contiene exa
 | `practica-guiada/` | Estudiantes | Actividad PRIMM (Predecir → Ejecutar → Investigar → Modificar → Crear) con `README.md`, código base, `Makefile` y `tests/` |
 | `exit-ticket.md` | Estudiantes | 2 preguntas de salida + 1 de confianza; clave en `<details>` |
 | `tarea-espaciada.md` | Estudiantes | 20–40 min de trabajo: 1 ejercicio del tema, 1 intercalado de unidades previas, 1 de preparación de la siguiente sesión |
+
+Las tareas espaciadas son **individuales**. Se entregan en el repositorio del equipo, en
+`tareas/<usuario-github>/U<k>-S<xx>.md` (y, si hay código, en `tareas/<usuario-github>/U<k>-S<xx>/`). Vencen al
+inicio de la sesión siguiente del calendario (fecha y hora de esa sesión) y se autocalifican con su clave en los
+minutos 5–10 de esa sesión. Quien faltó la entrega en esa misma fecha (`docs/metodo/04-evaluacion.md`, §5).
 
 Cada **práctica** (`practicas/Pn-.../`) contiene: `README.md` (enunciado completo según `docs/metodo/03-plantilla-practica.md`),
 `src/` (código base que compila), `tests/` (verificación automática), `rubrica.md`, `entrega.md` (qué, cómo y cuándo).
@@ -66,7 +73,9 @@ La solución de referencia va en `docente/practicas/Pn/`.
 | C + OpenMP | `gcc -std=c11 -O2 -Wall -Wextra -fopenmp` | `omp_get_wtime()` |
 | C + MPI | `mpicc -std=c11 -O2 -Wall -Wextra`; `mpirun -np N` (`$(MPIRUN_FLAGS)` para `--oversubscribe`) | `MPI_Wtime()` |
 | CUDA C | `.cu` ejecutado en Colab/Kaggle con `nvcc`; localmente se verifica con `nvcc -c` | `cudaEvent_t` |
-| Python (Numba CUDA / NumPy) | `python3`; kernels verificables con `NUMBA_ENABLE_CUDASIM=1` | `time.perf_counter()` |
+| Python (Numba CUDA / CuPy / NumPy) | `python3`; kernels verificables con `NUMBA_ENABLE_CUDASIM=1` | `time.perf_counter()`; con GPU, tras `cuda.synchronize()` o `cp.cuda.Device().synchronize()` (eventos CUDA opcionales) |
+
+Requisito de compilador: `gcc` ≥ 11.
 
 Reglas:
 
@@ -98,6 +107,8 @@ Reglas:
 El repositorio es público. Por eso:
 
 - `docente/` está en `.gitignore`. Ahí viven exámenes, claves, soluciones de prácticas y notas del profesor.
+- La hoja de seguimiento **llena** vive en `docente/seguimiento-grupo.csv` y no se versiona;
+  `herramientas/seguimiento-grupo.csv` es solo la plantilla vacía.
 - Las respuestas de *retrieval*, *exit tickets* y ConcepTests sí se publican (sirven para autoestudio), pero
   dentro de bloques `<details>` para no estropear el efecto de recuperación.
 - Los nombres y correos de estudiantes nunca entran al repositorio.

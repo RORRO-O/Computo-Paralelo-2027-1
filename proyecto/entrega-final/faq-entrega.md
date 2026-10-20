@@ -26,7 +26,9 @@ Sí: la V3 admite CUDA C, Numba CUDA o CuPy en Colab/Kaggle. Condiciones:
   llamadas de biblioteca (`cupy.sum`, `cupy.dot`) sin explicar qué *kernel* corre debajo queda en C3 En desarrollo como
   máximo, porque no hay diseño paralelo que evaluar.
 - El programa imprime las mismas claves que la V3 en C (`gpu=`, `tiempo_kernel_s=`, `tiempo_total_s=`, `checksum=`) y se mide
-  con eventos de CUDA (`cuda.event()`, `cupy.cuda.Event`), con y sin transferencias.
+  con y sin transferencias. Basta `time.perf_counter()` con sincronización explícita (`cuda.synchronize()` o
+  `cp.cuda.Device().synchronize()`) antes de detener el reloj; los eventos de CUDA (`cuda.event()`, `cupy.cuda.Event`) son
+  opcionales (`docs/metodo/04-evaluacion.md` §5). En CUDA C, eventos.
 - El *notebook* se genera igual (`generar_notebook_v3.py --fuente v3/main_gpu.py`; incluye `comun/problema.h` porque la V1
   lo necesita) y se sube ejecutado.
 - Para probar la lógica sin GPU: `NUMBA_ENABLE_CUDASIM=1`. No sirve para medir.
@@ -126,5 +128,6 @@ diciembre; el orden se sortea con semilla publicada el lunes 7 de diciembre. Las
 En cualquier caso: la demo corre desde un clon de la etiqueta `entrega-final` (no desde la carpeta de trabajo), el
 repositorio no cambia entre la entrega y la defensa, cada integrante responde por separado, y el equipo graba antes del
 miércoles 9 de diciembre a las 20:00 un video de plan B de la demo (≤ 3 min, enlazado en un *issue*). Las defensas
-pendientes por causa justificada se atienden el martes 15 de diciembre, 08:30 (con la opción (a) y más de 8 equipos esa
-sesión ya tiene defensas, y las pendientes pasan al jueves 17 de diciembre, 10:30).
+pendientes por causa justificada y la segunda entrega de P6 son el martes 15 de diciembre, 08:30, con cualquier opción
+(con la opción (a) y más de 8 equipos esa sesión también tiene defensas, y las pendientes ocupan su holgura). Faltar
+sin justificante cuenta como fallar las dos preguntas individuales (`proyecto/README.md` §6).

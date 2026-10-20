@@ -7,12 +7,13 @@ las Unidades I y III (Amdahl y Karp–Flatt sobre una medición real de hoy) y u
 Individual. Sin IA en los ejercicios 1(a), 2 y 3 (son del tipo que aparece en el Examen 3, martes 8 de
 diciembre); en 1(b) aplica el semáforo de `docs/metodo/05-politica-ia.md`.
 
-**Entrega.** La traes resuelta (papel o `tarea-S03.md` en tu repositorio) a la sesión S04 del **jueves 12 de
-noviembre de 2026, 10:30, Salón 3208**, junto con la tarea de S02. En los primeros minutos la autocalificas con
-las claves de `<details>` (2 min); el profesor registra la entrega, no el acierto, y revisa 3 al azar por
-parcial. **Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 %
-acumulativo del Examen 3 toman ítems de aquí.** Si faltaste hoy, esta tarea sustituye tu recuperación y tu
-*exit ticket* de S03.
+**Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U4-S03.md` y el código de 1(b)
+en `tareas/<usuario-github>/U4-S03/`, antes del **jueves 12 de noviembre de 2026, 10:30** (inicio de S04, Salón
+3208). La autocalificas con las claves de `<details>` en los minutos 5–10 de S04 (2 min); el profesor registra la
+entrega, no el acierto, y revisa 3 al azar por parcial. **Esta tarea no tiene peso propio; el examen de práctica
+del jueves 3 de diciembre y el 10–20 % acumulativo del Examen 3 toman ítems de aquí.** Si faltaste hoy,
+entregarla en esa misma fecha sustituye tu recuperación y tu *exit ticket* de S03
+(`docs/metodo/04-evaluacion.md` §5).
 
 **Aparte:** la Práctica 5 sigue (Parte C entre sesiones; Lab 2 el martes 17 de noviembre; entrega el domingo
 22 de noviembre a las 23:59; 15 % del 3er parcial). Esta tarea no la sustituye.

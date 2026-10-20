@@ -95,7 +95,8 @@ git tag P4-entrega && git push && git push --tags
 
 La mini-defensa es en el Laboratorio 2 (martes 27 de octubre) sobre el código de ese momento; con más de 12
 equipos, la mitad (equipos con número impar) se defiende en el Laboratorio 1. Quien no estuvo en su mini-defensa
-tiene dos caminos: hacerla en el siguiente laboratorio (martes 10 de noviembre, 08:30, Lab LS4) o en la reserva del
-martes 15 de diciembre, o grabar un video de **≤ 3 minutos** (no listado o privado, enlazado en `REPORTE.md`)
-explicando la parte que firmó y respondiendo "¿qué hace esta línea?" sobre una línea que elija el profesor por
-correo. Solo graba video quien no estuvo en su mini-defensa.
+la repone en el siguiente laboratorio (para el Laboratorio 1, el martes 27 de octubre; para el Laboratorio 2, el
+martes 10 de noviembre, 08:30, Lab LS4). Si no puede asistir a ese laboratorio, graba un video **no listado** de
+**≤ 3 minutos**, enlazado en `REPORTE.md` (ese *commit* puede ser posterior a la etiqueta), en el que explica dos
+fragmentos de su propio código que elige el profesor (los indica por correo), a más tardar el **martes 15 de
+diciembre, 08:30** (`docs/metodo/04-evaluacion.md` §5). Solo graba video quien no estuvo en su mini-defensa.

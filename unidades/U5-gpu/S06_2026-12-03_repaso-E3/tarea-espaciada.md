@@ -2,11 +2,12 @@
 
 # Tarea espaciada · S06 (40 minutos; es el estudio para el Examen 3, no trabajo adicional)
 
-**Entrega.** Un archivo `tareas/U5-S06.md` en tu repositorio del curso (el mismo de las tareas anteriores), más
-`caza4_<tema>_buggy.cu` y `caza4_<tema>_numba.py` si hiciste el ejercicio 1c, antes del **lunes 7 de diciembre de
-2026, 10:30** (inicio de la sesión C1). Individual, salvo el 1c, que es por parejas. Se autocalifica con las claves
-en `<details>` al inicio de esa sesión (2 min); el profesor registra entrega, no acierto, y revisa 3 al azar por
-parcial.
+**Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U5-S06.md` y, si hiciste el
+ejercicio 1c, `caza4_<tema>_buggy.cu` y `caza4_<tema>_numba.py` en `tareas/<usuario-github>/U5-S06/`, antes del
+**lunes 7 de diciembre de 2026, 10:30** (inicio de la sesión C1). En el 1c tu pareja caza tu archivo, pero cada quien
+entrega el suyo. Se autocalifica con las claves en `<details>` en los minutos 5–10 de esa sesión (2 min); el profesor
+registra entrega, no acierto, y revisa 3 al azar por parcial. Si faltaste hoy, entregarla en esa misma fecha
+sustituye tu recuperación y tu *exit ticket* de S06 (`docs/metodo/04-evaluacion.md` §5).
 
 Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del
 Examen 3 toman ítems de aquí. En concreto: el ejercicio 1a es un ítem de opción múltiple y de diseño breve del
@@ -33,7 +34,7 @@ barreras, cuántos bytes bajan al anfitrión).
 - (iii) Máximo de 1 000 valores, una sola vez, dentro de un programa que ya tiene esos datos en la GPU.
 
 **b) Modificar (5 min).** Si `make cazar` no dice `bichos cazados: 3/3`, termina las correcciones en los tres
-archivos **y** en los espejos Numba. Pega la última línea de `make cazar` en `tareas/U5-S06.md`.
+archivos **y** en los espejos Numba. Pega la última línea de `make cazar` en `tareas/<usuario-github>/U5-S06.md`.
 
 **c) Crear (10 min: copia `caza2_guard_buggy.cu` y su espejo como plantilla, cambia el cálculo y escribe la ficha).**
 Escribe `caza4_<tema>_buggy.cu` y su espejo según `practica-guiada/README.md`, sección "Crear" (temas: `tiempo`,
@@ -87,9 +88,10 @@ ensayo de defensa ya exigen; no cuentan en los 40 minutos de esta tarea.
 
 **a) Entrega final (equipo).** Clona tu repositorio en una carpeta nueva y corre
 `bash proyecto/entrega-final/scripts/verificar_entrega.sh /ruta/al/clon` (desde el repositorio del curso). Pega el
-resumen en `tareas/U5-S06.md` y escribe quién cierra cada ítem en **no** antes del domingo. Recuerda: la etiqueta
-`entrega-final` se crea y se empuja **antes de las 10:30** del lunes (`git tag -a entrega-final -m "Entrega final"
-&& git push origin entrega-final`); el PDF (8–12 páginas) va en `reporte/reporte.pdf` dentro del repositorio.
+resumen en `tareas/<usuario-github>/U5-S06.md` y escribe quién cierra cada ítem en **no** antes del domingo. Recuerda:
+la etiqueta `entrega-final` se crea y se empuja **antes de las 10:30** del lunes
+(`git tag -a entrega-final -m "Entrega final" && git push origin entrega-final`); el PDF (8–12 páginas) va en
+`reporte/reporte.pdf` dentro del repositorio.
 
 **b) Ensayo de defensa (equipo).** Prepara la demo de 2 minutos que se ensaya el lunes: clonar la etiqueta,
 `make test`, correr V2 con 1 y `p` hilos y abrir el *notebook* de V3 ejecutado. Lee `proyecto/defensa/lista-cotejo-pares.md`:

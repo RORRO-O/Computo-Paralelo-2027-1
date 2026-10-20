@@ -14,7 +14,8 @@
 | Decisión pendiente | El formato y las sesiones (§3). La toma el profesor y la anuncia **a más tardar el jueves 3 de diciembre** (U5·S06), de preferencia desde el lunes 23 de noviembre (H2), como pide `docs/metodo/04-evaluacion.md` §3.2 |
 | Orden | Sorteo con semilla publicada, ejecutado en clase el lunes 7 de diciembre (§4) |
 | Plan B de la demo | Video de ≤ 3 min grabado antes (§8) |
-| Sesión de pendientes | Martes 15 de diciembre 08:30 (ausencias justificadas, demo repetida por falla de la sala, V3 pendiente por cuota). Con la opción (a), que usa ese martes para defensas, pasa al jueves 17 de diciembre 10:30 |
+| Sesión de pendientes | Martes 15 de diciembre 08:30, con cualquier opción (ausencias justificadas, demo repetida por falla de la sala, V3 pendiente por cuota; ese día vence también la segunda entrega de P6). Con la opción (a) y más de 8 equipos ese martes también tiene defensas: los pendientes se atienden en su holgura (12 min, §2) |
+| Inasistencia sin justificante | Se califica como si se hubieran fallado las dos preguntas individuales: D4 = 0, factor 0.80 y C6 Insuficiente (`rubrica-defensa.md` §4.2; `04-evaluacion.md` §3.2). Faltar nunca conviene más que presentarse |
 
 ## 2. El problema de tiempo, con números
 
@@ -47,7 +48,7 @@ del profesor.**
 |---|---|
 | Cómo queda | 12 min + 2 preguntas por integrante + 1 min de cambio = 17 min por equipo de 3. **Caben 4 equipos por sesión** (68 de 80 min). Con 12 equipos: jueves 10 (4), lunes 14 (4), martes 15 08:30 (4). Con ≤ 8 equipos bastan jueves y lunes. Orden por sorteo (§4): posiciones 1–4 el jueves, 5–8 el lunes, 9–12 el martes |
 | A favor | Es el formato del calendario y del guion que los equipos ensayan el lunes 7 de diciembre; 4 minutos de resultados y análisis (el bloque de mayor peso) y 2 minutos de demo sin recortes; dos preguntas de 40 s por integrante dan evidencia individual suficiente y margen para la reformulación; 12 minutos de holgura por sesión absorben una demo repetida por falla de la sala; el profesor califica 4 equipos por sesión con atención |
-| En contra | Consume **las tres sesiones de reserva**: la retroalimentación de E3 y del proyecto prevista para el lunes 14 pasa al jueves 17 de diciembre (sigue dentro de los 7 días de la entrega del 7 de diciembre si se publica por escrito el 14) y el martes 15 deja de estar disponible para defensas pendientes, que pasan al jueves 17 (la fecha límite de la segunda entrega de P6, martes 15 de diciembre 08:30 según `04-evaluacion.md` §5, no cambia: es un *push* al repositorio y no ocupa la sesión); los equipos del martes defienden 5 días después que los del jueves, a las 08:30, con el Examen 3 en medio (el código no cambia: la etiqueta está congelada desde el 7 de diciembre; cambia el tiempo de ensayo); tres sesiones con el mismo nivel de exigencia para el profesor |
+| En contra | Consume **las tres sesiones de reserva**: la sesión de análisis de errores del E3 y de retroalimentación del proyecto, fijada para el lunes 14 (`04-evaluacion.md` §2.4), tendría que moverse (la calificación y la retroalimentación escrita pueden publicarse igual el 14, dentro de los 7 días); el martes 15 queda compartido: las defensas pendientes por causa justificada siguen ese día y se atienden en los 12 min de holgura, y la segunda entrega de P6 (martes 15 de diciembre 08:30, `04-evaluacion.md` §5) no cambia: es un *push* al repositorio y no ocupa la sesión; los equipos del martes defienden 5 días después que los del jueves, a las 08:30, con el Examen 3 en medio (el código no cambia: la etiqueta está congelada desde el 7 de diciembre; cambia el tiempo de ensayo); tres sesiones con el mismo nivel de exigencia para el profesor |
 
 ### Opción (b) · Formato corto: 7 min de exposición + 3 min de preguntas, en dos sesiones
 
@@ -56,7 +57,7 @@ del profesor.**
 | Cómo queda | 7 + 3 + 1 = 11 min por equipo. 12 equipos = 132 min: **no cabe en una sesión** (80 útiles); cabe en **jueves 10 (6) + lunes 14 (6)** con 14 min de holgura por sesión. Cabría en una sola sesión únicamente con ≤ 7 equipos. Las preguntas individuales son las mismas 2 por integrante, a 30 s cada una (6 preguntas en 3 min con 3 integrantes) |
 | Los 7 minutos | 0:00–0:30 problema · 0:30–2:00 diseño y **una** decisión medida · 2:00–4:30 resultados (Figura 1, Tabla 1 con `f(p)`, Tabla 2 de V3, una causa verificable, predicción vs resultado) · 4:30–5:30 qué falló y qué no entienden · 5:30–7:00 demo (etiqueta, `make test`, 1 vs `p` hilos; el *notebook* se muestra solo si sobra tiempo). La rúbrica no cambia; lo que no se alcanza a mostrar no se evalúa |
 | A favor | Dos sesiones bastan y el martes 15 queda libre para su uso previsto; 14 min de holgura por sesión; todos defienden en la misma semana lectiva; la demo sigue siendo en vivo |
-| En contra | El bloque de resultados y análisis (25 % del peso) baja de 4 a 2.5 min y el de diseño de 3 a 1.5: los equipos muestran una decisión medida, no dos; 30 s por pregunta dificulta distinguir nervios de desconocimiento (la reformulación casi no cabe) y empuja a los estudiantes a pedir la respuesta por escrito (`05-politica-ia.md`), que corre en paralelo pero exige corrección después; el ensayo del 7 de diciembre debe hacerse ya con el formato de 7 min, así que la decisión tiene que estar anunciada el 3 de diciembre sin falta; el lunes 14 sigue ocupado |
+| En contra | El bloque de resultados y análisis (25 % del peso) baja de 4 a 2.5 min y el de diseño de 3 a 1.5: los equipos muestran una decisión medida, no dos; 30 s por pregunta dificulta distinguir nervios de desconocimiento (la reformulación casi no cabe) y empuja a los estudiantes a pedir la respuesta por escrito (`05-politica-ia.md`), que corre en paralelo pero exige corrección después; el ensayo del 7 de diciembre debe hacerse ya con el formato de 7 min, así que la decisión tiene que estar anunciada el 3 de diciembre sin falta; el lunes 14 sigue ocupado (ahí estaba la sesión de análisis del E3, `04-evaluacion.md` §2.4) |
 
 ### Opción (c) · Mixta: exposición en video + demo y preguntas en clase (recomendada en `04-evaluacion.md` §3.2)
 
@@ -195,7 +196,7 @@ equipo,integrante,D1,D2,D3,P1,P2,h2,repo,reporte
 | `equipo` | Número del repositorio `cp-6bm1-equipoNN` |
 | `integrante` | Usuario de GitHub (nunca el nombre) |
 | `D1`, `D2`, `D3` | Nivel del **equipo** en cada criterio: `E` Ejemplar, `C` Competente, `D` En desarrollo, `I` Insuficiente, `A` ausente. Iguales en todas las filas del equipo (el *script* lo verifica) |
-| `P1` | Nivel de la pregunta 1 (línea de la parte firmada). Una pregunta sin respuesta es `I`. `A` solo si el integrante faltó, y entonces `P2` también es `A` |
+| `P1` | Nivel de la pregunta 1 (línea de la parte firmada). Una pregunta sin respuesta es `I`. `A` solo si el integrante faltó **sin justificante**, y entonces `P2` también es `A`: cuenta como dos Insuficientes (factor 0.80, `c6_insuficiente` = sí). Con justificante, la fila se captura después de su defensa individual del martes 15 de diciembre, con los niveles reales |
 | `P2` | Nivel de la pregunta 2: de tema si `P1` ≥ `D`; de **rescate** (otra línea) si `P1` = `I`; `-` si no se hizo (opción c sin rescate) |
 | `h2`, `repo`, `reporte` | Puntos ya calificados de H2 (/15), repositorio (/40, con C6 ya asignado por integrante) y reporte (/30). Se dejan vacíos si todavía no están: el *script* calcula entonces solo la defensa |
 
@@ -207,9 +208,10 @@ python3 calificar_defensa.py ../../../docente/proyecto/registro-defensa.csv \
 
 El *script* aplica `rubrica-defensa.md` §2–§4: D4 = 30 × promedio de las dos respuestas (o de la única, en la opción c);
 defensa = rúbrica × 0.15; **−10 % por cada respuesta en Insuficiente**, también la de rescate, hasta dos (factor 1.00 /
-0.90 / 0.80; §4.1); proyecto individual = (H2 + repositorio + reporte + defensa) × factor, con el tope de §4.1: **nunca más
-de 20 puntos por debajo de la referencia del equipo** (la columna `tope_aplicado` dice cuándo actuó). La columna
-`c6_insuficiente` marca a quien falló la pregunta 1 y la de rescate: a esa persona le corresponde C6 Insuficiente en
+0.90 / 0.80; §4.1; la ausencia sin justificante, `A`, cuenta como dos); proyecto individual = (H2 + repositorio +
+reporte + defensa) × factor, con el tope de §4.1: **nunca más de 20 puntos por debajo de la referencia del equipo** (la
+columna `tope_aplicado` dice cuándo actuó). La columna `c6_insuficiente` marca a quien falló la pregunta 1 y la de
+rescate o faltó sin justificante: a esa persona le corresponde C6 Insuficiente en
 `proyecto/entrega-final/rubrica-codigo.md` antes de capturar `repo` (el *script* no cambia `repo`). Termina con código 1 y
 dice fila y columna si el CSV tiene un nivel o un número inválido. Ejemplo sin datos reales: `make run` en `scripts/`
 produce `salida/calificaciones.csv` a partir de `ejemplo/registro-defensa.csv`; la tabla de §4.1 de la rúbrica sale de ahí.
@@ -232,9 +234,9 @@ este video de ≤ 3 min.
 
 | Caso | Qué se hace |
 |---|---|
-| Integrante ausente con justificante institucional | Sus 2 preguntas se hacen en la sesión de pendientes: martes 15 de diciembre 08:30 (jueves 17 de diciembre 10:30 si el martes 15 se usa para defensas, opción a), sin tope. D1–D3 son los del equipo |
-| Integrante ausente sin justificante | D4 = 0 (`P1` y `P2` = `A`). Si pide responder en la sesión de pendientes, D4 con tope de 80 % (misma regla que la recepción de hitos, `proyecto/README.md` §5), y esas respuestas cuentan para el ajuste de `rubrica-defensa.md` §4.1. Si no responde, sin factor de ajuste: no hubo respuesta que mostrara desconocimiento |
-| Equipo completo ausente | Con justificante: defensa en la sesión de pendientes (martes 15 de diciembre 08:30, o jueves 17 con la opción a). Sin justificante: 0 en los 15 puntos |
+| Integrante ausente con justificante institucional | Defensa individual (sus 2 preguntas) en la sesión de pendientes: martes 15 de diciembre 08:30, con cualquier opción (con la a, en la holgura de esa sesión), sin tope. D1–D3 son los del equipo |
+| Integrante ausente sin justificante | Como si hubiera fallado las dos preguntas individuales: `P1` y `P2` = `A`, D4 = 0, factor 0.80 y C6 Insuficiente (`rubrica-defensa.md` §4.2); el tope de §4.1 aplica igual. Sin justificante no hay reposición: faltar nunca conviene más que presentarse |
+| Equipo completo ausente | Con justificante: defensa en la sesión de pendientes (martes 15 de diciembre 08:30). Sin justificante: 0 en los 15 puntos y, para cada integrante, factor 0.80 y C6 Insuficiente (fila anterior) |
 | Equipo de 2 integrantes | Mismo formato; las preguntas duran 2:40 en vez de 4:00 en el completo y 3:00 en vez de 4:00 en el mixto (el *script* lo contempla con `equipos.csv`); en el corto se conservan los 3:00 por equipo como margen |
 | Integrante que se retiró del equipo (avisado por escrito, `proyecto/README.md` §5) | No defiende; su calificación la decide el historial de *commits* según lo renegociado |
 | Repositorio con etiqueta tardía (después del lunes 7 de diciembre 10:30) | Se defiende lo que haya en la etiqueta a las 10:30 del jueves 10 de diciembre; aplica el tope de 80 % de la entrega tardía en repositorio y reporte, no en la defensa |

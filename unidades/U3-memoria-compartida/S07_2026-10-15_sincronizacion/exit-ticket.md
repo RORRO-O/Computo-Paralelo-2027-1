@@ -38,9 +38,10 @@ for (long i = 1; i < n; i++)
    la carrera entre la comparación y la asignación.
 3. Sin clave. Para el profesor: la brecha entre confianza 4 y respuestas incorrectas en la pregunta 2 es el
    dato de calibración de la sesión.
-</details>
 
 **Clasificación rápida (profesor, 10 min después de clase).** Bien: pregunta 1 menciona razonamiento sobre
 accesos o ThreadSanitizer, y pregunta 2 da `reduction(max:…)` o `critical` con la razón de `atomic`. Parcial:
 una de las dos. Mal: pregunta 1 acepta las tres corridas como evidencia, o pregunta 2 dice "no hay carrera" o
 propone `atomic`. Si "mal" supera 30 %, la recuperación del lunes 19 de octubre abre con el `if`/`max`.
+
+</details>

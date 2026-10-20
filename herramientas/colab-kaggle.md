@@ -325,8 +325,9 @@ Se mide con `./medir.sh -c V3 -t gpu -n 50000000 -o ... -- python3 v3_numba.py` 
 la primera llamada a un *kernel* de Numba compila (JIT): por eso el programa se calienta a sí mismo antes de
 abrir el cronómetro, además del calentamiento de `medir.sh`. Para `make test` sin GPU: `NUMBA_ENABLE_CUDASIM=1`
 (con `n` pequeño: el simulador es lento). Si es tu V3 del proyecto, `proyecto/entrega-final/faq-entrega.md` §2
-pide además las claves `gpu=`, `tiempo_total_s=` y `checksum=` (ver §6) y medir con eventos de CUDA
-(`cuda.event()` en Numba, `cupy.cuda.Event` en CuPy) en lugar de `time.perf_counter()`.
+pide además las claves `gpu=`, `tiempo_total_s=` y `checksum=` (ver §6). El reloj puede seguir siendo
+`time.perf_counter()` con la sincronización explícita de arriba; los eventos de CUDA (`cuda.event()` en Numba,
+`cupy.cuda.Event` en CuPy) son opcionales (`docs/metodo/04-evaluacion.md` §5). En CUDA C se mide con eventos.
 
 Con **CuPy** el esquema es el mismo; copias con `cp.asarray`/`cp.asnumpy` y sincronización explícita:
 

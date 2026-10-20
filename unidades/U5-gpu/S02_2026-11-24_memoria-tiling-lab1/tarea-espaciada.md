@@ -2,12 +2,14 @@
 
 # Tarea espaciada · S02 (20–40 min)
 
-**Esta tarea no tiene peso propio; el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo
-del Examen 3 toman ítems de aquí.** Se autocalifica con las claves de abajo al inicio de S03 (jueves 26 de
-noviembre de 2026, 10:30, salón 3208; 2 minutos); el profesor registra la entrega, no el acierto, y revisa 3 al
-azar por parcial. Tráela en papel o como `tarea-S02.md` en el repositorio del equipo (una por persona, con tu
-nombre solo en el *commit*). La tabla del ejercicio 1 se incorpora a la Parte D de la Práctica 6 (15 % del 3er
-parcial, domingo 6 de diciembre, 23:59); los ejercicios 2 y 3 son del tipo que aparece en el Examen 3 (30 %,
+**Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U5-S02.md` (y el CSV del
+*notebook*, si lo corriste, en `tareas/<usuario-github>/U5-S02/`), antes del **jueves 26 de noviembre de 2026,
+10:30** (inicio de S03, salón 3208). La autocalificas con las claves de abajo en los minutos 5–10 de S03 (2 min);
+el profesor registra la entrega, no el acierto, y revisa 3 al azar por parcial. **Esta tarea no tiene peso propio;
+el examen de práctica del jueves 3 de diciembre y el 10–20 % acumulativo del Examen 3 toman ítems de aquí.** Si
+faltaste hoy, entregarla en esa misma fecha sustituye tu recuperación y tu *exit ticket* de S02
+(`docs/metodo/04-evaluacion.md` §5). La tabla del ejercicio 1 se incorpora a la Parte D de la Práctica 6 (15 % del
+3er parcial, domingo 6 de diciembre, 23:59); los ejercicios 2 y 3 son del tipo que aparece en el Examen 3 (30 %,
 martes 8 de diciembre).
 
 ## 1. Del tema de hoy (18 min) · tamaño del mosaico y dónde vive cada dato

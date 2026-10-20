@@ -15,7 +15,8 @@ puntos, lo que no entra, cómo será el día del examen y la hoja de calibració
 | Material permitido | Pluma o lápiz. **Nada más**: sin apuntes, sin IA y sin dispositivos (celular, **calculadora**, computadora y reloj inteligente apagados y en la mochila). **No hay hoja de fórmulas**: las de *speedup*, eficiencia, Amdahl, índice global, número de bloques y ocupación se escriben de memoria ([S06 notas §4](S06_2026-12-03_repaso-E3/notas-estudiante.md)); los modelos propios de cada problema (costo de un mensaje, copias por PCIe, Karp–Flatt) y los datos de la GPU vienen en su enunciado |
 | Alcance | Unidad IV (5–19 de noviembre, Práctica 5) y Unidad V (23 de noviembre – 3 de diciembre, Práctica 6). Entre 10 % y 20 % de unidades previas, **dentro** de problemas de las Unidades IV–V |
 | Peso | 30 % del 3.er parcial ([`planeacion/mapa-evaluacion.md`](../../planeacion/mapa-evaluacion.md)) |
-| Devolución | Calificación y clave en ≤ 7 días ([`docs/metodo/04-evaluacion.md`](../../docs/metodo/04-evaluacion.md) §2.3); la retroalimentación en clase está prevista en la reserva del **lunes 14 de diciembre** |
+| Devolución | Calificación y sesión de análisis de errores el **lunes 14 de diciembre, 10:30** (reserva del calendario); clave pública el **martes 15 de diciembre, después de las 10:00**, cuando ya se aplicó la última reposición ([`docs/metodo/04-evaluacion.md`](../../docs/metodo/04-evaluacion.md) §2.4) |
+| Reposición | Solo con justificante institucional: versión B el martes 15 de diciembre, 08:30 (propuesta por defecto de `04-evaluacion.md` §2.4, a confirmar por el profesor) |
 
 ## 1. Temario con peso orientativo
 
@@ -552,7 +553,8 @@ la plataforma, **dos** datos numéricos del problema y una alternativa descartad
 </details>
 
 **26. [diseño · ordenar]** Ordena los pasos para portar la V2 a GPU y di qué falla si se omite cada uno: (a) aplanar las
-estructuras 2D a un arreglo 1D contiguo; (b) medir con eventos, dos tiempos, mediana de 5; (c) identificar con el
+estructuras 2D a un arreglo 1D contiguo; (b) medir con eventos (en Numba o CuPy, `perf_counter` tras sincronizar),
+dos tiempos, mediana de 5; (c) identificar con el
 perfil de la V1 el ciclo que domina; (d) mover los datos una sola vez y alternar dos búferes entre iteraciones;
 (e) comparar contra la V1 con tolerancia declarada; (f) un hilo por elemento, bloque múltiplo de 32, malla con
 redondeo hacia arriba y guardia. ¿Cuenta como V3 una llamada a `cupy.matmul` sin *kernel* propio?
@@ -768,13 +770,15 @@ diseño, elegir plataforma sin dos datos numéricos.
 
 **Después**
 
-- Calificación y clave en ≤ 7 días; la retroalimentación en clase está prevista el lunes 14 de diciembre (reserva del
-  calendario), con los tres ítems peor contestados.
+- Calificación y sesión de análisis de errores el lunes 14 de diciembre, 10:30 (reserva del calendario), con los tres
+  ítems peor contestados. La clave pública sale el martes 15 de diciembre, después de las 10:00, cuando ya se aplicó
+  la última reposición.
 - Tu hoja de calibración se abre después de calificar y te regresa con tu brecha; al grupo solo se le muestra el
   promedio. No afecta tu calificación. Ese mismo lunes se compara con la predicción que escribiste en la tarea de S05
   (ejercicio 3b).
-- La política para quien no pueda presentarse por causa justificada no está escrita en el material del curso: si es
-  tu caso, avísale al profesor con tu justificante institucional lo antes posible.
+- Si no puedes presentarte por causa justificada: con justificante institucional, reposición con la versión B el
+  martes 15 de diciembre, 08:30 (`docs/metodo/04-evaluacion.md` §2.4; propuesta por defecto, a confirmar por el
+  profesor). Avísale al profesor con tu justificante lo antes posible.
 
 ## 8. Hoja de calibración
 
@@ -799,7 +803,9 @@ El profesor la entrega impresa el día del examen; este es el modelo. Se llena e
 > **A − C** = `____`
 
 **Cómo leer tu brecha.** La que importa es la de la postdicción, **B − C**. Si supera 15 puntos (1.5 sobre 10),
-sobreestimaste: estudiaste con la sensación de saber y no con la prueba de saber. Compárala con la brecha del examen
+sobreestimaste: estudiaste con la sensación de saber y no con la prueba de saber. Es el umbral del curso: 15 % del
+puntaje total (15/100 aquí; 9/60 en el examen de práctica); si la sobreestimación media del grupo lo supera, la
+sesión del lunes 14 abre con ella. Compárala con la brecha del examen
 de práctica de S06 (que es sobre 60: multiplícala por 100/60), con tu predicción de la tarea de S05 y con tu bitácora
 de §4. Si todas apuntan al mismo lado, ya sabes qué ajustar para el siguiente curso: más preguntas de recuperación y
 menos relectura, desde la primera semana.

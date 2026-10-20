@@ -211,5 +211,6 @@ rango 0, en el mismo programa; (b) versión con reparto cíclico; (c) protocolo 
 ## Qué te llevas
 
 - Tu hoja de predicciones con ✓/✗: guárdala, el pre-laboratorio de la Práctica 5 pide el mismo razonamiento.
-- `TODO(1)` resuelto y, de ser posible, `promedio_maximo.c` pasando `make test`. Si no lo terminaste, termínalo
-  antes del martes 10 de noviembre: el Lab 1 de la Práctica 5 da por hecho que sabes escribirlo.
+- `TODO(1)` resuelto y, de ser posible, `promedio_maximo.c` pasando `make test`. Si no lo terminaste en clase, es
+  el ejercicio 1(c) de la tarea (antes del lunes 9 de noviembre, 10:30): el Lab 1 de la Práctica 5 (martes 10)
+  da por hecho que sabes escribirlo.

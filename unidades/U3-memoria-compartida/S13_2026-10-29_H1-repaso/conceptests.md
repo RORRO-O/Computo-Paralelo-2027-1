@@ -109,7 +109,7 @@ Con 4 hilos el resultado es incorrecto. ¿Qué es cierto?
 | Opción | Origen |
 |---|---|
 | A | Idea errónea 30 con disfraz de 11: `static` también reparte en bloques y cada bloque leería un `y[lo-1]` no escrito. |
-| **B** | **Correcta** (S11 §1.2: el *scan* en dos fases cuesta 1.5× el tráfico de memoria y dio *speedup* 1.9 con 4 hilos; aquí el coeficiente 0.5 complica la fase 2, así que "secuencial si no domina el tiempo" también vale). |
+| **B** | **Correcta** (S11 §1.2: el *scan* en dos fases cuesta casi el doble del tráfico de memoria, por la relectura de `y`, y dio *speedup* 1.9 con 4 hilos; aquí el coeficiente 0.5 complica la fase 2, así que "secuencial si no domina el tiempo" también vale). |
 | C | Idea errónea 30b (agregada al Anexo A con esta sesión): usar `reduction` para una recurrencia. `reduction` combina copias **independientes** al final; no transmite el valor de una iteración a la siguiente. |
 | D | Idea errónea 30c (agregada al Anexo A con esta sesión): `ordered` obliga a ejecutar el bloque en orden de iteración: es correcto y **serializa** el ciclo (más lento que secuencial por la sincronización). |
 

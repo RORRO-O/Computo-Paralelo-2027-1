@@ -8,7 +8,7 @@
 #          programa de la fase Crear (norma_allreduce.c) todavía no existe.
 #
 # matvec_bcast_buggy se ejecuta con "timeout 10": el error (Bcast que no llaman todos) tiene
-# DOS síntomas válidos y los dos cuentan como PASS: cuelgue (código 124 de timeout) o
+# DOS síntomas válidos y los dos cuentan como PASS: cuelgue (código 124 de timeout, o 137 si tuvo que matar a mpirun con KILL) o
 # resultado incorrecto (checksum distinto). Lo que sería FAIL es que diera el resultado correcto.
 #
 # Variables: MPIRUN (por defecto mpirun), MPIRUN_FLAGS (por defecto --oversubscribe).
@@ -41,7 +41,7 @@ run() {
     local np="$1"; shift
     # shellcheck disable=SC2086
     timeout -k 2 "$TIMEOUT_OK" "$MPIRUN" $MPIRUN_FLAGS -np "$np" "$@" >"$out" 2>&1
-    rc=$?
+    rc=$?; [ $rc -eq 137 ] && rc=124   # KILL tras el TERM de timeout: también es cuelgue
 }
 
 # value KEY [archivo] -> número que sigue a "KEY = " en la última línea que lo contenga
@@ -128,7 +128,7 @@ fi
 for n in 8 1024; do
     # shellcheck disable=SC2086
     timeout -k 2 "$TIMEOUT_HANG" "$MPIRUN" $MPIRUN_FLAGS -np 4 ./matvec_bcast_buggy "$n" >"$out" 2>&1
-    rc=$?
+    rc=$?; [ $rc -eq 137 ] && rc=124   # KILL tras el TERM de timeout: también es cuelgue
     got=$(value checksum)
     if [ $rc -eq 124 ]; then
         report PASS "matvec_bcast_buggy -np 4 n=$n (timeout $TIMEOUT_HANG)" "se colgo (sintoma esperado: el rango 0 espera dentro de Bcast)"

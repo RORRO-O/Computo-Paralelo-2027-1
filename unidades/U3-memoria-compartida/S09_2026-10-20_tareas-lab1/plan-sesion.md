@@ -57,10 +57,12 @@ de control 5 min · *exit ticket* 5 min. Este guion debe bastar para que otro pr
   **Publicación tardía** (la carpeta quedó completa el martes 20 hacia las 05:00 UTC, lunes 19 a las 23:00 en
   la Ciudad de México): el código sí está, así que las Partes A y B se trabajan con `practicas/P4-openmp/` y no
   aplica el Plan B de código; pero es probable que casi nadie haya podido entregar el pre-lab. Si es así, se usa
-  la **variante B** de la pregunta 1
-  (se compara con `make speedup-a`) y se anuncia al cierre la nueva hora del pre-lab (se propone el jueves 22 de
-  octubre, 10:30), igual que en el último punto del Plan B. Antes de la sesión, desde la raíz del repositorio
-  del curso: `cd practicas/P4-openmp && make && make test-a` (14 PASS, ≈ 2 s).
+  la **variante B** de la pregunta 1 (se compara con `make speedup-a`). Antes de la sesión, desde la raíz del
+  repositorio del curso: `cd practicas/P4-openmp && make && make test-a` (14 PASS, ≈ 2 s).
+- **Decisión del profesor: fecha del pre-lab de P4.** Opción por defecto, que vale si el profesor no fija otra:
+  **el pre-lab se recoge el jueves 22 de octubre, 10:30 (inicio de S10), en `practicas/P4/prelab/`**, porque el
+  enunciado se publicó en la madrugada del 20 de octubre (UTC). Se anuncia en el cierre de hoy y por el canal del
+  grupo; `planeacion/` no se modifica.
 - Lista impresa de qué mitad de los equipos se defiende hoy (equipos con número impar; los pares el martes
   27), si hay más de 12 equipos.
 - Proyector; cronómetro visible; tarjetas con números de lista; pizarrón para el árbol de llamadas de n = 8.
@@ -88,8 +90,8 @@ teclea código nuevo; solo se corre el que existe.
 
 | Minuto | Qué se hace | Qué se dice |
 |---|---|---|
-| 5–7 | Objetivos en una pantalla. Anclaje con S08: "el error más frecuente del *exit ticket* de ayer fue ____ [si no se revisó: 'poner `dynamic` sin pensar en el costo por *chunk*']. Hoy el reparto dinámico vuelve, pero sin ciclo: cuando no hay índices que repartir." Autocalificación **solo del ejercicio 3** de la tarea de S08 (la preparación de hoy; 1 min con la clave en `<details>`): 3a–3c son exactamente el patrón de hoy. Los ejercicios 1–2 vencen el jueves 22 de octubre, 10:30, y se autocalifican en S10. | "¿Cuántos hilos crearon las 8 tareas? ¿Puede salir `fin del single` antes que una tarea?" |
-| 7–10 | **Paso 1** del ejemplo: `list_tasks.c` proyectado (solo la región). Correr `./list_tasks 8` dos veces. | "Un `parallel for` no puede repartir una lista: no hay `i`. Un hilo recorre y encola; los demás toman." **Pausa 1** (tarjeta): "¿por qué `fin del recorrido` sale antes que los nodos?" **Pausa 2**: "`p` está declarada adentro: ¿la tarea ve el puntero que sigue avanzando o una copia?" (idea 15 al revés: lo de adentro es privado, y la tarea recibe copia `firstprivate`). |
+| 5–8 | Objetivos en una pantalla. Anclaje con S08: "el error más frecuente del *exit ticket* de ayer fue ____ [si no se revisó: 'poner `dynamic` sin pensar en el costo por *chunk*']. Hoy el reparto dinámico vuelve, pero sin ciclo: cuando no hay índices que repartir." Autocalificación de la tarea de S08, que venció hoy a las 08:30 (2 min con la clave en `<details>`; el profesor registra la entrega): primero el ejercicio 3, la preparación de hoy (3a–3c son exactamente el patrón de hoy); si no alcanza, los ejercicios 1–2 se autocalifican en casa con su clave. | "¿Cuántos hilos crearon las 8 tareas? ¿Puede salir `fin del single` antes que una tarea?" |
+| 8–10 | **Paso 1** del ejemplo: `list_tasks.c` proyectado (solo la región). Correr `./list_tasks 8` dos veces. | "Un `parallel for` no puede repartir una lista: no hay `i`. Un hilo recorre y encola; los demás toman." **Pausa 1** (tarjeta): "¿por qué `fin del recorrido` sale antes que los nodos?" **Pausa 2**: "`p` está declarada adentro: ¿la tarea ve el puntero que sigue avanzando o una copia?" (idea 15 al revés: lo de adentro es privado, y la tarea recibe copia `firstprivate`). |
 | 10–13 | **Paso 2**: `fib_tasks.c`, solo la función `fib_tasks`. Correr `./fib_buggy`. | "Mismo código sin `shared(x)`: 0, siempre, sin carrera y sin *warning*." **Pausa 3**: "¿dónde escribió la hija y qué leyó el padre?" Regla en el pizarrón: *lo que la hija escribe y el padre lee, `shared`*. |
 | 13–16 | **Paso 3**: `./taskwait_buggy` (una o tres veces según la recuperación). Proyectar el reporte de `make tsan` recortado: la escritura de `left` (línea 21 inlineada en la tarea) contra la lectura prematura (línea 46). | "`task` encola; el hilo sigue de largo y lee 0. La barrera del `single` sí espera a todas; por eso la segunda lectura sale bien." **Pausa 4**: "¿qué línea falta y dónde?" Señalar, una vez, los reportes de TSan que son ruido de `libgomp` (líneas 41–44 contra `GOMP_task`): mismo criterio que en S07. |
 | 16–20 | **Paso 4 y 5**: tabla de cortes de `fib_tasks` (del ejemplo; no se corre en vivo salvo `./fib_tasks`, 1 s). Fórmula 2·(fib(n−c+3)−1). La línea `lineal    : 0.0000000…` (≈ 20 ns con n = 40). | "48 millones de tareas tardaron 26 s en calcular lo que el recursivo hace en 0.023 s y el lineal en unos 17 ns." **Pausa 5**: "¿contra qué T(1) se reporta el *speedup*?" (protocolo §3; idea 31). "Fibonacci enseña la mecánica; para rendimiento la práctica usa mergesort." Mostrar la tabla de `list_tasks 100000` (1, 2, 4 hilos). |
@@ -171,8 +173,9 @@ mini-defensas.
   `for v in critical atomic local; do for t in 1 2 4; do OMP_NUM_THREADS=$t ./histogram_$v | grep RESULT; done; done`
   (≈ 20 s; `critical` con 4 hilos tarda 1–2 s por repetición: no matarlo). Tabla de 9 renglones (versión,
   hilos, `t_par`, *speedup*) en `practicas/P4/lab1/parteA.md` y una línea: ¿coincidió con la pregunta 1 de la
-  recuperación? Referencia de autoría (10⁷ elementos, 64 bins, 4 hilos): `critical` 0.01–0.03, `atomic`
-  0.06–0.07, `local` 4.6–4.8.
+  recuperación? Referencia de autoría (*speedup* con 10⁷ elementos, 64 bins, 4 hilos; `atomic` y `local` en
+  cinco corridas): `critical` 0.01–0.03, `atomic` 0.06–0.08, `local` 3.3–4.8. Dependen de la carga de la
+  máquina: en otra corrida `local` quedó por debajo de 1 (S07 `practica-guiada/README.md`, tabla de Ejecutar).
 - **B′ · mergesort con tareas (≈ 15 min).** Copiar la carpeta completa (`cp -r practica-guiada
   <repo-del-equipo>/practicas/P4/lab1/`: el `Makefile` compila los siete programas y `make test` usa `tests/`)
   y hacer ahí M2 (1, 2 y 4 hilos con el mejor corte de M1) y M3 (quitar el `taskwait`,
@@ -183,8 +186,8 @@ mini-defensas.
   `taskwait` antes de `merge`, la condición del corte. La línea `resumen:` del punto de control sale de M2.
 - **Anuncio al cierre** (sustituye el punto 3 de 85–90): "La Práctica 4 se publica en `practicas/P4-openmp/`
   y se avisa por el canal del grupo. Lo de hoy, en `practicas/P4/lab1/`, es avance de las Partes A y B. El
-  pre-lab se entrega en `practicas/P4/prelab/` antes de ____ [fecha que fija el profesor; se propone el jueves
-  22 de octubre, 10:30]. La fecha límite no cambia: domingo 1 de noviembre, 23:59 (40 % del 2º parcial)."
+  pre-lab se entrega en `practicas/P4/prelab/` antes del jueves 22 de octubre, 10:30 [opción por defecto; la
+  decide el profesor, ver Materiales]. La fecha límite no cambia: domingo 1 de noviembre, 23:59 (40 % del 2º parcial)."
 
 **Mini-defensas** (una por equipo, 2 min; con más de 12 equipos solo la mitad hoy, lista publicada): una
 pregunta por integrante sobre el código de ese momento ("¿qué hace esta línea?"); la segunda ("¿qué pasaría si
@@ -212,9 +215,13 @@ sin discusión; si no, abre la recuperación de S10.
 1. **Exit ticket** (`exit-ticket.md`): 2 preguntas + confianza, individual, hoja con número de lista; se
    recoge junto con la hoja de recuperación.
 2. **Tarea espaciada** (`tarea-espaciada.md`): la fase Crear (`tree_sum_tasks.c`), Amdahl/Foster sobre el
-   mergesort y la preparación de S10. Entrega en `tareas/S09/` antes del **jueves 22 de octubre, 10:30**.
-3. Anuncios con fecha: "Partes A y B de la Práctica 4 terminadas y en el repositorio antes del martes 27 de
-   octubre, 08:30 (Lab 2: Partes C y D, mini-defensas de los equipos pares). La Práctica 4 completa se entrega
+   mergesort y la preparación de S10. Individual, en `tareas/<usuario-github>/U3-S09.md` (código en
+   `tareas/<usuario-github>/U3-S09/`) antes del **jueves 22 de octubre, 10:30**; se autocalifica en los minutos
+   5–10 de S10.
+3. Anuncios con fecha. Si rige la opción por defecto del pre-lab (Materiales), primero: "El pre-lab de la
+   Práctica 4 se recoge el jueves 22 de octubre, 10:30, en `practicas/P4/prelab/`." Después: "Partes A y B de
+   la Práctica 4 terminadas y en el repositorio antes del martes 27 de octubre, 08:30 (Lab 2: Partes C y D,
+   mini-defensas de los equipos pares). La Práctica 4 completa se entrega
    el **domingo 1 de noviembre a las 23:59** (40 % del 2º parcial). H1 del proyecto: jueves 29 de octubre en
    clase. Siguiente sesión: jueves 22 de octubre, 10:30, Salón 3208, rendimiento: traigan su línea `resumen:`."
 
@@ -240,14 +247,16 @@ sin discusión; si no, abre la recuperación de S10.
 | 3 (corte y número de tareas) | P1/P3 comparadas con la traza; tabla M1 con dos líneas; CT2; *exit ticket* 2a | Revoto CT2 < 70 % o > 30 % contestan "cambia con 2 hilos" |
 | 4 (Partes A y B, propiedad) | Mini-defensas (mejor de dos preguntas); punto de control; `make test` de la Parte A en el repositorio (Plan B: `parteA.md` con la tabla A′ y los *commits* de M2–M3 en `practicas/P4/lab1/`) | Más de 3 equipos sin Parte A en PASS (o sin tabla A′) al minuto 80 |
 
-Datos que se registran hoy en `herramientas/seguimiento-grupo.csv`: % aciertos recuperación 2 y 5, `sin
+Datos que se registran hoy en `docente/seguimiento-grupo.csv` (la hoja llena, que no se versiona;
+`herramientas/seguimiento-grupo.csv` es solo la plantilla vacía): % aciertos recuperación 2 y 5, `sin
 pre-lab`, % CT1 y CT2 (primer voto y revoto), montones del *exit ticket*, equipos con mini-defensa hecha.
 
 ## Notas post-sesión
 
 Se llenan el mismo martes 20 de octubre, después de clasificar los *exit tickets* (10 min):
 
-- ¿Se usó el Plan B de P4? Si sí, fecha que se fijó para el pre-lab y qué se avisó al grupo:
+- ¿Se usó el Plan B de P4 o la opción por defecto del pre-lab? Fecha que se fijó para el pre-lab y qué se avisó
+  al grupo:
 - Qué falló en el tiempo (¿el PRIMM se comió minutos de P4? ¿cuántos equipos llegaron a la Parte B?):
 - ConcepTest que falló y por qué (opción más votada entre los errados):
 - Error más frecuente del *exit ticket* (abre la recuperación del jueves 22 de octubre):

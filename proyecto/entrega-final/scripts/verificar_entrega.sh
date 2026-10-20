@@ -17,9 +17,15 @@
 #       make, make test y ./run_all.sh --rapido se ejecutan en una COPIA temporal del repositorio:
 #       no tocan los binarios ni las mediciones del equipo.
 # Estructuras aceptadas (README.md §3 de la entrega final, columna "Variantes"):
-#   - la de proyecto/README.md §4, que implementa plantilla-repo/: v1/ v2/ v3/, bitacora.md,
-#     declaración de IA en el README §7 o en declaracion-ia.md, CSV con config v1, v2, v3_kernel,
-#     v3_total (resultados/mediciones.csv y resultados/mediciones_v3.csv);
+#   - la de proyecto/README.md §4, que implementa plantilla-repo/:
+#       Makefile (all/run/test/clean) y run_all.sh en la raíz; README.md (declaración de IA en su §7);
+#       comun/problema.h (datos con semilla, checksum y cómputo por elemento que comparten V1, V2 y V3);
+#       v1/ y v2/ (main.c + Makefile); v3/ (kernel.cu + Makefile + notebook_colab.ipynb ejecutado);
+#       tests/run_tests.sh con la sección "Casos del equipo";
+#       herramientas/ (resumen_csv.py, generar_notebook_v3.py; medir_proyecto.sh si se agrega);
+#       resultados/ (mediciones.csv con config v1 y v2; mediciones_v3.csv con v1, v3_kernel y v3_total;
+#       entorno.txt; entorno_gpu.txt; speedup.png; tabla.md); resultados/rapido/ va en .gitignore;
+#       reporte/reporte.pdf; bitacora.md; declaracion-ia.md opcional (proyecto/plantillas/);
 #   - variantes de un repositorio que no parte de la plantilla: versiones bajo src/ (src/v1 src/v2
 #     src/v3), bitácora como bitacora-errores.md, CSV escritos por herramientas/medir_proyecto.sh
 #     (proyecto/plantillas/run_all.sh: config V1, V2, V3, V3-kernel y columnas extra min_s,max_s;
@@ -27,7 +33,7 @@
 #   En todas se exigen Makefile raíz (all/run/test/clean) y ./run_all.sh --rapido (reproducibilidad.md §2).
 # Salida: una línea por comprobación: PASS / FAIL / AVISO / MANUAL, con el número de ítem; resumen.
 # Código de salida: 0 si no hay ningún FAIL; 1 si hay al menos uno; 2 si el uso es incorrecto.
-# Requisitos: bash, make, gcc, git, awk, python3; opcionales: pdfinfo, file, timeout.
+# Requisitos: bash, make, gcc ≥ 11, git, awk, python3; opcionales: pdfinfo, file, timeout.
 # Ejemplos: bash proyecto/entrega-final/scripts/verificar_entrega.sh ../cp-6bm1-equipo07
 #           bash proyecto/entrega-final/scripts/verificar_entrega.sh ../cp-6bm1-equipo07 --sin-ejecutar --sin-red
 set -u

@@ -20,8 +20,11 @@ MPI_Recv(&u[local_n + 1], 1, MPI_DOUBLE, right, 20, MPI_COMM_WORLD, MPI_STATUS_I
 
 - A. Siempre funciona: `MPI_Send` regresa en cuanto copia el dato a un búfer interno.
 - B. Siempre se interbloquea: `MPI_Send` no regresa hasta que el receptor llama a `MPI_Recv`.
-- **C.** Con 1 `double` normalmente funciona, pero el estándar no lo garantiza; con mensajes grandes se interbloquea. Por eso se usa `MPI_Sendrecv` o `Isend/Irecv/Waitall`.
+- C. Con 1 `double` normalmente funciona, pero el estándar no lo garantiza; con mensajes grandes se interbloquea. Por eso se usa `MPI_Sendrecv` o `Isend/Irecv/Waitall`.
 - D. Se interbloquea solo en los rangos de las orillas, porque `MPI_PROC_NULL` nunca contesta.
+
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
 
 | Opción | Origen del distractor |
 |---|---|
@@ -34,6 +37,8 @@ Acierto esperado en el primer voto: 45 %. Respuesta: C.
 Guion de discusión (3 líneas): "¿Qué pasa con el rango 1 si el rango 0 y el rango 2 también están detenidos en su primer `Send`?
 ¿De qué depende que `Send` regrese antes de que alguien reciba? ¿Qué llamada hace que el envío y la recepción ocurran en la
 misma operación?" Cierre: un programa que depende del *buffering* es incorrecto aunque hoy funcione; lo mismo que una carrera que "salió bien" (idea 7).
+
+</details>
 
 ## CT2 · Convergencia global (minuto ~70, Puesta en común)
 
@@ -48,9 +53,12 @@ if (global_diff < tol) break;
 Con 3 procesos, ¿qué ocurre?
 
 - A. Funciona: el rango 0 calcula el máximo y los demás lo reciben automáticamente, porque `Allreduce` entrega el resultado a todos.
-- **B.** Se cuelga: `MPI_Allreduce` es colectiva; los rangos 1 y 2 nunca la llaman y el rango 0 los espera para siempre.
+- B. Se cuelga: `MPI_Allreduce` es colectiva; los rangos 1 y 2 nunca la llaman y el rango 0 los espera para siempre.
 - C. No se cuelga, pero los rangos 1 y 2 comparan un `global_diff` sin actualizar y paran en una iteración distinta; el resultado sale mal.
 - D. MPI aborta con un mensaje de error porque detecta que la colectiva no la llamaron todos.
+
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
 
 | Opción | Origen del distractor |
 |---|---|
@@ -64,14 +72,19 @@ Guion: "¿Quién está dentro de `Allreduce` y a quién espera? ¿Qué hacen mie
 `Sendrecv` con el rango 0, y el rango 0 dónde está? ¿Qué regla vale para TODAS las colectivas de S03?" Regla general en una frase:
 **una colectiva es una cita a la que van todos los procesos del comunicador; si uno falta, los demás esperan sin aviso.**
 
+</details>
+
 ## CT3 · Reserva: reparto cíclico (si sobra tiempo en Puesta en común, o para abrir S05)
 
 Un equipo propone repartir las celdas de forma cíclica (celda `i` al rango `i % p`) "para balancear mejor la carga que con bloques". Para Jacobi 1D:
 
 - A. Mejora el balance y reduce la comunicación, porque cada rango tiene celdas de toda la barra.
-- **B.** El balance es igual al de bloques (la diferencia entre rangos es ≤ 1 celda en ambos), pero la comunicación crece de 2 mensajes por rango a unos `2·local_n` por iteración: cada celda tiene sus vecinos en otros procesos.
+- B. El balance es igual al de bloques (la diferencia entre rangos es ≤ 1 celda en ambos), pero la comunicación crece de 2 mensajes por rango a unos `2·local_n` por iteración: cada celda tiene sus vecinos en otros procesos.
 - C. No funciona: Jacobi exige que cada rango tenga celdas contiguas, el programa daría resultados incorrectos.
 - D. Es más rápida porque los mensajes de 8 bytes no cuestan nada comparados con el cómputo.
+
+<details>
+<summary>Respuesta, origen de los distractores, acierto esperado y guion (ábrelo después de votar)</summary>
 
 | Opción | Origen del distractor |
 |---|---|
@@ -83,6 +96,8 @@ Acierto esperado en el primer voto: 60 %. Respuesta: B.
 
 Guion: "Con bloques, ¿cuántas celdas de otros procesos necesita el rango 1? ¿Y con reparto cíclico? Si la latencia por mensaje es
 la que midieron en S02, ¿cuánto cuesta una iteración en cada caso con `local_n = 250 000`?" Enlaza con S05: modelo latencia + tamaño/ancho de banda.
+
+</details>
 
 ## Registro de la sesión (llenar en clase)
 

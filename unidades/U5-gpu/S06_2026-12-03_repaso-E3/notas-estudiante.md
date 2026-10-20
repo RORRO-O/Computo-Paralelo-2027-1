@@ -84,7 +84,8 @@ Detalle y huecos en `ejemplo-resuelto.md`.
 - **Entrega final del proyecto** (repositorio V1·V2·V3 con etiqueta `entrega-final` + `reporte/reporte.pdf`):
   lunes 7 de diciembre, 10:30; 40 + 30 puntos del proyecto. Lista de cotejo: `proyecto/entrega-final/lista-cotejo-entrega.md`.
 - **Examen 3**: martes 8 de diciembre, 08:30–10:00, 30 % del 3.er parcial; versiones A/B por fila; 80 min efectivos;
-  sin dispositivos; hoja de calibración aparte (predicción al recibir, postdicción al entregar).
+  sin dispositivos; hoja de calibración aparte (predicción al recibir, postdicción al entregar, las dos de 0 a 100).
+  Calificación y análisis de errores el lunes 14 de diciembre; clave pública el martes 15, después de las 10:00.
 - **Defensa oral**: jueves 10 de diciembre, 10:30 (15 puntos del proyecto; preguntas individuales). El formato lo
   anuncia el profesor hoy.
 

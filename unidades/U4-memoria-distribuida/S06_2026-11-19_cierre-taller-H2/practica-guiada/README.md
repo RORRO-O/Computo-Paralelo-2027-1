@@ -185,7 +185,7 @@ Marca en orden; el profesor pregunta por el número en el que vas.
 | # | Hecho hoy | Dónde está la regla |
 |---|---|---|
 | 1 | `make test` de V2 compara contra V1 con `OMP_NUM_THREADS` = 1, 2, 4, 8 y repite ≥ 3 veces; pasa en la máquina de medición | H2 §2.1 |
-| 2 | `resultados/mediciones.csv` tiene las filas `V1,1`, `V2,1`, `V2,2`, `V2,4`, `V2,8` con 5 repeticiones al `N_declarado` de H1, generadas con `run_all.sh` (`proyecto/plantillas/`) | H2 §2.2; protocolo §2 |
+| 2 | `resultados/mediciones.csv` tiene las filas `V1,1`, `V2,1`, `V2,2`, `V2,4`, `V2,8` con 5 repeticiones al `N_declarado` de H1, generadas con `herramientas/medir_proyecto.sh` (la copia de `proyecto/plantillas/run_all.sh` en tu repositorio) | H2 §2.2; protocolo §2 |
 | 3 | `python3 revisar_mediciones.py resultados/mediciones.csv --nucleos <físicos>` termina con `0 errores`; los avisos están anotados | esta carpeta |
 | 4 | La tabla de Karp–Flatt está llena para p = 2, 4, 8 y comparada con `1 − f_p` de H1; elegida una de las cuatro lecturas, con números | H2 §2.3 |
 | 5 | Hay **dos** decisiones con experimento (planificación y sincronización/alcance), medidas con el protocolo, en la tabla de H2 §2.4 | H2 §2.4 |
@@ -243,7 +243,7 @@ observación por ✗.
 | # | Pregunta de revisión | Qué evidencia buscas |
 |---|---|---|
 | 1 | ¿`T(1)` es el **mejor secuencial** (V1 con `-O2`), no V2 con un hilo? | Fila `V1,1` en el CSV; `speedup` de `V2,1` distinto de 1.000; `Makefile` de V1 con `-O2` |
-| 2 | ¿Es la **mediana** de ≥ 5 repeticiones con calentamiento, al mismo `n` en todas las filas? | Columnas `rep1..rep5` llenas; `mediana_s` coincide; columna `n` constante; `run_all.sh` en el repo |
+| 2 | ¿Es la **mediana** de ≥ 5 repeticiones con calentamiento, al mismo `n` en todas las filas? | Columnas `rep1..rep5` llenas; `mediana_s` coincide; columna `n` constante; en `reporte/H2.md`, los comandos de `medir_proyecto.sh` (o del `run_all.sh` de la raíz) que generaron el CSV |
 | 3 | ¿Está calculado **Karp–Flatt** para p = 2, 4, 8 y comparado con la fracción de H1? | Tabla de H2 §2.3 con números, no solo la fórmula |
 | 4 | ¿**Explican dónde deja de escalar** y por qué, con una causa verificable? | Texto de 3–6 líneas que nombra la causa (fracción secuencial, memoria, sincronización, falso compartido, desbalance) y la liga a un número o experimento, no "por la sobrecarga" |
 | 5 | ¿La fila que excede los núcleos físicos está **marcada** y no se usa para concluir? | `entorno.txt` dice núcleos físicos; la tabla tiene el asterisco; la conclusión usa p ≤ físicos |

@@ -13,8 +13,8 @@ python3 herramientas/seguimiento.py docente/seguimiento-grupo.csv       # inform
 python3 herramientas/seguimiento.py docente/seguimiento-grupo.csv --alertas
 ```
 
-Los planes de sesión dicen "Datos que se registran hoy en `herramientas/seguimiento-grupo.csv`": se registran en
-la copia de `docente/`, con las columnas de esta plantilla.
+Los datos que pide cada plan de sesión ("Datos que se registran hoy") van en `docente/seguimiento-grupo.csv`, con
+las columnas de esta plantilla. `herramientas/seguimiento-grupo.csv` se queda vacía: solo es la plantilla.
 
 ## 1. Una hoja, tres tipos de fila
 
@@ -40,7 +40,7 @@ en un solo CSV.
 | `nivel_diagnostico_ago` | `refuerzo`, `medio` o `alto`, del diagnóstico de agosto. Basta en una fila por estudiante; si lo repites, que coincida | Diagnóstico de agosto | Lo usa el indicador 6 |
 | `prediccion`, `postdiccion` | Casillas de la hoja de calibración: la calificación que espera al **recibir** el examen y la que cree haber obtenido al **entregarlo** (`04` §2.3) | Hoja de calibración | Indicador 5 |
 | `calificacion` | Calificación real del examen | Examen calificado | Indicadores 5 y 6 |
-| `escala` | Puntos máximos del examen: `100` en E2 y E3 (`04` §2.3), `60` en los exámenes de práctica (S13 y S06 de U5). Vacía = 10. Predicción, postdicción y calificación de la fila van en esta misma escala: si la hoja de calibración pidió la calificación sobre 10 (la predicción del Examen 2 en la hoja de S13), escribe la calificación real también sobre 10 y deja `escala` vacía | Examen | — |
+| `escala` | Puntos máximos del examen: `100` en E2 y E3, `60` en los exámenes de práctica (S13 y S06 de U5) (`04` §2.3). Vacía = 10 (p. ej., E1 cargado desde el sistema institucional). Predicción, postdicción y calificación de la fila van en esta misma escala, la del instrumento: 0–100 en los departamentales, 0–60 en los de práctica | Examen | — |
 | `notas` | Una línea: error más frecuente del *exit ticket* (con el número del Anexo A), qué se reexplica, y los datos que el plan de sesión pide y no tienen columna (equipos sin pre-lab, mini-defensas hechas, conteo por opción de una pregunta). Sin comas: usa punto y coma | Plan de sesión | — |
 
 ## 3. Los 5 minutos después de cada sesión
@@ -85,7 +85,7 @@ La participación individual (3 % del 2.º parcial, `04` §1) no se lleva en est
 | 2. *Exit ticket* | `exit_mal` / (bien + parcial + mal) | > 30 % | La siguiente sesión abre con el error más frecuente y el ejemplo resuelto se repite con otro caso |
 | 3. Entregas a tiempo | `entregas_a_tiempo_pct` | < 80 % | Se revisa la carga de esa semana en `calendario-27-1.md` antes de añadir nada |
 | 4. Avance por hito | `hito_pct` por equipo | algún equipo < 60 % | Revisión con ese equipo antes del siguiente hito |
-| 5. Brecha de calibración | Promedio de (postdicción − calificación), llevado a 0–10; la predicción se reporta aparte | > 1.5 de sobreestimación | Al grupo se le muestra el promedio y cada quien recibe su propia brecha (`04` §2.3) |
+| 5. Brecha de calibración | Promedio de (postdicción − calificación), llevado a 0–10; la predicción se reporta aparte | > 1.5 de sobreestimación: el 15 % del puntaje total (15/100 o 9/60) | Al grupo se le muestra el promedio y cada quien recibe su propia brecha (`04` §2.3) |
 | 6. Mejora de examen 1 → 2 → 3 | Mediana del cambio de calificación (0–10) de E1 a E2 y de E2 a E3, por nivel del diagnóstico | Mediana ≤ 0 en `refuerzo` | Se revisan los apoyos de la unidad para ese grupo (`01`, P10) |
 
 La salida solo trae agregados y claves de equipo: se puede pegar en las notas del curso sin exponer a nadie. Con

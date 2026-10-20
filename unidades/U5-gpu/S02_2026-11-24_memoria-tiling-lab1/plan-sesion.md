@@ -3,8 +3,10 @@
 # S02 · Jerarquía de memoria de la GPU, acceso coalescido y multiplicación por mosaicos · Práctica 6 · Laboratorio 1
 
 Tipo: laboratorio (variante 2.1 adaptada; caso "constructo nuevo en Lab 1" de `02-plantilla-sesion.md` §2.1):
-recuperación 5 min · mini-lección 25 min · bloque de laboratorio 50 min (= PRIMM corto de 20 min con el código
-de esta carpeta + Práctica 6 Partes A/B de 30 min) · punto de control 5 min · *exit ticket* 5 min. Suma 90.
+recuperación 5 min · autocalificación de la tarea de S01 y mini-lección 25 min · bloque de laboratorio 50 min (=
+PRIMM corto de 20 min con el código de esta carpeta + Práctica 6 Partes A/B de 30 min; en los minutos 50–62 el
+profesor hace las preguntas individuales de H2 pendientes mientras los equipos arrancan la Parte A) · punto de
+control 5 min · *exit ticket* 5 min. Suma 90.
 
 ## Objetivos (al terminar, el estudiante podrá…)
 
@@ -44,6 +46,10 @@ Crear; 3 → *exit ticket* Q1(a–b), CT2, tabla de rastreo I1; 4 → *exit tick
 - Proyector, cronómetro visible, tarjetas con números de lista, lista de equipos para registrar el pre-lab
   (vive en el repositorio de cada equipo, `practicas/P6/prelab/`).
 - Cada pareja: una laptop con cuenta de Colab/Kaggle (de la Práctica 1) y el repositorio clonado.
+- Lista de integrantes con la pregunta individual de H2 pendiente (sale de la S01) y el banco de preguntas de
+  `proyecto/hitos/H2-avance-2.md` §6.
+- Solo con más de 12 equipos: lista de mini-defensas (qué equipos se defienden hoy y cuáles el martes 1 de
+  diciembre), para publicarla al inicio de la sesión.
 - `practicas/P6-gpu/README.md` y su rúbrica impresa (para las mini-defensas). Si el README no está en el
   repositorio la víspera, hoy se aplica la alternativa del bloque 50–80 (Modificar + Crear de la práctica guiada).
 - Pizarrón: dibujar antes de empezar la matriz 4×4 dividida en mosaicos 2×2 y una fila de 32 puntos.
@@ -58,28 +64,28 @@ pre-lab incluye la comprobación de que se obtiene GPU en Colab y en Kaggle (07 
 no la obtuvo, para emparejarlo en el minuto 30 con un equipo que sí la tenga.
 Al minuto 4, respuestas; manos por pregunta; anotar el conteo de Q1 y Q5.
 Respuestas esperadas: Q1 4 bloques y `if (i < n)`; Q5 4 bytes frente a 4096 bytes.
-Si Q1 < 60 %: reconstruir la fórmula del índice global en el pizarrón (3 min) dentro del bloque 5–7 antes
+Si Q1 < 60 %: reconstruir la fórmula del índice global en el pizarrón (3 min) dentro del bloque 5–9 antes
 de pasar a la malla 2D; recortar 3 min de la Práctica 6.
 
 ### 5–30 · Mini-lección: jerarquía de memoria y *tiling*
 
-**5–7 · Objetivos y anclaje.** Leer los cuatro objetivos. Conectar con el *exit ticket* de S01 según el error
-más frecuente que se anotó anoche. Si fue el índice global: "Ayer la mitad del grupo calculó mal qué hilo
-toca qué elemento; hoy ese índice decide además si la lectura es rápida o 32 veces más lenta". Si fue
-"hilo = núcleo": "Ayer varios escribieron que un hilo de CUDA es como un núcleo; hoy van a ver que 32 hilos
-comparten una sola instrucción y una sola petición de memoria, y eso cambia cómo se escribe el código".
-Proyecto: "La V3 es portar su V2 a GPU; la primera decisión será qué va a memoria compartida".
-La autocalificación de la tarea de S01 (2 min, clave en su `<details>`) se hace al minuto 30, no aquí: su
-ejercicio 3.2 (cuántas veces se lee cada `A[i][k]` con `N = 1024`) es la predicción P1 de hoy.
+**5–9 · Autocalificación de la tarea de S01, objetivos y anclaje.** Primero 2 min: autocalificar la tarea de S01 con
+la clave de su `<details>`; el profesor registra la entrega (manos por número de lista), no el acierto. Su ejercicio
+3.2 (cuántas veces se lee cada `A[i][k]` con `N = 1024`) es la predicción P1 de hoy. Después, leer los cuatro
+objetivos. Conectar con el *exit ticket* de S01 según el error más frecuente que se anotó anoche. Si fue el índice
+global: "Ayer la mitad del grupo calculó mal qué hilo toca qué elemento; hoy ese índice decide además si la lectura es
+rápida o 32 veces más lenta". Si fue "hilo = núcleo": "Ayer varios escribieron que un hilo de CUDA es como un núcleo;
+hoy van a ver que 32 hilos comparten una sola instrucción y una sola petición de memoria, y eso cambia cómo se escribe
+el código". Proyecto: "La V3 es portar su V2 a GPU; la primera decisión será qué va a memoria compartida".
 
-**7–13 · Jerarquía de memoria.** Tabla de `notas-estudiante.md` §1 en el proyector, fila por fila. Pensar
+**9–14 · Jerarquía de memoria.** Tabla de `notas-estudiante.md` §1 en el proyector, fila por fila. Pensar
 en voz alta: "Si tengo un valor que solo usa este hilo, registro. Si lo usan los 256 hilos de mi bloque en
 esta fase, compartida. Si lo usan todos los bloques, global: y voy a pagar ~500 ciclos cada vez, así que
 quiero leerlo lo menos posible y de la forma más barata". Dar las latencias como órdenes de magnitud y
 decir explícitamente que la diferencia global/compartida es de uno a dos órdenes (idea 23). Alcance en una
 línea: registros → hilo; compartida → bloque; global y constante → malla y anfitrión.
 
-**13–18 · Coalescencia.** Fila de 32 puntos en el pizarrón: 32 hilos del *warp*. Caso A: leen
+**14–18 · Coalescencia.** Fila de 32 puntos en el pizarrón: 32 hilos del *warp*. Caso A: leen
 `M[fila*n + tx]`: 128 bytes contiguos, una transacción. Caso B: `M[tx*n + col]`: 32 segmentos. Regla:
 "`threadIdx.x` recorre el índice que cambia más rápido en memoria". Transposición: leer por filas y escribir
 por columnas; algo tiene que ser saltado *en global*… salvo que el cambio de índices ocurra en compartida.
@@ -102,9 +108,9 @@ Arranque (1 min): parejas; conductor abre el notebook en Colab y activa la GPU; 
 `matmul_tiled.cu` en el repositorio. Cambio de roles al minuto 40. Quien no tenga GPU disponible trabaja
 con `make test` y el simulador (`NUMBA_ENABLE_CUDASIM=1 python3 matmul_numba.py --n 64 --tile 16`).
 
-- **30–35 Predecir.** Primero 2 min: autocalificar la tarea de S01 con su clave; el profesor registra entrega.
-  Su ejercicio 3.2 ya es P1 con `N = 1024`, así que P1 se contesta en 30 s y el tiempo va a P2–P4. Por
-  escrito; no se corre nada. El profesor circula y lee predicciones; no corrige.
+- **30–35 Predecir.** El ejercicio 3.2 de la tarea de S01 (autocalificada al minuto 5) ya es P1 con `N = 1024`,
+  así que P1 se contesta en 30 s y el tiempo va a P2–P4. Por escrito; no se corre nada. El profesor circula y
+  lee predicciones; no corrige.
 - **35–40 Ejecutar.** Pasos 2–3 del notebook (o CPU + simulador). Comparar con P1 y P3.
 - **40–50 Investigar.** I1 (tabla de rastreo del segundo hilo), I2 (preguntas 1–4), I3 (los dos programas
   sin error que fallan), I4 si da tiempo. Modificar y Crear quedan para casa y para el Lab 2 (martes 1 de
@@ -144,14 +150,26 @@ Enunciado: `practicas/P6-gpu/README.md` (publicado el lunes 23 de noviembre). Fl
   la pregunta de la mini-defensa. Lo que no quede al minuto 80 se termina en casa antes del Lab 2 (martes 1 de
   diciembre); el criterio no cambia. En 13 min lo realista es corregir `TODO(1)` y `TODO(2)`.
 
-El profesor circula con la rúbrica. **Mini-defensas** (02 §2.1): 2 min por equipo, al azar con tarjetas; una
-pregunta por integrante sobre el código que tengan en pantalla ("¿qué hace esta línea?"); la segunda ("¿qué
-pasaría si la quito?") solo si la primera falla, y cuenta la mejor de las dos. Con más de 12 equipos, hoy se
-defiende la mitad y la otra mitad el martes 1 de diciembre (lista publicada al cerrar esta sesión). Las
-líneas preferidas hoy: cada `__syncthreads()`, el `? … : 0.0f` de la carga, la guardia de escritura y el
-`cudaGetLastError()` tras el lanzamiento. Una respuesta que muestre que no se entiende el código propio se
-anota (afecta "Proceso e integridad" de ese integrante en la P6); quien pide responder por escrito lo hace
-en el momento (5 min, papel).
+**50–62 · Preguntas individuales pendientes de H2** (opción A de `proyecto/hitos/H2-avance-2.md` §8). Los
+equipos arrancan la Parte A sin el profesor. Él llama, en el orden de la lista de la S01, a cada integrante cuya
+pregunta individual no cupo el lunes 23: una pregunta del banco de H2 §6 sobre la parte que firmó, con su
+repositorio abierto en la etiqueta `H2`, 30 s por persona; la segunda solo si falla la primera, y cuenta la mejor
+de las dos. Quien lo pida responde por escrito en el momento (5 min, papel). Con ≈ 20 pendientes se ocupan los
+12 minutos; si son menos, el profesor empieza a circular antes; si son más, las que falten van mientras circula,
+antes de las mini-defensas.
+
+**62–80 · El profesor circula con la rúbrica.** **Mini-defensas** (02 §2.1; `practicas/P6-gpu/entrega.md` §4): se
+hacen en el Lab 2 (martes 1 de diciembre). Solo con más de 12 equipos se defiende hoy la mitad de la lista
+publicada al inicio de la sesión (la otra mitad, el 1 de diciembre); dentro de la lista, el orden es al azar con
+tarjetas. Con 12 equipos o menos, hoy no hay mini-defensas y el bloque es de acompañamiento. Reglas: 2 min por
+equipo; una pregunta por integrante sobre el código que tengan en pantalla ("¿qué hace esta línea?"); la segunda
+("¿qué pasaría si la quito?") solo si la primera falla, y cuenta la mejor de las dos. Las líneas preferidas hoy:
+cada `__syncthreads()`, el `? … : 0.0f` de la carga, la guardia de escritura y el `cudaGetLastError()` tras el
+lanzamiento. Una respuesta que muestre que no se entiende el código propio se anota (afecta "Proceso e
+integridad" de ese integrante en la P6); quien pide responder por escrito lo hace en el momento (5 min, papel).
+Mini-defensa pendiente (alguien de la lista de hoy faltó): se repone en el Lab 2; si no puede asistir, envía un
+video no listado de ≤ 3 min en el que explica dos fragmentos de su código que elige el profesor, a más tardar el
+martes 15 de diciembre, 08:30 (`04-evaluacion.md` §5).
 
 Si la Práctica 6 aún no estuviera publicada en el repositorio al llegar la sesión, el bloque se cubre con
 las fases Modificar (pasos 5–6 del notebook) y Crear de la práctica guiada, que producen la misma evidencia
@@ -170,9 +188,9 @@ Si CT2 sale > 80 % al primer voto, se lanza CT3 en su lugar; si no, CT3 abre la 
 
 `exit-ticket.md` en papel, individual. Mientras escriben, anunciar:
 
-- Tarea espaciada (`tarea-espaciada.md`): tabla `n × TILE` y "dónde vive cada dato" + intercalado +
-  preparación de S03. Sin peso propio; se autocalifica con la clave al inicio de S03 (jueves 26 de noviembre,
-  10:30; 2 min del bloque 5–10) y el profesor registra la entrega (07 §A.10).
+- Tarea espaciada (`tarea-espaciada.md`, en `tareas/<usuario-github>/U5-S02.md`): tabla `n × TILE` y "dónde
+  vive cada dato" + intercalado + preparación de S03. Vence al inicio de S03 (jueves 26 de noviembre, 10:30). Sin
+  peso propio; se autocalifica con la clave en los minutos 5–10 de S03 y el profesor registra la entrega (07 §A.10).
 - S03: jueves 26 de noviembre, 10:30–12:00, salón 3208: sincronización y reducción en GPU. Traer la
   predicción del ejercicio 3 de la tarea.
 - Práctica 6: Lab 2 el martes 1 de diciembre 08:30 (mediciones, punto de control, mini-defensas); fecha
@@ -224,12 +242,12 @@ antes de la barrera.
 | 3 Lecturas y barreras | *Exit ticket* Q1 con los dos números explicados; I1 segunda fila correcta; CT2 | > 30 % "mal" en Q1 |
 | 4 Verificación | *Exit ticket* Q2(b) nombra `cudaGetLastError`; I3 reconocido como "sin error y mal" | > 30 % cree que `TILE=64` corre |
 
-Mini-defensas: anotar por equipo si explican las dos barreras sin leer el comentario.
+Mini-defensas (si hoy las hubo): anotar por equipo si explican las dos barreras sin leer el comentario.
 
 ## Notas post-sesión
 
 - Conteos: recuperación Q1 __ / Q5 __; CT1 primer voto __ % → revoto __ %; CT2 __ % → __ %.
 - Montones del *exit ticket*: bien __ · parcial __ · mal __. Error más frecuente: ______ (abre S03).
 - ¿Se llegó a I3 antes del minuto 50? ¿Cuántos equipos terminaron la Parte A de la P6? ¿Qué pregunta de
-  mini-defensa falló más?
+  mini-defensa falló más? Preguntas de H2 que quedaron pendientes al cerrar: __.
 - Qué cambiar la próxima vez que se dé esta sesión.
