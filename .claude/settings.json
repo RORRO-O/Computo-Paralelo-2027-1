@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "OMPI_ALLOW_RUN_AS_ROOT": "1",
+    "OMPI_ALLOW_RUN_AS_ROOT_CONFIRM": "1",
+    "OMPI_MCA_btl_vader_single_copy_mechanism": "none",
+    "MPIRUN_FLAGS": "--oversubscribe",
+    "TSAN_OPTIONS": "halt_on_error=0 second_deadlock_stack=1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(gcc:*)",
+      "Bash(g++:*)",
+      "Bash(clang:*)",
+      "Bash(clang++:*)",
+      "Bash(mpicc:*)",
+      "Bash(mpicxx:*)",
+      "Bash(mpirun:*)",
+      "Bash(mpiexec:*)",
+      "Bash(nvcc:*)",
+      "Bash(make:*)",
+      "Bash(cmake:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(pytest:*)",
+      "Bash(pip install:*)",
+      "Bash(pip list:*)",
+      "Bash(valgrind:*)",
+      "Bash(gdb:*)",
+      "Bash(hyperfine:*)",
+      "Bash(nproc)",
+      "Bash(lscpu:*)",
+      "Bash(uptime)",
+      "Bash(pandoc:*)",
+      "Bash(./verificar.sh:*)",
+      "Bash(bash tests/run_tests.sh:*)",
+      "Bash(./medir.sh:*)",
+      "Bash(herramientas/medir.sh:*)",
+      "Bash(./herramientas/medir.sh:*)",
+      "Bash(.claude/skills/medir/scripts/bench.sh:*)",
+      "Bash(.claude/skills/race-check/scripts/race-check.sh:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git shortlog:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git switch:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(git branch:*)",
+      "Bash(git fetch:*)",
+      "Bash(git push origin:*)",
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep"
+    ],
+    "deny": [
+      "Read(./cp-env/**)",
+      "Edit(./cp-env/**)",
+      "Read(./**/.env)",
+      "Edit(./**/.env)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh",
+            "timeout": 300
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/guard-bash.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-source.sh",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

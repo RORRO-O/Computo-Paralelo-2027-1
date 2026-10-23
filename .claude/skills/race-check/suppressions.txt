@@ -1,0 +1,5 @@
+# Supresiones de ThreadSanitizer para race-check.sh. Los runtimes de OpenMP (libomp de LLVM, libgomp de GCC) no están
+# instrumentados y sus locks internos producen falsos positivos. Las carreras en TU código siguen reportándose.
+called_from_lib:libomp.so
+called_from_lib:libomp.so.5
+called_from_lib:libgomp.so.1

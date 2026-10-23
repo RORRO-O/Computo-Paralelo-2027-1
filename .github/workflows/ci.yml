@@ -1,0 +1,69 @@
+# CI del curso · Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1
+# Compila y prueba todo el código del repositorio con las banderas de docs/CONVENCIONES.md:
+#   - si existe ./verificar.sh (make clean && make && make test en cada carpeta con Makefile, resumen PASS/PEND/FAIL), lo usa;
+#   - si no, hace lo mismo carpeta por carpeta.
+# Además falla si hay binarios, salidas de prueba, entornos virtuales o material docente versionados.
+name: Verificar código del curso
+
+on:
+  push:
+    branches: ["main", "claude/**", "practica-*"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      OMPI_ALLOW_RUN_AS_ROOT: "1"
+      OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
+      MPIRUN_FLAGS: "--oversubscribe"
+      NUMBA_ENABLE_CUDASIM: "1"
+      OMP_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sin binarios ni salidas versionadas
+        run: |
+          malos=$(git ls-files | grep -E '(^|/)(bin/|tests/out/|cp-env/|docente/|resultados/salidas/)|\.(o|out|pgm|tsan)$|(^|/)perf\.data' || true)
+          if [ -n "$malos" ]; then
+            echo "::error::archivos que no deben versionarse (CONVENCIONES §5-6):"; echo "$malos"; exit 1
+          fi
+          echo "OK: sin binarios ni salidas versionadas"
+
+      - name: Instalar toolchain (gcc con OpenMP ya viene; MPI aparte)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends openmpi-bin libopenmpi-dev
+          gcc --version | head -1; mpicc --version | head -1; nproc
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Paquetes de Python del curso
+        run: pip install --quiet numpy matplotlib numba mpi4py pytest
+
+      - name: verificar.sh (o make && make test por carpeta)
+        run: |
+          set -u
+          if [ -x ./verificar.sh ]; then
+            ./verificar.sh
+          else
+            fallo=0; vistos=0
+            while IFS= read -r mk; do
+              d=$(dirname "$mk"); vistos=$((vistos+1))
+              echo "::group::$d"
+              if ( cd "$d" && make -s clean >/dev/null 2>&1; make -s && make -s test ) </dev/null; then
+                echo "PASS $d"
+              else
+                echo "::error::falló $d"; fallo=1
+              fi
+              echo "::endgroup::"
+            done < <(git ls-files | grep -E '(^|/)Makefile$' | sort)
+            [ "$vistos" -eq 0 ] && echo "No hay Makefiles que verificar."
+            exit "$fallo"
+          fi
