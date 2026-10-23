@@ -228,3 +228,15 @@ cp-env/
 
 # Material exclusivo del profesor (exámenes, claves, soluciones): no se publica
 docente/
+
+# Cómputo Paralelo: artefactos de compilación, pruebas y medición (los CSV, PNG y entorno.txt de resultados/ SÍ se versionan)
+bin/
+tests/out/
+*.pgm
+*.tsan
+resultados/salidas/
+perf.data*
+cachegrind.out.*
+# Configuración personal de Claude Code (la compartida va en .claude/settings.json)
+.claude/settings.local.json
+CLAUDE.local.md
