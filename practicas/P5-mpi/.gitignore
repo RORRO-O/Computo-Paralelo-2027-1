@@ -1,0 +1,6 @@
+# Salidas de las pruebas y corridas de prueba de escalado.sh (no se versionan).
+# Los CSV y PNG de resultados/ SÍ se versionan en el repositorio del equipo: son evidencia de la Parte D.
+tests/out/
+resultados-prueba/
+resultados-prueba.log
+__pycache__/

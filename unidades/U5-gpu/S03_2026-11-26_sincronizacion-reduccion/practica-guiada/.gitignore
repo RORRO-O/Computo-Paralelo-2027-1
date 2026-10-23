@@ -1,0 +1,14 @@
+# Salidas de compilación y de ejecución de esta práctica guiada (no se versionan)
+*.o
+reduce_sum
+reduce_sum_sin_sync
+reduce_sum_cpu
+histogram
+histogram256
+histogram_cpu
+histogram_cpu256
+reduce_max
+resultados.csv
+resultados_S03_*.csv
+__pycache__/
+tests/out/

@@ -225,3 +225,6 @@ practicas/*/src/hello_omp
 *.out
 cp-env/
 .DS_Store
+
+# Material exclusivo del profesor (exámenes, claves, soluciones): no se publica
+docente/

@@ -1,0 +1,11 @@
+# Binarios y corridas propias de la práctica guiada S05 (no se versionan; convenciones §6).
+# La corrida de referencia del entorno de autoría vive en resultados-ejemplo/ y sí se versiona.
+jacobi_seq
+jacobi_mpi
+hybrid_min
+pingpong
+*.o
+resultados/
+resultados-prueba/
+resultados-prueba.log
+resultados-chico/

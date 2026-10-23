@@ -1,0 +1,7 @@
+# Salidas de `make run` y caché de Python: se regeneran, no se versionan.
+salida/
+__pycache__/
+# Registros reales con calificaciones y usuarios de GitHub: van en docente/ (fuera del repositorio público).
+# Si por error se guardan aquí, no se versionan. Los de ejemplo/ sí se versionan.
+/registro-*.csv
+/calificaciones*.csv

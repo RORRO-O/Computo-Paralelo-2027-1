@@ -1,0 +1,13 @@
+# Binarios y salidas generadas por make / Colab (no se versionan; make clean los borra)
+bench_cpu
+bench_gpu
+medir_eventos
+pinned_streams
+*.o
+resultados*.csv
+perfil*.csv
+*.png
+*.nsys-rep
+*.sqlite
+tests/out/
+__pycache__/

@@ -1,0 +1,13 @@
+# Binarios generados por el Makefile de esta práctica (no se versionan)
+counter_buggy
+sum_variants
+private_buggy
+barrier_demo
+nowait_buggy
+histogram_buggy
+histogram_critical
+histogram_atomic
+histogram_local
+histogram_locks
+*_tsan
+*_O0
