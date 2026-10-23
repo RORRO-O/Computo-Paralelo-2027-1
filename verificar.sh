@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Verifica todo el código del repositorio: en cada directorio con Makefile ejecuta
 #   make clean && make && make test, y al final make clean,
-# y resume PASS/PEND/FAIL. Uso: ./verificar.sh [ruta-raíz]   (por defecto, el repositorio completo,
+# y resume PASS/PEND/OMIT/FAIL. OMIT: la carpeta requiere nvcc y no está instalado (se verifica en Colab/Kaggle
+# o en una máquina con GPU). Uso: ./verificar.sh [ruta-raíz]   (por defecto, el repositorio completo,
 # incluida la carpeta docente/ si existe). Variables: TIMEOUT_S (por directorio, 300 por defecto).
 set -u
 ROOT="${1:-.}"
@@ -11,7 +12,7 @@ if [ "$(id -u)" = "0" ]; then
 fi
 export MPIRUN_FLAGS="${MPIRUN_FLAGS:---oversubscribe}"
 export NUMBA_ENABLE_CUDASIM="${NUMBA_ENABLE_CUDASIM:-1}"
-pass=0; pend=0; fail=0; failed=()
+pass=0; pend=0; omit=0; fail=0; failed=()
 LOGDIR=$(mktemp -d "${TMPDIR:-/tmp}/verificar.XXXXXX"); B="$LOGDIR/build.log"; T="$LOGDIR/test.log"; trap 'rm -rf "$LOGDIR"' EXIT
 # Cada carpeta corre con stdin en /dev/null: mpirun lee stdin y se comería la lista de Makefiles.
 # PEND: esqueleto del estudiante que compila y cuyas únicas pruebas en FAIL dicen "TODO pendiente"
@@ -26,6 +27,11 @@ while IFS= read -r mk; do
     timeout "$TIMEOUT_S" make -s clean >/dev/null 2>&1   # sin binarios en el árbol al terminar
     exit "$r" ) </dev/null
   rc=$?
+  # OMIT: la carpeta requiere nvcc y esta máquina no lo tiene (sin CUDA se verifica en Colab/Kaggle o con GPU).
+  if [ "$rc" -ne 0 ] && [ "$rc" -ne 124 ] && grep -qE 'nvcc: (No such file or directory|not found|command not found)' "$B" "$T" 2>/dev/null; then
+    printf '   OMIT  (requiere nvcc y no está instalado; se verifica en Colab/Kaggle o en una máquina con GPU)\n'
+    omit=$((omit+1)); continue
+  fi
   if [ "$rc" -eq 0 ] || { [ "$rc" -ne 90 ] && [ "$rc" -ne 124 ] && grep -qE '^[[:space:]]*FAIL' "$T" 2>/dev/null \
        && ! grep -E '^[[:space:]]*FAIL' "$T" | grep -qv 'TODO pendiente'; }; then
     if grep -qiE 'warning:' "$B"; then
@@ -38,6 +44,6 @@ while IFS= read -r mk; do
     fail=$((fail+1)); failed+=("$d")
   fi
 done < <(find "$ROOT" -name Makefile -not -path '*/.git/*' -not -path '*/cp-env/*' | sort)
-printf '\nResumen: %d PASS, %d PEND, %d FAIL\n' "$pass" "$pend" "$fail"
+printf '\nResumen: %d PASS, %d PEND, %d OMIT, %d FAIL\n' "$pass" "$pend" "$omit" "$fail"
 for d in "${failed[@]:-}"; do [ -n "$d" ] && printf '  - %s\n' "$d"; done
 [ "$fail" -eq 0 ]
