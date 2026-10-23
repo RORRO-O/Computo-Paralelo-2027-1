@@ -1,0 +1,15 @@
+# Binarios y salidas generadas por el Makefile de esta práctica (no se versionan)
+ejemplo_columna_split
+caza1_orden_send_buggy
+caza2_bcast_solo_raiz_buggy
+caza3_recv_corto_buggy
+# Correcciones del estudiante (fases Modificar y Crear): se compilan aquí, no se versionan en el curso
+caza1_orden_send
+caza2_bcast_solo_raiz
+caza3_recv_corto
+caza4_*
+!caza4_*.c
+*.o
+*.out
+speedup_ejemplo.png
+__pycache__/

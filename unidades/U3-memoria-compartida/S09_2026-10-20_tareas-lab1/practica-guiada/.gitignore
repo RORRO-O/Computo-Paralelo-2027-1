@@ -1,0 +1,10 @@
+# Binarios generados por el Makefile de esta práctica (no se versionan)
+mergesort_tasks
+fib_tasks
+fib_buggy
+taskwait_buggy
+list_tasks
+taskloop_demo
+tree_sum_tasks
+*_tsan
+*.o

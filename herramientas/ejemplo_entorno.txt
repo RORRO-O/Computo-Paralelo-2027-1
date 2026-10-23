@@ -1,0 +1,14 @@
+fecha: 2026-10-20 05:09:02 +0000
+sistema: Linux 6.18.44-fc-v139 x86_64
+CPU(s): 4
+Model name: Intel(R) Xeon(R) Processor @ 2.10GHz
+Thread(s) per core: 1
+Core(s) per socket: 4
+Socket(s): 1
+MemTotal: 16479424 kB
+cuota_cpu_cgroup_v1 (us por periodo; -1 = sin límite): -1
+compilador: gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+mpi: mpirun (Open MPI) 4.1.6
+corrida: 2026-10-20 05:08:42 +0000 · csv=mediciones.csv · config=secuencial · lanzador=OMP_NUM_THREADS=P · hilos=1 · repeticiones=5 (+1 de calentamiento) · clave=tiempo_s · comando=./ejemplo_cronometro_seq.out 800000000
+corrida: 2026-10-20 05:08:48 +0000 · csv=mediciones.csv · config=openmp · lanzador=OMP_NUM_THREADS=P · hilos=1 2 4 8 · repeticiones=5 (+1 de calentamiento) · clave=tiempo_s · comando=./ejemplo_cronometro.out 800000000
+corrida: 2026-10-20 05:09:02 +0000 · csv=mediciones.csv · config=mpi · lanzador=mpirun --oversubscribe -np P · hilos=1 2 4 · repeticiones=5 (+1 de calentamiento) · clave=tiempo_s · comando=./ejemplo_mpi.out 800000000

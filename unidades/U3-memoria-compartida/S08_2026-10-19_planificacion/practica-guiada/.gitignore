@@ -1,0 +1,8 @@
+# Binarios generados por el Makefile de esta práctica (no se versionan)
+schedule_map
+collapse_map
+unbalanced
+nowait_buggy
+nowait_tsan
+*_tsan
+*.o

@@ -1,0 +1,7 @@
+# Práctica 4 · archivos generados que no se versionan
+bin/
+tests/out/
+*.o
+*.pgm
+*_tsan
+__pycache__/

@@ -226,6 +226,9 @@ practicas/*/src/hello_omp
 cp-env/
 .DS_Store
 
+# Material exclusivo del profesor (exámenes, claves, soluciones): no se publica
+docente/
+
 # Cómputo Paralelo: artefactos de compilación, pruebas y medición (los CSV, PNG y entorno.txt de resultados/ SÍ se versionan)
 bin/
 tests/out/
