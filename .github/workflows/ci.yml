@@ -1,6 +1,7 @@
 # CI del curso · Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1
 # Compila y prueba todo el código del repositorio con las banderas de docs/CONVENCIONES.md:
-#   - si existe ./verificar.sh (make clean && make && make test en cada carpeta con Makefile, resumen PASS/PEND/FAIL), lo usa;
+#   - si existe ./verificar.sh (make clean && make && make test en cada carpeta con Makefile, resumen PASS/PEND/OMIT/FAIL), lo usa;
+#     el runner no tiene nvcc: las carpetas de CUDA quedan en OMIT y se verifican en Colab/Kaggle o con GPU;
 #   - si no, hace lo mismo carpeta por carpeta.
 # Además falla si hay binarios, salidas de prueba, entornos virtuales o material docente versionados.
 name: Verificar código del curso
@@ -45,7 +46,7 @@ jobs:
           python-version: "3.12"
 
       - name: Paquetes de Python del curso
-        run: pip install --quiet numpy matplotlib numba mpi4py pytest
+        run: pip install --quiet numpy matplotlib numba mpi4py pytest nbformat
 
       - name: verificar.sh (o make && make test por carpeta)
         run: |

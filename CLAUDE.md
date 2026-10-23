@@ -40,10 +40,11 @@ docente/            SOLO PROFESOR, en .gitignore: exámenes, claves, soluciones,
 - Todo directorio con código tiene un `Makefile` con `all`, `run`, `test`, `clean`. `make test` termina en 0 solo si
   todo pasa.
 - `./verificar.sh` recorre todos los Makefiles del repositorio (`make clean && make && make test`) y resume
-  PASS/PEND/FAIL. Córrelo antes de cualquier PR que toque código.
+  PASS/PEND/OMIT/FAIL (OMIT = requiere `nvcc` y no hay; se verifica en Colab/Kaggle o con GPU). Córrelo antes de
+  cualquier PR que toque código. Requiere `nbformat` en Python para los scripts de la entrega final.
 - Sin warnings. Las carreras de datos intencionales van solo en archivos `*_buggy.c` y se explican.
-- Hook automático: al editar un `.c`, `.cpp`, `.cu` o `.py`, `.claude/hooks/check-source.sh` lo compila con
-  `-fsyntax-only` y te devuelve errores y warnings. Corrígelos antes de seguir.
+- Hook automático: al editar un `.c`, `.cpp`, `.cu` o `.py`, `.claude/hooks/check-source.sh` lo compila con las
+  banderas del curso (a `/dev/null`, sin enlazar) y te devuelve errores y warnings. Corrígelos antes de seguir.
 
 ## Medición de rendimiento (resumen del protocolo)
 

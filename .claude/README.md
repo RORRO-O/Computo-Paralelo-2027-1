@@ -12,7 +12,7 @@ la sección "Fuera del repositorio".
 |---|---|---|
 | `../CLAUDE.md` | Contexto del curso: estructura, banderas, protocolo de medición, reglas de código, privacidad, tabla de agentes y skills | Siempre, al inicio de cada sesión |
 | `settings.json` | Variables de entorno para MPI como root (`OMPI_ALLOW_RUN_AS_ROOT*`, `MPIRUN_FLAGS=--oversubscribe`), permisos del toolchain, registro de los tres hooks | Siempre. En una máquina local los `allow` aplican tras aceptar el diálogo de confianza de la carpeta |
-| `hooks/session-start.sh` | Solo en sesiones cloud: comprueba e instala lo que falte (MPI, Archer, hyperfine, numba, mpi4py…), exporta variables y resume el hardware al contexto | Al iniciar o reanudar una sesión cloud |
+| `hooks/session-start.sh` | Solo en sesiones cloud: comprueba e instala lo que falte (MPI, Archer, hyperfine, numba, mpi4py, nbformat…), exporta variables y resume el hardware al contexto | Al iniciar o reanudar una sesión cloud |
 | `hooks/guard-bash.sh` | Bloquea `rm -rf` (en todas sus formas) y `git push --force`; pide confirmación para `git reset --hard`, `git clean -f`, `git checkout -- .`, `git branch -D`, `git stash drop` | Antes de cada comando de shell |
 | `hooks/check-source.sh` | Compila con `-std=c11 -O2 -Wall -Wextra -fopenmp -fsyntax-only` cada `.c/.cpp/.cu/.py` editado y devuelve errores y warnings a Claude | Después de cada edición |
 | `agents/*.md` | Subagentes: `openmp-reviewer`, `mpi-reviewer`, `cuda-reviewer`, `perf-analyst`, `revisor-material`, `calificador`, `tutor-socratico` | Cuando Claude delega o se le pide por nombre |

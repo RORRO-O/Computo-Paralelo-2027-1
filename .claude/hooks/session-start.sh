@@ -29,7 +29,7 @@ fi
 
 # --- Python: solo lo que falta ---------------------------------------------------------------------------------
 PIP=()
-for m in numpy matplotlib numba mpi4py pandas pytest; do python3 -c "import $m" >/dev/null 2>&1 || PIP+=("$m"); done
+for m in numpy matplotlib numba mpi4py pandas pytest nbformat; do python3 -c "import $m" >/dev/null 2>&1 || PIP+=("$m"); done
 if [ ${#PIP[@]} -gt 0 ]; then
   log "pip install ${PIP[*]}"
   pip install --quiet "${PIP[@]}" >/dev/null 2>&1 \

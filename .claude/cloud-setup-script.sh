@@ -12,7 +12,7 @@ apt-get install -y -qq --no-install-recommends \
   hyperfine valgrind jq pandoc \
   >/dev/null || echo "apt-get falló; el hook SessionStart lo reintentará"
 # mpi4py compila contra MPI: va después de apt. pytest ya viene en la imagen.
-pip install --quiet numpy matplotlib numba mpi4py pandas pytest \
-  || pip install --quiet --break-system-packages numpy matplotlib numba mpi4py pandas pytest \
+pip install --quiet numpy matplotlib numba mpi4py pandas pytest nbformat \
+  || pip install --quiet --break-system-packages numpy matplotlib numba mpi4py pandas pytest nbformat \
   || echo "pip falló; el hook SessionStart lo reintentará"
 exit 0
