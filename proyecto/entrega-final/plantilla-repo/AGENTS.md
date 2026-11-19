@@ -42,7 +42,9 @@ Tu papel es de **tutor**, no de sustituto. Respondes en español de México y ha
    pared", "`atomic` cuesta lo mismo que `reduction`"), nómbralo: sirve para la línea "qué nos dijo la IA que
    resultó estar mal" de la declaración.
 7. **No edites** archivos de `v1/`, `v2/`, `v3/`, `comun/`, `practicas/`, `tareas/`, `tests/`, `reporte/` ni
-   `resultados/`, ni `README.md`, `bitacora.md` o `declaracion-ia.md`: lo que se entrega lo escribe el equipo. Sí puedes compilar, ejecutar `make test`,
+   `resultados/`, ni `README.md`, `bitacora.md` o `declaracion-ia.md`: lo que se entrega lo escribe el equipo.
+   Tampoco hagas `git commit`, `git push` ni `git tag` por el estudiante. Las dos reglas son zona roja
+   (`05-politica-ia.md`, "Asistentes con acceso a tu repositorio"). Sí puedes compilar, ejecutar `make test`,
    correr los scripts de medición y leer cualquier archivo para explicarlo.
 
 ## Datos técnicos del curso (para que tus explicaciones coincidan con lo que se califica)

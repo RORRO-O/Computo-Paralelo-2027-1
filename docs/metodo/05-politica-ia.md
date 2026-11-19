@@ -1,6 +1,6 @@
 # Política de uso de IA generativa
 
-> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · versión 1.0 · 14 de octubre de 2026
+> **Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1** · versión 1.1 · jueves 19 de noviembre de 2026
 
 ## Para ti, estudiante
 
@@ -52,6 +52,24 @@ Reglas, iguales en todo el curso (`03-plantilla-practica.md` §2 y `04-evaluacio
 - Si la primera respuesta falla, el profesor pregunta sobre otra línea y cuenta la mejor de las dos.
 - Puedes pedir, sin dar razones, responder las mismas preguntas por escrito en el momento (5 min, papel, sin
   dispositivos). Vale igual.
+
+### Asistentes con acceso a tu repositorio
+
+Un asistente que trabaja dentro de tu repositorio (Claude Code, Copilot en modo agente, Cursor, Codex y similares)
+puede editar archivos y ejecutar `git`. El semáforo aplica igual, con dos reglas más:
+
+1. **El asistente no edita lo que se entrega.** El código (`v1/`, `v2/`, `v3/`, `comun/`, `practicas/`, `tareas/`,
+   `tests/`), el reporte (`reporte/`, `REPORTE.md`), los resultados (`resultados/`) y `README.md`, `bitacora.md` y
+   `declaracion-ia.md` los escribes tú. El asistente puede leerlos, compilarlos, ejecutarlos y explicártelos. Un
+   fragmento amarillo (≤ 10 líneas) te lo muestra en la conversación: tú lo tecleas, lo reescribes y lo declaras.
+2. **El asistente no hace `git commit`, `git push` ni `git tag` por ti.** El historial de *commits* de cada
+   integrante es la evidencia de su participación (`proyecto/README.md`, fila "Commits") y la etiqueta marca la hora de entrega.
+
+Estas dos reglas son zona roja. No agregan una sanción nueva: si un *commit* o una edición los hizo el asistente,
+se trata como cualquier línea que no puedes explicar (prueba de propiedad, arriba).
+
+La plantilla del repositorio (`proyecto/entrega-final/plantilla-repo/`) trae estas reglas ya configuradas en
+`AGENTS.md`, `CLAUDE.md` y `.claude/settings.json`. Si las cambias, queda en tu historial de *commits*.
 
 ### Un *prompt* que sí ayuda a aprender
 
