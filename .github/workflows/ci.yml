@@ -3,7 +3,8 @@
 #   - si existe ./verificar.sh (make clean && make && make test en cada carpeta con Makefile, resumen PASS/PEND/OMIT/FAIL), lo usa;
 #     el runner no tiene nvcc: las carpetas de CUDA quedan en OMIT y se verifican en Colab/Kaggle o con GPU;
 #   - si no, hace lo mismo carpeta por carpeta.
-# Además falla si hay binarios, salidas de prueba, entornos virtuales o material docente versionados.
+# Además falla si hay binarios, salidas de prueba, entornos virtuales o material docente versionados, y si
+# herramientas/auditar_privacidad.py --todo encuentra datos personales en lo versionado.
 name: Verificar código del curso
 
 on:
@@ -34,6 +35,14 @@ jobs:
             echo "::error::archivos que no deben versionarse (CONVENCIONES §5-6):"; echo "$malos"; exit 1
           fi
           echo "OK: sin binarios ni salidas versionadas"
+
+      - name: Privacidad (CONVENCIONES §5): sin correos, boletas, CURP ni rutas de docente/ en lo versionado
+        run: |
+          if [ -f herramientas/auditar_privacidad.py ]; then
+            python3 herramientas/auditar_privacidad.py --todo
+          else
+            echo "Esta rama no tiene herramientas/auditar_privacidad.py; se omite."
+          fi
 
       - name: Instalar toolchain (gcc con OpenMP ya viene; MPI aparte)
         run: |

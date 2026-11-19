@@ -91,7 +91,10 @@ Es la estructura de la entrega final (`proyecto/entrega-final/README.md` §3), l
 `proyecto/entrega-final/scripts/verificar_entrega.sh`. Se adopta **desde H1**: así no se reorganiza nada en
 diciembre. El camino más corto es copiar `proyecto/entrega-final/plantilla-repo/` (compila, prueba y mide desde el
 primer *commit*; su cómputo es un marcador de posición que se sustituye por el problema del equipo) y agregar las
-plantillas de `proyecto/plantillas/` (ver su `README.md`).
+plantillas de `proyecto/plantillas/` (ver su `README.md`). La plantilla incluye `AGENTS.md`, `CLAUDE.md` y
+`.claude/`: las reglas de `docs/metodo/05-politica-ia.md` para el asistente de IA que uses dentro del repositorio
+(tutor, no sustituto). Si copias la carpeta a mano, usa `cp -a plantilla-repo/. <destino>/` para llevarte también
+los archivos que empiezan con punto.
 
 ```
 cp-6bm1-equipoNN/

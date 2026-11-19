@@ -39,6 +39,8 @@
       "Bash(./herramientas/medir.sh:*)",
       "Bash(.claude/skills/medir/scripts/bench.sh:*)",
       "Bash(.claude/skills/race-check/scripts/race-check.sh:*)",
+      "Bash(.claude/skills/nueva-sesion/scripts/nueva_sesion.py:*)",
+      "Bash(herramientas/auditar_privacidad.py:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
@@ -84,6 +86,11 @@
             "type": "command",
             "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/guard-bash.sh",
             "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/guard-privacidad.sh",
+            "timeout": 60
           }
         ]
       }

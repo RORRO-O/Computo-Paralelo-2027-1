@@ -26,7 +26,8 @@ docs/metodo/        Marco pedagógico, plantillas, evaluación, política de IA,
 planeacion/         Calendario sesión por sesión y mapa de evaluación
 unidades/U3-memoria-compartida/  U4-memoria-distribuida/  U5-gpu/   Sesiones Sxx_AAAA-MM-DD_tema/ (8 archivos fijos)
 practicas/P4-openmp/  P5-mpi/  P6-gpu/   README (enunciado), src/, tests/run_tests.sh, Makefile, rubrica.md, entrega.md
-proyecto/           Hitos H1/H2, entrega final, defensa, plantillas
+proyecto/           Hitos H1/H2, entrega final, defensa, plantillas; entrega-final/plantilla-repo/ es el repositorio
+                    plantilla de los equipos (con su AGENTS.md, CLAUDE.md y .claude/ en modo tutor)
 herramientas/       protocolo-medicion.md, medir.sh, graficar_speedup.py, cronometro.h, Makefile.openmp/.mpi, plantillas
 docente/            SOLO PROFESOR, en .gitignore: exámenes, claves, soluciones, seguimiento lleno
 .claude/            Hooks, subagentes y skills de Claude Code (tabla al final; detalle en .claude/README.md)
@@ -97,6 +98,7 @@ docente/            SOLO PROFESOR, en .gitignore: exámenes, claves, soluciones,
   la semana, hora, salón). Fechas siempre con día de la semana; nunca "la próxima clase".
 - Una carpeta de sesión `Sxx_AAAA-MM-DD_tema-corto/` contiene exactamente los 8 archivos de CONVENCIONES §1. Los
   distractores salen del Anexo A de `01-marco-pedagogico.md`. Las respuestas van en bloques `<details>`.
+- Una sesión nueva se empieza con `/nueva-sesion` (no a mano): garantiza estructura, encabezados y fechas.
 - Antes de dar por terminado material nuevo o modificado, pásalo por el subagente `revisor-material`.
 
 ## Privacidad y política de IA
@@ -106,6 +108,9 @@ docente/            SOLO PROFESOR, en .gitignore: exámenes, claves, soluciones,
 - La política de IA (`docs/metodo/05-politica-ia.md`) aplica a los estudiantes. Si quien te habla es un estudiante
   o estás en el repositorio de un equipo, no escribas por él más de 10 líneas de código ni reportes completos: actúa
   como `tutor-socratico`.
+- Guardarraíl automático: el hook `guard-privacidad.sh` corre `herramientas/auditar_privacidad.py` antes de cada
+  `git commit` y `git push` y los detiene si hay rutas de `docente/`, correos, boletas, CURP o líneas copiadas de
+  `docente/`. Un falso positivo comprobado se registra en `herramientas/privacidad-permitidos.txt`; no se rodea.
 - Al calificar con `calificador`, la retroalimentación puede publicarse en el PR del equipo; la nota numérica no (va
   a `docente/`).
 
@@ -124,6 +129,7 @@ docente/            SOLO PROFESOR, en .gitignore: exámenes, claves, soluciones,
 
 | Comando o agente | Para qué |
 |---|---|
+| `/nueva-sesion` | crea `Sxx_AAAA-MM-DD_tema/` con los 8 archivos, el encabezado con la fecha del calendario y una práctica guiada que ya pasa `make test`; lo que falta escribir queda como `[PENDIENTE: ...]` |
 | `/medir` | aplica el protocolo a un programa (`herramientas/medir.sh` o su respaldo) y deja CSV + `entorno.txt` |
 | `/graficar` | CSV del protocolo → `speedup.png`, `eficiencia.png` y tabla Markdown con Karp–Flatt |
 | `/race-check` | ThreadSanitizer (clang + Archer, o gcc) sobre un programa OpenMP con n pequeño |
@@ -131,12 +137,14 @@ docente/            SOLO PROFESOR, en .gitignore: exámenes, claves, soluciones,
 | `openmp-reviewer`, `mpi-reviewer`, `cuda-reviewer` | revisión de corrección y rendimiento de código paralelo |
 | `perf-analyst` | interpreta CSV: speedup, eficiencia, Karp–Flatt, Amdahl y la causa dominante |
 | `revisor-material` | revisa sesiones y prácticas contra CONVENCIONES y la guía de autoría |
+| `auditor-privacidad` | antes de commit, push o PR: corre `herramientas/auditar_privacidad.py` y revisa con juicio que no se publique nada de `docente/`, datos de estudiantes, notas ni soluciones |
 | `calificador` | aplica `rubrica.md` a una entrega y redacta la retroalimentación |
 | `tutor-socratico` | modo tutor según la política de IA: pistas y preguntas, no soluciones |
 
 ## Antes de dar por terminado un cambio
 
 1. Código: `./verificar.sh` (o `make test` del directorio tocado) sin FAIL ni warnings; `/race-check` si hay OpenMP nuevo.
-2. Material: `revisor-material` sin hallazgos bloqueantes.
+2. Material: `revisor-material` sin hallazgos bloqueantes; ningún `[PENDIENTE:` en lo que se publica.
+   Privacidad: `auditor-privacidad` con veredicto PUEDE PUBLICARSE si el cambio deriva de `docente/` o de entregas.
 3. Mediciones nuevas: CSV + `entorno.txt` + gráficas en `resultados/`, interpretadas por `perf-analyst`.
 4. Commit en español y PR. No lo des por listo hasta que CI esté en verde.

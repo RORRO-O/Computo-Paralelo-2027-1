@@ -87,6 +87,9 @@ reporte/                diseno-foster.md, H1.md, H2.md y reporte.pdf (8–12 pá
 bitacora.md             errores, mediciones descartadas, predicciones vs. resultados (fechado AAAA-MM-DD)
 declaracion-ia.md       una sección por entrega (proyecto/plantillas/declaracion-ia.md); la final se copia en §7
 run_all.sh              reproduce todo lo medible en CPU
+AGENTS.md, CLAUDE.md    reglas para asistentes de IA en este repositorio (política de IA del curso): tutor, no sustituto
+.claude/                configuración de Claude Code: tutor socrático y permisos (no edita código, reporte ni resultados)
+.github/workflows/      CI: make && make test en cada push
 ```
 
 ## 6. Integrantes y reparto de trabajo

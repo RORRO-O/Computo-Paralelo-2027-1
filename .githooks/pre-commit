@@ -1,0 +1,9 @@
+#!/bin/sh
+# .githooks/pre-commit — Audita la privacidad de lo que está en el índice antes de cada `git commit` hecho a mano.
+# Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1 · docs/CONVENCIONES.md §5 (el repositorio es público)
+# Se activa una vez por clon:   git config core.hooksPath .githooks
+# Saltarlo (`git commit --no-verify`) es decisión del profesor; CI vuelve a auditar con --todo.
+raiz=$(git rev-parse --show-toplevel) || exit 1
+[ -f "$raiz/herramientas/auditar_privacidad.py" ] || exit 0
+command -v python3 >/dev/null 2>&1 || { echo "pre-commit: falta python3; no puedo auditar la privacidad." >&2; exit 1; }
+exec python3 "$raiz/herramientas/auditar_privacidad.py" --repo "$raiz" --staged

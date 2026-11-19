@@ -15,7 +15,8 @@
 #   7. colab-kaggle.md: fragmentos de Python, Numba en el simulador (si hay numba), checksum, nvcc -c (si hay nvcc)
 #   8. plantilla-reporte-practica.md (secciones y pesos) y encabezado de metadatos en cada .md
 #   9. README.md: documenta cada archivo de la carpeta y cada comando de su índice corre tal cual
-#  10. Las pruebas no dejan archivos nuevos en herramientas/
+#  10. auditar_privacidad.py: repositorio limpio, las reglas R1–R7, enmascarado, excepciones, modos y el hook de git
+#  11. Las pruebas no dejan archivos nuevos en herramientas/
 set -uo pipefail
 export LC_ALL=C
 cd "$(dirname "$0")/.." || exit 1
@@ -389,7 +390,65 @@ check "los $corridos comandos del índice del README corren tal cual desde herra
     "test -z '$errores' && test $((corridos + omitidos)) -eq \$(wc -l < $X/comandos.txt)"
 [[ -z $errores ]] || echo "   fallaron:$errores"
 
-# ---------- 10. Sin residuos ----------
+# ---------- 10. auditar_privacidad.py ----------
+# Los datos "sensibles" de prueba se arman por partes para que este archivo no los contenga literalmente.
+AUD="python3 $RAIZ/auditar_privacidad.py"
+CORREO="fulano.perez""@""alumno.ipn.mx"
+BOLETA="2023""63""0123"
+CURP="PEPJ""990101""HDFRRN09"
+G=$T/priv
+mkdir -p "$G/herramientas" "$G/docente"
+(
+    cd "$G" && git init -q . && git config user.email demo@ejemplo.mx && git config user.name demo \
+        && echo "docente/" > .gitignore && head -n 1 "$RAIZ/seguimiento-grupo.csv" > herramientas/seguimiento-grupo.csv \
+        && printf 'hola\ncontacto: demo@ejemplo.mx\nn=2000000000\ntiempo_s=0.%s\n' "$BOLETA" > README.md \
+        && git add -A && git commit -qm "Agregar base"
+) > /dev/null 2>&1
+check "auditor: un repositorio limpio pasa en los cuatro modos (correo de ejemplo y números grandes no son hallazgo)" \
+    "$AUD --repo $G && $AUD --repo $G --staged && $AUD --repo $G --todo && $AUD --repo $G --rango HEAD..HEAD"
+check "auditor: fuera de un repositorio git termina con código 2" "$AUD --repo $T; test \$? -eq 2"
+{
+    echo 'static double hidden_solution_for_the_exam(long n) { return 42.0 * (double)n; } /* clave */'
+    echo '    for (long i = 0; i < n; i++) { secret_total += exam_key[i] * weight[i] + offset[i]; }'
+    echo '    printf("la respuesta del reactivo siete del examen es %d\n", answer_seven_of_exam);'
+} > "$G/docente/solucion.c"
+printf 'Zutano Perengano\nzutanito99\n' > "$G/docente/privacidad-terminos.txt"
+cp "$G/docente/solucion.c" "$G/publico.c"
+printf 'correo: %s\nboleta %s\ncurp %s\nentregó zutanito99 tarde\n' "$CORREO" "$BOLETA" "$CURP" > "$G/notas.md"
+printf '2026-10-15,sesion,grupo,,,,,,,,,,,,,,,,,,\n' >> "$G/herramientas/seguimiento-grupo.csv"
+(cd "$G" && git add -f docente/solucion.c) > /dev/null 2>&1
+informe=$($AUD --repo "$G" 2>&1)
+rc_aud=$?
+check "auditor: con fugas termina con código 1" "test $rc_aud -eq 1"
+for regla in "R1 ruta-docente docente/solucion.c" "R2 seguimiento-lleno herramientas/seguimiento-grupo.csv" \
+    "R3 correo notas.md:1" "R4 boleta notas.md:2" "R5 curp notas.md:3" "R6 termino-privado notas.md:4" \
+    "R7 copia-de-docente publico.c:1 3 línea"; do
+    check "auditor: detecta $regla" "grep -qF 'BLOQUEANTE $regla' <<< \"\$informe\""
+done
+check "auditor: el informe enmascara los datos (ni el correo, ni la boleta, ni la CURP, ni el término aparecen)" \
+    "! grep -qF -e '$CORREO' -e '$BOLETA' -e '$CURP' -e 'zutanito99' <<< \"\$informe\""
+check "auditor: --staged solo ve lo que está en el índice (R1 sí, R3 no)" \
+    "s=\$($AUD --repo $G --staged); grep -q 'R1 ruta-docente' <<< \"\$s\" && ! grep -q 'R3 correo' <<< \"\$s\""
+printf '^notas\\.md:%s$\n' "$(sed 's/\./\\./g' <<< "$CORREO")" > "$G/herramientas/privacidad-permitidos.txt"
+check "auditor: una excepción de privacidad-permitidos.txt descarta ese hallazgo y solo ese" \
+    "s=\$($AUD --repo $G); ! grep -q 'R3 correo' <<< \"\$s\" && grep -q 'R4 boleta' <<< \"\$s\""
+echo '(' > "$G/herramientas/privacidad-permitidos.txt"
+check "auditor: una excepción que no es expresión regular válida termina con código 2" "$AUD --repo $G; test \$? -eq 2"
+rm -f "$G/herramientas/privacidad-permitidos.txt"
+(cd "$G" && git rm -q --cached docente/solucion.c && git checkout -q herramientas/seguimiento-grupo.csv \
+    && head -n 2 docente/solucion.c > publico.c && rm notas.md) > /dev/null 2>&1
+check "auditor: 1–2 líneas iguales a docente/ son AVISO y no bloquean" \
+    "s=\$($AUD --repo $G); test \$? -eq 0 && grep -q 'AVISO R7 copia-de-docente publico.c' <<< \"\$s\""
+if [[ -f $RAIZ/../.githooks/pre-commit ]]; then
+    (cd "$G" && git config core.hooksPath "$RAIZ/../.githooks" && mkdir -p herramientas \
+        && cp "$RAIZ/auditar_privacidad.py" herramientas/ && printf 'correo: %s\n' "$CORREO" > fuga.md && git add fuga.md) > /dev/null 2>&1
+    check ".githooks/pre-commit detiene un commit con un correo en el índice" \
+        "! (cd $G && git commit -qm 'Agregar fuga')"
+    (cd "$G" && git rm -q --cached fuga.md && rm fuga.md && echo ok > limpio.md && git add limpio.md) > /dev/null 2>&1
+    check ".githooks/pre-commit deja pasar un commit limpio" "(cd $G && git commit -qm 'Agregar archivo limpio')"
+fi
+
+# ---------- 11. Sin residuos ----------
 check "las pruebas no dejaron archivos nuevos en herramientas/" "test \"\$(ls -A)\" = '$ANTES'"
 
 echo "Resultado: $PASS PASS, $FAIL FAIL"

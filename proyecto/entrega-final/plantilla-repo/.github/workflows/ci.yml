@@ -1,0 +1,47 @@
+# CI del repositorio del equipo · Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1
+# En cada push compila con las banderas del curso y corre las pruebas: lo mismo que hace el profesor al recibir
+# un hito o la entrega final (make && make test). El runner no tiene GPU: la V3 se verifica en Colab/Kaggle.
+# No mide rendimiento: un runner compartido no cumple el protocolo de medición.
+name: Compilar y probar
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  probar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      OMPI_ALLOW_RUN_AS_ROOT: "1"
+      OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
+      MPIRUN_FLAGS: "--oversubscribe"
+      NUMBA_ENABLE_CUDASIM: "1"
+      OMP_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sin binarios versionados
+        run: |
+          malos=$(git ls-files | grep -E '\.(o|out|exe)$|(^|/)(v1/v1|v2/v2|v3/v3)$' || true)
+          if [ -n "$malos" ]; then echo "::error::binarios versionados (bórralos con git rm --cached):"; echo "$malos"; exit 1; fi
+
+      - name: Instalar MPI (gcc con OpenMP ya viene)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends openmpi-bin libopenmpi-dev
+          gcc --version | head -1
+
+      - name: Paquetes de Python
+        run: pip install --quiet numpy matplotlib numba nbformat
+
+      - name: make (sin warnings)
+        run: |
+          make 2>&1 | tee build.log
+          if grep -qi 'warning:' build.log; then echo "::error::la compilación tiene warnings"; exit 1; fi
+
+      - name: make test
+        run: make test
