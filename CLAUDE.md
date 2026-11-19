@@ -137,14 +137,16 @@ docente/            SOLO PROFESOR, en .gitignore: exámenes, claves, soluciones,
 | `openmp-reviewer`, `mpi-reviewer`, `cuda-reviewer` | revisión de corrección y rendimiento de código paralelo |
 | `perf-analyst` | interpreta CSV: speedup, eficiencia, Karp–Flatt, Amdahl y la causa dominante |
 | `revisor-material` | revisa sesiones y prácticas contra CONVENCIONES y la guía de autoría |
-| `auditor-privacidad` | antes de commit, push o PR: corre `herramientas/auditar_privacidad.py` y revisa con juicio que no se publique nada de `docente/`, datos de estudiantes, notas ni soluciones |
+| `auditor-privacidad` | cuando el cambio deriva de `docente/` o de entregas de equipos: corre `herramientas/auditar_privacidad.py` y revisa con juicio que no se publique nada de `docente/`, datos de estudiantes, notas ni soluciones |
 | `calificador` | aplica `rubrica.md` a una entrega y redacta la retroalimentación |
 | `tutor-socratico` | modo tutor según la política de IA: pistas y preguntas, no soluciones |
 
 ## Antes de dar por terminado un cambio
 
 1. Código: `./verificar.sh` (o `make test` del directorio tocado) sin FAIL ni warnings; `/race-check` si hay OpenMP nuevo.
-2. Material: `revisor-material` sin hallazgos bloqueantes; ningún `[PENDIENTE:` en lo que se publica.
-   Privacidad: `auditor-privacidad` con veredicto PUEDE PUBLICARSE si el cambio deriva de `docente/` o de entregas.
+2. Material: `revisor-material` sin hallazgos bloqueantes. Un `[PENDIENTE:` impide integrar a `main`: se resuelve
+   escribiendo el contenido u obteniendo el dato, o lo decide el profesor; nunca se borra ni se rellena inventando.
+   Privacidad: `auditor-privacidad` con veredicto PUEDE PUBLICARSE si el cambio deriva de `docente/` o de entregas
+   (el script `auditar_privacidad.py` corre siempre, por el hook).
 3. Mediciones nuevas: CSV + `entorno.txt` + gráficas en `resultados/`, interpretadas por `perf-analyst`.
 4. Commit en español y PR. No lo des por listo hasta que CI esté en verde.

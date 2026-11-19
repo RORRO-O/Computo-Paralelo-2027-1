@@ -113,8 +113,14 @@ cp-6bm1-equipoNN/
 │                          (entrega final, además: mediciones_v3.csv y entorno_gpu.txt del notebook)
 ├── reporte/               diseno-foster.md · H1.md · H2.md · reporte.pdf (y su fuente .md o .tex)
 ├── bitacora.md            Plantilla: proyecto/plantillas/bitacora-errores.md
-└── declaracion-ia.md      Plantilla: proyecto/plantillas/declaracion-ia.md
+├── declaracion-ia.md      Plantilla: proyecto/plantillas/declaracion-ia.md
+├── AGENTS.md · CLAUDE.md  (de la plantilla) reglas de docs/metodo/05-politica-ia.md para asistentes de IA
+├── .claude/               (de la plantilla) Claude Code en modo tutor: no edita lo que se entrega
+└── .github/workflows/     (de la plantilla) CI: make && make test en cada push
 ```
+
+Los archivos marcados "(de la plantilla)" no se califican y `verificar_entrega.sh` no los exige. Sirven para que
+el asistente de IA que uses siga la política del curso; si los cambias, queda en el historial de *commits*.
 
 | Elemento | Regla |
 |---|---|

@@ -11,15 +11,21 @@
 set -uo pipefail
 
 entrada=$(cat)
-command -v jq >/dev/null 2>&1 || { echo "guard-privacidad.sh: falta jq (apt-get install -y jq)." >&2; exit 2; }
+# Sin jq no se puede leer el comando con precisión: se deja pasar lo que ni menciona git (p. ej. instalar jq).
+if ! command -v jq >/dev/null 2>&1; then
+  printf '%s' "$entrada" | grep -qw git || exit 0
+  echo "guard-privacidad.sh: falta jq (apt-get install -y jq) y el comando menciona git." >&2; exit 2
+fi
 cmd=$(printf '%s' "$entrada" | jq -r '.tool_input.command // empty' 2>/dev/null) || exit 2
 [ -z "$cmd" ] && exit 0
 
-# ¿El comando hace commit o push? (git [-C dir | -c k=v | --opción]... commit|push)
-RE_GIT='(^|[;&|(`[:space:]])git([[:space:]]+(-[Cc][[:space:]]+[^[:space:]]+|--?[A-Za-z][^[:space:]]*))*[[:space:]]+'
+# ¿El comando hace commit o push? Criterio amplio a propósito: basta que aparezcan las palabras `git` y `commit` o
+# `push` en cualquier forma (/usr/bin/git, git -c k=v commit, bash -c '...', commit;). Auditar de más cuesta un
+# segundo; auditar de menos publica un dato.
+printf '%s' "$cmd" | grep -qw git || exit 0
 accion=""
-if printf '%s' "$cmd" | grep -Eq "${RE_GIT}commit([[:space:]]|$)"; then accion=commit; fi
-if printf '%s' "$cmd" | grep -Eq "${RE_GIT}push([[:space:]]|$)"; then accion="${accion:+$accion+}push"; fi
+if printf '%s' "$cmd" | grep -qw commit; then accion=commit; fi
+if printf '%s' "$cmd" | grep -qw push; then accion="${accion:+$accion+}push"; fi
 [ -z "$accion" ] && exit 0
 
 negar() {
@@ -27,17 +33,24 @@ negar() {
   exit 0
 }
 
+# El guardia audita el estado ANTES de que corra el comando: no ve lo que el mismo comando agregue a la fuerza.
+if printf '%s' "$cmd" | grep -qw add && printf '%s' "$cmd" | grep -Eq -e '(^|[[:space:]])(-[A-Za-z]*f[A-Za-z]*|--force)([[:space:]]|$)' -e 'docente'; then
+  negar "guard-privacidad.sh: 'git add' forzado o sobre docente/ en el mismo comando que 'git $accion'. Haz el 'git add' en un comando aparte (sin -f sobre rutas ignoradas) para que la auditoría vea el índice."
+fi
+
 proyecto=${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "$0")/../.." && pwd)}
 auditor="$proyecto/herramientas/auditar_privacidad.py"
 [ -f "$auditor" ] || exit 0   # rama sin el auditor: no hay con qué revisar
 command -v python3 >/dev/null 2>&1 || negar "guard-privacidad.sh: falta python3; no puedo auditar la privacidad antes de 'git $accion'."
 
-# Solo se audita el repositorio del curso; un clon de equipo en otra carpeta no es público ni sigue estas reglas.
 cwd=$(printf '%s' "$entrada" | jq -r '.cwd // empty' 2>/dev/null)
 [ -n "$cwd" ] && [ -d "$cwd" ] || cwd=$proyecto
-raiz_cwd=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null) || exit 0
 raiz_proyecto=$(git -C "$proyecto" rev-parse --show-toplevel 2>/dev/null) || exit 0
-[ "$raiz_cwd" = "$raiz_proyecto" ] || exit 0
+comun() { (cd "$1" 2>/dev/null && cd "$(git rev-parse --git-common-dir 2>/dev/null)" 2>/dev/null && pwd -P); }
+# Un worktree del mismo repositorio se audita en su propia carpeta; desde cualquier otro lugar (el comando puede
+# traer su `cd`), se audita el repositorio del curso.
+raiz_cwd=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null) || raiz_cwd=""
+if [ -n "$raiz_cwd" ] && [ "$(comun "$raiz_cwd")" = "$(comun "$raiz_proyecto")" ]; then raiz_proyecto=$raiz_cwd; fi
 
 auditar() { # $@ = modo del auditor; acumula la salida en $informe y deja $rc
   local salida
@@ -53,7 +66,7 @@ esac
 case "$accion" in
   *push*)
     base=$(git -C "$raiz_proyecto" rev-parse -q --verify '@{upstream}' 2>/dev/null) \
-      || base=$(git -C "$raiz_proyecto" merge-base HEAD origin/main 2>/dev/null) || base=""
+      || base=$(git -C "$raiz_proyecto" rev-parse -q --verify origin/main 2>/dev/null) || base=""
     if [ -n "$base" ]; then auditar --rango "$base..HEAD"; else auditar --todo; fi ;;
 esac
 

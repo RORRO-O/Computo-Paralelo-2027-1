@@ -107,6 +107,9 @@ check "tema corto no válido: código 2" "test $? -eq 2"
 salida=$($GEN U5 S99 fuera-del-calendario --fecha 2026-12-14 --destino "$T/fuera" 2>&1)
 check "sesión fuera del calendario con --fecha: se crea con lunes 14 de diciembre de 2026 y un PENDIENTE que lo avisa" \
     "grep -q 'lunes 14 de diciembre de 2026' <<< '$salida' && grep -q 'no está en planeacion/calendario' '$T'/fuera/S99_*/plan-sesion.md"
+$GEN U5 S98 repaso-prueba --fecha 2026-12-15 --tipo Repaso --destino "$T/repaso" > /dev/null 2>&1
+check "una sesión de repaso agrega examen-practica-U5.md con encabezado" \
+    "head -1 '$T'/repaso/S98_*/examen-practica-U5.md | grep -q 'Unidad V · Sesión S98 · martes 15 de diciembre de 2026 · 08:30–10:00'"
 $GEN U5 S01 x --seco --destino "$T/seco" > /dev/null 2>&1
 check "--seco no crea nada" "test ! -e '$T/seco'"
 

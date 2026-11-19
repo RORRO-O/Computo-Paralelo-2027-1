@@ -42,8 +42,8 @@ Argumentos recibidos: `$ARGUMENTS`
 - Sesión que aún no está en el calendario: `--fecha AAAA-MM-DD` (y `--hora`, `--lugar`, `--tipo`, `--titulo` si no
   valen los valores por defecto). El plan queda con un `[PENDIENTE]` que pide agregarla al calendario.
 - Tipos distintos de "Contenido" (laboratorio, repaso, taller, hito): el plan cita la variante de
-  `docs/metodo/02-plantilla-sesion.md` §2 que corresponde; ajusta los bloques del guion. Las sesiones de repaso
-  previas a examen agregan además su `examen-practica-*.md`.
+  `docs/metodo/02-plantilla-sesion.md` §2 que corresponde; **el guion sale con los bloques base y hay que
+  reescribirlos** para esa variante. En las sesiones de repaso el script crea además `examen-practica-U<k>.md`.
 - Un kernel en CUDA C (`.cu`) se agrega a mano junto al espejo Numba y se verifica en Colab/Kaggle
   (`herramientas/colab-kaggle.md`); en el contenedor solo cabe `nvcc -c` si existe y la revisión de `cuda-reviewer`.
 - Pruebas de la propia skill: `make -C ${CLAUDE_SKILL_DIR} test`.

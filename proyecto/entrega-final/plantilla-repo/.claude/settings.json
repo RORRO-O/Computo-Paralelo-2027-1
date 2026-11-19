@@ -3,8 +3,7 @@
   "env": {
     "OMPI_ALLOW_RUN_AS_ROOT": "1",
     "OMPI_ALLOW_RUN_AS_ROOT_CONFIRM": "1",
-    "MPIRUN_FLAGS": "--oversubscribe",
-    "NUMBA_ENABLE_CUDASIM": "1"
+    "MPIRUN_FLAGS": "--oversubscribe"
   },
   "permissions": {
     "allow": [
@@ -27,21 +26,21 @@
       "Grep"
     ],
     "deny": [
-      "Edit(./v1/**)",
-      "Edit(./v2/**)",
-      "Edit(./v3/**)",
-      "Edit(./comun/**)",
-      "Edit(./practicas/**)",
-      "Edit(./tareas/**)",
-      "Edit(./tests/**)",
-      "Edit(./reporte/**)",
-      "Edit(./resultados/**)",
-      "Edit(./README.md)",
-      "Edit(./bitacora.md)",
-      "Edit(./declaracion-ia.md)",
-      "Edit(./AGENTS.md)",
-      "Edit(./CLAUDE.md)",
-      "Edit(./.claude/**)",
+      "Edit(/v1/**)",
+      "Edit(/v2/**)",
+      "Edit(/v3/**)",
+      "Edit(/comun/**)",
+      "Edit(/practicas/**)",
+      "Edit(/tareas/**)",
+      "Edit(/tests/**)",
+      "Edit(/reporte/**)",
+      "Edit(/resultados/**)",
+      "Edit(/README.md)",
+      "Edit(/bitacora.md)",
+      "Edit(/declaracion-ia.md)",
+      "Edit(/AGENTS.md)",
+      "Edit(/CLAUDE.md)",
+      "Edit(/.claude/**)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(git tag:*)"

@@ -43,6 +43,11 @@ def main(argv):
     y = np.ones(n, dtype=np.float32)
     blocks = (n + block - 1) // block  # grid redondeado hacia arriba
 
+    # Calentamiento: la primera llamada compila el kernel (JIT); no debe caer dentro del cronómetro.
+    warm = cuda.to_device(np.ones(1, dtype=np.float32))
+    saxpy_kernel[1, block](np.float32(0.0), warm, warm)
+    cuda.synchronize()
+
     t0 = time.perf_counter()
     d_x = cuda.to_device(x)
     d_y = cuda.to_device(y)

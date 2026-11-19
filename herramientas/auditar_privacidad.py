@@ -12,10 +12,12 @@ Modos (uno; por defecto --arbol):
     --arbol         todo lo que difiere de HEAD en el árbol de trabajo: cambios con y sin `git add` y archivos nuevos
                     no ignorados. Es lo que usa el hook de Claude Code antes de `git commit`.
     --staged        solo lo que está en el índice (`git diff --cached`). Es lo que usa .githooks/pre-commit.
-    --rango A..B    lo que agregan los commits del rango (`git diff A..B`). Antes de `git push` o en un PR.
+    --rango A..B    lo que agrega cada commit del rango (`git log -p A..B`), aunque otro commit lo quite después.
+                    Antes de `git push` o en un PR.
     --todo          el contenido completo de todos los archivos versionados. Es lo que usa CI.
 
 Reglas (todas BLOQUEANTE salvo donde se indica):
+    R0 no-revisado        un archivo de texto de más de 50 MB: no se pudo revisar.
     R1 ruta-docente       una ruta bajo docente/ entra al índice o al commit (alguien usó `git add -f`).
     R2 seguimiento-lleno  herramientas/seguimiento-grupo.csv con filas de datos: la hoja llena vive en docente/.
     R3 correo             una dirección de correo que no es de ejemplo.
@@ -42,6 +44,7 @@ Ejemplos (desde la raíz del repositorio):
 """
 import argparse
 import re
+import unicodedata
 import subprocess
 import sys
 from pathlib import Path
@@ -51,13 +54,15 @@ RE_BOLETA = re.compile(r"(?<![\d.])(?:19|20)\d{2}63\d{4}(?![\d.]\d|\d)")
 RE_CURP = re.compile(r"(?<![A-Z0-9])[A-Z][AEIOUX][A-Z]{2}\d{6}[HM][A-Z]{5}[A-Z0-9]\d(?![A-Z0-9])")
 DOMINIOS_DE_EJEMPLO = ("ejemplo.mx", "ejemplo.com", "example.com", "example.org", "example.net", "anthropic.com",
                        "users.noreply.github.com", "localhost.localdomain")
-MAX_BYTES = 2_000_000
+MAX_BYTES = 50_000_000
+DIFF = ("-U0", "--no-color", "--no-ext-diff", "--no-renames", "--src-prefix=a/", "--dst-prefix=b/")
+NOMBRES = ("--name-only", "--diff-filter=ACMR", "--no-renames", "-z")
 MIN_LARGO_COPIA = 50
 UMBRAL_COPIA = 3
 
 
 def git(repo, *args, check=True):
-    r = subprocess.run(["git", "-C", str(repo), *args], capture_output=True)
+    r = subprocess.run(["git", "-C", str(repo), "-c", "core.quotePath=false", *args], capture_output=True)
     if check and r.returncode != 0:
         raise RuntimeError(f"git {' '.join(args)}: {r.stderr.decode('utf-8', 'replace').strip()}")
     return r.stdout.decode("utf-8", "replace")
@@ -77,17 +82,27 @@ def enmascarar(texto):
 
 def lineas_agregadas(diff):
     """Convierte un `git diff -U0` en {ruta: [(número de línea, texto)]} con solo las líneas agregadas."""
-    por_archivo, ruta, n = {}, None, 0
-    for linea in diff.splitlines():
-        if linea.startswith("+++ "):
-            destino = linea[4:].strip()
-            ruta = None if destino == "/dev/null" else destino[2:] if destino[:2] in ("b/", "w/", "i/") else destino
+    por_archivo, ruta, n, cabecera = {}, None, 0, False
+    for linea in diff.split("\n"):
+        if linea.startswith("diff --git "):
+            cabecera, ruta = True, None
+            continue
+        if cabecera:  # entre "diff --git" y el primer "@@": aquí, y solo aquí, "+++ " nombra el archivo
+            if linea.startswith("+++ "):
+                destino = linea[4:].rstrip("\r")
+                if destino.startswith('"') and destino.endswith('"'):
+                    destino = destino[1:-1]
+                ruta = None if destino == "/dev/null" else destino[2:] if destino.startswith("b/") else destino
+            elif linea.startswith("@@"):
+                cabecera = False
+                m = re.match(r"@@ -\S+ \+(\d+)", linea)
+                n = int(m.group(1)) if m else 0
             continue
         if linea.startswith("@@"):
             m = re.match(r"@@ -\S+ \+(\d+)", linea)
             n = int(m.group(1)) if m else 0
             continue
-        if ruta is None or linea.startswith(("diff ", "index ", "--- ", "\\ ")):
+        if ruta is None:
             continue
         if linea.startswith("+"):
             por_archivo.setdefault(ruta, []).append((n, linea[1:]))
@@ -95,9 +110,15 @@ def lineas_agregadas(diff):
     return por_archivo
 
 
+NO_REVISADOS = []
+
+
 def lineas_de_archivo(ruta_abs):
     try:
-        if ruta_abs.is_symlink() or not ruta_abs.is_file() or ruta_abs.stat().st_size > MAX_BYTES:
+        if ruta_abs.is_symlink() or not ruta_abs.is_file():
+            return []
+        if ruta_abs.stat().st_size > MAX_BYTES:
+            NO_REVISADOS.append(ruta_abs)
             return []
         datos = ruta_abs.read_bytes()
     except OSError:
@@ -113,18 +134,23 @@ def recolectar(repo, modo, rango):
         rutas = [r for r in git(repo, "ls-files", "-z").split("\0") if r]
         return rutas, {r: lineas_de_archivo(repo / r) for r in rutas}
     if modo == "staged":
-        rutas = [r for r in git(repo, "diff", "--cached", "--name-only", "--diff-filter=ACMR", "-z").split("\0") if r]
-        return rutas, lineas_agregadas(git(repo, "diff", "--cached", "-U0", "--no-color", "--no-ext-diff"))
+        rutas = [r for r in git(repo, "diff", "--cached", *NOMBRES).split("\0") if r]
+        return rutas, lineas_agregadas(git(repo, "diff", "--cached", *DIFF))
     if modo == "rango":
-        rutas = [r for r in git(repo, "diff", "--name-only", "--diff-filter=ACMR", "-z", rango).split("\0") if r]
-        return rutas, lineas_agregadas(git(repo, "diff", "-U0", "--no-color", "--no-ext-diff", rango))
+        # Commit por commit (no solo los extremos): lo que un commit agrega se publica aunque otro lo quite después.
+        rutas = sorted({r for r in git(repo, "log", "--format=", *NOMBRES, rango).split("\0") if r.strip()})
+        rutas = [r.strip("\n") for r in rutas]
+        return rutas, lineas_agregadas(git(repo, "log", "-p", "--format=", *DIFF, rango))
     # arbol: índice + cambios sin agregar + archivos nuevos no ignorados
     hay_head = subprocess.run(["git", "-C", str(repo), "rev-parse", "-q", "--verify", "HEAD"],
                               capture_output=True).returncode == 0
     base = "HEAD" if hay_head else "4b825dc642cb6eb9a060e54bf8d69288fbee4904"  # árbol vacío de git
-    rutas = {r for r in git(repo, "diff", "--name-only", "--diff-filter=ACMR", "-z", base).split("\0") if r}
-    rutas |= {r for r in git(repo, "diff", "--cached", "--name-only", "--diff-filter=ACMR", "-z").split("\0") if r}
-    agregadas = lineas_agregadas(git(repo, "diff", "-U0", "--no-color", "--no-ext-diff", base))
+    rutas = {r for r in git(repo, "diff", *NOMBRES, base).split("\0") if r}
+    rutas |= {r for r in git(repo, "diff", "--cached", *NOMBRES).split("\0") if r}
+    agregadas = lineas_agregadas(git(repo, "diff", *DIFF, base))
+    # El índice puede diferir del árbol (git add y después otra edición o un borrado): se audita también.
+    for r, lineas in lineas_agregadas(git(repo, "diff", "--cached", *DIFF)).items():
+        agregadas.setdefault(r, []).extend(lineas)
     for r in git(repo, "ls-files", "--others", "--exclude-standard", "-z").split("\0"):
         if r:
             rutas.add(r)
@@ -135,7 +161,7 @@ def recolectar(repo, modo, rango):
 def cargar_permitidos(ruta):
     patrones = []
     if ruta.is_file():
-        for i, linea in enumerate(ruta.read_text(encoding="utf-8").splitlines(), 1):
+        for i, linea in enumerate(ruta.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
             linea = linea.strip()
             if not linea or linea.startswith("#"):
                 continue
@@ -145,6 +171,11 @@ def cargar_permitidos(ruta):
                 print(f"auditar_privacidad.py: {ruta}:{i}: expresión no válida ({e})", file=sys.stderr)
                 sys.exit(2)
     return patrones
+
+
+def sin_acentos(texto):
+    """Quita las marcas diacríticas sin cambiar la longitud: 'Hernández' y 'Hernandez' coinciden."""
+    return "".join(unicodedata.normalize("NFD", c)[0] for c in texto)
 
 
 def cargar_terminos(repo):
@@ -158,7 +189,7 @@ def cargar_terminos(repo):
             terminos.append(linea)
     if not terminos:
         return None
-    alternativas = "|".join(re.escape(t) for t in sorted(set(terminos), key=len, reverse=True))
+    alternativas = "|".join(re.escape(sin_acentos(t)) for t in sorted(set(terminos), key=len, reverse=True))
     return re.compile(rf"(?<!\w)(?:{alternativas})(?!\w)", re.IGNORECASE)
 
 
@@ -235,7 +266,11 @@ def main():
     for ruta in sorted(contenido):
         for n, texto in contenido[ruta]:
             for m in RE_CORREO.finditer(texto):
-                dominio = m.group(0).rsplit("@", 1)[1].lower()
+                usuario, dominio = m.group(0).rsplit("@", 1)
+                dominio = dominio.lower()
+                # No son correos: git@host:ruta, usuario@nodo:ruta (ssh, scp) y A@np.ones(n) (producto matricial).
+                if usuario == "git" or texto[m.end():m.end() + 1] in (":", "("):
+                    continue
                 if any(dominio == d or dominio.endswith("." + d) for d in DOMINIOS_DE_EJEMPLO):
                     continue
                 reportar("BLOQUEANTE", "R3 correo", ruta, n, m.group(0), enmascarar(m.group(0)))
@@ -244,7 +279,7 @@ def main():
             for m in RE_CURP.finditer(texto):
                 reportar("BLOQUEANTE", "R5 curp", ruta, n, m.group(0), enmascarar(m.group(0)))
             if terminos:
-                for m in terminos.finditer(texto):
+                for m in terminos.finditer(sin_acentos(texto)):
                     reportar("BLOQUEANTE", "R6 termino-privado", ruta, n, m.group(0),
                              "coincide con docente/privacidad-terminos.txt: " + enmascarar(m.group(0)))
 
@@ -272,6 +307,14 @@ def main():
                     hallazgos.append((sev, "R7 copia-de-docente", ruta, nuevas[0][0],
                                       f"{len(nuevas)} línea(s) idénticas a {origen} (líneas {nums})"))
 
+    for ruta_abs in NO_REVISADOS:
+        try:
+            rel = str(ruta_abs.relative_to(repo))
+        except ValueError:
+            continue
+        if not rel.startswith("docente/"):
+            reportar("BLOQUEANTE", "R0 no-revisado", rel, 0, "grande",
+                     f"más de {MAX_BYTES // 1_000_000} MB: no se revisó; redúcelo (notebook sin salidas) o exceptúalo")
     bloqueantes = sum(1 for h in hallazgos if h[0] == "BLOQUEANTE")
     for sev, regla, ruta, n, detalle in hallazgos:
         donde = f"{ruta}:{n}" if n else ruta

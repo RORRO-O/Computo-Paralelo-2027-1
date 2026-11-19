@@ -149,7 +149,7 @@ PLAN = """{{ENC}}
 - Viene de: {{ANTERIOR}}
 - Va hacia: {{SIGUIENTE}}
 - Idea(s) errónea(s) que esta sesión ataca: [PENDIENTE: al menos 2 números del Anexo A de `docs/metodo/01-marco-pedagogico.md`]
-- Nivel de andamiaje: [PENDIENTE: completo / por completar / con pistas, según `docs/metodo/07-guia-de-autoria.md` §A.5]
+- Nivel de andamiaje: [PENDIENTE: completo / por completar / con pistas, según `docs/metodo/07-guia-de-autoria.md` §A.5; si no es "completo", `ejemplo-resuelto.md` lleva huecos y PRIMM abrevia Predecir e Investigar]
 
 ## Materiales
 - Archivos de esta carpeta; proyector; cronómetro; tarjetas de lista; {{EQUIPO}}.
@@ -383,7 +383,9 @@ TAREA = """{{ENC}}
 
 **Entrega.** Individual, en el repositorio del equipo: `tareas/<usuario-github>/U{{K}}-{{SID}}.md` (y, si hay
 código, en `tareas/<usuario-github>/U{{K}}-{{SID}}/`). Vence {{VENCE}}. Se autocalifica con su clave en los minutos
-5–10 de esa sesión. [PENDIENTE: peso o uso de la tarea, citado desde `planeacion/mapa-evaluacion.md`]
+5–10 de esa sesión; el profesor registra la entrega, no el acierto, y revisa 3 al azar por parcial. Si faltaste
+hoy, la entregas en esa misma fecha (`docs/metodo/04-evaluacion.md` §5).
+[PENDIENTE: peso o uso de la tarea, citado desde `planeacion/mapa-evaluacion.md`; frase fija de `docs/metodo/07-guia-de-autoria.md` §A.10]
 
 ## 1. Del tema de hoy (15 min)
 [PENDIENTE: ejercicio del tema; si en clase se recortó Transferencia, aquí va íntegra la fase Crear de PRIMM]
@@ -485,11 +487,12 @@ def variante(tipo):
     t = tipo.lower()
     if "laboratorio" in t:
         return "variante de laboratorio de `docs/metodo/02-plantilla-sesion.md` §2.1; ajusta los bloques del guion"
-    if "repaso" in t and "hito" in t or "+ hito" in t:
-        return "sesión con hito de `docs/metodo/02-plantilla-sesion.md` §2.5; ajusta los bloques del guion"
+    if "hito" in t:
+        extra = "; es además repaso: agrega el contenido de `examen-practica-*.md`" if "repaso" in t else ""
+        return f"sesión con hito de `docs/metodo/02-plantilla-sesion.md` §2.5; ajusta los bloques del guion{extra}"
     if "repaso" in t:
-        return ("repaso previo a examen de `docs/metodo/02-plantilla-sesion.md` §2.2; agrega `examen-practica-*.md` y "
-                "ajusta los bloques del guion")
+        return ("repaso previo a examen de `docs/metodo/02-plantilla-sesion.md` §2.2; llena `examen-practica-*.md` y "
+                "ajusta los bloques del guion, la recuperación larga (8–10 preguntas) y el exit ticket de plan de estudio")
     if "taller" in t:
         return "taller de proyecto de `docs/metodo/02-plantilla-sesion.md` §2.4; ajusta los bloques del guion"
     return "estructura base de 90 min de `docs/metodo/02-plantilla-sesion.md` §1"
@@ -589,7 +592,7 @@ def main():
     titulo = a.titulo or (fila["tema"] if fila else PEND.format("título de la sesión"))
     if a.hora:
         hora = a.hora.replace("-", "–")
-    elif fila and fila["hora_inicio"]:
+    elif fila and fila["hora_inicio"] and fecha == fila["fecha"]:
         hora = hora_fin(fila["hora_inicio"])
     elif fecha.weekday() in HORA_POR_DIA:
         hora = HORA_POR_DIA[fecha.weekday()]
@@ -614,7 +617,8 @@ def main():
     anterior = describir(ant) or PEND.format("sesión anterior")
     siguiente = describir(sig) or PEND.format("siguiente sesión, con fecha y hora")
     if sig:
-        vence = (f"al inicio de {sig['id']}: **{fecha_larga(sig['fecha'])}, {sig['hora_inicio']}**")
+        u_sig = f"U{sig['unidad']}·" if sig["unidad"] and sig["unidad"] != k else ""
+        vence = (f"al inicio de {u_sig}{sig['id']}: **{fecha_larga(sig['fecha'])}, {sig['hora_inicio']}**")
         if not re.fullmatch(r"S\d+", sig["id"]):
             vence += " " + PEND.format(f"{sig['id']} no es una sesión ordinaria; confirma la fecha de entrega")
     else:
@@ -625,7 +629,8 @@ def main():
     datos = {
         "ENC": enc, "SID": sid, "K": k, "ROMANO": romano, "TITULO": titulo, "TIPO": tipo,
         "VARIANTE": variante(tipo), "NOTA_FECHA": nota_fecha, "ANTERIOR": anterior, "SIGUIENTE": siguiente,
-        "ANTERIOR_CORTO": ant["id"] if ant else "sesión anterior", "VENCE": vence, "EQUIPO": TEC[tec]["equipo"],
+        "ANTERIOR_CORTO": ((f"U{ant['unidad']}·" if ant["unidad"] and ant["unidad"] != k else "") + ant["id"]) if ant
+        else "sesión anterior", "VENCE": vence, "EQUIPO": TEC[tec]["equipo"],
     }
 
     if a.destino:
@@ -652,6 +657,11 @@ def main():
     destino.mkdir(parents=True)
     for nombre, plantilla in archivos.items():
         (destino / nombre).write_text(render(plantilla, datos), encoding="utf-8")
+    if "repaso" in tipo.lower():  # CONVENCIONES §1: las sesiones de repaso agregan su examen de práctica
+        examen = (f"{enc}\n\n# {sid} · Examen de práctica · Unidad {romano}\n\n"
+                  "[PENDIENTE: versión corta con la misma estructura que el examen real "
+                  "(`docs/metodo/02-plantilla-sesion.md` §2.2); clave y rúbrica en `<details>` al final]\n")
+        (destino / f"examen-practica-U{k}.md").write_text(examen, encoding="utf-8")
     copiar_practica(tec, destino, raiz, plantillas, datos)
     pendientes = sum(p.read_text(encoding="utf-8").count("[PENDIENTE:") for p in destino.rglob("*.md"))
     print(f"pendientes={pendientes}")

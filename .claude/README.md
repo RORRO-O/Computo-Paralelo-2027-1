@@ -95,7 +95,9 @@ los cambia, queda en su historial de commits.
   hilos de Projects) y solo cuando la rama clonada ya contiene estos archivos (es decir, tras fusionar a `main`).
 - `guard-privacidad.sh` solo ve patrones: no reconoce un nombre que no esté en `docente/privacidad-terminos.txt` ni
   una solución reescrita. En una sesión cloud `docente/` no existe (está en `.gitignore`), así que R6 y R7 solo se
-  evalúan en la máquina del profesor. Se dispara con cualquier comando que contenga `git commit` o `git push`.
+  evalúan en la máquina del profesor. Se dispara con cualquier comando que mencione `git` y `commit` o `push`, y
+  audita el estado **antes** del comando: no ve un archivo que el mismo comando cree y agregue (por eso niega
+  `git add -f` en el mismo comando; CI vuelve a auditar con `--todo`).
 - `guard-bash.sh` es un guardarraíl, no un sandbox: no detecta borrados hechos desde Python o con `find -delete`.
   Si falta `jq`, bloquea todo comando hasta que se instale.
 - `permissions.deny` de lectura no detiene a un programa que lea archivos por su cuenta (`grep -r`, un script).

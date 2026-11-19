@@ -439,6 +439,20 @@ rm -f "$G/herramientas/privacidad-permitidos.txt"
     && head -n 2 docente/solucion.c > publico.c && rm notas.md) > /dev/null 2>&1
 check "auditor: 1–2 líneas iguales a docente/ son AVISO y no bloquean" \
     "s=\$($AUD --repo $G); test \$? -eq 0 && grep -q 'AVISO R7 copia-de-docente publico.c' <<< \"\$s\""
+# Índice distinto del árbol, línea que imita una cabecera de diff, y un commit intermedio dentro de un rango.
+(cd "$G" && rm -f publico.c && printf 'correo: %s\n' "$CORREO" > indice.md && git add indice.md && echo limpio > indice.md) > /dev/null 2>&1
+check "auditor: --arbol también revisa el índice (git add y después otra edición)" \
+    "s=\$($AUD --repo $G); test \$? -eq 1 && grep -q 'R3 correo indice.md:1' <<< \"\$s\""
+(cd "$G" && git rm -q -f --cached indice.md && rm -f indice.md && printf 'hola\n++ /dev/null\ncorreo: %s\n' "$CORREO" >> README.md) > /dev/null 2>&1
+check "auditor: una línea de contenido que empieza con '++ ' no oculta lo que sigue" \
+    "s=\$($AUD --repo $G); test \$? -eq 1 && grep -q 'R3 correo README.md:' <<< \"\$s\""
+(cd "$G" && git checkout -q README.md && printf 'correo: %s\n' "$CORREO" > paso.md && git add paso.md \
+    && git commit -q --no-verify -m "Agregar paso" && git rm -q paso.md && git commit -q --no-verify -m "Quitar paso") > /dev/null 2>&1
+check "auditor: --rango revisa cada commit, no solo los extremos" \
+    "s=\$($AUD --repo $G --rango HEAD~2..HEAD); test \$? -eq 1 && grep -q 'R3 correo paso.md:1' <<< \"\$s\""
+printf 'git clone git%sgithub.com:equipo/repo.git\ny = A%snp.ones(n)\n' "@" "@" > "$G/ssh.md"
+check "auditor: git@host:ruta y A@np.ones(n) no son correos" "$AUD --repo $G"
+rm -f "$G/ssh.md"
 if [[ -f $RAIZ/../.githooks/pre-commit ]]; then
     (cd "$G" && git config core.hooksPath "$RAIZ/../.githooks" && mkdir -p herramientas \
         && cp "$RAIZ/auditar_privacidad.py" herramientas/ && printf 'correo: %s\n' "$CORREO" > fuga.md && git add fuga.md) > /dev/null 2>&1
