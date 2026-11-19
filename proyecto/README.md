@@ -91,7 +91,10 @@ Es la estructura de la entrega final (`proyecto/entrega-final/README.md` §3), l
 `proyecto/entrega-final/scripts/verificar_entrega.sh`. Se adopta **desde H1**: así no se reorganiza nada en
 diciembre. El camino más corto es copiar `proyecto/entrega-final/plantilla-repo/` (compila, prueba y mide desde el
 primer *commit*; su cómputo es un marcador de posición que se sustituye por el problema del equipo) y agregar las
-plantillas de `proyecto/plantillas/` (ver su `README.md`).
+plantillas de `proyecto/plantillas/` (ver su `README.md`). La plantilla incluye `AGENTS.md`, `CLAUDE.md` y
+`.claude/`: las reglas de `docs/metodo/05-politica-ia.md` para el asistente de IA que uses dentro del repositorio
+(tutor, no sustituto). Si copias la carpeta a mano, usa `cp -a plantilla-repo/. <destino>/` para llevarte también
+los archivos que empiezan con punto.
 
 ```
 cp-6bm1-equipoNN/
@@ -110,8 +113,14 @@ cp-6bm1-equipoNN/
 │                          (entrega final, además: mediciones_v3.csv y entorno_gpu.txt del notebook)
 ├── reporte/               diseno-foster.md · H1.md · H2.md · reporte.pdf (y su fuente .md o .tex)
 ├── bitacora.md            Plantilla: proyecto/plantillas/bitacora-errores.md
-└── declaracion-ia.md      Plantilla: proyecto/plantillas/declaracion-ia.md
+├── declaracion-ia.md      Plantilla: proyecto/plantillas/declaracion-ia.md
+├── AGENTS.md · CLAUDE.md  (de la plantilla) reglas de docs/metodo/05-politica-ia.md para asistentes de IA
+├── .claude/               (de la plantilla) Claude Code en modo tutor: no edita lo que se entrega
+└── .github/workflows/     (de la plantilla) CI: make && make test en cada push
 ```
+
+Los archivos marcados "(de la plantilla)" no se califican y `verificar_entrega.sh` no los exige. Sirven para que
+el asistente de IA que uses siga la política del curso; si los cambias, queda en el historial de *commits*.
 
 | Elemento | Regla |
 |---|---|
@@ -132,7 +141,7 @@ cp-6bm1-equipoNN/
 |---|---|---|
 | *Commits* | Cada integrante trabaja con su propio usuario de GitHub. `main` siempre compila. No se aceptan repositorios donde un integrante sube el trabajo de todos al final | El historial es la evidencia de participación individual (`docs/metodo/01-marco-pedagogico.md`, P11) |
 | Reparto de trabajo | Se declara en el `README.md` (quién hizo qué, por archivo y sección) y se actualiza en cada hito. Es la base de las preguntas individuales: a cada quien se le pregunta primero por la parte que firmó. El reparto no exime: todos deben poder explicar todo | Prueba de propiedad |
-| Uso de IA | Semáforo de `docs/metodo/05-politica-ia.md`. Verde: explicar, generar preguntas, depurar con pistas. Amarillo: fragmentos ≤ 10 líneas reescritos y declarados, revisión de carreras, gráficas con tus datos. Rojo: pedir una versión completa o una función completa, inventar o "mejorar" mediciones, entregar texto sin revisar | Quien usa la IA para no pensar rinde peor en el examen sin ayuda (`05`, Bastani et al., 2025) |
+| Uso de IA | Semáforo de `docs/metodo/05-politica-ia.md`. Verde: explicar, generar preguntas, depurar con pistas. Amarillo: fragmentos ≤ 10 líneas reescritos y declarados, revisión de carreras, gráficas con tus datos. Rojo: pedir una versión completa o una función completa, inventar o "mejorar" mediciones, entregar texto sin revisar, dejar que un asistente edite lo que se entrega o haga `git commit`, `push` o `tag` por ti | Quien usa la IA para no pensar rinde peor en el examen sin ayuda (`05`, Bastani et al., 2025) |
 | Código idéntico entre equipos | Sin explicación: 0 en la entrega para todos los involucrados y reporte según reglamento; el equipo de origen conserva su calificación si el historial de su repositorio privado muestra que no lo compartió (`docs/metodo/04-evaluacion.md` §6) | Integridad académica |
 | Mediciones | Inventar, seleccionar o alterar mediciones tiene la misma consecuencia que el plagio. Las corridas descartadas se anotan en la bitácora, no se borran | Mediciones reproducibles o no cuentan |
 | Entregas tardías | Los hitos se reciben en clase con la etiqueta creada antes de las 10:30. Etiqueta creada hasta 72 h después: máximo 80 %. Después de 72 h no se recibe salvo justificante institucional. Un hito no entregado no bloquea el siguiente, pero su porcentaje se pierde (`docs/metodo/04-evaluacion.md` §5) | Fechas firmes con ventana definida |

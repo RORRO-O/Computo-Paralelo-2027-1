@@ -1,0 +1,10 @@
+# privacidad-permitidos.txt — Excepciones de herramientas/auditar_privacidad.py
+# Cómputo Paralelo · 6BM1 · ESCOM-IPN · 27/1 · herramientas/
+#
+# Una expresión regular (sintaxis de Python) por línea. Un hallazgo se descarta si la expresión coincide con
+#     <ruta desde la raíz del repositorio>:<texto que disparó la regla>
+# Ejemplos (sin el # inicial):
+#     ^README\.md:contacto@dominio-del-curso\.mx$          un correo institucional que sí debe publicarse
+#     ^unidades/.*/datos\.csv:<los 10 dígitos>$            un número que parece boleta y no lo es
+# Agrega solo falsos positivos comprobados y explica cada uno en el mensaje del commit. Los dominios de ejemplo
+# (ejemplo.mx, example.com, …) y noreply ya están permitidos dentro del script.

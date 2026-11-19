@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "OMPI_ALLOW_RUN_AS_ROOT": "1",
+    "OMPI_ALLOW_RUN_AS_ROOT_CONFIRM": "1",
+    "MPIRUN_FLAGS": "--oversubscribe"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(gcc:*)",
+      "Bash(mpicc:*)",
+      "Bash(mpirun:*)",
+      "Bash(nvcc:*)",
+      "Bash(make:*)",
+      "Bash(python3:*)",
+      "Bash(nproc)",
+      "Bash(lscpu:*)",
+      "Bash(uptime)",
+      "Bash(./run_all.sh:*)",
+      "Bash(bash tests/run_tests.sh:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Read",
+      "Glob",
+      "Grep"
+    ],
+    "deny": [
+      "Edit(/v1/**)",
+      "Edit(/v2/**)",
+      "Edit(/v3/**)",
+      "Edit(/comun/**)",
+      "Edit(/practicas/**)",
+      "Edit(/tareas/**)",
+      "Edit(/tests/**)",
+      "Edit(/reporte/**)",
+      "Edit(/resultados/**)",
+      "Edit(/README.md)",
+      "Edit(/bitacora.md)",
+      "Edit(/declaracion-ia.md)",
+      "Edit(/AGENTS.md)",
+      "Edit(/CLAUDE.md)",
+      "Edit(/.claude/**)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git tag:*)"
+    ]
+  }
+}

@@ -39,6 +39,7 @@ pide T(1) ≥ 1 s y `medir.sh` lo avisa). Para medir de verdad, `n = 8·10⁸`, 
 | `colab-kaggle.md` | Guía paso a paso de la GPU en Colab y Kaggle: activar, `nvidia-smi`, `%%writefile`, `nvcc -arch`, medir con `medir.sh`, guardar el CSV, cuotas, qué hacer sin GPU, Numba y CuPy | (lectura; Práctica 6 y V3) |
 | `seguimiento-grupo.csv`, `seguimiento-grupo.md` | Plantilla vacía de la hoja del profesor con los indicadores de `01-marco-pedagogico.md` §5 y cómo llenarla en 5 minutos; la copia llena vive en `docente/` | (plantilla: `cp seguimiento-grupo.csv ../docente/`) |
 | `seguimiento.py` | Lee la hoja llena, calcula los seis indicadores y marca cada umbral cruzado con `ALERTA`; solo imprime agregados | `python3 seguimiento.py seguimiento-grupo.csv` |
+| `auditar_privacidad.py`, `privacidad-permitidos.txt` | Guardarraíl de `docs/CONVENCIONES.md` §5: revisa que lo que entra al repositorio público no traiga rutas de `docente/`, la hoja de seguimiento llena, correos, boletas, CURP, términos de `docente/privacidad-terminos.txt` ni líneas copiadas de `docente/`; el segundo archivo lista los falsos positivos comprobados. Lo corren el hook de Claude Code antes de `git commit`/`git push`, `.githooks/pre-commit` y CI | `python3 auditar_privacidad.py -h` |
 | `Makefile`, `tests/run_tests.sh` | Compilan los ejemplos y prueban todas las herramientas de esta carpeta | `make test` |
 
 ## Flujo típico en una carpeta nueva

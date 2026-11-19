@@ -6,7 +6,7 @@
 #   make run      corre el ejemplo OpenMP con N rectángulos y THREADS hilos (por defecto 20000000 y 4)
 #   make test     tests/run_tests.sh: cronometro.h, medir.sh (OpenMP y MPI), graficar_speedup.py,
 #                 plantilla-run_tests.sh, Makefile.openmp / Makefile.mpi, seguimiento.py, los fragmentos de código
-#                 de colab-kaggle.md y nvcc -c de ejemplo_gpu.cu; código 0 si todo pasa
+#                 de colab-kaggle.md, nvcc -c de ejemplo_gpu.cu y auditar_privacidad.py; código 0 si todo pasa
 #   make clean    borra binarios (*.out, *.o) y resultados/, la carpeta que llenan los ejemplos del README
 #
 # Variables útiles: make run N=100000000 THREADS=2 · make test MPIRUN_FLAGS="--oversubscribe"
