@@ -36,7 +36,7 @@ jobs:
           fi
           echo "OK: sin binarios ni salidas versionadas"
 
-      - name: Privacidad (CONVENCIONES §5): sin correos, boletas, CURP ni rutas de docente/ en lo versionado
+      - name: "Privacidad (CONVENCIONES §5), sin correos, boletas, CURP ni rutas de docente/ en lo versionado"
         run: |
           if [ -f herramientas/auditar_privacidad.py ]; then
             python3 herramientas/auditar_privacidad.py --todo
